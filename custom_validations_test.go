@@ -1748,20 +1748,6 @@ func TestValidateServiceEntity(t *testing.T) {
 			},
 			true,
 		},
-		{
-			"service with type TLSType set to External with missing key",
-			args{
-				&Service{
-					Hosts:             []string{"myservice.com"},
-					AuthorizationType: ServiceAuthorizationTypeMTLS,
-					TLSType:           ServiceTLSTypeExternal,
-					TLSCertificate:    "---key---",
-					Port:              80,
-					ExposedPort:       80,
-				},
-			},
-			true,
-		},
 
 		// Hosts an IP
 		{

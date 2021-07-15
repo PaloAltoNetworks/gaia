@@ -987,6 +987,15 @@ relations:
   create:
     description: Creates a new service.
 
+- rest_name: servicecertificate
+  get:
+    description: Retrieves the list of service certificates.
+    global_parameters:
+    - $filtering
+    - $propagatable
+  create:
+    description: Creates a new service certificate.
+
 - rest_name: servicedependencypolicy
   get:
     description: Retrieves the list of service dependency policies.
