@@ -1538,6 +1538,15 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 		}
 	}
 
+	if q.SourceIP == "" && q.DestinationIP == "" {
+		if q.SourceSelector != nil && len(q.SourceSelector.VPCIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "a single source VPC must be provided for all East/West queries")
+		}
+		if q.DestinationSelector != nil && len(q.DestinationSelector.VPCIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "a single destination VPC must be provided for all East/West queries")
+		}
+	}
+
 	return nil
 }
 

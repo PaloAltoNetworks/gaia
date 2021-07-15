@@ -4500,6 +4500,81 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 			true,
 		},
 		{
+			"east/west with no source VPC",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						AccountIDs: []string{"account1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"east/west with no destination VPC",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						AccountIDs: []string{"account1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"east/west with multiple source VPCs",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1", "vpc2"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"east/west with multiple destination VPCs",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1", "vpc2"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"east/west valid",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc2"},
+					},
+				},
+			},
+			false,
+		},
+		{
 			"source ip and selector set",
 			args{
 				"invalid",
