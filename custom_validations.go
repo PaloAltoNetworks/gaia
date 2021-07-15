@@ -314,10 +314,6 @@ func ValidateServiceEntity(service *Service) error {
 		if service.TLSCertificate == "" {
 			errs = errs.Append(makeValidationError("TLSCertificate", "`TLSCertificate` is required when `TLSType` is set to `External`"))
 		}
-
-		if service.TLSCertificateKey == "" {
-			errs = errs.Append(makeValidationError("TLSCertificateKey", "`TLSCertificateKey` is required when `TLSType` is set to `External`"))
-		}
 	}
 
 	// Hosts and IPs

@@ -45,6 +45,17 @@ attributes:
     subtype: map[string]map[string][]string
     omit_empty: true
 
+  - name: publicPolicies
+    description: |-
+      The policies that were applied to this node for each destination based on public
+      IPs.
+    type: refMap
+    exposed: true
+    subtype: cloudgraphnodeaction
+    omit_empty: true
+    extensions:
+      refMode: pointer
+
   - name: routeTableIDs
     description: |-
       The list of route tables IDs that forwarding was based on for the internal path,

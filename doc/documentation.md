@@ -9602,6 +9602,13 @@ Type: `map[string]map[string][]string`
 
 The list of public children for this node.
 
+##### `publicPolicies`
+
+Type: [`map[string]cloudgraphnodeaction`](#cloudgraphnodeaction)
+
+The policies that were applied to this node for each destination based on public
+IPs.
+
 ##### `routeTableIDs`
 
 Type: `map[string]string`
