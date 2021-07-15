@@ -156,7 +156,7 @@ _arch_list:
           "$ref": "isolation-profile-types.json#/architecturestype"
         }
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -175,7 +175,7 @@ _audit_profile_rule_list:
           "$ref": "audit-types.json#/auditprofilerule"
         }
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -196,7 +196,7 @@ _automation_entitlements:
           }
         }
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -217,7 +217,7 @@ _automation_events:
           }
         }
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -233,7 +233,7 @@ _cap_map:
       {
         "$ref": "isolation-profile-types.json#/capabilitiestypemap"
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -249,7 +249,7 @@ _claims:
       {
         "$ref": "midgard-types.json#/midgardclaims"
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -263,7 +263,7 @@ _elemental_identifiable:
       {
         "$ref": "elemental-types.json#/identifiable"
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -286,7 +286,7 @@ _portlist:
           }
         }
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -307,7 +307,7 @@ _rendered_policy:
       {
         "$ref": "_lists.json#/properties/policyrules"
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -322,7 +322,7 @@ _syscall_action:
       {
         "$ref": "isolation-profile-types.json#/syscallenforcementaction"
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -338,7 +338,7 @@ _syscall_rules:
       {
         "$ref": "isolation-profile-types.json#/syscallenforcementrulesmap"
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -356,7 +356,7 @@ _vulnerability_level:
         "minimum": 0,
         "maximum": 7
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -370,7 +370,7 @@ elemental.Operation:
       {
         "enum": ["retrieve-many", "retrieve", "create", "update", "delete", "patch", "info"]
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -385,7 +385,7 @@ json.RawMessage:
       {
         "type": "string"
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -583,7 +583,7 @@ map[string]map[string]cloudnetworkquerydestination:
           "additionalProperties": true
         }
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -646,7 +646,7 @@ network:
           "type": "string"
         }
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -667,7 +667,7 @@ networklist:
           }
         }
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -679,7 +679,7 @@ pctimevalue:
     init: nil
   jsonschema:
     type: '{}'
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
@@ -700,7 +700,7 @@ uiparametersexpression:
           }
         }
       }
-  openapi3: # ignored
+  openapi3:
     type: |-
       {
         "type": "object"
