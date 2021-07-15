@@ -22,6 +22,10 @@ type CloudGraphNode struct {
 	// The list of public children for this node.
 	PublicChildrenIDs map[string]map[string][]string `json:"publicChildrenIDs,omitempty" msgpack:"publicChildrenIDs,omitempty" bson:"-" mapstructure:"publicChildrenIDs,omitempty"`
 
+	// The policies that were applied to this node for each destination based on public
+	// IPs.
+	PublicPolicies map[string]*CloudGraphNodeAction `json:"publicPolicies,omitempty" msgpack:"publicPolicies,omitempty" bson:"-" mapstructure:"publicPolicies,omitempty"`
+
 	// The list of route tables IDs that forwarding was based on for the internal path,
 	// if routing was
 	// performed.
@@ -42,6 +46,7 @@ func NewCloudGraphNode() *CloudGraphNode {
 		NodeData:          NewCloudNode(),
 		Policies:          map[string]*CloudGraphNodeAction{},
 		PublicChildrenIDs: map[string]map[string][]string{},
+		PublicPolicies:    map[string]*CloudGraphNodeAction{},
 		RouteTableIDs:     map[string]string{},
 	}
 }
@@ -119,6 +124,16 @@ func (o *CloudGraphNode) Validate() error {
 	}
 
 	for _, sub := range o.Policies {
+		if sub == nil {
+			continue
+		}
+		elemental.ResetDefaultForZeroValues(sub)
+		if err := sub.Validate(); err != nil {
+			errors = errors.Append(err)
+		}
+	}
+
+	for _, sub := range o.PublicPolicies {
 		if sub == nil {
 			continue
 		}
