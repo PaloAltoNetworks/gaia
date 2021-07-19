@@ -100,20 +100,21 @@ var (
 		"issue":                    IssueIdentity,
 		"issueservicetoken":        IssueServiceTokenIdentity,
 
-		"ldapprovider":           LDAPProviderIdentity,
-		"localca":                LocalCAIdentity,
-		"log":                    LogIdentity,
-		"logout":                 LogoutIdentity,
-		"message":                MessageIdentity,
-		"metricsquery":           MetricsQueryIdentity,
-		"metricsqueryrange":      MetricsQueryRangeIdentity,
-		"namespace":              NamespaceIdentity,
-		"namespaceinfo":          NamespaceInfoIdentity,
-		"namespacemappingpolicy": NamespaceMappingPolicyIdentity,
-		"namespacepolicyinfo":    NamespacePolicyInfoIdentity,
-		"namespacerenderer":      NamespaceRendererIdentity,
-		"namespacetype":          NamespaceTypeIdentity,
-		"networkaccesspolicy":    NetworkAccessPolicyIdentity,
+		"ldapprovider":               LDAPProviderIdentity,
+		"localca":                    LocalCAIdentity,
+		"log":                        LogIdentity,
+		"logout":                     LogoutIdentity,
+		"longlivedconnectionsreport": LonglLivedConnectionsReportIdentity,
+		"message":                    MessageIdentity,
+		"metricsquery":               MetricsQueryIdentity,
+		"metricsqueryrange":          MetricsQueryRangeIdentity,
+		"namespace":                  NamespaceIdentity,
+		"namespaceinfo":              NamespaceInfoIdentity,
+		"namespacemappingpolicy":     NamespaceMappingPolicyIdentity,
+		"namespacepolicyinfo":        NamespacePolicyInfoIdentity,
+		"namespacerenderer":          NamespaceRendererIdentity,
+		"namespacetype":              NamespaceTypeIdentity,
+		"networkaccesspolicy":        NetworkAccessPolicyIdentity,
 
 		"networkrulesetpolicy":   NetworkRuleSetPolicyIdentity,
 		"oauthinfo":              OAUTHInfoIdentity,
@@ -290,20 +291,21 @@ var (
 		"issue":                      IssueIdentity,
 		"issueservicetokens":         IssueServiceTokenIdentity,
 
-		"ldapproviders":            LDAPProviderIdentity,
-		"localcas":                 LocalCAIdentity,
-		"logs":                     LogIdentity,
-		"logout":                   LogoutIdentity,
-		"messages":                 MessageIdentity,
-		"metricsquery":             MetricsQueryIdentity,
-		"metricsqueryrange":        MetricsQueryRangeIdentity,
-		"namespaces":               NamespaceIdentity,
-		"namespaceinfo":            NamespaceInfoIdentity,
-		"namespacemappingpolicies": NamespaceMappingPolicyIdentity,
-		"namespacepolicyinfo":      NamespacePolicyInfoIdentity,
-		"namespacerenderers":       NamespaceRendererIdentity,
-		"namespacetypes":           NamespaceTypeIdentity,
-		"networkaccesspolicies":    NetworkAccessPolicyIdentity,
+		"ldapproviders":              LDAPProviderIdentity,
+		"localcas":                   LocalCAIdentity,
+		"logs":                       LogIdentity,
+		"logout":                     LogoutIdentity,
+		"longlivedconnectionsreport": LonglLivedConnectionsReportIdentity,
+		"messages":                   MessageIdentity,
+		"metricsquery":               MetricsQueryIdentity,
+		"metricsqueryrange":          MetricsQueryRangeIdentity,
+		"namespaces":                 NamespaceIdentity,
+		"namespaceinfo":              NamespaceInfoIdentity,
+		"namespacemappingpolicies":   NamespaceMappingPolicyIdentity,
+		"namespacepolicyinfo":        NamespacePolicyInfoIdentity,
+		"namespacerenderers":         NamespaceRendererIdentity,
+		"namespacetypes":             NamespaceTypeIdentity,
+		"networkaccesspolicies":      NetworkAccessPolicyIdentity,
 
 		"networkrulesetpolicies": NetworkRuleSetPolicyIdentity,
 		"oauthinfo":              OAUTHInfoIdentity,
@@ -977,9 +979,10 @@ var (
 			{"name"},
 			{"createIdempotencyKey"},
 		},
-		"localca": nil,
-		"log":     nil,
-		"logout":  nil,
+		"localca":                    nil,
+		"log":                        nil,
+		"logout":                     nil,
+		"longlivedconnectionsreport": nil,
 		"message": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
@@ -1442,6 +1445,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewLog()
 	case LogoutIdentity:
 		return NewLogout()
+	case LonglLivedConnectionsReportIdentity:
+		return NewLonglLivedConnectionsReport()
 	case MessageIdentity:
 		return NewMessage()
 	case MetricsQueryIdentity:
@@ -1781,6 +1786,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseLog()
 	case LogoutIdentity:
 		return NewSparseLogout()
+	case LonglLivedConnectionsReportIdentity:
+		return NewSparseLonglLivedConnectionsReport()
 	case MessageIdentity:
 		return NewSparseMessage()
 	case MetricsQueryIdentity:
@@ -2128,6 +2135,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &LogsList{}
 	case LogoutIdentity:
 		return &LogoutsList{}
+	case LonglLivedConnectionsReportIdentity:
+		return &LonglLivedConnectionsReportsList{}
 	case MessageIdentity:
 		return &MessagesList{}
 	case MetricsQueryIdentity:
@@ -2465,6 +2474,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseLogsList{}
 	case LogoutIdentity:
 		return &SparseLogoutsList{}
+	case LonglLivedConnectionsReportIdentity:
+		return &SparseLonglLivedConnectionsReportsList{}
 	case MessageIdentity:
 		return &SparseMessagesList{}
 	case MetricsQueryIdentity:
@@ -2735,6 +2746,7 @@ func AllIdentities() []elemental.Identity {
 		LocalCAIdentity,
 		LogIdentity,
 		LogoutIdentity,
+		LonglLivedConnectionsReportIdentity,
 		MessageIdentity,
 		MetricsQueryIdentity,
 		MetricsQueryRangeIdentity,
@@ -3068,6 +3080,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case LogIdentity:
 		return []string{}
 	case LogoutIdentity:
+		return []string{}
+	case LonglLivedConnectionsReportIdentity:
 		return []string{}
 	case MessageIdentity:
 		return []string{

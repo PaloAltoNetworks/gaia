@@ -3087,6 +3087,8 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[LonglLivedConnectionsReportIdentity] = &elemental.Relationship{}
+
 	relationshipsRegistry[MessageIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
