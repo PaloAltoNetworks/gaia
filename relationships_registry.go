@@ -689,6 +689,12 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[CNSrqlqueryIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
 	relationshipsRegistry[CachedFlowReportIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},

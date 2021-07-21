@@ -11827,6 +11827,50 @@ Type: `string`
 
 Address CIDR of the VPC.
 
+### CNSrqlquery
+
+A CNS endpoint which will generate the RQL query for the given alert-id.
+
+#### Example
+
+```json
+{
+  "valid": false
+}
+```
+
+#### Relations
+
+##### `POST /cnsrqlquery`
+
+Retrieves RQL suggestions for a particular alertID.
+
+#### Attributes
+
+##### `alertID`
+
+Type: `string`
+
+ID of the alert request.
+
+##### `policyID`
+
+Type: `string`
+
+ID of the alert request.
+
+##### `query`
+
+Type: `string`
+
+CNS rql query for alertID.
+
+##### `valid`
+
+Type: `boolean`
+
+Whether the response to request is valid.
+
 ### PollAccount
 
 Initiates a poll for a particular account. Data are stored in the current
