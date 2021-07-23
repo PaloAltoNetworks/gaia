@@ -4933,7 +4933,7 @@ Type: `integer`
 
 Defines what zone the namespace should live in.
 
-### NamespaceInfo
+### NamespaceDetail
 
 Returns the information of the specified namespace.
 
@@ -4949,7 +4949,7 @@ Returns the information of the specified namespace.
 
 #### Relations
 
-##### `GET /namespaceinfo`
+##### `GET /namespacedetails`
 
 Returns the information of the specified namespace.
 

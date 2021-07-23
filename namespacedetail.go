@@ -8,71 +8,71 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// NamespaceInfoPUIncomingTrafficActionValue represents the possible values for attribute "PUIncomingTrafficAction".
-type NamespaceInfoPUIncomingTrafficActionValue string
+// NamespaceDetailPUIncomingTrafficActionValue represents the possible values for attribute "PUIncomingTrafficAction".
+type NamespaceDetailPUIncomingTrafficActionValue string
 
 const (
-	// NamespaceInfoPUIncomingTrafficActionAllow represents the value Allow.
-	NamespaceInfoPUIncomingTrafficActionAllow NamespaceInfoPUIncomingTrafficActionValue = "Allow"
+	// NamespaceDetailPUIncomingTrafficActionAllow represents the value Allow.
+	NamespaceDetailPUIncomingTrafficActionAllow NamespaceDetailPUIncomingTrafficActionValue = "Allow"
 
-	// NamespaceInfoPUIncomingTrafficActionInherit represents the value Inherit.
-	NamespaceInfoPUIncomingTrafficActionInherit NamespaceInfoPUIncomingTrafficActionValue = "Inherit"
+	// NamespaceDetailPUIncomingTrafficActionInherit represents the value Inherit.
+	NamespaceDetailPUIncomingTrafficActionInherit NamespaceDetailPUIncomingTrafficActionValue = "Inherit"
 
-	// NamespaceInfoPUIncomingTrafficActionReject represents the value Reject.
-	NamespaceInfoPUIncomingTrafficActionReject NamespaceInfoPUIncomingTrafficActionValue = "Reject"
+	// NamespaceDetailPUIncomingTrafficActionReject represents the value Reject.
+	NamespaceDetailPUIncomingTrafficActionReject NamespaceDetailPUIncomingTrafficActionValue = "Reject"
 )
 
-// NamespaceInfoPUOutgoingTrafficActionValue represents the possible values for attribute "PUOutgoingTrafficAction".
-type NamespaceInfoPUOutgoingTrafficActionValue string
+// NamespaceDetailPUOutgoingTrafficActionValue represents the possible values for attribute "PUOutgoingTrafficAction".
+type NamespaceDetailPUOutgoingTrafficActionValue string
 
 const (
-	// NamespaceInfoPUOutgoingTrafficActionAllow represents the value Allow.
-	NamespaceInfoPUOutgoingTrafficActionAllow NamespaceInfoPUOutgoingTrafficActionValue = "Allow"
+	// NamespaceDetailPUOutgoingTrafficActionAllow represents the value Allow.
+	NamespaceDetailPUOutgoingTrafficActionAllow NamespaceDetailPUOutgoingTrafficActionValue = "Allow"
 
-	// NamespaceInfoPUOutgoingTrafficActionInherit represents the value Inherit.
-	NamespaceInfoPUOutgoingTrafficActionInherit NamespaceInfoPUOutgoingTrafficActionValue = "Inherit"
+	// NamespaceDetailPUOutgoingTrafficActionInherit represents the value Inherit.
+	NamespaceDetailPUOutgoingTrafficActionInherit NamespaceDetailPUOutgoingTrafficActionValue = "Inherit"
 
-	// NamespaceInfoPUOutgoingTrafficActionReject represents the value Reject.
-	NamespaceInfoPUOutgoingTrafficActionReject NamespaceInfoPUOutgoingTrafficActionValue = "Reject"
+	// NamespaceDetailPUOutgoingTrafficActionReject represents the value Reject.
+	NamespaceDetailPUOutgoingTrafficActionReject NamespaceDetailPUOutgoingTrafficActionValue = "Reject"
 )
 
-// NamespaceInfoIdentity represents the Identity of the object.
-var NamespaceInfoIdentity = elemental.Identity{
-	Name:     "namespaceinfo",
-	Category: "namespaceinfo",
+// NamespaceDetailIdentity represents the Identity of the object.
+var NamespaceDetailIdentity = elemental.Identity{
+	Name:     "namespacedetail",
+	Category: "namespacedetails",
 	Package:  "squall",
 	Private:  false,
 }
 
-// NamespaceInfosList represents a list of NamespaceInfos
-type NamespaceInfosList []*NamespaceInfo
+// NamespaceDetailsList represents a list of NamespaceDetails
+type NamespaceDetailsList []*NamespaceDetail
 
 // Identity returns the identity of the objects in the list.
-func (o NamespaceInfosList) Identity() elemental.Identity {
+func (o NamespaceDetailsList) Identity() elemental.Identity {
 
-	return NamespaceInfoIdentity
+	return NamespaceDetailIdentity
 }
 
-// Copy returns a pointer to a copy the NamespaceInfosList.
-func (o NamespaceInfosList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the NamespaceDetailsList.
+func (o NamespaceDetailsList) Copy() elemental.Identifiables {
 
-	copy := append(NamespaceInfosList{}, o...)
+	copy := append(NamespaceDetailsList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the NamespaceInfosList.
-func (o NamespaceInfosList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the NamespaceDetailsList.
+func (o NamespaceDetailsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(NamespaceInfosList{}, o...)
+	out := append(NamespaceDetailsList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*NamespaceInfo))
+		out = append(out, obj.(*NamespaceDetail))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o NamespaceInfosList) List() elemental.IdentifiablesList {
+func (o NamespaceDetailsList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -83,38 +83,38 @@ func (o NamespaceInfosList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o NamespaceInfosList) DefaultOrder() []string {
+func (o NamespaceDetailsList) DefaultOrder() []string {
 
 	return []string{
 		"name",
 	}
 }
 
-// ToSparse returns the NamespaceInfosList converted to SparseNamespaceInfosList.
+// ToSparse returns the NamespaceDetailsList converted to SparseNamespaceDetailsList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o NamespaceInfosList) ToSparse(fields ...string) elemental.Identifiables {
+func (o NamespaceDetailsList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseNamespaceInfosList, len(o))
+	out := make(SparseNamespaceDetailsList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseNamespaceInfo)
+		out[i] = o[i].ToSparse(fields...).(*SparseNamespaceDetail)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o NamespaceInfosList) Version() int {
+func (o NamespaceDetailsList) Version() int {
 
 	return 1
 }
 
-// NamespaceInfo represents the model of a namespaceinfo
-type NamespaceInfo struct {
+// NamespaceDetail represents the model of a namespacedetail
+type NamespaceDetail struct {
 	// The processing unit action for incoming traffic for the namespace.
-	PUIncomingTrafficAction NamespaceInfoPUIncomingTrafficActionValue `json:"PUIncomingTrafficAction" msgpack:"PUIncomingTrafficAction" bson:"-" mapstructure:"PUIncomingTrafficAction,omitempty"`
+	PUIncomingTrafficAction NamespaceDetailPUIncomingTrafficActionValue `json:"PUIncomingTrafficAction" msgpack:"PUIncomingTrafficAction" bson:"-" mapstructure:"PUIncomingTrafficAction,omitempty"`
 
 	// The processing unit action for outgoing traffic for the namespace.
-	PUOutgoingTrafficAction NamespaceInfoPUOutgoingTrafficActionValue `json:"PUOutgoingTrafficAction" msgpack:"PUOutgoingTrafficAction" bson:"-" mapstructure:"PUOutgoingTrafficAction,omitempty"`
+	PUOutgoingTrafficAction NamespaceDetailPUOutgoingTrafficActionValue `json:"PUOutgoingTrafficAction" msgpack:"PUOutgoingTrafficAction" bson:"-" mapstructure:"PUOutgoingTrafficAction,omitempty"`
 
 	// Description of the namespace.
 	Description string `json:"description" msgpack:"description" bson:"-" mapstructure:"description,omitempty"`
@@ -131,54 +131,54 @@ type NamespaceInfo struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewNamespaceInfo returns a new *NamespaceInfo
-func NewNamespaceInfo() *NamespaceInfo {
+// NewNamespaceDetail returns a new *NamespaceDetail
+func NewNamespaceDetail() *NamespaceDetail {
 
-	return &NamespaceInfo{
+	return &NamespaceDetail{
 		ModelVersion: 1,
 		Prefixes:     []string{},
 	}
 }
 
 // Identity returns the Identity of the object.
-func (o *NamespaceInfo) Identity() elemental.Identity {
+func (o *NamespaceDetail) Identity() elemental.Identity {
 
-	return NamespaceInfoIdentity
+	return NamespaceDetailIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *NamespaceInfo) Identifier() string {
+func (o *NamespaceDetail) Identifier() string {
 
 	return ""
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *NamespaceInfo) SetIdentifier(id string) {
+func (o *NamespaceDetail) SetIdentifier(id string) {
 
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *NamespaceInfo) GetBSON() (interface{}, error) {
+func (o *NamespaceDetail) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesNamespaceInfo{}
+	s := &mongoAttributesNamespaceDetail{}
 
 	return s, nil
 }
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *NamespaceInfo) SetBSON(raw bson.Raw) error {
+func (o *NamespaceDetail) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesNamespaceInfo{}
+	s := &mongoAttributesNamespaceDetail{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -187,19 +187,19 @@ func (o *NamespaceInfo) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *NamespaceInfo) Version() int {
+func (o *NamespaceDetail) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *NamespaceInfo) BleveType() string {
+func (o *NamespaceDetail) BleveType() string {
 
-	return "namespaceinfo"
+	return "namespacedetail"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *NamespaceInfo) DefaultOrder() []string {
+func (o *NamespaceDetail) DefaultOrder() []string {
 
 	return []string{
 		"name",
@@ -207,23 +207,23 @@ func (o *NamespaceInfo) DefaultOrder() []string {
 }
 
 // Doc returns the documentation for the object
-func (o *NamespaceInfo) Doc() string {
+func (o *NamespaceDetail) Doc() string {
 
 	return `Returns the information of the specified namespace.`
 }
 
-func (o *NamespaceInfo) String() string {
+func (o *NamespaceDetail) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *NamespaceInfo) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *NamespaceDetail) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseNamespaceInfo{
+		return &SparseNamespaceDetail{
 			PUIncomingTrafficAction: &o.PUIncomingTrafficAction,
 			PUOutgoingTrafficAction: &o.PUOutgoingTrafficAction,
 			Description:             &o.Description,
@@ -233,7 +233,7 @@ func (o *NamespaceInfo) ToSparse(fields ...string) elemental.SparseIdentifiable 
 		}
 	}
 
-	sp := &SparseNamespaceInfo{}
+	sp := &SparseNamespaceDetail{}
 	for _, f := range fields {
 		switch f {
 		case "PUIncomingTrafficAction":
@@ -254,13 +254,13 @@ func (o *NamespaceInfo) ToSparse(fields ...string) elemental.SparseIdentifiable 
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseNamespaceInfo to the object.
-func (o *NamespaceInfo) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseNamespaceDetail to the object.
+func (o *NamespaceDetail) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseNamespaceInfo)
+	so := sparse.(*SparseNamespaceDetail)
 	if so.PUIncomingTrafficAction != nil {
 		o.PUIncomingTrafficAction = *so.PUIncomingTrafficAction
 	}
@@ -281,32 +281,32 @@ func (o *NamespaceInfo) Patch(sparse elemental.SparseIdentifiable) {
 	}
 }
 
-// DeepCopy returns a deep copy if the NamespaceInfo.
-func (o *NamespaceInfo) DeepCopy() *NamespaceInfo {
+// DeepCopy returns a deep copy if the NamespaceDetail.
+func (o *NamespaceDetail) DeepCopy() *NamespaceDetail {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &NamespaceInfo{}
+	out := &NamespaceDetail{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *NamespaceInfo.
-func (o *NamespaceInfo) DeepCopyInto(out *NamespaceInfo) {
+// DeepCopyInto copies the receiver into the given *NamespaceDetail.
+func (o *NamespaceDetail) DeepCopyInto(out *NamespaceDetail) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy NamespaceInfo: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy NamespaceDetail: %s", err))
 	}
 
-	*out = *target.(*NamespaceInfo)
+	*out = *target.(*NamespaceDetail)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *NamespaceInfo) Validate() error {
+func (o *NamespaceDetail) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -331,26 +331,26 @@ func (o *NamespaceInfo) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*NamespaceInfo) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*NamespaceDetail) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := NamespaceInfoAttributesMap[name]; ok {
+	if v, ok := NamespaceDetailAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return NamespaceInfoLowerCaseAttributesMap[name]
+	return NamespaceDetailLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*NamespaceInfo) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*NamespaceDetail) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return NamespaceInfoAttributesMap
+	return NamespaceDetailAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *NamespaceInfo) ValueForAttribute(name string) interface{} {
+func (o *NamespaceDetail) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "PUIncomingTrafficAction":
@@ -370,8 +370,8 @@ func (o *NamespaceInfo) ValueForAttribute(name string) interface{} {
 	return nil
 }
 
-// NamespaceInfoAttributesMap represents the map of attribute for NamespaceInfo.
-var NamespaceInfoAttributesMap = map[string]elemental.AttributeSpecification{
+// NamespaceDetailAttributesMap represents the map of attribute for NamespaceDetail.
+var NamespaceDetailAttributesMap = map[string]elemental.AttributeSpecification{
 	"PUIncomingTrafficAction": {
 		AllowedChoices: []string{"Allow", "Reject", "Inherit"},
 		ConvertedName:  "PUIncomingTrafficAction",
@@ -433,8 +433,8 @@ var NamespaceInfoAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 }
 
-// NamespaceInfoLowerCaseAttributesMap represents the map of attribute for NamespaceInfo.
-var NamespaceInfoLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// NamespaceDetailLowerCaseAttributesMap represents the map of attribute for NamespaceDetail.
+var NamespaceDetailLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"puincomingtrafficaction": {
 		AllowedChoices: []string{"Allow", "Reject", "Inherit"},
 		ConvertedName:  "PUIncomingTrafficAction",
@@ -496,35 +496,35 @@ var NamespaceInfoLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 	},
 }
 
-// SparseNamespaceInfosList represents a list of SparseNamespaceInfos
-type SparseNamespaceInfosList []*SparseNamespaceInfo
+// SparseNamespaceDetailsList represents a list of SparseNamespaceDetails
+type SparseNamespaceDetailsList []*SparseNamespaceDetail
 
 // Identity returns the identity of the objects in the list.
-func (o SparseNamespaceInfosList) Identity() elemental.Identity {
+func (o SparseNamespaceDetailsList) Identity() elemental.Identity {
 
-	return NamespaceInfoIdentity
+	return NamespaceDetailIdentity
 }
 
-// Copy returns a pointer to a copy the SparseNamespaceInfosList.
-func (o SparseNamespaceInfosList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseNamespaceDetailsList.
+func (o SparseNamespaceDetailsList) Copy() elemental.Identifiables {
 
-	copy := append(SparseNamespaceInfosList{}, o...)
+	copy := append(SparseNamespaceDetailsList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseNamespaceInfosList.
-func (o SparseNamespaceInfosList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseNamespaceDetailsList.
+func (o SparseNamespaceDetailsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseNamespaceInfosList{}, o...)
+	out := append(SparseNamespaceDetailsList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseNamespaceInfo))
+		out = append(out, obj.(*SparseNamespaceDetail))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseNamespaceInfosList) List() elemental.IdentifiablesList {
+func (o SparseNamespaceDetailsList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -535,15 +535,15 @@ func (o SparseNamespaceInfosList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseNamespaceInfosList) DefaultOrder() []string {
+func (o SparseNamespaceDetailsList) DefaultOrder() []string {
 
 	return []string{
 		"name",
 	}
 }
 
-// ToPlain returns the SparseNamespaceInfosList converted to NamespaceInfosList.
-func (o SparseNamespaceInfosList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseNamespaceDetailsList converted to NamespaceDetailsList.
+func (o SparseNamespaceDetailsList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -554,18 +554,18 @@ func (o SparseNamespaceInfosList) ToPlain() elemental.IdentifiablesList {
 }
 
 // Version returns the version of the content.
-func (o SparseNamespaceInfosList) Version() int {
+func (o SparseNamespaceDetailsList) Version() int {
 
 	return 1
 }
 
-// SparseNamespaceInfo represents the sparse version of a namespaceinfo.
-type SparseNamespaceInfo struct {
+// SparseNamespaceDetail represents the sparse version of a namespacedetail.
+type SparseNamespaceDetail struct {
 	// The processing unit action for incoming traffic for the namespace.
-	PUIncomingTrafficAction *NamespaceInfoPUIncomingTrafficActionValue `json:"PUIncomingTrafficAction,omitempty" msgpack:"PUIncomingTrafficAction,omitempty" bson:"-" mapstructure:"PUIncomingTrafficAction,omitempty"`
+	PUIncomingTrafficAction *NamespaceDetailPUIncomingTrafficActionValue `json:"PUIncomingTrafficAction,omitempty" msgpack:"PUIncomingTrafficAction,omitempty" bson:"-" mapstructure:"PUIncomingTrafficAction,omitempty"`
 
 	// The processing unit action for outgoing traffic for the namespace.
-	PUOutgoingTrafficAction *NamespaceInfoPUOutgoingTrafficActionValue `json:"PUOutgoingTrafficAction,omitempty" msgpack:"PUOutgoingTrafficAction,omitempty" bson:"-" mapstructure:"PUOutgoingTrafficAction,omitempty"`
+	PUOutgoingTrafficAction *NamespaceDetailPUOutgoingTrafficActionValue `json:"PUOutgoingTrafficAction,omitempty" msgpack:"PUOutgoingTrafficAction,omitempty" bson:"-" mapstructure:"PUOutgoingTrafficAction,omitempty"`
 
 	// Description of the namespace.
 	Description *string `json:"description,omitempty" msgpack:"description,omitempty" bson:"-" mapstructure:"description,omitempty"`
@@ -582,50 +582,50 @@ type SparseNamespaceInfo struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseNamespaceInfo returns a new  SparseNamespaceInfo.
-func NewSparseNamespaceInfo() *SparseNamespaceInfo {
-	return &SparseNamespaceInfo{}
+// NewSparseNamespaceDetail returns a new  SparseNamespaceDetail.
+func NewSparseNamespaceDetail() *SparseNamespaceDetail {
+	return &SparseNamespaceDetail{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseNamespaceInfo) Identity() elemental.Identity {
+func (o *SparseNamespaceDetail) Identity() elemental.Identity {
 
-	return NamespaceInfoIdentity
+	return NamespaceDetailIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseNamespaceInfo) Identifier() string {
+func (o *SparseNamespaceDetail) Identifier() string {
 
 	return ""
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseNamespaceInfo) SetIdentifier(id string) {
+func (o *SparseNamespaceDetail) SetIdentifier(id string) {
 
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseNamespaceInfo) GetBSON() (interface{}, error) {
+func (o *SparseNamespaceDetail) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseNamespaceInfo{}
+	s := &mongoAttributesSparseNamespaceDetail{}
 
 	return s, nil
 }
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseNamespaceInfo) SetBSON(raw bson.Raw) error {
+func (o *SparseNamespaceDetail) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseNamespaceInfo{}
+	s := &mongoAttributesSparseNamespaceDetail{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -634,15 +634,15 @@ func (o *SparseNamespaceInfo) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseNamespaceInfo) Version() int {
+func (o *SparseNamespaceDetail) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseNamespaceInfo) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseNamespaceDetail) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewNamespaceInfo()
+	out := NewNamespaceDetail()
 	if o.PUIncomingTrafficAction != nil {
 		out.PUIncomingTrafficAction = *o.PUIncomingTrafficAction
 	}
@@ -665,31 +665,31 @@ func (o *SparseNamespaceInfo) ToPlain() elemental.PlainIdentifiable {
 	return out
 }
 
-// DeepCopy returns a deep copy if the SparseNamespaceInfo.
-func (o *SparseNamespaceInfo) DeepCopy() *SparseNamespaceInfo {
+// DeepCopy returns a deep copy if the SparseNamespaceDetail.
+func (o *SparseNamespaceDetail) DeepCopy() *SparseNamespaceDetail {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseNamespaceInfo{}
+	out := &SparseNamespaceDetail{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseNamespaceInfo.
-func (o *SparseNamespaceInfo) DeepCopyInto(out *SparseNamespaceInfo) {
+// DeepCopyInto copies the receiver into the given *SparseNamespaceDetail.
+func (o *SparseNamespaceDetail) DeepCopyInto(out *SparseNamespaceDetail) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseNamespaceInfo: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseNamespaceDetail: %s", err))
 	}
 
-	*out = *target.(*SparseNamespaceInfo)
+	*out = *target.(*SparseNamespaceDetail)
 }
 
-type mongoAttributesNamespaceInfo struct {
+type mongoAttributesNamespaceDetail struct {
 }
-type mongoAttributesSparseNamespaceInfo struct {
+type mongoAttributesSparseNamespaceDetail struct {
 }

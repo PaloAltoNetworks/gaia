@@ -1,8 +1,8 @@
 # Model
 model:
-  rest_name: namespaceinfo
-  resource_name: namespaceinfo
-  entity_name: NamespaceInfo
+  rest_name: namespacedetail
+  resource_name: namespacedetails
+  entity_name: NamespaceDetail
   package: squall
   group: core/namespace
   description: Returns the information of the specified namespace.

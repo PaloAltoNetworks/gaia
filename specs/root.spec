@@ -737,7 +737,7 @@ relations:
   create:
     description: Creates a new namespace.
 
-- rest_name: namespaceinfo
+- rest_name: namespacedetail
   get:
     description: Returns the information of the specified namespace.
 

@@ -193,7 +193,7 @@ multipart
 multipart
 namespace
 namespace
-NamespaceInfo
+NamespaceDetail
 NamespaceMappingPolicy
 NamespacePolicyInfo
 NamespaceRenderer
