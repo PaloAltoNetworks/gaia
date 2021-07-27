@@ -17,7 +17,32 @@ func TestNetworkRuleSetPolicy_Validate_custom(t *testing.T) {
 			p: &NetworkRuleSetPolicy{
 				Name: "dummy",
 				Subject: [][]string{
-					{"tag=valid"},
+					{"tagA=a", "tagB=b"},
+					{"tagC=c", "tagD=d"},
+				},
+				OutgoingRules: []*NetworkRule{
+					{
+						Action:        NetworkRuleActionAllow,
+						Object:        [][]string{{"tag1=a", "tag2=b"}},
+						ProtocolPorts: []string{"udp/123", "tcp/80"},
+					},
+					{
+						Action:        NetworkRuleActionAllow,
+						Object:        [][]string{{"tag3=c", "tag4=d"}},
+						ProtocolPorts: []string{"tcp/90", "udp/456"},
+					},
+				},
+				IncomingRules: []*NetworkRule{
+					{
+						Action:        NetworkRuleActionAllow,
+						Object:        [][]string{{"tag5=e", "tag6=f"}},
+						ProtocolPorts: []string{"udp/789", "tcp/100"},
+					},
+					{
+						Action:        NetworkRuleActionAllow,
+						Object:        [][]string{{"tag7=g", "tag8=h"}},
+						ProtocolPorts: []string{"tcp/110", "udp/101"},
+					},
 				},
 			},
 		},
