@@ -53,7 +53,7 @@ var (
 		"cloudvpc": CloudVPCIdentity,
 
 		"cnsconfig":     CNSConfigIdentity,
-		"cnsrqlquery":   CNSrqlqueryIdentity,
+		"cnsrqlquery":   CNSRQLQueryIdentity,
 		"cnssearch":     CNSSearchIdentity,
 		"cnssuggestion": CNSSuggestionIdentity,
 
@@ -244,7 +244,7 @@ var (
 		"cloudvpcs": CloudVPCIdentity,
 
 		"cnsconfigs":     CNSConfigIdentity,
-		"cnsrqlquery":    CNSrqlqueryIdentity,
+		"cnsrqlquery":    CNSRQLQueryIdentity,
 		"cnssearches":    CNSSearchIdentity,
 		"cnssuggestions": CNSSuggestionIdentity,
 
@@ -1353,8 +1353,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudVPC()
 	case CNSConfigIdentity:
 		return NewCNSConfig()
-	case CNSrqlqueryIdentity:
-		return NewCNSrqlquery()
+	case CNSRQLQueryIdentity:
+		return NewCNSRQLQuery()
 	case CNSSearchIdentity:
 		return NewCNSSearch()
 	case CNSSuggestionIdentity:
@@ -1694,8 +1694,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudVPC()
 	case CNSConfigIdentity:
 		return NewSparseCNSConfig()
-	case CNSrqlqueryIdentity:
-		return NewSparseCNSrqlquery()
+	case CNSRQLQueryIdentity:
+		return NewSparseCNSRQLQuery()
 	case CNSSearchIdentity:
 		return NewSparseCNSSearch()
 	case CNSSuggestionIdentity:
@@ -2043,8 +2043,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudVPCsList{}
 	case CNSConfigIdentity:
 		return &CNSConfigsList{}
-	case CNSrqlqueryIdentity:
-		return &CNSrqlqueriesList{}
+	case CNSRQLQueryIdentity:
+		return &CNSRQLQueriesList{}
 	case CNSSearchIdentity:
 		return &CNSSearchesList{}
 	case CNSSuggestionIdentity:
@@ -2382,8 +2382,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudVPCsList{}
 	case CNSConfigIdentity:
 		return &SparseCNSConfigsList{}
-	case CNSrqlqueryIdentity:
-		return &SparseCNSrqlqueriesList{}
+	case CNSRQLQueryIdentity:
+		return &SparseCNSRQLQueriesList{}
 	case CNSSearchIdentity:
 		return &SparseCNSSearchesList{}
 	case CNSSuggestionIdentity:
@@ -2700,7 +2700,7 @@ func AllIdentities() []elemental.Identity {
 		CloudSubnetIdentity,
 		CloudVPCIdentity,
 		CNSConfigIdentity,
-		CNSrqlqueryIdentity,
+		CNSRQLQueryIdentity,
 		CNSSearchIdentity,
 		CNSSuggestionIdentity,
 		ConnectionExceptionReportIdentity,
@@ -2940,7 +2940,7 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"pcc",
 		}
-	case CNSrqlqueryIdentity:
+	case CNSRQLQueryIdentity:
 		return []string{}
 	case CNSSearchIdentity:
 		return []string{}

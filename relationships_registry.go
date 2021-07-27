@@ -677,6 +677,12 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[CNSRQLQueryIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
 	relationshipsRegistry[CNSSearchIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -684,12 +690,6 @@ func init() {
 	}
 
 	relationshipsRegistry[CNSSuggestionIdentity] = &elemental.Relationship{
-		Create: map[string]*elemental.RelationshipInfo{
-			"root": {},
-		},
-	}
-
-	relationshipsRegistry[CNSrqlqueryIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
 		},

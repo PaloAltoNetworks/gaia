@@ -2,7 +2,7 @@
 model:
   rest_name: cnsrqlquery
   resource_name: cnsrqlquery
-  entity_name: CNSrqlquery
+  entity_name: CNSRQLQuery
   package: vargid
   group: pcn/infrastructure
   description: A CNS endpoint which will generate the RQL query for the given alert-id.
@@ -12,19 +12,19 @@ attributes:
   v1:
   - name: alertID
     exposed_name: alertID
-    description: ID of the alert request.
+    description: ID of the query request.
     type: string
     exposed: true
 
   - name: policyID
     exposed_name: policyID
-    description: ID of the alert request.
+    description: The policy for which the alert was generated.
     type: string
     exposed: true
 
   - name: query
     exposed_name: query
-    description: CNS rql query for alertID.
+    description: The rql query for the alert.
     type: string
     exposed: true
 

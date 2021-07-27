@@ -8,43 +8,43 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// CNSrqlqueryIdentity represents the Identity of the object.
-var CNSrqlqueryIdentity = elemental.Identity{
+// CNSRQLQueryIdentity represents the Identity of the object.
+var CNSRQLQueryIdentity = elemental.Identity{
 	Name:     "cnsrqlquery",
 	Category: "cnsrqlquery",
 	Package:  "vargid",
 	Private:  false,
 }
 
-// CNSrqlqueriesList represents a list of CNSrqlqueries
-type CNSrqlqueriesList []*CNSrqlquery
+// CNSRQLQueriesList represents a list of CNSRQLQueries
+type CNSRQLQueriesList []*CNSRQLQuery
 
 // Identity returns the identity of the objects in the list.
-func (o CNSrqlqueriesList) Identity() elemental.Identity {
+func (o CNSRQLQueriesList) Identity() elemental.Identity {
 
-	return CNSrqlqueryIdentity
+	return CNSRQLQueryIdentity
 }
 
-// Copy returns a pointer to a copy the CNSrqlqueriesList.
-func (o CNSrqlqueriesList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the CNSRQLQueriesList.
+func (o CNSRQLQueriesList) Copy() elemental.Identifiables {
 
-	copy := append(CNSrqlqueriesList{}, o...)
+	copy := append(CNSRQLQueriesList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the CNSrqlqueriesList.
-func (o CNSrqlqueriesList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the CNSRQLQueriesList.
+func (o CNSRQLQueriesList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(CNSrqlqueriesList{}, o...)
+	out := append(CNSRQLQueriesList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*CNSrqlquery))
+		out = append(out, obj.(*CNSRQLQuery))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o CNSrqlqueriesList) List() elemental.IdentifiablesList {
+func (o CNSRQLQueriesList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -55,38 +55,38 @@ func (o CNSrqlqueriesList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o CNSrqlqueriesList) DefaultOrder() []string {
+func (o CNSRQLQueriesList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToSparse returns the CNSrqlqueriesList converted to SparseCNSrqlqueriesList.
+// ToSparse returns the CNSRQLQueriesList converted to SparseCNSRQLQueriesList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o CNSrqlqueriesList) ToSparse(fields ...string) elemental.Identifiables {
+func (o CNSRQLQueriesList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseCNSrqlqueriesList, len(o))
+	out := make(SparseCNSRQLQueriesList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseCNSrqlquery)
+		out[i] = o[i].ToSparse(fields...).(*SparseCNSRQLQuery)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o CNSrqlqueriesList) Version() int {
+func (o CNSRQLQueriesList) Version() int {
 
 	return 1
 }
 
-// CNSrqlquery represents the model of a cnsrqlquery
-type CNSrqlquery struct {
-	// ID of the alert request.
+// CNSRQLQuery represents the model of a cnsrqlquery
+type CNSRQLQuery struct {
+	// ID of the query request.
 	AlertID string `json:"alertID" msgpack:"alertID" bson:"-" mapstructure:"alertID,omitempty"`
 
-	// ID of the alert request.
+	// The policy for which the alert was generated.
 	PolicyID string `json:"policyID" msgpack:"policyID" bson:"-" mapstructure:"policyID,omitempty"`
 
-	// CNS rql query for alertID.
+	// The rql query for the alert.
 	Query string `json:"query" msgpack:"query" bson:"-" mapstructure:"query,omitempty"`
 
 	// Whether the response to request is valid.
@@ -95,53 +95,53 @@ type CNSrqlquery struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewCNSrqlquery returns a new *CNSrqlquery
-func NewCNSrqlquery() *CNSrqlquery {
+// NewCNSRQLQuery returns a new *CNSRQLQuery
+func NewCNSRQLQuery() *CNSRQLQuery {
 
-	return &CNSrqlquery{
+	return &CNSRQLQuery{
 		ModelVersion: 1,
 	}
 }
 
 // Identity returns the Identity of the object.
-func (o *CNSrqlquery) Identity() elemental.Identity {
+func (o *CNSRQLQuery) Identity() elemental.Identity {
 
-	return CNSrqlqueryIdentity
+	return CNSRQLQueryIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *CNSrqlquery) Identifier() string {
+func (o *CNSRQLQuery) Identifier() string {
 
 	return ""
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *CNSrqlquery) SetIdentifier(id string) {
+func (o *CNSRQLQuery) SetIdentifier(id string) {
 
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CNSrqlquery) GetBSON() (interface{}, error) {
+func (o *CNSRQLQuery) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesCNSrqlquery{}
+	s := &mongoAttributesCNSRQLQuery{}
 
 	return s, nil
 }
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CNSrqlquery) SetBSON(raw bson.Raw) error {
+func (o *CNSRQLQuery) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesCNSrqlquery{}
+	s := &mongoAttributesCNSRQLQuery{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -150,41 +150,41 @@ func (o *CNSrqlquery) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *CNSrqlquery) Version() int {
+func (o *CNSRQLQuery) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *CNSrqlquery) BleveType() string {
+func (o *CNSRQLQuery) BleveType() string {
 
 	return "cnsrqlquery"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *CNSrqlquery) DefaultOrder() []string {
+func (o *CNSRQLQuery) DefaultOrder() []string {
 
 	return []string{}
 }
 
 // Doc returns the documentation for the object
-func (o *CNSrqlquery) Doc() string {
+func (o *CNSRQLQuery) Doc() string {
 
 	return `A CNS endpoint which will generate the RQL query for the given alert-id.`
 }
 
-func (o *CNSrqlquery) String() string {
+func (o *CNSRQLQuery) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *CNSrqlquery) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *CNSRQLQuery) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseCNSrqlquery{
+		return &SparseCNSRQLQuery{
 			AlertID:  &o.AlertID,
 			PolicyID: &o.PolicyID,
 			Query:    &o.Query,
@@ -192,7 +192,7 @@ func (o *CNSrqlquery) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		}
 	}
 
-	sp := &SparseCNSrqlquery{}
+	sp := &SparseCNSRQLQuery{}
 	for _, f := range fields {
 		switch f {
 		case "alertID":
@@ -209,13 +209,13 @@ func (o *CNSrqlquery) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseCNSrqlquery to the object.
-func (o *CNSrqlquery) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseCNSRQLQuery to the object.
+func (o *CNSRQLQuery) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseCNSrqlquery)
+	so := sparse.(*SparseCNSRQLQuery)
 	if so.AlertID != nil {
 		o.AlertID = *so.AlertID
 	}
@@ -230,32 +230,32 @@ func (o *CNSrqlquery) Patch(sparse elemental.SparseIdentifiable) {
 	}
 }
 
-// DeepCopy returns a deep copy if the CNSrqlquery.
-func (o *CNSrqlquery) DeepCopy() *CNSrqlquery {
+// DeepCopy returns a deep copy if the CNSRQLQuery.
+func (o *CNSRQLQuery) DeepCopy() *CNSRQLQuery {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &CNSrqlquery{}
+	out := &CNSRQLQuery{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *CNSrqlquery.
-func (o *CNSrqlquery) DeepCopyInto(out *CNSrqlquery) {
+// DeepCopyInto copies the receiver into the given *CNSRQLQuery.
+func (o *CNSRQLQuery) DeepCopyInto(out *CNSRQLQuery) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy CNSrqlquery: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy CNSRQLQuery: %s", err))
 	}
 
-	*out = *target.(*CNSrqlquery)
+	*out = *target.(*CNSRQLQuery)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *CNSrqlquery) Validate() error {
+func (o *CNSRQLQuery) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -272,26 +272,26 @@ func (o *CNSrqlquery) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*CNSrqlquery) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*CNSRQLQuery) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := CNSrqlqueryAttributesMap[name]; ok {
+	if v, ok := CNSRQLQueryAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return CNSrqlqueryLowerCaseAttributesMap[name]
+	return CNSRQLQueryLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*CNSrqlquery) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*CNSRQLQuery) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return CNSrqlqueryAttributesMap
+	return CNSRQLQueryAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CNSrqlquery) ValueForAttribute(name string) interface{} {
+func (o *CNSRQLQuery) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "alertID":
@@ -307,12 +307,12 @@ func (o *CNSrqlquery) ValueForAttribute(name string) interface{} {
 	return nil
 }
 
-// CNSrqlqueryAttributesMap represents the map of attribute for CNSrqlquery.
-var CNSrqlqueryAttributesMap = map[string]elemental.AttributeSpecification{
+// CNSRQLQueryAttributesMap represents the map of attribute for CNSRQLQuery.
+var CNSRQLQueryAttributesMap = map[string]elemental.AttributeSpecification{
 	"AlertID": {
 		AllowedChoices: []string{},
 		ConvertedName:  "AlertID",
-		Description:    `ID of the alert request.`,
+		Description:    `ID of the query request.`,
 		Exposed:        true,
 		Name:           "alertID",
 		Type:           "string",
@@ -320,7 +320,7 @@ var CNSrqlqueryAttributesMap = map[string]elemental.AttributeSpecification{
 	"PolicyID": {
 		AllowedChoices: []string{},
 		ConvertedName:  "PolicyID",
-		Description:    `ID of the alert request.`,
+		Description:    `The policy for which the alert was generated.`,
 		Exposed:        true,
 		Name:           "policyID",
 		Type:           "string",
@@ -328,7 +328,7 @@ var CNSrqlqueryAttributesMap = map[string]elemental.AttributeSpecification{
 	"Query": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Query",
-		Description:    `CNS rql query for alertID.`,
+		Description:    `The rql query for the alert.`,
 		Exposed:        true,
 		Name:           "query",
 		Type:           "string",
@@ -343,12 +343,12 @@ var CNSrqlqueryAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 }
 
-// CNSrqlqueryLowerCaseAttributesMap represents the map of attribute for CNSrqlquery.
-var CNSrqlqueryLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// CNSRQLQueryLowerCaseAttributesMap represents the map of attribute for CNSRQLQuery.
+var CNSRQLQueryLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"alertid": {
 		AllowedChoices: []string{},
 		ConvertedName:  "AlertID",
-		Description:    `ID of the alert request.`,
+		Description:    `ID of the query request.`,
 		Exposed:        true,
 		Name:           "alertID",
 		Type:           "string",
@@ -356,7 +356,7 @@ var CNSrqlqueryLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 	"policyid": {
 		AllowedChoices: []string{},
 		ConvertedName:  "PolicyID",
-		Description:    `ID of the alert request.`,
+		Description:    `The policy for which the alert was generated.`,
 		Exposed:        true,
 		Name:           "policyID",
 		Type:           "string",
@@ -364,7 +364,7 @@ var CNSrqlqueryLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 	"query": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Query",
-		Description:    `CNS rql query for alertID.`,
+		Description:    `The rql query for the alert.`,
 		Exposed:        true,
 		Name:           "query",
 		Type:           "string",
@@ -379,35 +379,35 @@ var CNSrqlqueryLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 	},
 }
 
-// SparseCNSrqlqueriesList represents a list of SparseCNSrqlqueries
-type SparseCNSrqlqueriesList []*SparseCNSrqlquery
+// SparseCNSRQLQueriesList represents a list of SparseCNSRQLQueries
+type SparseCNSRQLQueriesList []*SparseCNSRQLQuery
 
 // Identity returns the identity of the objects in the list.
-func (o SparseCNSrqlqueriesList) Identity() elemental.Identity {
+func (o SparseCNSRQLQueriesList) Identity() elemental.Identity {
 
-	return CNSrqlqueryIdentity
+	return CNSRQLQueryIdentity
 }
 
-// Copy returns a pointer to a copy the SparseCNSrqlqueriesList.
-func (o SparseCNSrqlqueriesList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseCNSRQLQueriesList.
+func (o SparseCNSRQLQueriesList) Copy() elemental.Identifiables {
 
-	copy := append(SparseCNSrqlqueriesList{}, o...)
+	copy := append(SparseCNSRQLQueriesList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseCNSrqlqueriesList.
-func (o SparseCNSrqlqueriesList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseCNSRQLQueriesList.
+func (o SparseCNSRQLQueriesList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseCNSrqlqueriesList{}, o...)
+	out := append(SparseCNSRQLQueriesList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseCNSrqlquery))
+		out = append(out, obj.(*SparseCNSRQLQuery))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseCNSrqlqueriesList) List() elemental.IdentifiablesList {
+func (o SparseCNSRQLQueriesList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -418,13 +418,13 @@ func (o SparseCNSrqlqueriesList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseCNSrqlqueriesList) DefaultOrder() []string {
+func (o SparseCNSRQLQueriesList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToPlain returns the SparseCNSrqlqueriesList converted to CNSrqlqueriesList.
-func (o SparseCNSrqlqueriesList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseCNSRQLQueriesList converted to CNSRQLQueriesList.
+func (o SparseCNSRQLQueriesList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -435,20 +435,20 @@ func (o SparseCNSrqlqueriesList) ToPlain() elemental.IdentifiablesList {
 }
 
 // Version returns the version of the content.
-func (o SparseCNSrqlqueriesList) Version() int {
+func (o SparseCNSRQLQueriesList) Version() int {
 
 	return 1
 }
 
-// SparseCNSrqlquery represents the sparse version of a cnsrqlquery.
-type SparseCNSrqlquery struct {
-	// ID of the alert request.
+// SparseCNSRQLQuery represents the sparse version of a cnsrqlquery.
+type SparseCNSRQLQuery struct {
+	// ID of the query request.
 	AlertID *string `json:"alertID,omitempty" msgpack:"alertID,omitempty" bson:"-" mapstructure:"alertID,omitempty"`
 
-	// ID of the alert request.
+	// The policy for which the alert was generated.
 	PolicyID *string `json:"policyID,omitempty" msgpack:"policyID,omitempty" bson:"-" mapstructure:"policyID,omitempty"`
 
-	// CNS rql query for alertID.
+	// The rql query for the alert.
 	Query *string `json:"query,omitempty" msgpack:"query,omitempty" bson:"-" mapstructure:"query,omitempty"`
 
 	// Whether the response to request is valid.
@@ -457,50 +457,50 @@ type SparseCNSrqlquery struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseCNSrqlquery returns a new  SparseCNSrqlquery.
-func NewSparseCNSrqlquery() *SparseCNSrqlquery {
-	return &SparseCNSrqlquery{}
+// NewSparseCNSRQLQuery returns a new  SparseCNSRQLQuery.
+func NewSparseCNSRQLQuery() *SparseCNSRQLQuery {
+	return &SparseCNSRQLQuery{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseCNSrqlquery) Identity() elemental.Identity {
+func (o *SparseCNSRQLQuery) Identity() elemental.Identity {
 
-	return CNSrqlqueryIdentity
+	return CNSRQLQueryIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseCNSrqlquery) Identifier() string {
+func (o *SparseCNSRQLQuery) Identifier() string {
 
 	return ""
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseCNSrqlquery) SetIdentifier(id string) {
+func (o *SparseCNSRQLQuery) SetIdentifier(id string) {
 
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCNSrqlquery) GetBSON() (interface{}, error) {
+func (o *SparseCNSRQLQuery) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseCNSrqlquery{}
+	s := &mongoAttributesSparseCNSRQLQuery{}
 
 	return s, nil
 }
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCNSrqlquery) SetBSON(raw bson.Raw) error {
+func (o *SparseCNSRQLQuery) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseCNSrqlquery{}
+	s := &mongoAttributesSparseCNSRQLQuery{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -509,15 +509,15 @@ func (o *SparseCNSrqlquery) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseCNSrqlquery) Version() int {
+func (o *SparseCNSRQLQuery) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseCNSrqlquery) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseCNSRQLQuery) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewCNSrqlquery()
+	out := NewCNSRQLQuery()
 	if o.AlertID != nil {
 		out.AlertID = *o.AlertID
 	}
@@ -534,31 +534,31 @@ func (o *SparseCNSrqlquery) ToPlain() elemental.PlainIdentifiable {
 	return out
 }
 
-// DeepCopy returns a deep copy if the SparseCNSrqlquery.
-func (o *SparseCNSrqlquery) DeepCopy() *SparseCNSrqlquery {
+// DeepCopy returns a deep copy if the SparseCNSRQLQuery.
+func (o *SparseCNSRQLQuery) DeepCopy() *SparseCNSRQLQuery {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseCNSrqlquery{}
+	out := &SparseCNSRQLQuery{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseCNSrqlquery.
-func (o *SparseCNSrqlquery) DeepCopyInto(out *SparseCNSrqlquery) {
+// DeepCopyInto copies the receiver into the given *SparseCNSRQLQuery.
+func (o *SparseCNSRQLQuery) DeepCopyInto(out *SparseCNSRQLQuery) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseCNSrqlquery: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseCNSRQLQuery: %s", err))
 	}
 
-	*out = *target.(*SparseCNSrqlquery)
+	*out = *target.(*SparseCNSRQLQuery)
 }
 
-type mongoAttributesCNSrqlquery struct {
+type mongoAttributesCNSRQLQuery struct {
 }
-type mongoAttributesSparseCNSrqlquery struct {
+type mongoAttributesSparseCNSRQLQuery struct {
 }

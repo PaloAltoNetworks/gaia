@@ -303,7 +303,7 @@ relations:
 
 - rest_name: cnsrqlquery
   create:
-    description: Retrieves RQL suggestions for a particular alertID.
+    description: Retrieves RQL results for the specified alert.
 
 - rest_name: cnssearch
   create:

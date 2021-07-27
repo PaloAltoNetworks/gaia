@@ -11827,7 +11827,7 @@ Type: `string`
 
 Address CIDR of the VPC.
 
-### CNSrqlquery
+### CNSRQLQuery
 
 A CNS endpoint which will generate the RQL query for the given alert-id.
 
@@ -11843,7 +11843,7 @@ A CNS endpoint which will generate the RQL query for the given alert-id.
 
 ##### `POST /cnsrqlquery`
 
-Retrieves RQL suggestions for a particular alertID.
+Retrieves RQL results for the specified alert.
 
 #### Attributes
 
@@ -11851,19 +11851,19 @@ Retrieves RQL suggestions for a particular alertID.
 
 Type: `string`
 
-ID of the alert request.
+ID of the query request.
 
 ##### `policyID`
 
 Type: `string`
 
-ID of the alert request.
+The policy for which the alert was generated.
 
 ##### `query`
 
 Type: `string`
 
-CNS rql query for alertID.
+The rql query for the alert.
 
 ##### `valid`
 

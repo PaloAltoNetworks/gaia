@@ -57,6 +57,7 @@ CNSConfig
 CloudAlertRule
 CNSSuggestion
 CNSSearch
+CNSRQLQuery
 clientLocalID
 clob
 CNs
