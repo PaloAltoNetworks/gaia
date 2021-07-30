@@ -300,6 +300,10 @@ relations:
   create:
     description: Creates a CNS configuration object for the specified namespace.
 
+- rest_name: cnsrqlquery
+  create:
+    description: Retrieves RQL results for the specified alert.
+
 - rest_name: cnssearch
   create:
     description: Retrieves RQL search results.
