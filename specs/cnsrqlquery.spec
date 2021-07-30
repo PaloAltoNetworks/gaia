@@ -24,7 +24,7 @@ attributes:
 
   - name: query
     exposed_name: query
-    description: The rql query for the alert.
+    description: The RQL query for the alert.
     type: string
     exposed: true
     read_only: true

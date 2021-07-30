@@ -11864,7 +11864,7 @@ The policy for which the alert was generated.
 
 Type: `string`
 
-The rql query for the alert.
+The RQL query for the alert.
 
 ##### `valid`
 
