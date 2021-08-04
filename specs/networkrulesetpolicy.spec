@@ -52,6 +52,8 @@ attributes:
     type: refList
     exposed: true
     subtype: networkrule
+    validations:
+    - $noDuplicateRules
     extensions:
       refMode: pointer
 
@@ -62,6 +64,8 @@ attributes:
     type: refList
     exposed: true
     subtype: networkrule
+    validations:
+    - $noDuplicateRules
     extensions:
       refMode: pointer
 
@@ -76,6 +80,7 @@ attributes:
     - $atLeastOneSubExpression
     - $subExpressionsNotEmpty
     - $noDuplicateTagsInEachSubExpression
+    - $noDuplicateSubExpressions
     - $tagsExpression
 
 # Relations

@@ -1,6 +1,7 @@
 package gaia
 
 import (
+	"crypto/sha256"
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
@@ -312,10 +313,6 @@ func ValidateServiceEntity(service *Service) error {
 
 		if service.TLSCertificate == "" {
 			errs = errs.Append(makeValidationError("TLSCertificate", "`TLSCertificate` is required when `TLSType` is set to `External`"))
-		}
-
-		if service.TLSCertificateKey == "" {
-			errs = errs.Append(makeValidationError("TLSCertificateKey", "`TLSCertificateKey` is required when `TLSType` is set to `External`"))
 		}
 	}
 
@@ -964,7 +961,7 @@ func ValidateTagsWithoutReservedPrefixes(attribute string, tags []string) error 
 // ValidateExpressionNotEmpty validates that expression length is >= 1
 func ValidateExpressionNotEmpty(attribute string, expression [][]string) error {
 	if len(expression) == 0 {
-		return makeValidationError(attribute, "expression must contain at least one sub-expression")
+		return makeValidationError(attribute, "Expression must contain at least one sub-expression")
 	}
 	return nil
 }
@@ -973,7 +970,7 @@ func ValidateExpressionNotEmpty(attribute string, expression [][]string) error {
 func ValidateSubExpressionsNotEmpty(attribute string, expression [][]string) error {
 	for _, subExpr := range expression {
 		if len(subExpr) == 0 {
-			return makeValidationError(attribute, "sub-expression must not be empty")
+			return makeValidationError(attribute, "Sub-expression must not be empty")
 		}
 	}
 	return nil
@@ -995,7 +992,7 @@ func ValidateEachSubExpressionHasNoDuplicateTags(attribute string, expression []
 
 			err := makeValidationError(
 				attribute,
-				fmt.Sprintf("duplicate tag in a sub-expression: '%s'", tag),
+				fmt.Sprintf("Duplicate tag in a sub-expression: '%s'", tag),
 			)
 			return err
 		}
@@ -1023,7 +1020,64 @@ func ValidateNoDuplicateSubExpressions(attribute string, expression [][]string) 
 			continue
 		}
 
-		return makeValidationError(attribute, "duplicate equivalent sub-expressions found")
+		return makeValidationError(attribute, "Duplicate equivalent sub-expressions found")
+	}
+
+	return nil
+}
+
+// ValidateNoDuplicateNetworkRules ensures that all the given network rules are all unique
+func ValidateNoDuplicateNetworkRules(attribute string, rules []*NetworkRule) error {
+
+	type indexedRule struct {
+		index int
+		rule  *NetworkRule
+	}
+	seen := make(map[[sha256.Size]byte]*indexedRule, len(rules))
+	for iRule, rule := range rules {
+
+		if rule == nil {
+			continue
+		}
+
+		hash := sha256.New()
+
+		// hash the action
+		fmt.Fprintf(hash, "%s/", rule.Action)
+
+		// hash the object
+		obj := make([]string, len(rule.Object))
+		for i, subExpr := range rule.Object {
+			cpy := append([]string{}, subExpr...)
+			sort.Strings(cpy)
+			obj[i] = strings.Join(cpy, "/")
+		}
+		sort.Strings(obj)
+		for _, subExpr := range obj {
+			fmt.Fprintf(hash, "[%s]/", subExpr)
+		}
+
+		// hash the ports
+		protoPortCpy := append([]string{}, rule.ProtocolPorts...)
+		for i, port := range protoPortCpy {
+			protoPortCpy[i] = strings.ToLower(port)
+		}
+		sort.Strings(protoPortCpy)
+		for _, port := range protoPortCpy {
+			fmt.Fprintf(hash, "%s/", port)
+		}
+
+		// check if hash was seen before
+		var digest [sha256.Size]byte
+		copy(digest[:], hash.Sum(nil))
+		if prevRule, ok := seen[digest]; ok {
+			return makeValidationError(
+				attribute,
+				fmt.Sprintf("Duplicate network rules at the following indexes: [%d, %d]", prevRule.index+1, iRule+1),
+			)
+		}
+
+		seen[digest] = &indexedRule{index: iRule, rule: rule}
 	}
 
 	return nil
@@ -1481,6 +1535,15 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 	if q.DestinationSelector != nil {
 		if err := ValidateCloudNetworkQueryFilter("destinationSelector", q.DestinationSelector); err != nil {
 			return err
+		}
+	}
+
+	if q.SourceIP == "" && q.DestinationIP == "" {
+		if q.SourceSelector != nil && len(q.SourceSelector.VPCIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "a single source VPC must be provided for all East/West queries")
+		}
+		if q.DestinationSelector != nil && len(q.DestinationSelector.VPCIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "a single destination VPC must be provided for all East/West queries")
 		}
 	}
 

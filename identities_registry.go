@@ -53,6 +53,7 @@ var (
 		"cloudvpc": CloudVPCIdentity,
 
 		"cnsconfig":     CNSConfigIdentity,
+		"cnsrqlquery":   CNSRQLQueryIdentity,
 		"cnssearch":     CNSSearchIdentity,
 		"cnssuggestion": CNSSuggestionIdentity,
 
@@ -160,6 +161,7 @@ var (
 		"sandbox":                 SandboxIdentity,
 		"search":                  SearchIdentity,
 		"service":                 ServiceIdentity,
+		"servicecertificate":      ServiceCertificateIdentity,
 		"servicedependencypolicy": ServiceDependencyPolicyIdentity,
 		"servicepublication":      ServicePublicationIdentity,
 		"servicetoken":            ServiceTokenIdentity,
@@ -242,6 +244,7 @@ var (
 		"cloudvpcs": CloudVPCIdentity,
 
 		"cnsconfigs":     CNSConfigIdentity,
+		"cnsrqlquery":    CNSRQLQueryIdentity,
 		"cnssearches":    CNSSearchIdentity,
 		"cnssuggestions": CNSSuggestionIdentity,
 
@@ -349,6 +352,7 @@ var (
 		"sandboxes":                 SandboxIdentity,
 		"search":                    SearchIdentity,
 		"services":                  ServiceIdentity,
+		"servicecertificates":       ServiceCertificateIdentity,
 		"servicedependencypolicies": ServiceDependencyPolicyIdentity,
 		"servicepublications":       ServicePublicationIdentity,
 		"servicetoken":              ServiceTokenIdentity,
@@ -764,6 +768,7 @@ var (
 			{"createIdempotencyKey"},
 			{":shard", ":unique", "zone", "zHash"},
 		},
+		"cnsrqlquery":   nil,
 		"cnssearch":     nil,
 		"cnssuggestion": nil,
 		"connectionexceptionreport": {
@@ -1154,6 +1159,18 @@ var (
 			{"allProcessingUnitsTags"},
 			{"allAPITags"},
 		},
+		"servicecertificate": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"propagate"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "fingerprint"},
+			{"namespace", "normalizedTags"},
+			{"name"},
+			{"fingerprint"},
+			{"createIdempotencyKey"},
+		},
 		"servicedependencypolicy": nil,
 		"servicepublication":      nil,
 		"servicetoken":            nil,
@@ -1336,6 +1353,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudVPC()
 	case CNSConfigIdentity:
 		return NewCNSConfig()
+	case CNSRQLQueryIdentity:
+		return NewCNSRQLQuery()
 	case CNSSearchIdentity:
 		return NewCNSSearch()
 	case CNSSuggestionIdentity:
@@ -1530,6 +1549,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewSearch()
 	case ServiceIdentity:
 		return NewService()
+	case ServiceCertificateIdentity:
+		return NewServiceCertificate()
 	case ServiceDependencyPolicyIdentity:
 		return NewServiceDependencyPolicy()
 	case ServicePublicationIdentity:
@@ -1673,6 +1694,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudVPC()
 	case CNSConfigIdentity:
 		return NewSparseCNSConfig()
+	case CNSRQLQueryIdentity:
+		return NewSparseCNSRQLQuery()
 	case CNSSearchIdentity:
 		return NewSparseCNSSearch()
 	case CNSSuggestionIdentity:
@@ -1865,6 +1888,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseSearch()
 	case ServiceIdentity:
 		return NewSparseService()
+	case ServiceCertificateIdentity:
+		return NewSparseServiceCertificate()
 	case ServiceDependencyPolicyIdentity:
 		return NewSparseServiceDependencyPolicy()
 	case ServicePublicationIdentity:
@@ -2018,6 +2043,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudVPCsList{}
 	case CNSConfigIdentity:
 		return &CNSConfigsList{}
+	case CNSRQLQueryIdentity:
+		return &CNSRQLQueriesList{}
 	case CNSSearchIdentity:
 		return &CNSSearchesList{}
 	case CNSSuggestionIdentity:
@@ -2210,6 +2237,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &SearchesList{}
 	case ServiceIdentity:
 		return &ServicesList{}
+	case ServiceCertificateIdentity:
+		return &ServiceCertificatesList{}
 	case ServiceDependencyPolicyIdentity:
 		return &ServiceDependencyPoliciesList{}
 	case ServicePublicationIdentity:
@@ -2353,6 +2382,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudVPCsList{}
 	case CNSConfigIdentity:
 		return &SparseCNSConfigsList{}
+	case CNSRQLQueryIdentity:
+		return &SparseCNSRQLQueriesList{}
 	case CNSSearchIdentity:
 		return &SparseCNSSearchesList{}
 	case CNSSuggestionIdentity:
@@ -2545,6 +2576,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseSearchesList{}
 	case ServiceIdentity:
 		return &SparseServicesList{}
+	case ServiceCertificateIdentity:
+		return &SparseServiceCertificatesList{}
 	case ServiceDependencyPolicyIdentity:
 		return &SparseServiceDependencyPoliciesList{}
 	case ServicePublicationIdentity:
@@ -2667,6 +2700,7 @@ func AllIdentities() []elemental.Identity {
 		CloudSubnetIdentity,
 		CloudVPCIdentity,
 		CNSConfigIdentity,
+		CNSRQLQueryIdentity,
 		CNSSearchIdentity,
 		CNSSuggestionIdentity,
 		ConnectionExceptionReportIdentity,
@@ -2764,6 +2798,7 @@ func AllIdentities() []elemental.Identity {
 		SandboxIdentity,
 		SearchIdentity,
 		ServiceIdentity,
+		ServiceCertificateIdentity,
 		ServiceDependencyPolicyIdentity,
 		ServicePublicationIdentity,
 		ServiceTokenIdentity,
@@ -2905,6 +2940,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"pcc",
 		}
+	case CNSRQLQueryIdentity:
+		return []string{}
 	case CNSSearchIdentity:
 		return []string{}
 	case CNSSuggestionIdentity:
@@ -3203,6 +3240,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"srv",
 		}
+	case ServiceCertificateIdentity:
+		return []string{}
 	case ServiceDependencyPolicyIdentity:
 		return []string{
 			"srvdep",

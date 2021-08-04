@@ -57,6 +57,7 @@ CNSConfig
 CloudAlertRule
 CNSSuggestion
 CNSSearch
+CNSRQLQuery
 clientLocalID
 clob
 CNs
@@ -261,6 +262,7 @@ pre-created
 preinstall
 preprocessing
 Prisma
+PrivateKey
 processingunit
 ProcessingUnit
 ProcessingUnitPolicy
@@ -302,6 +304,7 @@ SAMLProvider
 ScopesSupported
 searchable
 SerialNumber
+ServiceCertificate
 ServiceDependencyPolicy
 ServiceToken
 sharded

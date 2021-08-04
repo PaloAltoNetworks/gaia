@@ -106,6 +106,10 @@ $networksorhostnames:
   elemental:
     name: ValidateNetworkOrHostnameList
 
+$noDuplicateRules:
+  elemental:
+    name: ValidateNoDuplicateNetworkRules
+
 $noDuplicateSubExpressions:
   elemental:
     name: ValidateNoDuplicateSubExpressions
