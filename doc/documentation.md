@@ -9650,6 +9650,7 @@ Parameters associated with a cloud interface.
 ```json
 {
   "attachmentType": "Instance",
+  "availabilityZone": "us-east-1",
   "routeTableID": [
     "rt1233"
   ],
@@ -9674,6 +9675,12 @@ Type: `enum(Instance | LoadBalancer | Gateway | Service | TransitGatewayVPCAttac
 
 Attachment type describes where this interface is attached to (Instance, Load
 Balancer, Gateway, etc).
+
+##### `availabilityZone`
+
+Type: `string`
+
+Availability zone of the interface.
 
 ##### `relatedObjectID`
 
