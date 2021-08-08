@@ -10095,7 +10095,7 @@ Provides the parameters for an effective network permissions query.
 
 ```json
 {
-  "effectiveAction": "ReachableOnly",
+  "effectiveAction": "Reachable",
   "excludeEnterpriseIPs": false,
   "name": "the name",
   "protected": false,
@@ -10185,19 +10185,19 @@ A filter for selecting destinations for the query.
 
 ##### `effectiveAction`
 
-Type: `enum(ReachableAndAllowed | ReachableOnly | All)`
+Type: `enum(Allowed | Denied | Reachable)`
 
-Filters the results based on the effective action. 'ReachableAndAllowed' means
+Filters the results based on the effective action. 'Allowed' means
 that a destination is both reachable and allowed by security rules.
-'UnreachableOrRejected' means that the destination is either not reachable or
-rejected by security rules. 'ReachableOnly' means that all destinations that are
-reachable will be returned irrespective of their security verdict.
-'UnreachableOnly' means that only unreachable destinations will be returned.
+'Denied' means that the destination is reachable through routing,
+but traffic is blocked through one or more security rules. 'Reachable'
+returns all destinations that are reachable from the selected sources
+irrespective of the security rules.
 
 Default value:
 
 ```json
-"ReachableOnly"
+"Reachable"
 ```
 
 ##### `excludeEnterpriseIPs`
