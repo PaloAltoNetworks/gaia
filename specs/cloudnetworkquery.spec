@@ -29,7 +29,8 @@ model:
 attributes:
   v1:
   - name: destinationIP
-    description: The destination IP of a trace route request. Might not always be an endpoint.
+    description: The destination IP of a trace route request. Might not always be
+      an endpoint.
     type: string
     exposed: true
     stored: true
@@ -47,20 +48,20 @@ attributes:
 
   - name: effectiveAction
     description: |-
-      Filters the results based on the effective action. 'ReachableAndAllowed' means
+      Filters the results based on the effective action. 'Allowed' means
       that a destination is both reachable and allowed by security rules.
-      'UnreachableOrRejected' means that the destination is either not reachable or
-      rejected by security rules. 'ReachableOnly' means that all destinations that are
-      reachable will be returned irrespective of their security verdict.
-      'UnreachableOnly' means that only unreachable destinations will be returned.
+      'Denied' means that the destination is reachable through routing,
+      but traffic is blocked through one or more security rules. 'Reachable'
+      returns all destinations that are reachable from the selected sources
+      irrespective of the security rules.
     type: enum
     exposed: true
     stored: true
     allowed_choices:
-    - ReachableAndAllowed
-    - ReachableOnly
-    - All
-    default_value: ReachableOnly
+    - Allowed
+    - Denied
+    - Reachable
+    default_value: Reachable
 
   - name: excludeEnterpriseIPs
     description: |-
@@ -131,7 +132,8 @@ attributes:
 relations:
 - rest_name: cloudgraph
   get:
-    description: Initiates a calculation of the query and retrieves the results in CloudGraph.
+    description: Initiates a calculation of the query and retrieves the results in
+      CloudGraph.
 
 - rest_name: cloudpolicy
   get:

@@ -62,6 +62,9 @@ type CloudInterfaceData struct {
 	// Balancer, Gateway, etc).
 	AttachmentType CloudInterfaceDataAttachmentTypeValue `json:"attachmentType" msgpack:"attachmentType" bson:"attachmenttype" mapstructure:"attachmentType,omitempty"`
 
+	// Availability zone of the interface.
+	AvailabilityZone string `json:"availabilityZone" msgpack:"availabilityZone" bson:"availabilityzone" mapstructure:"availabilityZone,omitempty"`
+
 	// If the interface is of type or external, the relatedObjectID identifies the
 	// related service or gateway.
 	RelatedObjectID string `json:"relatedObjectID" msgpack:"relatedObjectID" bson:"relatedobjectid" mapstructure:"relatedObjectID,omitempty"`
@@ -102,6 +105,7 @@ func (o *CloudInterfaceData) GetBSON() (interface{}, error) {
 
 	s.Addresses = o.Addresses
 	s.AttachmentType = o.AttachmentType
+	s.AvailabilityZone = o.AvailabilityZone
 	s.RelatedObjectID = o.RelatedObjectID
 	s.RouteTableID = o.RouteTableID
 	s.SecurityTags = o.SecurityTags
@@ -125,6 +129,7 @@ func (o *CloudInterfaceData) SetBSON(raw bson.Raw) error {
 
 	o.Addresses = s.Addresses
 	o.AttachmentType = s.AttachmentType
+	o.AvailabilityZone = s.AvailabilityZone
 	o.RelatedObjectID = s.RelatedObjectID
 	o.RouteTableID = s.RouteTableID
 	o.SecurityTags = s.SecurityTags
@@ -199,10 +204,11 @@ func (o *CloudInterfaceData) Validate() error {
 }
 
 type mongoAttributesCloudInterfaceData struct {
-	Addresses       []*CloudAddress                       `bson:"addresses"`
-	AttachmentType  CloudInterfaceDataAttachmentTypeValue `bson:"attachmenttype"`
-	RelatedObjectID string                                `bson:"relatedobjectid"`
-	RouteTableID    string                                `bson:"routetableid"`
-	SecurityTags    []string                              `bson:"securitytags"`
-	Subnets         []string                              `bson:"subnets"`
+	Addresses        []*CloudAddress                       `bson:"addresses"`
+	AttachmentType   CloudInterfaceDataAttachmentTypeValue `bson:"attachmenttype"`
+	AvailabilityZone string                                `bson:"availabilityzone"`
+	RelatedObjectID  string                                `bson:"relatedobjectid"`
+	RouteTableID     string                                `bson:"routetableid"`
+	SecurityTags     []string                              `bson:"securitytags"`
+	Subnets          []string                              `bson:"subnets"`
 }
