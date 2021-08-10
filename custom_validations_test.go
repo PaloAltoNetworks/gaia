@@ -4780,6 +4780,86 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 			},
 			true,
 		},
+		{
+			"cloud network path with source without object",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					Type: CloudNetworkQueryTypeNetworkPath,
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs:    []string{"vpc3"},
+						ObjectIDs: []string{"object1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"cloud network path with destination without object",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					Type: CloudNetworkQueryTypeNetworkPath,
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs:    []string{"vpc3"},
+						ObjectIDs: []string{"object1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"cloud network path with destination without object and source IP",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					Type: CloudNetworkQueryTypeNetworkPath,
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					SourceIP: "1.1.1.0/24",
+				},
+			},
+			true,
+		},
+		{
+			"cloud network path with source without object and destination IP",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					Type: CloudNetworkQueryTypeNetworkPath,
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationIP: "1.1.1.0/24",
+				},
+			},
+			true,
+		},
+		{
+			"cloud network path with source without object",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					Type: CloudNetworkQueryTypeNetworkPath,
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs:    []string{"vpc1"},
+						ObjectIDs: []string{"object1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs:    []string{"vpc3"},
+						ObjectIDs: []string{"object1"},
+					},
+				},
+			},
+			false,
+		},
 	}
 
 	for _, tt := range tests {
