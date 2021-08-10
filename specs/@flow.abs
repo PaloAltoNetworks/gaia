@@ -402,3 +402,63 @@ attributes:
     omit_empty: true
     extensions:
       bson_name: ah
+
+  - name: sourceProcessSelCtx
+    description: SELinux context of the source process.
+    type: string
+    exposed: true
+    stored: true
+    example_value: unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023
+    omit_empty: true
+    extensions:
+      bson_name: ar
+
+  - name: sourceProcessExecutable
+    description: The executable of the source process.
+    type: string
+    exposed: true
+    stored: true
+    example_value: curl
+    omit_empty: true
+    extensions:
+      bson_name: aq
+
+  - name: sourceProcessUID
+    description: The User ID (UID) of the source process.
+    type: integer
+    exposed: true
+    stored: true
+    example_value: 1000
+    omit_empty: true
+    extensions:
+      bson_name: am
+
+  - name: destinationProcessSelCtx
+    description: SELinux context of the destination process.
+    type: string
+    exposed: true
+    stored: true
+    example_value: system_u:system_r:sshd_t:s0-s0:c0.c1023
+    omit_empty: true
+    extensions:
+      bson_name: an
+
+  - name: destinationProcessExecutable
+    description: The executable of the destination process.
+    type: string
+    exposed: true
+    stored: true
+    example_value: sshd
+    omit_empty: true
+    extensions:
+      bson_name: ao
+
+  - name: destinationProcessUID
+    description: The User ID (UID) of the destination process.
+    type: integer
+    exposed: true
+    stored: true
+    example_value: 0
+    omit_empty: true
+    extensions:
+      bson_name: ap

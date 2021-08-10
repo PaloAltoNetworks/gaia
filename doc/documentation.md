@@ -15219,6 +15219,9 @@ Post a new cached flow report.
   "destinationID": "xxx-xxx-xxx",
   "destinationNamespace": "/my/namespace",
   "destinationPlatform": "api.east.acme.com",
+  "destinationProcessExecutable": "sshd",
+  "destinationProcessSelCtx": "system_u:system_r:sshd_t:s0-s0:c0.c1023",
+  "destinationProcessUID": 0,
   "destinationType": "ProcessingUnit",
   "encrypted": false,
   "enforcerID": "5c6cce207ddf1fc159a104bf",
@@ -15238,6 +15241,9 @@ Post a new cached flow report.
   "sourceID": "xxx-xxx-xxx",
   "sourceNamespace": "/my/namespace",
   "sourcePlatform": "api.west.acme.com",
+  "sourceProcessExecutable": "curl",
+  "sourceProcessSelCtx": "unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023",
+  "sourceProcessUID": 1000,
   "sourceType": "ProcessingUnit",
   "value": 1
 }
@@ -15301,6 +15307,24 @@ Identifier of the destination platform.
 Type: `integer`
 
 Port of the destination.
+
+##### `destinationProcessExecutable`
+
+Type: `string`
+
+The executable of the destination process.
+
+##### `destinationProcessSelCtx`
+
+Type: `string`
+
+SELinux context of the destination process.
+
+##### `destinationProcessUID`
+
+Type: `integer`
+
+The User ID (UID) of the destination process.
 
 ##### `destinationType` [`required`]
 
@@ -15495,6 +15519,24 @@ property does nothing.
 Type: `string`
 
 Identifier of the source platform.
+
+##### `sourceProcessExecutable`
+
+Type: `string`
+
+The executable of the source process.
+
+##### `sourceProcessSelCtx`
+
+Type: `string`
+
+SELinux context of the source process.
+
+##### `sourceProcessUID`
+
+Type: `integer`
+
+The User ID (UID) of the source process.
 
 ##### `sourceType` [`required`]
 
@@ -15927,6 +15969,9 @@ Post a new flow log.
   "destinationID": "xxx-xxx-xxx",
   "destinationNamespace": "/my/namespace",
   "destinationPlatform": "api.east.acme.com",
+  "destinationProcessExecutable": "sshd",
+  "destinationProcessSelCtx": "system_u:system_r:sshd_t:s0-s0:c0.c1023",
+  "destinationProcessUID": 0,
   "destinationType": "ProcessingUnit",
   "encrypted": false,
   "enforcerID": "5c6cce207ddf1fc159a104bf",
@@ -15944,6 +15989,9 @@ Post a new flow log.
   "sourceID": "xxx-xxx-xxx",
   "sourceNamespace": "/my/namespace",
   "sourcePlatform": "api.west.acme.com",
+  "sourceProcessExecutable": "curl",
+  "sourceProcessSelCtx": "unconfined_u:unconfined_r:unconfined_t:s0-s0:c0.c1023",
+  "sourceProcessUID": 1000,
   "sourceType": "ProcessingUnit",
   "value": 1
 }
@@ -16007,6 +16055,24 @@ Identifier of the destination platform.
 Type: `integer`
 
 Port of the destination.
+
+##### `destinationProcessExecutable`
+
+Type: `string`
+
+The executable of the destination process.
+
+##### `destinationProcessSelCtx`
+
+Type: `string`
+
+SELinux context of the destination process.
+
+##### `destinationProcessUID`
+
+Type: `integer`
+
+The User ID (UID) of the destination process.
 
 ##### `destinationType` [`required`]
 
@@ -16189,6 +16255,24 @@ property does nothing.
 Type: `string`
 
 Identifier of the source platform.
+
+##### `sourceProcessExecutable`
+
+Type: `string`
+
+The executable of the source process.
+
+##### `sourceProcessSelCtx`
+
+Type: `string`
+
+SELinux context of the source process.
+
+##### `sourceProcessUID`
+
+Type: `integer`
+
+The User ID (UID) of the source process.
 
 ##### `sourceType` [`required`]
 
