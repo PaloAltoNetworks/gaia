@@ -32,6 +32,9 @@ const (
 	// CloudNetworkQueryTypeFullGraph represents the value FullGraph.
 	CloudNetworkQueryTypeFullGraph CloudNetworkQueryTypeValue = "FullGraph"
 
+	// CloudNetworkQueryTypeNetworkPath represents the value NetworkPath.
+	CloudNetworkQueryTypeNetworkPath CloudNetworkQueryTypeValue = "NetworkPath"
+
 	// CloudNetworkQueryTypeSummary represents the value Summary.
 	CloudNetworkQueryTypeSummary CloudNetworkQueryTypeValue = "Summary"
 )
@@ -729,7 +732,7 @@ func (o *CloudNetworkQuery) Validate() error {
 		}
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Summary", "CompressedGraph", "FullGraph"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Summary", "CompressedGraph", "FullGraph", "NetworkPath"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1071,7 +1074,7 @@ is not allowed.`,
 		Type:           "ref",
 	},
 	"Type": {
-		AllowedChoices: []string{"Summary", "CompressedGraph", "FullGraph"},
+		AllowedChoices: []string{"Summary", "CompressedGraph", "FullGraph", "NetworkPath"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		DefaultValue:   CloudNetworkQueryTypeSummary,
@@ -1372,7 +1375,7 @@ is not allowed.`,
 		Type:           "ref",
 	},
 	"type": {
-		AllowedChoices: []string{"Summary", "CompressedGraph", "FullGraph"},
+		AllowedChoices: []string{"Summary", "CompressedGraph", "FullGraph", "NetworkPath"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		DefaultValue:   CloudNetworkQueryTypeSummary,

@@ -1547,6 +1547,24 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 		}
 	}
 
+	if q.Type == CloudNetworkQueryTypeNetworkPath {
+		if len(q.SourceIP) != 0 && len(q.DestinationSelector.ObjectIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the destination selector for network path queries")
+		}
+
+		if len(q.DestinationIP) != 0 && len(q.SourceSelector.ObjectIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
+		}
+
+		if len(q.SourceIP) == 0 && len(q.SourceSelector.ObjectIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
+		}
+
+		if len(q.DestinationIP) == 0 && len(q.DestinationSelector.ObjectIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
+		}
+	}
+
 	return nil
 }
 

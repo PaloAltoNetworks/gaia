@@ -126,6 +126,7 @@ attributes:
     - Summary
     - CompressedGraph
     - FullGraph
+    - NetworkPath
     default_value: Summary
 
 # Relations
