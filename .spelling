@@ -530,6 +530,7 @@ imageID
 imageIDs
 resourceType
 Reachable
+NetworkPath 
 
 nativeID
 ObjectIDs
