@@ -40,6 +40,9 @@ const (
 	// PolicyTypeNetwork represents the value Network.
 	PolicyTypeNetwork PolicyTypeValue = "Network"
 
+	// PolicyTypeNetworkLabelRuleSet represents the value NetworkLabelRuleSet.
+	PolicyTypeNetworkLabelRuleSet PolicyTypeValue = "NetworkLabelRuleSet"
+
 	// PolicyTypeNetworkRuleSet represents the value NetworkRuleSet.
 	PolicyTypeNetworkRuleSet PolicyTypeValue = "NetworkRuleSet"
 
@@ -965,7 +968,7 @@ func (o *Policy) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"APIAuthorization", "AuditProfileMapping", "EnforcerProfile", "File", "Hook", "HostServiceMapping", "Infrastructure", "NamespaceMapping", "Network", "NetworkRuleSet", "ProcessingUnit", "Quota", "Service", "ServiceDependency", "Syscall", "TokenScope", "SSHAuthorization", "UserAccess"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"APIAuthorization", "AuditProfileMapping", "EnforcerProfile", "File", "Hook", "HostServiceMapping", "Infrastructure", "NamespaceMapping", "Network", "NetworkRuleSet", "NetworkLabelRuleSet", "ProcessingUnit", "Quota", "Service", "ServiceDependency", "Syscall", "TokenScope", "SSHAuthorization", "UserAccess"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1410,7 +1413,7 @@ include ` + "`" + `AND` + "`" + ` and ` + "`" + `OR` + "`" + `.`,
 		Type:    "external",
 	},
 	"Type": {
-		AllowedChoices: []string{"APIAuthorization", "AuditProfileMapping", "EnforcerProfile", "File", "Hook", "HostServiceMapping", "Infrastructure", "NamespaceMapping", "Network", "NetworkRuleSet", "ProcessingUnit", "Quota", "Service", "ServiceDependency", "Syscall", "TokenScope", "SSHAuthorization", "UserAccess"},
+		AllowedChoices: []string{"APIAuthorization", "AuditProfileMapping", "EnforcerProfile", "File", "Hook", "HostServiceMapping", "Infrastructure", "NamespaceMapping", "Network", "NetworkRuleSet", "NetworkLabelRuleSet", "ProcessingUnit", "Quota", "Service", "ServiceDependency", "Syscall", "TokenScope", "SSHAuthorization", "UserAccess"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		CreationOnly:   true,
@@ -1821,7 +1824,7 @@ include ` + "`" + `AND` + "`" + ` and ` + "`" + `OR` + "`" + `.`,
 		Type:    "external",
 	},
 	"type": {
-		AllowedChoices: []string{"APIAuthorization", "AuditProfileMapping", "EnforcerProfile", "File", "Hook", "HostServiceMapping", "Infrastructure", "NamespaceMapping", "Network", "NetworkRuleSet", "ProcessingUnit", "Quota", "Service", "ServiceDependency", "Syscall", "TokenScope", "SSHAuthorization", "UserAccess"},
+		AllowedChoices: []string{"APIAuthorization", "AuditProfileMapping", "EnforcerProfile", "File", "Hook", "HostServiceMapping", "Infrastructure", "NamespaceMapping", "Network", "NetworkRuleSet", "NetworkLabelRuleSet", "ProcessingUnit", "Quota", "Service", "ServiceDependency", "Syscall", "TokenScope", "SSHAuthorization", "UserAccess"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		CreationOnly:   true,

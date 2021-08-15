@@ -5822,7 +5822,7 @@ include `AND` and `OR`.
 
 ##### `type` [`creation_only`]
 
-Type: `enum(APIAuthorization | AuditProfileMapping | EnforcerProfile | File | Hook | HostServiceMapping | Infrastructure | NamespaceMapping | Network | NetworkRuleSet | ProcessingUnit | Quota | Service | ServiceDependency | Syscall | TokenScope | SSHAuthorization | UserAccess)`
+Type: `enum(APIAuthorization | AuditProfileMapping | EnforcerProfile | File | Hook | HostServiceMapping | Infrastructure | NamespaceMapping | Network | NetworkRuleSet | NetworkLabelRuleSet | ProcessingUnit | Quota | Service | ServiceDependency | Syscall | TokenScope | SSHAuthorization | UserAccess)`
 
 Type of the policy.
 

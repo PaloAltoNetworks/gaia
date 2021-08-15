@@ -138,6 +138,7 @@ attributes:
     - NamespaceMapping
     - Network
     - NetworkRuleSet
+    - NetworkLabelRuleSet
     - ProcessingUnit
     - Quota
     - Service

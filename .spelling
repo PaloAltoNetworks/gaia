@@ -203,8 +203,10 @@ NamespaceType
 NamespaceUnique
 NetworkAccessPolicy
 NetworkRule
+NetworkLabelRule
 NetworkRuleNet
 NetworkRuleSetPolicy
+NetworkLabelRuleSetPolicy
 NfQueue
 nginx
 nip.io
