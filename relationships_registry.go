@@ -1828,6 +1828,19 @@ func init() {
 					},
 				},
 			},
+			"networklabelrulesetpolicy": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:         "mode",
+						Type:         "enum",
+						DefaultValue: "object",
+						AllowedChoices: []string{
+							"subject",
+							"object",
+						},
+					},
+				},
+			},
 			"networkrulesetpolicy": {
 				Parameters: []elemental.ParameterDefinition{
 					{
@@ -1874,6 +1887,19 @@ func init() {
 				},
 			},
 			"networkaccesspolicy": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:         "mode",
+						Type:         "enum",
+						DefaultValue: "object",
+						AllowedChoices: []string{
+							"subject",
+							"object",
+						},
+					},
+				},
+			},
+			"networklabelrulesetpolicy": {
 				Parameters: []elemental.ParameterDefinition{
 					{
 						Name:         "mode",
@@ -3472,6 +3498,36 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[NetworkLabelRuleSetPolicyIdentity] = &elemental.Relationship{
+		Update: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Patch: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Delete: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+		Retrieve: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "propagated",
+						Type: "boolean",
+					},
+				},
+			},
+		},
+	}
+
 	relationshipsRegistry[NetworkRuleSetPolicyIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -4164,6 +4220,19 @@ func init() {
 					},
 				},
 			},
+			"networklabelrulesetpolicy": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:         "mode",
+						Type:         "enum",
+						DefaultValue: "object",
+						AllowedChoices: []string{
+							"subject",
+							"object",
+						},
+					},
+				},
+			},
 			"networkrulesetpolicy": {
 				Parameters: []elemental.ParameterDefinition{
 					{
@@ -4211,6 +4280,19 @@ func init() {
 				},
 			},
 			"networkaccesspolicy": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:         "mode",
+						Type:         "enum",
+						DefaultValue: "object",
+						AllowedChoices: []string{
+							"subject",
+							"object",
+						},
+					},
+				},
+			},
+			"networklabelrulesetpolicy": {
 				Parameters: []elemental.ParameterDefinition{
 					{
 						Name:         "mode",

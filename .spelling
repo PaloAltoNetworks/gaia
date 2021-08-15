@@ -303,6 +303,7 @@ SAML
 SAMLProvider
 ScopesSupported
 searchable
+SELinux
 SerialNumber
 ServiceCertificate
 ServiceDependencyPolicy
