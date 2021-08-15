@@ -646,7 +646,7 @@ func (o *NetworkLabelRuleSetPolicy) Validate() error {
 		}
 	}
 
-	if err := ValidateNoDuplicateNetworkRules("incomingRules", o.IncomingRules); err != nil {
+	if err := ValidateNoDuplicateNetworkLabelRules("incomingRules", o.IncomingRules); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -672,7 +672,7 @@ func (o *NetworkLabelRuleSetPolicy) Validate() error {
 		}
 	}
 
-	if err := ValidateNoDuplicateNetworkRules("outgoingRules", o.OutgoingRules); err != nil {
+	if err := ValidateNoDuplicateNetworkLabelRules("outgoingRules", o.OutgoingRules); err != nil {
 		errors = errors.Append(err)
 	}
 

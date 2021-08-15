@@ -53,7 +53,7 @@ attributes:
     exposed: true
     subtype: networklabelrule
     validations:
-    - $noDuplicateRules
+    - $noDuplicateLabelRules
     extensions:
       refMode: pointer
 
@@ -65,7 +65,7 @@ attributes:
     exposed: true
     subtype: networklabelrule
     validations:
-    - $noDuplicateRules
+    - $noDuplicateLabelRules
     extensions:
       refMode: pointer
 
