@@ -16904,6 +16904,19 @@ identified by their tags to talk to other processing units or external networks
 
 #### Relations
 
+##### `GET /networklabelrulesetpolicies`
+
+Retrieves the list of network label rule set policies.
+
+Parameters:
+
+- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
+- `propagated` (`boolean`): Also retrieve the objects that propagate down.
+
+##### `POST /networklabelrulesetpolicies`
+
+Creates a new network rule set policy policy.
+
 ##### `DELETE /networklabelrulesetpolicies/:id`
 
 Deletes the policy with the given ID.
