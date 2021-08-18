@@ -18919,6 +18919,89 @@ Default value:
 "15m"
 ```
 
+## thought/crime
+
+### ValidateRQL
+
+TODO.
+
+#### Example
+
+```json
+{
+  "policyType": "network",
+  "prismaId": 0,
+  "query": "config from network where ...",
+  "searchType": "network_config"
+}
+```
+
+#### Relations
+
+##### `POST /validaterql`
+
+TODO.
+
+#### Attributes
+
+##### `policyType` [`required`]
+
+Type: `string`
+
+TODO.
+
+##### `prismaId` [`required`]
+
+Type: `integer`
+
+TODO.
+
+##### `query` [`required`]
+
+Type: `string`
+
+TODO.
+
+##### `searchType` [`required`]
+
+Type: `string`
+
+TODO.
+
+### ValidateRQLResp
+
+TODO.
+
+#### Example
+
+```json
+{
+  "error": "invalid quert",
+  "status": 200,
+  "timestamp": 1232432432
+}
+```
+
+#### Attributes
+
+##### `error`
+
+Type: `string`
+
+TODO.
+
+##### `status`
+
+Type: `integer`
+
+TODO.
+
+##### `timestamp`
+
+Type: `integer`
+
+TODO.
+
 ## visualization/depmaps
 
 ### DependencyMap

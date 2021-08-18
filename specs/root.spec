@@ -1168,6 +1168,10 @@ relations:
   create:
     description: Creates a new enforcer policy.
 
+- rest_name: validaterql
+  create:
+    description: TODO.
+
 - rest_name: validateuiparameter
   create:
     description: Validates some UI parameters.
