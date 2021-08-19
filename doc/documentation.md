@@ -7100,6 +7100,68 @@ Type: `pctimevalue`
 
 The value of time range.
 
+### ValidateRQL
+
+Used to validate RQL queries.
+
+#### Example
+
+```json
+{
+  "query": "network from microseg.flow_record where id == '1'"
+}
+```
+
+#### Relations
+
+##### `POST /validaterql`
+
+TODO.
+
+#### Attributes
+
+##### `error`
+
+Type: `string`
+
+The error message if the query fails validation.
+
+##### `policyType`
+
+Type: `string`
+
+The type of the policy.
+
+##### `prismaId`
+
+Type: `integer`
+
+The Prisma Cloud ID.
+
+##### `query` [`required`]
+
+Type: `string`
+
+The query to validate.
+
+##### `searchType`
+
+Type: `string`
+
+The search type.
+
+##### `status`
+
+Type: `integer`
+
+The http status code of the response.
+
+##### `timestamp`
+
+Type: `integer`
+
+The timestamp of the query in nanoseconds.
+
 ## core/service
 
 ### ServicePublication
@@ -18918,70 +18980,6 @@ Default value:
 ```json
 "15m"
 ```
-
-## thought/crime
-
-### ValidateRQL
-
-TODO.
-
-#### Example
-
-```json
-{
-  "query": "config from network where ..."
-}
-```
-
-#### Relations
-
-##### `POST /validaterql`
-
-TODO.
-
-#### Attributes
-
-##### `error`
-
-Type: `string`
-
-TODO.
-
-##### `policyType`
-
-Type: `string`
-
-TODO.
-
-##### `prismaId`
-
-Type: `integer`
-
-TODO.
-
-##### `query` [`required`]
-
-Type: `string`
-
-TODO.
-
-##### `searchType`
-
-Type: `string`
-
-TODO.
-
-##### `status`
-
-Type: `integer`
-
-TODO.
-
-##### `timestamp`
-
-Type: `integer`
-
-TODO.
 
 ## visualization/depmaps
 

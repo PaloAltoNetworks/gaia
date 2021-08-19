@@ -80,25 +80,25 @@ func (o ValidateRQLsList) Version() int {
 
 // ValidateRQL represents the model of a validaterql
 type ValidateRQL struct {
-	// TODO.
+	// The error message if the query fails validation.
 	Error string `json:"error" msgpack:"error" bson:"-" mapstructure:"error,omitempty"`
 
-	// TODO.
+	// The type of the policy.
 	PolicyType string `json:"policyType" msgpack:"policyType" bson:"-" mapstructure:"policyType,omitempty"`
 
-	// TODO.
+	// The Prisma Cloud ID.
 	PrismaId int `json:"prismaId" msgpack:"prismaId" bson:"-" mapstructure:"prismaId,omitempty"`
 
-	// TODO.
+	// The query to validate.
 	Query string `json:"query" msgpack:"query" bson:"-" mapstructure:"query,omitempty"`
 
-	// TODO.
+	// The search type.
 	SearchType string `json:"searchType" msgpack:"searchType" bson:"-" mapstructure:"searchType,omitempty"`
 
-	// TODO.
+	// The http status code of the response.
 	Status int `json:"status" msgpack:"status" bson:"-" mapstructure:"status,omitempty"`
 
-	// TODO.
+	// The timestamp of the query in nanoseconds.
 	Timestamp int `json:"timestamp" msgpack:"timestamp" bson:"-" mapstructure:"timestamp,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
@@ -179,7 +179,7 @@ func (o *ValidateRQL) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *ValidateRQL) Doc() string {
 
-	return `TODO.`
+	return `Used to validate RQL queries.`
 }
 
 func (o *ValidateRQL) String() string {
@@ -349,7 +349,7 @@ var ValidateRQLAttributesMap = map[string]elemental.AttributeSpecification{
 	"Error": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Error",
-		Description:    `TODO.`,
+		Description:    `The error message if the query fails validation.`,
 		Exposed:        true,
 		Name:           "error",
 		Type:           "string",
@@ -357,7 +357,7 @@ var ValidateRQLAttributesMap = map[string]elemental.AttributeSpecification{
 	"PolicyType": {
 		AllowedChoices: []string{},
 		ConvertedName:  "PolicyType",
-		Description:    `TODO.`,
+		Description:    `The type of the policy.`,
 		Exposed:        true,
 		Name:           "policyType",
 		Type:           "string",
@@ -365,7 +365,7 @@ var ValidateRQLAttributesMap = map[string]elemental.AttributeSpecification{
 	"PrismaId": {
 		AllowedChoices: []string{},
 		ConvertedName:  "PrismaId",
-		Description:    `TODO.`,
+		Description:    `The Prisma Cloud ID.`,
 		Exposed:        true,
 		Name:           "prismaId",
 		Type:           "integer",
@@ -373,7 +373,7 @@ var ValidateRQLAttributesMap = map[string]elemental.AttributeSpecification{
 	"Query": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Query",
-		Description:    `TODO.`,
+		Description:    `The query to validate.`,
 		Exposed:        true,
 		Name:           "query",
 		Required:       true,
@@ -382,7 +382,7 @@ var ValidateRQLAttributesMap = map[string]elemental.AttributeSpecification{
 	"SearchType": {
 		AllowedChoices: []string{},
 		ConvertedName:  "SearchType",
-		Description:    `TODO.`,
+		Description:    `The search type.`,
 		Exposed:        true,
 		Name:           "searchType",
 		Type:           "string",
@@ -390,7 +390,7 @@ var ValidateRQLAttributesMap = map[string]elemental.AttributeSpecification{
 	"Status": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Status",
-		Description:    `TODO.`,
+		Description:    `The http status code of the response.`,
 		Exposed:        true,
 		Name:           "status",
 		Type:           "integer",
@@ -398,7 +398,7 @@ var ValidateRQLAttributesMap = map[string]elemental.AttributeSpecification{
 	"Timestamp": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Timestamp",
-		Description:    `TODO.`,
+		Description:    `The timestamp of the query in nanoseconds.`,
 		Exposed:        true,
 		Name:           "timestamp",
 		Type:           "integer",
@@ -410,7 +410,7 @@ var ValidateRQLLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 	"error": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Error",
-		Description:    `TODO.`,
+		Description:    `The error message if the query fails validation.`,
 		Exposed:        true,
 		Name:           "error",
 		Type:           "string",
@@ -418,7 +418,7 @@ var ValidateRQLLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 	"policytype": {
 		AllowedChoices: []string{},
 		ConvertedName:  "PolicyType",
-		Description:    `TODO.`,
+		Description:    `The type of the policy.`,
 		Exposed:        true,
 		Name:           "policyType",
 		Type:           "string",
@@ -426,7 +426,7 @@ var ValidateRQLLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 	"prismaid": {
 		AllowedChoices: []string{},
 		ConvertedName:  "PrismaId",
-		Description:    `TODO.`,
+		Description:    `The Prisma Cloud ID.`,
 		Exposed:        true,
 		Name:           "prismaId",
 		Type:           "integer",
@@ -434,7 +434,7 @@ var ValidateRQLLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 	"query": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Query",
-		Description:    `TODO.`,
+		Description:    `The query to validate.`,
 		Exposed:        true,
 		Name:           "query",
 		Required:       true,
@@ -443,7 +443,7 @@ var ValidateRQLLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 	"searchtype": {
 		AllowedChoices: []string{},
 		ConvertedName:  "SearchType",
-		Description:    `TODO.`,
+		Description:    `The search type.`,
 		Exposed:        true,
 		Name:           "searchType",
 		Type:           "string",
@@ -451,7 +451,7 @@ var ValidateRQLLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 	"status": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Status",
-		Description:    `TODO.`,
+		Description:    `The http status code of the response.`,
 		Exposed:        true,
 		Name:           "status",
 		Type:           "integer",
@@ -459,7 +459,7 @@ var ValidateRQLLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 	"timestamp": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Timestamp",
-		Description:    `TODO.`,
+		Description:    `The timestamp of the query in nanoseconds.`,
 		Exposed:        true,
 		Name:           "timestamp",
 		Type:           "integer",
@@ -529,25 +529,25 @@ func (o SparseValidateRQLsList) Version() int {
 
 // SparseValidateRQL represents the sparse version of a validaterql.
 type SparseValidateRQL struct {
-	// TODO.
+	// The error message if the query fails validation.
 	Error *string `json:"error,omitempty" msgpack:"error,omitempty" bson:"-" mapstructure:"error,omitempty"`
 
-	// TODO.
+	// The type of the policy.
 	PolicyType *string `json:"policyType,omitempty" msgpack:"policyType,omitempty" bson:"-" mapstructure:"policyType,omitempty"`
 
-	// TODO.
+	// The Prisma Cloud ID.
 	PrismaId *int `json:"prismaId,omitempty" msgpack:"prismaId,omitempty" bson:"-" mapstructure:"prismaId,omitempty"`
 
-	// TODO.
+	// The query to validate.
 	Query *string `json:"query,omitempty" msgpack:"query,omitempty" bson:"-" mapstructure:"query,omitempty"`
 
-	// TODO.
+	// The search type.
 	SearchType *string `json:"searchType,omitempty" msgpack:"searchType,omitempty" bson:"-" mapstructure:"searchType,omitempty"`
 
-	// TODO.
+	// The http status code of the response.
 	Status *int `json:"status,omitempty" msgpack:"status,omitempty" bson:"-" mapstructure:"status,omitempty"`
 
-	// TODO.
+	// The timestamp of the query in nanoseconds.
 	Timestamp *int `json:"timestamp,omitempty" msgpack:"timestamp,omitempty" bson:"-" mapstructure:"timestamp,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`

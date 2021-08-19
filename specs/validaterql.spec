@@ -4,45 +4,45 @@ model:
   resource_name: validaterql
   entity_name: ValidateRQL
   package: larl
-  group: thought/crime
-  description: TODO.
+  group: core/rql
+  description: Used to validate RQL queries.
 
 # Attributes
 attributes:
   v1:
   - name: error
-    description: TODO.
+    description: The error message if the query fails validation.
     type: string
     exposed: true
 
   - name: policyType
-    description: TODO.
+    description: The type of the policy.
     type: string
     exposed: true
 
   - name: prismaId
-    description: TODO.
+    description: The Prisma Cloud ID.
     type: integer
     exposed: true
 
   - name: query
-    description: TODO.
+    description: The query to validate.
     type: string
     exposed: true
     required: true
-    example_value: config from network where ...
+    example_value: network from microseg.flow_record where id == '1'
 
   - name: searchType
-    description: TODO.
+    description: The search type.
     type: string
     exposed: true
 
   - name: status
-    description: TODO.
+    description: The http status code of the response.
     type: integer
     exposed: true
 
   - name: timestamp
-    description: TODO.
+    description: The timestamp of the query in nanoseconds.
     type: integer
     exposed: true
