@@ -2,7 +2,7 @@
 model:
   rest_name: validaterql
   resource_name: validaterql
-  entity_name: ValidateRQL
+  entity_name: ValidateRQLReq
   package: larl
   group: thought/crime
   description: TODO.

@@ -8,43 +8,43 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// ValidateRQLIdentity represents the Identity of the object.
-var ValidateRQLIdentity = elemental.Identity{
+// ValidateRQLReqIdentity represents the Identity of the object.
+var ValidateRQLReqIdentity = elemental.Identity{
 	Name:     "validaterql",
 	Category: "validaterql",
 	Package:  "larl",
 	Private:  false,
 }
 
-// ValidateRQLsList represents a list of ValidateRQLs
-type ValidateRQLsList []*ValidateRQL
+// ValidateRQLReqsList represents a list of ValidateRQLReqs
+type ValidateRQLReqsList []*ValidateRQLReq
 
 // Identity returns the identity of the objects in the list.
-func (o ValidateRQLsList) Identity() elemental.Identity {
+func (o ValidateRQLReqsList) Identity() elemental.Identity {
 
-	return ValidateRQLIdentity
+	return ValidateRQLReqIdentity
 }
 
-// Copy returns a pointer to a copy the ValidateRQLsList.
-func (o ValidateRQLsList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the ValidateRQLReqsList.
+func (o ValidateRQLReqsList) Copy() elemental.Identifiables {
 
-	copy := append(ValidateRQLsList{}, o...)
+	copy := append(ValidateRQLReqsList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the ValidateRQLsList.
-func (o ValidateRQLsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the ValidateRQLReqsList.
+func (o ValidateRQLReqsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(ValidateRQLsList{}, o...)
+	out := append(ValidateRQLReqsList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*ValidateRQL))
+		out = append(out, obj.(*ValidateRQLReq))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o ValidateRQLsList) List() elemental.IdentifiablesList {
+func (o ValidateRQLReqsList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -55,31 +55,31 @@ func (o ValidateRQLsList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o ValidateRQLsList) DefaultOrder() []string {
+func (o ValidateRQLReqsList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToSparse returns the ValidateRQLsList converted to SparseValidateRQLsList.
+// ToSparse returns the ValidateRQLReqsList converted to SparseValidateRQLReqsList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o ValidateRQLsList) ToSparse(fields ...string) elemental.Identifiables {
+func (o ValidateRQLReqsList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseValidateRQLsList, len(o))
+	out := make(SparseValidateRQLReqsList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseValidateRQL)
+		out[i] = o[i].ToSparse(fields...).(*SparseValidateRQLReq)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o ValidateRQLsList) Version() int {
+func (o ValidateRQLReqsList) Version() int {
 
 	return 1
 }
 
-// ValidateRQL represents the model of a validaterql
-type ValidateRQL struct {
+// ValidateRQLReq represents the model of a validaterql
+type ValidateRQLReq struct {
 	// TODO.
 	PolicyType string `json:"policyType" msgpack:"policyType" bson:"-" mapstructure:"policyType,omitempty"`
 
@@ -95,53 +95,53 @@ type ValidateRQL struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewValidateRQL returns a new *ValidateRQL
-func NewValidateRQL() *ValidateRQL {
+// NewValidateRQLReq returns a new *ValidateRQLReq
+func NewValidateRQLReq() *ValidateRQLReq {
 
-	return &ValidateRQL{
+	return &ValidateRQLReq{
 		ModelVersion: 1,
 	}
 }
 
 // Identity returns the Identity of the object.
-func (o *ValidateRQL) Identity() elemental.Identity {
+func (o *ValidateRQLReq) Identity() elemental.Identity {
 
-	return ValidateRQLIdentity
+	return ValidateRQLReqIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *ValidateRQL) Identifier() string {
+func (o *ValidateRQLReq) Identifier() string {
 
 	return ""
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *ValidateRQL) SetIdentifier(id string) {
+func (o *ValidateRQLReq) SetIdentifier(id string) {
 
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ValidateRQL) GetBSON() (interface{}, error) {
+func (o *ValidateRQLReq) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesValidateRQL{}
+	s := &mongoAttributesValidateRQLReq{}
 
 	return s, nil
 }
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ValidateRQL) SetBSON(raw bson.Raw) error {
+func (o *ValidateRQLReq) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesValidateRQL{}
+	s := &mongoAttributesValidateRQLReq{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -150,41 +150,41 @@ func (o *ValidateRQL) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *ValidateRQL) Version() int {
+func (o *ValidateRQLReq) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *ValidateRQL) BleveType() string {
+func (o *ValidateRQLReq) BleveType() string {
 
 	return "validaterql"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *ValidateRQL) DefaultOrder() []string {
+func (o *ValidateRQLReq) DefaultOrder() []string {
 
 	return []string{}
 }
 
 // Doc returns the documentation for the object
-func (o *ValidateRQL) Doc() string {
+func (o *ValidateRQLReq) Doc() string {
 
 	return `TODO.`
 }
 
-func (o *ValidateRQL) String() string {
+func (o *ValidateRQLReq) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *ValidateRQL) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *ValidateRQLReq) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseValidateRQL{
+		return &SparseValidateRQLReq{
 			PolicyType: &o.PolicyType,
 			PrismaId:   &o.PrismaId,
 			Query:      &o.Query,
@@ -192,7 +192,7 @@ func (o *ValidateRQL) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		}
 	}
 
-	sp := &SparseValidateRQL{}
+	sp := &SparseValidateRQLReq{}
 	for _, f := range fields {
 		switch f {
 		case "policyType":
@@ -209,13 +209,13 @@ func (o *ValidateRQL) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseValidateRQL to the object.
-func (o *ValidateRQL) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseValidateRQLReq to the object.
+func (o *ValidateRQLReq) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseValidateRQL)
+	so := sparse.(*SparseValidateRQLReq)
 	if so.PolicyType != nil {
 		o.PolicyType = *so.PolicyType
 	}
@@ -230,32 +230,32 @@ func (o *ValidateRQL) Patch(sparse elemental.SparseIdentifiable) {
 	}
 }
 
-// DeepCopy returns a deep copy if the ValidateRQL.
-func (o *ValidateRQL) DeepCopy() *ValidateRQL {
+// DeepCopy returns a deep copy if the ValidateRQLReq.
+func (o *ValidateRQLReq) DeepCopy() *ValidateRQLReq {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &ValidateRQL{}
+	out := &ValidateRQLReq{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *ValidateRQL.
-func (o *ValidateRQL) DeepCopyInto(out *ValidateRQL) {
+// DeepCopyInto copies the receiver into the given *ValidateRQLReq.
+func (o *ValidateRQLReq) DeepCopyInto(out *ValidateRQLReq) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy ValidateRQL: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy ValidateRQLReq: %s", err))
 	}
 
-	*out = *target.(*ValidateRQL)
+	*out = *target.(*ValidateRQLReq)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *ValidateRQL) Validate() error {
+func (o *ValidateRQLReq) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -288,26 +288,26 @@ func (o *ValidateRQL) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*ValidateRQL) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*ValidateRQLReq) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := ValidateRQLAttributesMap[name]; ok {
+	if v, ok := ValidateRQLReqAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return ValidateRQLLowerCaseAttributesMap[name]
+	return ValidateRQLReqLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*ValidateRQL) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*ValidateRQLReq) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return ValidateRQLAttributesMap
+	return ValidateRQLReqAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ValidateRQL) ValueForAttribute(name string) interface{} {
+func (o *ValidateRQLReq) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "policyType":
@@ -323,8 +323,8 @@ func (o *ValidateRQL) ValueForAttribute(name string) interface{} {
 	return nil
 }
 
-// ValidateRQLAttributesMap represents the map of attribute for ValidateRQL.
-var ValidateRQLAttributesMap = map[string]elemental.AttributeSpecification{
+// ValidateRQLReqAttributesMap represents the map of attribute for ValidateRQLReq.
+var ValidateRQLReqAttributesMap = map[string]elemental.AttributeSpecification{
 	"PolicyType": {
 		AllowedChoices: []string{},
 		ConvertedName:  "PolicyType",
@@ -363,8 +363,8 @@ var ValidateRQLAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 }
 
-// ValidateRQLLowerCaseAttributesMap represents the map of attribute for ValidateRQL.
-var ValidateRQLLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// ValidateRQLReqLowerCaseAttributesMap represents the map of attribute for ValidateRQLReq.
+var ValidateRQLReqLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"policytype": {
 		AllowedChoices: []string{},
 		ConvertedName:  "PolicyType",
@@ -403,35 +403,35 @@ var ValidateRQLLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 	},
 }
 
-// SparseValidateRQLsList represents a list of SparseValidateRQLs
-type SparseValidateRQLsList []*SparseValidateRQL
+// SparseValidateRQLReqsList represents a list of SparseValidateRQLReqs
+type SparseValidateRQLReqsList []*SparseValidateRQLReq
 
 // Identity returns the identity of the objects in the list.
-func (o SparseValidateRQLsList) Identity() elemental.Identity {
+func (o SparseValidateRQLReqsList) Identity() elemental.Identity {
 
-	return ValidateRQLIdentity
+	return ValidateRQLReqIdentity
 }
 
-// Copy returns a pointer to a copy the SparseValidateRQLsList.
-func (o SparseValidateRQLsList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseValidateRQLReqsList.
+func (o SparseValidateRQLReqsList) Copy() elemental.Identifiables {
 
-	copy := append(SparseValidateRQLsList{}, o...)
+	copy := append(SparseValidateRQLReqsList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseValidateRQLsList.
-func (o SparseValidateRQLsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseValidateRQLReqsList.
+func (o SparseValidateRQLReqsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseValidateRQLsList{}, o...)
+	out := append(SparseValidateRQLReqsList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseValidateRQL))
+		out = append(out, obj.(*SparseValidateRQLReq))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseValidateRQLsList) List() elemental.IdentifiablesList {
+func (o SparseValidateRQLReqsList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -442,13 +442,13 @@ func (o SparseValidateRQLsList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseValidateRQLsList) DefaultOrder() []string {
+func (o SparseValidateRQLReqsList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToPlain returns the SparseValidateRQLsList converted to ValidateRQLsList.
-func (o SparseValidateRQLsList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseValidateRQLReqsList converted to ValidateRQLReqsList.
+func (o SparseValidateRQLReqsList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -459,13 +459,13 @@ func (o SparseValidateRQLsList) ToPlain() elemental.IdentifiablesList {
 }
 
 // Version returns the version of the content.
-func (o SparseValidateRQLsList) Version() int {
+func (o SparseValidateRQLReqsList) Version() int {
 
 	return 1
 }
 
-// SparseValidateRQL represents the sparse version of a validaterql.
-type SparseValidateRQL struct {
+// SparseValidateRQLReq represents the sparse version of a validaterql.
+type SparseValidateRQLReq struct {
 	// TODO.
 	PolicyType *string `json:"policyType,omitempty" msgpack:"policyType,omitempty" bson:"-" mapstructure:"policyType,omitempty"`
 
@@ -481,50 +481,50 @@ type SparseValidateRQL struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseValidateRQL returns a new  SparseValidateRQL.
-func NewSparseValidateRQL() *SparseValidateRQL {
-	return &SparseValidateRQL{}
+// NewSparseValidateRQLReq returns a new  SparseValidateRQLReq.
+func NewSparseValidateRQLReq() *SparseValidateRQLReq {
+	return &SparseValidateRQLReq{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseValidateRQL) Identity() elemental.Identity {
+func (o *SparseValidateRQLReq) Identity() elemental.Identity {
 
-	return ValidateRQLIdentity
+	return ValidateRQLReqIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseValidateRQL) Identifier() string {
+func (o *SparseValidateRQLReq) Identifier() string {
 
 	return ""
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseValidateRQL) SetIdentifier(id string) {
+func (o *SparseValidateRQLReq) SetIdentifier(id string) {
 
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseValidateRQL) GetBSON() (interface{}, error) {
+func (o *SparseValidateRQLReq) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseValidateRQL{}
+	s := &mongoAttributesSparseValidateRQLReq{}
 
 	return s, nil
 }
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseValidateRQL) SetBSON(raw bson.Raw) error {
+func (o *SparseValidateRQLReq) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseValidateRQL{}
+	s := &mongoAttributesSparseValidateRQLReq{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -533,15 +533,15 @@ func (o *SparseValidateRQL) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseValidateRQL) Version() int {
+func (o *SparseValidateRQLReq) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseValidateRQL) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseValidateRQLReq) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewValidateRQL()
+	out := NewValidateRQLReq()
 	if o.PolicyType != nil {
 		out.PolicyType = *o.PolicyType
 	}
@@ -558,31 +558,31 @@ func (o *SparseValidateRQL) ToPlain() elemental.PlainIdentifiable {
 	return out
 }
 
-// DeepCopy returns a deep copy if the SparseValidateRQL.
-func (o *SparseValidateRQL) DeepCopy() *SparseValidateRQL {
+// DeepCopy returns a deep copy if the SparseValidateRQLReq.
+func (o *SparseValidateRQLReq) DeepCopy() *SparseValidateRQLReq {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseValidateRQL{}
+	out := &SparseValidateRQLReq{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseValidateRQL.
-func (o *SparseValidateRQL) DeepCopyInto(out *SparseValidateRQL) {
+// DeepCopyInto copies the receiver into the given *SparseValidateRQLReq.
+func (o *SparseValidateRQLReq) DeepCopyInto(out *SparseValidateRQLReq) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseValidateRQL: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseValidateRQLReq: %s", err))
 	}
 
-	*out = *target.(*SparseValidateRQL)
+	*out = *target.(*SparseValidateRQLReq)
 }
 
-type mongoAttributesValidateRQL struct {
+type mongoAttributesValidateRQLReq struct {
 }
-type mongoAttributesSparseValidateRQL struct {
+type mongoAttributesSparseValidateRQLReq struct {
 }

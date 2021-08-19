@@ -188,8 +188,7 @@ var (
 		"trustednamespace": TrustedNamespaceIdentity,
 
 		"useraccesspolicy":     UserAccessPolicyIdentity,
-		"validaterql":          ValidateRQLIdentity,
-		"validaterqlresp":      ValidateRQLRespIdentity,
+		"validaterql":          ValidateRQLReqIdentity,
 		"validateuiparameter":  ValidateUIParameterIdentity,
 		"vulnerability":        VulnerabilityIdentity,
 		"x509certificate":      X509CertificateIdentity,
@@ -381,8 +380,7 @@ var (
 		"trustednamespaces": TrustedNamespaceIdentity,
 
 		"useraccesspolicies":    UserAccessPolicyIdentity,
-		"validaterql":           ValidateRQLIdentity,
-		"validaterqlresp":       ValidateRQLRespIdentity,
+		"validaterql":           ValidateRQLReqIdentity,
 		"validateuiparameters":  ValidateUIParameterIdentity,
 		"vulnerabilities":       VulnerabilityIdentity,
 		"x509certificates":      X509CertificateIdentity,
@@ -1221,7 +1219,6 @@ var (
 		},
 		"useraccesspolicy":    nil,
 		"validaterql":         nil,
-		"validaterqlresp":     nil,
 		"validateuiparameter": nil,
 		"vulnerability": {
 			{":shard", ":unique", "zone", "zHash"},
@@ -1603,10 +1600,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewTrustedNamespace()
 	case UserAccessPolicyIdentity:
 		return NewUserAccessPolicy()
-	case ValidateRQLIdentity:
-		return NewValidateRQL()
-	case ValidateRQLRespIdentity:
-		return NewValidateRQLResp()
+	case ValidateRQLReqIdentity:
+		return NewValidateRQLReq()
 	case ValidateUIParameterIdentity:
 		return NewValidateUIParameter()
 	case VulnerabilityIdentity:
@@ -1946,10 +1941,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseTrustedNamespace()
 	case UserAccessPolicyIdentity:
 		return NewSparseUserAccessPolicy()
-	case ValidateRQLIdentity:
-		return NewSparseValidateRQL()
-	case ValidateRQLRespIdentity:
-		return NewSparseValidateRQLResp()
+	case ValidateRQLReqIdentity:
+		return NewSparseValidateRQLReq()
 	case ValidateUIParameterIdentity:
 		return NewSparseValidateUIParameter()
 	case VulnerabilityIdentity:
@@ -2299,10 +2292,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &TrustedNamespacesList{}
 	case UserAccessPolicyIdentity:
 		return &UserAccessPoliciesList{}
-	case ValidateRQLIdentity:
-		return &ValidateRQLsList{}
-	case ValidateRQLRespIdentity:
-		return &ValidateRQLRespsList{}
+	case ValidateRQLReqIdentity:
+		return &ValidateRQLReqsList{}
 	case ValidateUIParameterIdentity:
 		return &ValidateUIParametersList{}
 	case VulnerabilityIdentity:
@@ -2642,10 +2633,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseTrustedNamespacesList{}
 	case UserAccessPolicyIdentity:
 		return &SparseUserAccessPoliciesList{}
-	case ValidateRQLIdentity:
-		return &SparseValidateRQLsList{}
-	case ValidateRQLRespIdentity:
-		return &SparseValidateRQLRespsList{}
+	case ValidateRQLReqIdentity:
+		return &SparseValidateRQLReqsList{}
 	case ValidateUIParameterIdentity:
 		return &SparseValidateUIParametersList{}
 	case VulnerabilityIdentity:
@@ -2844,8 +2833,7 @@ func AllIdentities() []elemental.Identity {
 		TrustedCAIdentity,
 		TrustedNamespaceIdentity,
 		UserAccessPolicyIdentity,
-		ValidateRQLIdentity,
-		ValidateRQLRespIdentity,
+		ValidateRQLReqIdentity,
 		ValidateUIParameterIdentity,
 		VulnerabilityIdentity,
 		X509CertificateIdentity,
@@ -3334,9 +3322,7 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"usrpol",
 			"usrpols",
 		}
-	case ValidateRQLIdentity:
-		return []string{}
-	case ValidateRQLRespIdentity:
+	case ValidateRQLReqIdentity:
 		return []string{}
 	case ValidateUIParameterIdentity:
 		return []string{

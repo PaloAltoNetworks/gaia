@@ -18921,7 +18921,7 @@ Default value:
 
 ## thought/crime
 
-### ValidateRQL
+### ValidateRQLReq
 
 TODO.
 
@@ -18965,40 +18965,6 @@ TODO.
 ##### `searchType` [`required`]
 
 Type: `string`
-
-TODO.
-
-### ValidateRQLResp
-
-TODO.
-
-#### Example
-
-```json
-{
-  "error": "invalid quert",
-  "status": 200,
-  "timestamp": 1232432432
-}
-```
-
-#### Attributes
-
-##### `error`
-
-Type: `string`
-
-TODO.
-
-##### `status`
-
-Type: `integer`
-
-TODO.
-
-##### `timestamp`
-
-Type: `integer`
 
 TODO.
 
