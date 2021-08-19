@@ -7132,7 +7132,7 @@ Type: `string`
 
 The type of the policy.
 
-##### `prismaId`
+##### `prismaID`
 
 Type: `integer`
 

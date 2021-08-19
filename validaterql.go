@@ -87,7 +87,7 @@ type ValidateRQL struct {
 	PolicyType string `json:"policyType" msgpack:"policyType" bson:"-" mapstructure:"policyType,omitempty"`
 
 	// The Prisma Cloud ID.
-	PrismaId int `json:"prismaId" msgpack:"prismaId" bson:"-" mapstructure:"prismaId,omitempty"`
+	PrismaID int `json:"prismaID" msgpack:"prismaID" bson:"-" mapstructure:"prismaID,omitempty"`
 
 	// The query to validate.
 	Query string `json:"query" msgpack:"query" bson:"-" mapstructure:"query,omitempty"`
@@ -196,7 +196,7 @@ func (o *ValidateRQL) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		return &SparseValidateRQL{
 			Error:      &o.Error,
 			PolicyType: &o.PolicyType,
-			PrismaId:   &o.PrismaId,
+			PrismaID:   &o.PrismaID,
 			Query:      &o.Query,
 			SearchType: &o.SearchType,
 			Status:     &o.Status,
@@ -211,8 +211,8 @@ func (o *ValidateRQL) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Error = &(o.Error)
 		case "policyType":
 			sp.PolicyType = &(o.PolicyType)
-		case "prismaId":
-			sp.PrismaId = &(o.PrismaId)
+		case "prismaID":
+			sp.PrismaID = &(o.PrismaID)
 		case "query":
 			sp.Query = &(o.Query)
 		case "searchType":
@@ -240,8 +240,8 @@ func (o *ValidateRQL) Patch(sparse elemental.SparseIdentifiable) {
 	if so.PolicyType != nil {
 		o.PolicyType = *so.PolicyType
 	}
-	if so.PrismaId != nil {
-		o.PrismaId = *so.PrismaId
+	if so.PrismaID != nil {
+		o.PrismaID = *so.PrismaID
 	}
 	if so.Query != nil {
 		o.Query = *so.Query
@@ -329,8 +329,8 @@ func (o *ValidateRQL) ValueForAttribute(name string) interface{} {
 		return o.Error
 	case "policyType":
 		return o.PolicyType
-	case "prismaId":
-		return o.PrismaId
+	case "prismaID":
+		return o.PrismaID
 	case "query":
 		return o.Query
 	case "searchType":
@@ -362,12 +362,12 @@ var ValidateRQLAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "policyType",
 		Type:           "string",
 	},
-	"PrismaId": {
+	"PrismaID": {
 		AllowedChoices: []string{},
-		ConvertedName:  "PrismaId",
+		ConvertedName:  "PrismaID",
 		Description:    `The Prisma Cloud ID.`,
 		Exposed:        true,
-		Name:           "prismaId",
+		Name:           "prismaID",
 		Type:           "integer",
 	},
 	"Query": {
@@ -425,10 +425,10 @@ var ValidateRQLLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 	},
 	"prismaid": {
 		AllowedChoices: []string{},
-		ConvertedName:  "PrismaId",
+		ConvertedName:  "PrismaID",
 		Description:    `The Prisma Cloud ID.`,
 		Exposed:        true,
-		Name:           "prismaId",
+		Name:           "prismaID",
 		Type:           "integer",
 	},
 	"query": {
@@ -536,7 +536,7 @@ type SparseValidateRQL struct {
 	PolicyType *string `json:"policyType,omitempty" msgpack:"policyType,omitempty" bson:"-" mapstructure:"policyType,omitempty"`
 
 	// The Prisma Cloud ID.
-	PrismaId *int `json:"prismaId,omitempty" msgpack:"prismaId,omitempty" bson:"-" mapstructure:"prismaId,omitempty"`
+	PrismaID *int `json:"prismaID,omitempty" msgpack:"prismaID,omitempty" bson:"-" mapstructure:"prismaID,omitempty"`
 
 	// The query to validate.
 	Query *string `json:"query,omitempty" msgpack:"query,omitempty" bson:"-" mapstructure:"query,omitempty"`
@@ -620,8 +620,8 @@ func (o *SparseValidateRQL) ToPlain() elemental.PlainIdentifiable {
 	if o.PolicyType != nil {
 		out.PolicyType = *o.PolicyType
 	}
-	if o.PrismaId != nil {
-		out.PrismaId = *o.PrismaId
+	if o.PrismaID != nil {
+		out.PrismaID = *o.PrismaID
 	}
 	if o.Query != nil {
 		out.Query = *o.Query

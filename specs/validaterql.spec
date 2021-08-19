@@ -20,7 +20,7 @@ attributes:
     type: string
     exposed: true
 
-  - name: prismaId
+  - name: prismaID
     description: The Prisma Cloud ID.
     type: integer
     exposed: true
