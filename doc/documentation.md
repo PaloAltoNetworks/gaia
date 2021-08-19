@@ -18921,7 +18921,7 @@ Default value:
 
 ## thought/crime
 
-### ValidateRQLReq
+### ValidateRQL
 
 TODO.
 
@@ -18929,10 +18929,7 @@ TODO.
 
 ```json
 {
-  "policyType": "network",
-  "prismaId": 0,
-  "query": "config from network where ...",
-  "searchType": "network_config"
+  "query": "config from network where ..."
 }
 ```
 
@@ -18944,13 +18941,19 @@ TODO.
 
 #### Attributes
 
-##### `policyType` [`required`]
+##### `error`
 
 Type: `string`
 
 TODO.
 
-##### `prismaId` [`required`]
+##### `policyType`
+
+Type: `string`
+
+TODO.
+
+##### `prismaId`
 
 Type: `integer`
 
@@ -18962,9 +18965,21 @@ Type: `string`
 
 TODO.
 
-##### `searchType` [`required`]
+##### `searchType`
 
 Type: `string`
+
+TODO.
+
+##### `status`
+
+Type: `integer`
+
+TODO.
+
+##### `timestamp`
+
+Type: `integer`
 
 TODO.
 

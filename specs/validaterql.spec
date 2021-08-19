@@ -2,7 +2,7 @@
 model:
   rest_name: validaterql
   resource_name: validaterql
-  entity_name: ValidateRQLReq
+  entity_name: ValidateRQL
   package: larl
   group: thought/crime
   description: TODO.
@@ -10,19 +10,20 @@ model:
 # Attributes
 attributes:
   v1:
+  - name: error
+    description: TODO.
+    type: string
+    exposed: true
+
   - name: policyType
     description: TODO.
     type: string
     exposed: true
-    required: true
-    example_value: network
 
   - name: prismaId
     description: TODO.
     type: integer
     exposed: true
-    required: true
-    example_value: 0
 
   - name: query
     description: TODO.
@@ -35,5 +36,13 @@ attributes:
     description: TODO.
     type: string
     exposed: true
-    required: true
-    example_value: network_config
+
+  - name: status
+    description: TODO.
+    type: integer
+    exposed: true
+
+  - name: timestamp
+    description: TODO.
+    type: integer
+    exposed: true

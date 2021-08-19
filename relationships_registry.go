@@ -5702,7 +5702,7 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[ValidateRQLReqIdentity] = &elemental.Relationship{
+	relationshipsRegistry[ValidateRQLIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
 		},
