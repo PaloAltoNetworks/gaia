@@ -1170,7 +1170,9 @@ relations:
 
 - rest_name: validaterql
   create:
-    description: TODO.
+    description: |-
+      Validates a given RQL query. This operation does not store data and has no side
+      effects.
 
 - rest_name: validateuiparameter
   create:
