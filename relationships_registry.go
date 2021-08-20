@@ -5702,6 +5702,12 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[ValidateRQLIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
 	relationshipsRegistry[ValidateUIParameterIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},

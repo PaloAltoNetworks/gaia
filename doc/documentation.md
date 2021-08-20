@@ -7100,6 +7100,68 @@ Type: `pctimevalue`
 
 The value of time range.
 
+### ValidateRQL
+
+Used to validate RQL queries.
+
+#### Example
+
+```json
+{
+  "query": "network from microseg.flow_record where id == '1'"
+}
+```
+
+#### Relations
+
+##### `POST /validaterql`
+
+Validates a given RQL query. This operation does not store data and has no side effects.
+
+#### Attributes
+
+##### `error`
+
+Type: `string`
+
+The error message if the query fails validation.
+
+##### `policyType`
+
+Type: `string`
+
+The type of the policy.
+
+##### `prismaID`
+
+Type: `integer`
+
+The Prisma Cloud ID.
+
+##### `query` [`required`]
+
+Type: `string`
+
+The query to validate.
+
+##### `searchType`
+
+Type: `string`
+
+The search type.
+
+##### `status`
+
+Type: `integer`
+
+The http status code of the response.
+
+##### `timestamp`
+
+Type: `integer`
+
+The timestamp of the query in nanoseconds.
+
 ## core/service
 
 ### ServicePublication
