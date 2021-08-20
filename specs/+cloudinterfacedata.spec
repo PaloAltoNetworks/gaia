@@ -46,6 +46,13 @@ attributes:
     - UnsupportedService
     example_value: Instance
 
+  - name: availabilityZone
+    description: Availability zone of the interface.
+    type: string
+    exposed: true
+    stored: true
+    example_value: us-east-1
+
   - name: relatedObjectID
     description: |-
       If the interface is of type or external, the relatedObjectID identifies the

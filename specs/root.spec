@@ -300,6 +300,10 @@ relations:
   create:
     description: Creates a CNS configuration object for the specified namespace.
 
+- rest_name: cnsrqlquery
+  create:
+    description: Retrieves RQL results for the specified alert.
+
 - rest_name: cnssearch
   create:
     description: Retrieves RQL search results.
@@ -1163,6 +1167,12 @@ relations:
     - $propagatable
   create:
     description: Creates a new enforcer policy.
+
+- rest_name: validaterql
+  create:
+    description: |-
+      Validates a given RQL query. This operation does not store data and has no side
+      effects.
 
 - rest_name: validateuiparameter
   create:

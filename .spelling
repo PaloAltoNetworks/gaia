@@ -57,6 +57,7 @@ CNSConfig
 CloudAlertRule
 CNSSuggestion
 CNSSearch
+CNSRQLQuery
 clientLocalID
 clob
 CNs
@@ -528,10 +529,7 @@ productInfoValue
 imageID
 imageIDs
 resourceType
-ReachableAndAllowed
-UnreachableOrRejected
-ReachableOnly
-UnreachableOnly
+Reachable
 
 nativeID
 ObjectIDs
@@ -542,3 +540,5 @@ prisma
 infrastructure
 pcn
 ServicePublication
+ValidateRQL
+http

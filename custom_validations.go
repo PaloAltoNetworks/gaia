@@ -961,7 +961,7 @@ func ValidateTagsWithoutReservedPrefixes(attribute string, tags []string) error 
 // ValidateExpressionNotEmpty validates that expression length is >= 1
 func ValidateExpressionNotEmpty(attribute string, expression [][]string) error {
 	if len(expression) == 0 {
-		return makeValidationError(attribute, "expression must contain at least one sub-expression")
+		return makeValidationError(attribute, "Expression must contain at least one sub-expression")
 	}
 	return nil
 }
@@ -970,7 +970,7 @@ func ValidateExpressionNotEmpty(attribute string, expression [][]string) error {
 func ValidateSubExpressionsNotEmpty(attribute string, expression [][]string) error {
 	for _, subExpr := range expression {
 		if len(subExpr) == 0 {
-			return makeValidationError(attribute, "sub-expression must not be empty")
+			return makeValidationError(attribute, "Sub-expression must not be empty")
 		}
 	}
 	return nil
@@ -992,7 +992,7 @@ func ValidateEachSubExpressionHasNoDuplicateTags(attribute string, expression []
 
 			err := makeValidationError(
 				attribute,
-				fmt.Sprintf("duplicate tag in a sub-expression: '%s'", tag),
+				fmt.Sprintf("Duplicate tag in a sub-expression: '%s'", tag),
 			)
 			return err
 		}
@@ -1020,7 +1020,7 @@ func ValidateNoDuplicateSubExpressions(attribute string, expression [][]string) 
 			continue
 		}
 
-		return makeValidationError(attribute, "duplicate equivalent sub-expressions found")
+		return makeValidationError(attribute, "Duplicate equivalent sub-expressions found")
 	}
 
 	return nil
@@ -1073,7 +1073,7 @@ func ValidateNoDuplicateNetworkRules(attribute string, rules []*NetworkRule) err
 		if prevRule, ok := seen[digest]; ok {
 			return makeValidationError(
 				attribute,
-				fmt.Sprintf("duplicate network rules at the following indexes: [%d, %d]", prevRule.index+1, iRule+1),
+				fmt.Sprintf("Duplicate network rules at the following indexes: [%d, %d]", prevRule.index+1, iRule+1),
 			)
 		}
 
@@ -1535,6 +1535,15 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 	if q.DestinationSelector != nil {
 		if err := ValidateCloudNetworkQueryFilter("destinationSelector", q.DestinationSelector); err != nil {
 			return err
+		}
+	}
+
+	if q.SourceIP == "" && q.DestinationIP == "" {
+		if q.SourceSelector != nil && len(q.SourceSelector.VPCIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "a single source VPC must be provided for all East/West queries")
+		}
+		if q.DestinationSelector != nil && len(q.DestinationSelector.VPCIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "a single destination VPC must be provided for all East/West queries")
 		}
 	}
 

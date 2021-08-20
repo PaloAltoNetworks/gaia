@@ -89,7 +89,7 @@ func TestValidateNoDuplicateNetworkRules(t *testing.T) {
 				},
 			},
 			attribute:   t.Name(),
-			expectedErr: makeValidationError(t.Name(), "duplicate network rules at the following indexes: [1, 2]"),
+			expectedErr: makeValidationError(t.Name(), "Duplicate network rules at the following indexes: [1, 2]"),
 		},
 		"invalid-duplicates-port-case-insensitive": {
 			rules: []*NetworkRule{
@@ -107,7 +107,7 @@ func TestValidateNoDuplicateNetworkRules(t *testing.T) {
 				},
 			},
 			attribute:   t.Name(),
-			expectedErr: makeValidationError(t.Name(), "duplicate network rules at the following indexes: [1, 2]"),
+			expectedErr: makeValidationError(t.Name(), "Duplicate network rules at the following indexes: [1, 2]"),
 		},
 		"invalid-duplicates-object-different-order": {
 			rules: []*NetworkRule{
@@ -125,7 +125,7 @@ func TestValidateNoDuplicateNetworkRules(t *testing.T) {
 				},
 			},
 			attribute:   t.Name(),
-			expectedErr: makeValidationError(t.Name(), "duplicate network rules at the following indexes: [1, 2]"),
+			expectedErr: makeValidationError(t.Name(), "Duplicate network rules at the following indexes: [1, 2]"),
 		},
 		"invalid-duplicates-object-different-order-2": {
 			rules: []*NetworkRule{
@@ -143,7 +143,7 @@ func TestValidateNoDuplicateNetworkRules(t *testing.T) {
 				},
 			},
 			attribute:   t.Name(),
-			expectedErr: makeValidationError(t.Name(), "duplicate network rules at the following indexes: [1, 2]"),
+			expectedErr: makeValidationError(t.Name(), "Duplicate network rules at the following indexes: [1, 2]"),
 		},
 		"invalid-duplicates-port-different-order": {
 			rules: []*NetworkRule{
@@ -161,7 +161,7 @@ func TestValidateNoDuplicateNetworkRules(t *testing.T) {
 				},
 			},
 			attribute:   t.Name(),
-			expectedErr: makeValidationError(t.Name(), "duplicate network rules at the following indexes: [1, 2]"),
+			expectedErr: makeValidationError(t.Name(), "Duplicate network rules at the following indexes: [1, 2]"),
 		},
 	}
 
@@ -4141,12 +4141,12 @@ func TestValidateExpressionNotEmpty(t *testing.T) {
 		"invalid-nil-expression": {
 			attribute:   t.Name(),
 			expression:  nil,
-			expectedErr: makeValidationError(t.Name(), "expression must contain at least one sub-expression"),
+			expectedErr: makeValidationError(t.Name(), "Expression must contain at least one sub-expression"),
 		},
 		"invalid-empty-expression": {
 			attribute:   t.Name(),
 			expression:  [][]string{},
-			expectedErr: makeValidationError(t.Name(), "expression must contain at least one sub-expression"),
+			expectedErr: makeValidationError(t.Name(), "Expression must contain at least one sub-expression"),
 		},
 	}
 
@@ -4194,7 +4194,7 @@ func TestValidateSubExpressionsNotEmpty(t *testing.T) {
 		"invalid-empty-expression": {
 			attribute:   t.Name(),
 			expression:  [][]string{{"a=b"}, {}},
-			expectedErr: makeValidationError(t.Name(), "sub-expression must not be empty"),
+			expectedErr: makeValidationError(t.Name(), "Sub-expression must not be empty"),
 		},
 	}
 
@@ -4242,7 +4242,7 @@ func TestValidateEachSubExpressionHasNoDuplicateTags(t *testing.T) {
 		"invalid-subexpression": {
 			attribute:   t.Name(),
 			expression:  [][]string{{"a=b"}, {"c=d", "c=d"}},
-			expectedErr: makeValidationError(t.Name(), "duplicate tag in a sub-expression: 'c=d'"),
+			expectedErr: makeValidationError(t.Name(), "Duplicate tag in a sub-expression: 'c=d'"),
 		},
 	}
 
@@ -4290,7 +4290,7 @@ func TestValidateNoDuplicateSubExpressions(t *testing.T) {
 		"invalid-expression": {
 			attribute:   t.Name(),
 			expression:  [][]string{{"a=b", "c=d"}, {"c=d"}, {"a=b"}, {"c=d", "a=b"}},
-			expectedErr: makeValidationError(t.Name(), "duplicate equivalent sub-expressions found"),
+			expectedErr: makeValidationError(t.Name(), "Duplicate equivalent sub-expressions found"),
 		},
 	}
 
@@ -4498,6 +4498,81 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 				},
 			},
 			true,
+		},
+		{
+			"east/west with no source VPC",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						AccountIDs: []string{"account1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"east/west with no destination VPC",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						AccountIDs: []string{"account1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"east/west with multiple source VPCs",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1", "vpc2"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"east/west with multiple destination VPCs",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1", "vpc2"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"east/west valid",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc2"},
+					},
+				},
+			},
+			false,
 		},
 		{
 			"source ip and selector set",

@@ -80,6 +80,7 @@ attributes:
     - $atLeastOneSubExpression
     - $subExpressionsNotEmpty
     - $noDuplicateTagsInEachSubExpression
+    - $noDuplicateSubExpressions
     - $tagsExpression
 
 # Relations
