@@ -20,6 +20,7 @@ const (
 )
 
 // NetworkRule represents the model of a networkrule
+// +k8s:openapi-gen=true
 type NetworkRule struct {
 	// Defines the action to apply to a flow.
 	// - `Allow`: allows the defined traffic.

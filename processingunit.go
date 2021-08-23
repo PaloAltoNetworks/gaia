@@ -2179,6 +2179,7 @@ func (o SparseProcessingUnitsList) Version() int {
 }
 
 // SparseProcessingUnit represents the sparse version of a processingunit.
+// +k8s:openapi-gen=true
 type SparseProcessingUnit struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`

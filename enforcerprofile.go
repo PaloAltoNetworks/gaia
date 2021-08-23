@@ -1683,6 +1683,7 @@ func (o SparseEnforcerProfilesList) Version() int {
 }
 
 // SparseEnforcerProfile represents the sparse version of a enforcerprofile.
+// +k8s:openapi-gen=true
 type SparseEnforcerProfile struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`

@@ -1355,6 +1355,7 @@ func (o SparseNetworkRuleSetPoliciesList) Version() int {
 }
 
 // SparseNetworkRuleSetPolicy represents the sparse version of a networkrulesetpolicy.
+// +k8s:openapi-gen=true
 type SparseNetworkRuleSetPolicy struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
