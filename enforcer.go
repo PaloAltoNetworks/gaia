@@ -2365,6 +2365,7 @@ func (o SparseEnforcersList) Version() int {
 }
 
 // SparseEnforcer represents the sparse version of a enforcer.
+// +k8s:openapi-gen=true
 type SparseEnforcer struct {
 	// Contains the fully qualified domain name (FQDN) of the server where the
 	// enforcer is running.
