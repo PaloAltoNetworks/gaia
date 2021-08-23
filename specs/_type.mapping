@@ -1,3 +1,17 @@
+'[][]cloudpathelement':
+  elemental:
+    type: '[][]*CloudPathElement'
+    init: '[][]*CloudPathElement{}'
+  jsonschema:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": true
+        }
+      }
+
 '[][]interface{}':
   elemental:
     type: '[][]interface{}'

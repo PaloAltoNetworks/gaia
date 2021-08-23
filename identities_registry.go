@@ -42,7 +42,8 @@ var (
 
 		"cloudnetworkruleset": CloudNetworkRuleSetIdentity,
 
-		"cloudnode":   CloudNodeIdentity,
+		"cloudnode": CloudNodeIdentity,
+
 		"cloudpolicy": CloudPolicyIdentity,
 
 		"cloudroutetable":            CloudRouteTableIdentity,
@@ -234,7 +235,8 @@ var (
 
 		"cloudnetworkrulesets": CloudNetworkRuleSetIdentity,
 
-		"cloudnodes":    CloudNodeIdentity,
+		"cloudnodes": CloudNodeIdentity,
+
 		"cloudpolicies": CloudPolicyIdentity,
 
 		"cloudroutetables":             CloudRouteTableIdentity,
