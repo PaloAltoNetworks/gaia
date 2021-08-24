@@ -298,6 +298,10 @@ func (o *APICheck) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
+	if err := elemental.ValidatePattern("namespace", o.Namespace, `^/[a-zA-Z0-9-_/]*$`, `must only contain alpha numerical characters, '-' or '_' and start with '/'`, true); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if err := elemental.ValidateRequiredString("operation", string(o.Operation)); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
@@ -371,6 +375,7 @@ var APICheckAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "external",
 	},
 	"Namespace": {
+		AllowedChars:   `^/[a-zA-Z0-9-_/]*$`,
 		AllowedChoices: []string{},
 		ConvertedName:  "Namespace",
 		Description:    `The namespace to use to check the API authorization.`,
@@ -419,6 +424,7 @@ var APICheckLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 		Type:           "external",
 	},
 	"namespace": {
+		AllowedChars:   `^/[a-zA-Z0-9-_/]*$`,
 		AllowedChoices: []string{},
 		ConvertedName:  "Namespace",
 		Description:    `The namespace to use to check the API authorization.`,

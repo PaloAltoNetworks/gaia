@@ -13056,7 +13056,7 @@ Type: `map[string]bool`
 
 Contains the results of the check.
 
-##### `namespace` [`required`]
+##### `namespace` [`required`,`format=^/[a-zA-Z0-9-_/]*$`]
 
 Type: `string`
 
