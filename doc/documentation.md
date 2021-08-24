@@ -7129,7 +7129,8 @@ Used to validate RQL queries.
 
 ##### `POST /validaterql`
 
-Validates a given RQL query. This operation does not store data and has no side effects.
+Validates a given RQL query. This operation does not store data and has no side
+effects.
 
 #### Attributes
 
