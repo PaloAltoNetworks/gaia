@@ -26,6 +26,8 @@ attributes:
     exposed: true
     required: true
     example_value: /namespace
+    allowed_chars: ^/[a-zA-Z0-9-_/]*$
+    allowed_chars_message: must only contain alpha numerical characters, '-' or '_' and start with '/'
 
   - name: operation
     description: The operation you want to check.
