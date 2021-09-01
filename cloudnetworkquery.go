@@ -12,14 +12,14 @@ import (
 type CloudNetworkQueryEffectiveActionValue string
 
 const (
-	// CloudNetworkQueryEffectiveActionAll represents the value All.
-	CloudNetworkQueryEffectiveActionAll CloudNetworkQueryEffectiveActionValue = "All"
+	// CloudNetworkQueryEffectiveActionAllowed represents the value Allowed.
+	CloudNetworkQueryEffectiveActionAllowed CloudNetworkQueryEffectiveActionValue = "Allowed"
 
-	// CloudNetworkQueryEffectiveActionReachableAndAllowed represents the value ReachableAndAllowed.
-	CloudNetworkQueryEffectiveActionReachableAndAllowed CloudNetworkQueryEffectiveActionValue = "ReachableAndAllowed"
+	// CloudNetworkQueryEffectiveActionDenied represents the value Denied.
+	CloudNetworkQueryEffectiveActionDenied CloudNetworkQueryEffectiveActionValue = "Denied"
 
-	// CloudNetworkQueryEffectiveActionReachableOnly represents the value ReachableOnly.
-	CloudNetworkQueryEffectiveActionReachableOnly CloudNetworkQueryEffectiveActionValue = "ReachableOnly"
+	// CloudNetworkQueryEffectiveActionReachable represents the value Reachable.
+	CloudNetworkQueryEffectiveActionReachable CloudNetworkQueryEffectiveActionValue = "Reachable"
 )
 
 // CloudNetworkQueryTypeValue represents the possible values for attribute "type".
@@ -31,6 +31,9 @@ const (
 
 	// CloudNetworkQueryTypeFullGraph represents the value FullGraph.
 	CloudNetworkQueryTypeFullGraph CloudNetworkQueryTypeValue = "FullGraph"
+
+	// CloudNetworkQueryTypeNetworkPath represents the value NetworkPath.
+	CloudNetworkQueryTypeNetworkPath CloudNetworkQueryTypeValue = "NetworkPath"
 
 	// CloudNetworkQueryTypeSummary represents the value Summary.
 	CloudNetworkQueryTypeSummary CloudNetworkQueryTypeValue = "Summary"
@@ -131,12 +134,12 @@ type CloudNetworkQuery struct {
 	// A filter for selecting destinations for the query.
 	DestinationSelector *CloudNetworkQueryFilter `json:"destinationSelector" msgpack:"destinationSelector" bson:"destinationselector" mapstructure:"destinationSelector,omitempty"`
 
-	// Filters the results based on the effective action. 'ReachableAndAllowed' means
+	// Filters the results based on the effective action. 'Allowed' means
 	// that a destination is both reachable and allowed by security rules.
-	// 'UnreachableOrRejected' means that the destination is either not reachable or
-	// rejected by security rules. 'ReachableOnly' means that all destinations that are
-	// reachable will be returned irrespective of their security verdict.
-	// 'UnreachableOnly' means that only unreachable destinations will be returned.
+	// 'Denied' means that the destination is reachable through routing,
+	// but traffic is blocked through one or more security rules. 'Reachable'
+	// returns all destinations that are reachable from the selected sources
+	// irrespective of the security rules.
 	EffectiveAction CloudNetworkQueryEffectiveActionValue `json:"effectiveAction" msgpack:"effectiveAction" bson:"effectiveaction" mapstructure:"effectiveAction,omitempty"`
 
 	// If set, the evaluation will exclude enterprise IPs from the effective
@@ -202,7 +205,7 @@ func NewCloudNetworkQuery() *CloudNetworkQuery {
 		DestinationSelector: NewCloudNetworkQueryFilter(),
 		AssociatedTags:      []string{},
 		ExcludedNetworks:    []string{},
-		EffectiveAction:     CloudNetworkQueryEffectiveActionReachableOnly,
+		EffectiveAction:     CloudNetworkQueryEffectiveActionReachable,
 		NormalizedTags:      []string{},
 		ProtocolPorts:       []string{},
 		MigrationsLog:       map[string]string{},
@@ -698,7 +701,7 @@ func (o *CloudNetworkQuery) Validate() error {
 		}
 	}
 
-	if err := elemental.ValidateStringInList("effectiveAction", string(o.EffectiveAction), []string{"ReachableAndAllowed", "ReachableOnly", "All"}, false); err != nil {
+	if err := elemental.ValidateStringInList("effectiveAction", string(o.EffectiveAction), []string{"Allowed", "Denied", "Reachable"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -729,7 +732,7 @@ func (o *CloudNetworkQuery) Validate() error {
 		}
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Summary", "CompressedGraph", "FullGraph"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Summary", "CompressedGraph", "FullGraph", "NetworkPath"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -915,16 +918,16 @@ var CloudNetworkQueryAttributesMap = map[string]elemental.AttributeSpecification
 		Type:           "ref",
 	},
 	"EffectiveAction": {
-		AllowedChoices: []string{"ReachableAndAllowed", "ReachableOnly", "All"},
+		AllowedChoices: []string{"Allowed", "Denied", "Reachable"},
 		BSONFieldName:  "effectiveaction",
 		ConvertedName:  "EffectiveAction",
-		DefaultValue:   CloudNetworkQueryEffectiveActionReachableOnly,
-		Description: `Filters the results based on the effective action. 'ReachableAndAllowed' means
+		DefaultValue:   CloudNetworkQueryEffectiveActionReachable,
+		Description: `Filters the results based on the effective action. 'Allowed' means
 that a destination is both reachable and allowed by security rules.
-'UnreachableOrRejected' means that the destination is either not reachable or
-rejected by security rules. 'ReachableOnly' means that all destinations that are
-reachable will be returned irrespective of their security verdict.
-'UnreachableOnly' means that only unreachable destinations will be returned.`,
+'Denied' means that the destination is reachable through routing,
+but traffic is blocked through one or more security rules. 'Reachable'
+returns all destinations that are reachable from the selected sources
+irrespective of the security rules.`,
 		Exposed: true,
 		Name:    "effectiveAction",
 		Stored:  true,
@@ -1071,7 +1074,7 @@ is not allowed.`,
 		Type:           "ref",
 	},
 	"Type": {
-		AllowedChoices: []string{"Summary", "CompressedGraph", "FullGraph"},
+		AllowedChoices: []string{"Summary", "CompressedGraph", "FullGraph", "NetworkPath"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		DefaultValue:   CloudNetworkQueryTypeSummary,
@@ -1216,16 +1219,16 @@ var CloudNetworkQueryLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 		Type:           "ref",
 	},
 	"effectiveaction": {
-		AllowedChoices: []string{"ReachableAndAllowed", "ReachableOnly", "All"},
+		AllowedChoices: []string{"Allowed", "Denied", "Reachable"},
 		BSONFieldName:  "effectiveaction",
 		ConvertedName:  "EffectiveAction",
-		DefaultValue:   CloudNetworkQueryEffectiveActionReachableOnly,
-		Description: `Filters the results based on the effective action. 'ReachableAndAllowed' means
+		DefaultValue:   CloudNetworkQueryEffectiveActionReachable,
+		Description: `Filters the results based on the effective action. 'Allowed' means
 that a destination is both reachable and allowed by security rules.
-'UnreachableOrRejected' means that the destination is either not reachable or
-rejected by security rules. 'ReachableOnly' means that all destinations that are
-reachable will be returned irrespective of their security verdict.
-'UnreachableOnly' means that only unreachable destinations will be returned.`,
+'Denied' means that the destination is reachable through routing,
+but traffic is blocked through one or more security rules. 'Reachable'
+returns all destinations that are reachable from the selected sources
+irrespective of the security rules.`,
 		Exposed: true,
 		Name:    "effectiveAction",
 		Stored:  true,
@@ -1372,7 +1375,7 @@ is not allowed.`,
 		Type:           "ref",
 	},
 	"type": {
-		AllowedChoices: []string{"Summary", "CompressedGraph", "FullGraph"},
+		AllowedChoices: []string{"Summary", "CompressedGraph", "FullGraph", "NetworkPath"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		DefaultValue:   CloudNetworkQueryTypeSummary,
@@ -1511,12 +1514,12 @@ type SparseCloudNetworkQuery struct {
 	// A filter for selecting destinations for the query.
 	DestinationSelector *CloudNetworkQueryFilter `json:"destinationSelector,omitempty" msgpack:"destinationSelector,omitempty" bson:"destinationselector,omitempty" mapstructure:"destinationSelector,omitempty"`
 
-	// Filters the results based on the effective action. 'ReachableAndAllowed' means
+	// Filters the results based on the effective action. 'Allowed' means
 	// that a destination is both reachable and allowed by security rules.
-	// 'UnreachableOrRejected' means that the destination is either not reachable or
-	// rejected by security rules. 'ReachableOnly' means that all destinations that are
-	// reachable will be returned irrespective of their security verdict.
-	// 'UnreachableOnly' means that only unreachable destinations will be returned.
+	// 'Denied' means that the destination is reachable through routing,
+	// but traffic is blocked through one or more security rules. 'Reachable'
+	// returns all destinations that are reachable from the selected sources
+	// irrespective of the security rules.
 	EffectiveAction *CloudNetworkQueryEffectiveActionValue `json:"effectiveAction,omitempty" msgpack:"effectiveAction,omitempty" bson:"effectiveaction,omitempty" mapstructure:"effectiveAction,omitempty"`
 
 	// If set, the evaluation will exclude enterprise IPs from the effective

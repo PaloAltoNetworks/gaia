@@ -529,10 +529,8 @@ productInfoValue
 imageID
 imageIDs
 resourceType
-ReachableAndAllowed
-UnreachableOrRejected
-ReachableOnly
-UnreachableOnly
+Reachable
+NetworkPath 
 
 nativeID
 ObjectIDs
@@ -543,3 +541,5 @@ prisma
 infrastructure
 pcn
 ServicePublication
+ValidateRQL
+http

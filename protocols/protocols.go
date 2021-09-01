@@ -11,147 +11,148 @@ const ANY = "ANY"
 // All L4 Protocols
 // (Ref https://en.wikipedia.org/wiki/List_of_IP_protocol_numbers)
 const (
-	L4ProtocolHOPOPT          = "HOPOPT"
-	L4ProtocolICMP            = "ICMP"
-	L4ProtocolIGMP            = "IGMP"
-	L4ProtocolGGP             = "GGP"
-	L4ProtocolIPIP            = "IPIP"
-	L4ProtocolST              = "ST"
-	L4ProtocolTCP             = "TCP"
-	L4ProtocolCBT             = "CBT"
-	L4ProtocolEGP             = "EGP"
-	L4ProtocolIGP             = "IGP"
-	L4ProtocolBBNRCCMON       = "BBN-RCC-MON"
-	L4ProtocolNVPII           = "NVP-II"
-	L4ProtocolPUP             = "PUP"
-	L4ProtocolARGUS           = "ARGUS"
-	L4ProtocolEMCON           = "EMCON"
-	L4ProtocolXNET            = "XNET"
-	L4ProtocolCHAOS           = "CHAOS"
-	L4ProtocolUDP             = "UDP"
-	L4ProtocolMUX             = "MUX"
-	L4ProtocolDCNMEAS         = "DCN-MEAS"
-	L4ProtocolHMP             = "HMP"
-	L4ProtocolPRM             = "PRM"
-	L4ProtocolXNSIDP          = "XNS-IDP"
-	L4ProtocolTRUNK1          = "TRUNK-1"
-	L4ProtocolTRUNK2          = "TRUNK-2"
-	L4ProtocolLEAF1           = "LEAF-1"
-	L4ProtocolLEAF2           = "LEAF-2"
-	L4ProtocolRDP             = "RDP"
-	L4ProtocolIRTP            = "IRTP"
-	L4ProtocolISOTP4          = "ISO-TP4"
-	L4ProtocolNETBLT          = "NETBLT"
-	L4ProtocolMFENSP          = "MFE-NSP"
-	L4ProtocolMERITINP        = "MERIT-INP"
-	L4ProtocolDCCP            = "DCCP"
-	L4Protocol3PC             = "3PC"
-	L4ProtocolIDPR            = "IDPR"
-	L4ProtocolXTP             = "XTP"
-	L4ProtocolDDP             = "DDP"
-	L4ProtocolIDPRCMTP        = "IDPR-CMTP"
-	L4ProtocolTP              = "TP++"
-	L4ProtocolIL              = "IL"
-	L4ProtocolIPv6            = "IPv6"
-	L4ProtocolSDRP            = "SDRP"
-	L4ProtocolIPv6Route       = "IPv6-Route"
-	L4ProtocolIPv6Frag        = "IPv6-Frag"
-	L4ProtocolIDRP            = "IDRP"
-	L4ProtocolRSVP            = "RSVP"
-	L4ProtocolGRE             = "GRE"
-	L4ProtocolDSR             = "DSR"
-	L4ProtocolBNA             = "BNA"
-	L4ProtocolESP             = "ESP"
-	L4ProtocolAH              = "AH"
-	L4ProtocolINLSP           = "I-NLSP"
-	L4ProtocolSWIPE           = "SWIPE"
-	L4ProtocolNARP            = "NARP"
-	L4ProtocolMOBILE          = "MOBILE"
-	L4ProtocolTLSP            = "TLSP"
-	L4ProtocolSKIP            = "SKIP"
-	L4ProtocolIPv6ICMP        = "IPV6-ICMP"
-	L4ProtocolIPv6NoNxt       = "IPV6-NoNxt"
-	L4ProtocolIPv6Opts        = "IPV6-Opts"
-	L4ProtocolAnyLocalHost    = "ANYLOCALHOST"
-	L4ProtocolAnyLocalNetwork = "ANYLOCALNETWORK"
-	L4ProtocolCFTP            = "CFTP"
-	L4ProtocolSATEXPAK        = "SAT-EXPAK"
-	L4ProtocolKRYPTOLAN       = "KRYPTOLAN"
-	L4ProtocolRVD             = "RVD"
-	L4ProtocolIPPC            = "IPPC"
-	L4ProtocolSATMON          = "SAT-MON"
-	L4ProtocolVISA            = "VISA"
-	L4ProtocolIPCU            = "IPCU"
-	L4ProtocolCPNX            = "CPNX"
-	L4ProtocolCPHB            = "CPHB"
-	L4ProtocolWSN             = "WSN"
-	L4ProtocolPVP             = "PVP"
-	L4ProtocolBRSATMON        = "BR-SAT-MON"
-	L4ProtocolSUNND           = "SUN-ND"
-	L4ProtocolWBMON           = "WB-MON"
-	L4ProtocolWBEXPAK         = "WB-EXPAK"
-	L4ProtocolISOIP           = "ISO-IP"
-	L4ProtocolVMTP            = "VMTP"
-	L4ProtocolSECUREVMTP      = "SECURE-VMTP"
-	L4ProtocolVINES           = "VINES"
-	L4ProtocolTTP             = "TTP"
-	L4ProtocolNSFNETIGP       = "NSFNET-IGP"
-	L4ProtocolDGP             = "DGP"
-	L4ProtocolTCF             = "TCF"
-	L4ProtocolEIGRP           = "EIGRP"
-	L4ProtocolOSPF            = "OSPF"
-	L4ProtocolSpriteRPC       = "Sprite-RPC"
-	L4ProtocolLARP            = "LARP"
-	L4ProtocolMTP             = "MTP"
-	L4ProtocolAX25            = "AX.25"
-	L4ProtocolOS              = "OS"
-	L4ProtocolMICP            = "MICP"
-	L4ProtocolSCCSP           = "SCC-SP"
-	L4ProtocolETHERIP         = "ETHERIP"
-	L4ProtocolENCAP           = "ENCAP"
-	L4ProtocolGMTP            = "GMTP"
-	L4ProtocolIFMP            = "IFMP"
-	L4ProtocolPNNI            = "PNNI"
-	L4ProtocolPIM             = "PIM"
-	L4ProtocolARIS            = "ARIS"
-	L4ProtocolSCPS            = "SCPS"
-	L4ProtocolQNX             = "QNX"
-	L4ProtocolAN              = "A/N"
-	L4ProtocolIPComp          = "IPCOMP"
-	L4ProtocolSNP             = "SNP"
-	L4ProtocolCompaqPeer      = "COMPAQ-PEER"
-	L4ProtocolIPXinIP         = "IPX-IN-IP"
-	L4ProtocolVRRP            = "VRRP"
-	L4ProtocolPGM             = "PGM"
-	L4ProtocolL2TP            = "L2TP"
-	L4ProtocolDDX             = "DDX"
-	L4ProtocolIATP            = "IATP"
-	L4ProtocolSTP             = "STP"
-	L4ProtocolSRP             = "SRP"
-	L4ProtocolUTI             = "UTI"
-	L4ProtocolSMP             = "SMP"
-	L4ProtocolSM              = "SM"
-	L4ProtocolPTP             = "PTP"
-	L4ProtocolISIS            = "ISIS"
-	L4ProtocolFIRE            = "FIRE"
-	L4ProtocolCRTP            = "CRTP"
-	L4ProtocolCRUDP           = "CRUDP"
-	L4ProtocolSSCOPMCE        = "SSCOPMCE"
-	L4ProtocolIPLT            = "IPLT"
-	L4ProtocolSPS             = "SPS"
-	L4ProtocolPIPE            = "PIPE"
-	L4ProtocolSCTP            = "SCTP"
-	L4ProtocolFC              = "FC"
-	L4ProtocolRSVPE2EIGNORE   = "RSVP-E2E-IGNORE"
-	L4ProtocolMobilityHeader  = "MOBILITY-HEADER"
-	L4ProtocolUDPLite         = "UDPLITE"
-	L4ProtocolMPLSinIP        = "MPLS-IN-IP"
-	L4Protocolmanet           = "MANET"
-	L4ProtocolHIP             = "HIP"
-	L4ProtocolShim6           = "SHIM6"
-	L4ProtocolWESP            = "WESP"
-	L4ProtocolROHC            = "ROHC"
-	L4ProtocolICMP6           = "ICMP6"
+	L4ProtocolHOPOPT            = "HOPOPT"
+	L4ProtocolICMP              = "ICMP"
+	L4ProtocolIGMP              = "IGMP"
+	L4ProtocolGGP               = "GGP"
+	L4ProtocolIPIP              = "IPIP"
+	L4ProtocolST                = "ST"
+	L4ProtocolTCP               = "TCP"
+	L4ProtocolCBT               = "CBT"
+	L4ProtocolEGP               = "EGP"
+	L4ProtocolIGP               = "IGP"
+	L4ProtocolBBNRCCMON         = "BBN-RCC-MON"
+	L4ProtocolNVPII             = "NVP-II"
+	L4ProtocolPUP               = "PUP"
+	L4ProtocolARGUS             = "ARGUS"
+	L4ProtocolEMCON             = "EMCON"
+	L4ProtocolXNET              = "XNET"
+	L4ProtocolCHAOS             = "CHAOS"
+	L4ProtocolUDP               = "UDP"
+	L4ProtocolMUX               = "MUX"
+	L4ProtocolDCNMEAS           = "DCN-MEAS"
+	L4ProtocolHMP               = "HMP"
+	L4ProtocolPRM               = "PRM"
+	L4ProtocolXNSIDP            = "XNS-IDP"
+	L4ProtocolTRUNK1            = "TRUNK-1"
+	L4ProtocolTRUNK2            = "TRUNK-2"
+	L4ProtocolLEAF1             = "LEAF-1"
+	L4ProtocolLEAF2             = "LEAF-2"
+	L4ProtocolRDP               = "RDP"
+	L4ProtocolIRTP              = "IRTP"
+	L4ProtocolISOTP4            = "ISO-TP4"
+	L4ProtocolNETBLT            = "NETBLT"
+	L4ProtocolMFENSP            = "MFE-NSP"
+	L4ProtocolMERITINP          = "MERIT-INP"
+	L4ProtocolDCCP              = "DCCP"
+	L4Protocol3PC               = "3PC"
+	L4ProtocolIDPR              = "IDPR"
+	L4ProtocolXTP               = "XTP"
+	L4ProtocolDDP               = "DDP"
+	L4ProtocolIDPRCMTP          = "IDPR-CMTP"
+	L4ProtocolTP                = "TP++"
+	L4ProtocolIL                = "IL"
+	L4ProtocolIPv6              = "IPv6"
+	L4ProtocolSDRP              = "SDRP"
+	L4ProtocolIPv6Route         = "IPv6-Route"
+	L4ProtocolIPv6Frag          = "IPv6-Frag"
+	L4ProtocolIDRP              = "IDRP"
+	L4ProtocolRSVP              = "RSVP"
+	L4ProtocolGRE               = "GRE"
+	L4ProtocolDSR               = "DSR"
+	L4ProtocolBNA               = "BNA"
+	L4ProtocolESP               = "ESP"
+	L4ProtocolAH                = "AH"
+	L4ProtocolINLSP             = "I-NLSP"
+	L4ProtocolSWIPE             = "SWIPE"
+	L4ProtocolNARP              = "NARP"
+	L4ProtocolMOBILE            = "MOBILE"
+	L4ProtocolTLSP              = "TLSP"
+	L4ProtocolSKIP              = "SKIP"
+	L4ProtocolIPv6ICMP          = "IPV6-ICMP"
+	L4ProtocolIPv6NoNxt         = "IPV6-NoNxt"
+	L4ProtocolIPv6Opts          = "IPV6-Opts"
+	L4ProtocolAnyLocalHost      = "ANYLOCALHOST"
+	L4ProtocolAnyLocalNetwork   = "ANYLOCALNETWORK"
+	L4ProtocolCFTP              = "CFTP"
+	L4ProtocolSATEXPAK          = "SAT-EXPAK"
+	L4ProtocolKRYPTOLAN         = "KRYPTOLAN"
+	L4ProtocolRVD               = "RVD"
+	L4ProtocolIPPC              = "IPPC"
+	L4ProtocolSATMON            = "SAT-MON"
+	L4ProtocolVISA              = "VISA"
+	L4ProtocolIPCU              = "IPCU"
+	L4ProtocolCPNX              = "CPNX"
+	L4ProtocolCPHB              = "CPHB"
+	L4ProtocolWSN               = "WSN"
+	L4ProtocolPVP               = "PVP"
+	L4ProtocolBRSATMON          = "BR-SAT-MON"
+	L4ProtocolSUNND             = "SUN-ND"
+	L4ProtocolWBMON             = "WB-MON"
+	L4ProtocolWBEXPAK           = "WB-EXPAK"
+	L4ProtocolISOIP             = "ISO-IP"
+	L4ProtocolVMTP              = "VMTP"
+	L4ProtocolSECUREVMTP        = "SECURE-VMTP"
+	L4ProtocolVINES             = "VINES"
+	L4ProtocolTTP               = "TTP"
+	L4ProtocolNSFNETIGP         = "NSFNET-IGP"
+	L4ProtocolDGP               = "DGP"
+	L4ProtocolTCF               = "TCF"
+	L4ProtocolEIGRP             = "EIGRP"
+	L4ProtocolOSPF              = "OSPF"
+	L4ProtocolSpriteRPC         = "Sprite-RPC"
+	L4ProtocolLARP              = "LARP"
+	L4ProtocolMTP               = "MTP"
+	L4ProtocolAX25              = "AX.25"
+	L4ProtocolOS                = "OS"
+	L4ProtocolMICP              = "MICP"
+	L4ProtocolSCCSP             = "SCC-SP"
+	L4ProtocolETHERIP           = "ETHERIP"
+	L4ProtocolENCAP             = "ENCAP"
+	L4ProtocolPrivateEncryption = "PrivateEncryption"
+	L4ProtocolGMTP              = "GMTP"
+	L4ProtocolIFMP              = "IFMP"
+	L4ProtocolPNNI              = "PNNI"
+	L4ProtocolPIM               = "PIM"
+	L4ProtocolARIS              = "ARIS"
+	L4ProtocolSCPS              = "SCPS"
+	L4ProtocolQNX               = "QNX"
+	L4ProtocolAN                = "A/N"
+	L4ProtocolIPComp            = "IPCOMP"
+	L4ProtocolSNP               = "SNP"
+	L4ProtocolCompaqPeer        = "COMPAQ-PEER"
+	L4ProtocolIPXinIP           = "IPX-IN-IP"
+	L4ProtocolVRRP              = "VRRP"
+	L4ProtocolPGM               = "PGM"
+	L4ProtocolL2TP              = "L2TP"
+	L4ProtocolDDX               = "DDX"
+	L4ProtocolIATP              = "IATP"
+	L4ProtocolSTP               = "STP"
+	L4ProtocolSRP               = "SRP"
+	L4ProtocolUTI               = "UTI"
+	L4ProtocolSMP               = "SMP"
+	L4ProtocolSM                = "SM"
+	L4ProtocolPTP               = "PTP"
+	L4ProtocolISIS              = "ISIS"
+	L4ProtocolFIRE              = "FIRE"
+	L4ProtocolCRTP              = "CRTP"
+	L4ProtocolCRUDP             = "CRUDP"
+	L4ProtocolSSCOPMCE          = "SSCOPMCE"
+	L4ProtocolIPLT              = "IPLT"
+	L4ProtocolSPS               = "SPS"
+	L4ProtocolPIPE              = "PIPE"
+	L4ProtocolSCTP              = "SCTP"
+	L4ProtocolFC                = "FC"
+	L4ProtocolRSVPE2EIGNORE     = "RSVP-E2E-IGNORE"
+	L4ProtocolMobilityHeader    = "MOBILITY-HEADER"
+	L4ProtocolUDPLite           = "UDPLITE"
+	L4ProtocolMPLSinIP          = "MPLS-IN-IP"
+	L4Protocolmanet             = "MANET"
+	L4ProtocolHIP               = "HIP"
+	L4ProtocolShim6             = "SHIM6"
+	L4ProtocolWESP              = "WESP"
+	L4ProtocolROHC              = "ROHC"
+	L4ProtocolICMP6             = "ICMP6"
 )
 
 // L4ProtocolNumbers contains the list of all IANA protocols organized by numbers
@@ -263,6 +264,7 @@ func init() {
 	L4ProtocolNumbers[96] = L4ProtocolSCCSP
 	L4ProtocolNumbers[97] = L4ProtocolETHERIP
 	L4ProtocolNumbers[98] = L4ProtocolENCAP
+	L4ProtocolNumbers[99] = L4ProtocolPrivateEncryption
 	L4ProtocolNumbers[100] = L4ProtocolGMTP
 	L4ProtocolNumbers[101] = L4ProtocolIFMP
 	L4ProtocolNumbers[102] = L4ProtocolPNNI
@@ -406,6 +408,7 @@ func init() {
 		96:  L4ProtocolSCCSP,
 		97:  L4ProtocolETHERIP,
 		98:  L4ProtocolENCAP,
+		99:  L4ProtocolPrivateEncryption,
 		100: L4ProtocolGMTP,
 		101: L4ProtocolIFMP,
 		102: L4ProtocolPNNI,
@@ -452,147 +455,148 @@ func init() {
 	}
 
 	L4ProtocolNames = map[string]int{
-		L4ProtocolHOPOPT:          0,
-		L4ProtocolICMP:            1,
-		L4ProtocolIGMP:            2,
-		L4ProtocolGGP:             3,
-		L4ProtocolIPIP:            4,
-		L4ProtocolST:              5,
-		L4ProtocolTCP:             6,
-		L4ProtocolCBT:             7,
-		L4ProtocolEGP:             8,
-		L4ProtocolIGP:             9,
-		L4ProtocolBBNRCCMON:       10,
-		L4ProtocolNVPII:           11,
-		L4ProtocolPUP:             12,
-		L4ProtocolARGUS:           13,
-		L4ProtocolEMCON:           14,
-		L4ProtocolXNET:            15,
-		L4ProtocolCHAOS:           16,
-		L4ProtocolUDP:             17,
-		L4ProtocolMUX:             18,
-		L4ProtocolDCNMEAS:         19,
-		L4ProtocolHMP:             20,
-		L4ProtocolPRM:             21,
-		L4ProtocolXNSIDP:          22,
-		L4ProtocolTRUNK1:          23,
-		L4ProtocolTRUNK2:          24,
-		L4ProtocolLEAF1:           25,
-		L4ProtocolLEAF2:           26,
-		L4ProtocolRDP:             27,
-		L4ProtocolIRTP:            28,
-		L4ProtocolISOTP4:          29,
-		L4ProtocolNETBLT:          30,
-		L4ProtocolMFENSP:          31,
-		L4ProtocolMERITINP:        32,
-		L4ProtocolDCCP:            33,
-		L4Protocol3PC:             34,
-		L4ProtocolIDPR:            35,
-		L4ProtocolXTP:             36,
-		L4ProtocolDDP:             37,
-		L4ProtocolIDPRCMTP:        38,
-		L4ProtocolTP:              39,
-		L4ProtocolIL:              40,
-		L4ProtocolIPv6:            41,
-		L4ProtocolSDRP:            42,
-		L4ProtocolIPv6Route:       43,
-		L4ProtocolIPv6Frag:        44,
-		L4ProtocolIDRP:            45,
-		L4ProtocolRSVP:            46,
-		L4ProtocolGRE:             47,
-		L4ProtocolDSR:             48,
-		L4ProtocolBNA:             49,
-		L4ProtocolESP:             50,
-		L4ProtocolAH:              51,
-		L4ProtocolINLSP:           52,
-		L4ProtocolSWIPE:           53,
-		L4ProtocolNARP:            54,
-		L4ProtocolMOBILE:          55,
-		L4ProtocolTLSP:            56,
-		L4ProtocolSKIP:            57,
-		L4ProtocolIPv6ICMP:        58,
-		L4ProtocolIPv6NoNxt:       59,
-		L4ProtocolIPv6Opts:        60,
-		L4ProtocolAnyLocalHost:    61,
-		L4ProtocolCFTP:            62,
-		L4ProtocolAnyLocalNetwork: 63,
-		L4ProtocolSATEXPAK:        64,
-		L4ProtocolKRYPTOLAN:       65,
-		L4ProtocolRVD:             66,
-		L4ProtocolIPPC:            67,
-		L4ProtocolSATMON:          69,
-		L4ProtocolVISA:            70,
-		L4ProtocolIPCU:            71,
-		L4ProtocolCPNX:            72,
-		L4ProtocolCPHB:            73,
-		L4ProtocolWSN:             74,
-		L4ProtocolPVP:             75,
-		L4ProtocolBRSATMON:        76,
-		L4ProtocolSUNND:           77,
-		L4ProtocolWBMON:           78,
-		L4ProtocolWBEXPAK:         79,
-		L4ProtocolISOIP:           80,
-		L4ProtocolVMTP:            81,
-		L4ProtocolSECUREVMTP:      82,
-		L4ProtocolVINES:           83,
-		L4ProtocolTTP:             84,
-		L4ProtocolNSFNETIGP:       85,
-		L4ProtocolDGP:             86,
-		L4ProtocolTCF:             87,
-		L4ProtocolEIGRP:           88,
-		L4ProtocolOSPF:            89,
-		L4ProtocolSpriteRPC:       90,
-		L4ProtocolLARP:            91,
-		L4ProtocolMTP:             92,
-		L4ProtocolAX25:            93,
-		L4ProtocolOS:              94,
-		L4ProtocolMICP:            95,
-		L4ProtocolSCCSP:           96,
-		L4ProtocolETHERIP:         97,
-		L4ProtocolENCAP:           98,
-		L4ProtocolGMTP:            100,
-		L4ProtocolIFMP:            101,
-		L4ProtocolPNNI:            102,
-		L4ProtocolPIM:             103,
-		L4ProtocolARIS:            104,
-		L4ProtocolSCPS:            105,
-		L4ProtocolQNX:             106,
-		L4ProtocolAN:              107,
-		L4ProtocolIPComp:          108,
-		L4ProtocolSNP:             109,
-		L4ProtocolCompaqPeer:      110,
-		L4ProtocolIPXinIP:         111,
-		L4ProtocolVRRP:            112,
-		L4ProtocolPGM:             113,
-		L4ProtocolL2TP:            115,
-		L4ProtocolDDX:             116,
-		L4ProtocolIATP:            117,
-		L4ProtocolSTP:             118,
-		L4ProtocolSRP:             119,
-		L4ProtocolUTI:             120,
-		L4ProtocolSMP:             121,
-		L4ProtocolSM:              122,
-		L4ProtocolPTP:             123,
-		L4ProtocolISIS:            124,
-		L4ProtocolFIRE:            125,
-		L4ProtocolCRTP:            126,
-		L4ProtocolCRUDP:           127,
-		L4ProtocolSSCOPMCE:        128,
-		L4ProtocolIPLT:            129,
-		L4ProtocolSPS:             130,
-		L4ProtocolPIPE:            131,
-		L4ProtocolSCTP:            132,
-		L4ProtocolFC:              133,
-		L4ProtocolRSVPE2EIGNORE:   134,
-		L4ProtocolMobilityHeader:  135,
-		L4ProtocolUDPLite:         136,
-		L4ProtocolMPLSinIP:        137,
-		L4Protocolmanet:           138,
-		L4ProtocolHIP:             139,
-		L4ProtocolShim6:           140,
-		L4ProtocolWESP:            141,
-		L4ProtocolROHC:            142,
-		L4ProtocolICMP6:           143,
+		L4ProtocolHOPOPT:            0,
+		L4ProtocolICMP:              1,
+		L4ProtocolIGMP:              2,
+		L4ProtocolGGP:               3,
+		L4ProtocolIPIP:              4,
+		L4ProtocolST:                5,
+		L4ProtocolTCP:               6,
+		L4ProtocolCBT:               7,
+		L4ProtocolEGP:               8,
+		L4ProtocolIGP:               9,
+		L4ProtocolBBNRCCMON:         10,
+		L4ProtocolNVPII:             11,
+		L4ProtocolPUP:               12,
+		L4ProtocolARGUS:             13,
+		L4ProtocolEMCON:             14,
+		L4ProtocolXNET:              15,
+		L4ProtocolCHAOS:             16,
+		L4ProtocolUDP:               17,
+		L4ProtocolMUX:               18,
+		L4ProtocolDCNMEAS:           19,
+		L4ProtocolHMP:               20,
+		L4ProtocolPRM:               21,
+		L4ProtocolXNSIDP:            22,
+		L4ProtocolTRUNK1:            23,
+		L4ProtocolTRUNK2:            24,
+		L4ProtocolLEAF1:             25,
+		L4ProtocolLEAF2:             26,
+		L4ProtocolRDP:               27,
+		L4ProtocolIRTP:              28,
+		L4ProtocolISOTP4:            29,
+		L4ProtocolNETBLT:            30,
+		L4ProtocolMFENSP:            31,
+		L4ProtocolMERITINP:          32,
+		L4ProtocolDCCP:              33,
+		L4Protocol3PC:               34,
+		L4ProtocolIDPR:              35,
+		L4ProtocolXTP:               36,
+		L4ProtocolDDP:               37,
+		L4ProtocolIDPRCMTP:          38,
+		L4ProtocolTP:                39,
+		L4ProtocolIL:                40,
+		L4ProtocolIPv6:              41,
+		L4ProtocolSDRP:              42,
+		L4ProtocolIPv6Route:         43,
+		L4ProtocolIPv6Frag:          44,
+		L4ProtocolIDRP:              45,
+		L4ProtocolRSVP:              46,
+		L4ProtocolGRE:               47,
+		L4ProtocolDSR:               48,
+		L4ProtocolBNA:               49,
+		L4ProtocolESP:               50,
+		L4ProtocolAH:                51,
+		L4ProtocolINLSP:             52,
+		L4ProtocolSWIPE:             53,
+		L4ProtocolNARP:              54,
+		L4ProtocolMOBILE:            55,
+		L4ProtocolTLSP:              56,
+		L4ProtocolSKIP:              57,
+		L4ProtocolIPv6ICMP:          58,
+		L4ProtocolIPv6NoNxt:         59,
+		L4ProtocolIPv6Opts:          60,
+		L4ProtocolAnyLocalHost:      61,
+		L4ProtocolCFTP:              62,
+		L4ProtocolAnyLocalNetwork:   63,
+		L4ProtocolSATEXPAK:          64,
+		L4ProtocolKRYPTOLAN:         65,
+		L4ProtocolRVD:               66,
+		L4ProtocolIPPC:              67,
+		L4ProtocolSATMON:            69,
+		L4ProtocolVISA:              70,
+		L4ProtocolIPCU:              71,
+		L4ProtocolCPNX:              72,
+		L4ProtocolCPHB:              73,
+		L4ProtocolWSN:               74,
+		L4ProtocolPVP:               75,
+		L4ProtocolBRSATMON:          76,
+		L4ProtocolSUNND:             77,
+		L4ProtocolWBMON:             78,
+		L4ProtocolWBEXPAK:           79,
+		L4ProtocolISOIP:             80,
+		L4ProtocolVMTP:              81,
+		L4ProtocolSECUREVMTP:        82,
+		L4ProtocolVINES:             83,
+		L4ProtocolTTP:               84,
+		L4ProtocolNSFNETIGP:         85,
+		L4ProtocolDGP:               86,
+		L4ProtocolTCF:               87,
+		L4ProtocolEIGRP:             88,
+		L4ProtocolOSPF:              89,
+		L4ProtocolSpriteRPC:         90,
+		L4ProtocolLARP:              91,
+		L4ProtocolMTP:               92,
+		L4ProtocolAX25:              93,
+		L4ProtocolOS:                94,
+		L4ProtocolMICP:              95,
+		L4ProtocolSCCSP:             96,
+		L4ProtocolETHERIP:           97,
+		L4ProtocolENCAP:             98,
+		L4ProtocolPrivateEncryption: 99,
+		L4ProtocolGMTP:              100,
+		L4ProtocolIFMP:              101,
+		L4ProtocolPNNI:              102,
+		L4ProtocolPIM:               103,
+		L4ProtocolARIS:              104,
+		L4ProtocolSCPS:              105,
+		L4ProtocolQNX:               106,
+		L4ProtocolAN:                107,
+		L4ProtocolIPComp:            108,
+		L4ProtocolSNP:               109,
+		L4ProtocolCompaqPeer:        110,
+		L4ProtocolIPXinIP:           111,
+		L4ProtocolVRRP:              112,
+		L4ProtocolPGM:               113,
+		L4ProtocolL2TP:              115,
+		L4ProtocolDDX:               116,
+		L4ProtocolIATP:              117,
+		L4ProtocolSTP:               118,
+		L4ProtocolSRP:               119,
+		L4ProtocolUTI:               120,
+		L4ProtocolSMP:               121,
+		L4ProtocolSM:                122,
+		L4ProtocolPTP:               123,
+		L4ProtocolISIS:              124,
+		L4ProtocolFIRE:              125,
+		L4ProtocolCRTP:              126,
+		L4ProtocolCRUDP:             127,
+		L4ProtocolSSCOPMCE:          128,
+		L4ProtocolIPLT:              129,
+		L4ProtocolSPS:               130,
+		L4ProtocolPIPE:              131,
+		L4ProtocolSCTP:              132,
+		L4ProtocolFC:                133,
+		L4ProtocolRSVPE2EIGNORE:     134,
+		L4ProtocolMobilityHeader:    135,
+		L4ProtocolUDPLite:           136,
+		L4ProtocolMPLSinIP:          137,
+		L4Protocolmanet:             138,
+		L4ProtocolHIP:               139,
+		L4ProtocolShim6:             140,
+		L4ProtocolWESP:              141,
+		L4ProtocolROHC:              142,
+		L4ProtocolICMP6:             143,
 	}
 }
 

@@ -42,7 +42,8 @@ var (
 
 		"cloudnetworkruleset": CloudNetworkRuleSetIdentity,
 
-		"cloudnode":   CloudNodeIdentity,
+		"cloudnode": CloudNodeIdentity,
+
 		"cloudpolicy": CloudPolicyIdentity,
 
 		"cloudroutetable":            CloudRouteTableIdentity,
@@ -188,6 +189,7 @@ var (
 		"trustednamespace": TrustedNamespaceIdentity,
 
 		"useraccesspolicy":     UserAccessPolicyIdentity,
+		"validaterql":          ValidateRQLIdentity,
 		"validateuiparameter":  ValidateUIParameterIdentity,
 		"vulnerability":        VulnerabilityIdentity,
 		"x509certificate":      X509CertificateIdentity,
@@ -233,7 +235,8 @@ var (
 
 		"cloudnetworkrulesets": CloudNetworkRuleSetIdentity,
 
-		"cloudnodes":    CloudNodeIdentity,
+		"cloudnodes": CloudNodeIdentity,
+
 		"cloudpolicies": CloudPolicyIdentity,
 
 		"cloudroutetables":             CloudRouteTableIdentity,
@@ -379,6 +382,7 @@ var (
 		"trustednamespaces": TrustedNamespaceIdentity,
 
 		"useraccesspolicies":    UserAccessPolicyIdentity,
+		"validaterql":           ValidateRQLIdentity,
 		"validateuiparameters":  ValidateUIParameterIdentity,
 		"vulnerabilities":       VulnerabilityIdentity,
 		"x509certificates":      X509CertificateIdentity,
@@ -1216,6 +1220,7 @@ var (
 			{"createIdempotencyKey"},
 		},
 		"useraccesspolicy":    nil,
+		"validaterql":         nil,
 		"validateuiparameter": nil,
 		"vulnerability": {
 			{":shard", ":unique", "zone", "zHash"},
@@ -1597,6 +1602,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewTrustedNamespace()
 	case UserAccessPolicyIdentity:
 		return NewUserAccessPolicy()
+	case ValidateRQLIdentity:
+		return NewValidateRQL()
 	case ValidateUIParameterIdentity:
 		return NewValidateUIParameter()
 	case VulnerabilityIdentity:
@@ -1936,6 +1943,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseTrustedNamespace()
 	case UserAccessPolicyIdentity:
 		return NewSparseUserAccessPolicy()
+	case ValidateRQLIdentity:
+		return NewSparseValidateRQL()
 	case ValidateUIParameterIdentity:
 		return NewSparseValidateUIParameter()
 	case VulnerabilityIdentity:
@@ -2285,6 +2294,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &TrustedNamespacesList{}
 	case UserAccessPolicyIdentity:
 		return &UserAccessPoliciesList{}
+	case ValidateRQLIdentity:
+		return &ValidateRQLsList{}
 	case ValidateUIParameterIdentity:
 		return &ValidateUIParametersList{}
 	case VulnerabilityIdentity:
@@ -2624,6 +2635,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseTrustedNamespacesList{}
 	case UserAccessPolicyIdentity:
 		return &SparseUserAccessPoliciesList{}
+	case ValidateRQLIdentity:
+		return &SparseValidateRQLsList{}
 	case ValidateUIParameterIdentity:
 		return &SparseValidateUIParametersList{}
 	case VulnerabilityIdentity:
@@ -2822,6 +2835,7 @@ func AllIdentities() []elemental.Identity {
 		TrustedCAIdentity,
 		TrustedNamespaceIdentity,
 		UserAccessPolicyIdentity,
+		ValidateRQLIdentity,
 		ValidateUIParameterIdentity,
 		VulnerabilityIdentity,
 		X509CertificateIdentity,
@@ -3310,6 +3324,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"usrpol",
 			"usrpols",
 		}
+	case ValidateRQLIdentity:
+		return []string{}
 	case ValidateUIParameterIdentity:
 		return []string{
 			"validparam",

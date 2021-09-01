@@ -1168,6 +1168,12 @@ relations:
   create:
     description: Creates a new enforcer policy.
 
+- rest_name: validaterql
+  create:
+    description: |-
+      Validates a given RQL query. This operation does not store data and has no side
+      effects.
+
 - rest_name: validateuiparameter
   create:
     description: Validates some UI parameters.
