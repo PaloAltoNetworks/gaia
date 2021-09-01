@@ -6,7 +6,7 @@ model:
   package: vargid
   group: pcn/infrastructure
   description: |-
-    CloudSchedulednNetworkQuery represents a CloudNetworkQuery that will be
+    CloudScheduledNetworkQuery represents a CloudNetworkQuery that will be
     scheduled periodically.
   extends:
   - '@zoned'

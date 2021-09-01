@@ -236,7 +236,7 @@ func (o *CloudScheduledNetworkQuery) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *CloudScheduledNetworkQuery) Doc() string {
 
-	return `CloudSchedulednNetworkQuery represents a CloudNetworkQuery that will be
+	return `CloudScheduledNetworkQuery represents a CloudNetworkQuery that will be
 scheduled periodically.`
 }
 
