@@ -202,7 +202,13 @@ _automation_entitlements:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "enum": ["", "retrieve-many", "retrieve", "create", "update", "delete", "patch", "info"]
+          }
+        }
       }
 
 _automation_events:
