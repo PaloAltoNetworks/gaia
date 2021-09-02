@@ -178,7 +178,10 @@ _audit_profile_rule_list:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "type": "array",
+        "items": {
+          "$ref": "audit-types.json#/auditprofilerule"
+        }
       }
 
 _automation_entitlements:
@@ -220,7 +223,13 @@ _automation_events:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+             "$ref": "elemental-types.json#/eventtype"
+          }
+        }
       }
 
 _cap_map:
@@ -252,7 +261,7 @@ _claims:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "$ref": "midgard-types.json#/midgardclaims"
       }
 
 _elemental_identifiable:
@@ -266,7 +275,7 @@ _elemental_identifiable:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "$ref": "elemental-types.json#/identifiable"
       }
 
 _portlist:
@@ -289,7 +298,11 @@ _portlist:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": true
+        }
       }
 
 _rendered_policy:
@@ -359,7 +372,9 @@ _vulnerability_level:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 7
       }
 
 elemental.Operation:
@@ -373,7 +388,7 @@ elemental.Operation:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "enum": ["retrieve-many", "retrieve", "create", "update", "delete", "patch", "info"]
       }
 
 json.RawMessage:
@@ -388,7 +403,7 @@ json.RawMessage:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "type": "string"
       }
 
 map[string][]map[string]interface{}:
@@ -586,7 +601,11 @@ map[string]map[string]cloudnetworkquerydestination:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "additionalProperties": true
+        }
       }
 
 map[string]map[string]interface{}:
@@ -670,7 +689,13 @@ networklist:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
       }
 
 pctimevalue:
@@ -703,5 +728,11 @@ uiparametersexpression:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "uiparametervisibility.json"
+          }
+        }
       }
