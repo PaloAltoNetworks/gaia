@@ -180,7 +180,7 @@ _audit_profile_rule_list:
       {
         "type": "array",
         "items": {
-          "$ref": "audit-types.json#/auditprofilerule"
+          "type": "object"
         }
       }
 
@@ -227,7 +227,25 @@ _automation_events:
         "additionalProperties": {
           "type": "array",
           "items": {
-             "$ref": "elemental-types.json#/eventtype"
+            "type": "object",
+            "properties": {
+              "entity": {
+                "type": "string"
+              },
+              "identity": {
+                "type": "string"
+              },
+              "type": {
+                "enum": ["create", "update", "delete", "error"]
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "encoding": {
+                "enum": ["application/json", "application/msgpack"]
+              }
+            }
           }
         }
       }
@@ -261,7 +279,65 @@ _claims:
   openapi3:
     type: |-
       {
-        "$ref": "midgard-types.json#/midgardclaims"
+        "type": "object",
+        "properties": {
+          "realm": {
+            "type": "string"
+          },
+          "quota": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object"
+          },
+          "opaque": {
+            "type": "object"
+          },
+          "restrictions": {
+            "type": "object",
+            "properties": {
+              "perms": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "namespace": {
+                "type": "string"
+              },
+              "networks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "aud": {
+            "type": "string"
+          },
+          "exp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "jti": {
+            "type": "string"
+          },
+          "iat": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "iss": {
+            "type": "string"
+          },
+          "nbf": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sub": {
+            "type": "string"
+          }
+        }
       }
 
 _elemental_identifiable:
@@ -732,7 +808,7 @@ uiparametersexpression:
         "items": {
           "type": "array",
           "items": {
-            "$ref": "uiparametervisibility.json"
+            "$ref": "#/components/schemas/uiparameter"
           }
         }
       }
