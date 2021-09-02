@@ -6,9 +6,8 @@ model:
   package: vargid
   group: pcn/infrastructure
   description: |-
-    CloudSchedulednNetworkQuery represents a CloudNetworkQuery that will be
+    CloudScheduledNetworkQuery represents a CloudNetworkQuery that will be
     scheduled periodically.
-  private: true
   extends:
   - '@zoned'
   - '@migratable'
@@ -65,6 +64,13 @@ attributes:
 
   - name: prismaCloudPolicyID
     description: Prisma Cloud Policy ID.
+    type: string
+    exposed: true
+    subtype: string
+    stored: true
+
+  - name: tenantPrismaID
+    description: Prisma ID of the tenant in which the Alert Rule is created.
     type: string
     exposed: true
     subtype: string

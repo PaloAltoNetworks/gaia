@@ -519,6 +519,7 @@ CloudNetworkRuleSetData
 CloudNode
 CloudRouteData
 CloudSubnetData
+CloudScheduledNetworkQuery
 CloudVPCData
 CloudManagedNetwork
 CloudSnapshotAccount
@@ -530,6 +531,7 @@ imageID
 imageIDs
 resourceType
 Reachable
+NetworkPath 
 
 nativeID
 ObjectIDs
@@ -540,3 +542,5 @@ prisma
 infrastructure
 pcn
 ServicePublication
+ValidateRQL
+http

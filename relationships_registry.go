@@ -770,6 +770,9 @@ func init() {
 	}
 
 	relationshipsRegistry[CloudAlertRuleIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
 		Update: map[string]*elemental.RelationshipInfo{
 			"root": {},
 		},
@@ -1095,6 +1098,7 @@ func init() {
 	relationshipsRegistry[CloudPolicyIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"cloudnetworkquery": {},
+			"root":              {},
 		},
 		Update: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -1192,6 +1196,12 @@ func init() {
 
 	relationshipsRegistry[CloudScheduledNetworkQueryIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
 			"root": {},
 		},
 	}
@@ -5699,6 +5709,12 @@ func init() {
 					},
 				},
 			},
+		},
+	}
+
+	relationshipsRegistry[ValidateRQLIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
 		},
 	}
 
