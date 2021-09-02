@@ -405,7 +405,10 @@ _rendered_policy:
   openapi3:
     type: |-
       {
-        "type": "object"
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/policyrule"
+        }
       }
 
 _syscall_action:
