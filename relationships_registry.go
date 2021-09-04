@@ -5329,6 +5329,10 @@ func init() {
 			"root": {
 				Parameters: []elemental.ParameterDefinition{
 					{
+						Name: "includePropagatedExtNets",
+						Type: "boolean",
+					},
+					{
 						Name: "onlyPolicyTags",
 						Type: "boolean",
 					},
@@ -5343,6 +5347,10 @@ func init() {
 		Info: map[string]*elemental.RelationshipInfo{
 			"root": {
 				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "includePropagatedExtNets",
+						Type: "boolean",
+					},
 					{
 						Name: "onlyPolicyTags",
 						Type: "boolean",

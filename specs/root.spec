@@ -1111,6 +1111,10 @@ relations:
     - $filtering
     parameters:
       entries:
+      - name: includePropagatedExtNets
+        description: if set to true, include propagated external network name tags.
+        type: boolean
+
       - name: onlyPolicyTags
         description: if set to true, only return tags that match the tag prefixes.
         type: boolean

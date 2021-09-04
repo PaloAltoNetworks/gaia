@@ -7241,6 +7241,7 @@ Retrieves the list of existing tags in the system.
 
 Parameters:
 
+- `includePropagatedExtNets` (`boolean`): if set to true, include propagated external network name tags.
 - `onlyPolicyTags` (`boolean`): if set to true, only return tags that match the tag prefixes.
 - `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
 
