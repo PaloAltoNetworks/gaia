@@ -110,6 +110,10 @@ $noDuplicateRules:
   elemental:
     name: ValidateNoDuplicateNetworkRules
 
+$noDuplicateLabelRules:
+  elemental:
+    name: ValidateNoDuplicateNetworkLabelRules
+
 $noDuplicateSubExpressions:
   elemental:
     name: ValidateNoDuplicateSubExpressions

@@ -203,8 +203,10 @@ NamespaceType
 NamespaceUnique
 NetworkAccessPolicy
 NetworkRule
+NetworkLabelRule
 NetworkRuleNet
 NetworkRuleSetPolicy
+NetworkLabelRuleSetPolicy
 NfQueue
 nginx
 nip.io
@@ -303,6 +305,7 @@ SAML
 SAMLProvider
 ScopesSupported
 searchable
+SELinux
 SerialNumber
 ServiceCertificate
 ServiceDependencyPolicy

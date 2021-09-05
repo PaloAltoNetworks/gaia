@@ -176,6 +176,15 @@ type CachedFlowReport struct {
 	// Port of the destination.
 	DestinationPort int `json:"destinationPort,omitempty" msgpack:"destinationPort,omitempty" bson:"g,omitempty" mapstructure:"destinationPort,omitempty"`
 
+	// The executable of the destination process.
+	DestinationProcessExecutable string `json:"destinationProcessExecutable,omitempty" msgpack:"destinationProcessExecutable,omitempty" bson:"ao,omitempty" mapstructure:"destinationProcessExecutable,omitempty"`
+
+	// SELinux context of the destination process.
+	DestinationProcessSelCtx string `json:"destinationProcessSelCtx,omitempty" msgpack:"destinationProcessSelCtx,omitempty" bson:"an,omitempty" mapstructure:"destinationProcessSelCtx,omitempty"`
+
+	// The User ID (UID) of the destination process.
+	DestinationProcessUID int `json:"destinationProcessUID,omitempty" msgpack:"destinationProcessUID,omitempty" bson:"ap,omitempty" mapstructure:"destinationProcessUID,omitempty"`
+
 	// Destination type.
 	DestinationType CachedFlowReportDestinationTypeValue `json:"destinationType,omitempty" msgpack:"destinationType,omitempty" bson:"h,omitempty" mapstructure:"destinationType,omitempty"`
 
@@ -270,6 +279,15 @@ type CachedFlowReport struct {
 	// Identifier of the source platform.
 	SourcePlatform string `json:"sourcePlatform,omitempty" msgpack:"sourcePlatform,omitempty" bson:"ae,omitempty" mapstructure:"sourcePlatform,omitempty"`
 
+	// The executable of the source process.
+	SourceProcessExecutable string `json:"sourceProcessExecutable,omitempty" msgpack:"sourceProcessExecutable,omitempty" bson:"aq,omitempty" mapstructure:"sourceProcessExecutable,omitempty"`
+
+	// SELinux context of the source process.
+	SourceProcessSelCtx string `json:"sourceProcessSelCtx,omitempty" msgpack:"sourceProcessSelCtx,omitempty" bson:"ar,omitempty" mapstructure:"sourceProcessSelCtx,omitempty"`
+
+	// The User ID (UID) of the source process.
+	SourceProcessUID int `json:"sourceProcessUID,omitempty" msgpack:"sourceProcessUID,omitempty" bson:"am,omitempty" mapstructure:"sourceProcessUID,omitempty"`
+
 	// Type of the source.
 	SourceType CachedFlowReportSourceTypeValue `json:"sourceType,omitempty" msgpack:"sourceType,omitempty" bson:"af,omitempty" mapstructure:"sourceType,omitempty"`
 
@@ -294,9 +312,9 @@ func NewCachedFlowReport() *CachedFlowReport {
 
 	return &CachedFlowReport{
 		ModelVersion:   1,
-		ObservedAction: CachedFlowReportObservedActionNotApplicable,
-		ServiceType:    CachedFlowReportServiceTypeNotApplicable,
 		MigrationsLog:  map[string]string{},
+		ServiceType:    CachedFlowReportServiceTypeNotApplicable,
+		ObservedAction: CachedFlowReportObservedActionNotApplicable,
 	}
 }
 
@@ -338,6 +356,9 @@ func (o *CachedFlowReport) GetBSON() (interface{}, error) {
 	s.DestinationNamespace = o.DestinationNamespace
 	s.DestinationPlatform = o.DestinationPlatform
 	s.DestinationPort = o.DestinationPort
+	s.DestinationProcessExecutable = o.DestinationProcessExecutable
+	s.DestinationProcessSelCtx = o.DestinationProcessSelCtx
+	s.DestinationProcessUID = o.DestinationProcessUID
 	s.DestinationType = o.DestinationType
 	s.DropReason = o.DropReason
 	s.Encrypted = o.Encrypted
@@ -368,6 +389,9 @@ func (o *CachedFlowReport) GetBSON() (interface{}, error) {
 	s.SourceIP = o.SourceIP
 	s.SourceNamespace = o.SourceNamespace
 	s.SourcePlatform = o.SourcePlatform
+	s.SourceProcessExecutable = o.SourceProcessExecutable
+	s.SourceProcessSelCtx = o.SourceProcessSelCtx
+	s.SourceProcessUID = o.SourceProcessUID
 	s.SourceType = o.SourceType
 	s.Timestamp = o.Timestamp
 	s.Value = o.Value
@@ -398,6 +422,9 @@ func (o *CachedFlowReport) SetBSON(raw bson.Raw) error {
 	o.DestinationNamespace = s.DestinationNamespace
 	o.DestinationPlatform = s.DestinationPlatform
 	o.DestinationPort = s.DestinationPort
+	o.DestinationProcessExecutable = s.DestinationProcessExecutable
+	o.DestinationProcessSelCtx = s.DestinationProcessSelCtx
+	o.DestinationProcessUID = s.DestinationProcessUID
 	o.DestinationType = s.DestinationType
 	o.DropReason = s.DropReason
 	o.Encrypted = s.Encrypted
@@ -428,6 +455,9 @@ func (o *CachedFlowReport) SetBSON(raw bson.Raw) error {
 	o.SourceIP = s.SourceIP
 	o.SourceNamespace = s.SourceNamespace
 	o.SourcePlatform = s.SourcePlatform
+	o.SourceProcessExecutable = s.SourceProcessExecutable
+	o.SourceProcessSelCtx = s.SourceProcessSelCtx
+	o.SourceProcessUID = s.SourceProcessUID
 	o.SourceType = s.SourceType
 	o.Timestamp = s.Timestamp
 	o.Value = s.Value
@@ -509,49 +539,55 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseCachedFlowReport{
-			ID:                      &o.ID,
-			Action:                  &o.Action,
-			DestinationController:   &o.DestinationController,
-			DestinationID:           &o.DestinationID,
-			DestinationIP:           &o.DestinationIP,
-			DestinationNamespace:    &o.DestinationNamespace,
-			DestinationPlatform:     &o.DestinationPlatform,
-			DestinationPort:         &o.DestinationPort,
-			DestinationType:         &o.DestinationType,
-			DropReason:              &o.DropReason,
-			Encrypted:               &o.Encrypted,
-			EnforcerID:              &o.EnforcerID,
-			IsLocalDestinationID:    &o.IsLocalDestinationID,
-			IsLocalSourceID:         &o.IsLocalSourceID,
-			MigrationsLog:           &o.MigrationsLog,
-			Namespace:               &o.Namespace,
-			Observed:                &o.Observed,
-			ObservedAction:          &o.ObservedAction,
-			ObservedDropReason:      &o.ObservedDropReason,
-			ObservedEncrypted:       &o.ObservedEncrypted,
-			ObservedPolicyID:        &o.ObservedPolicyID,
-			ObservedPolicyNamespace: &o.ObservedPolicyNamespace,
-			PolicyID:                &o.PolicyID,
-			PolicyNamespace:         &o.PolicyNamespace,
-			Protocol:                &o.Protocol,
-			RemoteNamespace:         &o.RemoteNamespace,
-			RemotePolicyID:          &o.RemotePolicyID,
-			RuleName:                &o.RuleName,
-			ServiceClaimHash:        &o.ServiceClaimHash,
-			ServiceID:               &o.ServiceID,
-			ServiceNamespace:        &o.ServiceNamespace,
-			ServiceType:             &o.ServiceType,
-			ServiceURL:              &o.ServiceURL,
-			SourceController:        &o.SourceController,
-			SourceID:                &o.SourceID,
-			SourceIP:                &o.SourceIP,
-			SourceNamespace:         &o.SourceNamespace,
-			SourcePlatform:          &o.SourcePlatform,
-			SourceType:              &o.SourceType,
-			Timestamp:               &o.Timestamp,
-			Value:                   &o.Value,
-			ZHash:                   &o.ZHash,
-			Zone:                    &o.Zone,
+			ID:                           &o.ID,
+			Action:                       &o.Action,
+			DestinationController:        &o.DestinationController,
+			DestinationID:                &o.DestinationID,
+			DestinationIP:                &o.DestinationIP,
+			DestinationNamespace:         &o.DestinationNamespace,
+			DestinationPlatform:          &o.DestinationPlatform,
+			DestinationPort:              &o.DestinationPort,
+			DestinationProcessExecutable: &o.DestinationProcessExecutable,
+			DestinationProcessSelCtx:     &o.DestinationProcessSelCtx,
+			DestinationProcessUID:        &o.DestinationProcessUID,
+			DestinationType:              &o.DestinationType,
+			DropReason:                   &o.DropReason,
+			Encrypted:                    &o.Encrypted,
+			EnforcerID:                   &o.EnforcerID,
+			IsLocalDestinationID:         &o.IsLocalDestinationID,
+			IsLocalSourceID:              &o.IsLocalSourceID,
+			MigrationsLog:                &o.MigrationsLog,
+			Namespace:                    &o.Namespace,
+			Observed:                     &o.Observed,
+			ObservedAction:               &o.ObservedAction,
+			ObservedDropReason:           &o.ObservedDropReason,
+			ObservedEncrypted:            &o.ObservedEncrypted,
+			ObservedPolicyID:             &o.ObservedPolicyID,
+			ObservedPolicyNamespace:      &o.ObservedPolicyNamespace,
+			PolicyID:                     &o.PolicyID,
+			PolicyNamespace:              &o.PolicyNamespace,
+			Protocol:                     &o.Protocol,
+			RemoteNamespace:              &o.RemoteNamespace,
+			RemotePolicyID:               &o.RemotePolicyID,
+			RuleName:                     &o.RuleName,
+			ServiceClaimHash:             &o.ServiceClaimHash,
+			ServiceID:                    &o.ServiceID,
+			ServiceNamespace:             &o.ServiceNamespace,
+			ServiceType:                  &o.ServiceType,
+			ServiceURL:                   &o.ServiceURL,
+			SourceController:             &o.SourceController,
+			SourceID:                     &o.SourceID,
+			SourceIP:                     &o.SourceIP,
+			SourceNamespace:              &o.SourceNamespace,
+			SourcePlatform:               &o.SourcePlatform,
+			SourceProcessExecutable:      &o.SourceProcessExecutable,
+			SourceProcessSelCtx:          &o.SourceProcessSelCtx,
+			SourceProcessUID:             &o.SourceProcessUID,
+			SourceType:                   &o.SourceType,
+			Timestamp:                    &o.Timestamp,
+			Value:                        &o.Value,
+			ZHash:                        &o.ZHash,
+			Zone:                         &o.Zone,
 		}
 	}
 
@@ -574,6 +610,12 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.DestinationPlatform = &(o.DestinationPlatform)
 		case "destinationPort":
 			sp.DestinationPort = &(o.DestinationPort)
+		case "destinationProcessExecutable":
+			sp.DestinationProcessExecutable = &(o.DestinationProcessExecutable)
+		case "destinationProcessSelCtx":
+			sp.DestinationProcessSelCtx = &(o.DestinationProcessSelCtx)
+		case "destinationProcessUID":
+			sp.DestinationProcessUID = &(o.DestinationProcessUID)
 		case "destinationType":
 			sp.DestinationType = &(o.DestinationType)
 		case "dropReason":
@@ -634,6 +676,12 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.SourceNamespace = &(o.SourceNamespace)
 		case "sourcePlatform":
 			sp.SourcePlatform = &(o.SourcePlatform)
+		case "sourceProcessExecutable":
+			sp.SourceProcessExecutable = &(o.SourceProcessExecutable)
+		case "sourceProcessSelCtx":
+			sp.SourceProcessSelCtx = &(o.SourceProcessSelCtx)
+		case "sourceProcessUID":
+			sp.SourceProcessUID = &(o.SourceProcessUID)
 		case "sourceType":
 			sp.SourceType = &(o.SourceType)
 		case "timestamp":
@@ -680,6 +728,15 @@ func (o *CachedFlowReport) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.DestinationPort != nil {
 		o.DestinationPort = *so.DestinationPort
+	}
+	if so.DestinationProcessExecutable != nil {
+		o.DestinationProcessExecutable = *so.DestinationProcessExecutable
+	}
+	if so.DestinationProcessSelCtx != nil {
+		o.DestinationProcessSelCtx = *so.DestinationProcessSelCtx
+	}
+	if so.DestinationProcessUID != nil {
+		o.DestinationProcessUID = *so.DestinationProcessUID
 	}
 	if so.DestinationType != nil {
 		o.DestinationType = *so.DestinationType
@@ -770,6 +827,15 @@ func (o *CachedFlowReport) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.SourcePlatform != nil {
 		o.SourcePlatform = *so.SourcePlatform
+	}
+	if so.SourceProcessExecutable != nil {
+		o.SourceProcessExecutable = *so.SourceProcessExecutable
+	}
+	if so.SourceProcessSelCtx != nil {
+		o.SourceProcessSelCtx = *so.SourceProcessSelCtx
+	}
+	if so.SourceProcessUID != nil {
+		o.SourceProcessUID = *so.SourceProcessUID
 	}
 	if so.SourceType != nil {
 		o.SourceType = *so.SourceType
@@ -929,6 +995,12 @@ func (o *CachedFlowReport) ValueForAttribute(name string) interface{} {
 		return o.DestinationPlatform
 	case "destinationPort":
 		return o.DestinationPort
+	case "destinationProcessExecutable":
+		return o.DestinationProcessExecutable
+	case "destinationProcessSelCtx":
+		return o.DestinationProcessSelCtx
+	case "destinationProcessUID":
+		return o.DestinationProcessUID
 	case "destinationType":
 		return o.DestinationType
 	case "dropReason":
@@ -989,6 +1061,12 @@ func (o *CachedFlowReport) ValueForAttribute(name string) interface{} {
 		return o.SourceNamespace
 	case "sourcePlatform":
 		return o.SourcePlatform
+	case "sourceProcessExecutable":
+		return o.SourceProcessExecutable
+	case "sourceProcessSelCtx":
+		return o.SourceProcessSelCtx
+	case "sourceProcessUID":
+		return o.SourceProcessUID
 	case "sourceType":
 		return o.SourceType
 	case "timestamp":
@@ -1092,6 +1170,36 @@ property does nothing.`,
 		Description:    `Port of the destination.`,
 		Exposed:        true,
 		Name:           "destinationPort",
+		Stored:         true,
+		Type:           "integer",
+	},
+	"DestinationProcessExecutable": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ao",
+		ConvertedName:  "DestinationProcessExecutable",
+		Description:    `The executable of the destination process.`,
+		Exposed:        true,
+		Name:           "destinationProcessExecutable",
+		Stored:         true,
+		Type:           "string",
+	},
+	"DestinationProcessSelCtx": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "an",
+		ConvertedName:  "DestinationProcessSelCtx",
+		Description:    `SELinux context of the destination process.`,
+		Exposed:        true,
+		Name:           "destinationProcessSelCtx",
+		Stored:         true,
+		Type:           "string",
+	},
+	"DestinationProcessUID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ap",
+		ConvertedName:  "DestinationProcessUID",
+		Description:    `The User ID (UID) of the destination process.`,
+		Exposed:        true,
+		Name:           "destinationProcessUID",
 		Stored:         true,
 		Type:           "integer",
 	},
@@ -1410,6 +1518,36 @@ property does nothing.`,
 		Stored:         true,
 		Type:           "string",
 	},
+	"SourceProcessExecutable": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "aq",
+		ConvertedName:  "SourceProcessExecutable",
+		Description:    `The executable of the source process.`,
+		Exposed:        true,
+		Name:           "sourceProcessExecutable",
+		Stored:         true,
+		Type:           "string",
+	},
+	"SourceProcessSelCtx": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ar",
+		ConvertedName:  "SourceProcessSelCtx",
+		Description:    `SELinux context of the source process.`,
+		Exposed:        true,
+		Name:           "sourceProcessSelCtx",
+		Stored:         true,
+		Type:           "string",
+	},
+	"SourceProcessUID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "am",
+		ConvertedName:  "SourceProcessUID",
+		Description:    `The User ID (UID) of the source process.`,
+		Exposed:        true,
+		Name:           "sourceProcessUID",
+		Stored:         true,
+		Type:           "integer",
+	},
 	"SourceType": {
 		AllowedChoices: []string{"ProcessingUnit", "ExternalNetwork", "Claims"},
 		BSONFieldName:  "af",
@@ -1561,6 +1699,36 @@ property does nothing.`,
 		Description:    `Port of the destination.`,
 		Exposed:        true,
 		Name:           "destinationPort",
+		Stored:         true,
+		Type:           "integer",
+	},
+	"destinationprocessexecutable": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ao",
+		ConvertedName:  "DestinationProcessExecutable",
+		Description:    `The executable of the destination process.`,
+		Exposed:        true,
+		Name:           "destinationProcessExecutable",
+		Stored:         true,
+		Type:           "string",
+	},
+	"destinationprocessselctx": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "an",
+		ConvertedName:  "DestinationProcessSelCtx",
+		Description:    `SELinux context of the destination process.`,
+		Exposed:        true,
+		Name:           "destinationProcessSelCtx",
+		Stored:         true,
+		Type:           "string",
+	},
+	"destinationprocessuid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ap",
+		ConvertedName:  "DestinationProcessUID",
+		Description:    `The User ID (UID) of the destination process.`,
+		Exposed:        true,
+		Name:           "destinationProcessUID",
 		Stored:         true,
 		Type:           "integer",
 	},
@@ -1879,6 +2047,36 @@ property does nothing.`,
 		Stored:         true,
 		Type:           "string",
 	},
+	"sourceprocessexecutable": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "aq",
+		ConvertedName:  "SourceProcessExecutable",
+		Description:    `The executable of the source process.`,
+		Exposed:        true,
+		Name:           "sourceProcessExecutable",
+		Stored:         true,
+		Type:           "string",
+	},
+	"sourceprocessselctx": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ar",
+		ConvertedName:  "SourceProcessSelCtx",
+		Description:    `SELinux context of the source process.`,
+		Exposed:        true,
+		Name:           "sourceProcessSelCtx",
+		Stored:         true,
+		Type:           "string",
+	},
+	"sourceprocessuid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "am",
+		ConvertedName:  "SourceProcessUID",
+		Description:    `The User ID (UID) of the source process.`,
+		Exposed:        true,
+		Name:           "sourceProcessUID",
+		Stored:         true,
+		Type:           "integer",
+	},
 	"sourcetype": {
 		AllowedChoices: []string{"ProcessingUnit", "ExternalNetwork", "Claims"},
 		BSONFieldName:  "af",
@@ -2030,6 +2228,15 @@ type SparseCachedFlowReport struct {
 	// Port of the destination.
 	DestinationPort *int `json:"destinationPort,omitempty" msgpack:"destinationPort,omitempty" bson:"g,omitempty" mapstructure:"destinationPort,omitempty"`
 
+	// The executable of the destination process.
+	DestinationProcessExecutable *string `json:"destinationProcessExecutable,omitempty" msgpack:"destinationProcessExecutable,omitempty" bson:"ao,omitempty" mapstructure:"destinationProcessExecutable,omitempty"`
+
+	// SELinux context of the destination process.
+	DestinationProcessSelCtx *string `json:"destinationProcessSelCtx,omitempty" msgpack:"destinationProcessSelCtx,omitempty" bson:"an,omitempty" mapstructure:"destinationProcessSelCtx,omitempty"`
+
+	// The User ID (UID) of the destination process.
+	DestinationProcessUID *int `json:"destinationProcessUID,omitempty" msgpack:"destinationProcessUID,omitempty" bson:"ap,omitempty" mapstructure:"destinationProcessUID,omitempty"`
+
 	// Destination type.
 	DestinationType *CachedFlowReportDestinationTypeValue `json:"destinationType,omitempty" msgpack:"destinationType,omitempty" bson:"h,omitempty" mapstructure:"destinationType,omitempty"`
 
@@ -2124,6 +2331,15 @@ type SparseCachedFlowReport struct {
 	// Identifier of the source platform.
 	SourcePlatform *string `json:"sourcePlatform,omitempty" msgpack:"sourcePlatform,omitempty" bson:"ae,omitempty" mapstructure:"sourcePlatform,omitempty"`
 
+	// The executable of the source process.
+	SourceProcessExecutable *string `json:"sourceProcessExecutable,omitempty" msgpack:"sourceProcessExecutable,omitempty" bson:"aq,omitempty" mapstructure:"sourceProcessExecutable,omitempty"`
+
+	// SELinux context of the source process.
+	SourceProcessSelCtx *string `json:"sourceProcessSelCtx,omitempty" msgpack:"sourceProcessSelCtx,omitempty" bson:"ar,omitempty" mapstructure:"sourceProcessSelCtx,omitempty"`
+
+	// The User ID (UID) of the source process.
+	SourceProcessUID *int `json:"sourceProcessUID,omitempty" msgpack:"sourceProcessUID,omitempty" bson:"am,omitempty" mapstructure:"sourceProcessUID,omitempty"`
+
 	// Type of the source.
 	SourceType *CachedFlowReportSourceTypeValue `json:"sourceType,omitempty" msgpack:"sourceType,omitempty" bson:"af,omitempty" mapstructure:"sourceType,omitempty"`
 
@@ -2206,6 +2422,15 @@ func (o *SparseCachedFlowReport) GetBSON() (interface{}, error) {
 	}
 	if o.DestinationPort != nil {
 		s.DestinationPort = o.DestinationPort
+	}
+	if o.DestinationProcessExecutable != nil {
+		s.DestinationProcessExecutable = o.DestinationProcessExecutable
+	}
+	if o.DestinationProcessSelCtx != nil {
+		s.DestinationProcessSelCtx = o.DestinationProcessSelCtx
+	}
+	if o.DestinationProcessUID != nil {
+		s.DestinationProcessUID = o.DestinationProcessUID
 	}
 	if o.DestinationType != nil {
 		s.DestinationType = o.DestinationType
@@ -2297,6 +2522,15 @@ func (o *SparseCachedFlowReport) GetBSON() (interface{}, error) {
 	if o.SourcePlatform != nil {
 		s.SourcePlatform = o.SourcePlatform
 	}
+	if o.SourceProcessExecutable != nil {
+		s.SourceProcessExecutable = o.SourceProcessExecutable
+	}
+	if o.SourceProcessSelCtx != nil {
+		s.SourceProcessSelCtx = o.SourceProcessSelCtx
+	}
+	if o.SourceProcessUID != nil {
+		s.SourceProcessUID = o.SourceProcessUID
+	}
 	if o.SourceType != nil {
 		s.SourceType = o.SourceType
 	}
@@ -2351,6 +2585,15 @@ func (o *SparseCachedFlowReport) SetBSON(raw bson.Raw) error {
 	}
 	if s.DestinationPort != nil {
 		o.DestinationPort = s.DestinationPort
+	}
+	if s.DestinationProcessExecutable != nil {
+		o.DestinationProcessExecutable = s.DestinationProcessExecutable
+	}
+	if s.DestinationProcessSelCtx != nil {
+		o.DestinationProcessSelCtx = s.DestinationProcessSelCtx
+	}
+	if s.DestinationProcessUID != nil {
+		o.DestinationProcessUID = s.DestinationProcessUID
 	}
 	if s.DestinationType != nil {
 		o.DestinationType = s.DestinationType
@@ -2442,6 +2685,15 @@ func (o *SparseCachedFlowReport) SetBSON(raw bson.Raw) error {
 	if s.SourcePlatform != nil {
 		o.SourcePlatform = s.SourcePlatform
 	}
+	if s.SourceProcessExecutable != nil {
+		o.SourceProcessExecutable = s.SourceProcessExecutable
+	}
+	if s.SourceProcessSelCtx != nil {
+		o.SourceProcessSelCtx = s.SourceProcessSelCtx
+	}
+	if s.SourceProcessUID != nil {
+		o.SourceProcessUID = s.SourceProcessUID
+	}
 	if s.SourceType != nil {
 		o.SourceType = s.SourceType
 	}
@@ -2494,6 +2746,15 @@ func (o *SparseCachedFlowReport) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.DestinationPort != nil {
 		out.DestinationPort = *o.DestinationPort
+	}
+	if o.DestinationProcessExecutable != nil {
+		out.DestinationProcessExecutable = *o.DestinationProcessExecutable
+	}
+	if o.DestinationProcessSelCtx != nil {
+		out.DestinationProcessSelCtx = *o.DestinationProcessSelCtx
+	}
+	if o.DestinationProcessUID != nil {
+		out.DestinationProcessUID = *o.DestinationProcessUID
 	}
 	if o.DestinationType != nil {
 		out.DestinationType = *o.DestinationType
@@ -2584,6 +2845,15 @@ func (o *SparseCachedFlowReport) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.SourcePlatform != nil {
 		out.SourcePlatform = *o.SourcePlatform
+	}
+	if o.SourceProcessExecutable != nil {
+		out.SourceProcessExecutable = *o.SourceProcessExecutable
+	}
+	if o.SourceProcessSelCtx != nil {
+		out.SourceProcessSelCtx = *o.SourceProcessSelCtx
+	}
+	if o.SourceProcessUID != nil {
+		out.SourceProcessUID = *o.SourceProcessUID
 	}
 	if o.SourceType != nil {
 		out.SourceType = *o.SourceType
@@ -2677,92 +2947,104 @@ func (o *SparseCachedFlowReport) DeepCopyInto(out *SparseCachedFlowReport) {
 }
 
 type mongoAttributesCachedFlowReport struct {
-	ID                      bson.ObjectId                        `bson:"_id,omitempty"`
-	Action                  CachedFlowReportActionValue          `bson:"a,omitempty"`
-	DestinationController   string                               `bson:"b,omitempty"`
-	DestinationID           string                               `bson:"c,omitempty"`
-	DestinationIP           string                               `bson:"d,omitempty"`
-	DestinationNamespace    string                               `bson:"e,omitempty"`
-	DestinationPlatform     string                               `bson:"f,omitempty"`
-	DestinationPort         int                                  `bson:"g,omitempty"`
-	DestinationType         CachedFlowReportDestinationTypeValue `bson:"h,omitempty"`
-	DropReason              string                               `bson:"i,omitempty"`
-	Encrypted               bool                                 `bson:"j,omitempty"`
-	EnforcerID              string                               `bson:"ak,omitempty"`
-	IsLocalDestinationID    bool                                 `bson:"ai,omitempty"`
-	IsLocalSourceID         bool                                 `bson:"aj,omitempty"`
-	MigrationsLog           map[string]string                    `bson:"migrationslog,omitempty"`
-	Namespace               string                               `bson:"k,omitempty"`
-	Observed                bool                                 `bson:"l,omitempty"`
-	ObservedAction          CachedFlowReportObservedActionValue  `bson:"m,omitempty"`
-	ObservedDropReason      string                               `bson:"n,omitempty"`
-	ObservedEncrypted       bool                                 `bson:"o,omitempty"`
-	ObservedPolicyID        string                               `bson:"p,omitempty"`
-	ObservedPolicyNamespace string                               `bson:"q,omitempty"`
-	PolicyID                string                               `bson:"r,omitempty"`
-	PolicyNamespace         string                               `bson:"s,omitempty"`
-	Protocol                int                                  `bson:"t,omitempty"`
-	RemoteNamespace         string                               `bson:"u,omitempty"`
-	RemotePolicyID          string                               `bson:"al,omitempty"`
-	RuleName                string                               `bson:"ba,omitempty"`
-	ServiceClaimHash        string                               `bson:"v,omitempty"`
-	ServiceID               string                               `bson:"w,omitempty"`
-	ServiceNamespace        string                               `bson:"x,omitempty"`
-	ServiceType             CachedFlowReportServiceTypeValue     `bson:"y,omitempty"`
-	ServiceURL              string                               `bson:"z,omitempty"`
-	SourceController        string                               `bson:"aa,omitempty"`
-	SourceID                string                               `bson:"ab,omitempty"`
-	SourceIP                string                               `bson:"ac,omitempty"`
-	SourceNamespace         string                               `bson:"ad,omitempty"`
-	SourcePlatform          string                               `bson:"ae,omitempty"`
-	SourceType              CachedFlowReportSourceTypeValue      `bson:"af,omitempty"`
-	Timestamp               time.Time                            `bson:"ag,omitempty"`
-	Value                   int                                  `bson:"ah,omitempty"`
-	ZHash                   int                                  `bson:"zhash"`
-	Zone                    int                                  `bson:"zone"`
+	ID                           bson.ObjectId                        `bson:"_id,omitempty"`
+	Action                       CachedFlowReportActionValue          `bson:"a,omitempty"`
+	DestinationController        string                               `bson:"b,omitempty"`
+	DestinationID                string                               `bson:"c,omitempty"`
+	DestinationIP                string                               `bson:"d,omitempty"`
+	DestinationNamespace         string                               `bson:"e,omitempty"`
+	DestinationPlatform          string                               `bson:"f,omitempty"`
+	DestinationPort              int                                  `bson:"g,omitempty"`
+	DestinationProcessExecutable string                               `bson:"ao,omitempty"`
+	DestinationProcessSelCtx     string                               `bson:"an,omitempty"`
+	DestinationProcessUID        int                                  `bson:"ap,omitempty"`
+	DestinationType              CachedFlowReportDestinationTypeValue `bson:"h,omitempty"`
+	DropReason                   string                               `bson:"i,omitempty"`
+	Encrypted                    bool                                 `bson:"j,omitempty"`
+	EnforcerID                   string                               `bson:"ak,omitempty"`
+	IsLocalDestinationID         bool                                 `bson:"ai,omitempty"`
+	IsLocalSourceID              bool                                 `bson:"aj,omitempty"`
+	MigrationsLog                map[string]string                    `bson:"migrationslog,omitempty"`
+	Namespace                    string                               `bson:"k,omitempty"`
+	Observed                     bool                                 `bson:"l,omitempty"`
+	ObservedAction               CachedFlowReportObservedActionValue  `bson:"m,omitempty"`
+	ObservedDropReason           string                               `bson:"n,omitempty"`
+	ObservedEncrypted            bool                                 `bson:"o,omitempty"`
+	ObservedPolicyID             string                               `bson:"p,omitempty"`
+	ObservedPolicyNamespace      string                               `bson:"q,omitempty"`
+	PolicyID                     string                               `bson:"r,omitempty"`
+	PolicyNamespace              string                               `bson:"s,omitempty"`
+	Protocol                     int                                  `bson:"t,omitempty"`
+	RemoteNamespace              string                               `bson:"u,omitempty"`
+	RemotePolicyID               string                               `bson:"al,omitempty"`
+	RuleName                     string                               `bson:"ba,omitempty"`
+	ServiceClaimHash             string                               `bson:"v,omitempty"`
+	ServiceID                    string                               `bson:"w,omitempty"`
+	ServiceNamespace             string                               `bson:"x,omitempty"`
+	ServiceType                  CachedFlowReportServiceTypeValue     `bson:"y,omitempty"`
+	ServiceURL                   string                               `bson:"z,omitempty"`
+	SourceController             string                               `bson:"aa,omitempty"`
+	SourceID                     string                               `bson:"ab,omitempty"`
+	SourceIP                     string                               `bson:"ac,omitempty"`
+	SourceNamespace              string                               `bson:"ad,omitempty"`
+	SourcePlatform               string                               `bson:"ae,omitempty"`
+	SourceProcessExecutable      string                               `bson:"aq,omitempty"`
+	SourceProcessSelCtx          string                               `bson:"ar,omitempty"`
+	SourceProcessUID             int                                  `bson:"am,omitempty"`
+	SourceType                   CachedFlowReportSourceTypeValue      `bson:"af,omitempty"`
+	Timestamp                    time.Time                            `bson:"ag,omitempty"`
+	Value                        int                                  `bson:"ah,omitempty"`
+	ZHash                        int                                  `bson:"zhash"`
+	Zone                         int                                  `bson:"zone"`
 }
 type mongoAttributesSparseCachedFlowReport struct {
-	ID                      bson.ObjectId                         `bson:"_id,omitempty"`
-	Action                  *CachedFlowReportActionValue          `bson:"a,omitempty"`
-	DestinationController   *string                               `bson:"b,omitempty"`
-	DestinationID           *string                               `bson:"c,omitempty"`
-	DestinationIP           *string                               `bson:"d,omitempty"`
-	DestinationNamespace    *string                               `bson:"e,omitempty"`
-	DestinationPlatform     *string                               `bson:"f,omitempty"`
-	DestinationPort         *int                                  `bson:"g,omitempty"`
-	DestinationType         *CachedFlowReportDestinationTypeValue `bson:"h,omitempty"`
-	DropReason              *string                               `bson:"i,omitempty"`
-	Encrypted               *bool                                 `bson:"j,omitempty"`
-	EnforcerID              *string                               `bson:"ak,omitempty"`
-	IsLocalDestinationID    *bool                                 `bson:"ai,omitempty"`
-	IsLocalSourceID         *bool                                 `bson:"aj,omitempty"`
-	MigrationsLog           *map[string]string                    `bson:"migrationslog,omitempty"`
-	Namespace               *string                               `bson:"k,omitempty"`
-	Observed                *bool                                 `bson:"l,omitempty"`
-	ObservedAction          *CachedFlowReportObservedActionValue  `bson:"m,omitempty"`
-	ObservedDropReason      *string                               `bson:"n,omitempty"`
-	ObservedEncrypted       *bool                                 `bson:"o,omitempty"`
-	ObservedPolicyID        *string                               `bson:"p,omitempty"`
-	ObservedPolicyNamespace *string                               `bson:"q,omitempty"`
-	PolicyID                *string                               `bson:"r,omitempty"`
-	PolicyNamespace         *string                               `bson:"s,omitempty"`
-	Protocol                *int                                  `bson:"t,omitempty"`
-	RemoteNamespace         *string                               `bson:"u,omitempty"`
-	RemotePolicyID          *string                               `bson:"al,omitempty"`
-	RuleName                *string                               `bson:"ba,omitempty"`
-	ServiceClaimHash        *string                               `bson:"v,omitempty"`
-	ServiceID               *string                               `bson:"w,omitempty"`
-	ServiceNamespace        *string                               `bson:"x,omitempty"`
-	ServiceType             *CachedFlowReportServiceTypeValue     `bson:"y,omitempty"`
-	ServiceURL              *string                               `bson:"z,omitempty"`
-	SourceController        *string                               `bson:"aa,omitempty"`
-	SourceID                *string                               `bson:"ab,omitempty"`
-	SourceIP                *string                               `bson:"ac,omitempty"`
-	SourceNamespace         *string                               `bson:"ad,omitempty"`
-	SourcePlatform          *string                               `bson:"ae,omitempty"`
-	SourceType              *CachedFlowReportSourceTypeValue      `bson:"af,omitempty"`
-	Timestamp               *time.Time                            `bson:"ag,omitempty"`
-	Value                   *int                                  `bson:"ah,omitempty"`
-	ZHash                   *int                                  `bson:"zhash,omitempty"`
-	Zone                    *int                                  `bson:"zone,omitempty"`
+	ID                           bson.ObjectId                         `bson:"_id,omitempty"`
+	Action                       *CachedFlowReportActionValue          `bson:"a,omitempty"`
+	DestinationController        *string                               `bson:"b,omitempty"`
+	DestinationID                *string                               `bson:"c,omitempty"`
+	DestinationIP                *string                               `bson:"d,omitempty"`
+	DestinationNamespace         *string                               `bson:"e,omitempty"`
+	DestinationPlatform          *string                               `bson:"f,omitempty"`
+	DestinationPort              *int                                  `bson:"g,omitempty"`
+	DestinationProcessExecutable *string                               `bson:"ao,omitempty"`
+	DestinationProcessSelCtx     *string                               `bson:"an,omitempty"`
+	DestinationProcessUID        *int                                  `bson:"ap,omitempty"`
+	DestinationType              *CachedFlowReportDestinationTypeValue `bson:"h,omitempty"`
+	DropReason                   *string                               `bson:"i,omitempty"`
+	Encrypted                    *bool                                 `bson:"j,omitempty"`
+	EnforcerID                   *string                               `bson:"ak,omitempty"`
+	IsLocalDestinationID         *bool                                 `bson:"ai,omitempty"`
+	IsLocalSourceID              *bool                                 `bson:"aj,omitempty"`
+	MigrationsLog                *map[string]string                    `bson:"migrationslog,omitempty"`
+	Namespace                    *string                               `bson:"k,omitempty"`
+	Observed                     *bool                                 `bson:"l,omitempty"`
+	ObservedAction               *CachedFlowReportObservedActionValue  `bson:"m,omitempty"`
+	ObservedDropReason           *string                               `bson:"n,omitempty"`
+	ObservedEncrypted            *bool                                 `bson:"o,omitempty"`
+	ObservedPolicyID             *string                               `bson:"p,omitempty"`
+	ObservedPolicyNamespace      *string                               `bson:"q,omitempty"`
+	PolicyID                     *string                               `bson:"r,omitempty"`
+	PolicyNamespace              *string                               `bson:"s,omitempty"`
+	Protocol                     *int                                  `bson:"t,omitempty"`
+	RemoteNamespace              *string                               `bson:"u,omitempty"`
+	RemotePolicyID               *string                               `bson:"al,omitempty"`
+	RuleName                     *string                               `bson:"ba,omitempty"`
+	ServiceClaimHash             *string                               `bson:"v,omitempty"`
+	ServiceID                    *string                               `bson:"w,omitempty"`
+	ServiceNamespace             *string                               `bson:"x,omitempty"`
+	ServiceType                  *CachedFlowReportServiceTypeValue     `bson:"y,omitempty"`
+	ServiceURL                   *string                               `bson:"z,omitempty"`
+	SourceController             *string                               `bson:"aa,omitempty"`
+	SourceID                     *string                               `bson:"ab,omitempty"`
+	SourceIP                     *string                               `bson:"ac,omitempty"`
+	SourceNamespace              *string                               `bson:"ad,omitempty"`
+	SourcePlatform               *string                               `bson:"ae,omitempty"`
+	SourceProcessExecutable      *string                               `bson:"aq,omitempty"`
+	SourceProcessSelCtx          *string                               `bson:"ar,omitempty"`
+	SourceProcessUID             *int                                  `bson:"am,omitempty"`
+	SourceType                   *CachedFlowReportSourceTypeValue      `bson:"af,omitempty"`
+	Timestamp                    *time.Time                            `bson:"ag,omitempty"`
+	Value                        *int                                  `bson:"ah,omitempty"`
+	ZHash                        *int                                  `bson:"zhash,omitempty"`
+	Zone                         *int                                  `bson:"zone,omitempty"`
 }

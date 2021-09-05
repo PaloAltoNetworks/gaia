@@ -805,6 +805,15 @@ relations:
   create:
     description: Creates a new network rule set policy policy.
 
+- rest_name: networklabelrulesetpolicy
+  get:
+    description: Retrieves the list of network label rule set policies.
+    global_parameters:
+    - $filtering
+    - $propagatable
+  create:
+    description: Creates a new network rule set policy policy.
+
 - rest_name: oidcprovider
   get:
     description: Retrieves the list of OIDC providers.
