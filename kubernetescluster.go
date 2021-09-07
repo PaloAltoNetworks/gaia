@@ -195,7 +195,7 @@ func (o *KubernetesCluster) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *KubernetesCluster) Doc() string {
 
-	return `Used to represent an instance of an aggregated-apiserver (Kubernetes API server).`
+	return `Used to represent an instance of a Kubernetes API server.`
 }
 
 func (o *KubernetesCluster) String() string {

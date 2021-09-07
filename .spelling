@@ -175,6 +175,7 @@ kubelet
 Kubernetes
 kubernetes-api
 kubernetes-api-example
+KubernetesCluster
 LDAPProvider
 LocalCA
 localhost

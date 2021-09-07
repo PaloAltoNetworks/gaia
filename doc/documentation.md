@@ -6330,7 +6330,7 @@ Type of certificate.
 
 ### KubernetesCluster
 
-Used to represent an instance of an aggregated-apiserver (Kubernetes API server).
+Used to represent an instance of a Kubernetes API server.
 
 #### Attributes
 

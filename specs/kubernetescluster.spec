@@ -6,7 +6,7 @@ model:
   package: squall
   group: core/processingunit
   description: |-
-    Used to represent an instance of an aggregated-apiserver (Kubernetes API server).
+    Used to represent an instance of a Kubernetes API server.
   extends:
   - '@identifiable-stored'
 
