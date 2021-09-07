@@ -7,6 +7,9 @@ model:
   group: policy/processingunits
   description: Represents a service attached to a processing unit.
   detached: true
+  extensions:
+    commentFlags:
+    - +k8s:openapi-gen=true
 
 # Attributes
 attributes:

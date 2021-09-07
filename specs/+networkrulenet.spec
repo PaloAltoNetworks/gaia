@@ -7,6 +7,9 @@ model:
   group: core/policy
   description: Represents an network contained in a NetworkRule.
   detached: true
+  extensions:
+    commentFlags:
+    - +k8s:openapi-gen=true
 
 # Attributes
 attributes:

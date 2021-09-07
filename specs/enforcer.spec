@@ -30,6 +30,9 @@ model:
   - '@named'
   - '@timeable'
   - '@controllerable'
+  extensions:
+    commentFlags:
+    - +k8s:openapi-gen=true
 
 # Indexes
 indexes:

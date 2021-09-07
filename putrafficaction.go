@@ -107,6 +107,7 @@ func (o PUTrafficActionsList) Version() int {
 }
 
 // PUTrafficAction represents the model of a putrafficaction
+// +k8s:openapi-gen=true
 type PUTrafficAction struct {
 	// The processing unit action for incoming traffic for the namespace.
 	Incoming PUTrafficActionIncomingValue `json:"Incoming" msgpack:"Incoming" bson:"-" mapstructure:"Incoming,omitempty"`
@@ -423,6 +424,7 @@ func (o SparsePUTrafficActionsList) Version() int {
 }
 
 // SparsePUTrafficAction represents the sparse version of a putrafficaction.
+// +k8s:openapi-gen=true
 type SparsePUTrafficAction struct {
 	// The processing unit action for incoming traffic for the namespace.
 	Incoming *PUTrafficActionIncomingValue `json:"Incoming,omitempty" msgpack:"Incoming,omitempty" bson:"-" mapstructure:"Incoming,omitempty"`

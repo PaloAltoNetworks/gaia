@@ -6,6 +6,9 @@ model:
   package: squall
   group: core/namespace
   description: Returns the processing unit traffic actions for the specified namespace.
+  extensions:
+    commentFlags:
+    - +k8s:openapi-gen=true
 
 # Attributes
 attributes:
