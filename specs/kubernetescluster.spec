@@ -27,7 +27,7 @@ attributes:
     stored: true
     read_only: true
 
-  - name: apiversions
+  - name: APIVersions
     description: API versions supported by the API server.
     type: list
     exposed: true
