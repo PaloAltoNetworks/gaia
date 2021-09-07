@@ -3025,6 +3025,8 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[KubernetesClusterIdentity] = &elemental.Relationship{}
+
 	relationshipsRegistry[LDAPProviderIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
