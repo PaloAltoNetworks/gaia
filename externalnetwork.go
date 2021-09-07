@@ -102,6 +102,7 @@ func (o ExternalNetworksList) Version() int {
 }
 
 // ExternalNetwork represents the model of a externalnetwork
+// +k8s:openapi-gen=true
 type ExternalNetwork struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
@@ -1463,6 +1464,7 @@ func (o SparseExternalNetworksList) Version() int {
 }
 
 // SparseExternalNetwork represents the sparse version of a externalnetwork.
+// +k8s:openapi-gen=true
 type SparseExternalNetwork struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`

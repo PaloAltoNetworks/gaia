@@ -40,6 +40,9 @@ model:
   - '@named'
   - '@propagated'
   - '@timeable'
+  extensions:
+    commentFlags:
+    - +k8s:openapi-gen=true
 
 # Indexes
 indexes:
