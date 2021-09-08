@@ -8,24 +8,24 @@ model:
   description: |-
     Used to represent an instance of a Kubernetes API server.
   extends:
+  - '@zoned'
+  - '@migratable'
+  - '@base'
+  - '@namespaced'
+  - '@described'
   - '@identifiable-stored'
+  - '@metadatable'
+  - '@named'
+  - '@timeable'
 
 # Attributes
 attributes:
   v1:
-  - name: annotations
-    description: Stores additional information about an entity.
-    type: external
-    exposed: true
-    subtype: map[string][]string
-    stored: true
-
-  - name: namespace
-    description: Namespace associated with the cluster.
+  - name: K8SNamespace
+    description: Kubernetes namespace.
     type: string
     exposed: true
     stored: true
-    read_only: true
 
   - name: APIVersions
     description: API versions supported by the API server.

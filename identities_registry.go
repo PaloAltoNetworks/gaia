@@ -977,7 +977,15 @@ var (
 		},
 		"issue":             nil,
 		"issueservicetoken": nil,
-		"kubernetescluster": nil,
+		"kubernetescluster": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"name"},
+			{"createIdempotencyKey"},
+		},
 		"ldapprovider": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
