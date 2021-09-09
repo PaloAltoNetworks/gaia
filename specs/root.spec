@@ -893,6 +893,14 @@ relations:
   create:
     description: Creates a new processing unit.
 
+- rest_name: kubernetescluster
+  get:
+    description: Retrieves the list of kubernetes clusters.
+    global_parameters:
+    - $filtering
+    - $archivable
+  create:
+    description: Creates a new processing unit.
 - rest_name: processingunitpolicy
   get:
     description: Retrieves the list of processing unit policies.

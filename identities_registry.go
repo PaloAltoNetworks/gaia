@@ -442,6 +442,8 @@ var (
 		"iapps":           InstalledAppIdentity,
 		"iapp":            InstalledAppIdentity,
 		"ip":              IsolationProfileIdentity,
+		"k8scluster":      KubernetesClusterIdentity,
+		"k8sclusters":     KubernetesClusterIdentity,
 		"mess":            MessageIdentity,
 		"mq":              MetricsQueryIdentity,
 		"mqr":             MetricsQueryRangeIdentity,
@@ -3110,7 +3112,10 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case IssueServiceTokenIdentity:
 		return []string{}
 	case KubernetesClusterIdentity:
-		return []string{}
+		return []string{
+			"k8scluster",
+			"k8sclusters",
+		}
 	case LDAPProviderIdentity:
 		return []string{}
 	case LocalCAIdentity:

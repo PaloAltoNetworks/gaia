@@ -6341,6 +6341,33 @@ Used to represent an instance of a Kubernetes API server.
 }
 ```
 
+#### Relations
+
+##### `GET /kubernetesclusters`
+
+Retrieves the list of kubernetes clusters.
+
+Parameters:
+
+- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
+- `archived` (`boolean`): Also retrieve the objects that have been archived.
+
+##### `POST /kubernetesclusters`
+
+Creates a new processing unit.
+
+##### `DELETE /kubernetesclusters/:id`
+
+Delete the kubernetes cluster with the given ID.
+
+##### `GET /kubernetesclusters/:id`
+
+Retrieve the kubernetes cluster with the given ID.
+
+##### `PUT /kubernetesclusters/:id`
+
+Update the kubernetes cluster with the given ID.
+
 #### Attributes
 
 ##### `APIVersions`
