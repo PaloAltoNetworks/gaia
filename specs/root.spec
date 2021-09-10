@@ -895,7 +895,7 @@ relations:
 
 - rest_name: kubernetescluster
   get:
-    description: Retrieves the list of kubernetes clusters.
+    description: Retrieves the list of Kubernetes clusters.
     global_parameters:
     - $filtering
     - $archivable

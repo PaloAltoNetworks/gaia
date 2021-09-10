@@ -10,11 +10,11 @@ model:
   - k8scluster
   - k8sclusters
   get:
-    description: Retrieve the kubernetes cluster with the given ID.
+    description: Retrieve the Kubernetes cluster with the given ID.
   update:
-    description: Update the kubernetes cluster with the given ID.
+    description: Update the Kubernetes cluster with the given ID.
   delete:
-    description: Delete the kubernetes cluster with the given ID.
+    description: Delete the Kubernetes cluster with the given ID.
   extends:
   - '@zoned'
   - '@migratable'

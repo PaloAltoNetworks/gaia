@@ -6324,7 +6324,7 @@ Contains a cryptographic token.
 
 ##### `type`
 
-Type: `enum(Enforcer | Service | ServicePing)`
+Type: `enum(Enforcer | Service | ServicePing | KubernetesCluster)`
 
 Type of certificate.
 
@@ -6345,7 +6345,7 @@ Used to represent an instance of a Kubernetes API server.
 
 ##### `GET /kubernetesclusters`
 
-Retrieves the list of kubernetes clusters.
+Retrieves the list of Kubernetes clusters.
 
 Parameters:
 
@@ -6358,15 +6358,15 @@ Creates a new processing unit.
 
 ##### `DELETE /kubernetesclusters/:id`
 
-Delete the kubernetes cluster with the given ID.
+Delete the Kubernetes cluster with the given ID.
 
 ##### `GET /kubernetesclusters/:id`
 
-Retrieve the kubernetes cluster with the given ID.
+Retrieve the Kubernetes cluster with the given ID.
 
 ##### `PUT /kubernetesclusters/:id`
 
-Update the kubernetes cluster with the given ID.
+Update the Kubernetes cluster with the given ID.
 
 #### Attributes
 

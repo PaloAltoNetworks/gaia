@@ -13,6 +13,9 @@ import (
 type X509CertificateSignerValue string
 
 const (
+	// X509CertificateSignerNamespace represents the value Namespace.
+	X509CertificateSignerNamespace X509CertificateSignerValue = "Namespace"
+
 	// X509CertificateSignerPublic represents the value Public.
 	X509CertificateSignerPublic X509CertificateSignerValue = "Public"
 
@@ -124,6 +127,10 @@ type X509Certificate struct {
 
 	// Selects what CA should sign the certificate.
 	Signer X509CertificateSignerValue `json:"signer" msgpack:"signer" bson:"-" mapstructure:"signer,omitempty"`
+
+	// Selects the ID of the CA that should sign the certificate when signer is set to
+	// Namespace.
+	SignerID string `json:"signerID" msgpack:"signerID" bson:"-" mapstructure:"signerID,omitempty"`
 
 	// Additional subject information to use to override the ones in the CSR.
 	SubjectOverride *PKIXName `json:"subjectOverride,omitempty" msgpack:"subjectOverride,omitempty" bson:"-" mapstructure:"subjectOverride,omitempty"`
@@ -239,6 +246,7 @@ func (o *X509Certificate) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			ExpirationDate:  &o.ExpirationDate,
 			Extensions:      &o.Extensions,
 			Signer:          &o.Signer,
+			SignerID:        &o.SignerID,
 			SubjectOverride: o.SubjectOverride,
 			Unrevocable:     &o.Unrevocable,
 			Usage:           &o.Usage,
@@ -260,6 +268,8 @@ func (o *X509Certificate) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			sp.Extensions = &(o.Extensions)
 		case "signer":
 			sp.Signer = &(o.Signer)
+		case "signerID":
+			sp.SignerID = &(o.SignerID)
 		case "subjectOverride":
 			sp.SubjectOverride = o.SubjectOverride
 		case "unrevocable":
@@ -296,6 +306,9 @@ func (o *X509Certificate) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Signer != nil {
 		o.Signer = *so.Signer
+	}
+	if so.SignerID != nil {
+		o.SignerID = *so.SignerID
 	}
 	if so.SubjectOverride != nil {
 		o.SubjectOverride = so.SubjectOverride
@@ -342,7 +355,7 @@ func (o *X509Certificate) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("signer", string(o.Signer), []string{"Public", "System"}, false); err != nil {
+	if err := elemental.ValidateStringInList("signer", string(o.Signer), []string{"Public", "Namespace", "System"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -403,6 +416,8 @@ func (o *X509Certificate) ValueForAttribute(name string) interface{} {
 		return o.Extensions
 	case "signer":
 		return o.Signer
+	case "signerID":
+		return o.SignerID
 	case "subjectOverride":
 		return o.SubjectOverride
 	case "unrevocable":
@@ -470,13 +485,22 @@ themselves encoded in base64.`,
 		Type:    "external",
 	},
 	"Signer": {
-		AllowedChoices: []string{"Public", "System"},
+		AllowedChoices: []string{"Public", "Namespace", "System"},
 		ConvertedName:  "Signer",
 		DefaultValue:   X509CertificateSignerPublic,
 		Description:    `Selects what CA should sign the certificate.`,
 		Exposed:        true,
 		Name:           "signer",
 		Type:           "enum",
+	},
+	"SignerID": {
+		AllowedChoices: []string{},
+		ConvertedName:  "SignerID",
+		Description: `Selects the ID of the CA that should sign the certificate when signer is set to
+Namespace.`,
+		Exposed: true,
+		Name:    "signerID",
+		Type:    "string",
 	},
 	"SubjectOverride": {
 		AllowedChoices: []string{},
@@ -564,13 +588,22 @@ themselves encoded in base64.`,
 		Type:    "external",
 	},
 	"signer": {
-		AllowedChoices: []string{"Public", "System"},
+		AllowedChoices: []string{"Public", "Namespace", "System"},
 		ConvertedName:  "Signer",
 		DefaultValue:   X509CertificateSignerPublic,
 		Description:    `Selects what CA should sign the certificate.`,
 		Exposed:        true,
 		Name:           "signer",
 		Type:           "enum",
+	},
+	"signerid": {
+		AllowedChoices: []string{},
+		ConvertedName:  "SignerID",
+		Description: `Selects the ID of the CA that should sign the certificate when signer is set to
+Namespace.`,
+		Exposed: true,
+		Name:    "signerID",
+		Type:    "string",
 	},
 	"subjectoverride": {
 		AllowedChoices: []string{},
@@ -684,6 +717,10 @@ type SparseX509Certificate struct {
 	// Selects what CA should sign the certificate.
 	Signer *X509CertificateSignerValue `json:"signer,omitempty" msgpack:"signer,omitempty" bson:"-" mapstructure:"signer,omitempty"`
 
+	// Selects the ID of the CA that should sign the certificate when signer is set to
+	// Namespace.
+	SignerID *string `json:"signerID,omitempty" msgpack:"signerID,omitempty" bson:"-" mapstructure:"signerID,omitempty"`
+
 	// Additional subject information to use to override the ones in the CSR.
 	SubjectOverride *PKIXName `json:"subjectOverride,omitempty" msgpack:"subjectOverride,omitempty" bson:"-" mapstructure:"subjectOverride,omitempty"`
 
@@ -783,6 +820,9 @@ func (o *SparseX509Certificate) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Signer != nil {
 		out.Signer = *o.Signer
+	}
+	if o.SignerID != nil {
+		out.SignerID = *o.SignerID
 	}
 	if o.SubjectOverride != nil {
 		out.SubjectOverride = o.SubjectOverride
