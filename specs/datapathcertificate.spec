@@ -81,4 +81,5 @@ attributes:
     - Enforcer
     - Service
     - ServicePing
+    - KubernetesCluster
     example_value: Service
