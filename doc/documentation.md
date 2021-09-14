@@ -6324,11 +6324,11 @@ Contains a cryptographic token.
 
 ##### `type`
 
-Type: `enum(Enforcer | Service | ServicePing | KubernetesCluster)`
+Type: `enum(Enforcer | Service | ServicePing | K8SAPIServer)`
 
 Type of certificate.
 
-### KubernetesCluster
+### K8SAPIServer
 
 Used to represent an instance of a Kubernetes API server.
 
@@ -6343,30 +6343,30 @@ Used to represent an instance of a Kubernetes API server.
 
 #### Relations
 
-##### `GET /kubernetesclusters`
+##### `GET /k8sapiservers`
 
-Retrieves the list of Kubernetes clusters.
+Retrieves the list of Kubernetes API Servers.
 
 Parameters:
 
 - `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
 - `archived` (`boolean`): Also retrieve the objects that have been archived.
 
-##### `POST /kubernetesclusters`
+##### `POST /k8sapiservers`
 
 Creates a new processing unit.
 
-##### `DELETE /kubernetesclusters/:id`
+##### `DELETE /k8sapiservers/:id`
 
-Delete the Kubernetes cluster with the given ID.
+Delete the Kubernetes api server with the given ID.
 
-##### `GET /kubernetesclusters/:id`
+##### `GET /k8sapiservers/:id`
 
-Retrieve the Kubernetes cluster with the given ID.
+Retrieve the Kubernetes api server with the given ID.
 
-##### `PUT /kubernetesclusters/:id`
+##### `PUT /k8sapiservers/:id`
 
-Update the Kubernetes cluster with the given ID.
+Update the Kubernetes api server with the given ID.
 
 #### Attributes
 

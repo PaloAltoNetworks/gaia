@@ -3025,7 +3025,7 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[KubernetesClusterIdentity] = &elemental.Relationship{
+	relationshipsRegistry[K8SAPIServerIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
 		},

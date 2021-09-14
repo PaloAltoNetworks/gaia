@@ -9,43 +9,43 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// KubernetesClusterIdentity represents the Identity of the object.
-var KubernetesClusterIdentity = elemental.Identity{
-	Name:     "kubernetescluster",
-	Category: "kubernetesclusters",
+// K8SAPIServerIdentity represents the Identity of the object.
+var K8SAPIServerIdentity = elemental.Identity{
+	Name:     "k8sapiserver",
+	Category: "k8sapiservers",
 	Package:  "squall",
 	Private:  false,
 }
 
-// KubernetesClustersList represents a list of KubernetesClusters
-type KubernetesClustersList []*KubernetesCluster
+// K8SAPIServersList represents a list of K8SAPIServers
+type K8SAPIServersList []*K8SAPIServer
 
 // Identity returns the identity of the objects in the list.
-func (o KubernetesClustersList) Identity() elemental.Identity {
+func (o K8SAPIServersList) Identity() elemental.Identity {
 
-	return KubernetesClusterIdentity
+	return K8SAPIServerIdentity
 }
 
-// Copy returns a pointer to a copy the KubernetesClustersList.
-func (o KubernetesClustersList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the K8SAPIServersList.
+func (o K8SAPIServersList) Copy() elemental.Identifiables {
 
-	copy := append(KubernetesClustersList{}, o...)
+	copy := append(K8SAPIServersList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the KubernetesClustersList.
-func (o KubernetesClustersList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the K8SAPIServersList.
+func (o K8SAPIServersList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(KubernetesClustersList{}, o...)
+	out := append(K8SAPIServersList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*KubernetesCluster))
+		out = append(out, obj.(*K8SAPIServer))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o KubernetesClustersList) List() elemental.IdentifiablesList {
+func (o K8SAPIServersList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -56,33 +56,33 @@ func (o KubernetesClustersList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o KubernetesClustersList) DefaultOrder() []string {
+func (o K8SAPIServersList) DefaultOrder() []string {
 
 	return []string{
 		"name",
 	}
 }
 
-// ToSparse returns the KubernetesClustersList converted to SparseKubernetesClustersList.
+// ToSparse returns the K8SAPIServersList converted to SparseK8SAPIServersList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o KubernetesClustersList) ToSparse(fields ...string) elemental.Identifiables {
+func (o K8SAPIServersList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseKubernetesClustersList, len(o))
+	out := make(SparseK8SAPIServersList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseKubernetesCluster)
+		out[i] = o[i].ToSparse(fields...).(*SparseK8SAPIServer)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o KubernetesClustersList) Version() int {
+func (o K8SAPIServersList) Version() int {
 
 	return 1
 }
 
-// KubernetesCluster represents the model of a kubernetescluster
-type KubernetesCluster struct {
+// K8SAPIServer represents the model of a k8sapiserver
+type K8SAPIServer struct {
 	// API versions supported by the API server.
 	APIVersions []string `json:"APIVersions" msgpack:"APIVersions" bson:"apiversions" mapstructure:"APIVersions,omitempty"`
 
@@ -148,10 +148,10 @@ type KubernetesCluster struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewKubernetesCluster returns a new *KubernetesCluster
-func NewKubernetesCluster() *KubernetesCluster {
+// NewK8SAPIServer returns a new *K8SAPIServer
+func NewK8SAPIServer() *K8SAPIServer {
 
-	return &KubernetesCluster{
+	return &K8SAPIServer{
 		ModelVersion:   1,
 		Metadata:       []string{},
 		Annotations:    map[string][]string{},
@@ -163,32 +163,32 @@ func NewKubernetesCluster() *KubernetesCluster {
 }
 
 // Identity returns the Identity of the object.
-func (o *KubernetesCluster) Identity() elemental.Identity {
+func (o *K8SAPIServer) Identity() elemental.Identity {
 
-	return KubernetesClusterIdentity
+	return K8SAPIServerIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *KubernetesCluster) Identifier() string {
+func (o *K8SAPIServer) Identifier() string {
 
 	return o.ID
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *KubernetesCluster) SetIdentifier(id string) {
+func (o *K8SAPIServer) SetIdentifier(id string) {
 
 	o.ID = id
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *KubernetesCluster) GetBSON() (interface{}, error) {
+func (o *K8SAPIServer) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesKubernetesCluster{}
+	s := &mongoAttributesK8SAPIServer{}
 
 	s.APIVersions = o.APIVersions
 	if o.ID != "" {
@@ -218,13 +218,13 @@ func (o *KubernetesCluster) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *KubernetesCluster) SetBSON(raw bson.Raw) error {
+func (o *K8SAPIServer) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesKubernetesCluster{}
+	s := &mongoAttributesK8SAPIServer{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -254,19 +254,19 @@ func (o *KubernetesCluster) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *KubernetesCluster) Version() int {
+func (o *K8SAPIServer) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *KubernetesCluster) BleveType() string {
+func (o *K8SAPIServer) BleveType() string {
 
-	return "kubernetescluster"
+	return "k8sapiserver"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *KubernetesCluster) DefaultOrder() []string {
+func (o *K8SAPIServer) DefaultOrder() []string {
 
 	return []string{
 		"name",
@@ -274,203 +274,203 @@ func (o *KubernetesCluster) DefaultOrder() []string {
 }
 
 // Doc returns the documentation for the object
-func (o *KubernetesCluster) Doc() string {
+func (o *K8SAPIServer) Doc() string {
 
 	return `Used to represent an instance of a Kubernetes API server.`
 }
 
-func (o *KubernetesCluster) String() string {
+func (o *K8SAPIServer) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // GetAnnotations returns the Annotations of the receiver.
-func (o *KubernetesCluster) GetAnnotations() map[string][]string {
+func (o *K8SAPIServer) GetAnnotations() map[string][]string {
 
 	return o.Annotations
 }
 
 // SetAnnotations sets the property Annotations of the receiver using the given value.
-func (o *KubernetesCluster) SetAnnotations(annotations map[string][]string) {
+func (o *K8SAPIServer) SetAnnotations(annotations map[string][]string) {
 
 	o.Annotations = annotations
 }
 
 // GetAssociatedTags returns the AssociatedTags of the receiver.
-func (o *KubernetesCluster) GetAssociatedTags() []string {
+func (o *K8SAPIServer) GetAssociatedTags() []string {
 
 	return o.AssociatedTags
 }
 
 // SetAssociatedTags sets the property AssociatedTags of the receiver using the given value.
-func (o *KubernetesCluster) SetAssociatedTags(associatedTags []string) {
+func (o *K8SAPIServer) SetAssociatedTags(associatedTags []string) {
 
 	o.AssociatedTags = associatedTags
 }
 
 // GetCreateIdempotencyKey returns the CreateIdempotencyKey of the receiver.
-func (o *KubernetesCluster) GetCreateIdempotencyKey() string {
+func (o *K8SAPIServer) GetCreateIdempotencyKey() string {
 
 	return o.CreateIdempotencyKey
 }
 
 // SetCreateIdempotencyKey sets the property CreateIdempotencyKey of the receiver using the given value.
-func (o *KubernetesCluster) SetCreateIdempotencyKey(createIdempotencyKey string) {
+func (o *K8SAPIServer) SetCreateIdempotencyKey(createIdempotencyKey string) {
 
 	o.CreateIdempotencyKey = createIdempotencyKey
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *KubernetesCluster) GetCreateTime() time.Time {
+func (o *K8SAPIServer) GetCreateTime() time.Time {
 
 	return o.CreateTime
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the given value.
-func (o *KubernetesCluster) SetCreateTime(createTime time.Time) {
+func (o *K8SAPIServer) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = createTime
 }
 
 // GetDescription returns the Description of the receiver.
-func (o *KubernetesCluster) GetDescription() string {
+func (o *K8SAPIServer) GetDescription() string {
 
 	return o.Description
 }
 
 // SetDescription sets the property Description of the receiver using the given value.
-func (o *KubernetesCluster) SetDescription(description string) {
+func (o *K8SAPIServer) SetDescription(description string) {
 
 	o.Description = description
 }
 
 // GetMetadata returns the Metadata of the receiver.
-func (o *KubernetesCluster) GetMetadata() []string {
+func (o *K8SAPIServer) GetMetadata() []string {
 
 	return o.Metadata
 }
 
 // SetMetadata sets the property Metadata of the receiver using the given value.
-func (o *KubernetesCluster) SetMetadata(metadata []string) {
+func (o *K8SAPIServer) SetMetadata(metadata []string) {
 
 	o.Metadata = metadata
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *KubernetesCluster) GetMigrationsLog() map[string]string {
+func (o *K8SAPIServer) GetMigrationsLog() map[string]string {
 
 	return o.MigrationsLog
 }
 
 // SetMigrationsLog sets the property MigrationsLog of the receiver using the given value.
-func (o *KubernetesCluster) SetMigrationsLog(migrationsLog map[string]string) {
+func (o *K8SAPIServer) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = migrationsLog
 }
 
 // GetName returns the Name of the receiver.
-func (o *KubernetesCluster) GetName() string {
+func (o *K8SAPIServer) GetName() string {
 
 	return o.Name
 }
 
 // SetName sets the property Name of the receiver using the given value.
-func (o *KubernetesCluster) SetName(name string) {
+func (o *K8SAPIServer) SetName(name string) {
 
 	o.Name = name
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *KubernetesCluster) GetNamespace() string {
+func (o *K8SAPIServer) GetNamespace() string {
 
 	return o.Namespace
 }
 
 // SetNamespace sets the property Namespace of the receiver using the given value.
-func (o *KubernetesCluster) SetNamespace(namespace string) {
+func (o *K8SAPIServer) SetNamespace(namespace string) {
 
 	o.Namespace = namespace
 }
 
 // GetNormalizedTags returns the NormalizedTags of the receiver.
-func (o *KubernetesCluster) GetNormalizedTags() []string {
+func (o *K8SAPIServer) GetNormalizedTags() []string {
 
 	return o.NormalizedTags
 }
 
 // SetNormalizedTags sets the property NormalizedTags of the receiver using the given value.
-func (o *KubernetesCluster) SetNormalizedTags(normalizedTags []string) {
+func (o *K8SAPIServer) SetNormalizedTags(normalizedTags []string) {
 
 	o.NormalizedTags = normalizedTags
 }
 
 // GetProtected returns the Protected of the receiver.
-func (o *KubernetesCluster) GetProtected() bool {
+func (o *K8SAPIServer) GetProtected() bool {
 
 	return o.Protected
 }
 
 // SetProtected sets the property Protected of the receiver using the given value.
-func (o *KubernetesCluster) SetProtected(protected bool) {
+func (o *K8SAPIServer) SetProtected(protected bool) {
 
 	o.Protected = protected
 }
 
 // GetUpdateIdempotencyKey returns the UpdateIdempotencyKey of the receiver.
-func (o *KubernetesCluster) GetUpdateIdempotencyKey() string {
+func (o *K8SAPIServer) GetUpdateIdempotencyKey() string {
 
 	return o.UpdateIdempotencyKey
 }
 
 // SetUpdateIdempotencyKey sets the property UpdateIdempotencyKey of the receiver using the given value.
-func (o *KubernetesCluster) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
+func (o *K8SAPIServer) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
 
 	o.UpdateIdempotencyKey = updateIdempotencyKey
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *KubernetesCluster) GetUpdateTime() time.Time {
+func (o *K8SAPIServer) GetUpdateTime() time.Time {
 
 	return o.UpdateTime
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the given value.
-func (o *KubernetesCluster) SetUpdateTime(updateTime time.Time) {
+func (o *K8SAPIServer) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *KubernetesCluster) GetZHash() int {
+func (o *K8SAPIServer) GetZHash() int {
 
 	return o.ZHash
 }
 
 // SetZHash sets the property ZHash of the receiver using the given value.
-func (o *KubernetesCluster) SetZHash(zHash int) {
+func (o *K8SAPIServer) SetZHash(zHash int) {
 
 	o.ZHash = zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *KubernetesCluster) GetZone() int {
+func (o *K8SAPIServer) GetZone() int {
 
 	return o.Zone
 }
 
 // SetZone sets the property Zone of the receiver using the given value.
-func (o *KubernetesCluster) SetZone(zone int) {
+func (o *K8SAPIServer) SetZone(zone int) {
 
 	o.Zone = zone
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *KubernetesCluster) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *K8SAPIServer) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseKubernetesCluster{
+		return &SparseK8SAPIServer{
 			APIVersions:          &o.APIVersions,
 			ID:                   &o.ID,
 			K8SNamespace:         &o.K8SNamespace,
@@ -494,7 +494,7 @@ func (o *KubernetesCluster) ToSparse(fields ...string) elemental.SparseIdentifia
 		}
 	}
 
-	sp := &SparseKubernetesCluster{}
+	sp := &SparseK8SAPIServer{}
 	for _, f := range fields {
 		switch f {
 		case "APIVersions":
@@ -543,13 +543,13 @@ func (o *KubernetesCluster) ToSparse(fields ...string) elemental.SparseIdentifia
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseKubernetesCluster to the object.
-func (o *KubernetesCluster) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseK8SAPIServer to the object.
+func (o *K8SAPIServer) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseKubernetesCluster)
+	so := sparse.(*SparseK8SAPIServer)
 	if so.APIVersions != nil {
 		o.APIVersions = *so.APIVersions
 	}
@@ -612,32 +612,32 @@ func (o *KubernetesCluster) Patch(sparse elemental.SparseIdentifiable) {
 	}
 }
 
-// DeepCopy returns a deep copy if the KubernetesCluster.
-func (o *KubernetesCluster) DeepCopy() *KubernetesCluster {
+// DeepCopy returns a deep copy if the K8SAPIServer.
+func (o *K8SAPIServer) DeepCopy() *K8SAPIServer {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &KubernetesCluster{}
+	out := &K8SAPIServer{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *KubernetesCluster.
-func (o *KubernetesCluster) DeepCopyInto(out *KubernetesCluster) {
+// DeepCopyInto copies the receiver into the given *K8SAPIServer.
+func (o *K8SAPIServer) DeepCopyInto(out *K8SAPIServer) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy KubernetesCluster: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy K8SAPIServer: %s", err))
 	}
 
-	*out = *target.(*KubernetesCluster)
+	*out = *target.(*K8SAPIServer)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *KubernetesCluster) Validate() error {
+func (o *K8SAPIServer) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -674,26 +674,26 @@ func (o *KubernetesCluster) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*KubernetesCluster) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*K8SAPIServer) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := KubernetesClusterAttributesMap[name]; ok {
+	if v, ok := K8SAPIServerAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return KubernetesClusterLowerCaseAttributesMap[name]
+	return K8SAPIServerLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*KubernetesCluster) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*K8SAPIServer) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return KubernetesClusterAttributesMap
+	return K8SAPIServerAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *KubernetesCluster) ValueForAttribute(name string) interface{} {
+func (o *K8SAPIServer) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "APIVersions":
@@ -741,8 +741,8 @@ func (o *KubernetesCluster) ValueForAttribute(name string) interface{} {
 	return nil
 }
 
-// KubernetesClusterAttributesMap represents the map of attribute for KubernetesCluster.
-var KubernetesClusterAttributesMap = map[string]elemental.AttributeSpecification{
+// K8SAPIServerAttributesMap represents the map of attribute for K8SAPIServer.
+var K8SAPIServerAttributesMap = map[string]elemental.AttributeSpecification{
 	"APIVersions": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiversions",
@@ -1014,8 +1014,8 @@ georedundancy.`,
 	},
 }
 
-// KubernetesClusterLowerCaseAttributesMap represents the map of attribute for KubernetesCluster.
-var KubernetesClusterLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// K8SAPIServerLowerCaseAttributesMap represents the map of attribute for K8SAPIServer.
+var K8SAPIServerLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"apiversions": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiversions",
@@ -1287,35 +1287,35 @@ georedundancy.`,
 	},
 }
 
-// SparseKubernetesClustersList represents a list of SparseKubernetesClusters
-type SparseKubernetesClustersList []*SparseKubernetesCluster
+// SparseK8SAPIServersList represents a list of SparseK8SAPIServers
+type SparseK8SAPIServersList []*SparseK8SAPIServer
 
 // Identity returns the identity of the objects in the list.
-func (o SparseKubernetesClustersList) Identity() elemental.Identity {
+func (o SparseK8SAPIServersList) Identity() elemental.Identity {
 
-	return KubernetesClusterIdentity
+	return K8SAPIServerIdentity
 }
 
-// Copy returns a pointer to a copy the SparseKubernetesClustersList.
-func (o SparseKubernetesClustersList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseK8SAPIServersList.
+func (o SparseK8SAPIServersList) Copy() elemental.Identifiables {
 
-	copy := append(SparseKubernetesClustersList{}, o...)
+	copy := append(SparseK8SAPIServersList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseKubernetesClustersList.
-func (o SparseKubernetesClustersList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseK8SAPIServersList.
+func (o SparseK8SAPIServersList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseKubernetesClustersList{}, o...)
+	out := append(SparseK8SAPIServersList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseKubernetesCluster))
+		out = append(out, obj.(*SparseK8SAPIServer))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseKubernetesClustersList) List() elemental.IdentifiablesList {
+func (o SparseK8SAPIServersList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -1326,15 +1326,15 @@ func (o SparseKubernetesClustersList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseKubernetesClustersList) DefaultOrder() []string {
+func (o SparseK8SAPIServersList) DefaultOrder() []string {
 
 	return []string{
 		"name",
 	}
 }
 
-// ToPlain returns the SparseKubernetesClustersList converted to KubernetesClustersList.
-func (o SparseKubernetesClustersList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseK8SAPIServersList converted to K8SAPIServersList.
+func (o SparseK8SAPIServersList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -1345,13 +1345,13 @@ func (o SparseKubernetesClustersList) ToPlain() elemental.IdentifiablesList {
 }
 
 // Version returns the version of the content.
-func (o SparseKubernetesClustersList) Version() int {
+func (o SparseK8SAPIServersList) Version() int {
 
 	return 1
 }
 
-// SparseKubernetesCluster represents the sparse version of a kubernetescluster.
-type SparseKubernetesCluster struct {
+// SparseK8SAPIServer represents the sparse version of a k8sapiserver.
+type SparseK8SAPIServer struct {
 	// API versions supported by the API server.
 	APIVersions *[]string `json:"APIVersions,omitempty" msgpack:"APIVersions,omitempty" bson:"apiversions,omitempty" mapstructure:"APIVersions,omitempty"`
 
@@ -1417,19 +1417,19 @@ type SparseKubernetesCluster struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseKubernetesCluster returns a new  SparseKubernetesCluster.
-func NewSparseKubernetesCluster() *SparseKubernetesCluster {
-	return &SparseKubernetesCluster{}
+// NewSparseK8SAPIServer returns a new  SparseK8SAPIServer.
+func NewSparseK8SAPIServer() *SparseK8SAPIServer {
+	return &SparseK8SAPIServer{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseKubernetesCluster) Identity() elemental.Identity {
+func (o *SparseK8SAPIServer) Identity() elemental.Identity {
 
-	return KubernetesClusterIdentity
+	return K8SAPIServerIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseKubernetesCluster) Identifier() string {
+func (o *SparseK8SAPIServer) Identifier() string {
 
 	if o.ID == nil {
 		return ""
@@ -1438,7 +1438,7 @@ func (o *SparseKubernetesCluster) Identifier() string {
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseKubernetesCluster) SetIdentifier(id string) {
+func (o *SparseK8SAPIServer) SetIdentifier(id string) {
 
 	if id != "" {
 		o.ID = &id
@@ -1449,13 +1449,13 @@ func (o *SparseKubernetesCluster) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseKubernetesCluster) GetBSON() (interface{}, error) {
+func (o *SparseK8SAPIServer) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseKubernetesCluster{}
+	s := &mongoAttributesSparseK8SAPIServer{}
 
 	if o.APIVersions != nil {
 		s.APIVersions = o.APIVersions
@@ -1523,13 +1523,13 @@ func (o *SparseKubernetesCluster) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseKubernetesCluster) SetBSON(raw bson.Raw) error {
+func (o *SparseK8SAPIServer) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseKubernetesCluster{}
+	s := &mongoAttributesSparseK8SAPIServer{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -1598,15 +1598,15 @@ func (o *SparseKubernetesCluster) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseKubernetesCluster) Version() int {
+func (o *SparseK8SAPIServer) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseKubernetesCluster) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseK8SAPIServer) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewKubernetesCluster()
+	out := NewK8SAPIServer()
 	if o.APIVersions != nil {
 		out.APIVersions = *o.APIVersions
 	}
@@ -1672,7 +1672,7 @@ func (o *SparseKubernetesCluster) ToPlain() elemental.PlainIdentifiable {
 }
 
 // GetAnnotations returns the Annotations of the receiver.
-func (o *SparseKubernetesCluster) GetAnnotations() (out map[string][]string) {
+func (o *SparseK8SAPIServer) GetAnnotations() (out map[string][]string) {
 
 	if o.Annotations == nil {
 		return
@@ -1682,13 +1682,13 @@ func (o *SparseKubernetesCluster) GetAnnotations() (out map[string][]string) {
 }
 
 // SetAnnotations sets the property Annotations of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetAnnotations(annotations map[string][]string) {
+func (o *SparseK8SAPIServer) SetAnnotations(annotations map[string][]string) {
 
 	o.Annotations = &annotations
 }
 
 // GetAssociatedTags returns the AssociatedTags of the receiver.
-func (o *SparseKubernetesCluster) GetAssociatedTags() (out []string) {
+func (o *SparseK8SAPIServer) GetAssociatedTags() (out []string) {
 
 	if o.AssociatedTags == nil {
 		return
@@ -1698,13 +1698,13 @@ func (o *SparseKubernetesCluster) GetAssociatedTags() (out []string) {
 }
 
 // SetAssociatedTags sets the property AssociatedTags of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetAssociatedTags(associatedTags []string) {
+func (o *SparseK8SAPIServer) SetAssociatedTags(associatedTags []string) {
 
 	o.AssociatedTags = &associatedTags
 }
 
 // GetCreateIdempotencyKey returns the CreateIdempotencyKey of the receiver.
-func (o *SparseKubernetesCluster) GetCreateIdempotencyKey() (out string) {
+func (o *SparseK8SAPIServer) GetCreateIdempotencyKey() (out string) {
 
 	if o.CreateIdempotencyKey == nil {
 		return
@@ -1714,13 +1714,13 @@ func (o *SparseKubernetesCluster) GetCreateIdempotencyKey() (out string) {
 }
 
 // SetCreateIdempotencyKey sets the property CreateIdempotencyKey of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetCreateIdempotencyKey(createIdempotencyKey string) {
+func (o *SparseK8SAPIServer) SetCreateIdempotencyKey(createIdempotencyKey string) {
 
 	o.CreateIdempotencyKey = &createIdempotencyKey
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *SparseKubernetesCluster) GetCreateTime() (out time.Time) {
+func (o *SparseK8SAPIServer) GetCreateTime() (out time.Time) {
 
 	if o.CreateTime == nil {
 		return
@@ -1730,13 +1730,13 @@ func (o *SparseKubernetesCluster) GetCreateTime() (out time.Time) {
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetCreateTime(createTime time.Time) {
+func (o *SparseK8SAPIServer) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = &createTime
 }
 
 // GetDescription returns the Description of the receiver.
-func (o *SparseKubernetesCluster) GetDescription() (out string) {
+func (o *SparseK8SAPIServer) GetDescription() (out string) {
 
 	if o.Description == nil {
 		return
@@ -1746,13 +1746,13 @@ func (o *SparseKubernetesCluster) GetDescription() (out string) {
 }
 
 // SetDescription sets the property Description of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetDescription(description string) {
+func (o *SparseK8SAPIServer) SetDescription(description string) {
 
 	o.Description = &description
 }
 
 // GetMetadata returns the Metadata of the receiver.
-func (o *SparseKubernetesCluster) GetMetadata() (out []string) {
+func (o *SparseK8SAPIServer) GetMetadata() (out []string) {
 
 	if o.Metadata == nil {
 		return
@@ -1762,13 +1762,13 @@ func (o *SparseKubernetesCluster) GetMetadata() (out []string) {
 }
 
 // SetMetadata sets the property Metadata of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetMetadata(metadata []string) {
+func (o *SparseK8SAPIServer) SetMetadata(metadata []string) {
 
 	o.Metadata = &metadata
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *SparseKubernetesCluster) GetMigrationsLog() (out map[string]string) {
+func (o *SparseK8SAPIServer) GetMigrationsLog() (out map[string]string) {
 
 	if o.MigrationsLog == nil {
 		return
@@ -1778,13 +1778,13 @@ func (o *SparseKubernetesCluster) GetMigrationsLog() (out map[string]string) {
 }
 
 // SetMigrationsLog sets the property MigrationsLog of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetMigrationsLog(migrationsLog map[string]string) {
+func (o *SparseK8SAPIServer) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = &migrationsLog
 }
 
 // GetName returns the Name of the receiver.
-func (o *SparseKubernetesCluster) GetName() (out string) {
+func (o *SparseK8SAPIServer) GetName() (out string) {
 
 	if o.Name == nil {
 		return
@@ -1794,13 +1794,13 @@ func (o *SparseKubernetesCluster) GetName() (out string) {
 }
 
 // SetName sets the property Name of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetName(name string) {
+func (o *SparseK8SAPIServer) SetName(name string) {
 
 	o.Name = &name
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *SparseKubernetesCluster) GetNamespace() (out string) {
+func (o *SparseK8SAPIServer) GetNamespace() (out string) {
 
 	if o.Namespace == nil {
 		return
@@ -1810,13 +1810,13 @@ func (o *SparseKubernetesCluster) GetNamespace() (out string) {
 }
 
 // SetNamespace sets the property Namespace of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetNamespace(namespace string) {
+func (o *SparseK8SAPIServer) SetNamespace(namespace string) {
 
 	o.Namespace = &namespace
 }
 
 // GetNormalizedTags returns the NormalizedTags of the receiver.
-func (o *SparseKubernetesCluster) GetNormalizedTags() (out []string) {
+func (o *SparseK8SAPIServer) GetNormalizedTags() (out []string) {
 
 	if o.NormalizedTags == nil {
 		return
@@ -1826,13 +1826,13 @@ func (o *SparseKubernetesCluster) GetNormalizedTags() (out []string) {
 }
 
 // SetNormalizedTags sets the property NormalizedTags of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetNormalizedTags(normalizedTags []string) {
+func (o *SparseK8SAPIServer) SetNormalizedTags(normalizedTags []string) {
 
 	o.NormalizedTags = &normalizedTags
 }
 
 // GetProtected returns the Protected of the receiver.
-func (o *SparseKubernetesCluster) GetProtected() (out bool) {
+func (o *SparseK8SAPIServer) GetProtected() (out bool) {
 
 	if o.Protected == nil {
 		return
@@ -1842,13 +1842,13 @@ func (o *SparseKubernetesCluster) GetProtected() (out bool) {
 }
 
 // SetProtected sets the property Protected of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetProtected(protected bool) {
+func (o *SparseK8SAPIServer) SetProtected(protected bool) {
 
 	o.Protected = &protected
 }
 
 // GetUpdateIdempotencyKey returns the UpdateIdempotencyKey of the receiver.
-func (o *SparseKubernetesCluster) GetUpdateIdempotencyKey() (out string) {
+func (o *SparseK8SAPIServer) GetUpdateIdempotencyKey() (out string) {
 
 	if o.UpdateIdempotencyKey == nil {
 		return
@@ -1858,13 +1858,13 @@ func (o *SparseKubernetesCluster) GetUpdateIdempotencyKey() (out string) {
 }
 
 // SetUpdateIdempotencyKey sets the property UpdateIdempotencyKey of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
+func (o *SparseK8SAPIServer) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
 
 	o.UpdateIdempotencyKey = &updateIdempotencyKey
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *SparseKubernetesCluster) GetUpdateTime() (out time.Time) {
+func (o *SparseK8SAPIServer) GetUpdateTime() (out time.Time) {
 
 	if o.UpdateTime == nil {
 		return
@@ -1874,13 +1874,13 @@ func (o *SparseKubernetesCluster) GetUpdateTime() (out time.Time) {
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetUpdateTime(updateTime time.Time) {
+func (o *SparseK8SAPIServer) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = &updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *SparseKubernetesCluster) GetZHash() (out int) {
+func (o *SparseK8SAPIServer) GetZHash() (out int) {
 
 	if o.ZHash == nil {
 		return
@@ -1890,13 +1890,13 @@ func (o *SparseKubernetesCluster) GetZHash() (out int) {
 }
 
 // SetZHash sets the property ZHash of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetZHash(zHash int) {
+func (o *SparseK8SAPIServer) SetZHash(zHash int) {
 
 	o.ZHash = &zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *SparseKubernetesCluster) GetZone() (out int) {
+func (o *SparseK8SAPIServer) GetZone() (out int) {
 
 	if o.Zone == nil {
 		return
@@ -1906,36 +1906,36 @@ func (o *SparseKubernetesCluster) GetZone() (out int) {
 }
 
 // SetZone sets the property Zone of the receiver using the address of the given value.
-func (o *SparseKubernetesCluster) SetZone(zone int) {
+func (o *SparseK8SAPIServer) SetZone(zone int) {
 
 	o.Zone = &zone
 }
 
-// DeepCopy returns a deep copy if the SparseKubernetesCluster.
-func (o *SparseKubernetesCluster) DeepCopy() *SparseKubernetesCluster {
+// DeepCopy returns a deep copy if the SparseK8SAPIServer.
+func (o *SparseK8SAPIServer) DeepCopy() *SparseK8SAPIServer {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseKubernetesCluster{}
+	out := &SparseK8SAPIServer{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseKubernetesCluster.
-func (o *SparseKubernetesCluster) DeepCopyInto(out *SparseKubernetesCluster) {
+// DeepCopyInto copies the receiver into the given *SparseK8SAPIServer.
+func (o *SparseK8SAPIServer) DeepCopyInto(out *SparseK8SAPIServer) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseKubernetesCluster: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseK8SAPIServer: %s", err))
 	}
 
-	*out = *target.(*SparseKubernetesCluster)
+	*out = *target.(*SparseK8SAPIServer)
 }
 
-type mongoAttributesKubernetesCluster struct {
+type mongoAttributesK8SAPIServer struct {
 	APIVersions          []string            `bson:"apiversions"`
 	ID                   bson.ObjectId       `bson:"_id,omitempty"`
 	K8SNamespace         string              `bson:"k8snamespace"`
@@ -1957,7 +1957,7 @@ type mongoAttributesKubernetesCluster struct {
 	ZHash                int                 `bson:"zhash"`
 	Zone                 int                 `bson:"zone"`
 }
-type mongoAttributesSparseKubernetesCluster struct {
+type mongoAttributesSparseK8SAPIServer struct {
 	APIVersions          *[]string            `bson:"apiversions,omitempty"`
 	ID                   bson.ObjectId        `bson:"_id,omitempty"`
 	K8SNamespace         *string              `bson:"k8snamespace,omitempty"`

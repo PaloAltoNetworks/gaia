@@ -172,6 +172,7 @@ kube-apiserver
 kubeconfig
 kubectl
 kubelet
+K8SAPIServer
 Kubernetes
 kubernetes-api
 kubernetes-api-example

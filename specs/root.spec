@@ -893,9 +893,9 @@ relations:
   create:
     description: Creates a new processing unit.
 
-- rest_name: kubernetescluster
+- rest_name: k8sapiserver
   get:
-    description: Retrieves the list of Kubernetes clusters.
+    description: Retrieves the list of Kubernetes API Servers.
     global_parameters:
     - $filtering
     - $archivable
