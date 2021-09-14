@@ -6370,6 +6370,25 @@ Update the Kubernetes cluster with the given ID.
 
 #### Attributes
 
+##### `APIServerServiceFQDNs`
+
+Type: `[]string`
+
+It contains the fqdns that will be set in the certificate.
+
+##### `APIServerServiceIPs`
+
+Type: `[]string`
+
+It contains the ips that will be set in the certificate.
+
+##### `APIServerServiceName`
+
+Type: `string`
+
+Kubernetes service name in the format <service name>.<service name
+namespace>.svc will be set as CommonName in the certificate.
+
 ##### `APIVersions`
 
 Type: `[]string`

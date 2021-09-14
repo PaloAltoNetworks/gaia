@@ -83,6 +83,16 @@ func (o KubernetesClustersList) Version() int {
 
 // KubernetesCluster represents the model of a kubernetescluster
 type KubernetesCluster struct {
+	// It contains the fqdns that will be set in the certificate.
+	APIServerServiceFQDNs []string `json:"APIServerServiceFQDNs" msgpack:"APIServerServiceFQDNs" bson:"apiserverservicefqdns" mapstructure:"APIServerServiceFQDNs,omitempty"`
+
+	// It contains the ips that will be set in the certificate.
+	APIServerServiceIPs []string `json:"APIServerServiceIPs" msgpack:"APIServerServiceIPs" bson:"apiserverserviceips" mapstructure:"APIServerServiceIPs,omitempty"`
+
+	// Kubernetes service name in the format <service name>.<service name
+	// namespace>.svc will be set as CommonName in the certificate.
+	APIServerServiceName string `json:"APIServerServiceName" msgpack:"APIServerServiceName" bson:"apiserverservicename" mapstructure:"APIServerServiceName,omitempty"`
+
 	// API versions supported by the API server.
 	APIVersions []string `json:"APIVersions" msgpack:"APIVersions" bson:"apiversions" mapstructure:"APIVersions,omitempty"`
 
@@ -152,13 +162,15 @@ type KubernetesCluster struct {
 func NewKubernetesCluster() *KubernetesCluster {
 
 	return &KubernetesCluster{
-		ModelVersion:   1,
-		Metadata:       []string{},
-		Annotations:    map[string][]string{},
-		AssociatedTags: []string{},
-		APIVersions:    []string{},
-		MigrationsLog:  map[string]string{},
-		NormalizedTags: []string{},
+		ModelVersion:          1,
+		APIServerServiceIPs:   []string{},
+		Metadata:              []string{},
+		Annotations:           map[string][]string{},
+		APIServerServiceFQDNs: []string{},
+		AssociatedTags:        []string{},
+		APIVersions:           []string{},
+		MigrationsLog:         map[string]string{},
+		NormalizedTags:        []string{},
 	}
 }
 
@@ -190,6 +202,9 @@ func (o *KubernetesCluster) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesKubernetesCluster{}
 
+	s.APIServerServiceFQDNs = o.APIServerServiceFQDNs
+	s.APIServerServiceIPs = o.APIServerServiceIPs
+	s.APIServerServiceName = o.APIServerServiceName
 	s.APIVersions = o.APIVersions
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
@@ -229,6 +244,9 @@ func (o *KubernetesCluster) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	o.APIServerServiceFQDNs = s.APIServerServiceFQDNs
+	o.APIServerServiceIPs = s.APIServerServiceIPs
+	o.APIServerServiceName = s.APIServerServiceName
 	o.APIVersions = s.APIVersions
 	o.ID = s.ID.Hex()
 	o.K8SNamespace = s.K8SNamespace
@@ -471,32 +489,41 @@ func (o *KubernetesCluster) ToSparse(fields ...string) elemental.SparseIdentifia
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseKubernetesCluster{
-			APIVersions:          &o.APIVersions,
-			ID:                   &o.ID,
-			K8SNamespace:         &o.K8SNamespace,
-			Annotations:          &o.Annotations,
-			AssociatedTags:       &o.AssociatedTags,
-			CreateIdempotencyKey: &o.CreateIdempotencyKey,
-			CreateTime:           &o.CreateTime,
-			Description:          &o.Description,
-			ExternalIP:           &o.ExternalIP,
-			InternalIP:           &o.InternalIP,
-			Metadata:             &o.Metadata,
-			MigrationsLog:        &o.MigrationsLog,
-			Name:                 &o.Name,
-			Namespace:            &o.Namespace,
-			NormalizedTags:       &o.NormalizedTags,
-			Protected:            &o.Protected,
-			UpdateIdempotencyKey: &o.UpdateIdempotencyKey,
-			UpdateTime:           &o.UpdateTime,
-			ZHash:                &o.ZHash,
-			Zone:                 &o.Zone,
+			APIServerServiceFQDNs: &o.APIServerServiceFQDNs,
+			APIServerServiceIPs:   &o.APIServerServiceIPs,
+			APIServerServiceName:  &o.APIServerServiceName,
+			APIVersions:           &o.APIVersions,
+			ID:                    &o.ID,
+			K8SNamespace:          &o.K8SNamespace,
+			Annotations:           &o.Annotations,
+			AssociatedTags:        &o.AssociatedTags,
+			CreateIdempotencyKey:  &o.CreateIdempotencyKey,
+			CreateTime:            &o.CreateTime,
+			Description:           &o.Description,
+			ExternalIP:            &o.ExternalIP,
+			InternalIP:            &o.InternalIP,
+			Metadata:              &o.Metadata,
+			MigrationsLog:         &o.MigrationsLog,
+			Name:                  &o.Name,
+			Namespace:             &o.Namespace,
+			NormalizedTags:        &o.NormalizedTags,
+			Protected:             &o.Protected,
+			UpdateIdempotencyKey:  &o.UpdateIdempotencyKey,
+			UpdateTime:            &o.UpdateTime,
+			ZHash:                 &o.ZHash,
+			Zone:                  &o.Zone,
 		}
 	}
 
 	sp := &SparseKubernetesCluster{}
 	for _, f := range fields {
 		switch f {
+		case "APIServerServiceFQDNs":
+			sp.APIServerServiceFQDNs = &(o.APIServerServiceFQDNs)
+		case "APIServerServiceIPs":
+			sp.APIServerServiceIPs = &(o.APIServerServiceIPs)
+		case "APIServerServiceName":
+			sp.APIServerServiceName = &(o.APIServerServiceName)
 		case "APIVersions":
 			sp.APIVersions = &(o.APIVersions)
 		case "ID":
@@ -550,6 +577,15 @@ func (o *KubernetesCluster) Patch(sparse elemental.SparseIdentifiable) {
 	}
 
 	so := sparse.(*SparseKubernetesCluster)
+	if so.APIServerServiceFQDNs != nil {
+		o.APIServerServiceFQDNs = *so.APIServerServiceFQDNs
+	}
+	if so.APIServerServiceIPs != nil {
+		o.APIServerServiceIPs = *so.APIServerServiceIPs
+	}
+	if so.APIServerServiceName != nil {
+		o.APIServerServiceName = *so.APIServerServiceName
+	}
 	if so.APIVersions != nil {
 		o.APIVersions = *so.APIVersions
 	}
@@ -696,6 +732,12 @@ func (*KubernetesCluster) AttributeSpecifications() map[string]elemental.Attribu
 func (o *KubernetesCluster) ValueForAttribute(name string) interface{} {
 
 	switch name {
+	case "APIServerServiceFQDNs":
+		return o.APIServerServiceFQDNs
+	case "APIServerServiceIPs":
+		return o.APIServerServiceIPs
+	case "APIServerServiceName":
+		return o.APIServerServiceName
 	case "APIVersions":
 		return o.APIVersions
 	case "ID":
@@ -743,6 +785,41 @@ func (o *KubernetesCluster) ValueForAttribute(name string) interface{} {
 
 // KubernetesClusterAttributesMap represents the map of attribute for KubernetesCluster.
 var KubernetesClusterAttributesMap = map[string]elemental.AttributeSpecification{
+	"APIServerServiceFQDNs": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "apiserverservicefqdns",
+		ConvertedName:  "APIServerServiceFQDNs",
+		Description:    `It contains the fqdns that will be set in the certificate.`,
+		Exposed:        true,
+		Name:           "APIServerServiceFQDNs",
+		Orderable:      true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"APIServerServiceIPs": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "apiserverserviceips",
+		ConvertedName:  "APIServerServiceIPs",
+		Description:    `It contains the ips that will be set in the certificate.`,
+		Exposed:        true,
+		Name:           "APIServerServiceIPs",
+		Orderable:      true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"APIServerServiceName": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "apiserverservicename",
+		ConvertedName:  "APIServerServiceName",
+		Description: `Kubernetes service name in the format <service name>.<service name
+namespace>.svc will be set as CommonName in the certificate.`,
+		Exposed: true,
+		Name:    "APIServerServiceName",
+		Stored:  true,
+		Type:    "string",
+	},
 	"APIVersions": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiversions",
@@ -1016,6 +1093,41 @@ georedundancy.`,
 
 // KubernetesClusterLowerCaseAttributesMap represents the map of attribute for KubernetesCluster.
 var KubernetesClusterLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"apiserverservicefqdns": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "apiserverservicefqdns",
+		ConvertedName:  "APIServerServiceFQDNs",
+		Description:    `It contains the fqdns that will be set in the certificate.`,
+		Exposed:        true,
+		Name:           "APIServerServiceFQDNs",
+		Orderable:      true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"apiserverserviceips": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "apiserverserviceips",
+		ConvertedName:  "APIServerServiceIPs",
+		Description:    `It contains the ips that will be set in the certificate.`,
+		Exposed:        true,
+		Name:           "APIServerServiceIPs",
+		Orderable:      true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"apiserverservicename": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "apiserverservicename",
+		ConvertedName:  "APIServerServiceName",
+		Description: `Kubernetes service name in the format <service name>.<service name
+namespace>.svc will be set as CommonName in the certificate.`,
+		Exposed: true,
+		Name:    "APIServerServiceName",
+		Stored:  true,
+		Type:    "string",
+	},
 	"apiversions": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiversions",
@@ -1352,6 +1464,16 @@ func (o SparseKubernetesClustersList) Version() int {
 
 // SparseKubernetesCluster represents the sparse version of a kubernetescluster.
 type SparseKubernetesCluster struct {
+	// It contains the fqdns that will be set in the certificate.
+	APIServerServiceFQDNs *[]string `json:"APIServerServiceFQDNs,omitempty" msgpack:"APIServerServiceFQDNs,omitempty" bson:"apiserverservicefqdns,omitempty" mapstructure:"APIServerServiceFQDNs,omitempty"`
+
+	// It contains the ips that will be set in the certificate.
+	APIServerServiceIPs *[]string `json:"APIServerServiceIPs,omitempty" msgpack:"APIServerServiceIPs,omitempty" bson:"apiserverserviceips,omitempty" mapstructure:"APIServerServiceIPs,omitempty"`
+
+	// Kubernetes service name in the format <service name>.<service name
+	// namespace>.svc will be set as CommonName in the certificate.
+	APIServerServiceName *string `json:"APIServerServiceName,omitempty" msgpack:"APIServerServiceName,omitempty" bson:"apiserverservicename,omitempty" mapstructure:"APIServerServiceName,omitempty"`
+
 	// API versions supported by the API server.
 	APIVersions *[]string `json:"APIVersions,omitempty" msgpack:"APIVersions,omitempty" bson:"apiversions,omitempty" mapstructure:"APIVersions,omitempty"`
 
@@ -1457,6 +1579,15 @@ func (o *SparseKubernetesCluster) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesSparseKubernetesCluster{}
 
+	if o.APIServerServiceFQDNs != nil {
+		s.APIServerServiceFQDNs = o.APIServerServiceFQDNs
+	}
+	if o.APIServerServiceIPs != nil {
+		s.APIServerServiceIPs = o.APIServerServiceIPs
+	}
+	if o.APIServerServiceName != nil {
+		s.APIServerServiceName = o.APIServerServiceName
+	}
 	if o.APIVersions != nil {
 		s.APIVersions = o.APIVersions
 	}
@@ -1534,6 +1665,15 @@ func (o *SparseKubernetesCluster) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	if s.APIServerServiceFQDNs != nil {
+		o.APIServerServiceFQDNs = s.APIServerServiceFQDNs
+	}
+	if s.APIServerServiceIPs != nil {
+		o.APIServerServiceIPs = s.APIServerServiceIPs
+	}
+	if s.APIServerServiceName != nil {
+		o.APIServerServiceName = s.APIServerServiceName
+	}
 	if s.APIVersions != nil {
 		o.APIVersions = s.APIVersions
 	}
@@ -1607,6 +1747,15 @@ func (o *SparseKubernetesCluster) Version() int {
 func (o *SparseKubernetesCluster) ToPlain() elemental.PlainIdentifiable {
 
 	out := NewKubernetesCluster()
+	if o.APIServerServiceFQDNs != nil {
+		out.APIServerServiceFQDNs = *o.APIServerServiceFQDNs
+	}
+	if o.APIServerServiceIPs != nil {
+		out.APIServerServiceIPs = *o.APIServerServiceIPs
+	}
+	if o.APIServerServiceName != nil {
+		out.APIServerServiceName = *o.APIServerServiceName
+	}
 	if o.APIVersions != nil {
 		out.APIVersions = *o.APIVersions
 	}
@@ -1936,46 +2085,52 @@ func (o *SparseKubernetesCluster) DeepCopyInto(out *SparseKubernetesCluster) {
 }
 
 type mongoAttributesKubernetesCluster struct {
-	APIVersions          []string            `bson:"apiversions"`
-	ID                   bson.ObjectId       `bson:"_id,omitempty"`
-	K8SNamespace         string              `bson:"k8snamespace"`
-	Annotations          map[string][]string `bson:"annotations"`
-	AssociatedTags       []string            `bson:"associatedtags"`
-	CreateIdempotencyKey string              `bson:"createidempotencykey"`
-	CreateTime           time.Time           `bson:"createtime"`
-	Description          string              `bson:"description"`
-	ExternalIP           string              `bson:"externalip"`
-	InternalIP           string              `bson:"internalip"`
-	Metadata             []string            `bson:"metadata"`
-	MigrationsLog        map[string]string   `bson:"migrationslog,omitempty"`
-	Name                 string              `bson:"name"`
-	Namespace            string              `bson:"namespace"`
-	NormalizedTags       []string            `bson:"normalizedtags"`
-	Protected            bool                `bson:"protected"`
-	UpdateIdempotencyKey string              `bson:"updateidempotencykey"`
-	UpdateTime           time.Time           `bson:"updatetime"`
-	ZHash                int                 `bson:"zhash"`
-	Zone                 int                 `bson:"zone"`
+	APIServerServiceFQDNs []string            `bson:"apiserverservicefqdns"`
+	APIServerServiceIPs   []string            `bson:"apiserverserviceips"`
+	APIServerServiceName  string              `bson:"apiserverservicename"`
+	APIVersions           []string            `bson:"apiversions"`
+	ID                    bson.ObjectId       `bson:"_id,omitempty"`
+	K8SNamespace          string              `bson:"k8snamespace"`
+	Annotations           map[string][]string `bson:"annotations"`
+	AssociatedTags        []string            `bson:"associatedtags"`
+	CreateIdempotencyKey  string              `bson:"createidempotencykey"`
+	CreateTime            time.Time           `bson:"createtime"`
+	Description           string              `bson:"description"`
+	ExternalIP            string              `bson:"externalip"`
+	InternalIP            string              `bson:"internalip"`
+	Metadata              []string            `bson:"metadata"`
+	MigrationsLog         map[string]string   `bson:"migrationslog,omitempty"`
+	Name                  string              `bson:"name"`
+	Namespace             string              `bson:"namespace"`
+	NormalizedTags        []string            `bson:"normalizedtags"`
+	Protected             bool                `bson:"protected"`
+	UpdateIdempotencyKey  string              `bson:"updateidempotencykey"`
+	UpdateTime            time.Time           `bson:"updatetime"`
+	ZHash                 int                 `bson:"zhash"`
+	Zone                  int                 `bson:"zone"`
 }
 type mongoAttributesSparseKubernetesCluster struct {
-	APIVersions          *[]string            `bson:"apiversions,omitempty"`
-	ID                   bson.ObjectId        `bson:"_id,omitempty"`
-	K8SNamespace         *string              `bson:"k8snamespace,omitempty"`
-	Annotations          *map[string][]string `bson:"annotations,omitempty"`
-	AssociatedTags       *[]string            `bson:"associatedtags,omitempty"`
-	CreateIdempotencyKey *string              `bson:"createidempotencykey,omitempty"`
-	CreateTime           *time.Time           `bson:"createtime,omitempty"`
-	Description          *string              `bson:"description,omitempty"`
-	ExternalIP           *string              `bson:"externalip,omitempty"`
-	InternalIP           *string              `bson:"internalip,omitempty"`
-	Metadata             *[]string            `bson:"metadata,omitempty"`
-	MigrationsLog        *map[string]string   `bson:"migrationslog,omitempty"`
-	Name                 *string              `bson:"name,omitempty"`
-	Namespace            *string              `bson:"namespace,omitempty"`
-	NormalizedTags       *[]string            `bson:"normalizedtags,omitempty"`
-	Protected            *bool                `bson:"protected,omitempty"`
-	UpdateIdempotencyKey *string              `bson:"updateidempotencykey,omitempty"`
-	UpdateTime           *time.Time           `bson:"updatetime,omitempty"`
-	ZHash                *int                 `bson:"zhash,omitempty"`
-	Zone                 *int                 `bson:"zone,omitempty"`
+	APIServerServiceFQDNs *[]string            `bson:"apiserverservicefqdns,omitempty"`
+	APIServerServiceIPs   *[]string            `bson:"apiserverserviceips,omitempty"`
+	APIServerServiceName  *string              `bson:"apiserverservicename,omitempty"`
+	APIVersions           *[]string            `bson:"apiversions,omitempty"`
+	ID                    bson.ObjectId        `bson:"_id,omitempty"`
+	K8SNamespace          *string              `bson:"k8snamespace,omitempty"`
+	Annotations           *map[string][]string `bson:"annotations,omitempty"`
+	AssociatedTags        *[]string            `bson:"associatedtags,omitempty"`
+	CreateIdempotencyKey  *string              `bson:"createidempotencykey,omitempty"`
+	CreateTime            *time.Time           `bson:"createtime,omitempty"`
+	Description           *string              `bson:"description,omitempty"`
+	ExternalIP            *string              `bson:"externalip,omitempty"`
+	InternalIP            *string              `bson:"internalip,omitempty"`
+	Metadata              *[]string            `bson:"metadata,omitempty"`
+	MigrationsLog         *map[string]string   `bson:"migrationslog,omitempty"`
+	Name                  *string              `bson:"name,omitempty"`
+	Namespace             *string              `bson:"namespace,omitempty"`
+	NormalizedTags        *[]string            `bson:"normalizedtags,omitempty"`
+	Protected             *bool                `bson:"protected,omitempty"`
+	UpdateIdempotencyKey  *string              `bson:"updateidempotencykey,omitempty"`
+	UpdateTime            *time.Time           `bson:"updatetime,omitempty"`
+	ZHash                 *int                 `bson:"zhash,omitempty"`
+	Zone                  *int                 `bson:"zone,omitempty"`
 }

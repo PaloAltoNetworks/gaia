@@ -29,6 +29,30 @@ model:
 # Attributes
 attributes:
   v1:
+  - name: APIServerServiceFQDNs
+    description: It contains the fqdns that will be set in the certificate.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    orderable: true
+
+  - name: APIServerServiceIPs
+    description: It contains the ips that will be set in the certificate.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    orderable: true
+
+  - name: APIServerServiceName
+    description: |-
+      Kubernetes service name in the format <service name>.<service name
+      namespace>.svc will be set as CommonName in the certificate.
+    type: string
+    exposed: true
+    stored: true
+
   - name: APIVersions
     description: API versions supported by the API server.
     type: list
