@@ -6389,7 +6389,7 @@ Type: `string`
 Kubernetes service name in the format <service name>.<service name
 namespace>.svc will be set in the certificate CommonName field.
 
-##### `APIVersions`
+##### `APIServerVersions`
 
 Type: `[]string`
 
@@ -6400,12 +6400,6 @@ API versions supported by the API server.
 Type: `string`
 
 Identifier of the object.
-
-##### `K8SNamespace`
-
-Type: `string`
-
-Kubernetes namespace.
 
 ##### `annotations`
 

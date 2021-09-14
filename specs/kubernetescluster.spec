@@ -52,17 +52,11 @@ attributes:
     exposed: true
     stored: true
 
-  - name: APIVersions
+  - name: APIServerVersions
     description: API versions supported by the API server.
     type: list
     exposed: true
     subtype: string
-    stored: true
-
-  - name: K8SNamespace
-    description: Kubernetes namespace.
-    type: string
-    exposed: true
     stored: true
 
   - name: externalIP
