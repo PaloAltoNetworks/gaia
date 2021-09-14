@@ -83,14 +83,14 @@ func (o KubernetesClustersList) Version() int {
 
 // KubernetesCluster represents the model of a kubernetescluster
 type KubernetesCluster struct {
-	// It contains the fqdns that will be set in the certificate.
+	// It contains the fqdns that will be set in the certificate SANS field.
 	APIServerServiceFQDNs []string `json:"APIServerServiceFQDNs" msgpack:"APIServerServiceFQDNs" bson:"apiserverservicefqdns" mapstructure:"APIServerServiceFQDNs,omitempty"`
 
-	// It contains the ips that will be set in the certificate.
+	// It contains the ips that will be set in the certificate SANS field.
 	APIServerServiceIPs []string `json:"APIServerServiceIPs" msgpack:"APIServerServiceIPs" bson:"apiserverserviceips" mapstructure:"APIServerServiceIPs,omitempty"`
 
 	// Kubernetes service name in the format <service name>.<service name
-	// namespace>.svc will be set as CommonName in the certificate.
+	// namespace>.svc will be set in the certificate CommonName field.
 	APIServerServiceName string `json:"APIServerServiceName" msgpack:"APIServerServiceName" bson:"apiserverservicename" mapstructure:"APIServerServiceName,omitempty"`
 
 	// API versions supported by the API server.
@@ -789,7 +789,7 @@ var KubernetesClusterAttributesMap = map[string]elemental.AttributeSpecification
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiserverservicefqdns",
 		ConvertedName:  "APIServerServiceFQDNs",
-		Description:    `It contains the fqdns that will be set in the certificate.`,
+		Description:    `It contains the fqdns that will be set in the certificate SANS field.`,
 		Exposed:        true,
 		Name:           "APIServerServiceFQDNs",
 		Orderable:      true,
@@ -801,7 +801,7 @@ var KubernetesClusterAttributesMap = map[string]elemental.AttributeSpecification
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiserverserviceips",
 		ConvertedName:  "APIServerServiceIPs",
-		Description:    `It contains the ips that will be set in the certificate.`,
+		Description:    `It contains the ips that will be set in the certificate SANS field.`,
 		Exposed:        true,
 		Name:           "APIServerServiceIPs",
 		Orderable:      true,
@@ -814,7 +814,7 @@ var KubernetesClusterAttributesMap = map[string]elemental.AttributeSpecification
 		BSONFieldName:  "apiserverservicename",
 		ConvertedName:  "APIServerServiceName",
 		Description: `Kubernetes service name in the format <service name>.<service name
-namespace>.svc will be set as CommonName in the certificate.`,
+namespace>.svc will be set in the certificate CommonName field.`,
 		Exposed: true,
 		Name:    "APIServerServiceName",
 		Stored:  true,
@@ -1097,7 +1097,7 @@ var KubernetesClusterLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiserverservicefqdns",
 		ConvertedName:  "APIServerServiceFQDNs",
-		Description:    `It contains the fqdns that will be set in the certificate.`,
+		Description:    `It contains the fqdns that will be set in the certificate SANS field.`,
 		Exposed:        true,
 		Name:           "APIServerServiceFQDNs",
 		Orderable:      true,
@@ -1109,7 +1109,7 @@ var KubernetesClusterLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiserverserviceips",
 		ConvertedName:  "APIServerServiceIPs",
-		Description:    `It contains the ips that will be set in the certificate.`,
+		Description:    `It contains the ips that will be set in the certificate SANS field.`,
 		Exposed:        true,
 		Name:           "APIServerServiceIPs",
 		Orderable:      true,
@@ -1122,7 +1122,7 @@ var KubernetesClusterLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 		BSONFieldName:  "apiserverservicename",
 		ConvertedName:  "APIServerServiceName",
 		Description: `Kubernetes service name in the format <service name>.<service name
-namespace>.svc will be set as CommonName in the certificate.`,
+namespace>.svc will be set in the certificate CommonName field.`,
 		Exposed: true,
 		Name:    "APIServerServiceName",
 		Stored:  true,
@@ -1464,14 +1464,14 @@ func (o SparseKubernetesClustersList) Version() int {
 
 // SparseKubernetesCluster represents the sparse version of a kubernetescluster.
 type SparseKubernetesCluster struct {
-	// It contains the fqdns that will be set in the certificate.
+	// It contains the fqdns that will be set in the certificate SANS field.
 	APIServerServiceFQDNs *[]string `json:"APIServerServiceFQDNs,omitempty" msgpack:"APIServerServiceFQDNs,omitempty" bson:"apiserverservicefqdns,omitempty" mapstructure:"APIServerServiceFQDNs,omitempty"`
 
-	// It contains the ips that will be set in the certificate.
+	// It contains the ips that will be set in the certificate SANS field.
 	APIServerServiceIPs *[]string `json:"APIServerServiceIPs,omitempty" msgpack:"APIServerServiceIPs,omitempty" bson:"apiserverserviceips,omitempty" mapstructure:"APIServerServiceIPs,omitempty"`
 
 	// Kubernetes service name in the format <service name>.<service name
-	// namespace>.svc will be set as CommonName in the certificate.
+	// namespace>.svc will be set in the certificate CommonName field.
 	APIServerServiceName *string `json:"APIServerServiceName,omitempty" msgpack:"APIServerServiceName,omitempty" bson:"apiserverservicename,omitempty" mapstructure:"APIServerServiceName,omitempty"`
 
 	// API versions supported by the API server.

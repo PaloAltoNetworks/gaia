@@ -6374,20 +6374,20 @@ Update the Kubernetes cluster with the given ID.
 
 Type: `[]string`
 
-It contains the fqdns that will be set in the certificate.
+It contains the fqdns that will be set in the certificate SANS field.
 
 ##### `APIServerServiceIPs`
 
 Type: `[]string`
 
-It contains the ips that will be set in the certificate.
+It contains the ips that will be set in the certificate SANS field.
 
 ##### `APIServerServiceName`
 
 Type: `string`
 
 Kubernetes service name in the format <service name>.<service name
-namespace>.svc will be set as CommonName in the certificate.
+namespace>.svc will be set in the certificate CommonName field.
 
 ##### `APIVersions`
 
