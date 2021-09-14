@@ -43,7 +43,6 @@ attributes:
     exposed: true
     subtype: string
     stored: true
-    orderable: true
 
   - name: APIServerServiceName
     description: |-
