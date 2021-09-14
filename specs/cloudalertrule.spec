@@ -30,8 +30,7 @@ model:
 indexes:
 - - namespace
   - prismaCloudAlertRuleID
-- - :unique
-  - prismaCloudAlertRuleID
+- - prismaCloudAlertRuleID
 
 # Attributes
 attributes:
