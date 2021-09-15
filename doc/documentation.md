@@ -6324,7 +6324,7 @@ Contains a cryptographic token.
 
 ##### `type`
 
-Type: `enum(Enforcer | Service | ServicePing | KubernetesCluster)`
+Type: `enum(Enforcer | Service | ServicePing | K8SAPIServer)`
 
 Type of certificate.
 
