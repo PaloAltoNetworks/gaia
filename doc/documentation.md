@@ -19679,7 +19679,7 @@ to evaluate policy for it.
 
 ### SuggestedPolicy
 
-Allows you to obtain network policy suggestions.
+Allows you to obtain network ruleset policy suggestions.
 
 #### Relations
 
@@ -19703,11 +19703,11 @@ Mandatory Parameters
 
 #### Attributes
 
-##### `networkAccessPolicies`
+##### `policy`
 
-Type: [`[]networkaccesspolicy`](#networkaccesspolicy)
+Type: [`networkrulesetpolicy`](#networkrulesetpolicy)
 
-List of suggested network policies.
+The suggested network policy.
 
 ## visualization/metrics
 
