@@ -6374,13 +6374,15 @@ Update the Kubernetes cluster with the given ID.
 
 Type: `[]string`
 
-It contains the fqdns that will be set in the certificate SANS field.
+Contains the FQDNs used by the API server. They will be used to populate the
+Certificate DNS SANs field.
 
 ##### `APIServerServiceIPs`
 
 Type: `[]string`
 
-It contains the ips that will be set in the certificate SANS field.
+Contains the IPs used by the API server. They will be used to populate the
+Certificate IP SANs field.
 
 ##### `APIServerServiceName`
 

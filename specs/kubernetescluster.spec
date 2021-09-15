@@ -30,7 +30,9 @@ model:
 attributes:
   v1:
   - name: APIServerServiceFQDNs
-    description: It contains the fqdns that will be set in the certificate SANS field.
+    description: |-
+      Contains the FQDNs used by the API server. They will be used to populate the
+      Certificate DNS SANs field.
     type: list
     exposed: true
     subtype: string
@@ -38,7 +40,9 @@ attributes:
     orderable: true
 
   - name: APIServerServiceIPs
-    description: It contains the ips that will be set in the certificate SANS field.
+    description: |-
+      Contains the IPs used by the API server. They will be used to populate the
+      Certificate IP SANs field.
     type: list
     exposed: true
     subtype: string
@@ -51,6 +55,8 @@ attributes:
     type: string
     exposed: true
     stored: true
+    validations:
+    - $apiserverservicename
 
   - name: APIServerVersions
     description: API versions supported by the API server.

@@ -83,10 +83,12 @@ func (o KubernetesClustersList) Version() int {
 
 // KubernetesCluster represents the model of a kubernetescluster
 type KubernetesCluster struct {
-	// It contains the fqdns that will be set in the certificate SANS field.
+	// Contains the FQDNs used by the API server. They will be used to populate the
+	// Certificate DNS SANs field.
 	APIServerServiceFQDNs []string `json:"APIServerServiceFQDNs" msgpack:"APIServerServiceFQDNs" bson:"apiserverservicefqdns" mapstructure:"APIServerServiceFQDNs,omitempty"`
 
-	// It contains the ips that will be set in the certificate SANS field.
+	// Contains the IPs used by the API server. They will be used to populate the
+	// Certificate IP SANs field.
 	APIServerServiceIPs []string `json:"APIServerServiceIPs" msgpack:"APIServerServiceIPs" bson:"apiserverserviceips" mapstructure:"APIServerServiceIPs,omitempty"`
 
 	// Kubernetes service name in the format <service name>.<service name
@@ -667,6 +669,10 @@ func (o *KubernetesCluster) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
+	if err := ValidateAPIServerServiceName("APIServerServiceName", o.APIServerServiceName); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if err := ValidateTagsWithoutReservedPrefixes("associatedTags", o.AssociatedTags); err != nil {
 		errors = errors.Append(err)
 	}
@@ -776,24 +782,26 @@ var KubernetesClusterAttributesMap = map[string]elemental.AttributeSpecification
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiserverservicefqdns",
 		ConvertedName:  "APIServerServiceFQDNs",
-		Description:    `It contains the fqdns that will be set in the certificate SANS field.`,
-		Exposed:        true,
-		Name:           "APIServerServiceFQDNs",
-		Orderable:      true,
-		Stored:         true,
-		SubType:        "string",
-		Type:           "list",
+		Description: `Contains the FQDNs used by the API server. They will be used to populate the
+Certificate DNS SANs field.`,
+		Exposed:   true,
+		Name:      "APIServerServiceFQDNs",
+		Orderable: true,
+		Stored:    true,
+		SubType:   "string",
+		Type:      "list",
 	},
 	"APIServerServiceIPs": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiserverserviceips",
 		ConvertedName:  "APIServerServiceIPs",
-		Description:    `It contains the ips that will be set in the certificate SANS field.`,
-		Exposed:        true,
-		Name:           "APIServerServiceIPs",
-		Stored:         true,
-		SubType:        "string",
-		Type:           "list",
+		Description: `Contains the IPs used by the API server. They will be used to populate the
+Certificate IP SANs field.`,
+		Exposed: true,
+		Name:    "APIServerServiceIPs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
 	},
 	"APIServerServiceName": {
 		AllowedChoices: []string{},
@@ -1073,24 +1081,26 @@ var KubernetesClusterLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiserverservicefqdns",
 		ConvertedName:  "APIServerServiceFQDNs",
-		Description:    `It contains the fqdns that will be set in the certificate SANS field.`,
-		Exposed:        true,
-		Name:           "APIServerServiceFQDNs",
-		Orderable:      true,
-		Stored:         true,
-		SubType:        "string",
-		Type:           "list",
+		Description: `Contains the FQDNs used by the API server. They will be used to populate the
+Certificate DNS SANs field.`,
+		Exposed:   true,
+		Name:      "APIServerServiceFQDNs",
+		Orderable: true,
+		Stored:    true,
+		SubType:   "string",
+		Type:      "list",
 	},
 	"apiserverserviceips": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiserverserviceips",
 		ConvertedName:  "APIServerServiceIPs",
-		Description:    `It contains the ips that will be set in the certificate SANS field.`,
-		Exposed:        true,
-		Name:           "APIServerServiceIPs",
-		Stored:         true,
-		SubType:        "string",
-		Type:           "list",
+		Description: `Contains the IPs used by the API server. They will be used to populate the
+Certificate IP SANs field.`,
+		Exposed: true,
+		Name:    "APIServerServiceIPs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
 	},
 	"apiserverservicename": {
 		AllowedChoices: []string{},
@@ -1429,10 +1439,12 @@ func (o SparseKubernetesClustersList) Version() int {
 
 // SparseKubernetesCluster represents the sparse version of a kubernetescluster.
 type SparseKubernetesCluster struct {
-	// It contains the fqdns that will be set in the certificate SANS field.
+	// Contains the FQDNs used by the API server. They will be used to populate the
+	// Certificate DNS SANs field.
 	APIServerServiceFQDNs *[]string `json:"APIServerServiceFQDNs,omitempty" msgpack:"APIServerServiceFQDNs,omitempty" bson:"apiserverservicefqdns,omitempty" mapstructure:"APIServerServiceFQDNs,omitempty"`
 
-	// It contains the ips that will be set in the certificate SANS field.
+	// Contains the IPs used by the API server. They will be used to populate the
+	// Certificate IP SANs field.
 	APIServerServiceIPs *[]string `json:"APIServerServiceIPs,omitempty" msgpack:"APIServerServiceIPs,omitempty" bson:"apiserverserviceips,omitempty" mapstructure:"APIServerServiceIPs,omitempty"`
 
 	// Kubernetes service name in the format <service name>.<service name

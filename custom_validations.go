@@ -1475,6 +1475,29 @@ func ValidatePortsList(attribute string, ports []*portutils.PortsRange) error {
 	return nil
 }
 
+// ValidateAPIServerServiceName validates the api server service name.
+func ValidateAPIServerServiceName(attribute string, serviceName string) error {
+
+	parts := strings.Split(serviceName, ".")
+	if len(parts) != 3 {
+		return makeValidationError(attribute, fmt.Sprintf("invalid service name, should be of format <service name>.<service snamespace>.svc: %s", serviceName))
+	}
+
+	if parts[0] == "" {
+		return makeValidationError(attribute, fmt.Sprintf("service name is missing : %s", serviceName))
+	}
+
+	if parts[1] == "" {
+		return makeValidationError(attribute, fmt.Sprintf("service namespace is missing : %s", serviceName))
+	}
+
+	if parts[2] != "svc" {
+		return makeValidationError(attribute, fmt.Sprintf("svc keyword is missing : %s", serviceName))
+	}
+
+	return nil
+}
+
 // ValidateCloudNetworkQueryEntity validates the CloudNetworkQuery entity and all the attribute relations.
 func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 
