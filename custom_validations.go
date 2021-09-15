@@ -1480,7 +1480,7 @@ func ValidateAPIServerServiceName(attribute string, serviceName string) error {
 
 	parts := strings.Split(serviceName, ".")
 	if len(parts) != 3 {
-		return makeValidationError(attribute, fmt.Sprintf("invalid service name, should be of format <service name>.<service snamespace>.svc: %s", serviceName))
+		return makeValidationError(attribute, fmt.Sprintf("invalid service name, should be of format <service name>.<service namespace>.svc: %s", serviceName))
 	}
 
 	if parts[0] == "" {
