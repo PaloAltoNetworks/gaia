@@ -36,6 +36,9 @@ model:
   - '@timeable'
   validations:
   - $enforcerprofile
+  extensions:
+    commentFlags:
+    - +k8s:openapi-gen=true
 
 # Attributes
 attributes:

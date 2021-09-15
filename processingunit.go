@@ -159,6 +159,7 @@ func (o ProcessingUnitsList) Version() int {
 }
 
 // ProcessingUnit represents the model of a processingunit
+// +k8s:openapi-gen=true
 type ProcessingUnit struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
@@ -2179,6 +2180,7 @@ func (o SparseProcessingUnitsList) Version() int {
 }
 
 // SparseProcessingUnit represents the sparse version of a processingunit.
+// +k8s:openapi-gen=true
 type SparseProcessingUnit struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`

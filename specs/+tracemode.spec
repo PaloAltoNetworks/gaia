@@ -7,6 +7,9 @@ model:
   group: core/enforcer
   description: Represents the tracing mode to apply to a processing unit.
   detached: true
+  extensions:
+    commentFlags:
+    - +k8s:openapi-gen=true
 
 # Attributes
 attributes:
