@@ -735,11 +735,13 @@ var (
 		},
 		"cloudschedulednetworkquery": {
 			{":shard", ":unique", "zone", "zHash"},
+			{"prismacloudalertruleid"},
+			{"prismacloudalertruleid", "prismacloudpolicyid"},
+			{"namespace", "name"},
 			{"namespace"},
 			{"namespace", "normalizedTags"},
+			{"name"},
 			{"lastexecutiontimestamp"},
-			{"alertruleid"},
-			{"alertruleid", "policyid"},
 		},
 		"cloudsnapshotaccount": {
 			{"updateIdempotencyKey"},

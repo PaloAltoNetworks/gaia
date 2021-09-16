@@ -2,6 +2,10 @@ $apiauthsubject:
   elemental:
     name: ValidateAPIAuthorizationPolicySubject
 
+$apiserverservicename:
+  elemental:
+    name: ValidateAPIServerServiceName
+
 $atLeastOneSubExpression:
   elemental:
     name: ValidateExpressionNotEmpty

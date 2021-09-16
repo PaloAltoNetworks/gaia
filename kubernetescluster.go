@@ -83,14 +83,23 @@ func (o KubernetesClustersList) Version() int {
 
 // KubernetesCluster represents the model of a kubernetescluster
 type KubernetesCluster struct {
+	// Contains the FQDNs used by the API server. They will be used to populate the
+	// Certificate DNS SANs field.
+	APIServerServiceFQDNs []string `json:"APIServerServiceFQDNs" msgpack:"APIServerServiceFQDNs" bson:"apiserverservicefqdns" mapstructure:"APIServerServiceFQDNs,omitempty"`
+
+	// Contains the IPs used by the API server. They will be used to populate the
+	// Certificate IP SANs field.
+	APIServerServiceIPs []string `json:"APIServerServiceIPs" msgpack:"APIServerServiceIPs" bson:"apiserverserviceips" mapstructure:"APIServerServiceIPs,omitempty"`
+
+	// Kubernetes service name in the format <service name>.<service name
+	// namespace>.svc will be set in the certificate CommonName field.
+	APIServerServiceName string `json:"APIServerServiceName" msgpack:"APIServerServiceName" bson:"apiserverservicename" mapstructure:"APIServerServiceName,omitempty"`
+
 	// API versions supported by the API server.
-	APIVersions []string `json:"APIVersions" msgpack:"APIVersions" bson:"apiversions" mapstructure:"APIVersions,omitempty"`
+	APIServerVersions []string `json:"APIServerVersions" msgpack:"APIServerVersions" bson:"apiserverversions" mapstructure:"APIServerVersions,omitempty"`
 
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
-
-	// Kubernetes namespace.
-	K8SNamespace string `json:"K8SNamespace" msgpack:"K8SNamespace" bson:"k8snamespace" mapstructure:"K8SNamespace,omitempty"`
 
 	// Stores additional information about an entity.
 	Annotations map[string][]string `json:"annotations" msgpack:"annotations" bson:"annotations" mapstructure:"annotations,omitempty"`
@@ -152,13 +161,15 @@ type KubernetesCluster struct {
 func NewKubernetesCluster() *KubernetesCluster {
 
 	return &KubernetesCluster{
-		ModelVersion:   1,
-		Metadata:       []string{},
-		Annotations:    map[string][]string{},
-		AssociatedTags: []string{},
-		APIVersions:    []string{},
-		MigrationsLog:  map[string]string{},
-		NormalizedTags: []string{},
+		ModelVersion:          1,
+		APIServerServiceFQDNs: []string{},
+		Metadata:              []string{},
+		Annotations:           map[string][]string{},
+		AssociatedTags:        []string{},
+		MigrationsLog:         map[string]string{},
+		APIServerServiceIPs:   []string{},
+		APIServerVersions:     []string{},
+		NormalizedTags:        []string{},
 	}
 }
 
@@ -190,11 +201,13 @@ func (o *KubernetesCluster) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesKubernetesCluster{}
 
-	s.APIVersions = o.APIVersions
+	s.APIServerServiceFQDNs = o.APIServerServiceFQDNs
+	s.APIServerServiceIPs = o.APIServerServiceIPs
+	s.APIServerServiceName = o.APIServerServiceName
+	s.APIServerVersions = o.APIServerVersions
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
-	s.K8SNamespace = o.K8SNamespace
 	s.Annotations = o.Annotations
 	s.AssociatedTags = o.AssociatedTags
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
@@ -229,9 +242,11 @@ func (o *KubernetesCluster) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
-	o.APIVersions = s.APIVersions
+	o.APIServerServiceFQDNs = s.APIServerServiceFQDNs
+	o.APIServerServiceIPs = s.APIServerServiceIPs
+	o.APIServerServiceName = s.APIServerServiceName
+	o.APIServerVersions = s.APIServerVersions
 	o.ID = s.ID.Hex()
-	o.K8SNamespace = s.K8SNamespace
 	o.Annotations = s.Annotations
 	o.AssociatedTags = s.AssociatedTags
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
@@ -471,38 +486,44 @@ func (o *KubernetesCluster) ToSparse(fields ...string) elemental.SparseIdentifia
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseKubernetesCluster{
-			APIVersions:          &o.APIVersions,
-			ID:                   &o.ID,
-			K8SNamespace:         &o.K8SNamespace,
-			Annotations:          &o.Annotations,
-			AssociatedTags:       &o.AssociatedTags,
-			CreateIdempotencyKey: &o.CreateIdempotencyKey,
-			CreateTime:           &o.CreateTime,
-			Description:          &o.Description,
-			ExternalIP:           &o.ExternalIP,
-			InternalIP:           &o.InternalIP,
-			Metadata:             &o.Metadata,
-			MigrationsLog:        &o.MigrationsLog,
-			Name:                 &o.Name,
-			Namespace:            &o.Namespace,
-			NormalizedTags:       &o.NormalizedTags,
-			Protected:            &o.Protected,
-			UpdateIdempotencyKey: &o.UpdateIdempotencyKey,
-			UpdateTime:           &o.UpdateTime,
-			ZHash:                &o.ZHash,
-			Zone:                 &o.Zone,
+			APIServerServiceFQDNs: &o.APIServerServiceFQDNs,
+			APIServerServiceIPs:   &o.APIServerServiceIPs,
+			APIServerServiceName:  &o.APIServerServiceName,
+			APIServerVersions:     &o.APIServerVersions,
+			ID:                    &o.ID,
+			Annotations:           &o.Annotations,
+			AssociatedTags:        &o.AssociatedTags,
+			CreateIdempotencyKey:  &o.CreateIdempotencyKey,
+			CreateTime:            &o.CreateTime,
+			Description:           &o.Description,
+			ExternalIP:            &o.ExternalIP,
+			InternalIP:            &o.InternalIP,
+			Metadata:              &o.Metadata,
+			MigrationsLog:         &o.MigrationsLog,
+			Name:                  &o.Name,
+			Namespace:             &o.Namespace,
+			NormalizedTags:        &o.NormalizedTags,
+			Protected:             &o.Protected,
+			UpdateIdempotencyKey:  &o.UpdateIdempotencyKey,
+			UpdateTime:            &o.UpdateTime,
+			ZHash:                 &o.ZHash,
+			Zone:                  &o.Zone,
 		}
 	}
 
 	sp := &SparseKubernetesCluster{}
 	for _, f := range fields {
 		switch f {
-		case "APIVersions":
-			sp.APIVersions = &(o.APIVersions)
+		case "APIServerServiceFQDNs":
+			sp.APIServerServiceFQDNs = &(o.APIServerServiceFQDNs)
+		case "APIServerServiceIPs":
+			sp.APIServerServiceIPs = &(o.APIServerServiceIPs)
+		case "APIServerServiceName":
+			sp.APIServerServiceName = &(o.APIServerServiceName)
+		case "APIServerVersions":
+			sp.APIServerVersions = &(o.APIServerVersions)
 		case "ID":
 			sp.ID = &(o.ID)
-		case "K8SNamespace":
-			sp.K8SNamespace = &(o.K8SNamespace)
 		case "annotations":
 			sp.Annotations = &(o.Annotations)
 		case "associatedTags":
@@ -550,14 +571,20 @@ func (o *KubernetesCluster) Patch(sparse elemental.SparseIdentifiable) {
 	}
 
 	so := sparse.(*SparseKubernetesCluster)
-	if so.APIVersions != nil {
-		o.APIVersions = *so.APIVersions
+	if so.APIServerServiceFQDNs != nil {
+		o.APIServerServiceFQDNs = *so.APIServerServiceFQDNs
+	}
+	if so.APIServerServiceIPs != nil {
+		o.APIServerServiceIPs = *so.APIServerServiceIPs
+	}
+	if so.APIServerServiceName != nil {
+		o.APIServerServiceName = *so.APIServerServiceName
+	}
+	if so.APIServerVersions != nil {
+		o.APIServerVersions = *so.APIServerVersions
 	}
 	if so.ID != nil {
 		o.ID = *so.ID
-	}
-	if so.K8SNamespace != nil {
-		o.K8SNamespace = *so.K8SNamespace
 	}
 	if so.Annotations != nil {
 		o.Annotations = *so.Annotations
@@ -642,6 +669,10 @@ func (o *KubernetesCluster) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
+	if err := ValidateAPIServerServiceName("APIServerServiceName", o.APIServerServiceName); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if err := ValidateTagsWithoutReservedPrefixes("associatedTags", o.AssociatedTags); err != nil {
 		errors = errors.Append(err)
 	}
@@ -696,12 +727,16 @@ func (*KubernetesCluster) AttributeSpecifications() map[string]elemental.Attribu
 func (o *KubernetesCluster) ValueForAttribute(name string) interface{} {
 
 	switch name {
-	case "APIVersions":
-		return o.APIVersions
+	case "APIServerServiceFQDNs":
+		return o.APIServerServiceFQDNs
+	case "APIServerServiceIPs":
+		return o.APIServerServiceIPs
+	case "APIServerServiceName":
+		return o.APIServerServiceName
+	case "APIServerVersions":
+		return o.APIServerVersions
 	case "ID":
 		return o.ID
-	case "K8SNamespace":
-		return o.K8SNamespace
 	case "annotations":
 		return o.Annotations
 	case "associatedTags":
@@ -743,13 +778,49 @@ func (o *KubernetesCluster) ValueForAttribute(name string) interface{} {
 
 // KubernetesClusterAttributesMap represents the map of attribute for KubernetesCluster.
 var KubernetesClusterAttributesMap = map[string]elemental.AttributeSpecification{
-	"APIVersions": {
+	"APIServerServiceFQDNs": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "apiversions",
-		ConvertedName:  "APIVersions",
+		BSONFieldName:  "apiserverservicefqdns",
+		ConvertedName:  "APIServerServiceFQDNs",
+		Description: `Contains the FQDNs used by the API server. They will be used to populate the
+Certificate DNS SANs field.`,
+		Exposed:   true,
+		Name:      "APIServerServiceFQDNs",
+		Orderable: true,
+		Stored:    true,
+		SubType:   "string",
+		Type:      "list",
+	},
+	"APIServerServiceIPs": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "apiserverserviceips",
+		ConvertedName:  "APIServerServiceIPs",
+		Description: `Contains the IPs used by the API server. They will be used to populate the
+Certificate IP SANs field.`,
+		Exposed: true,
+		Name:    "APIServerServiceIPs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"APIServerServiceName": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "apiserverservicename",
+		ConvertedName:  "APIServerServiceName",
+		Description: `Kubernetes service name in the format <service name>.<service name
+namespace>.svc will be set in the certificate CommonName field.`,
+		Exposed: true,
+		Name:    "APIServerServiceName",
+		Stored:  true,
+		Type:    "string",
+	},
+	"APIServerVersions": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "apiserverversions",
+		ConvertedName:  "APIServerVersions",
 		Description:    `API versions supported by the API server.`,
 		Exposed:        true,
-		Name:           "APIVersions",
+		Name:           "APIServerVersions",
 		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
@@ -766,16 +837,6 @@ var KubernetesClusterAttributesMap = map[string]elemental.AttributeSpecification
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
-		Stored:         true,
-		Type:           "string",
-	},
-	"K8SNamespace": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "k8snamespace",
-		ConvertedName:  "K8SNamespace",
-		Description:    `Kubernetes namespace.`,
-		Exposed:        true,
-		Name:           "K8SNamespace",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1016,13 +1077,49 @@ georedundancy.`,
 
 // KubernetesClusterLowerCaseAttributesMap represents the map of attribute for KubernetesCluster.
 var KubernetesClusterLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
-	"apiversions": {
+	"apiserverservicefqdns": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "apiversions",
-		ConvertedName:  "APIVersions",
+		BSONFieldName:  "apiserverservicefqdns",
+		ConvertedName:  "APIServerServiceFQDNs",
+		Description: `Contains the FQDNs used by the API server. They will be used to populate the
+Certificate DNS SANs field.`,
+		Exposed:   true,
+		Name:      "APIServerServiceFQDNs",
+		Orderable: true,
+		Stored:    true,
+		SubType:   "string",
+		Type:      "list",
+	},
+	"apiserverserviceips": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "apiserverserviceips",
+		ConvertedName:  "APIServerServiceIPs",
+		Description: `Contains the IPs used by the API server. They will be used to populate the
+Certificate IP SANs field.`,
+		Exposed: true,
+		Name:    "APIServerServiceIPs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"apiserverservicename": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "apiserverservicename",
+		ConvertedName:  "APIServerServiceName",
+		Description: `Kubernetes service name in the format <service name>.<service name
+namespace>.svc will be set in the certificate CommonName field.`,
+		Exposed: true,
+		Name:    "APIServerServiceName",
+		Stored:  true,
+		Type:    "string",
+	},
+	"apiserverversions": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "apiserverversions",
+		ConvertedName:  "APIServerVersions",
 		Description:    `API versions supported by the API server.`,
 		Exposed:        true,
-		Name:           "APIVersions",
+		Name:           "APIServerVersions",
 		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
@@ -1039,16 +1136,6 @@ var KubernetesClusterLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
-		Stored:         true,
-		Type:           "string",
-	},
-	"k8snamespace": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "k8snamespace",
-		ConvertedName:  "K8SNamespace",
-		Description:    `Kubernetes namespace.`,
-		Exposed:        true,
-		Name:           "K8SNamespace",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1352,14 +1439,23 @@ func (o SparseKubernetesClustersList) Version() int {
 
 // SparseKubernetesCluster represents the sparse version of a kubernetescluster.
 type SparseKubernetesCluster struct {
+	// Contains the FQDNs used by the API server. They will be used to populate the
+	// Certificate DNS SANs field.
+	APIServerServiceFQDNs *[]string `json:"APIServerServiceFQDNs,omitempty" msgpack:"APIServerServiceFQDNs,omitempty" bson:"apiserverservicefqdns,omitempty" mapstructure:"APIServerServiceFQDNs,omitempty"`
+
+	// Contains the IPs used by the API server. They will be used to populate the
+	// Certificate IP SANs field.
+	APIServerServiceIPs *[]string `json:"APIServerServiceIPs,omitempty" msgpack:"APIServerServiceIPs,omitempty" bson:"apiserverserviceips,omitempty" mapstructure:"APIServerServiceIPs,omitempty"`
+
+	// Kubernetes service name in the format <service name>.<service name
+	// namespace>.svc will be set in the certificate CommonName field.
+	APIServerServiceName *string `json:"APIServerServiceName,omitempty" msgpack:"APIServerServiceName,omitempty" bson:"apiserverservicename,omitempty" mapstructure:"APIServerServiceName,omitempty"`
+
 	// API versions supported by the API server.
-	APIVersions *[]string `json:"APIVersions,omitempty" msgpack:"APIVersions,omitempty" bson:"apiversions,omitempty" mapstructure:"APIVersions,omitempty"`
+	APIServerVersions *[]string `json:"APIServerVersions,omitempty" msgpack:"APIServerVersions,omitempty" bson:"apiserverversions,omitempty" mapstructure:"APIServerVersions,omitempty"`
 
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
-
-	// Kubernetes namespace.
-	K8SNamespace *string `json:"K8SNamespace,omitempty" msgpack:"K8SNamespace,omitempty" bson:"k8snamespace,omitempty" mapstructure:"K8SNamespace,omitempty"`
 
 	// Stores additional information about an entity.
 	Annotations *map[string][]string `json:"annotations,omitempty" msgpack:"annotations,omitempty" bson:"annotations,omitempty" mapstructure:"annotations,omitempty"`
@@ -1457,14 +1553,20 @@ func (o *SparseKubernetesCluster) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesSparseKubernetesCluster{}
 
-	if o.APIVersions != nil {
-		s.APIVersions = o.APIVersions
+	if o.APIServerServiceFQDNs != nil {
+		s.APIServerServiceFQDNs = o.APIServerServiceFQDNs
+	}
+	if o.APIServerServiceIPs != nil {
+		s.APIServerServiceIPs = o.APIServerServiceIPs
+	}
+	if o.APIServerServiceName != nil {
+		s.APIServerServiceName = o.APIServerServiceName
+	}
+	if o.APIServerVersions != nil {
+		s.APIServerVersions = o.APIServerVersions
 	}
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
-	}
-	if o.K8SNamespace != nil {
-		s.K8SNamespace = o.K8SNamespace
 	}
 	if o.Annotations != nil {
 		s.Annotations = o.Annotations
@@ -1534,14 +1636,20 @@ func (o *SparseKubernetesCluster) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
-	if s.APIVersions != nil {
-		o.APIVersions = s.APIVersions
+	if s.APIServerServiceFQDNs != nil {
+		o.APIServerServiceFQDNs = s.APIServerServiceFQDNs
+	}
+	if s.APIServerServiceIPs != nil {
+		o.APIServerServiceIPs = s.APIServerServiceIPs
+	}
+	if s.APIServerServiceName != nil {
+		o.APIServerServiceName = s.APIServerServiceName
+	}
+	if s.APIServerVersions != nil {
+		o.APIServerVersions = s.APIServerVersions
 	}
 	id := s.ID.Hex()
 	o.ID = &id
-	if s.K8SNamespace != nil {
-		o.K8SNamespace = s.K8SNamespace
-	}
 	if s.Annotations != nil {
 		o.Annotations = s.Annotations
 	}
@@ -1607,14 +1715,20 @@ func (o *SparseKubernetesCluster) Version() int {
 func (o *SparseKubernetesCluster) ToPlain() elemental.PlainIdentifiable {
 
 	out := NewKubernetesCluster()
-	if o.APIVersions != nil {
-		out.APIVersions = *o.APIVersions
+	if o.APIServerServiceFQDNs != nil {
+		out.APIServerServiceFQDNs = *o.APIServerServiceFQDNs
+	}
+	if o.APIServerServiceIPs != nil {
+		out.APIServerServiceIPs = *o.APIServerServiceIPs
+	}
+	if o.APIServerServiceName != nil {
+		out.APIServerServiceName = *o.APIServerServiceName
+	}
+	if o.APIServerVersions != nil {
+		out.APIServerVersions = *o.APIServerVersions
 	}
 	if o.ID != nil {
 		out.ID = *o.ID
-	}
-	if o.K8SNamespace != nil {
-		out.K8SNamespace = *o.K8SNamespace
 	}
 	if o.Annotations != nil {
 		out.Annotations = *o.Annotations
@@ -1936,46 +2050,50 @@ func (o *SparseKubernetesCluster) DeepCopyInto(out *SparseKubernetesCluster) {
 }
 
 type mongoAttributesKubernetesCluster struct {
-	APIVersions          []string            `bson:"apiversions"`
-	ID                   bson.ObjectId       `bson:"_id,omitempty"`
-	K8SNamespace         string              `bson:"k8snamespace"`
-	Annotations          map[string][]string `bson:"annotations"`
-	AssociatedTags       []string            `bson:"associatedtags"`
-	CreateIdempotencyKey string              `bson:"createidempotencykey"`
-	CreateTime           time.Time           `bson:"createtime"`
-	Description          string              `bson:"description"`
-	ExternalIP           string              `bson:"externalip"`
-	InternalIP           string              `bson:"internalip"`
-	Metadata             []string            `bson:"metadata"`
-	MigrationsLog        map[string]string   `bson:"migrationslog,omitempty"`
-	Name                 string              `bson:"name"`
-	Namespace            string              `bson:"namespace"`
-	NormalizedTags       []string            `bson:"normalizedtags"`
-	Protected            bool                `bson:"protected"`
-	UpdateIdempotencyKey string              `bson:"updateidempotencykey"`
-	UpdateTime           time.Time           `bson:"updatetime"`
-	ZHash                int                 `bson:"zhash"`
-	Zone                 int                 `bson:"zone"`
+	APIServerServiceFQDNs []string            `bson:"apiserverservicefqdns"`
+	APIServerServiceIPs   []string            `bson:"apiserverserviceips"`
+	APIServerServiceName  string              `bson:"apiserverservicename"`
+	APIServerVersions     []string            `bson:"apiserverversions"`
+	ID                    bson.ObjectId       `bson:"_id,omitempty"`
+	Annotations           map[string][]string `bson:"annotations"`
+	AssociatedTags        []string            `bson:"associatedtags"`
+	CreateIdempotencyKey  string              `bson:"createidempotencykey"`
+	CreateTime            time.Time           `bson:"createtime"`
+	Description           string              `bson:"description"`
+	ExternalIP            string              `bson:"externalip"`
+	InternalIP            string              `bson:"internalip"`
+	Metadata              []string            `bson:"metadata"`
+	MigrationsLog         map[string]string   `bson:"migrationslog,omitempty"`
+	Name                  string              `bson:"name"`
+	Namespace             string              `bson:"namespace"`
+	NormalizedTags        []string            `bson:"normalizedtags"`
+	Protected             bool                `bson:"protected"`
+	UpdateIdempotencyKey  string              `bson:"updateidempotencykey"`
+	UpdateTime            time.Time           `bson:"updatetime"`
+	ZHash                 int                 `bson:"zhash"`
+	Zone                  int                 `bson:"zone"`
 }
 type mongoAttributesSparseKubernetesCluster struct {
-	APIVersions          *[]string            `bson:"apiversions,omitempty"`
-	ID                   bson.ObjectId        `bson:"_id,omitempty"`
-	K8SNamespace         *string              `bson:"k8snamespace,omitempty"`
-	Annotations          *map[string][]string `bson:"annotations,omitempty"`
-	AssociatedTags       *[]string            `bson:"associatedtags,omitempty"`
-	CreateIdempotencyKey *string              `bson:"createidempotencykey,omitempty"`
-	CreateTime           *time.Time           `bson:"createtime,omitempty"`
-	Description          *string              `bson:"description,omitempty"`
-	ExternalIP           *string              `bson:"externalip,omitempty"`
-	InternalIP           *string              `bson:"internalip,omitempty"`
-	Metadata             *[]string            `bson:"metadata,omitempty"`
-	MigrationsLog        *map[string]string   `bson:"migrationslog,omitempty"`
-	Name                 *string              `bson:"name,omitempty"`
-	Namespace            *string              `bson:"namespace,omitempty"`
-	NormalizedTags       *[]string            `bson:"normalizedtags,omitempty"`
-	Protected            *bool                `bson:"protected,omitempty"`
-	UpdateIdempotencyKey *string              `bson:"updateidempotencykey,omitempty"`
-	UpdateTime           *time.Time           `bson:"updatetime,omitempty"`
-	ZHash                *int                 `bson:"zhash,omitempty"`
-	Zone                 *int                 `bson:"zone,omitempty"`
+	APIServerServiceFQDNs *[]string            `bson:"apiserverservicefqdns,omitempty"`
+	APIServerServiceIPs   *[]string            `bson:"apiserverserviceips,omitempty"`
+	APIServerServiceName  *string              `bson:"apiserverservicename,omitempty"`
+	APIServerVersions     *[]string            `bson:"apiserverversions,omitempty"`
+	ID                    bson.ObjectId        `bson:"_id,omitempty"`
+	Annotations           *map[string][]string `bson:"annotations,omitempty"`
+	AssociatedTags        *[]string            `bson:"associatedtags,omitempty"`
+	CreateIdempotencyKey  *string              `bson:"createidempotencykey,omitempty"`
+	CreateTime            *time.Time           `bson:"createtime,omitempty"`
+	Description           *string              `bson:"description,omitempty"`
+	ExternalIP            *string              `bson:"externalip,omitempty"`
+	InternalIP            *string              `bson:"internalip,omitempty"`
+	Metadata              *[]string            `bson:"metadata,omitempty"`
+	MigrationsLog         *map[string]string   `bson:"migrationslog,omitempty"`
+	Name                  *string              `bson:"name,omitempty"`
+	Namespace             *string              `bson:"namespace,omitempty"`
+	NormalizedTags        *[]string            `bson:"normalizedtags,omitempty"`
+	Protected             *bool                `bson:"protected,omitempty"`
+	UpdateIdempotencyKey  *string              `bson:"updateidempotencykey,omitempty"`
+	UpdateTime            *time.Time           `bson:"updatetime,omitempty"`
+	ZHash                 *int                 `bson:"zhash,omitempty"`
+	Zone                  *int                 `bson:"zone,omitempty"`
 }

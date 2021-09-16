@@ -29,17 +29,40 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: APIVersions
-    description: API versions supported by the API server.
+  - name: APIServerServiceFQDNs
+    description: |-
+      Contains the FQDNs used by the API server. They will be used to populate the
+      Certificate DNS SANs field.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    orderable: true
+
+  - name: APIServerServiceIPs
+    description: |-
+      Contains the IPs used by the API server. They will be used to populate the
+      Certificate IP SANs field.
     type: list
     exposed: true
     subtype: string
     stored: true
 
-  - name: K8SNamespace
-    description: Kubernetes namespace.
+  - name: APIServerServiceName
+    description: |-
+      Kubernetes service name in the format <service name>.<service name
+      namespace>.svc will be set in the certificate CommonName field.
     type: string
     exposed: true
+    stored: true
+    validations:
+    - $apiserverservicename
+
+  - name: APIServerVersions
+    description: API versions supported by the API server.
+    type: list
+    exposed: true
+    subtype: string
     stored: true
 
   - name: externalIP

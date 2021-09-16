@@ -15,8 +15,8 @@ const (
 	// DataPathCertificateTypeEnforcer represents the value Enforcer.
 	DataPathCertificateTypeEnforcer DataPathCertificateTypeValue = "Enforcer"
 
-	// DataPathCertificateTypeKubernetesCluster represents the value KubernetesCluster.
-	DataPathCertificateTypeKubernetesCluster DataPathCertificateTypeValue = "KubernetesCluster"
+	// DataPathCertificateTypeK8SAPIServer represents the value K8SAPIServer.
+	DataPathCertificateTypeK8SAPIServer DataPathCertificateTypeValue = "K8SAPIServer"
 
 	// DataPathCertificateTypeService represents the value Service.
 	DataPathCertificateTypeService DataPathCertificateTypeValue = "Service"
@@ -315,7 +315,7 @@ func (o *DataPathCertificate) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Enforcer", "Service", "ServicePing", "KubernetesCluster"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Enforcer", "Service", "ServicePing", "K8SAPIServer"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -433,7 +433,7 @@ to accept the CSR.`,
 		Type:           "string",
 	},
 	"Type": {
-		AllowedChoices: []string{"Enforcer", "Service", "ServicePing", "KubernetesCluster"},
+		AllowedChoices: []string{"Enforcer", "Service", "ServicePing", "K8SAPIServer"},
 		ConvertedName:  "Type",
 		Description:    `Type of certificate.`,
 		Exposed:        true,
@@ -503,7 +503,7 @@ to accept the CSR.`,
 		Type:           "string",
 	},
 	"type": {
-		AllowedChoices: []string{"Enforcer", "Service", "ServicePing", "KubernetesCluster"},
+		AllowedChoices: []string{"Enforcer", "Service", "ServicePing", "K8SAPIServer"},
 		ConvertedName:  "Type",
 		Description:    `Type of certificate.`,
 		Exposed:        true,

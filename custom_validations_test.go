@@ -5012,3 +5012,71 @@ func TestIsAddressPrivate(t *testing.T) {
 		})
 	}
 }
+
+func TestValidateAPIServerServiceName(t *testing.T) {
+	type args struct {
+		attribute   string
+		serviceName string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			"valid",
+			args{
+				"attr",
+				"abc.abcns.svc",
+			},
+			false,
+		},
+		{
+			"empty name",
+			args{
+				"attr",
+				".abcns.svc",
+			},
+			true,
+		},
+		{
+			"empty namespace",
+			args{
+				"attr",
+				"abc..svc",
+			},
+			true,
+		},
+		{
+			"empty name and namespace",
+			args{
+				"attr",
+				"..svc",
+			},
+			true,
+		},
+		{
+			"empty name, namespace and svc",
+			args{
+				"attr",
+				"..",
+			},
+			true,
+		},
+		{
+			"empty",
+			args{
+				"attr",
+				"",
+			},
+			true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := ValidateAPIServerServiceName(tt.args.attribute, tt.args.serviceName); (err != nil) != tt.wantErr {
+				t.Errorf("ValidateAPIServerServiceName() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
