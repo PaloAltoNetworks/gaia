@@ -113,6 +113,8 @@ attributes:
   - name: rawRQL
     description: The RQL string for this query as a reference.
     type: string
+    exposed: true
+    subtype: string
     stored: true
 
   - name: sourceIP

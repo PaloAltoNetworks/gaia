@@ -196,7 +196,7 @@ type CloudNetworkQuery struct {
 	ProtocolPorts []string `json:"protocolPorts" msgpack:"protocolPorts" bson:"protocolports" mapstructure:"protocolPorts,omitempty"`
 
 	// The RQL string for this query as a reference.
-	RawRQL string `json:"-" msgpack:"-" bson:"rawrql" mapstructure:"-,omitempty"`
+	RawRQL string `json:"rawRQL" msgpack:"rawRQL" bson:"rawrql" mapstructure:"rawRQL,omitempty"`
 
 	// The source IP of a trace route request. Might not be always and endpoint.
 	SourceIP string `json:"sourceIP" msgpack:"sourceIP" bson:"sourceip" mapstructure:"sourceIP,omitempty"`
@@ -1099,8 +1099,10 @@ is not allowed.`,
 		BSONFieldName:  "rawrql",
 		ConvertedName:  "RawRQL",
 		Description:    `The RQL string for this query as a reference.`,
+		Exposed:        true,
 		Name:           "rawRQL",
 		Stored:         true,
+		SubType:        "string",
 		Type:           "string",
 	},
 	"SourceIP": {
@@ -1412,8 +1414,10 @@ is not allowed.`,
 		BSONFieldName:  "rawrql",
 		ConvertedName:  "RawRQL",
 		Description:    `The RQL string for this query as a reference.`,
+		Exposed:        true,
 		Name:           "rawRQL",
 		Stored:         true,
+		SubType:        "string",
 		Type:           "string",
 	},
 	"sourceip": {
@@ -1619,7 +1623,7 @@ type SparseCloudNetworkQuery struct {
 	ProtocolPorts *[]string `json:"protocolPorts,omitempty" msgpack:"protocolPorts,omitempty" bson:"protocolports,omitempty" mapstructure:"protocolPorts,omitempty"`
 
 	// The RQL string for this query as a reference.
-	RawRQL *string `json:"-" msgpack:"-" bson:"rawrql,omitempty" mapstructure:"-,omitempty"`
+	RawRQL *string `json:"rawRQL,omitempty" msgpack:"rawRQL,omitempty" bson:"rawrql,omitempty" mapstructure:"rawRQL,omitempty"`
 
 	// The source IP of a trace route request. Might not be always and endpoint.
 	SourceIP *string `json:"sourceIP,omitempty" msgpack:"sourceIP,omitempty" bson:"sourceip,omitempty" mapstructure:"sourceIP,omitempty"`

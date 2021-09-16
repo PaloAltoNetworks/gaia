@@ -194,6 +194,15 @@ relations:
   create:
     description: Initiates a cloud account clean up process for all stale objects.
 
+- rest_name: cloudalertrecord
+  get:
+    description: Retrieves alert raised in Prisma Cloud.
+  create:
+    description: Updates the last execution time of alert record.
+  delete:
+    description: Deletes a cloud alert record and resolves the alert associated with
+      it.
+
 - rest_name: cloudalertrule
   get:
     description: Retrieves the list of cloud alert rules.
@@ -659,6 +668,15 @@ relations:
   create:
     description: Internal API to issue service tokens.
 
+- rest_name: kubernetescluster
+  get:
+    description: Retrieves the list of Kubernetes clusters.
+    global_parameters:
+    - $filtering
+    - $archivable
+  create:
+    description: Creates a new processing unit.
+
 - rest_name: ldapprovider
   get:
     description: Retrieves the list of the namespace LDAP providers.
@@ -893,14 +911,6 @@ relations:
   create:
     description: Creates a new processing unit.
 
-- rest_name: kubernetescluster
-  get:
-    description: Retrieves the list of Kubernetes clusters.
-    global_parameters:
-    - $filtering
-    - $archivable
-  create:
-    description: Creates a new processing unit.
 - rest_name: processingunitpolicy
   get:
     description: Retrieves the list of processing unit policies.
