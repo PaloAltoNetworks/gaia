@@ -34,6 +34,12 @@ attributes:
     extensions:
       refMode: pointer
 
+  - name: cloudGraphResultID
+    description: The cloud graph result ID which is stored in MongoDB GridFS.
+    type: string
+    exposed: true
+    subtype: string
+
   - name: cloudNetworkQuery
     description: The cloud network query that should be used.
     type: ref

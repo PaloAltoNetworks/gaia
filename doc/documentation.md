@@ -11612,6 +11612,12 @@ Type: [`cloudgraph`](#cloudgraph)
 
 The result of the cloud network query.
 
+##### `cloudGraphResultID`
+
+Type: `string`
+
+The cloud graph result ID which is stored in MongoDB GridFS.
+
 ##### `cloudNetworkQuery`
 
 Type: [`cloudnetworkquery`](#cloudnetworkquery)
