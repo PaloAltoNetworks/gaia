@@ -6324,7 +6324,7 @@ Contains a cryptographic token.
 
 ##### `type`
 
-Type: `enum(Enforcer | Service | ServicePing | KubernetesCluster)`
+Type: `enum(Enforcer | Service | ServicePing | K8SAPIServer)`
 
 Type of certificate.
 
@@ -6370,7 +6370,28 @@ Update the Kubernetes cluster with the given ID.
 
 #### Attributes
 
-##### `APIVersions`
+##### `APIServerServiceFQDNs`
+
+Type: `[]string`
+
+Contains the FQDNs used by the API server. They will be used to populate the
+Certificate DNS SANs field.
+
+##### `APIServerServiceIPs`
+
+Type: `[]string`
+
+Contains the IPs used by the API server. They will be used to populate the
+Certificate IP SANs field.
+
+##### `APIServerServiceName`
+
+Type: `string`
+
+Kubernetes service name in the format <service name>.<service name
+namespace>.svc will be set in the certificate CommonName field.
+
+##### `APIServerVersions`
 
 Type: `[]string`
 
@@ -6381,12 +6402,6 @@ API versions supported by the API server.
 Type: `string`
 
 Identifier of the object.
-
-##### `K8SNamespace`
-
-Type: `string`
-
-Kubernetes namespace.
 
 ##### `annotations`
 
