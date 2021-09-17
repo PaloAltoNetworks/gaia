@@ -10469,6 +10469,12 @@ defined as tcp/80, udp/22. For protocols that do not have ports, the port
 designation
 is not allowed.
 
+##### `rawRQL`
+
+Type: `string`
+
+The RQL string for this query as a reference.
+
 ##### `sourceIP`
 
 Type: `string`
