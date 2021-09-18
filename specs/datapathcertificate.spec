@@ -81,5 +81,5 @@ attributes:
     - Enforcer
     - Service
     - ServicePing
-    - KubernetesCluster
+    - K8SAPIServer
     example_value: Service
