@@ -10469,6 +10469,12 @@ defined as tcp/80, udp/22. For protocols that do not have ports, the port
 designation
 is not allowed.
 
+##### `rawRQL`
+
+Type: `string`
+
+The RQL string for this query as a reference.
+
 ##### `sourceIP`
 
 Type: `string`
@@ -19714,7 +19720,7 @@ to evaluate policy for it.
 
 ### SuggestedPolicy
 
-Allows you to obtain network policy suggestions.
+Allows you to obtain network ruleset policy suggestions.
 
 #### Relations
 
@@ -19738,11 +19744,11 @@ Mandatory Parameters
 
 #### Attributes
 
-##### `networkAccessPolicies`
+##### `policy`
 
-Type: [`[]networkaccesspolicy`](#networkaccesspolicy)
+Type: [`networkrulesetpolicy`](#networkrulesetpolicy)
 
-List of suggested network policies.
+The suggested network policy.
 
 ## visualization/metrics
 

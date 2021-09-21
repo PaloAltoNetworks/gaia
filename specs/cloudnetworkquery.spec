@@ -44,8 +44,7 @@ attributes:
     default_value: None
 
   - name: destinationIP
-    description: The destination IP of a trace route request. Might not always be
-      an endpoint.
+    description: The destination IP of a trace route request. Might not always be an endpoint.
     type: string
     exposed: true
     stored: true
@@ -113,6 +112,7 @@ attributes:
   - name: rawRQL
     description: The RQL string for this query as a reference.
     type: string
+    exposed: true
     stored: true
 
   - name: sourceIP
@@ -148,8 +148,7 @@ attributes:
 relations:
 - rest_name: cloudgraph
   get:
-    description: Initiates a calculation of the query and retrieves the results in
-      CloudGraph.
+    description: Initiates a calculation of the query and retrieves the results in CloudGraph.
 
 - rest_name: cloudpolicy
   get:

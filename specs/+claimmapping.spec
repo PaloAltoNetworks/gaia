@@ -24,9 +24,6 @@ attributes:
     allowed_chars_message: must be an alpha numerical character or '-', '_', '/', '*', '#', '&', '@', '_', '$' ~ or ':'
     example_value: email
 
-
-
-
   - name: targetHTTPHeader
     description: The HTTP header that will be the destination of the mapped claim.
     type: string
