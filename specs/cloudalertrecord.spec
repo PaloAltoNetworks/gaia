@@ -52,7 +52,7 @@ attributes:
 
   - name: metadataHash
     description: |-
-      Sum of FNV-32a hashes of all the instances/interfaces grouped under the
+      Sum of FNV-32a hashes of all the instances or interfaces grouped under the
       resource.
     type: integer
     exposed: true
@@ -79,6 +79,15 @@ attributes:
     exposed: true
     stored: true
     default_value: false
+
+  - name: region
+    description: |-
+      Region of the resource for which the Alert Record is
+      raised.
+    type: string
+    exposed: true
+    subtype: string
+    stored: true
 
   - name: resourceCount
     description: Number of interfaces/instances for which the alert is raised.

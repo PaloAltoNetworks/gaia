@@ -122,7 +122,7 @@ type CloudAlertRecord struct {
 	// Result of the last execution timestamp.
 	LastExecutionTimestamp time.Time `json:"lastExecutionTimestamp" msgpack:"lastExecutionTimestamp" bson:"lastexecutiontimestamp" mapstructure:"lastExecutionTimestamp,omitempty"`
 
-	// Sum of FNV-32a hashes of all the instances/interfaces grouped under the
+	// Sum of FNV-32a hashes of all the instances or interfaces grouped under the
 	// resource.
 	MetadataHash int `json:"metadataHash" msgpack:"metadataHash" bson:"metadatahash" mapstructure:"metadataHash,omitempty"`
 
@@ -146,6 +146,10 @@ type CloudAlertRecord struct {
 
 	// Indicates if the alert is published to PC.
 	Published bool `json:"published" msgpack:"published" bson:"published" mapstructure:"published,omitempty"`
+
+	// Region of the resource for which the Alert Record is
+	// raised.
+	Region string `json:"region" msgpack:"region" bson:"region" mapstructure:"region,omitempty"`
 
 	// Number of interfaces/instances for which the alert is raised.
 	ResourceCount int `json:"resourceCount" msgpack:"resourceCount" bson:"resourcecount" mapstructure:"resourceCount,omitempty"`
@@ -229,6 +233,7 @@ func (o *CloudAlertRecord) GetBSON() (interface{}, error) {
 	s.PrismaCloudPolicyID = o.PrismaCloudPolicyID
 	s.Protected = o.Protected
 	s.Published = o.Published
+	s.Region = o.Region
 	s.ResourceCount = o.ResourceCount
 	s.ResourceID = o.ResourceID
 	s.ResourceType = o.ResourceType
@@ -268,6 +273,7 @@ func (o *CloudAlertRecord) SetBSON(raw bson.Raw) error {
 	o.PrismaCloudPolicyID = s.PrismaCloudPolicyID
 	o.Protected = s.Protected
 	o.Published = s.Published
+	o.Region = s.Region
 	o.ResourceCount = s.ResourceCount
 	o.ResourceID = s.ResourceID
 	o.ResourceType = s.ResourceType
@@ -477,6 +483,7 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			PrismaCloudPolicyID:    &o.PrismaCloudPolicyID,
 			Protected:              &o.Protected,
 			Published:              &o.Published,
+			Region:                 &o.Region,
 			ResourceCount:          &o.ResourceCount,
 			ResourceID:             &o.ResourceID,
 			ResourceType:           &o.ResourceType,
@@ -520,6 +527,8 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.Protected = &(o.Protected)
 		case "published":
 			sp.Published = &(o.Published)
+		case "region":
+			sp.Region = &(o.Region)
 		case "resourceCount":
 			sp.ResourceCount = &(o.ResourceCount)
 		case "resourceID":
@@ -591,6 +600,9 @@ func (o *CloudAlertRecord) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Published != nil {
 		o.Published = *so.Published
+	}
+	if so.Region != nil {
+		o.Region = *so.Region
 	}
 	if so.ResourceCount != nil {
 		o.ResourceCount = *so.ResourceCount
@@ -725,6 +737,8 @@ func (o *CloudAlertRecord) ValueForAttribute(name string) interface{} {
 		return o.Protected
 	case "published":
 		return o.Published
+	case "region":
+		return o.Region
 	case "resourceCount":
 		return o.ResourceCount
 	case "resourceID":
@@ -842,7 +856,7 @@ raised.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "metadatahash",
 		ConvertedName:  "MetadataHash",
-		Description: `Sum of FNV-32a hashes of all the instances/interfaces grouped under the
+		Description: `Sum of FNV-32a hashes of all the instances or interfaces grouped under the
 resource.`,
 		Exposed: true,
 		Name:    "metadataHash",
@@ -942,6 +956,18 @@ resource.`,
 		Name:           "published",
 		Stored:         true,
 		Type:           "boolean",
+	},
+	"Region": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "region",
+		ConvertedName:  "Region",
+		Description: `Region of the resource for which the Alert Record is
+raised.`,
+		Exposed: true,
+		Name:    "region",
+		Stored:  true,
+		SubType: "string",
+		Type:    "string",
 	},
 	"ResourceCount": {
 		AllowedChoices: []string{},
@@ -1133,7 +1159,7 @@ raised.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "metadatahash",
 		ConvertedName:  "MetadataHash",
-		Description: `Sum of FNV-32a hashes of all the instances/interfaces grouped under the
+		Description: `Sum of FNV-32a hashes of all the instances or interfaces grouped under the
 resource.`,
 		Exposed: true,
 		Name:    "metadataHash",
@@ -1233,6 +1259,18 @@ resource.`,
 		Name:           "published",
 		Stored:         true,
 		Type:           "boolean",
+	},
+	"region": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "region",
+		ConvertedName:  "Region",
+		Description: `Region of the resource for which the Alert Record is
+raised.`,
+		Exposed: true,
+		Name:    "region",
+		Stored:  true,
+		SubType: "string",
+		Type:    "string",
 	},
 	"resourcecount": {
 		AllowedChoices: []string{},
@@ -1413,7 +1451,7 @@ type SparseCloudAlertRecord struct {
 	// Result of the last execution timestamp.
 	LastExecutionTimestamp *time.Time `json:"lastExecutionTimestamp,omitempty" msgpack:"lastExecutionTimestamp,omitempty" bson:"lastexecutiontimestamp,omitempty" mapstructure:"lastExecutionTimestamp,omitempty"`
 
-	// Sum of FNV-32a hashes of all the instances/interfaces grouped under the
+	// Sum of FNV-32a hashes of all the instances or interfaces grouped under the
 	// resource.
 	MetadataHash *int `json:"metadataHash,omitempty" msgpack:"metadataHash,omitempty" bson:"metadatahash,omitempty" mapstructure:"metadataHash,omitempty"`
 
@@ -1437,6 +1475,10 @@ type SparseCloudAlertRecord struct {
 
 	// Indicates if the alert is published to PC.
 	Published *bool `json:"published,omitempty" msgpack:"published,omitempty" bson:"published,omitempty" mapstructure:"published,omitempty"`
+
+	// Region of the resource for which the Alert Record is
+	// raised.
+	Region *string `json:"region,omitempty" msgpack:"region,omitempty" bson:"region,omitempty" mapstructure:"region,omitempty"`
 
 	// Number of interfaces/instances for which the alert is raised.
 	ResourceCount *int `json:"resourceCount,omitempty" msgpack:"resourceCount,omitempty" bson:"resourcecount,omitempty" mapstructure:"resourceCount,omitempty"`
@@ -1548,6 +1590,9 @@ func (o *SparseCloudAlertRecord) GetBSON() (interface{}, error) {
 	if o.Published != nil {
 		s.Published = o.Published
 	}
+	if o.Region != nil {
+		s.Region = o.Region
+	}
 	if o.ResourceCount != nil {
 		s.ResourceCount = o.ResourceCount
 	}
@@ -1630,6 +1675,9 @@ func (o *SparseCloudAlertRecord) SetBSON(raw bson.Raw) error {
 	if s.Published != nil {
 		o.Published = s.Published
 	}
+	if s.Region != nil {
+		o.Region = s.Region
+	}
 	if s.ResourceCount != nil {
 		o.ResourceCount = s.ResourceCount
 	}
@@ -1709,6 +1757,9 @@ func (o *SparseCloudAlertRecord) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Published != nil {
 		out.Published = *o.Published
+	}
+	if o.Region != nil {
+		out.Region = *o.Region
 	}
 	if o.ResourceCount != nil {
 		out.ResourceCount = *o.ResourceCount
@@ -1967,6 +2018,7 @@ type mongoAttributesCloudAlertRecord struct {
 	PrismaCloudPolicyID    string                            `bson:"prismacloudpolicyid"`
 	Protected              bool                              `bson:"protected"`
 	Published              bool                              `bson:"published"`
+	Region                 string                            `bson:"region"`
 	ResourceCount          int                               `bson:"resourcecount"`
 	ResourceID             string                            `bson:"resourceid"`
 	ResourceType           CloudAlertRecordResourceTypeValue `bson:"resourcetype"`
@@ -1991,6 +2043,7 @@ type mongoAttributesSparseCloudAlertRecord struct {
 	PrismaCloudPolicyID    *string                            `bson:"prismacloudpolicyid,omitempty"`
 	Protected              *bool                              `bson:"protected,omitempty"`
 	Published              *bool                              `bson:"published,omitempty"`
+	Region                 *string                            `bson:"region,omitempty"`
 	ResourceCount          *int                               `bson:"resourcecount,omitempty"`
 	ResourceID             *string                            `bson:"resourceid,omitempty"`
 	ResourceType           *CloudAlertRecordResourceTypeValue `bson:"resourcetype,omitempty"`

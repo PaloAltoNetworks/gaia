@@ -82,6 +82,7 @@ clob
 CloudAccountCleaner
 CloudAddress
 CloudAlert
+CloudAlertRecord
 CloudAlertRule
 CloudAttachment
 CloudEndpoint
@@ -192,6 +193,7 @@ finack
 finack
 FlowReport
 FlowReports
+FNV-32a
 fqdns
 FreeBSD
 georedundancy
@@ -549,3 +551,4 @@ xip.io
 xxhash
 yaml
 yy
+

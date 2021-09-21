@@ -9399,7 +9399,7 @@ Result of the last execution timestamp.
 
 Type: `integer`
 
-Sum of FNV-32a hashes of all the instances/interfaces grouped under the
+Sum of FNV-32a hashes of all the instances or interfaces grouped under the
 resource.
 
 ##### `name` [`required`,`max_length=256`]
@@ -9449,6 +9449,13 @@ Default value:
 ```json
 false
 ```
+
+##### `region`
+
+Type: `string`
+
+Region of the resource for which the Alert Record is
+raised.
 
 ##### `resourceCount`
 
