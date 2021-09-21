@@ -631,13 +631,15 @@ var (
 			{"createIdempotencyKey"},
 		},
 		"cloudalertrecord": {
+			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
 			{"published", "namespace"},
-			{"namespace"},
 			{"namespace", "normalizedTags"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"name"},
 			{"lastexecutiontimestamp", "namespace"},
 			{"createIdempotencyKey"},
-			{":shard", ":unique", "zone", "zHash"},
 		},
 		"cloudalertrule": {
 			{":unique", "prismaCloudAlertRuleID"},

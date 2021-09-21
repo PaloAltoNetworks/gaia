@@ -9,6 +9,23 @@ import (
 	"go.aporeto.io/elemental"
 )
 
+// CloudAlertRecordResourceTypeValue represents the possible values for attribute "resourceType".
+type CloudAlertRecordResourceTypeValue string
+
+const (
+	// CloudAlertRecordResourceTypeInstance represents the value Instance.
+	CloudAlertRecordResourceTypeInstance CloudAlertRecordResourceTypeValue = "Instance"
+
+	// CloudAlertRecordResourceTypeInterface represents the value Interface.
+	CloudAlertRecordResourceTypeInterface CloudAlertRecordResourceTypeValue = "Interface"
+
+	// CloudAlertRecordResourceTypeSubnet represents the value Subnet.
+	CloudAlertRecordResourceTypeSubnet CloudAlertRecordResourceTypeValue = "Subnet"
+
+	// CloudAlertRecordResourceTypeVPC represents the value VPC.
+	CloudAlertRecordResourceTypeVPC CloudAlertRecordResourceTypeValue = "VPC"
+)
+
 // CloudAlertRecordIdentity represents the Identity of the object.
 var CloudAlertRecordIdentity = elemental.Identity{
 	Name:     "cloudalertrecord",
@@ -58,7 +75,9 @@ func (o CloudAlertRecordsList) List() elemental.IdentifiablesList {
 // DefaultOrder returns the default ordering fields of the content.
 func (o CloudAlertRecordsList) DefaultOrder() []string {
 
-	return []string{}
+	return []string{
+		"name",
+	}
 }
 
 // ToSparse returns the CloudAlertRecordsList converted to SparseCloudAlertRecordsList.
@@ -84,6 +103,10 @@ type CloudAlertRecord struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Account ID of the resource for which the Alert Record is
+	// raised.
+	AccountID string `json:"accountID" msgpack:"accountID" bson:"accountid" mapstructure:"accountID,omitempty"`
+
 	// Stores additional information about an entity.
 	Annotations map[string][]string `json:"annotations" msgpack:"annotations" bson:"annotations" mapstructure:"annotations,omitempty"`
 
@@ -102,6 +125,9 @@ type CloudAlertRecord struct {
 	// Sum of FNV-32a hashes of all the instances/interfaces grouped under the
 	// resource.
 	MetadataHash int `json:"metadataHash" msgpack:"metadataHash" bson:"metadatahash" mapstructure:"metadataHash,omitempty"`
+
+	// Name of the entity.
+	Name string `json:"name" msgpack:"name" bson:"name" mapstructure:"name,omitempty"`
 
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
@@ -126,6 +152,9 @@ type CloudAlertRecord struct {
 
 	// Resource ID of the resource for which the Alert Record is raised.
 	ResourceID string `json:"resourceID" msgpack:"resourceID" bson:"resourceid" mapstructure:"resourceID,omitempty"`
+
+	// Returns the type of the resource on which alert was raised.
+	ResourceType CloudAlertRecordResourceTypeValue `json:"resourceType" msgpack:"resourceType" bson:"resourcetype" mapstructure:"resourceType,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey string `json:"-" msgpack:"-" bson:"updateidempotencykey" mapstructure:"-,omitempty"`
@@ -186,12 +215,14 @@ func (o *CloudAlertRecord) GetBSON() (interface{}, error) {
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
+	s.AccountID = o.AccountID
 	s.Annotations = o.Annotations
 	s.AssociatedTags = o.AssociatedTags
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	s.CreateTime = o.CreateTime
 	s.LastExecutionTimestamp = o.LastExecutionTimestamp
 	s.MetadataHash = o.MetadataHash
+	s.Name = o.Name
 	s.Namespace = o.Namespace
 	s.NormalizedTags = o.NormalizedTags
 	s.PrismaCloudAlertRuleID = o.PrismaCloudAlertRuleID
@@ -200,6 +231,7 @@ func (o *CloudAlertRecord) GetBSON() (interface{}, error) {
 	s.Published = o.Published
 	s.ResourceCount = o.ResourceCount
 	s.ResourceID = o.ResourceID
+	s.ResourceType = o.ResourceType
 	s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
 	s.UpdateTime = o.UpdateTime
 	s.ZHash = o.ZHash
@@ -222,12 +254,14 @@ func (o *CloudAlertRecord) SetBSON(raw bson.Raw) error {
 	}
 
 	o.ID = s.ID.Hex()
+	o.AccountID = s.AccountID
 	o.Annotations = s.Annotations
 	o.AssociatedTags = s.AssociatedTags
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	o.CreateTime = s.CreateTime
 	o.LastExecutionTimestamp = s.LastExecutionTimestamp
 	o.MetadataHash = s.MetadataHash
+	o.Name = s.Name
 	o.Namespace = s.Namespace
 	o.NormalizedTags = s.NormalizedTags
 	o.PrismaCloudAlertRuleID = s.PrismaCloudAlertRuleID
@@ -236,6 +270,7 @@ func (o *CloudAlertRecord) SetBSON(raw bson.Raw) error {
 	o.Published = s.Published
 	o.ResourceCount = s.ResourceCount
 	o.ResourceID = s.ResourceID
+	o.ResourceType = s.ResourceType
 	o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
 	o.UpdateTime = s.UpdateTime
 	o.ZHash = s.ZHash
@@ -259,7 +294,9 @@ func (o *CloudAlertRecord) BleveType() string {
 // DefaultOrder returns the list of default ordering fields.
 func (o *CloudAlertRecord) DefaultOrder() []string {
 
-	return []string{}
+	return []string{
+		"name",
+	}
 }
 
 // Doc returns the documentation for the object
@@ -320,6 +357,18 @@ func (o *CloudAlertRecord) GetCreateTime() time.Time {
 func (o *CloudAlertRecord) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = createTime
+}
+
+// GetName returns the Name of the receiver.
+func (o *CloudAlertRecord) GetName() string {
+
+	return o.Name
+}
+
+// SetName sets the property Name of the receiver using the given value.
+func (o *CloudAlertRecord) SetName(name string) {
+
+	o.Name = name
 }
 
 // GetNamespace returns the Namespace of the receiver.
@@ -414,12 +463,14 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 		// nolint: goimports
 		return &SparseCloudAlertRecord{
 			ID:                     &o.ID,
+			AccountID:              &o.AccountID,
 			Annotations:            &o.Annotations,
 			AssociatedTags:         &o.AssociatedTags,
 			CreateIdempotencyKey:   &o.CreateIdempotencyKey,
 			CreateTime:             &o.CreateTime,
 			LastExecutionTimestamp: &o.LastExecutionTimestamp,
 			MetadataHash:           &o.MetadataHash,
+			Name:                   &o.Name,
 			Namespace:              &o.Namespace,
 			NormalizedTags:         &o.NormalizedTags,
 			PrismaCloudAlertRuleID: &o.PrismaCloudAlertRuleID,
@@ -428,6 +479,7 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			Published:              &o.Published,
 			ResourceCount:          &o.ResourceCount,
 			ResourceID:             &o.ResourceID,
+			ResourceType:           &o.ResourceType,
 			UpdateIdempotencyKey:   &o.UpdateIdempotencyKey,
 			UpdateTime:             &o.UpdateTime,
 			ZHash:                  &o.ZHash,
@@ -440,6 +492,8 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
+		case "accountID":
+			sp.AccountID = &(o.AccountID)
 		case "annotations":
 			sp.Annotations = &(o.Annotations)
 		case "associatedTags":
@@ -452,6 +506,8 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.LastExecutionTimestamp = &(o.LastExecutionTimestamp)
 		case "metadataHash":
 			sp.MetadataHash = &(o.MetadataHash)
+		case "name":
+			sp.Name = &(o.Name)
 		case "namespace":
 			sp.Namespace = &(o.Namespace)
 		case "normalizedTags":
@@ -468,6 +524,8 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.ResourceCount = &(o.ResourceCount)
 		case "resourceID":
 			sp.ResourceID = &(o.ResourceID)
+		case "resourceType":
+			sp.ResourceType = &(o.ResourceType)
 		case "updateIdempotencyKey":
 			sp.UpdateIdempotencyKey = &(o.UpdateIdempotencyKey)
 		case "updateTime":
@@ -492,6 +550,9 @@ func (o *CloudAlertRecord) Patch(sparse elemental.SparseIdentifiable) {
 	if so.ID != nil {
 		o.ID = *so.ID
 	}
+	if so.AccountID != nil {
+		o.AccountID = *so.AccountID
+	}
 	if so.Annotations != nil {
 		o.Annotations = *so.Annotations
 	}
@@ -509,6 +570,9 @@ func (o *CloudAlertRecord) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.MetadataHash != nil {
 		o.MetadataHash = *so.MetadataHash
+	}
+	if so.Name != nil {
+		o.Name = *so.Name
 	}
 	if so.Namespace != nil {
 		o.Namespace = *so.Namespace
@@ -533,6 +597,9 @@ func (o *CloudAlertRecord) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.ResourceID != nil {
 		o.ResourceID = *so.ResourceID
+	}
+	if so.ResourceType != nil {
+		o.ResourceType = *so.ResourceType
 	}
 	if so.UpdateIdempotencyKey != nil {
 		o.UpdateIdempotencyKey = *so.UpdateIdempotencyKey
@@ -582,6 +649,18 @@ func (o *CloudAlertRecord) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := elemental.ValidateRequiredString("name", o.Name); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateMaximumLength("name", o.Name, 256, false); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := elemental.ValidateStringInList("resourceType", string(o.ResourceType), []string{"Interface", "Instance", "VPC", "Subnet"}, true); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if len(requiredErrors) > 0 {
 		return requiredErrors
 	}
@@ -618,6 +697,8 @@ func (o *CloudAlertRecord) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "ID":
 		return o.ID
+	case "accountID":
+		return o.AccountID
 	case "annotations":
 		return o.Annotations
 	case "associatedTags":
@@ -630,6 +711,8 @@ func (o *CloudAlertRecord) ValueForAttribute(name string) interface{} {
 		return o.LastExecutionTimestamp
 	case "metadataHash":
 		return o.MetadataHash
+	case "name":
+		return o.Name
 	case "namespace":
 		return o.Namespace
 	case "normalizedTags":
@@ -646,6 +729,8 @@ func (o *CloudAlertRecord) ValueForAttribute(name string) interface{} {
 		return o.ResourceCount
 	case "resourceID":
 		return o.ResourceID
+	case "resourceType":
+		return o.ResourceType
 	case "updateIdempotencyKey":
 		return o.UpdateIdempotencyKey
 	case "updateTime":
@@ -675,6 +760,18 @@ var CloudAlertRecordAttributesMap = map[string]elemental.AttributeSpecification{
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"AccountID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "accountid",
+		ConvertedName:  "AccountID",
+		Description: `Account ID of the resource for which the Alert Record is
+raised.`,
+		Exposed: true,
+		Name:    "accountID",
+		Stored:  true,
+		SubType: "string",
+		Type:    "string",
 	},
 	"Annotations": {
 		AllowedChoices: []string{},
@@ -752,6 +849,22 @@ resource.`,
 		Stored:  true,
 		SubType: "integer",
 		Type:    "integer",
+	},
+	"Name": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "name",
+		ConvertedName:  "Name",
+		Description:    `Name of the entity.`,
+		Exposed:        true,
+		Filterable:     true,
+		Getter:         true,
+		MaxLength:      256,
+		Name:           "name",
+		Orderable:      true,
+		Required:       true,
+		Setter:         true,
+		Stored:         true,
+		Type:           "string",
 	},
 	"Namespace": {
 		AllowedChoices: []string{},
@@ -852,6 +965,18 @@ resource.`,
 		SubType:        "string",
 		Type:           "string",
 	},
+	"ResourceType": {
+		AllowedChoices: []string{"Interface", "Instance", "VPC", "Subnet"},
+		Autogenerated:  true,
+		BSONFieldName:  "resourcetype",
+		ConvertedName:  "ResourceType",
+		Description:    `Returns the type of the resource on which alert was raised.`,
+		Exposed:        true,
+		Name:           "resourceType",
+		ReadOnly:       true,
+		Stored:         true,
+		Type:           "enum",
+	},
 	"UpdateIdempotencyKey": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -926,6 +1051,18 @@ var CloudAlertRecordLowerCaseAttributesMap = map[string]elemental.AttributeSpeci
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"accountid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "accountid",
+		ConvertedName:  "AccountID",
+		Description: `Account ID of the resource for which the Alert Record is
+raised.`,
+		Exposed: true,
+		Name:    "accountID",
+		Stored:  true,
+		SubType: "string",
+		Type:    "string",
 	},
 	"annotations": {
 		AllowedChoices: []string{},
@@ -1003,6 +1140,22 @@ resource.`,
 		Stored:  true,
 		SubType: "integer",
 		Type:    "integer",
+	},
+	"name": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "name",
+		ConvertedName:  "Name",
+		Description:    `Name of the entity.`,
+		Exposed:        true,
+		Filterable:     true,
+		Getter:         true,
+		MaxLength:      256,
+		Name:           "name",
+		Orderable:      true,
+		Required:       true,
+		Setter:         true,
+		Stored:         true,
+		Type:           "string",
 	},
 	"namespace": {
 		AllowedChoices: []string{},
@@ -1103,6 +1256,18 @@ resource.`,
 		SubType:        "string",
 		Type:           "string",
 	},
+	"resourcetype": {
+		AllowedChoices: []string{"Interface", "Instance", "VPC", "Subnet"},
+		Autogenerated:  true,
+		BSONFieldName:  "resourcetype",
+		ConvertedName:  "ResourceType",
+		Description:    `Returns the type of the resource on which alert was raised.`,
+		Exposed:        true,
+		Name:           "resourceType",
+		ReadOnly:       true,
+		Stored:         true,
+		Type:           "enum",
+	},
 	"updateidempotencykey": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -1202,7 +1367,9 @@ func (o SparseCloudAlertRecordsList) List() elemental.IdentifiablesList {
 // DefaultOrder returns the default ordering fields of the content.
 func (o SparseCloudAlertRecordsList) DefaultOrder() []string {
 
-	return []string{}
+	return []string{
+		"name",
+	}
 }
 
 // ToPlain returns the SparseCloudAlertRecordsList converted to CloudAlertRecordsList.
@@ -1227,6 +1394,10 @@ type SparseCloudAlertRecord struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Account ID of the resource for which the Alert Record is
+	// raised.
+	AccountID *string `json:"accountID,omitempty" msgpack:"accountID,omitempty" bson:"accountid,omitempty" mapstructure:"accountID,omitempty"`
+
 	// Stores additional information about an entity.
 	Annotations *map[string][]string `json:"annotations,omitempty" msgpack:"annotations,omitempty" bson:"annotations,omitempty" mapstructure:"annotations,omitempty"`
 
@@ -1245,6 +1416,9 @@ type SparseCloudAlertRecord struct {
 	// Sum of FNV-32a hashes of all the instances/interfaces grouped under the
 	// resource.
 	MetadataHash *int `json:"metadataHash,omitempty" msgpack:"metadataHash,omitempty" bson:"metadatahash,omitempty" mapstructure:"metadataHash,omitempty"`
+
+	// Name of the entity.
+	Name *string `json:"name,omitempty" msgpack:"name,omitempty" bson:"name,omitempty" mapstructure:"name,omitempty"`
 
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
@@ -1269,6 +1443,9 @@ type SparseCloudAlertRecord struct {
 
 	// Resource ID of the resource for which the Alert Record is raised.
 	ResourceID *string `json:"resourceID,omitempty" msgpack:"resourceID,omitempty" bson:"resourceid,omitempty" mapstructure:"resourceID,omitempty"`
+
+	// Returns the type of the resource on which alert was raised.
+	ResourceType *CloudAlertRecordResourceTypeValue `json:"resourceType,omitempty" msgpack:"resourceType,omitempty" bson:"resourcetype,omitempty" mapstructure:"resourceType,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey *string `json:"-" msgpack:"-" bson:"updateidempotencykey,omitempty" mapstructure:"-,omitempty"`
@@ -1329,6 +1506,9 @@ func (o *SparseCloudAlertRecord) GetBSON() (interface{}, error) {
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
 	}
+	if o.AccountID != nil {
+		s.AccountID = o.AccountID
+	}
 	if o.Annotations != nil {
 		s.Annotations = o.Annotations
 	}
@@ -1346,6 +1526,9 @@ func (o *SparseCloudAlertRecord) GetBSON() (interface{}, error) {
 	}
 	if o.MetadataHash != nil {
 		s.MetadataHash = o.MetadataHash
+	}
+	if o.Name != nil {
+		s.Name = o.Name
 	}
 	if o.Namespace != nil {
 		s.Namespace = o.Namespace
@@ -1370,6 +1553,9 @@ func (o *SparseCloudAlertRecord) GetBSON() (interface{}, error) {
 	}
 	if o.ResourceID != nil {
 		s.ResourceID = o.ResourceID
+	}
+	if o.ResourceType != nil {
+		s.ResourceType = o.ResourceType
 	}
 	if o.UpdateIdempotencyKey != nil {
 		s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
@@ -1402,6 +1588,9 @@ func (o *SparseCloudAlertRecord) SetBSON(raw bson.Raw) error {
 
 	id := s.ID.Hex()
 	o.ID = &id
+	if s.AccountID != nil {
+		o.AccountID = s.AccountID
+	}
 	if s.Annotations != nil {
 		o.Annotations = s.Annotations
 	}
@@ -1419,6 +1608,9 @@ func (o *SparseCloudAlertRecord) SetBSON(raw bson.Raw) error {
 	}
 	if s.MetadataHash != nil {
 		o.MetadataHash = s.MetadataHash
+	}
+	if s.Name != nil {
+		o.Name = s.Name
 	}
 	if s.Namespace != nil {
 		o.Namespace = s.Namespace
@@ -1443,6 +1635,9 @@ func (o *SparseCloudAlertRecord) SetBSON(raw bson.Raw) error {
 	}
 	if s.ResourceID != nil {
 		o.ResourceID = s.ResourceID
+	}
+	if s.ResourceType != nil {
+		o.ResourceType = s.ResourceType
 	}
 	if s.UpdateIdempotencyKey != nil {
 		o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
@@ -1473,6 +1668,9 @@ func (o *SparseCloudAlertRecord) ToPlain() elemental.PlainIdentifiable {
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
+	if o.AccountID != nil {
+		out.AccountID = *o.AccountID
+	}
 	if o.Annotations != nil {
 		out.Annotations = *o.Annotations
 	}
@@ -1490,6 +1688,9 @@ func (o *SparseCloudAlertRecord) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.MetadataHash != nil {
 		out.MetadataHash = *o.MetadataHash
+	}
+	if o.Name != nil {
+		out.Name = *o.Name
 	}
 	if o.Namespace != nil {
 		out.Namespace = *o.Namespace
@@ -1514,6 +1715,9 @@ func (o *SparseCloudAlertRecord) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.ResourceID != nil {
 		out.ResourceID = *o.ResourceID
+	}
+	if o.ResourceType != nil {
+		out.ResourceType = *o.ResourceType
 	}
 	if o.UpdateIdempotencyKey != nil {
 		out.UpdateIdempotencyKey = *o.UpdateIdempotencyKey
@@ -1593,6 +1797,22 @@ func (o *SparseCloudAlertRecord) GetCreateTime() (out time.Time) {
 func (o *SparseCloudAlertRecord) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = &createTime
+}
+
+// GetName returns the Name of the receiver.
+func (o *SparseCloudAlertRecord) GetName() (out string) {
+
+	if o.Name == nil {
+		return
+	}
+
+	return *o.Name
+}
+
+// SetName sets the property Name of the receiver using the address of the given value.
+func (o *SparseCloudAlertRecord) SetName(name string) {
+
+	o.Name = &name
 }
 
 // GetNamespace returns the Namespace of the receiver.
@@ -1732,44 +1952,50 @@ func (o *SparseCloudAlertRecord) DeepCopyInto(out *SparseCloudAlertRecord) {
 }
 
 type mongoAttributesCloudAlertRecord struct {
-	ID                     bson.ObjectId       `bson:"_id,omitempty"`
-	Annotations            map[string][]string `bson:"annotations"`
-	AssociatedTags         []string            `bson:"associatedtags"`
-	CreateIdempotencyKey   string              `bson:"createidempotencykey"`
-	CreateTime             time.Time           `bson:"createtime"`
-	LastExecutionTimestamp time.Time           `bson:"lastexecutiontimestamp"`
-	MetadataHash           int                 `bson:"metadatahash"`
-	Namespace              string              `bson:"namespace"`
-	NormalizedTags         []string            `bson:"normalizedtags"`
-	PrismaCloudAlertRuleID string              `bson:"prismacloudalertruleid"`
-	PrismaCloudPolicyID    string              `bson:"prismacloudpolicyid"`
-	Protected              bool                `bson:"protected"`
-	Published              bool                `bson:"published"`
-	ResourceCount          int                 `bson:"resourcecount"`
-	ResourceID             string              `bson:"resourceid"`
-	UpdateIdempotencyKey   string              `bson:"updateidempotencykey"`
-	UpdateTime             time.Time           `bson:"updatetime"`
-	ZHash                  int                 `bson:"zhash"`
-	Zone                   int                 `bson:"zone"`
+	ID                     bson.ObjectId                     `bson:"_id,omitempty"`
+	AccountID              string                            `bson:"accountid"`
+	Annotations            map[string][]string               `bson:"annotations"`
+	AssociatedTags         []string                          `bson:"associatedtags"`
+	CreateIdempotencyKey   string                            `bson:"createidempotencykey"`
+	CreateTime             time.Time                         `bson:"createtime"`
+	LastExecutionTimestamp time.Time                         `bson:"lastexecutiontimestamp"`
+	MetadataHash           int                               `bson:"metadatahash"`
+	Name                   string                            `bson:"name"`
+	Namespace              string                            `bson:"namespace"`
+	NormalizedTags         []string                          `bson:"normalizedtags"`
+	PrismaCloudAlertRuleID string                            `bson:"prismacloudalertruleid"`
+	PrismaCloudPolicyID    string                            `bson:"prismacloudpolicyid"`
+	Protected              bool                              `bson:"protected"`
+	Published              bool                              `bson:"published"`
+	ResourceCount          int                               `bson:"resourcecount"`
+	ResourceID             string                            `bson:"resourceid"`
+	ResourceType           CloudAlertRecordResourceTypeValue `bson:"resourcetype"`
+	UpdateIdempotencyKey   string                            `bson:"updateidempotencykey"`
+	UpdateTime             time.Time                         `bson:"updatetime"`
+	ZHash                  int                               `bson:"zhash"`
+	Zone                   int                               `bson:"zone"`
 }
 type mongoAttributesSparseCloudAlertRecord struct {
-	ID                     bson.ObjectId        `bson:"_id,omitempty"`
-	Annotations            *map[string][]string `bson:"annotations,omitempty"`
-	AssociatedTags         *[]string            `bson:"associatedtags,omitempty"`
-	CreateIdempotencyKey   *string              `bson:"createidempotencykey,omitempty"`
-	CreateTime             *time.Time           `bson:"createtime,omitempty"`
-	LastExecutionTimestamp *time.Time           `bson:"lastexecutiontimestamp,omitempty"`
-	MetadataHash           *int                 `bson:"metadatahash,omitempty"`
-	Namespace              *string              `bson:"namespace,omitempty"`
-	NormalizedTags         *[]string            `bson:"normalizedtags,omitempty"`
-	PrismaCloudAlertRuleID *string              `bson:"prismacloudalertruleid,omitempty"`
-	PrismaCloudPolicyID    *string              `bson:"prismacloudpolicyid,omitempty"`
-	Protected              *bool                `bson:"protected,omitempty"`
-	Published              *bool                `bson:"published,omitempty"`
-	ResourceCount          *int                 `bson:"resourcecount,omitempty"`
-	ResourceID             *string              `bson:"resourceid,omitempty"`
-	UpdateIdempotencyKey   *string              `bson:"updateidempotencykey,omitempty"`
-	UpdateTime             *time.Time           `bson:"updatetime,omitempty"`
-	ZHash                  *int                 `bson:"zhash,omitempty"`
-	Zone                   *int                 `bson:"zone,omitempty"`
+	ID                     bson.ObjectId                      `bson:"_id,omitempty"`
+	AccountID              *string                            `bson:"accountid,omitempty"`
+	Annotations            *map[string][]string               `bson:"annotations,omitempty"`
+	AssociatedTags         *[]string                          `bson:"associatedtags,omitempty"`
+	CreateIdempotencyKey   *string                            `bson:"createidempotencykey,omitempty"`
+	CreateTime             *time.Time                         `bson:"createtime,omitempty"`
+	LastExecutionTimestamp *time.Time                         `bson:"lastexecutiontimestamp,omitempty"`
+	MetadataHash           *int                               `bson:"metadatahash,omitempty"`
+	Name                   *string                            `bson:"name,omitempty"`
+	Namespace              *string                            `bson:"namespace,omitempty"`
+	NormalizedTags         *[]string                          `bson:"normalizedtags,omitempty"`
+	PrismaCloudAlertRuleID *string                            `bson:"prismacloudalertruleid,omitempty"`
+	PrismaCloudPolicyID    *string                            `bson:"prismacloudpolicyid,omitempty"`
+	Protected              *bool                              `bson:"protected,omitempty"`
+	Published              *bool                              `bson:"published,omitempty"`
+	ResourceCount          *int                               `bson:"resourcecount,omitempty"`
+	ResourceID             *string                            `bson:"resourceid,omitempty"`
+	ResourceType           *CloudAlertRecordResourceTypeValue `bson:"resourcetype,omitempty"`
+	UpdateIdempotencyKey   *string                            `bson:"updateidempotencykey,omitempty"`
+	UpdateTime             *time.Time                         `bson:"updatetime,omitempty"`
+	ZHash                  *int                               `bson:"zhash,omitempty"`
+	Zone                   *int                               `bson:"zone,omitempty"`
 }
