@@ -26,14 +26,6 @@ indexes:
 # Attributes
 attributes:
   v1:
-  - name: cloudGraphResult
-    description: The result of the cloud network query.
-    type: ref
-    exposed: true
-    subtype: cloudgraph
-    extensions:
-      refMode: pointer
-
   - name: cloudGraphResultID
     description: The cloud graph result ID which is stored in MongoDB GridFS.
     type: string

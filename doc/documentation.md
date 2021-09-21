@@ -11612,12 +11612,6 @@ Type: `string`
 
 Identifier of the object.
 
-##### `cloudGraphResult`
-
-Type: [`cloudgraph`](#cloudgraph)
-
-The result of the cloud network query.
-
 ##### `cloudGraphResultID`
 
 Type: `string`
