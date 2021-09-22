@@ -1125,6 +1125,11 @@ relations:
     description: Returns the tag prefixes of the specified namespace.
   create:
     description: Modify the tag prefixes of the specified namespace.
+    parameters:
+      entries:
+      - name: force
+        description: if set to true, it will update a namespace's tag prefixes even if the namespace is protected.
+        type: boolean
 
 - rest_name: tagvalue
   get:
