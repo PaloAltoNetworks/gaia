@@ -9336,6 +9336,10 @@ associated to an alert rule.
 
 Retrieves alert raised in Prisma Cloud.
 
+Parameters:
+
+- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
+
 ##### `POST /cloudalertrecords`
 
 Updates the last execution time of alert record.
@@ -11764,6 +11768,10 @@ scheduled periodically.
 ##### `GET /cloudschedulednetworkqueries`
 
 Retrieves Cloud Scheduled Network Query job.
+
+Parameters:
+
+- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
 
 ##### `POST /cloudschedulednetworkqueries`
 
