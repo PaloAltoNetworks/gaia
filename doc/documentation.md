@@ -11612,11 +11612,11 @@ Type: `string`
 
 Identifier of the object.
 
-##### `cloudGraphResultID`
+##### `cloudGraphResult`
 
-Type: `string`
+Type: [`cloudgraph`](#cloudgraph)
 
-The cloud graph result ID which is stored in MongoDB GridFS.
+The result of the cloud network query.
 
 ##### `cloudNetworkQuery`
 
