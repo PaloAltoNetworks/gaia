@@ -30,9 +30,10 @@ var (
 		"clausesmatch":        ClauseMatchIdentity,
 		"cloudaccountcleaner": CloudAccountCleanerIdentity,
 
-		"cloudalert":     CloudAlertIdentity,
-		"cloudalertrule": CloudAlertRuleIdentity,
-		"cloudendpoint":  CloudEndpointIdentity,
+		"cloudalert":       CloudAlertIdentity,
+		"cloudalertrecord": CloudAlertRecordIdentity,
+		"cloudalertrule":   CloudAlertRuleIdentity,
+		"cloudendpoint":    CloudEndpointIdentity,
 
 		"cloudgraph": CloudGraphIdentity,
 
@@ -224,9 +225,10 @@ var (
 		"clausesmatches":      ClauseMatchIdentity,
 		"cloudaccountcleaner": CloudAccountCleanerIdentity,
 
-		"cloudalerts":     CloudAlertIdentity,
-		"cloudalertsrule": CloudAlertRuleIdentity,
-		"cloudendpoints":  CloudEndpointIdentity,
+		"cloudalerts":       CloudAlertIdentity,
+		"cloudalertrecords": CloudAlertRecordIdentity,
+		"cloudalertsrule":   CloudAlertRuleIdentity,
+		"cloudendpoints":    CloudEndpointIdentity,
 
 		"cloudgraphs": CloudGraphIdentity,
 
@@ -626,6 +628,17 @@ var (
 			{"namespace"},
 			{"namespace", "normalizedTags"},
 			{"name"},
+			{"createIdempotencyKey"},
+		},
+		"cloudalertrecord": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"published", "namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"name"},
+			{"lastexecutiontimestamp", "namespace"},
 			{"createIdempotencyKey"},
 		},
 		"cloudalertrule": {
@@ -1343,6 +1356,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudAccountCleaner()
 	case CloudAlertIdentity:
 		return NewCloudAlert()
+	case CloudAlertRecordIdentity:
+		return NewCloudAlertRecord()
 	case CloudAlertRuleIdentity:
 		return NewCloudAlertRule()
 	case CloudEndpointIdentity:
@@ -1688,6 +1703,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudAccountCleaner()
 	case CloudAlertIdentity:
 		return NewSparseCloudAlert()
+	case CloudAlertRecordIdentity:
+		return NewSparseCloudAlertRecord()
 	case CloudAlertRuleIdentity:
 		return NewSparseCloudAlertRule()
 	case CloudEndpointIdentity:
@@ -2041,6 +2058,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudAccountCleanersList{}
 	case CloudAlertIdentity:
 		return &CloudAlertsList{}
+	case CloudAlertRecordIdentity:
+		return &CloudAlertRecordsList{}
 	case CloudAlertRuleIdentity:
 		return &CloudAlertRulesList{}
 	case CloudEndpointIdentity:
@@ -2384,6 +2403,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudAccountCleanersList{}
 	case CloudAlertIdentity:
 		return &SparseCloudAlertsList{}
+	case CloudAlertRecordIdentity:
+		return &SparseCloudAlertRecordsList{}
 	case CloudAlertRuleIdentity:
 		return &SparseCloudAlertRulesList{}
 	case CloudEndpointIdentity:
@@ -2721,6 +2742,7 @@ func AllIdentities() []elemental.Identity {
 		ClauseMatchIdentity,
 		CloudAccountCleanerIdentity,
 		CloudAlertIdentity,
+		CloudAlertRecordIdentity,
 		CloudAlertRuleIdentity,
 		CloudEndpointIdentity,
 		CloudGraphIdentity,
@@ -2940,6 +2962,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case CloudAccountCleanerIdentity:
 		return []string{}
 	case CloudAlertIdentity:
+		return []string{}
+	case CloudAlertRecordIdentity:
 		return []string{}
 	case CloudAlertRuleIdentity:
 		return []string{}
