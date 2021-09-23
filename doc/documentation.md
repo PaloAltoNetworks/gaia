@@ -5316,6 +5316,10 @@ Returns the tag prefixes of the specified namespace.
 
 Modify the tag prefixes of the specified namespace.
 
+Parameters:
+
+- `force` (`boolean`): if set to true, it will update a namespace's tag prefixes even if the namespace is protected.
+
 #### Attributes
 
 ##### `prefixes`
