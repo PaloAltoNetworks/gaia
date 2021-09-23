@@ -193,6 +193,16 @@ relations:
   create:
     description: Initiates a cloud account clean up process for all stale objects.
 
+- rest_name: cloudalertrecord
+  get:
+    description: Retrieves alert raised in Prisma Cloud.
+    global_parameters:
+    - $filtering
+  create:
+    description: Updates the last execution time of alert record.
+  delete:
+    description: Deletes a cloud alert record and resolves the alert associated with it.
+
 - rest_name: cloudalertrule
   get:
     description: Retrieves the list of cloud alert rules.
@@ -277,6 +287,8 @@ relations:
 - rest_name: cloudschedulednetworkquery
   get:
     description: Retrieves Cloud Scheduled Network Query job.
+    global_parameters:
+    - $filtering
   create:
     description: |-
       Updates the last execution time of scheduled network query which are run to
