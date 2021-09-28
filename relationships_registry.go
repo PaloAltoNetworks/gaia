@@ -5332,19 +5332,6 @@ func init() {
 				),
 				Parameters: []elemental.ParameterDefinition{
 					{
-						Name: "filterAction",
-						Type: "enum",
-						AllowedChoices: []string{
-							"include",
-							"exclude",
-						},
-					},
-					{
-						Name:     "filterTags",
-						Type:     "string",
-						Multiple: true,
-					},
-					{
 						Name: "endAbsolute",
 						Type: "time",
 					},
@@ -5398,19 +5385,6 @@ func init() {
 					},
 				),
 				Parameters: []elemental.ParameterDefinition{
-					{
-						Name: "filterAction",
-						Type: "enum",
-						AllowedChoices: []string{
-							"include",
-							"exclude",
-						},
-					},
-					{
-						Name:     "filterTags",
-						Type:     "string",
-						Multiple: true,
-					},
 					{
 						Name: "endAbsolute",
 						Type: "time",

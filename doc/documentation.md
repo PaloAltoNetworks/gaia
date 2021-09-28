@@ -19902,8 +19902,6 @@ Retrieves a list of network policy suggestions.
 
 Parameters:
 
-- `filterAction` (`enum(include | exclude)`): Action to take with the filter tags.
-- `filterTags` (`string`): Tags to filter in the policy suggestions.
 - `endAbsolute` (`time`): Set the absolute end of the time window.
 - `endRelative` (`duration`): Set the relative end of the time window.
 - `startAbsolute` (`time`): Set the absolute start of the time window.
