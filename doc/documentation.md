@@ -5316,6 +5316,10 @@ Returns the tag prefixes of the specified namespace.
 
 Modify the tag prefixes of the specified namespace.
 
+Parameters:
+
+- `force` (`boolean`): if set to true, it will update a namespace's tag prefixes even if the namespace is protected.
+
 #### Attributes
 
 ##### `prefixes`
@@ -11786,11 +11790,11 @@ Type: `string`
 
 Identifier of the object.
 
-##### `cloudGraphResult`
+##### `cloudGraphResultID`
 
-Type: [`cloudgraph`](#cloudgraph)
+Type: `string`
 
-The result of the cloud network query.
+The cloud graph result ID which is stored in MongoDB GridFS.
 
 ##### `cloudNetworkQuery`
 
