@@ -26,10 +26,14 @@ model:
 
 # Indexes
 indexes:
-- - lastexecutiontimestamp
-  - namespace
-- - published
-  - namespace
+- - namespace
+  - lastexecutiontimestamp
+- - namespace
+  - published
+- - namespace
+  - resourceid
+  - prismacloudpolicyid
+  - prismacloudalertruleid
 
 # Attributes
 attributes:
