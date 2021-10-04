@@ -10478,7 +10478,7 @@ Provides the parameters for an effective network permissions query.
 ```json
 {
   "alertOn": "None",
-  "effectiveAction": "Reachable",
+  "effectiveAction": "Allowed",
   "excludeEnterpriseIPs": false,
   "name": "the name",
   "protected": false,
@@ -10593,7 +10593,7 @@ irrespective of the security rules.
 Default value:
 
 ```json
-"Reachable"
+"Allowed"
 ```
 
 ##### `excludeEnterpriseIPs`
