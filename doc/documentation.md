@@ -11338,6 +11338,7 @@ Creates a Prisma Cloud policy and corresponding alert rules.
 
 ```json
 {
+  "enabled": false,
   "name": "the name",
   "protected": false,
   "severity": "Low"
@@ -11419,6 +11420,12 @@ Creation date of the object.
 Type: `string`
 
 Description of the object.
+
+##### `enabled`
+
+Type: `boolean`
+
+Defines whether the Policy is enabled.
 
 ##### `name` [`required`,`max_length=256`]
 
