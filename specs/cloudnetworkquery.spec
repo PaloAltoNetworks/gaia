@@ -75,7 +75,7 @@ attributes:
     - Allowed
     - Denied
     - Reachable
-    default_value: Reachable
+    default_value: Allowed
 
   - name: excludeEnterpriseIPs
     description: |-

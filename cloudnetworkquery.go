@@ -230,7 +230,7 @@ func NewCloudNetworkQuery() *CloudNetworkQuery {
 		AssociatedTags:      []string{},
 		ExcludedNetworks:    []string{},
 		DestinationSelector: NewCloudNetworkQueryFilter(),
-		EffectiveAction:     CloudNetworkQueryEffectiveActionReachable,
+		EffectiveAction:     CloudNetworkQueryEffectiveActionAllowed,
 		NormalizedTags:      []string{},
 		ProtocolPorts:       []string{},
 		MigrationsLog:       map[string]string{},
@@ -972,7 +972,7 @@ alerts can be raised against the grouped resource.`,
 		AllowedChoices: []string{"Allowed", "Denied", "Reachable"},
 		BSONFieldName:  "effectiveaction",
 		ConvertedName:  "EffectiveAction",
-		DefaultValue:   CloudNetworkQueryEffectiveActionReachable,
+		DefaultValue:   CloudNetworkQueryEffectiveActionAllowed,
 		Description: `Filters the results based on the effective action. 'Allowed' means
 that a destination is both reachable and allowed by security rules.
 'Denied' means that the destination is reachable through routing,
@@ -1287,7 +1287,7 @@ alerts can be raised against the grouped resource.`,
 		AllowedChoices: []string{"Allowed", "Denied", "Reachable"},
 		BSONFieldName:  "effectiveaction",
 		ConvertedName:  "EffectiveAction",
-		DefaultValue:   CloudNetworkQueryEffectiveActionReachable,
+		DefaultValue:   CloudNetworkQueryEffectiveActionAllowed,
 		Description: `Filters the results based on the effective action. 'Allowed' means
 that a destination is both reachable and allowed by security rules.
 'Denied' means that the destination is reachable through routing,

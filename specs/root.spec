@@ -1102,20 +1102,6 @@ relations:
     global_parameters:
     - $timewindow
     - $flowoffset
-    parameters:
-      entries:
-      - name: filterAction
-        description: Action to take with the filter tags.
-        type: enum
-        allowed_choices:
-        - include
-        - exclude
-
-      - name: filterTags
-        description: Tags to filter in the policy suggestions.
-        type: string
-        multiple: true
-        example_value: a=a
 
 - rest_name: tag
   get:
