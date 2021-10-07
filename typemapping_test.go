@@ -13,6 +13,7 @@ func TestTypeMapping_all_have_key_openapi3(t *testing.T) {
 	if err != nil {
 		t.Fatalf("error opening file for reading: %v", err)
 	}
+	defer file.Close()
 
 	var decodedTypeMapping map[string]struct {
 		OpenAPI3 struct {
