@@ -11,6 +11,17 @@
           "items": true
         }
       }
+  openapi3:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
 
 '[][]interface{}':
   elemental:
