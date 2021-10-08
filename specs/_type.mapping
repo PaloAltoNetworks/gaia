@@ -382,7 +382,16 @@ _elemental_identifiable:
   openapi3:
     type: |-
       {
-        "$ref": "elemental-types.json#/identifiable"
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "string"
+          }
+        },
+        "required": ["ID"],
+        "additionalProperties": {
+          "type": "object"
+        }
       }
 
 _portlist:
