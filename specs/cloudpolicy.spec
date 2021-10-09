@@ -44,7 +44,6 @@ attributes:
     description: Defines whether the Policy is enabled.
     type: boolean
     exposed: true
-    subtype: boolean
     stored: true
 
   - name: prismaCloudPolicyID

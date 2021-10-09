@@ -846,7 +846,6 @@ var CloudPolicyAttributesMap = map[string]elemental.AttributeSpecification{
 		Exposed:        true,
 		Name:           "enabled",
 		Stored:         true,
-		SubType:        "boolean",
 		Type:           "boolean",
 	},
 	"MigrationsLog": {
@@ -1114,7 +1113,6 @@ var CloudPolicyLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Exposed:        true,
 		Name:           "enabled",
 		Stored:         true,
-		SubType:        "boolean",
 		Type:           "boolean",
 	},
 	"migrationslog": {
