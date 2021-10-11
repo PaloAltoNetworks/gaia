@@ -193,11 +193,25 @@ relations:
   create:
     description: Initiates a cloud account clean up process for all stale objects.
 
+- rest_name: cloudalertrecord
+  get:
+    description: Retrieves alert raised in Prisma Cloud.
+    global_parameters:
+    - $filtering
+  create:
+    description: Updates the last execution time of alert record.
+  delete:
+    description: Deletes a cloud alert record and resolves the alert associated with it.
+
 - rest_name: cloudalertrule
   get:
     description: Retrieves the list of cloud alert rules.
     global_parameters:
     - $filtering
+  create:
+    description: Creates a cloud alert rule.
+  delete:
+    description: Deletes a cloud alert rule.
 
 - rest_name: cloudendpoint
   get:
@@ -257,6 +271,10 @@ relations:
     description: Retrieves the list of cloud policies.
     global_parameters:
     - $filtering
+  create:
+    description: Creates a Cloud policy.
+  delete:
+    description: Deletes a Cloud policy.
 
 - rest_name: cloudroutetable
   get:
@@ -267,10 +285,16 @@ relations:
     description: Creates a new routing table.
 
 - rest_name: cloudschedulednetworkquery
+  get:
+    description: Retrieves Cloud Scheduled Network Query job.
+    global_parameters:
+    - $filtering
   create:
     description: |-
       Updates the last execution time of scheduled network query which are run to
       evaluate alert rules.
+  delete:
+    description: Deletes a Cloud Scheduled Network Query job.
 
 - rest_name: cloudsnapshotaccount
   create:
@@ -640,6 +664,15 @@ relations:
 - rest_name: issueservicetoken
   create:
     description: Internal API to issue service tokens.
+
+- rest_name: kubernetescluster
+  get:
+    description: Retrieves the list of Kubernetes clusters.
+    global_parameters:
+    - $filtering
+    - $archivable
+  create:
+    description: Creates a new processing unit.
 
 - rest_name: ldapprovider
   get:
@@ -1104,6 +1137,11 @@ relations:
     description: Returns the tag prefixes of the specified namespace.
   create:
     description: Modify the tag prefixes of the specified namespace.
+    parameters:
+      entries:
+      - name: force
+        description: if set to true, it will update a namespace's tag prefixes even if the namespace is protected.
+        type: boolean
 
 - rest_name: tagvalue
   get:

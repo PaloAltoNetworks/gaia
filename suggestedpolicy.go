@@ -80,8 +80,8 @@ func (o SuggestedPoliciesList) Version() int {
 
 // SuggestedPolicy represents the model of a suggestedpolicy
 type SuggestedPolicy struct {
-	// List of suggested network policies.
-	NetworkAccessPolicies NetworkAccessPoliciesList `json:"networkAccessPolicies" msgpack:"networkAccessPolicies" bson:"networkaccesspolicies" mapstructure:"networkAccessPolicies,omitempty"`
+	// The suggested network policy.
+	Policy *NetworkRuleSetPolicy `json:"policy" msgpack:"policy" bson:"-" mapstructure:"policy,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -90,8 +90,8 @@ type SuggestedPolicy struct {
 func NewSuggestedPolicy() *SuggestedPolicy {
 
 	return &SuggestedPolicy{
-		ModelVersion:          1,
-		NetworkAccessPolicies: NetworkAccessPoliciesList{},
+		ModelVersion: 1,
+		Policy:       NewNetworkRuleSetPolicy(),
 	}
 }
 
@@ -122,8 +122,6 @@ func (o *SuggestedPolicy) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesSuggestedPolicy{}
 
-	s.NetworkAccessPolicies = o.NetworkAccessPolicies
-
 	return s, nil
 }
 
@@ -139,8 +137,6 @@ func (o *SuggestedPolicy) SetBSON(raw bson.Raw) error {
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
-
-	o.NetworkAccessPolicies = s.NetworkAccessPolicies
 
 	return nil
 }
@@ -166,7 +162,7 @@ func (o *SuggestedPolicy) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *SuggestedPolicy) Doc() string {
 
-	return `Allows you to obtain network policy suggestions.`
+	return `Allows you to obtain network ruleset policy suggestions.`
 }
 
 func (o *SuggestedPolicy) String() string {
@@ -181,15 +177,15 @@ func (o *SuggestedPolicy) ToSparse(fields ...string) elemental.SparseIdentifiabl
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseSuggestedPolicy{
-			NetworkAccessPolicies: &o.NetworkAccessPolicies,
+			Policy: o.Policy,
 		}
 	}
 
 	sp := &SparseSuggestedPolicy{}
 	for _, f := range fields {
 		switch f {
-		case "networkAccessPolicies":
-			sp.NetworkAccessPolicies = &(o.NetworkAccessPolicies)
+		case "policy":
+			sp.Policy = o.Policy
 		}
 	}
 
@@ -203,8 +199,8 @@ func (o *SuggestedPolicy) Patch(sparse elemental.SparseIdentifiable) {
 	}
 
 	so := sparse.(*SparseSuggestedPolicy)
-	if so.NetworkAccessPolicies != nil {
-		o.NetworkAccessPolicies = *so.NetworkAccessPolicies
+	if so.Policy != nil {
+		o.Policy = so.Policy
 	}
 }
 
@@ -238,12 +234,9 @@ func (o *SuggestedPolicy) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	for _, sub := range o.NetworkAccessPolicies {
-		if sub == nil {
-			continue
-		}
-		elemental.ResetDefaultForZeroValues(sub)
-		if err := sub.Validate(); err != nil {
+	if o.Policy != nil {
+		elemental.ResetDefaultForZeroValues(o.Policy)
+		if err := o.Policy.Validate(); err != nil {
 			errors = errors.Append(err)
 		}
 	}
@@ -282,8 +275,8 @@ func (*SuggestedPolicy) AttributeSpecifications() map[string]elemental.Attribute
 func (o *SuggestedPolicy) ValueForAttribute(name string) interface{} {
 
 	switch name {
-	case "networkAccessPolicies":
-		return o.NetworkAccessPolicies
+	case "policy":
+		return o.Policy
 	}
 
 	return nil
@@ -291,33 +284,27 @@ func (o *SuggestedPolicy) ValueForAttribute(name string) interface{} {
 
 // SuggestedPolicyAttributesMap represents the map of attribute for SuggestedPolicy.
 var SuggestedPolicyAttributesMap = map[string]elemental.AttributeSpecification{
-	"NetworkAccessPolicies": {
+	"Policy": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "networkaccesspolicies",
-		ConvertedName:  "NetworkAccessPolicies",
-		Description:    `List of suggested network policies.`,
+		ConvertedName:  "Policy",
+		Description:    `The suggested network policy.`,
 		Exposed:        true,
-		Name:           "networkAccessPolicies",
-		Orderable:      true,
-		Stored:         true,
-		SubType:        "networkaccesspolicy",
-		Type:           "refList",
+		Name:           "policy",
+		SubType:        "networkrulesetpolicy",
+		Type:           "ref",
 	},
 }
 
 // SuggestedPolicyLowerCaseAttributesMap represents the map of attribute for SuggestedPolicy.
 var SuggestedPolicyLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
-	"networkaccesspolicies": {
+	"policy": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "networkaccesspolicies",
-		ConvertedName:  "NetworkAccessPolicies",
-		Description:    `List of suggested network policies.`,
+		ConvertedName:  "Policy",
+		Description:    `The suggested network policy.`,
 		Exposed:        true,
-		Name:           "networkAccessPolicies",
-		Orderable:      true,
-		Stored:         true,
-		SubType:        "networkaccesspolicy",
-		Type:           "refList",
+		Name:           "policy",
+		SubType:        "networkrulesetpolicy",
+		Type:           "ref",
 	},
 }
 
@@ -384,8 +371,8 @@ func (o SparseSuggestedPoliciesList) Version() int {
 
 // SparseSuggestedPolicy represents the sparse version of a suggestedpolicy.
 type SparseSuggestedPolicy struct {
-	// List of suggested network policies.
-	NetworkAccessPolicies *NetworkAccessPoliciesList `json:"networkAccessPolicies,omitempty" msgpack:"networkAccessPolicies,omitempty" bson:"networkaccesspolicies,omitempty" mapstructure:"networkAccessPolicies,omitempty"`
+	// The suggested network policy.
+	Policy *NetworkRuleSetPolicy `json:"policy,omitempty" msgpack:"policy,omitempty" bson:"-" mapstructure:"policy,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -422,10 +409,6 @@ func (o *SparseSuggestedPolicy) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesSparseSuggestedPolicy{}
 
-	if o.NetworkAccessPolicies != nil {
-		s.NetworkAccessPolicies = o.NetworkAccessPolicies
-	}
-
 	return s, nil
 }
 
@@ -442,10 +425,6 @@ func (o *SparseSuggestedPolicy) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
-	if s.NetworkAccessPolicies != nil {
-		o.NetworkAccessPolicies = s.NetworkAccessPolicies
-	}
-
 	return nil
 }
 
@@ -459,8 +438,8 @@ func (o *SparseSuggestedPolicy) Version() int {
 func (o *SparseSuggestedPolicy) ToPlain() elemental.PlainIdentifiable {
 
 	out := NewSuggestedPolicy()
-	if o.NetworkAccessPolicies != nil {
-		out.NetworkAccessPolicies = *o.NetworkAccessPolicies
+	if o.Policy != nil {
+		out.Policy = o.Policy
 	}
 
 	return out
@@ -491,8 +470,6 @@ func (o *SparseSuggestedPolicy) DeepCopyInto(out *SparseSuggestedPolicy) {
 }
 
 type mongoAttributesSuggestedPolicy struct {
-	NetworkAccessPolicies NetworkAccessPoliciesList `bson:"networkaccesspolicies"`
 }
 type mongoAttributesSparseSuggestedPolicy struct {
-	NetworkAccessPolicies *NetworkAccessPoliciesList `bson:"networkaccesspolicies,omitempty"`
 }

@@ -6,22 +6,22 @@ model:
   package: vargid
   group: pcn/infrastructure
   description: |-
-    CloudSchedulednNetworkQuery represents a CloudNetworkQuery that will be
+    CloudScheduledNetworkQuery represents a CloudNetworkQuery that will be
     scheduled periodically.
-  private: true
   extends:
   - '@zoned'
   - '@migratable'
   - '@namespaced'
   - '@identifiable-stored'
   - '@timeable'
+  - '@named'
 
 # Indexes
 indexes:
-- - alertruleid
+- - prismacloudalertruleid
 - - lastexecutiontimestamp
-- - alertruleid
-  - policyid
+- - prismacloudalertruleid
+  - prismacloudpolicyid
 
 # Attributes
 attributes:
@@ -50,7 +50,7 @@ attributes:
     stored: true
 
   - name: lastExecutionTimestamp
-    description: Result of the last successfully run query.
+    description: Timestamp of the last time the query was scheduled.
     type: time
     exposed: true
     stored: true
@@ -65,6 +65,22 @@ attributes:
 
   - name: prismaCloudPolicyID
     description: Prisma Cloud Policy ID.
+    type: string
+    exposed: true
+    subtype: string
+    stored: true
+
+  - name: successfulExecutionTimestamp
+    description: |-
+      Timestamp of the last time the query was successfully executed and results were
+      obtained.
+    type: time
+    exposed: true
+    stored: true
+    orderable: true
+
+  - name: tenantPrismaID
+    description: Prisma ID of the tenant in which the Alert Rule is created.
     type: string
     exposed: true
     subtype: string

@@ -81,4 +81,5 @@ attributes:
     - Enforcer
     - Service
     - ServicePing
+    - K8SAPIServer
     example_value: Service

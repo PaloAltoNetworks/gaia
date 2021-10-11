@@ -30,9 +30,10 @@ var (
 		"clausesmatch":        ClauseMatchIdentity,
 		"cloudaccountcleaner": CloudAccountCleanerIdentity,
 
-		"cloudalert":     CloudAlertIdentity,
-		"cloudalertrule": CloudAlertRuleIdentity,
-		"cloudendpoint":  CloudEndpointIdentity,
+		"cloudalert":       CloudAlertIdentity,
+		"cloudalertrecord": CloudAlertRecordIdentity,
+		"cloudalertrule":   CloudAlertRuleIdentity,
+		"cloudendpoint":    CloudEndpointIdentity,
 
 		"cloudgraph": CloudGraphIdentity,
 
@@ -102,6 +103,7 @@ var (
 		"issue":                    IssueIdentity,
 		"issueservicetoken":        IssueServiceTokenIdentity,
 
+		"kubernetescluster":      KubernetesClusterIdentity,
 		"ldapprovider":           LDAPProviderIdentity,
 		"localca":                LocalCAIdentity,
 		"log":                    LogIdentity,
@@ -223,9 +225,10 @@ var (
 		"clausesmatches":      ClauseMatchIdentity,
 		"cloudaccountcleaner": CloudAccountCleanerIdentity,
 
-		"cloudalerts":     CloudAlertIdentity,
-		"cloudalertsrule": CloudAlertRuleIdentity,
-		"cloudendpoints":  CloudEndpointIdentity,
+		"cloudalerts":       CloudAlertIdentity,
+		"cloudalertrecords": CloudAlertRecordIdentity,
+		"cloudalertsrule":   CloudAlertRuleIdentity,
+		"cloudendpoints":    CloudEndpointIdentity,
 
 		"cloudgraphs": CloudGraphIdentity,
 
@@ -295,6 +298,7 @@ var (
 		"issue":                      IssueIdentity,
 		"issueservicetokens":         IssueServiceTokenIdentity,
 
+		"kubernetesclusters":       KubernetesClusterIdentity,
 		"ldapproviders":            LDAPProviderIdentity,
 		"localcas":                 LocalCAIdentity,
 		"logs":                     LogIdentity,
@@ -440,6 +444,8 @@ var (
 		"iapps":           InstalledAppIdentity,
 		"iapp":            InstalledAppIdentity,
 		"ip":              IsolationProfileIdentity,
+		"k8scluster":      KubernetesClusterIdentity,
+		"k8sclusters":     KubernetesClusterIdentity,
 		"mess":            MessageIdentity,
 		"mq":              MetricsQueryIdentity,
 		"mqr":             MetricsQueryRangeIdentity,
@@ -624,14 +630,25 @@ var (
 			{"name"},
 			{"createIdempotencyKey"},
 		},
+		"cloudalertrecord": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"published", "namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"name"},
+			{"lastexecutiontimestamp", "namespace"},
+			{"createIdempotencyKey"},
+		},
 		"cloudalertrule": {
-			{":unique", "alertRuleID"},
+			{":unique", "prismaCloudAlertRuleID"},
 			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
 			{"namespace", "name"},
 			{"namespace"},
 			{"namespace", "normalizedTags"},
-			{"namespace", "alertRuleID"},
+			{"namespace", "prismaCloudAlertRuleID"},
 			{"name"},
 			{"createIdempotencyKey"},
 		},
@@ -731,11 +748,13 @@ var (
 		},
 		"cloudschedulednetworkquery": {
 			{":shard", ":unique", "zone", "zHash"},
+			{"prismacloudalertruleid"},
+			{"prismacloudalertruleid", "prismacloudpolicyid"},
+			{"namespace", "name"},
 			{"namespace"},
 			{"namespace", "normalizedTags"},
+			{"name"},
 			{"lastexecutiontimestamp"},
-			{"alertruleid"},
-			{"alertruleid", "policyid"},
 		},
 		"cloudsnapshotaccount": {
 			{"updateIdempotencyKey"},
@@ -975,6 +994,15 @@ var (
 		},
 		"issue":             nil,
 		"issueservicetoken": nil,
+		"kubernetescluster": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"name"},
+			{"createIdempotencyKey"},
+		},
 		"ldapprovider": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
@@ -1328,6 +1356,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudAccountCleaner()
 	case CloudAlertIdentity:
 		return NewCloudAlert()
+	case CloudAlertRecordIdentity:
+		return NewCloudAlertRecord()
 	case CloudAlertRuleIdentity:
 		return NewCloudAlertRule()
 	case CloudEndpointIdentity:
@@ -1444,6 +1474,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewIssue()
 	case IssueServiceTokenIdentity:
 		return NewIssueServiceToken()
+	case KubernetesClusterIdentity:
+		return NewKubernetesCluster()
 	case LDAPProviderIdentity:
 		return NewLDAPProvider()
 	case LocalCAIdentity:
@@ -1671,6 +1703,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudAccountCleaner()
 	case CloudAlertIdentity:
 		return NewSparseCloudAlert()
+	case CloudAlertRecordIdentity:
+		return NewSparseCloudAlertRecord()
 	case CloudAlertRuleIdentity:
 		return NewSparseCloudAlertRule()
 	case CloudEndpointIdentity:
@@ -1787,6 +1821,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseIssue()
 	case IssueServiceTokenIdentity:
 		return NewSparseIssueServiceToken()
+	case KubernetesClusterIdentity:
+		return NewSparseKubernetesCluster()
 	case LDAPProviderIdentity:
 		return NewSparseLDAPProvider()
 	case LocalCAIdentity:
@@ -2022,6 +2058,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudAccountCleanersList{}
 	case CloudAlertIdentity:
 		return &CloudAlertsList{}
+	case CloudAlertRecordIdentity:
+		return &CloudAlertRecordsList{}
 	case CloudAlertRuleIdentity:
 		return &CloudAlertRulesList{}
 	case CloudEndpointIdentity:
@@ -2138,6 +2176,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &IssuesList{}
 	case IssueServiceTokenIdentity:
 		return &IssueServiceTokensList{}
+	case KubernetesClusterIdentity:
+		return &KubernetesClustersList{}
 	case LDAPProviderIdentity:
 		return &LDAPProvidersList{}
 	case LocalCAIdentity:
@@ -2363,6 +2403,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudAccountCleanersList{}
 	case CloudAlertIdentity:
 		return &SparseCloudAlertsList{}
+	case CloudAlertRecordIdentity:
+		return &SparseCloudAlertRecordsList{}
 	case CloudAlertRuleIdentity:
 		return &SparseCloudAlertRulesList{}
 	case CloudEndpointIdentity:
@@ -2479,6 +2521,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseIssuesList{}
 	case IssueServiceTokenIdentity:
 		return &SparseIssueServiceTokensList{}
+	case KubernetesClusterIdentity:
+		return &SparseKubernetesClustersList{}
 	case LDAPProviderIdentity:
 		return &SparseLDAPProvidersList{}
 	case LocalCAIdentity:
@@ -2698,6 +2742,7 @@ func AllIdentities() []elemental.Identity {
 		ClauseMatchIdentity,
 		CloudAccountCleanerIdentity,
 		CloudAlertIdentity,
+		CloudAlertRecordIdentity,
 		CloudAlertRuleIdentity,
 		CloudEndpointIdentity,
 		CloudGraphIdentity,
@@ -2756,6 +2801,7 @@ func AllIdentities() []elemental.Identity {
 		IsolationProfileIdentity,
 		IssueIdentity,
 		IssueServiceTokenIdentity,
+		KubernetesClusterIdentity,
 		LDAPProviderIdentity,
 		LocalCAIdentity,
 		LogIdentity,
@@ -2916,6 +2962,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case CloudAccountCleanerIdentity:
 		return []string{}
 	case CloudAlertIdentity:
+		return []string{}
+	case CloudAlertRecordIdentity:
 		return []string{}
 	case CloudAlertRuleIdentity:
 		return []string{}
@@ -3089,6 +3137,11 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{}
 	case IssueServiceTokenIdentity:
 		return []string{}
+	case KubernetesClusterIdentity:
+		return []string{
+			"k8scluster",
+			"k8sclusters",
+		}
 	case LDAPProviderIdentity:
 		return []string{}
 	case LocalCAIdentity:

@@ -29,9 +29,9 @@ model:
 # Indexes
 indexes:
 - - namespace
-  - alertRuleID
+  - prismaCloudAlertRuleID
 - - :unique
-  - alertRuleID
+  - prismaCloudAlertRuleID
 
 # Attributes
 attributes:
@@ -67,6 +67,13 @@ attributes:
   - name: targetAccountIDs
     description: List of accounts associated to an Alert rule.
     type: list
+    exposed: true
+    subtype: string
+    stored: true
+
+  - name: tenantPrismaID
+    description: Prisma ID of the tenant in which the Alert Rule is created.
+    type: string
     exposed: true
     subtype: string
     stored: true

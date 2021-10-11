@@ -14,7 +14,7 @@ var CloudScheduledNetworkQueryIdentity = elemental.Identity{
 	Name:     "cloudschedulednetworkquery",
 	Category: "cloudschedulednetworkqueries",
 	Package:  "vargid",
-	Private:  true,
+	Private:  false,
 }
 
 // CloudScheduledNetworkQueriesList represents a list of CloudScheduledNetworkQueries
@@ -58,7 +58,9 @@ func (o CloudScheduledNetworkQueriesList) List() elemental.IdentifiablesList {
 // DefaultOrder returns the default ordering fields of the content.
 func (o CloudScheduledNetworkQueriesList) DefaultOrder() []string {
 
-	return []string{}
+	return []string{
+		"name",
+	}
 }
 
 // ToSparse returns the CloudScheduledNetworkQueriesList converted to SparseCloudScheduledNetworkQueriesList.
@@ -96,11 +98,14 @@ type CloudScheduledNetworkQuery struct {
 	// Represents whether the associated policy was disabled.
 	Disabled bool `json:"disabled" msgpack:"disabled" bson:"disabled" mapstructure:"disabled,omitempty"`
 
-	// Result of the last successfully run query.
+	// Timestamp of the last time the query was scheduled.
 	LastExecutionTimestamp time.Time `json:"lastExecutionTimestamp" msgpack:"lastExecutionTimestamp" bson:"lastexecutiontimestamp" mapstructure:"lastExecutionTimestamp,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
+
+	// Name of the entity.
+	Name string `json:"name" msgpack:"name" bson:"name" mapstructure:"name,omitempty"`
 
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
@@ -110,6 +115,13 @@ type CloudScheduledNetworkQuery struct {
 
 	// Prisma Cloud Policy ID.
 	PrismaCloudPolicyID string `json:"prismaCloudPolicyID" msgpack:"prismaCloudPolicyID" bson:"prismacloudpolicyid" mapstructure:"prismaCloudPolicyID,omitempty"`
+
+	// Timestamp of the last time the query was successfully executed and results were
+	// obtained.
+	SuccessfulExecutionTimestamp time.Time `json:"successfulExecutionTimestamp" msgpack:"successfulExecutionTimestamp" bson:"successfulexecutiontimestamp" mapstructure:"successfulExecutionTimestamp,omitempty"`
+
+	// Prisma ID of the tenant in which the Alert Rule is created.
+	TenantPrismaID string `json:"tenantPrismaID" msgpack:"tenantPrismaID" bson:"tenantprismaid" mapstructure:"tenantPrismaID,omitempty"`
 
 	// Last update date of the object.
 	UpdateTime time.Time `json:"updateTime" msgpack:"updateTime" bson:"updatetime" mapstructure:"updateTime,omitempty"`
@@ -171,9 +183,12 @@ func (o *CloudScheduledNetworkQuery) GetBSON() (interface{}, error) {
 	s.Disabled = o.Disabled
 	s.LastExecutionTimestamp = o.LastExecutionTimestamp
 	s.MigrationsLog = o.MigrationsLog
+	s.Name = o.Name
 	s.Namespace = o.Namespace
 	s.PrismaCloudAlertRuleID = o.PrismaCloudAlertRuleID
 	s.PrismaCloudPolicyID = o.PrismaCloudPolicyID
+	s.SuccessfulExecutionTimestamp = o.SuccessfulExecutionTimestamp
+	s.TenantPrismaID = o.TenantPrismaID
 	s.UpdateTime = o.UpdateTime
 	s.ZHash = o.ZHash
 	s.Zone = o.Zone
@@ -200,9 +215,12 @@ func (o *CloudScheduledNetworkQuery) SetBSON(raw bson.Raw) error {
 	o.Disabled = s.Disabled
 	o.LastExecutionTimestamp = s.LastExecutionTimestamp
 	o.MigrationsLog = s.MigrationsLog
+	o.Name = s.Name
 	o.Namespace = s.Namespace
 	o.PrismaCloudAlertRuleID = s.PrismaCloudAlertRuleID
 	o.PrismaCloudPolicyID = s.PrismaCloudPolicyID
+	o.SuccessfulExecutionTimestamp = s.SuccessfulExecutionTimestamp
+	o.TenantPrismaID = s.TenantPrismaID
 	o.UpdateTime = s.UpdateTime
 	o.ZHash = s.ZHash
 	o.Zone = s.Zone
@@ -225,13 +243,15 @@ func (o *CloudScheduledNetworkQuery) BleveType() string {
 // DefaultOrder returns the list of default ordering fields.
 func (o *CloudScheduledNetworkQuery) DefaultOrder() []string {
 
-	return []string{}
+	return []string{
+		"name",
+	}
 }
 
 // Doc returns the documentation for the object
 func (o *CloudScheduledNetworkQuery) Doc() string {
 
-	return `CloudSchedulednNetworkQuery represents a CloudNetworkQuery that will be
+	return `CloudScheduledNetworkQuery represents a CloudNetworkQuery that will be
 scheduled periodically.`
 }
 
@@ -262,6 +282,18 @@ func (o *CloudScheduledNetworkQuery) GetMigrationsLog() map[string]string {
 func (o *CloudScheduledNetworkQuery) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = migrationsLog
+}
+
+// GetName returns the Name of the receiver.
+func (o *CloudScheduledNetworkQuery) GetName() string {
+
+	return o.Name
+}
+
+// SetName sets the property Name of the receiver using the given value.
+func (o *CloudScheduledNetworkQuery) SetName(name string) {
+
+	o.Name = name
 }
 
 // GetNamespace returns the Namespace of the receiver.
@@ -319,19 +351,22 @@ func (o *CloudScheduledNetworkQuery) ToSparse(fields ...string) elemental.Sparse
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseCloudScheduledNetworkQuery{
-			ID:                     &o.ID,
-			CloudGraphResult:       o.CloudGraphResult,
-			CloudNetworkQuery:      o.CloudNetworkQuery,
-			CreateTime:             &o.CreateTime,
-			Disabled:               &o.Disabled,
-			LastExecutionTimestamp: &o.LastExecutionTimestamp,
-			MigrationsLog:          &o.MigrationsLog,
-			Namespace:              &o.Namespace,
-			PrismaCloudAlertRuleID: &o.PrismaCloudAlertRuleID,
-			PrismaCloudPolicyID:    &o.PrismaCloudPolicyID,
-			UpdateTime:             &o.UpdateTime,
-			ZHash:                  &o.ZHash,
-			Zone:                   &o.Zone,
+			ID:                           &o.ID,
+			CloudGraphResult:             o.CloudGraphResult,
+			CloudNetworkQuery:            o.CloudNetworkQuery,
+			CreateTime:                   &o.CreateTime,
+			Disabled:                     &o.Disabled,
+			LastExecutionTimestamp:       &o.LastExecutionTimestamp,
+			MigrationsLog:                &o.MigrationsLog,
+			Name:                         &o.Name,
+			Namespace:                    &o.Namespace,
+			PrismaCloudAlertRuleID:       &o.PrismaCloudAlertRuleID,
+			PrismaCloudPolicyID:          &o.PrismaCloudPolicyID,
+			SuccessfulExecutionTimestamp: &o.SuccessfulExecutionTimestamp,
+			TenantPrismaID:               &o.TenantPrismaID,
+			UpdateTime:                   &o.UpdateTime,
+			ZHash:                        &o.ZHash,
+			Zone:                         &o.Zone,
 		}
 	}
 
@@ -352,12 +387,18 @@ func (o *CloudScheduledNetworkQuery) ToSparse(fields ...string) elemental.Sparse
 			sp.LastExecutionTimestamp = &(o.LastExecutionTimestamp)
 		case "migrationsLog":
 			sp.MigrationsLog = &(o.MigrationsLog)
+		case "name":
+			sp.Name = &(o.Name)
 		case "namespace":
 			sp.Namespace = &(o.Namespace)
 		case "prismaCloudAlertRuleID":
 			sp.PrismaCloudAlertRuleID = &(o.PrismaCloudAlertRuleID)
 		case "prismaCloudPolicyID":
 			sp.PrismaCloudPolicyID = &(o.PrismaCloudPolicyID)
+		case "successfulExecutionTimestamp":
+			sp.SuccessfulExecutionTimestamp = &(o.SuccessfulExecutionTimestamp)
+		case "tenantPrismaID":
+			sp.TenantPrismaID = &(o.TenantPrismaID)
 		case "updateTime":
 			sp.UpdateTime = &(o.UpdateTime)
 		case "zHash":
@@ -398,6 +439,9 @@ func (o *CloudScheduledNetworkQuery) Patch(sparse elemental.SparseIdentifiable) 
 	if so.MigrationsLog != nil {
 		o.MigrationsLog = *so.MigrationsLog
 	}
+	if so.Name != nil {
+		o.Name = *so.Name
+	}
 	if so.Namespace != nil {
 		o.Namespace = *so.Namespace
 	}
@@ -406,6 +450,12 @@ func (o *CloudScheduledNetworkQuery) Patch(sparse elemental.SparseIdentifiable) 
 	}
 	if so.PrismaCloudPolicyID != nil {
 		o.PrismaCloudPolicyID = *so.PrismaCloudPolicyID
+	}
+	if so.SuccessfulExecutionTimestamp != nil {
+		o.SuccessfulExecutionTimestamp = *so.SuccessfulExecutionTimestamp
+	}
+	if so.TenantPrismaID != nil {
+		o.TenantPrismaID = *so.TenantPrismaID
 	}
 	if so.UpdateTime != nil {
 		o.UpdateTime = *so.UpdateTime
@@ -462,6 +512,14 @@ func (o *CloudScheduledNetworkQuery) Validate() error {
 		}
 	}
 
+	if err := elemental.ValidateRequiredString("name", o.Name); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateMaximumLength("name", o.Name, 256, false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if len(requiredErrors) > 0 {
 		return requiredErrors
 	}
@@ -510,12 +568,18 @@ func (o *CloudScheduledNetworkQuery) ValueForAttribute(name string) interface{} 
 		return o.LastExecutionTimestamp
 	case "migrationsLog":
 		return o.MigrationsLog
+	case "name":
+		return o.Name
 	case "namespace":
 		return o.Namespace
 	case "prismaCloudAlertRuleID":
 		return o.PrismaCloudAlertRuleID
 	case "prismaCloudPolicyID":
 		return o.PrismaCloudPolicyID
+	case "successfulExecutionTimestamp":
+		return o.SuccessfulExecutionTimestamp
+	case "tenantPrismaID":
+		return o.TenantPrismaID
 	case "updateTime":
 		return o.UpdateTime
 	case "zHash":
@@ -593,7 +657,7 @@ var CloudScheduledNetworkQueryAttributesMap = map[string]elemental.AttributeSpec
 		AllowedChoices: []string{},
 		BSONFieldName:  "lastexecutiontimestamp",
 		ConvertedName:  "LastExecutionTimestamp",
-		Description:    `Result of the last successfully run query.`,
+		Description:    `Timestamp of the last time the query was scheduled.`,
 		Exposed:        true,
 		Name:           "lastExecutionTimestamp",
 		Orderable:      true,
@@ -611,6 +675,22 @@ var CloudScheduledNetworkQueryAttributesMap = map[string]elemental.AttributeSpec
 		Stored:         true,
 		SubType:        "map[string]string",
 		Type:           "external",
+	},
+	"Name": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "name",
+		ConvertedName:  "Name",
+		Description:    `Name of the entity.`,
+		Exposed:        true,
+		Filterable:     true,
+		Getter:         true,
+		MaxLength:      256,
+		Name:           "name",
+		Orderable:      true,
+		Required:       true,
+		Setter:         true,
+		Stored:         true,
+		Type:           "string",
 	},
 	"Namespace": {
 		AllowedChoices: []string{},
@@ -646,6 +726,29 @@ var CloudScheduledNetworkQueryAttributesMap = map[string]elemental.AttributeSpec
 		Description:    `Prisma Cloud Policy ID.`,
 		Exposed:        true,
 		Name:           "prismaCloudPolicyID",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "string",
+	},
+	"SuccessfulExecutionTimestamp": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "successfulexecutiontimestamp",
+		ConvertedName:  "SuccessfulExecutionTimestamp",
+		Description: `Timestamp of the last time the query was successfully executed and results were
+obtained.`,
+		Exposed:   true,
+		Name:      "successfulExecutionTimestamp",
+		Orderable: true,
+		Stored:    true,
+		Type:      "time",
+	},
+	"TenantPrismaID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "tenantprismaid",
+		ConvertedName:  "TenantPrismaID",
+		Description:    `Prisma ID of the tenant in which the Alert Rule is created.`,
+		Exposed:        true,
+		Name:           "tenantPrismaID",
 		Stored:         true,
 		SubType:        "string",
 		Type:           "string",
@@ -761,7 +864,7 @@ var CloudScheduledNetworkQueryLowerCaseAttributesMap = map[string]elemental.Attr
 		AllowedChoices: []string{},
 		BSONFieldName:  "lastexecutiontimestamp",
 		ConvertedName:  "LastExecutionTimestamp",
-		Description:    `Result of the last successfully run query.`,
+		Description:    `Timestamp of the last time the query was scheduled.`,
 		Exposed:        true,
 		Name:           "lastExecutionTimestamp",
 		Orderable:      true,
@@ -779,6 +882,22 @@ var CloudScheduledNetworkQueryLowerCaseAttributesMap = map[string]elemental.Attr
 		Stored:         true,
 		SubType:        "map[string]string",
 		Type:           "external",
+	},
+	"name": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "name",
+		ConvertedName:  "Name",
+		Description:    `Name of the entity.`,
+		Exposed:        true,
+		Filterable:     true,
+		Getter:         true,
+		MaxLength:      256,
+		Name:           "name",
+		Orderable:      true,
+		Required:       true,
+		Setter:         true,
+		Stored:         true,
+		Type:           "string",
 	},
 	"namespace": {
 		AllowedChoices: []string{},
@@ -814,6 +933,29 @@ var CloudScheduledNetworkQueryLowerCaseAttributesMap = map[string]elemental.Attr
 		Description:    `Prisma Cloud Policy ID.`,
 		Exposed:        true,
 		Name:           "prismaCloudPolicyID",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "string",
+	},
+	"successfulexecutiontimestamp": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "successfulexecutiontimestamp",
+		ConvertedName:  "SuccessfulExecutionTimestamp",
+		Description: `Timestamp of the last time the query was successfully executed and results were
+obtained.`,
+		Exposed:   true,
+		Name:      "successfulExecutionTimestamp",
+		Orderable: true,
+		Stored:    true,
+		Type:      "time",
+	},
+	"tenantprismaid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "tenantprismaid",
+		ConvertedName:  "TenantPrismaID",
+		Description:    `Prisma ID of the tenant in which the Alert Rule is created.`,
+		Exposed:        true,
+		Name:           "tenantPrismaID",
 		Stored:         true,
 		SubType:        "string",
 		Type:           "string",
@@ -904,7 +1046,9 @@ func (o SparseCloudScheduledNetworkQueriesList) List() elemental.IdentifiablesLi
 // DefaultOrder returns the default ordering fields of the content.
 func (o SparseCloudScheduledNetworkQueriesList) DefaultOrder() []string {
 
-	return []string{}
+	return []string{
+		"name",
+	}
 }
 
 // ToPlain returns the SparseCloudScheduledNetworkQueriesList converted to CloudScheduledNetworkQueriesList.
@@ -941,11 +1085,14 @@ type SparseCloudScheduledNetworkQuery struct {
 	// Represents whether the associated policy was disabled.
 	Disabled *bool `json:"disabled,omitempty" msgpack:"disabled,omitempty" bson:"disabled,omitempty" mapstructure:"disabled,omitempty"`
 
-	// Result of the last successfully run query.
+	// Timestamp of the last time the query was scheduled.
 	LastExecutionTimestamp *time.Time `json:"lastExecutionTimestamp,omitempty" msgpack:"lastExecutionTimestamp,omitempty" bson:"lastexecutiontimestamp,omitempty" mapstructure:"lastExecutionTimestamp,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
+
+	// Name of the entity.
+	Name *string `json:"name,omitempty" msgpack:"name,omitempty" bson:"name,omitempty" mapstructure:"name,omitempty"`
 
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
@@ -955,6 +1102,13 @@ type SparseCloudScheduledNetworkQuery struct {
 
 	// Prisma Cloud Policy ID.
 	PrismaCloudPolicyID *string `json:"prismaCloudPolicyID,omitempty" msgpack:"prismaCloudPolicyID,omitempty" bson:"prismacloudpolicyid,omitempty" mapstructure:"prismaCloudPolicyID,omitempty"`
+
+	// Timestamp of the last time the query was successfully executed and results were
+	// obtained.
+	SuccessfulExecutionTimestamp *time.Time `json:"successfulExecutionTimestamp,omitempty" msgpack:"successfulExecutionTimestamp,omitempty" bson:"successfulexecutiontimestamp,omitempty" mapstructure:"successfulExecutionTimestamp,omitempty"`
+
+	// Prisma ID of the tenant in which the Alert Rule is created.
+	TenantPrismaID *string `json:"tenantPrismaID,omitempty" msgpack:"tenantPrismaID,omitempty" bson:"tenantprismaid,omitempty" mapstructure:"tenantPrismaID,omitempty"`
 
 	// Last update date of the object.
 	UpdateTime *time.Time `json:"updateTime,omitempty" msgpack:"updateTime,omitempty" bson:"updatetime,omitempty" mapstructure:"updateTime,omitempty"`
@@ -1027,6 +1181,9 @@ func (o *SparseCloudScheduledNetworkQuery) GetBSON() (interface{}, error) {
 	if o.MigrationsLog != nil {
 		s.MigrationsLog = o.MigrationsLog
 	}
+	if o.Name != nil {
+		s.Name = o.Name
+	}
 	if o.Namespace != nil {
 		s.Namespace = o.Namespace
 	}
@@ -1035,6 +1192,12 @@ func (o *SparseCloudScheduledNetworkQuery) GetBSON() (interface{}, error) {
 	}
 	if o.PrismaCloudPolicyID != nil {
 		s.PrismaCloudPolicyID = o.PrismaCloudPolicyID
+	}
+	if o.SuccessfulExecutionTimestamp != nil {
+		s.SuccessfulExecutionTimestamp = o.SuccessfulExecutionTimestamp
+	}
+	if o.TenantPrismaID != nil {
+		s.TenantPrismaID = o.TenantPrismaID
 	}
 	if o.UpdateTime != nil {
 		s.UpdateTime = o.UpdateTime
@@ -1079,6 +1242,9 @@ func (o *SparseCloudScheduledNetworkQuery) SetBSON(raw bson.Raw) error {
 	if s.MigrationsLog != nil {
 		o.MigrationsLog = s.MigrationsLog
 	}
+	if s.Name != nil {
+		o.Name = s.Name
+	}
 	if s.Namespace != nil {
 		o.Namespace = s.Namespace
 	}
@@ -1087,6 +1253,12 @@ func (o *SparseCloudScheduledNetworkQuery) SetBSON(raw bson.Raw) error {
 	}
 	if s.PrismaCloudPolicyID != nil {
 		o.PrismaCloudPolicyID = s.PrismaCloudPolicyID
+	}
+	if s.SuccessfulExecutionTimestamp != nil {
+		o.SuccessfulExecutionTimestamp = s.SuccessfulExecutionTimestamp
+	}
+	if s.TenantPrismaID != nil {
+		o.TenantPrismaID = s.TenantPrismaID
 	}
 	if s.UpdateTime != nil {
 		o.UpdateTime = s.UpdateTime
@@ -1132,6 +1304,9 @@ func (o *SparseCloudScheduledNetworkQuery) ToPlain() elemental.PlainIdentifiable
 	if o.MigrationsLog != nil {
 		out.MigrationsLog = *o.MigrationsLog
 	}
+	if o.Name != nil {
+		out.Name = *o.Name
+	}
 	if o.Namespace != nil {
 		out.Namespace = *o.Namespace
 	}
@@ -1140,6 +1315,12 @@ func (o *SparseCloudScheduledNetworkQuery) ToPlain() elemental.PlainIdentifiable
 	}
 	if o.PrismaCloudPolicyID != nil {
 		out.PrismaCloudPolicyID = *o.PrismaCloudPolicyID
+	}
+	if o.SuccessfulExecutionTimestamp != nil {
+		out.SuccessfulExecutionTimestamp = *o.SuccessfulExecutionTimestamp
+	}
+	if o.TenantPrismaID != nil {
+		out.TenantPrismaID = *o.TenantPrismaID
 	}
 	if o.UpdateTime != nil {
 		out.UpdateTime = *o.UpdateTime
@@ -1184,6 +1365,22 @@ func (o *SparseCloudScheduledNetworkQuery) GetMigrationsLog() (out map[string]st
 func (o *SparseCloudScheduledNetworkQuery) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = &migrationsLog
+}
+
+// GetName returns the Name of the receiver.
+func (o *SparseCloudScheduledNetworkQuery) GetName() (out string) {
+
+	if o.Name == nil {
+		return
+	}
+
+	return *o.Name
+}
+
+// SetName sets the property Name of the receiver using the address of the given value.
+func (o *SparseCloudScheduledNetworkQuery) SetName(name string) {
+
+	o.Name = &name
 }
 
 // GetNamespace returns the Namespace of the receiver.
@@ -1275,30 +1472,36 @@ func (o *SparseCloudScheduledNetworkQuery) DeepCopyInto(out *SparseCloudSchedule
 }
 
 type mongoAttributesCloudScheduledNetworkQuery struct {
-	ID                     bson.ObjectId      `bson:"_id,omitempty"`
-	CloudNetworkQuery      *CloudNetworkQuery `bson:"cloudnetworkquery"`
-	CreateTime             time.Time          `bson:"createtime"`
-	Disabled               bool               `bson:"disabled"`
-	LastExecutionTimestamp time.Time          `bson:"lastexecutiontimestamp"`
-	MigrationsLog          map[string]string  `bson:"migrationslog,omitempty"`
-	Namespace              string             `bson:"namespace"`
-	PrismaCloudAlertRuleID string             `bson:"prismacloudalertruleid"`
-	PrismaCloudPolicyID    string             `bson:"prismacloudpolicyid"`
-	UpdateTime             time.Time          `bson:"updatetime"`
-	ZHash                  int                `bson:"zhash"`
-	Zone                   int                `bson:"zone"`
+	ID                           bson.ObjectId      `bson:"_id,omitempty"`
+	CloudNetworkQuery            *CloudNetworkQuery `bson:"cloudnetworkquery"`
+	CreateTime                   time.Time          `bson:"createtime"`
+	Disabled                     bool               `bson:"disabled"`
+	LastExecutionTimestamp       time.Time          `bson:"lastexecutiontimestamp"`
+	MigrationsLog                map[string]string  `bson:"migrationslog,omitempty"`
+	Name                         string             `bson:"name"`
+	Namespace                    string             `bson:"namespace"`
+	PrismaCloudAlertRuleID       string             `bson:"prismacloudalertruleid"`
+	PrismaCloudPolicyID          string             `bson:"prismacloudpolicyid"`
+	SuccessfulExecutionTimestamp time.Time          `bson:"successfulexecutiontimestamp"`
+	TenantPrismaID               string             `bson:"tenantprismaid"`
+	UpdateTime                   time.Time          `bson:"updatetime"`
+	ZHash                        int                `bson:"zhash"`
+	Zone                         int                `bson:"zone"`
 }
 type mongoAttributesSparseCloudScheduledNetworkQuery struct {
-	ID                     bson.ObjectId      `bson:"_id,omitempty"`
-	CloudNetworkQuery      *CloudNetworkQuery `bson:"cloudnetworkquery,omitempty"`
-	CreateTime             *time.Time         `bson:"createtime,omitempty"`
-	Disabled               *bool              `bson:"disabled,omitempty"`
-	LastExecutionTimestamp *time.Time         `bson:"lastexecutiontimestamp,omitempty"`
-	MigrationsLog          *map[string]string `bson:"migrationslog,omitempty"`
-	Namespace              *string            `bson:"namespace,omitempty"`
-	PrismaCloudAlertRuleID *string            `bson:"prismacloudalertruleid,omitempty"`
-	PrismaCloudPolicyID    *string            `bson:"prismacloudpolicyid,omitempty"`
-	UpdateTime             *time.Time         `bson:"updatetime,omitempty"`
-	ZHash                  *int               `bson:"zhash,omitempty"`
-	Zone                   *int               `bson:"zone,omitempty"`
+	ID                           bson.ObjectId      `bson:"_id,omitempty"`
+	CloudNetworkQuery            *CloudNetworkQuery `bson:"cloudnetworkquery,omitempty"`
+	CreateTime                   *time.Time         `bson:"createtime,omitempty"`
+	Disabled                     *bool              `bson:"disabled,omitempty"`
+	LastExecutionTimestamp       *time.Time         `bson:"lastexecutiontimestamp,omitempty"`
+	MigrationsLog                *map[string]string `bson:"migrationslog,omitempty"`
+	Name                         *string            `bson:"name,omitempty"`
+	Namespace                    *string            `bson:"namespace,omitempty"`
+	PrismaCloudAlertRuleID       *string            `bson:"prismacloudalertruleid,omitempty"`
+	PrismaCloudPolicyID          *string            `bson:"prismacloudpolicyid,omitempty"`
+	SuccessfulExecutionTimestamp *time.Time         `bson:"successfulexecutiontimestamp,omitempty"`
+	TenantPrismaID               *string            `bson:"tenantprismaid,omitempty"`
+	UpdateTime                   *time.Time         `bson:"updatetime,omitempty"`
+	ZHash                        *int               `bson:"zhash,omitempty"`
+	Zone                         *int               `bson:"zone,omitempty"`
 }

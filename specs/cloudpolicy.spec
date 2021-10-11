@@ -39,7 +39,6 @@ attributes:
     type: string
     exposed: true
     stored: true
-    read_only: true
 
   - name: prismaCloudPolicyID
     description: Reference to the corresponding Prisma Cloud Policy ID.
