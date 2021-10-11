@@ -40,6 +40,12 @@ attributes:
     exposed: true
     stored: true
 
+  - name: enabled
+    description: Defines whether the Policy is enabled.
+    type: boolean
+    exposed: true
+    stored: true
+
   - name: prismaCloudPolicyID
     description: Reference to the corresponding Prisma Cloud Policy ID.
     type: string
