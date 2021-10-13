@@ -152,6 +152,9 @@ type RenderedPolicy struct {
 	// Lists all the ingress policies attached to the processing unit.
 	IngressPolicies map[string]PolicyRulesList `json:"ingressPolicies,omitempty" msgpack:"ingressPolicies,omitempty" bson:"-" mapstructure:"ingressPolicies,omitempty"`
 
+	// L7SecurityServices flag is used to enable L7 security services.
+	L7SecurityServices bool
+
 	// Contains the list of tags that matched the policies.
 	MatchingTags []string `json:"matchingTags,omitempty" msgpack:"matchingTags,omitempty" bson:"-" mapstructure:"matchingTags,omitempty"`
 
