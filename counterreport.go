@@ -258,9 +258,9 @@ type CounterReport struct {
 	// Counter for unknown error.
 	UnknownError int `json:"UnknownError,omitempty" msgpack:"UnknownError,omitempty" bson:"bf,omitempty" mapstructure:"UnknownError,omitempty"`
 
-	// Non-zero counter indicates analyzed connections for unencrypted, encrypted, and
-	// packets from endpoint applications with the TCP Fast Open option set. These are
-	// not dropped counter.
+	// Non-zero counter indicates analyzed connections for unencrypted, encrypted,
+	// and packets from endpoint applications with the TCP Fast Open option set. These
+	// are not dropped counter.
 	ConnectionsAnalyzed int `json:"connectionsAnalyzed,omitempty" msgpack:"connectionsAnalyzed,omitempty" bson:"bg,omitempty" mapstructure:"connectionsAnalyzed,omitempty"`
 
 	// Non-zero counter indicates dropped connections because of invalid state,
@@ -1909,9 +1909,9 @@ packet.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "bg",
 		ConvertedName:  "ConnectionsAnalyzed",
-		Description: `Non-zero counter indicates analyzed connections for unencrypted, encrypted, and
-packets from endpoint applications with the TCP Fast Open option set. These are 
-not dropped counter.`,
+		Description: `Non-zero counter indicates analyzed connections for unencrypted, encrypted,
+and packets from endpoint applications with the TCP Fast Open option set. These
+are not dropped counter.`,
 		Exposed: true,
 		Name:    "connectionsAnalyzed",
 		Stored:  true,
@@ -1921,7 +1921,7 @@ not dropped counter.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "bh",
 		ConvertedName:  "ConnectionsDropped",
-		Description: `Non-zero counter indicates dropped connections because of invalid state, 
+		Description: `Non-zero counter indicates dropped connections because of invalid state,
 non-processing unit traffic, or out of order packets.`,
 		Exposed: true,
 		Name:    "connectionsDropped",
@@ -2697,9 +2697,9 @@ packet.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "bg",
 		ConvertedName:  "ConnectionsAnalyzed",
-		Description: `Non-zero counter indicates analyzed connections for unencrypted, encrypted, and
-packets from endpoint applications with the TCP Fast Open option set. These are 
-not dropped counter.`,
+		Description: `Non-zero counter indicates analyzed connections for unencrypted, encrypted,
+and packets from endpoint applications with the TCP Fast Open option set. These
+are not dropped counter.`,
 		Exposed: true,
 		Name:    "connectionsAnalyzed",
 		Stored:  true,
@@ -2709,7 +2709,7 @@ not dropped counter.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "bh",
 		ConvertedName:  "ConnectionsDropped",
-		Description: `Non-zero counter indicates dropped connections because of invalid state, 
+		Description: `Non-zero counter indicates dropped connections because of invalid state,
 non-processing unit traffic, or out of order packets.`,
 		Exposed: true,
 		Name:    "connectionsDropped",
@@ -3133,9 +3133,9 @@ type SparseCounterReport struct {
 	// Counter for unknown error.
 	UnknownError *int `json:"UnknownError,omitempty" msgpack:"UnknownError,omitempty" bson:"bf,omitempty" mapstructure:"UnknownError,omitempty"`
 
-	// Non-zero counter indicates analyzed connections for unencrypted, encrypted, and
-	// packets from endpoint applications with the TCP Fast Open option set. These are
-	// not dropped counter.
+	// Non-zero counter indicates analyzed connections for unencrypted, encrypted,
+	// and packets from endpoint applications with the TCP Fast Open option set. These
+	// are not dropped counter.
 	ConnectionsAnalyzed *int `json:"connectionsAnalyzed,omitempty" msgpack:"connectionsAnalyzed,omitempty" bson:"bg,omitempty" mapstructure:"connectionsAnalyzed,omitempty"`
 
 	// Non-zero counter indicates dropped connections because of invalid state,

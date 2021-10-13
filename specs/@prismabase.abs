@@ -33,8 +33,7 @@ attributes:
 
   - name: accountID
     exposed_name: accountId
-    description: Cloud account ID associated with the entity (matches Prisma Cloud
-      accountID).
+    description: Cloud account ID associated with the entity (matches Prisma Cloud accountID).
     type: string
     exposed: true
     stored: true

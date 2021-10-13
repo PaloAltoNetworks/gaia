@@ -9,6 +9,7 @@ import (
 )
 
 // TraceMode represents the model of a tracemode
+// +k8s:openapi-gen=true
 type TraceMode struct {
 	// Instructs the enforcers to provide an iptables trace for a processing unit.
 	IPTables bool `json:"IPTables" msgpack:"IPTables" bson:"iptables" mapstructure:"IPTables,omitempty"`
@@ -18,7 +19,8 @@ type TraceMode struct {
 	ApplicationConnections bool `json:"applicationConnections" msgpack:"applicationConnections" bson:"applicationconnections" mapstructure:"applicationConnections,omitempty"`
 
 	// Determines the length of the time interval that the trace must be
-	// enabled, using [Golang duration syntax](https://golang.org/pkg/time/#example_Duration).
+	// enabled, using [Golang duration
+	// syntax](https://golang.org/pkg/time/#example_Duration).
 	Interval string `json:"interval" msgpack:"interval" bson:"interval" mapstructure:"interval,omitempty"`
 
 	// Instructs the enforcer to send records for all

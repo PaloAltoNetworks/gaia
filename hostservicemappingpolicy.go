@@ -272,8 +272,9 @@ func (o *HostServiceMappingPolicy) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *HostServiceMappingPolicy) Doc() string {
 
-	return `Host service mapping allows you to map host services to the enforcers that should
-implement them. You must map host services to one or more enforcers for the host 
+	return `Host service mapping allows you to map host services to the enforcers that
+should
+implement them. You must map host services to one or more enforcers for the host
 services to have any effect.`
 }
 

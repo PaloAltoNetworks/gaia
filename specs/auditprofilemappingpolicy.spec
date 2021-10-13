@@ -6,8 +6,8 @@ model:
   package: squall
   group: policy/audit
   description: |-
-    Use an audit profile mapping to define the set of enforcers that must 
-    implement a specific audit profile.
+    Use an audit profile mapping to define the set of enforcers that must implement
+    a specific audit profile.
   aliases:
   - audpol
   - audpols
@@ -42,8 +42,7 @@ indexes:
 attributes:
   v1:
   - name: object
-    description: |-
-      The tag or tag expression that identifies the audit profile to be mapped.
+    description: The tag or tag expression that identifies the audit profile to be mapped.
     type: external
     exposed: true
     subtype: '[][]string'
@@ -52,7 +51,8 @@ attributes:
 
   - name: subject
     description: |-
-      The tag or tag expression that identifies the enforcer(s) to implement the audit profile.
+      The tag or tag expression that identifies the enforcer(s) to implement the audit
+      profile.
     type: external
     exposed: true
     subtype: '[][]string'

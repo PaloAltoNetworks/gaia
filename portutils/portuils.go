@@ -57,8 +57,8 @@ func ConvertToSinglePort(port string) (int64, error) {
 		return -1, fmt.Errorf("%s is not a valid port", port)
 	}
 
-	if p < 1 || p > 65535 {
-		return -1, fmt.Errorf("%s is not in between 1 and 65535", port)
+	if p < 0 || p > 65535 {
+		return -1, fmt.Errorf("%s is not in between 0 and 65535", port)
 	}
 
 	return p, nil

@@ -108,13 +108,13 @@ func (o NamespacePolicyInfosList) Version() int {
 
 // NamespacePolicyInfo represents the model of a namespacepolicyinfo
 type NamespacePolicyInfo struct {
-	// The processing unit action for incoming traffic for the namespace.
+	// (Deprecated) The processing unit action for incoming traffic for the namespace.
 	PUIncomingTrafficAction NamespacePolicyInfoPUIncomingTrafficActionValue `json:"PUIncomingTrafficAction" msgpack:"PUIncomingTrafficAction" bson:"-" mapstructure:"PUIncomingTrafficAction,omitempty"`
 
-	// The processing unit action for outgoing traffic for the namespace.
+	// (Deprecated) The processing unit action for outgoing traffic for the namespace.
 	PUOutgoingTrafficAction NamespacePolicyInfoPUOutgoingTrafficActionValue `json:"PUOutgoingTrafficAction" msgpack:"PUOutgoingTrafficAction" bson:"-" mapstructure:"PUOutgoingTrafficAction,omitempty"`
 
-	// List of tag prefixes that will be used to suggest policies.
+	// (Deprecated) List of tag prefixes that will be used to suggest policies.
 	Prefixes []string `json:"prefixes" msgpack:"prefixes" bson:"-" mapstructure:"prefixes,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
@@ -196,7 +196,7 @@ func (o *NamespacePolicyInfo) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *NamespacePolicyInfo) Doc() string {
 
-	return `Returns the policy info of the specified namespace.`
+	return `(Deprecated) Returns the policy info of the specified namespace.`
 }
 
 func (o *NamespacePolicyInfo) String() string {
@@ -338,7 +338,8 @@ var NamespacePolicyInfoAttributesMap = map[string]elemental.AttributeSpecificati
 	"PUIncomingTrafficAction": {
 		AllowedChoices: []string{"Allow", "Reject", "Inherit"},
 		ConvertedName:  "PUIncomingTrafficAction",
-		Description:    `The processing unit action for incoming traffic for the namespace.`,
+		Deprecated:     true,
+		Description:    `(Deprecated) The processing unit action for incoming traffic for the namespace.`,
 		Exposed:        true,
 		Name:           "PUIncomingTrafficAction",
 		ReadOnly:       true,
@@ -347,7 +348,8 @@ var NamespacePolicyInfoAttributesMap = map[string]elemental.AttributeSpecificati
 	"PUOutgoingTrafficAction": {
 		AllowedChoices: []string{"Allow", "Reject", "Inherit"},
 		ConvertedName:  "PUOutgoingTrafficAction",
-		Description:    `The processing unit action for outgoing traffic for the namespace.`,
+		Deprecated:     true,
+		Description:    `(Deprecated) The processing unit action for outgoing traffic for the namespace.`,
 		Exposed:        true,
 		Name:           "PUOutgoingTrafficAction",
 		ReadOnly:       true,
@@ -356,7 +358,8 @@ var NamespacePolicyInfoAttributesMap = map[string]elemental.AttributeSpecificati
 	"Prefixes": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Prefixes",
-		Description:    `List of tag prefixes that will be used to suggest policies.`,
+		Deprecated:     true,
+		Description:    `(Deprecated) List of tag prefixes that will be used to suggest policies.`,
 		Exposed:        true,
 		Name:           "prefixes",
 		ReadOnly:       true,
@@ -370,7 +373,8 @@ var NamespacePolicyInfoLowerCaseAttributesMap = map[string]elemental.AttributeSp
 	"puincomingtrafficaction": {
 		AllowedChoices: []string{"Allow", "Reject", "Inherit"},
 		ConvertedName:  "PUIncomingTrafficAction",
-		Description:    `The processing unit action for incoming traffic for the namespace.`,
+		Deprecated:     true,
+		Description:    `(Deprecated) The processing unit action for incoming traffic for the namespace.`,
 		Exposed:        true,
 		Name:           "PUIncomingTrafficAction",
 		ReadOnly:       true,
@@ -379,7 +383,8 @@ var NamespacePolicyInfoLowerCaseAttributesMap = map[string]elemental.AttributeSp
 	"puoutgoingtrafficaction": {
 		AllowedChoices: []string{"Allow", "Reject", "Inherit"},
 		ConvertedName:  "PUOutgoingTrafficAction",
-		Description:    `The processing unit action for outgoing traffic for the namespace.`,
+		Deprecated:     true,
+		Description:    `(Deprecated) The processing unit action for outgoing traffic for the namespace.`,
 		Exposed:        true,
 		Name:           "PUOutgoingTrafficAction",
 		ReadOnly:       true,
@@ -388,7 +393,8 @@ var NamespacePolicyInfoLowerCaseAttributesMap = map[string]elemental.AttributeSp
 	"prefixes": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Prefixes",
-		Description:    `List of tag prefixes that will be used to suggest policies.`,
+		Deprecated:     true,
+		Description:    `(Deprecated) List of tag prefixes that will be used to suggest policies.`,
 		Exposed:        true,
 		Name:           "prefixes",
 		ReadOnly:       true,
@@ -460,13 +466,13 @@ func (o SparseNamespacePolicyInfosList) Version() int {
 
 // SparseNamespacePolicyInfo represents the sparse version of a namespacepolicyinfo.
 type SparseNamespacePolicyInfo struct {
-	// The processing unit action for incoming traffic for the namespace.
+	// (Deprecated) The processing unit action for incoming traffic for the namespace.
 	PUIncomingTrafficAction *NamespacePolicyInfoPUIncomingTrafficActionValue `json:"PUIncomingTrafficAction,omitempty" msgpack:"PUIncomingTrafficAction,omitempty" bson:"-" mapstructure:"PUIncomingTrafficAction,omitempty"`
 
-	// The processing unit action for outgoing traffic for the namespace.
+	// (Deprecated) The processing unit action for outgoing traffic for the namespace.
 	PUOutgoingTrafficAction *NamespacePolicyInfoPUOutgoingTrafficActionValue `json:"PUOutgoingTrafficAction,omitempty" msgpack:"PUOutgoingTrafficAction,omitempty" bson:"-" mapstructure:"PUOutgoingTrafficAction,omitempty"`
 
-	// List of tag prefixes that will be used to suggest policies.
+	// (Deprecated) List of tag prefixes that will be used to suggest policies.
 	Prefixes *[]string `json:"prefixes,omitempty" msgpack:"prefixes,omitempty" bson:"-" mapstructure:"prefixes,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`

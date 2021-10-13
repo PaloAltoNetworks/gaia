@@ -7,6 +7,9 @@ model:
   group: core/policy
   description: Represents an ingress or egress network rule.
   detached: true
+  extensions:
+    commentFlags:
+    - +k8s:openapi-gen=true
 
 # Attributes
 attributes:
@@ -61,6 +64,10 @@ attributes:
     subtype: '[][]string'
     orderable: true
     validations:
+    - $atLeastOneSubExpression
+    - $subExpressionsNotEmpty
+    - $noDuplicateSubExpressions
+    - $noDuplicateTagsInEachSubExpression
     - $tagsExpression
 
   - name: observationEnabled

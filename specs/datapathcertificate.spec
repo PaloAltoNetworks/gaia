@@ -14,9 +14,9 @@ attributes:
   v1:
   - name: CSR
     description: |-
-      Contains a certificate signing request (CSR) from the enforcer.
-      Depending on the certificate there will be various requirements 
-      for the Microsegmentation Console to accept the CSR.
+      Contains a certificate signing request (CSR) from the enforcer. Depending on the
+      certificate there will be various requirements for the Microsegmentation Console
+      to accept the CSR.
     type: string
     exposed: true
     required: true
@@ -54,8 +54,7 @@ attributes:
     example_value: 5c83035648675400019ab901
 
   - name: sessionID
-    description: Provides the session ID of the enforcer when retrieving a datapath
-      certificate.
+    description: Provides the session ID of the enforcer when retrieving a datapath certificate.
     type: string
     exposed: true
     example_value: 5c83035648675400019ab901
@@ -82,4 +81,5 @@ attributes:
     - Enforcer
     - Service
     - ServicePing
+    - K8SAPIServer
     example_value: Service

@@ -81,8 +81,7 @@ attributes:
     read_only: true
 
   - name: refreshPolicy
-    description: If set to true, the target processing unit will refresh its policy
-      immediately.
+    description: If set to true, the target processing unit will refresh its policy immediately.
     type: boolean
     exposed: true
     omit_empty: true

@@ -1,3 +1,28 @@
+'[][]cloudpathelement':
+  elemental:
+    type: '[][]*CloudPathElement'
+    init: '[][]*CloudPathElement{}'
+  jsonschema:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": true
+        }
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+
 '[][]interface{}':
   elemental:
     type: '[][]interface{}'
@@ -9,6 +34,17 @@
         "items": {
           "type": "array",
           "items": true
+        }
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
         }
       }
 
@@ -27,12 +63,28 @@
           }
         }
       }
+  openapi3:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
 
 '[]byte':
   elemental:
     type: '[]byte'
     init: '[]byte{}'
   jsonschema:
+    type: |-
+      {
+        "type": "string"
+      }
+  openapi3:
     type: |-
       {
         "type": "string"
@@ -54,12 +106,34 @@
           }
         }
       }
+  openapi3:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        }
+      }
 
 '[]map[string]string':
   elemental:
     type: '[]map[string]string'
     init: '[]map[string]string{}'
   jsonschema:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+  openapi3:
     type: |-
       {
         "type": "array",
@@ -84,6 +158,15 @@
           "format": "date-time"
         }
       }
+  openapi3:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
 
 _arch_list:
   elemental:
@@ -97,6 +180,11 @@ _arch_list:
         "items": {
           "$ref": "isolation-profile-types.json#/architecturestype"
         }
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "object"
       }
 
 _audit_profile_rule_list:
@@ -112,6 +200,14 @@ _audit_profile_rule_list:
           "$ref": "audit-types.json#/auditprofilerule"
         }
       }
+  openapi3:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
 
 _automation_entitlements:
   elemental:
@@ -125,6 +221,17 @@ _automation_entitlements:
           "type": "array",
           "items": {
             "$ref": "elemental-types.json#/operation"
+          }
+        }
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "enum": ["", "retrieve-many", "retrieve", "create", "update", "delete", "patch", "info"]
           }
         }
       }
@@ -144,6 +251,35 @@ _automation_events:
           }
         }
       }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "entity": {
+                "type": "string"
+              },
+              "identity": {
+                "type": "string"
+              },
+              "type": {
+                "enum": ["create", "update", "delete", "error"]
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "encoding": {
+                "enum": ["application/json", "application/msgpack"]
+              }
+            }
+          }
+        }
+      }
 
 _cap_map:
   elemental:
@@ -154,6 +290,11 @@ _cap_map:
     type: |-
       {
         "$ref": "isolation-profile-types.json#/capabilitiestypemap"
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "object"
       }
 
 _claims:
@@ -166,6 +307,69 @@ _claims:
       {
         "$ref": "midgard-types.json#/midgardclaims"
       }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "properties": {
+          "realm": {
+            "type": "string"
+          },
+          "quota": {
+            "type": "integer"
+          },
+          "data": {
+            "type": "object"
+          },
+          "opaque": {
+            "type": "object"
+          },
+          "restrictions": {
+            "type": "object",
+            "properties": {
+              "perms": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "namespace": {
+                "type": "string"
+              },
+              "networks": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "aud": {
+            "type": "string"
+          },
+          "exp": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "jti": {
+            "type": "string"
+          },
+          "iat": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "iss": {
+            "type": "string"
+          },
+          "nbf": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "sub": {
+            "type": "string"
+          }
+        }
+      }
 
 _elemental_identifiable:
   elemental:
@@ -174,6 +378,20 @@ _elemental_identifiable:
     type: |-
       {
         "$ref": "elemental-types.json#/identifiable"
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "string"
+          }
+        },
+        "required": ["ID"],
+        "additionalProperties": {
+          "type": "object"
+        }
       }
 
 _portlist:
@@ -193,6 +411,15 @@ _portlist:
           }
         }
       }
+  openapi3:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
 
 _rendered_policy:
   elemental:
@@ -209,6 +436,14 @@ _rendered_policy:
       {
         "$ref": "_lists.json#/properties/policyrules"
       }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/policyrule"
+        }
+      }
 
 _syscall_action:
   elemental:
@@ -218,6 +453,11 @@ _syscall_action:
     type: |-
       {
         "$ref": "isolation-profile-types.json#/syscallenforcementaction"
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "object"
       }
 
 _syscall_rules:
@@ -230,6 +470,11 @@ _syscall_rules:
       {
         "$ref": "isolation-profile-types.json#/syscallenforcementrulesmap"
       }
+  openapi3:
+    type: |-
+      {
+        "type": "object"
+      }
 
 _vulnerability_level:
   elemental:
@@ -237,6 +482,13 @@ _vulnerability_level:
     init: constants.VulnerabilityUnknown
     import: go.aporeto.io/gaia/constants
   jsonschema:
+    type: |-
+      {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 7
+      }
+  openapi3:
     type: |-
       {
         "type": "integer",
@@ -252,12 +504,22 @@ elemental.Operation:
       {
         "enum": ["retrieve-many", "retrieve", "create", "update", "delete", "patch", "info"]
       }
+  openapi3:
+    type: |-
+      {
+        "enum": ["retrieve-many", "retrieve", "create", "update", "delete", "patch", "info"]
+      }
 
 json.RawMessage:
   elemental:
     type: json.RawMessage
     import: encoding/json
   jsonschema:
+    type: |-
+      {
+        "type": "string"
+      }
+  openapi3:
     type: |-
       {
         "type": "string"
@@ -279,12 +541,37 @@ map[string][]map[string]interface{}:
           }
         }
       }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object"
+            }
+          }
+        }
+      }
 
 map[string][]string:
   elemental:
     type: map[string][]string
     init: map[string][]string{}
   jsonschema:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+  openapi3:
     type: |-
       {
         "type": "object",
@@ -308,12 +595,28 @@ map[string]bool:
           "type": "boolean"
         }
       }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "boolean"
+        }
+      }
 
 map[string]int:
   elemental:
     type: map[string]int
     init: map[string]int{}
   jsonschema:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "integer"
+        }
+      }
+  openapi3:
     type: |-
       {
         "type": "object",
@@ -332,12 +635,34 @@ map[string]interface{}:
         "type": "object",
         "additionalProperties": true
       }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object"
+        }
+      }
 
 map[string]map[string][]string:
   elemental:
     type: map[string]map[string][]string
     init: map[string]map[string][]string{}
   jsonschema:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+  openapi3:
     type: |-
       {
         "type": "object",
@@ -367,12 +692,32 @@ map[string]map[string]bool:
           }
         }
       }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        }
+      }
 
 map[string]map[string]cloudnetworkquerydestination:
   elemental:
     type: map[string]map[string]*CloudNetworkQueryDestination
     init: map[string]map[string]*CloudNetworkQueryDestination{}
   jsonschema:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+  openapi3:
     type: |-
       {
         "type": "object",
@@ -394,12 +739,31 @@ map[string]map[string]interface{}:
           "additionalProperties": true
         }
       }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        }
+      }
 
 map[string]string:
   elemental:
     type: map[string]string
     init: map[string]string{}
   jsonschema:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      }
+  openapi3:
     type: |-
       {
         "type": "object",
@@ -420,12 +784,28 @@ network:
           "type": "string"
         }
       }
+  openapi3:
+    type: |-
+      {
+        "type": "object"
+      }
 
 networklist:
   elemental:
     type: '[]*net.IPNet'
     init: '[]*net.IPNet{}'
   jsonschema:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+  openapi3:
     type: |-
       {
         "type": "array",
@@ -443,6 +823,11 @@ pctimevalue:
     init: nil
   jsonschema:
     type: '{}'
+  openapi3:
+    type: |-
+      {
+        "type": "object"
+      }
 
 uiparametersexpression:
   elemental:
@@ -456,6 +841,17 @@ uiparametersexpression:
           "type": "array",
           "items": {
             "$ref": "uiparametervisibility.json"
+          }
+        }
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/uiparameter"
           }
         }
       }

@@ -269,8 +269,10 @@ func (o *TrustedNamespace) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *TrustedNamespace) Doc() string {
 
-	return `This object allows you to declare trust between namespaces that are cryptographically
-isolated. The namespaces can be local or served by different Microsegmentation Console controllers.`
+	return `This object allows you to declare trust between namespaces that are
+cryptographically
+isolated. The namespaces can be local or served by different Microsegmentation
+Console controllers.`
 }
 
 func (o *TrustedNamespace) String() string {

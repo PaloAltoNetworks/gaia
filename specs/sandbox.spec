@@ -6,7 +6,8 @@ model:
   package: service
   group: ext/documentation
   description: |-
-    This APIs allows to create a temporary namespace to experiment with Microsegmentation.
+    This APIs allows to create a temporary namespace to experiment with
+    Microsegmentation.
     This API is not authenticated, and contains small quotas. After one hour,
     everything will be deleted.
 

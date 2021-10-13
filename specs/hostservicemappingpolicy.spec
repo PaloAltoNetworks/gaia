@@ -6,8 +6,9 @@ model:
   package: squall
   group: policy/hosts
   description: |-
-    Host service mapping allows you to map host services to the enforcers that should
-    implement them. You must map host services to one or more enforcers for the host 
+    Host service mapping allows you to map host services to the enforcers that
+    should
+    implement them. You must map host services to one or more enforcers for the host
     services to have any effect.
   aliases:
   - hostsrvmappol
@@ -43,8 +44,7 @@ indexes:
 attributes:
   v1:
   - name: object
-    description: |-
-      A tag or tag expression identifying the host service(s) to be mapped.
+    description: A tag or tag expression identifying the host service(s) to be mapped.
     type: external
     exposed: true
     subtype: '[][]string'

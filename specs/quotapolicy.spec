@@ -50,8 +50,7 @@ attributes:
     setter: true
 
   - name: identities
-    description: |-
-      Contains the list of identity names where the quota will be applied.
+    description: Contains the list of identity names where the quota will be applied.
     type: list
     exposed: true
     subtype: string
@@ -63,7 +62,8 @@ attributes:
 
   - name: quota
     description: |-
-      Specifies the maximum number of objects matching the policy subject that can be created.
+      Specifies the maximum number of objects matching the policy subject that can be
+      created.
     type: integer
     exposed: true
 

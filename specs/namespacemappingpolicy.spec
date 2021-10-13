@@ -10,11 +10,14 @@ model:
     be placed when it is created, based on its tags.  When an enforcer creates
     a new processing unit, the system will place it in its own namespace if no
     matching namespace mapping can be found. If one match is found, then the
-    processing unit will be bumped down to the namespace declared in the namespace mapping. If it
+    processing unit will be bumped down to the namespace declared in the namespace
+    mapping. If it
     finds in that child namespace another matching namespace mapping, then
     the processing unit will be bumped down again, until it reaches a namespace with
-    no matching namespace mappings.  This is very useful to dispatch processes and containers
-    into a particular namespace, based on a lot of factors. For example, you can put in place a
+    no matching namespace mappings.  This is very useful to dispatch processes and
+    containers
+    into a particular namespace, based on a lot of factors. For example, you can put
+    in place a
     quarantine namespace mapping that will grab all processing units with excessive
     vulnerabilities.
   aliases:

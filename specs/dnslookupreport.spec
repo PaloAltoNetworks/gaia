@@ -117,10 +117,10 @@ attributes:
     subtype: string
     stored: true
     omit_empty: true
-    extensions:
-      bson_name: l
     validations:
     - $optionalcidroriplist
+    extensions:
+      bson_name: l
 
   - name: resolvedName
     description: name used for DNS resolution.

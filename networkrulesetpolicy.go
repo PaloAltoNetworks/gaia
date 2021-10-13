@@ -82,6 +82,7 @@ func (o NetworkRuleSetPoliciesList) Version() int {
 }
 
 // NetworkRuleSetPolicy represents the model of a networkrulesetpolicy
+// +k8s:openapi-gen=true
 type NetworkRuleSetPolicy struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
@@ -646,6 +647,10 @@ func (o *NetworkRuleSetPolicy) Validate() error {
 		}
 	}
 
+	if err := ValidateNoDuplicateNetworkRules("incomingRules", o.IncomingRules); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if err := ValidateMetadata("metadata", o.Metadata); err != nil {
 		errors = errors.Append(err)
 	}
@@ -668,6 +673,22 @@ func (o *NetworkRuleSetPolicy) Validate() error {
 		}
 	}
 
+	if err := ValidateNoDuplicateNetworkRules("outgoingRules", o.OutgoingRules); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := ValidateEachSubExpressionHasNoDuplicateTags("subject", o.Subject); err != nil {
+		errors = errors.Append(err)
+	}
+	if err := ValidateExpressionNotEmpty("subject", o.Subject); err != nil {
+		errors = errors.Append(err)
+	}
+	if err := ValidateNoDuplicateSubExpressions("subject", o.Subject); err != nil {
+		errors = errors.Append(err)
+	}
+	if err := ValidateSubExpressionsNotEmpty("subject", o.Subject); err != nil {
+		errors = errors.Append(err)
+	}
 	if err := ValidateTagsExpression("subject", o.Subject); err != nil {
 		errors = errors.Append(err)
 	}
@@ -1335,6 +1356,7 @@ func (o SparseNetworkRuleSetPoliciesList) Version() int {
 }
 
 // SparseNetworkRuleSetPolicy represents the sparse version of a networkrulesetpolicy.
+// +k8s:openapi-gen=true
 type SparseNetworkRuleSetPolicy struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`

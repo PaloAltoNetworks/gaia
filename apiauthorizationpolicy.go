@@ -94,6 +94,9 @@ type APIAuthorizationPolicy struct {
 	// The policy will be active for the given `activeDuration`.
 	ActiveSchedule string `json:"activeSchedule" msgpack:"activeSchedule" bson:"activeschedule" mapstructure:"activeSchedule,omitempty"`
 
+	// This is a set of all subject tags for matching in the DB.
+	AllSubjectTags []string `json:"-" msgpack:"-" bson:"allsubjecttags" mapstructure:"-,omitempty"`
+
 	// Stores additional information about an entity.
 	Annotations map[string][]string `json:"annotations" msgpack:"annotations" bson:"annotations" mapstructure:"annotations,omitempty"`
 
@@ -101,14 +104,14 @@ type APIAuthorizationPolicy struct {
 	AssociatedTags []string `json:"associatedTags" msgpack:"associatedTags" bson:"associatedtags" mapstructure:"associatedTags,omitempty"`
 
 	// A list of roles assigned to the user.
-	AuthorizedIdentities []string `json:"authorizedIdentities" msgpack:"authorizedIdentities" bson:"-" mapstructure:"authorizedIdentities,omitempty"`
+	AuthorizedIdentities []string `json:"authorizedIdentities" msgpack:"authorizedIdentities" bson:"authorizedidentities" mapstructure:"authorizedIdentities,omitempty"`
 
 	// Defines the namespace the user is authorized to access.
-	AuthorizedNamespace string `json:"authorizedNamespace" msgpack:"authorizedNamespace" bson:"-" mapstructure:"authorizedNamespace,omitempty"`
+	AuthorizedNamespace string `json:"authorizedNamespace" msgpack:"authorizedNamespace" bson:"authorizednamespace" mapstructure:"authorizedNamespace,omitempty"`
 
 	// If set, the API authorization will only be valid if the request comes from one
 	// the declared subnets.
-	AuthorizedSubnets []string `json:"authorizedSubnets" msgpack:"authorizedSubnets" bson:"-" mapstructure:"authorizedSubnets,omitempty"`
+	AuthorizedSubnets []string `json:"authorizedSubnets" msgpack:"authorizedSubnets" bson:"authorizedsubnets" mapstructure:"authorizedSubnets,omitempty"`
 
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey string `json:"-" msgpack:"-" bson:"createidempotencykey" mapstructure:"-,omitempty"`
@@ -143,6 +146,9 @@ type APIAuthorizationPolicy struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags []string `json:"normalizedTags" msgpack:"normalizedTags" bson:"normalizedtags" mapstructure:"normalizedTags,omitempty"`
 
+	// Propagates the api authorization to all of its children.
+	Propagate bool `json:"-" msgpack:"-" bson:"propagate" mapstructure:"-,omitempty"`
+
 	// If set to `true` while the policy is propagating, it won't be visible to
 	// children
 	// namespace, but still used for policy resolution.
@@ -152,13 +158,20 @@ type APIAuthorizationPolicy struct {
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
 	// A tag or tag expression that identifies the authorized user(s).
-	Subject [][]string `json:"subject" msgpack:"subject" bson:"-" mapstructure:"subject,omitempty"`
+	Subject [][]string `json:"subject" msgpack:"subject" bson:"subject" mapstructure:"subject,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey string `json:"-" msgpack:"-" bson:"updateidempotencykey" mapstructure:"-,omitempty"`
 
 	// Last update date of the object.
 	UpdateTime time.Time `json:"updateTime" msgpack:"updateTime" bson:"updatetime" mapstructure:"updateTime,omitempty"`
+
+	// geographical hash of the data. This is used for sharding and
+	// georedundancy.
+	ZHash int `json:"-" msgpack:"-" bson:"zhash" mapstructure:"-,omitempty"`
+
+	// Logical storage zone. Used for sharding.
+	Zone int `json:"-" msgpack:"-" bson:"zone" mapstructure:"-,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -168,12 +181,14 @@ func NewAPIAuthorizationPolicy() *APIAuthorizationPolicy {
 
 	return &APIAuthorizationPolicy{
 		ModelVersion:         1,
+		AuthorizedIdentities: []string{},
+		AllSubjectTags:       []string{},
 		Annotations:          map[string][]string{},
 		AssociatedTags:       []string{},
-		AuthorizedIdentities: []string{},
 		AuthorizedSubnets:    []string{},
 		Metadata:             []string{},
 		NormalizedTags:       []string{},
+		Propagate:            true,
 		Subject:              [][]string{},
 	}
 }
@@ -206,10 +221,17 @@ func (o *APIAuthorizationPolicy) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesAPIAuthorizationPolicy{}
 
+	if o.ID != "" {
+		s.ID = bson.ObjectIdHex(o.ID)
+	}
 	s.ActiveDuration = o.ActiveDuration
 	s.ActiveSchedule = o.ActiveSchedule
+	s.AllSubjectTags = o.AllSubjectTags
 	s.Annotations = o.Annotations
 	s.AssociatedTags = o.AssociatedTags
+	s.AuthorizedIdentities = o.AuthorizedIdentities
+	s.AuthorizedNamespace = o.AuthorizedNamespace
+	s.AuthorizedSubnets = o.AuthorizedSubnets
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	s.CreateTime = o.CreateTime
 	s.Description = o.Description
@@ -220,10 +242,14 @@ func (o *APIAuthorizationPolicy) GetBSON() (interface{}, error) {
 	s.Name = o.Name
 	s.Namespace = o.Namespace
 	s.NormalizedTags = o.NormalizedTags
+	s.Propagate = o.Propagate
 	s.PropagationHidden = o.PropagationHidden
 	s.Protected = o.Protected
+	s.Subject = o.Subject
 	s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
 	s.UpdateTime = o.UpdateTime
+	s.ZHash = o.ZHash
+	s.Zone = o.Zone
 
 	return s, nil
 }
@@ -241,10 +267,15 @@ func (o *APIAuthorizationPolicy) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	o.ID = s.ID.Hex()
 	o.ActiveDuration = s.ActiveDuration
 	o.ActiveSchedule = s.ActiveSchedule
+	o.AllSubjectTags = s.AllSubjectTags
 	o.Annotations = s.Annotations
 	o.AssociatedTags = s.AssociatedTags
+	o.AuthorizedIdentities = s.AuthorizedIdentities
+	o.AuthorizedNamespace = s.AuthorizedNamespace
+	o.AuthorizedSubnets = s.AuthorizedSubnets
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	o.CreateTime = s.CreateTime
 	o.Description = s.Description
@@ -255,10 +286,14 @@ func (o *APIAuthorizationPolicy) SetBSON(raw bson.Raw) error {
 	o.Name = s.Name
 	o.Namespace = s.Namespace
 	o.NormalizedTags = s.NormalizedTags
+	o.Propagate = s.Propagate
 	o.PropagationHidden = s.PropagationHidden
 	o.Protected = s.Protected
+	o.Subject = s.Subject
 	o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
 	o.UpdateTime = s.UpdateTime
+	o.ZHash = s.ZHash
+	o.Zone = s.Zone
 
 	return nil
 }
@@ -466,6 +501,18 @@ func (o *APIAuthorizationPolicy) SetNormalizedTags(normalizedTags []string) {
 	o.NormalizedTags = normalizedTags
 }
 
+// GetPropagate returns the Propagate of the receiver.
+func (o *APIAuthorizationPolicy) GetPropagate() bool {
+
+	return o.Propagate
+}
+
+// SetPropagate sets the property Propagate of the receiver using the given value.
+func (o *APIAuthorizationPolicy) SetPropagate(propagate bool) {
+
+	o.Propagate = propagate
+}
+
 // GetPropagationHidden returns the PropagationHidden of the receiver.
 func (o *APIAuthorizationPolicy) GetPropagationHidden() bool {
 
@@ -514,6 +561,30 @@ func (o *APIAuthorizationPolicy) SetUpdateTime(updateTime time.Time) {
 	o.UpdateTime = updateTime
 }
 
+// GetZHash returns the ZHash of the receiver.
+func (o *APIAuthorizationPolicy) GetZHash() int {
+
+	return o.ZHash
+}
+
+// SetZHash sets the property ZHash of the receiver using the given value.
+func (o *APIAuthorizationPolicy) SetZHash(zHash int) {
+
+	o.ZHash = zHash
+}
+
+// GetZone returns the Zone of the receiver.
+func (o *APIAuthorizationPolicy) GetZone() int {
+
+	return o.Zone
+}
+
+// SetZone sets the property Zone of the receiver using the given value.
+func (o *APIAuthorizationPolicy) SetZone(zone int) {
+
+	o.Zone = zone
+}
+
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
 func (o *APIAuthorizationPolicy) ToSparse(fields ...string) elemental.SparseIdentifiable {
@@ -524,6 +595,7 @@ func (o *APIAuthorizationPolicy) ToSparse(fields ...string) elemental.SparseIden
 			ID:                   &o.ID,
 			ActiveDuration:       &o.ActiveDuration,
 			ActiveSchedule:       &o.ActiveSchedule,
+			AllSubjectTags:       &o.AllSubjectTags,
 			Annotations:          &o.Annotations,
 			AssociatedTags:       &o.AssociatedTags,
 			AuthorizedIdentities: &o.AuthorizedIdentities,
@@ -539,11 +611,14 @@ func (o *APIAuthorizationPolicy) ToSparse(fields ...string) elemental.SparseIden
 			Name:                 &o.Name,
 			Namespace:            &o.Namespace,
 			NormalizedTags:       &o.NormalizedTags,
+			Propagate:            &o.Propagate,
 			PropagationHidden:    &o.PropagationHidden,
 			Protected:            &o.Protected,
 			Subject:              &o.Subject,
 			UpdateIdempotencyKey: &o.UpdateIdempotencyKey,
 			UpdateTime:           &o.UpdateTime,
+			ZHash:                &o.ZHash,
+			Zone:                 &o.Zone,
 		}
 	}
 
@@ -556,6 +631,8 @@ func (o *APIAuthorizationPolicy) ToSparse(fields ...string) elemental.SparseIden
 			sp.ActiveDuration = &(o.ActiveDuration)
 		case "activeSchedule":
 			sp.ActiveSchedule = &(o.ActiveSchedule)
+		case "allSubjectTags":
+			sp.AllSubjectTags = &(o.AllSubjectTags)
 		case "annotations":
 			sp.Annotations = &(o.Annotations)
 		case "associatedTags":
@@ -586,6 +663,8 @@ func (o *APIAuthorizationPolicy) ToSparse(fields ...string) elemental.SparseIden
 			sp.Namespace = &(o.Namespace)
 		case "normalizedTags":
 			sp.NormalizedTags = &(o.NormalizedTags)
+		case "propagate":
+			sp.Propagate = &(o.Propagate)
 		case "propagationHidden":
 			sp.PropagationHidden = &(o.PropagationHidden)
 		case "protected":
@@ -596,6 +675,10 @@ func (o *APIAuthorizationPolicy) ToSparse(fields ...string) elemental.SparseIden
 			sp.UpdateIdempotencyKey = &(o.UpdateIdempotencyKey)
 		case "updateTime":
 			sp.UpdateTime = &(o.UpdateTime)
+		case "zHash":
+			sp.ZHash = &(o.ZHash)
+		case "zone":
+			sp.Zone = &(o.Zone)
 		}
 	}
 
@@ -617,6 +700,9 @@ func (o *APIAuthorizationPolicy) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.ActiveSchedule != nil {
 		o.ActiveSchedule = *so.ActiveSchedule
+	}
+	if so.AllSubjectTags != nil {
+		o.AllSubjectTags = *so.AllSubjectTags
 	}
 	if so.Annotations != nil {
 		o.Annotations = *so.Annotations
@@ -663,6 +749,9 @@ func (o *APIAuthorizationPolicy) Patch(sparse elemental.SparseIdentifiable) {
 	if so.NormalizedTags != nil {
 		o.NormalizedTags = *so.NormalizedTags
 	}
+	if so.Propagate != nil {
+		o.Propagate = *so.Propagate
+	}
 	if so.PropagationHidden != nil {
 		o.PropagationHidden = *so.PropagationHidden
 	}
@@ -677,6 +766,12 @@ func (o *APIAuthorizationPolicy) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.UpdateTime != nil {
 		o.UpdateTime = *so.UpdateTime
+	}
+	if so.ZHash != nil {
+		o.ZHash = *so.ZHash
+	}
+	if so.Zone != nil {
+		o.Zone = *so.Zone
 	}
 }
 
@@ -793,6 +888,8 @@ func (o *APIAuthorizationPolicy) ValueForAttribute(name string) interface{} {
 		return o.ActiveDuration
 	case "activeSchedule":
 		return o.ActiveSchedule
+	case "allSubjectTags":
+		return o.AllSubjectTags
 	case "annotations":
 		return o.Annotations
 	case "associatedTags":
@@ -823,6 +920,8 @@ func (o *APIAuthorizationPolicy) ValueForAttribute(name string) interface{} {
 		return o.Namespace
 	case "normalizedTags":
 		return o.NormalizedTags
+	case "propagate":
+		return o.Propagate
 	case "propagationHidden":
 		return o.PropagationHidden
 	case "protected":
@@ -833,6 +932,10 @@ func (o *APIAuthorizationPolicy) ValueForAttribute(name string) interface{} {
 		return o.UpdateIdempotencyKey
 	case "updateTime":
 		return o.UpdateTime
+	case "zHash":
+		return o.ZHash
+	case "zone":
+		return o.Zone
 	}
 
 	return nil
@@ -843,6 +946,7 @@ var APIAuthorizationPolicyAttributesMap = map[string]elemental.AttributeSpecific
 	"ID": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "_id",
 		ConvertedName:  "ID",
 		Description:    `Identifier of the object.`,
 		Exposed:        true,
@@ -851,6 +955,7 @@ var APIAuthorizationPolicyAttributesMap = map[string]elemental.AttributeSpecific
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
+		Stored:         true,
 		Type:           "string",
 	},
 	"ActiveDuration": {
@@ -880,6 +985,16 @@ The policy will be active for the given ` + "`" + `activeDuration` + "`" + `.`,
 		Stored:  true,
 		Type:    "string",
 	},
+	"AllSubjectTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "allsubjecttags",
+		ConvertedName:  "AllSubjectTags",
+		Description:    `This is a set of all subject tags for matching in the DB.`,
+		Name:           "allSubjectTags",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"Annotations": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "annotations",
@@ -908,30 +1023,36 @@ The policy will be active for the given ` + "`" + `activeDuration` + "`" + `.`,
 	},
 	"AuthorizedIdentities": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "authorizedidentities",
 		ConvertedName:  "AuthorizedIdentities",
 		Description:    `A list of roles assigned to the user.`,
 		Exposed:        true,
 		Name:           "authorizedIdentities",
 		Required:       true,
+		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
 	},
 	"AuthorizedNamespace": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "authorizednamespace",
 		ConvertedName:  "AuthorizedNamespace",
 		Description:    `Defines the namespace the user is authorized to access.`,
 		Exposed:        true,
 		Name:           "authorizedNamespace",
 		Required:       true,
+		Stored:         true,
 		Type:           "string",
 	},
 	"AuthorizedSubnets": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "authorizedsubnets",
 		ConvertedName:  "AuthorizedSubnets",
 		Description: `If set, the API authorization will only be valid if the request comes from one
 the declared subnets.`,
 		Exposed: true,
 		Name:    "authorizedSubnets",
+		Stored:  true,
 		SubType: "string",
 		Type:    "list",
 	},
@@ -1081,6 +1202,20 @@ with the '@' prefix, and should only be used by external systems.`,
 		Transient:      true,
 		Type:           "list",
 	},
+	"Propagate": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "propagate",
+		ConvertedName:  "Propagate",
+		DefaultValue:   true,
+		Description:    `Propagates the api authorization to all of its children.`,
+		Getter:         true,
+		Name:           "propagate",
+		Orderable:      true,
+		ReadOnly:       true,
+		Setter:         true,
+		Stored:         true,
+		Type:           "boolean",
+	},
 	"PropagationHidden": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "propagationhidden",
@@ -1111,11 +1246,13 @@ namespace, but still used for policy resolution.`,
 	},
 	"Subject": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "subject",
 		ConvertedName:  "Subject",
 		Description:    `A tag or tag expression that identifies the authorized user(s).`,
 		Exposed:        true,
 		Name:           "subject",
 		Orderable:      true,
+		Stored:         true,
 		SubType:        "[][]string",
 		Type:           "external",
 	},
@@ -1147,6 +1284,34 @@ namespace, but still used for policy resolution.`,
 		Stored:         true,
 		Type:           "time",
 	},
+	"ZHash": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "zhash",
+		ConvertedName:  "ZHash",
+		Description: `geographical hash of the data. This is used for sharding and
+georedundancy.`,
+		Getter:   true,
+		Name:     "zHash",
+		ReadOnly: true,
+		Setter:   true,
+		Stored:   true,
+		Type:     "integer",
+	},
+	"Zone": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "zone",
+		ConvertedName:  "Zone",
+		Description:    `Logical storage zone. Used for sharding.`,
+		Getter:         true,
+		Name:           "zone",
+		ReadOnly:       true,
+		Setter:         true,
+		Stored:         true,
+		Transient:      true,
+		Type:           "integer",
+	},
 }
 
 // APIAuthorizationPolicyLowerCaseAttributesMap represents the map of attribute for APIAuthorizationPolicy.
@@ -1154,6 +1319,7 @@ var APIAuthorizationPolicyLowerCaseAttributesMap = map[string]elemental.Attribut
 	"id": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "_id",
 		ConvertedName:  "ID",
 		Description:    `Identifier of the object.`,
 		Exposed:        true,
@@ -1162,6 +1328,7 @@ var APIAuthorizationPolicyLowerCaseAttributesMap = map[string]elemental.Attribut
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
+		Stored:         true,
 		Type:           "string",
 	},
 	"activeduration": {
@@ -1191,6 +1358,16 @@ The policy will be active for the given ` + "`" + `activeDuration` + "`" + `.`,
 		Stored:  true,
 		Type:    "string",
 	},
+	"allsubjecttags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "allsubjecttags",
+		ConvertedName:  "AllSubjectTags",
+		Description:    `This is a set of all subject tags for matching in the DB.`,
+		Name:           "allSubjectTags",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"annotations": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "annotations",
@@ -1219,30 +1396,36 @@ The policy will be active for the given ` + "`" + `activeDuration` + "`" + `.`,
 	},
 	"authorizedidentities": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "authorizedidentities",
 		ConvertedName:  "AuthorizedIdentities",
 		Description:    `A list of roles assigned to the user.`,
 		Exposed:        true,
 		Name:           "authorizedIdentities",
 		Required:       true,
+		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
 	},
 	"authorizednamespace": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "authorizednamespace",
 		ConvertedName:  "AuthorizedNamespace",
 		Description:    `Defines the namespace the user is authorized to access.`,
 		Exposed:        true,
 		Name:           "authorizedNamespace",
 		Required:       true,
+		Stored:         true,
 		Type:           "string",
 	},
 	"authorizedsubnets": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "authorizedsubnets",
 		ConvertedName:  "AuthorizedSubnets",
 		Description: `If set, the API authorization will only be valid if the request comes from one
 the declared subnets.`,
 		Exposed: true,
 		Name:    "authorizedSubnets",
+		Stored:  true,
 		SubType: "string",
 		Type:    "list",
 	},
@@ -1392,6 +1575,20 @@ with the '@' prefix, and should only be used by external systems.`,
 		Transient:      true,
 		Type:           "list",
 	},
+	"propagate": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "propagate",
+		ConvertedName:  "Propagate",
+		DefaultValue:   true,
+		Description:    `Propagates the api authorization to all of its children.`,
+		Getter:         true,
+		Name:           "propagate",
+		Orderable:      true,
+		ReadOnly:       true,
+		Setter:         true,
+		Stored:         true,
+		Type:           "boolean",
+	},
 	"propagationhidden": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "propagationhidden",
@@ -1422,11 +1619,13 @@ namespace, but still used for policy resolution.`,
 	},
 	"subject": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "subject",
 		ConvertedName:  "Subject",
 		Description:    `A tag or tag expression that identifies the authorized user(s).`,
 		Exposed:        true,
 		Name:           "subject",
 		Orderable:      true,
+		Stored:         true,
 		SubType:        "[][]string",
 		Type:           "external",
 	},
@@ -1457,6 +1656,34 @@ namespace, but still used for policy resolution.`,
 		Setter:         true,
 		Stored:         true,
 		Type:           "time",
+	},
+	"zhash": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "zhash",
+		ConvertedName:  "ZHash",
+		Description: `geographical hash of the data. This is used for sharding and
+georedundancy.`,
+		Getter:   true,
+		Name:     "zHash",
+		ReadOnly: true,
+		Setter:   true,
+		Stored:   true,
+		Type:     "integer",
+	},
+	"zone": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "zone",
+		ConvertedName:  "Zone",
+		Description:    `Logical storage zone. Used for sharding.`,
+		Getter:         true,
+		Name:           "zone",
+		ReadOnly:       true,
+		Setter:         true,
+		Stored:         true,
+		Transient:      true,
+		Type:           "integer",
 	},
 }
 
@@ -1536,6 +1763,9 @@ type SparseAPIAuthorizationPolicy struct {
 	// The policy will be active for the given `activeDuration`.
 	ActiveSchedule *string `json:"activeSchedule,omitempty" msgpack:"activeSchedule,omitempty" bson:"activeschedule,omitempty" mapstructure:"activeSchedule,omitempty"`
 
+	// This is a set of all subject tags for matching in the DB.
+	AllSubjectTags *[]string `json:"-" msgpack:"-" bson:"allsubjecttags,omitempty" mapstructure:"-,omitempty"`
+
 	// Stores additional information about an entity.
 	Annotations *map[string][]string `json:"annotations,omitempty" msgpack:"annotations,omitempty" bson:"annotations,omitempty" mapstructure:"annotations,omitempty"`
 
@@ -1543,14 +1773,14 @@ type SparseAPIAuthorizationPolicy struct {
 	AssociatedTags *[]string `json:"associatedTags,omitempty" msgpack:"associatedTags,omitempty" bson:"associatedtags,omitempty" mapstructure:"associatedTags,omitempty"`
 
 	// A list of roles assigned to the user.
-	AuthorizedIdentities *[]string `json:"authorizedIdentities,omitempty" msgpack:"authorizedIdentities,omitempty" bson:"-" mapstructure:"authorizedIdentities,omitempty"`
+	AuthorizedIdentities *[]string `json:"authorizedIdentities,omitempty" msgpack:"authorizedIdentities,omitempty" bson:"authorizedidentities,omitempty" mapstructure:"authorizedIdentities,omitempty"`
 
 	// Defines the namespace the user is authorized to access.
-	AuthorizedNamespace *string `json:"authorizedNamespace,omitempty" msgpack:"authorizedNamespace,omitempty" bson:"-" mapstructure:"authorizedNamespace,omitempty"`
+	AuthorizedNamespace *string `json:"authorizedNamespace,omitempty" msgpack:"authorizedNamespace,omitempty" bson:"authorizednamespace,omitempty" mapstructure:"authorizedNamespace,omitempty"`
 
 	// If set, the API authorization will only be valid if the request comes from one
 	// the declared subnets.
-	AuthorizedSubnets *[]string `json:"authorizedSubnets,omitempty" msgpack:"authorizedSubnets,omitempty" bson:"-" mapstructure:"authorizedSubnets,omitempty"`
+	AuthorizedSubnets *[]string `json:"authorizedSubnets,omitempty" msgpack:"authorizedSubnets,omitempty" bson:"authorizedsubnets,omitempty" mapstructure:"authorizedSubnets,omitempty"`
 
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey *string `json:"-" msgpack:"-" bson:"createidempotencykey,omitempty" mapstructure:"-,omitempty"`
@@ -1585,6 +1815,9 @@ type SparseAPIAuthorizationPolicy struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags *[]string `json:"normalizedTags,omitempty" msgpack:"normalizedTags,omitempty" bson:"normalizedtags,omitempty" mapstructure:"normalizedTags,omitempty"`
 
+	// Propagates the api authorization to all of its children.
+	Propagate *bool `json:"-" msgpack:"-" bson:"propagate,omitempty" mapstructure:"-,omitempty"`
+
 	// If set to `true` while the policy is propagating, it won't be visible to
 	// children
 	// namespace, but still used for policy resolution.
@@ -1594,13 +1827,20 @@ type SparseAPIAuthorizationPolicy struct {
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
 	// A tag or tag expression that identifies the authorized user(s).
-	Subject *[][]string `json:"subject,omitempty" msgpack:"subject,omitempty" bson:"-" mapstructure:"subject,omitempty"`
+	Subject *[][]string `json:"subject,omitempty" msgpack:"subject,omitempty" bson:"subject,omitempty" mapstructure:"subject,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey *string `json:"-" msgpack:"-" bson:"updateidempotencykey,omitempty" mapstructure:"-,omitempty"`
 
 	// Last update date of the object.
 	UpdateTime *time.Time `json:"updateTime,omitempty" msgpack:"updateTime,omitempty" bson:"updatetime,omitempty" mapstructure:"updateTime,omitempty"`
+
+	// geographical hash of the data. This is used for sharding and
+	// georedundancy.
+	ZHash *int `json:"-" msgpack:"-" bson:"zhash,omitempty" mapstructure:"-,omitempty"`
+
+	// Logical storage zone. Used for sharding.
+	Zone *int `json:"-" msgpack:"-" bson:"zone,omitempty" mapstructure:"-,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -1645,17 +1885,32 @@ func (o *SparseAPIAuthorizationPolicy) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesSparseAPIAuthorizationPolicy{}
 
+	if o.ID != nil {
+		s.ID = bson.ObjectIdHex(*o.ID)
+	}
 	if o.ActiveDuration != nil {
 		s.ActiveDuration = o.ActiveDuration
 	}
 	if o.ActiveSchedule != nil {
 		s.ActiveSchedule = o.ActiveSchedule
 	}
+	if o.AllSubjectTags != nil {
+		s.AllSubjectTags = o.AllSubjectTags
+	}
 	if o.Annotations != nil {
 		s.Annotations = o.Annotations
 	}
 	if o.AssociatedTags != nil {
 		s.AssociatedTags = o.AssociatedTags
+	}
+	if o.AuthorizedIdentities != nil {
+		s.AuthorizedIdentities = o.AuthorizedIdentities
+	}
+	if o.AuthorizedNamespace != nil {
+		s.AuthorizedNamespace = o.AuthorizedNamespace
+	}
+	if o.AuthorizedSubnets != nil {
+		s.AuthorizedSubnets = o.AuthorizedSubnets
 	}
 	if o.CreateIdempotencyKey != nil {
 		s.CreateIdempotencyKey = o.CreateIdempotencyKey
@@ -1687,17 +1942,29 @@ func (o *SparseAPIAuthorizationPolicy) GetBSON() (interface{}, error) {
 	if o.NormalizedTags != nil {
 		s.NormalizedTags = o.NormalizedTags
 	}
+	if o.Propagate != nil {
+		s.Propagate = o.Propagate
+	}
 	if o.PropagationHidden != nil {
 		s.PropagationHidden = o.PropagationHidden
 	}
 	if o.Protected != nil {
 		s.Protected = o.Protected
 	}
+	if o.Subject != nil {
+		s.Subject = o.Subject
+	}
 	if o.UpdateIdempotencyKey != nil {
 		s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
 	}
 	if o.UpdateTime != nil {
 		s.UpdateTime = o.UpdateTime
+	}
+	if o.ZHash != nil {
+		s.ZHash = o.ZHash
+	}
+	if o.Zone != nil {
+		s.Zone = o.Zone
 	}
 
 	return s, nil
@@ -1716,17 +1983,31 @@ func (o *SparseAPIAuthorizationPolicy) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	id := s.ID.Hex()
+	o.ID = &id
 	if s.ActiveDuration != nil {
 		o.ActiveDuration = s.ActiveDuration
 	}
 	if s.ActiveSchedule != nil {
 		o.ActiveSchedule = s.ActiveSchedule
 	}
+	if s.AllSubjectTags != nil {
+		o.AllSubjectTags = s.AllSubjectTags
+	}
 	if s.Annotations != nil {
 		o.Annotations = s.Annotations
 	}
 	if s.AssociatedTags != nil {
 		o.AssociatedTags = s.AssociatedTags
+	}
+	if s.AuthorizedIdentities != nil {
+		o.AuthorizedIdentities = s.AuthorizedIdentities
+	}
+	if s.AuthorizedNamespace != nil {
+		o.AuthorizedNamespace = s.AuthorizedNamespace
+	}
+	if s.AuthorizedSubnets != nil {
+		o.AuthorizedSubnets = s.AuthorizedSubnets
 	}
 	if s.CreateIdempotencyKey != nil {
 		o.CreateIdempotencyKey = s.CreateIdempotencyKey
@@ -1758,17 +2039,29 @@ func (o *SparseAPIAuthorizationPolicy) SetBSON(raw bson.Raw) error {
 	if s.NormalizedTags != nil {
 		o.NormalizedTags = s.NormalizedTags
 	}
+	if s.Propagate != nil {
+		o.Propagate = s.Propagate
+	}
 	if s.PropagationHidden != nil {
 		o.PropagationHidden = s.PropagationHidden
 	}
 	if s.Protected != nil {
 		o.Protected = s.Protected
 	}
+	if s.Subject != nil {
+		o.Subject = s.Subject
+	}
 	if s.UpdateIdempotencyKey != nil {
 		o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
 	}
 	if s.UpdateTime != nil {
 		o.UpdateTime = s.UpdateTime
+	}
+	if s.ZHash != nil {
+		o.ZHash = s.ZHash
+	}
+	if s.Zone != nil {
+		o.Zone = s.Zone
 	}
 
 	return nil
@@ -1792,6 +2085,9 @@ func (o *SparseAPIAuthorizationPolicy) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.ActiveSchedule != nil {
 		out.ActiveSchedule = *o.ActiveSchedule
+	}
+	if o.AllSubjectTags != nil {
+		out.AllSubjectTags = *o.AllSubjectTags
 	}
 	if o.Annotations != nil {
 		out.Annotations = *o.Annotations
@@ -1838,6 +2134,9 @@ func (o *SparseAPIAuthorizationPolicy) ToPlain() elemental.PlainIdentifiable {
 	if o.NormalizedTags != nil {
 		out.NormalizedTags = *o.NormalizedTags
 	}
+	if o.Propagate != nil {
+		out.Propagate = *o.Propagate
+	}
 	if o.PropagationHidden != nil {
 		out.PropagationHidden = *o.PropagationHidden
 	}
@@ -1852,6 +2151,12 @@ func (o *SparseAPIAuthorizationPolicy) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.UpdateTime != nil {
 		out.UpdateTime = *o.UpdateTime
+	}
+	if o.ZHash != nil {
+		out.ZHash = *o.ZHash
+	}
+	if o.Zone != nil {
+		out.Zone = *o.Zone
 	}
 
 	return out
@@ -2081,6 +2386,22 @@ func (o *SparseAPIAuthorizationPolicy) SetNormalizedTags(normalizedTags []string
 	o.NormalizedTags = &normalizedTags
 }
 
+// GetPropagate returns the Propagate of the receiver.
+func (o *SparseAPIAuthorizationPolicy) GetPropagate() (out bool) {
+
+	if o.Propagate == nil {
+		return
+	}
+
+	return *o.Propagate
+}
+
+// SetPropagate sets the property Propagate of the receiver using the address of the given value.
+func (o *SparseAPIAuthorizationPolicy) SetPropagate(propagate bool) {
+
+	o.Propagate = &propagate
+}
+
 // GetPropagationHidden returns the PropagationHidden of the receiver.
 func (o *SparseAPIAuthorizationPolicy) GetPropagationHidden() (out bool) {
 
@@ -2145,6 +2466,38 @@ func (o *SparseAPIAuthorizationPolicy) SetUpdateTime(updateTime time.Time) {
 	o.UpdateTime = &updateTime
 }
 
+// GetZHash returns the ZHash of the receiver.
+func (o *SparseAPIAuthorizationPolicy) GetZHash() (out int) {
+
+	if o.ZHash == nil {
+		return
+	}
+
+	return *o.ZHash
+}
+
+// SetZHash sets the property ZHash of the receiver using the address of the given value.
+func (o *SparseAPIAuthorizationPolicy) SetZHash(zHash int) {
+
+	o.ZHash = &zHash
+}
+
+// GetZone returns the Zone of the receiver.
+func (o *SparseAPIAuthorizationPolicy) GetZone() (out int) {
+
+	if o.Zone == nil {
+		return
+	}
+
+	return *o.Zone
+}
+
+// SetZone sets the property Zone of the receiver using the address of the given value.
+func (o *SparseAPIAuthorizationPolicy) SetZone(zone int) {
+
+	o.Zone = &zone
+}
+
 // DeepCopy returns a deep copy if the SparseAPIAuthorizationPolicy.
 func (o *SparseAPIAuthorizationPolicy) DeepCopy() *SparseAPIAuthorizationPolicy {
 
@@ -2170,10 +2523,15 @@ func (o *SparseAPIAuthorizationPolicy) DeepCopyInto(out *SparseAPIAuthorizationP
 }
 
 type mongoAttributesAPIAuthorizationPolicy struct {
+	ID                   bson.ObjectId       `bson:"_id,omitempty"`
 	ActiveDuration       string              `bson:"activeduration"`
 	ActiveSchedule       string              `bson:"activeschedule"`
+	AllSubjectTags       []string            `bson:"allsubjecttags"`
 	Annotations          map[string][]string `bson:"annotations"`
 	AssociatedTags       []string            `bson:"associatedtags"`
+	AuthorizedIdentities []string            `bson:"authorizedidentities"`
+	AuthorizedNamespace  string              `bson:"authorizednamespace"`
+	AuthorizedSubnets    []string            `bson:"authorizedsubnets"`
 	CreateIdempotencyKey string              `bson:"createidempotencykey"`
 	CreateTime           time.Time           `bson:"createtime"`
 	Description          string              `bson:"description"`
@@ -2184,16 +2542,25 @@ type mongoAttributesAPIAuthorizationPolicy struct {
 	Name                 string              `bson:"name"`
 	Namespace            string              `bson:"namespace"`
 	NormalizedTags       []string            `bson:"normalizedtags"`
+	Propagate            bool                `bson:"propagate"`
 	PropagationHidden    bool                `bson:"propagationhidden"`
 	Protected            bool                `bson:"protected"`
+	Subject              [][]string          `bson:"subject"`
 	UpdateIdempotencyKey string              `bson:"updateidempotencykey"`
 	UpdateTime           time.Time           `bson:"updatetime"`
+	ZHash                int                 `bson:"zhash"`
+	Zone                 int                 `bson:"zone"`
 }
 type mongoAttributesSparseAPIAuthorizationPolicy struct {
+	ID                   bson.ObjectId        `bson:"_id,omitempty"`
 	ActiveDuration       *string              `bson:"activeduration,omitempty"`
 	ActiveSchedule       *string              `bson:"activeschedule,omitempty"`
+	AllSubjectTags       *[]string            `bson:"allsubjecttags,omitempty"`
 	Annotations          *map[string][]string `bson:"annotations,omitempty"`
 	AssociatedTags       *[]string            `bson:"associatedtags,omitempty"`
+	AuthorizedIdentities *[]string            `bson:"authorizedidentities,omitempty"`
+	AuthorizedNamespace  *string              `bson:"authorizednamespace,omitempty"`
+	AuthorizedSubnets    *[]string            `bson:"authorizedsubnets,omitempty"`
 	CreateIdempotencyKey *string              `bson:"createidempotencykey,omitempty"`
 	CreateTime           *time.Time           `bson:"createtime,omitempty"`
 	Description          *string              `bson:"description,omitempty"`
@@ -2204,8 +2571,12 @@ type mongoAttributesSparseAPIAuthorizationPolicy struct {
 	Name                 *string              `bson:"name,omitempty"`
 	Namespace            *string              `bson:"namespace,omitempty"`
 	NormalizedTags       *[]string            `bson:"normalizedtags,omitempty"`
+	Propagate            *bool                `bson:"propagate,omitempty"`
 	PropagationHidden    *bool                `bson:"propagationhidden,omitempty"`
 	Protected            *bool                `bson:"protected,omitempty"`
+	Subject              *[][]string          `bson:"subject,omitempty"`
 	UpdateIdempotencyKey *string              `bson:"updateidempotencykey,omitempty"`
 	UpdateTime           *time.Time           `bson:"updatetime,omitempty"`
+	ZHash                *int                 `bson:"zhash,omitempty"`
+	Zone                 *int                 `bson:"zone,omitempty"`
 }

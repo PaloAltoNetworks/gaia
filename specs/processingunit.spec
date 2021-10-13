@@ -38,6 +38,9 @@ model:
   - '@named'
   - '@timeable'
   - '@controllerable'
+  extensions:
+    commentFlags:
+    - +k8s:openapi-gen=true
 
 # Indexes
 indexes:
@@ -103,10 +106,11 @@ attributes:
     filterable: true
 
   - name: enforcementStatus
-    description: "Contains the state of the enforcer for the processing unit. \n\n`Inactive`
-      (default): the enforcer is not enforcing any host service. \n`Active`: the enforcer
-      is enforcing a host service. \n`Failed`: an error occurred during the enforcement
-      attempt."
+    description: |-
+      Contains the state of the enforcer for the processing unit. `Inactive`
+      (default): the enforcer is not enforcing any host service. `Active`: the
+      enforcer is enforcing a host service. `Failed`: an error occurred during the
+      enforcement attempt.
     type: enum
     exposed: true
     stored: true
@@ -268,8 +272,7 @@ relations:
     parameters:
       entries:
       - name: enforcementStatus
-        description: If set, changes the enforcement status of the processing unit
-          alongside with the poke.
+        description: If set, changes the enforcement status of the processing unit alongside with the poke.
         type: enum
         allowed_choices:
         - Failed
@@ -281,14 +284,11 @@ relations:
         type: boolean
 
       - name: notify
-        description: Can be sent to trigger a `ProcessingUnitRefresh` event that will
-          be handled by the enforcer. If this is set, all other additional parameters
-          will be ignored.
+        description: Can be sent to trigger a `ProcessingUnitRefresh` event that will be handled by the enforcer. If this is set, all other additional parameters will be ignored.
         type: boolean
 
       - name: status
-        description: If set, changes the status of the processing unit alongside with
-          the poke.
+        description: If set, changes the status of the processing unit alongside with the poke.
         type: enum
         allowed_choices:
         - Initialized
@@ -302,8 +302,7 @@ relations:
         type: time
 
       - name: zhash
-        description: Can be set to help backend target the correct shard where the
-          processing unit is stored.
+        description: Can be set to help backend target the correct shard where the processing unit is stored.
         type: integer
 
 - rest_name: processingunitrefresh

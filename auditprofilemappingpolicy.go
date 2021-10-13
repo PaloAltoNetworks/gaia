@@ -139,7 +139,8 @@ type AuditProfileMappingPolicy struct {
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
-	// The tag or tag expression that identifies the enforcer(s) to implement the audit profile.
+	// The tag or tag expression that identifies the enforcer(s) to implement the audit
+	// profile.
 	Subject [][]string `json:"subject" msgpack:"subject" bson:"-" mapstructure:"subject,omitempty"`
 
 	// internal idempotency key for a update operation.
@@ -271,8 +272,8 @@ func (o *AuditProfileMappingPolicy) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *AuditProfileMappingPolicy) Doc() string {
 
-	return `Use an audit profile mapping to define the set of enforcers that must 
-implement a specific audit profile.`
+	return `Use an audit profile mapping to define the set of enforcers that must implement
+a specific audit profile.`
 }
 
 func (o *AuditProfileMappingPolicy) String() string {
@@ -1013,11 +1014,12 @@ with the '@' prefix, and should only be used by external systems.`,
 	"Subject": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Subject",
-		Description:    `The tag or tag expression that identifies the enforcer(s) to implement the audit profile.`,
-		Exposed:        true,
-		Name:           "subject",
-		SubType:        "[][]string",
-		Type:           "external",
+		Description: `The tag or tag expression that identifies the enforcer(s) to implement the audit
+profile.`,
+		Exposed: true,
+		Name:    "subject",
+		SubType: "[][]string",
+		Type:    "external",
 	},
 	"UpdateIdempotencyKey": {
 		AllowedChoices: []string{},
@@ -1289,11 +1291,12 @@ with the '@' prefix, and should only be used by external systems.`,
 	"subject": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Subject",
-		Description:    `The tag or tag expression that identifies the enforcer(s) to implement the audit profile.`,
-		Exposed:        true,
-		Name:           "subject",
-		SubType:        "[][]string",
-		Type:           "external",
+		Description: `The tag or tag expression that identifies the enforcer(s) to implement the audit
+profile.`,
+		Exposed: true,
+		Name:    "subject",
+		SubType: "[][]string",
+		Type:    "external",
 	},
 	"updateidempotencykey": {
 		AllowedChoices: []string{},
@@ -1446,7 +1449,8 @@ type SparseAuditProfileMappingPolicy struct {
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
-	// The tag or tag expression that identifies the enforcer(s) to implement the audit profile.
+	// The tag or tag expression that identifies the enforcer(s) to implement the audit
+	// profile.
 	Subject *[][]string `json:"subject,omitempty" msgpack:"subject,omitempty" bson:"-" mapstructure:"subject,omitempty"`
 
 	// internal idempotency key for a update operation.

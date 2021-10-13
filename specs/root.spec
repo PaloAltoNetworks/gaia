@@ -136,8 +136,7 @@ relations:
 
 - rest_name: authn
   get:
-    description: Verify the validity of a token. This is deprecated. You should use
-      Create.
+    description: Verify the validity of a token. This is deprecated. You should use Create.
     parameters:
       entries:
       - name: token
@@ -194,6 +193,26 @@ relations:
   create:
     description: Initiates a cloud account clean up process for all stale objects.
 
+- rest_name: cloudalertrecord
+  get:
+    description: Retrieves alert raised in Prisma Cloud.
+    global_parameters:
+    - $filtering
+  create:
+    description: Updates the last execution time of alert record.
+  delete:
+    description: Deletes a cloud alert record and resolves the alert associated with it.
+
+- rest_name: cloudalertrule
+  get:
+    description: Retrieves the list of cloud alert rules.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a cloud alert rule.
+  delete:
+    description: Deletes a cloud alert rule.
+
 - rest_name: cloudendpoint
   get:
     description: List of endpoints associated with the deployment.
@@ -247,6 +266,16 @@ relations:
     global_parameters:
     - $filtering
 
+- rest_name: cloudpolicy
+  get:
+    description: Retrieves the list of cloud policies.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a Cloud policy.
+  delete:
+    description: Deletes a Cloud policy.
+
 - rest_name: cloudroutetable
   get:
     description: Retrieves the list of routing tables.
@@ -254,6 +283,18 @@ relations:
     - $filtering
   create:
     description: Creates a new routing table.
+
+- rest_name: cloudschedulednetworkquery
+  get:
+    description: Retrieves Cloud Scheduled Network Query job.
+    global_parameters:
+    - $filtering
+  create:
+    description: |-
+      Updates the last execution time of scheduled network query which are run to
+      evaluate alert rules.
+  delete:
+    description: Deletes a Cloud Scheduled Network Query job.
 
 - rest_name: cloudsnapshotaccount
   create:
@@ -282,6 +323,10 @@ relations:
     - $filtering
   create:
     description: Creates a CNS configuration object for the specified namespace.
+
+- rest_name: cnsrqlquery
+  create:
+    description: Retrieves RQL results for the specified alert.
 
 - rest_name: cnssearch
   create:
@@ -338,8 +383,7 @@ relations:
     description: (Deprecated) Returns the list of discovery modes.
     deprecated: true
   create:
-    description: (Deprecated) Deploy the discovery mode assets onto the specified
-      namespace.
+    description: (Deprecated) Deploy the discovery mode assets onto the specified namespace.
     deprecated: true
 
 - rest_name: dnslookupreport
@@ -464,10 +508,7 @@ relations:
     parameters:
       entries:
       - name: quiet
-        description: If set to true, the health check endpoint will not return data
-          but will return 200 OK if everything is fine or 218 if the controller is
-          not operational. This is useful when you want to use the health check endpoint
-          as a load balancer health check.
+        description: If set to true, the health check endpoint will not return data but will return 200 OK if everything is fine or 218 if the controller is not operational. This is useful when you want to use the health check endpoint as a load balancer health check.
         type: boolean
 
 - rest_name: hit
@@ -612,8 +653,7 @@ relations:
     parameters:
       entries:
       - name: asCookie
-        description: If set to true, the token will be delivered in a secure cookie,
-          and not in the response body.
+        description: If set to true, the token will be delivered in a secure cookie, and not in the response body.
         type: boolean
 
       - name: token
@@ -624,6 +664,15 @@ relations:
 - rest_name: issueservicetoken
   create:
     description: Internal API to issue service tokens.
+
+- rest_name: kubernetescluster
+  get:
+    description: Retrieves the list of Kubernetes clusters.
+    global_parameters:
+    - $filtering
+    - $archivable
+  create:
+    description: Creates a new processing unit.
 
 - rest_name: ldapprovider
   get:
@@ -705,8 +754,7 @@ relations:
         example_value: "2015-07-01T20:10:30.781Z"
 
       - name: step
-        description: Query resolution step width in duration format or float number
-          of seconds.
+        description: Query resolution step width in duration format or float number of seconds.
         type: string
         example_value: 15s
   create:
@@ -726,6 +774,10 @@ relations:
   create:
     description: Creates a new namespace.
 
+- rest_name: namespaceinfo
+  get:
+    description: Returns the information of the specified namespace.
+
 - rest_name: namespacemappingpolicy
   get:
     description: Retrieves the list namespace mappings.
@@ -736,7 +788,8 @@ relations:
 
 - rest_name: namespacepolicyinfo
   get:
-    description: Returns the policy info of the specified namespace.
+    description: (Deprecated) Returns the policy info of the specified namespace.
+    deprecated: true
 
 - rest_name: namespacerenderer
   create:
@@ -875,8 +928,7 @@ relations:
     parameters:
       entries:
       - name: remaining
-        description: Makes the system count how many object are left available in
-          the quota.
+        description: Makes the system count how many object are left available in the quota.
         type: boolean
 
 - rest_name: quotapolicy
@@ -972,6 +1024,15 @@ relations:
   create:
     description: Creates a new service.
 
+- rest_name: servicecertificate
+  get:
+    description: Retrieves the list of service certificates.
+    global_parameters:
+    - $filtering
+    - $propagatable
+  create:
+    description: Creates a new service certificate.
+
 - rest_name: servicedependencypolicy
   get:
     description: Retrieves the list of service dependency policies.
@@ -1041,20 +1102,6 @@ relations:
     global_parameters:
     - $timewindow
     - $flowoffset
-    parameters:
-      entries:
-      - name: filterAction
-        description: Action to take with the filter tags.
-        type: enum
-        allowed_choices:
-        - include
-        - exclude
-
-      - name: filterTags
-        description: Tags to filter in the policy suggestions.
-        type: string
-        multiple: true
-        example_value: a=a
 
 - rest_name: tag
   get:
@@ -1076,6 +1123,11 @@ relations:
     description: Returns the tag prefixes of the specified namespace.
   create:
     description: Modify the tag prefixes of the specified namespace.
+    parameters:
+      entries:
+      - name: force
+        description: if set to true, it will update a namespace's tag prefixes even if the namespace is protected.
+        type: boolean
 
 - rest_name: tagvalue
   get:
@@ -1139,6 +1191,12 @@ relations:
     - $propagatable
   create:
     description: Creates a new enforcer policy.
+
+- rest_name: validaterql
+  create:
+    description: |-
+      Validates a given RQL query. This operation does not store data and has no side
+      effects.
 
 - rest_name: validateuiparameter
   create:

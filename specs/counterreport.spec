@@ -542,9 +542,10 @@ attributes:
       bson_name: bf
 
   - name: connectionsAnalyzed
-    description: "Non-zero counter indicates analyzed connections for unencrypted,
-      encrypted, and\npackets from endpoint applications with the TCP Fast Open option
-      set. These are \nnot dropped counter."
+    description: |-
+      Non-zero counter indicates analyzed connections for unencrypted, encrypted,
+      and packets from endpoint applications with the TCP Fast Open option set. These
+      are not dropped counter.
     type: integer
     exposed: true
     stored: true
@@ -553,8 +554,9 @@ attributes:
       bson_name: bg
 
   - name: connectionsDropped
-    description: "Non-zero counter indicates dropped connections because of invalid
-      state, \nnon-processing unit traffic, or out of order packets."
+    description: |-
+      Non-zero counter indicates dropped connections because of invalid state,
+      non-processing unit traffic, or out of order packets.
     type: integer
     exposed: true
     stored: true
@@ -585,8 +587,7 @@ attributes:
       bson_name: bj
 
   - name: encryptionFailures
-    description: Non-zero counter indicates encryption processing failures of data
-      packets.
+    description: Non-zero counter indicates encryption processing failures of data packets.
     type: integer
     exposed: true
     stored: true

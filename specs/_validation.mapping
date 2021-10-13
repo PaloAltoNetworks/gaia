@@ -2,6 +2,14 @@ $apiauthsubject:
   elemental:
     name: ValidateAPIAuthorizationPolicySubject
 
+$apiserverservicename:
+  elemental:
+    name: ValidateAPIServerServiceName
+
+$atLeastOneSubExpression:
+  elemental:
+    name: ValidateExpressionNotEmpty
+
 $audience:
   elemental:
     name: ValidateAudience
@@ -102,6 +110,18 @@ $networksorhostnames:
   elemental:
     name: ValidateNetworkOrHostnameList
 
+$noDuplicateRules:
+  elemental:
+    name: ValidateNoDuplicateNetworkRules
+
+$noDuplicateSubExpressions:
+  elemental:
+    name: ValidateNoDuplicateSubExpressions
+
+$noDuplicateTagsInEachSubExpression:
+  elemental:
+    name: ValidateEachSubExpressionHasNoDuplicateTags
+
 $optionalTimeDuration:
   elemental:
     name: ValidateOptionalTimeDuration
@@ -189,6 +209,10 @@ $serviceports:
 $stringlistnotempty:
   elemental:
     name: ValidateStringListNotEmpty
+
+$subExpressionsNotEmpty:
+  elemental:
+    name: ValidateSubExpressionsNotEmpty
 
 $tag:
   elemental:

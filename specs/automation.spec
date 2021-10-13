@@ -6,7 +6,8 @@ model:
   package: sephiroth
   group: integration/automation
   description: |-
-    Allows you to define some JavaScript code and specify the conditions under which it should
+    Allows you to define some JavaScript code and specify the conditions under which
+    it should
     be executed.
   aliases:
   - autos
@@ -45,7 +46,8 @@ attributes:
 
   - name: aporetoToken
     description: |-
-      Contains the Microsegmentation token used by the automation's HTTP client. This token is
+      Contains the Microsegmentation token used by the automation's HTTP client. This
+      token is
       derived from the automation's app credential attribute.
     type: string
     stored: true
@@ -148,8 +150,7 @@ attributes:
     transient: true
 
   - name: tokenRenew
-    description: If set to `true` a new token will be issued and the previous one
-      invalidated.
+    description: If set to `true` a new token will be issued and the previous one invalidated.
     type: boolean
     exposed: true
 

@@ -80,6 +80,10 @@ func (o AuthzsList) Version() int {
 
 // Authz represents the model of a authz
 type Authz struct {
+	// Contains the API Authorization policies if
+	// the query parameter `forwardpolicyrules=true` is set.
+	APIAuthorizationPolicies APIAuthorizationPoliciesList `json:"APIAuthorizationPolicies,omitempty" msgpack:"APIAuthorizationPolicies,omitempty" bson:"-" mapstructure:"APIAuthorizationPolicies,omitempty"`
+
 	// The list of verified claims.
 	Claims []string `json:"claims" msgpack:"claims" bson:"-" mapstructure:"claims,omitempty"`
 
@@ -92,15 +96,6 @@ type Authz struct {
 	// If the parameter permissions=1 is set, targetIdentity and targetOperation are
 	// ignored and this attribute will contain all the permission for the given claims.
 	Permissions map[string]map[string]bool `json:"permissions,omitempty" msgpack:"permissions,omitempty" bson:"-" mapstructure:"permissions,omitempty"`
-
-	// Contains the raw resolved and unfiltered PolicyRuleList. It will be empty unless
-	// the query parameter `forwardpolicyrules=true` is set.
-	// Note that this contains the straight rules that matched the user claims in the
-	// target namespace. It can contain rules that are filtered out in later stage
-	// because it applies to children namespace or because the rule only applies to a
-	// certain source network, or because the token contains restrictions. Unless you
-	// really know why you need it, you mostly don't.
-	PolicyRulesList PolicyRulesList `json:"policyRulesList,omitempty" msgpack:"policyRulesList,omitempty" bson:"-" mapstructure:"policyRulesList,omitempty"`
 
 	// Sets the namespace restrictions that should apply.
 	RestrictedNamespace string `json:"restrictedNamespace" msgpack:"restrictedNamespace" bson:"-" mapstructure:"restrictedNamespace,omitempty"`
@@ -124,12 +119,12 @@ type Authz struct {
 func NewAuthz() *Authz {
 
 	return &Authz{
-		ModelVersion:          1,
-		Claims:                []string{},
-		Permissions:           map[string]map[string]bool{},
-		PolicyRulesList:       PolicyRulesList{},
-		RestrictedNetworks:    []string{},
-		RestrictedPermissions: []string{},
+		ModelVersion:             1,
+		APIAuthorizationPolicies: APIAuthorizationPoliciesList{},
+		Claims:                   []string{},
+		Permissions:              map[string]map[string]bool{},
+		RestrictedNetworks:       []string{},
+		RestrictedPermissions:    []string{},
 	}
 }
 
@@ -215,22 +210,24 @@ func (o *Authz) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseAuthz{
-			Claims:                &o.Claims,
-			ClientIP:              &o.ClientIP,
-			Error:                 &o.Error,
-			Permissions:           &o.Permissions,
-			PolicyRulesList:       &o.PolicyRulesList,
-			RestrictedNamespace:   &o.RestrictedNamespace,
-			RestrictedNetworks:    &o.RestrictedNetworks,
-			RestrictedPermissions: &o.RestrictedPermissions,
-			TargetID:              &o.TargetID,
-			TargetNamespace:       &o.TargetNamespace,
+			APIAuthorizationPolicies: &o.APIAuthorizationPolicies,
+			Claims:                   &o.Claims,
+			ClientIP:                 &o.ClientIP,
+			Error:                    &o.Error,
+			Permissions:              &o.Permissions,
+			RestrictedNamespace:      &o.RestrictedNamespace,
+			RestrictedNetworks:       &o.RestrictedNetworks,
+			RestrictedPermissions:    &o.RestrictedPermissions,
+			TargetID:                 &o.TargetID,
+			TargetNamespace:          &o.TargetNamespace,
 		}
 	}
 
 	sp := &SparseAuthz{}
 	for _, f := range fields {
 		switch f {
+		case "APIAuthorizationPolicies":
+			sp.APIAuthorizationPolicies = &(o.APIAuthorizationPolicies)
 		case "claims":
 			sp.Claims = &(o.Claims)
 		case "clientIP":
@@ -239,8 +236,6 @@ func (o *Authz) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Error = &(o.Error)
 		case "permissions":
 			sp.Permissions = &(o.Permissions)
-		case "policyRulesList":
-			sp.PolicyRulesList = &(o.PolicyRulesList)
 		case "restrictedNamespace":
 			sp.RestrictedNamespace = &(o.RestrictedNamespace)
 		case "restrictedNetworks":
@@ -264,6 +259,9 @@ func (o *Authz) Patch(sparse elemental.SparseIdentifiable) {
 	}
 
 	so := sparse.(*SparseAuthz)
+	if so.APIAuthorizationPolicies != nil {
+		o.APIAuthorizationPolicies = *so.APIAuthorizationPolicies
+	}
 	if so.Claims != nil {
 		o.Claims = *so.Claims
 	}
@@ -275,9 +273,6 @@ func (o *Authz) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Permissions != nil {
 		o.Permissions = *so.Permissions
-	}
-	if so.PolicyRulesList != nil {
-		o.PolicyRulesList = *so.PolicyRulesList
 	}
 	if so.RestrictedNamespace != nil {
 		o.RestrictedNamespace = *so.RestrictedNamespace
@@ -326,11 +321,7 @@ func (o *Authz) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if err := elemental.ValidateRequiredExternal("claims", o.Claims); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
-	for _, sub := range o.PolicyRulesList {
+	for _, sub := range o.APIAuthorizationPolicies {
 		if sub == nil {
 			continue
 		}
@@ -338,6 +329,10 @@ func (o *Authz) Validate() error {
 		if err := sub.Validate(); err != nil {
 			errors = errors.Append(err)
 		}
+	}
+
+	if err := elemental.ValidateRequiredExternal("claims", o.Claims); err != nil {
+		requiredErrors = requiredErrors.Append(err)
 	}
 
 	if err := elemental.ValidateRequiredString("targetNamespace", o.TargetNamespace); err != nil {
@@ -378,6 +373,8 @@ func (*Authz) AttributeSpecifications() map[string]elemental.AttributeSpecificat
 func (o *Authz) ValueForAttribute(name string) interface{} {
 
 	switch name {
+	case "APIAuthorizationPolicies":
+		return o.APIAuthorizationPolicies
 	case "claims":
 		return o.Claims
 	case "clientIP":
@@ -386,8 +383,6 @@ func (o *Authz) ValueForAttribute(name string) interface{} {
 		return o.Error
 	case "permissions":
 		return o.Permissions
-	case "policyRulesList":
-		return o.PolicyRulesList
 	case "restrictedNamespace":
 		return o.RestrictedNamespace
 	case "restrictedNetworks":
@@ -405,6 +400,16 @@ func (o *Authz) ValueForAttribute(name string) interface{} {
 
 // AuthzAttributesMap represents the map of attribute for Authz.
 var AuthzAttributesMap = map[string]elemental.AttributeSpecification{
+	"APIAuthorizationPolicies": {
+		AllowedChoices: []string{},
+		ConvertedName:  "APIAuthorizationPolicies",
+		Description: `Contains the API Authorization policies if
+the query parameter ` + "`" + `forwardpolicyrules=true` + "`" + ` is set.`,
+		Exposed: true,
+		Name:    "APIAuthorizationPolicies",
+		SubType: "apiauthorizationpolicy",
+		Type:    "refList",
+	},
 	"Claims": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Claims",
@@ -444,21 +449,6 @@ ignored and this attribute will contain all the permission for the given claims.
 		ReadOnly: true,
 		SubType:  "map[string]map[string]bool",
 		Type:     "external",
-	},
-	"PolicyRulesList": {
-		AllowedChoices: []string{},
-		ConvertedName:  "PolicyRulesList",
-		Description: `Contains the raw resolved and unfiltered PolicyRuleList. It will be empty unless
-the query parameter ` + "`" + `forwardpolicyrules=true` + "`" + ` is set.
-Note that this contains the straight rules that matched the user claims in the
-target namespace. It can contain rules that are filtered out in later stage
-because it applies to children namespace or because the rule only applies to a
-certain source network, or because the token contains restrictions. Unless you
-really know why you need it, you mostly don't.`,
-		Exposed: true,
-		Name:    "policyRulesList",
-		SubType: "policyrule",
-		Type:    "refList",
 	},
 	"RestrictedNamespace": {
 		AllowedChoices: []string{},
@@ -507,6 +497,16 @@ really know why you need it, you mostly don't.`,
 
 // AuthzLowerCaseAttributesMap represents the map of attribute for Authz.
 var AuthzLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"apiauthorizationpolicies": {
+		AllowedChoices: []string{},
+		ConvertedName:  "APIAuthorizationPolicies",
+		Description: `Contains the API Authorization policies if
+the query parameter ` + "`" + `forwardpolicyrules=true` + "`" + ` is set.`,
+		Exposed: true,
+		Name:    "APIAuthorizationPolicies",
+		SubType: "apiauthorizationpolicy",
+		Type:    "refList",
+	},
 	"claims": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Claims",
@@ -546,21 +546,6 @@ ignored and this attribute will contain all the permission for the given claims.
 		ReadOnly: true,
 		SubType:  "map[string]map[string]bool",
 		Type:     "external",
-	},
-	"policyruleslist": {
-		AllowedChoices: []string{},
-		ConvertedName:  "PolicyRulesList",
-		Description: `Contains the raw resolved and unfiltered PolicyRuleList. It will be empty unless
-the query parameter ` + "`" + `forwardpolicyrules=true` + "`" + ` is set.
-Note that this contains the straight rules that matched the user claims in the
-target namespace. It can contain rules that are filtered out in later stage
-because it applies to children namespace or because the rule only applies to a
-certain source network, or because the token contains restrictions. Unless you
-really know why you need it, you mostly don't.`,
-		Exposed: true,
-		Name:    "policyRulesList",
-		SubType: "policyrule",
-		Type:    "refList",
 	},
 	"restrictednamespace": {
 		AllowedChoices: []string{},
@@ -670,6 +655,10 @@ func (o SparseAuthzsList) Version() int {
 
 // SparseAuthz represents the sparse version of a authz.
 type SparseAuthz struct {
+	// Contains the API Authorization policies if
+	// the query parameter `forwardpolicyrules=true` is set.
+	APIAuthorizationPolicies *APIAuthorizationPoliciesList `json:"APIAuthorizationPolicies,omitempty" msgpack:"APIAuthorizationPolicies,omitempty" bson:"-" mapstructure:"APIAuthorizationPolicies,omitempty"`
+
 	// The list of verified claims.
 	Claims *[]string `json:"claims,omitempty" msgpack:"claims,omitempty" bson:"-" mapstructure:"claims,omitempty"`
 
@@ -682,15 +671,6 @@ type SparseAuthz struct {
 	// If the parameter permissions=1 is set, targetIdentity and targetOperation are
 	// ignored and this attribute will contain all the permission for the given claims.
 	Permissions *map[string]map[string]bool `json:"permissions,omitempty" msgpack:"permissions,omitempty" bson:"-" mapstructure:"permissions,omitempty"`
-
-	// Contains the raw resolved and unfiltered PolicyRuleList. It will be empty unless
-	// the query parameter `forwardpolicyrules=true` is set.
-	// Note that this contains the straight rules that matched the user claims in the
-	// target namespace. It can contain rules that are filtered out in later stage
-	// because it applies to children namespace or because the rule only applies to a
-	// certain source network, or because the token contains restrictions. Unless you
-	// really know why you need it, you mostly don't.
-	PolicyRulesList *PolicyRulesList `json:"policyRulesList,omitempty" msgpack:"policyRulesList,omitempty" bson:"-" mapstructure:"policyRulesList,omitempty"`
 
 	// Sets the namespace restrictions that should apply.
 	RestrictedNamespace *string `json:"restrictedNamespace,omitempty" msgpack:"restrictedNamespace,omitempty" bson:"-" mapstructure:"restrictedNamespace,omitempty"`
@@ -771,6 +751,9 @@ func (o *SparseAuthz) Version() int {
 func (o *SparseAuthz) ToPlain() elemental.PlainIdentifiable {
 
 	out := NewAuthz()
+	if o.APIAuthorizationPolicies != nil {
+		out.APIAuthorizationPolicies = *o.APIAuthorizationPolicies
+	}
 	if o.Claims != nil {
 		out.Claims = *o.Claims
 	}
@@ -782,9 +765,6 @@ func (o *SparseAuthz) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Permissions != nil {
 		out.Permissions = *o.Permissions
-	}
-	if o.PolicyRulesList != nil {
-		out.PolicyRulesList = *o.PolicyRulesList
 	}
 	if o.RestrictedNamespace != nil {
 		out.RestrictedNamespace = *o.RestrictedNamespace

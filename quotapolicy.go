@@ -139,7 +139,8 @@ type QuotaPolicy struct {
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
-	// Specifies the maximum number of objects matching the policy subject that can be created.
+	// Specifies the maximum number of objects matching the policy subject that can be
+	// created.
 	Quota int `json:"quota" msgpack:"quota" bson:"-" mapstructure:"quota,omitempty"`
 
 	// Contains the base namespace from where the count will be done.
@@ -1026,10 +1027,11 @@ namespace, but still used for policy resolution.`,
 	"Quota": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Quota",
-		Description:    `Specifies the maximum number of objects matching the policy subject that can be created.`,
-		Exposed:        true,
-		Name:           "quota",
-		Type:           "integer",
+		Description: `Specifies the maximum number of objects matching the policy subject that can be
+created.`,
+		Exposed: true,
+		Name:    "quota",
+		Type:    "integer",
 	},
 	"TargetNamespace": {
 		AllowedChoices: []string{},
@@ -1315,10 +1317,11 @@ namespace, but still used for policy resolution.`,
 	"quota": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Quota",
-		Description:    `Specifies the maximum number of objects matching the policy subject that can be created.`,
-		Exposed:        true,
-		Name:           "quota",
-		Type:           "integer",
+		Description: `Specifies the maximum number of objects matching the policy subject that can be
+created.`,
+		Exposed: true,
+		Name:    "quota",
+		Type:    "integer",
 	},
 	"targetnamespace": {
 		AllowedChoices: []string{},
@@ -1482,7 +1485,8 @@ type SparseQuotaPolicy struct {
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
-	// Specifies the maximum number of objects matching the policy subject that can be created.
+	// Specifies the maximum number of objects matching the policy subject that can be
+	// created.
 	Quota *int `json:"quota,omitempty" msgpack:"quota,omitempty" bson:"-" mapstructure:"quota,omitempty"`
 
 	// Contains the base namespace from where the count will be done.

@@ -122,8 +122,7 @@ type EnforcerProfileMappingPolicy struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags []string `json:"normalizedTags" msgpack:"normalizedTags" bson:"normalizedtags" mapstructure:"normalizedTags,omitempty"`
 
-	// The tag or tag expression that identifies the enforcer profile to
-	// be mapped.
+	// The tag or tag expression that identifies the enforcer profile to be mapped.
 	Object [][]string `json:"object" msgpack:"object" bson:"object" mapstructure:"object,omitempty"`
 
 	// Propagates the policy to all of its children.
@@ -132,8 +131,8 @@ type EnforcerProfileMappingPolicy struct {
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
-	// The tag or tag expression that identifies the enforcers that should
-	// implement the mapped profile.
+	// The tag or tag expression that identifies the enforcers that should implement
+	// the mapped profile.
 	Subject [][]string `json:"subject" msgpack:"subject" bson:"subject" mapstructure:"subject,omitempty"`
 
 	// internal idempotency key for a update operation.
@@ -902,13 +901,12 @@ with the '@' prefix, and should only be used by external systems.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "object",
 		ConvertedName:  "Object",
-		Description: `The tag or tag expression that identifies the enforcer profile to 
-be mapped.`,
-		Exposed: true,
-		Name:    "object",
-		Stored:  true,
-		SubType: "[][]string",
-		Type:    "external",
+		Description:    `The tag or tag expression that identifies the enforcer profile to be mapped.`,
+		Exposed:        true,
+		Name:           "object",
+		Stored:         true,
+		SubType:        "[][]string",
+		Type:           "external",
 	},
 	"Propagate": {
 		AllowedChoices: []string{},
@@ -940,8 +938,8 @@ be mapped.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "subject",
 		ConvertedName:  "Subject",
-		Description: `The tag or tag expression that identifies the enforcers that should 
-implement the mapped profile.`,
+		Description: `The tag or tag expression that identifies the enforcers that should implement
+the mapped profile.`,
 		Exposed: true,
 		Name:    "subject",
 		Stored:  true,
@@ -1157,13 +1155,12 @@ with the '@' prefix, and should only be used by external systems.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "object",
 		ConvertedName:  "Object",
-		Description: `The tag or tag expression that identifies the enforcer profile to 
-be mapped.`,
-		Exposed: true,
-		Name:    "object",
-		Stored:  true,
-		SubType: "[][]string",
-		Type:    "external",
+		Description:    `The tag or tag expression that identifies the enforcer profile to be mapped.`,
+		Exposed:        true,
+		Name:           "object",
+		Stored:         true,
+		SubType:        "[][]string",
+		Type:           "external",
 	},
 	"propagate": {
 		AllowedChoices: []string{},
@@ -1195,8 +1192,8 @@ be mapped.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "subject",
 		ConvertedName:  "Subject",
-		Description: `The tag or tag expression that identifies the enforcers that should 
-implement the mapped profile.`,
+		Description: `The tag or tag expression that identifies the enforcers that should implement
+the mapped profile.`,
 		Exposed: true,
 		Name:    "subject",
 		Stored:  true,
@@ -1337,8 +1334,7 @@ type SparseEnforcerProfileMappingPolicy struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags *[]string `json:"normalizedTags,omitempty" msgpack:"normalizedTags,omitempty" bson:"normalizedtags,omitempty" mapstructure:"normalizedTags,omitempty"`
 
-	// The tag or tag expression that identifies the enforcer profile to
-	// be mapped.
+	// The tag or tag expression that identifies the enforcer profile to be mapped.
 	Object *[][]string `json:"object,omitempty" msgpack:"object,omitempty" bson:"object,omitempty" mapstructure:"object,omitempty"`
 
 	// Propagates the policy to all of its children.
@@ -1347,8 +1343,8 @@ type SparseEnforcerProfileMappingPolicy struct {
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
-	// The tag or tag expression that identifies the enforcers that should
-	// implement the mapped profile.
+	// The tag or tag expression that identifies the enforcers that should implement
+	// the mapped profile.
 	Subject *[][]string `json:"subject,omitempty" msgpack:"subject,omitempty" bson:"subject,omitempty" mapstructure:"subject,omitempty"`
 
 	// internal idempotency key for a update operation.

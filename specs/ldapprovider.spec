@@ -135,7 +135,8 @@ attributes:
 
   - name: ignoredKeys
     description: |-
-      A list of keys that must not be imported into a Microsegmentation authorization. If
+      A list of keys that must not be imported into a Microsegmentation authorization.
+      If
       `includedKeys` is also set, and a key is in both lists, the key will be ignored.
     type: list
     exposed: true

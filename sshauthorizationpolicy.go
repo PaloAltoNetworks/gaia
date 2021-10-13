@@ -160,11 +160,10 @@ type SSHAuthorizationPolicy struct {
 	// is allowed to access.
 	Object [][]string `json:"object" msgpack:"object" bson:"-" mapstructure:"object,omitempty"`
 
-	// On systems without an enforcer, you must provide the
-	// name of the Linux user. Otherwise, Microsegmentation will automatically populate
-	// this field and adding a value here is
-	// optional and not used during the authorization. However, the value becomes a tag
-	// associated with the SSH processing unit, which could be useful.
+	// On systems without an enforcer, you must provide the name of the Linux user.
+	// Otherwise, Microsegmentation will automatically populate this field and adding a
+	// value here is optional and not used during the authorization. However, the value
+	// becomes a tag associated with the SSH processing unit, which could be useful.
 	Principals []string `json:"principals" msgpack:"principals" bson:"-" mapstructure:"principals,omitempty"`
 
 	// Propagates the policy to all of its children.
@@ -324,7 +323,8 @@ func (o *SSHAuthorizationPolicy) DefaultOrder() []string {
 func (o *SSHAuthorizationPolicy) Doc() string {
 
 	return `An SSH authorization allows you to define the permissions for the owner
-of a OpenSSH certificate issued by a Microsegmentation certificate authority. You can
+of a OpenSSH certificate issued by a Microsegmentation certificate authority.
+You can
 define if a user with some claims can connect to an ` + "`" + `sshd` + "`" + ` server managed by
 an instance of ` + "`" + `enforcerd` + "`" + ` according to its tags, what permissions he has and
 for how long delivered certificates are valid.`
@@ -1172,11 +1172,10 @@ is allowed to access.`,
 	"Principals": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Principals",
-		Description: `On systems without an enforcer, you must provide the 
-name of the Linux user. Otherwise, Microsegmentation will automatically populate 
-this field and adding a value here is
-optional and not used during the authorization. However, the value becomes a tag
-associated with the SSH processing unit, which could be useful.`,
+		Description: `On systems without an enforcer, you must provide the name of the Linux user.
+Otherwise, Microsegmentation will automatically populate this field and adding a
+value here is optional and not used during the authorization. However, the value
+becomes a tag associated with the SSH processing unit, which could be useful.`,
 		Exposed: true,
 		Name:    "principals",
 		SubType: "string",
@@ -1539,11 +1538,10 @@ is allowed to access.`,
 	"principals": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Principals",
-		Description: `On systems without an enforcer, you must provide the 
-name of the Linux user. Otherwise, Microsegmentation will automatically populate 
-this field and adding a value here is
-optional and not used during the authorization. However, the value becomes a tag
-associated with the SSH processing unit, which could be useful.`,
+		Description: `On systems without an enforcer, you must provide the name of the Linux user.
+Otherwise, Microsegmentation will automatically populate this field and adding a
+value here is optional and not used during the authorization. However, the value
+becomes a tag associated with the SSH processing unit, which could be useful.`,
 		Exposed: true,
 		Name:    "principals",
 		SubType: "string",
@@ -1780,11 +1778,10 @@ type SparseSSHAuthorizationPolicy struct {
 	// is allowed to access.
 	Object *[][]string `json:"object,omitempty" msgpack:"object,omitempty" bson:"-" mapstructure:"object,omitempty"`
 
-	// On systems without an enforcer, you must provide the
-	// name of the Linux user. Otherwise, Microsegmentation will automatically populate
-	// this field and adding a value here is
-	// optional and not used during the authorization. However, the value becomes a tag
-	// associated with the SSH processing unit, which could be useful.
+	// On systems without an enforcer, you must provide the name of the Linux user.
+	// Otherwise, Microsegmentation will automatically populate this field and adding a
+	// value here is optional and not used during the authorization. However, the value
+	// becomes a tag associated with the SSH processing unit, which could be useful.
 	Principals *[]string `json:"principals,omitempty" msgpack:"principals,omitempty" bson:"-" mapstructure:"principals,omitempty"`
 
 	// Propagates the policy to all of its children.

@@ -63,16 +63,14 @@ attributes:
 
   - name: datapathType
     description: |-
-      The datapath type that processing units selected by `subject` should
-      implement:
-      - `Default`: This policy is not making a decision for the
-      datapath.
-      - `Aporeto`: The enforcer is managing and handling the datapath.
-      - `EnvoyAuthorizer`: The enforcer is serving Envoy-compatible gRPC APIs
-      for every processing unit that for example can be used by an Envoy
-      proxy to use the Microsegmentation PKI and implement Microsegmentation 
-      network policies. NOTE: The enforcer is not going to own the datapath in 
-      this example. It is merely providing an authorizer API.
+      The datapath type that processing units selected by `subject` should implement:
+      - `Default`: This policy is not making a decision for the datapath
+      - `Aporeto`: The enforcer is managing and handling the datapath
+      - `EnvoyAuthorizer`: The enforcer is serving Envoy-compatible gRPC APIs for
+      every processing unit that for example can be used by an Envoy proxy to use the
+      Microsegmentation PKI and implement Microsegmentation network policies. NOTE:
+      The enforcer is not going to own the datapath in this example. It is merely
+      providing an authorizer API.
     type: enum
     exposed: true
     stored: true

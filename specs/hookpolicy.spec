@@ -45,8 +45,7 @@ indexes:
 attributes:
   v1:
   - name: certificateAuthority
-    description: Contains the PEM block of the certificate authority used by the remote
-      endpoint.
+    description: Contains the PEM block of the certificate authority used by the remote endpoint.
     type: string
     exposed: true
     stored: true

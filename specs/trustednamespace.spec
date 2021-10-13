@@ -6,8 +6,10 @@ model:
   package: squall
   group: policy/enforcerconfig
   description: |-
-    This object allows you to declare trust between namespaces that are cryptographically
-    isolated. The namespaces can be local or served by different Microsegmentation Console controllers.
+    This object allows you to declare trust between namespaces that are
+    cryptographically
+    isolated. The namespaces can be local or served by different Microsegmentation
+    Console controllers.
   aliases:
   - trustedns
   get:

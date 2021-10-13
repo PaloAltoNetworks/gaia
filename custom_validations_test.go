@@ -1,11 +1,191 @@
 package gaia
 
 import (
+	"errors"
 	"fmt"
+	"reflect"
 	"testing"
 
+	"go.aporeto.io/elemental"
 	"go.aporeto.io/gaia/portutils"
 )
+
+func TestValidateNoDuplicateNetworkRules(t *testing.T) {
+	cases := map[string]struct {
+		attribute   string
+		rules       []*NetworkRule
+		expectedErr elemental.Error
+	}{
+		"valid-no-rules": {
+			rules:     []*NetworkRule{},
+			attribute: t.Name(),
+		},
+		"valid-nil-rules": {
+			rules:     nil,
+			attribute: t.Name(),
+		},
+		"valid-rules-with-nil-items-ignored": {
+			rules:     []*NetworkRule{nil, nil},
+			attribute: t.Name(),
+		},
+		"valid-multiple-rules": {
+			rules: []*NetworkRule{
+				{
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello=world"}},
+					ProtocolPorts: []string{"tcp/443"},
+				},
+				{
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello=world"}},
+					ProtocolPorts: []string{"udp/334"},
+				},
+			},
+			attribute: t.Name(),
+		},
+		"valid-multiple-rules-concat-object": {
+			rules: []*NetworkRule{
+				{
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello", "world"}},
+					ProtocolPorts: []string{"tcp/443"},
+				},
+				{
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hel", "loworld"}},
+					ProtocolPorts: []string{"tcp/443"},
+				},
+			},
+			attribute: t.Name(),
+		},
+		"valid-multiple-rules-concat-ports": {
+			rules: []*NetworkRule{
+				{
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello", "world"}},
+					ProtocolPorts: []string{"TCP/44", "33"},
+				},
+				{
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello", "world"}},
+					ProtocolPorts: []string{"TCP/4", "433"},
+				},
+			},
+			attribute: t.Name(),
+		},
+		"invalid-duplicates": {
+			rules: []*NetworkRule{
+				{
+					Name:          "bad-rule-1",
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello", "world"}, {"heat", "wave"}},
+					ProtocolPorts: []string{"TCP/443", "8080"},
+				},
+				{
+					Name:          "bad-rule-2",
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello", "world"}, {"heat", "wave"}},
+					ProtocolPorts: []string{"TCP/443", "8080"},
+				},
+			},
+			attribute:   t.Name(),
+			expectedErr: makeValidationError(t.Name(), "Duplicate network rules at the following indexes: [1, 2]"),
+		},
+		"invalid-duplicates-port-case-insensitive": {
+			rules: []*NetworkRule{
+				{
+					Name:          "bad-rule-1",
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello", "world"}},
+					ProtocolPorts: []string{"tcp/443"},
+				},
+				{
+					Name:          "bad-rule-2",
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello", "world"}},
+					ProtocolPorts: []string{"TCP/443"},
+				},
+			},
+			attribute:   t.Name(),
+			expectedErr: makeValidationError(t.Name(), "Duplicate network rules at the following indexes: [1, 2]"),
+		},
+		"invalid-duplicates-object-different-order": {
+			rules: []*NetworkRule{
+				{
+					Name:          "bad-rule-1",
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello", "world"}, {"heat", "wave"}},
+					ProtocolPorts: []string{"TCP/443"},
+				},
+				{
+					Name:          "bad-rule-2",
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"world", "hello"}, {"wave", "heat"}},
+					ProtocolPorts: []string{"TCP/443"},
+				},
+			},
+			attribute:   t.Name(),
+			expectedErr: makeValidationError(t.Name(), "Duplicate network rules at the following indexes: [1, 2]"),
+		},
+		"invalid-duplicates-object-different-order-2": {
+			rules: []*NetworkRule{
+				{
+					Name:          "bad-rule-1",
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello", "world"}, {"heat", "wave"}},
+					ProtocolPorts: []string{"TCP/443"},
+				},
+				{
+					Name:          "bad-rule-2",
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"heat", "wave"}, {"hello", "world"}},
+					ProtocolPorts: []string{"TCP/443"},
+				},
+			},
+			attribute:   t.Name(),
+			expectedErr: makeValidationError(t.Name(), "Duplicate network rules at the following indexes: [1, 2]"),
+		},
+		"invalid-duplicates-port-different-order": {
+			rules: []*NetworkRule{
+				{
+					Name:          "bad-rule-1",
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello", "world"}, {"heat", "wave"}},
+					ProtocolPorts: []string{"TCP/443", "tcp/8080"},
+				},
+				{
+					Name:          "bad-rule-2",
+					Action:        NetworkRuleActionAllow,
+					Object:        [][]string{{"hello", "world"}, {"heat", "wave"}},
+					ProtocolPorts: []string{"tcp/8080", "TCP/443"},
+				},
+			},
+			attribute:   t.Name(),
+			expectedErr: makeValidationError(t.Name(), "Duplicate network rules at the following indexes: [1, 2]"),
+		},
+	}
+
+	for name, tc := range cases {
+		t.Run(name, func(t *testing.T) {
+
+			err := ValidateNoDuplicateNetworkRules(tc.attribute, tc.rules)
+			if err == nil && tc.expectedErr == (elemental.Error{}) {
+				return
+			}
+
+			var actual elemental.Error
+			if ok := errors.As(err, &actual); !ok {
+				t.Fatalf("unexpected error type\nwant: %T\n got: %T", elemental.Error{}, err)
+			}
+			if !reflect.DeepEqual(actual, tc.expectedErr) {
+				t.Fatalf(
+					"actual error does not match expected\nwant: '%s'\n got: '%s'",
+					tc.expectedErr, actual,
+				)
+			}
+		})
+	}
+}
 
 func TestValidatePortString(t *testing.T) {
 	type args struct {
@@ -401,6 +581,13 @@ func TestValidateServicePorts(t *testing.T) {
 				[]string{"icmp/2/3,5,20,40"},
 			},
 			false,
+		},
+		{
+			"duplicte ports",
+			args{
+				[]string{"tcp/443", "TCP/443"},
+			},
+			true,
 		},
 		{
 			"serviceports with valid 0 port",
@@ -1555,20 +1742,6 @@ func TestValidateServiceEntity(t *testing.T) {
 					AuthorizationType: ServiceAuthorizationTypeMTLS,
 					TLSType:           ServiceTLSTypeExternal,
 					TLSCertificateKey: "---key---",
-					Port:              80,
-					ExposedPort:       80,
-				},
-			},
-			true,
-		},
-		{
-			"service with type TLSType set to External with missing key",
-			args{
-				&Service{
-					Hosts:             []string{"myservice.com"},
-					AuthorizationType: ServiceAuthorizationTypeMTLS,
-					TLSType:           ServiceTLSTypeExternal,
-					TLSCertificate:    "---key---",
 					Port:              80,
 					ExposedPort:       80,
 				},
@@ -3950,6 +4123,199 @@ func TestValidateCloudTagsExpression(t *testing.T) {
 	}
 }
 
+func TestValidateExpressionNotEmpty(t *testing.T) {
+
+	cases := map[string]struct {
+		attribute   string
+		expression  [][]string
+		expectedErr elemental.Error
+	}{
+		"valid-single-subexpression": {
+			attribute:  t.Name(),
+			expression: [][]string{{"a=b"}},
+		},
+		"valid-multiple-subexpressions": {
+			attribute:  t.Name(),
+			expression: [][]string{{"a=b"}, {"c=d"}},
+		},
+		"invalid-nil-expression": {
+			attribute:   t.Name(),
+			expression:  nil,
+			expectedErr: makeValidationError(t.Name(), "Expression must contain at least one sub-expression"),
+		},
+		"invalid-empty-expression": {
+			attribute:   t.Name(),
+			expression:  [][]string{},
+			expectedErr: makeValidationError(t.Name(), "Expression must contain at least one sub-expression"),
+		},
+	}
+
+	for name, tc := range cases {
+		t.Run(name, func(t *testing.T) {
+
+			err := ValidateExpressionNotEmpty(tc.attribute, tc.expression)
+			if err == nil && tc.expectedErr == (elemental.Error{}) {
+				return
+			}
+
+			var actual elemental.Error
+			if ok := errors.As(err, &actual); !ok {
+				t.Fatalf("unexpected error type\nwant: %T\n got: %T", elemental.Error{}, err)
+			}
+			if !reflect.DeepEqual(actual, tc.expectedErr) {
+				t.Fatalf(
+					"actual error does not match expected\nwant: '%s'\n got: '%s'",
+					tc.expectedErr, actual,
+				)
+			}
+		})
+	}
+}
+
+func TestValidateSubExpressionsNotEmpty(t *testing.T) {
+
+	cases := map[string]struct {
+		attribute   string
+		expression  [][]string
+		expectedErr elemental.Error
+	}{
+		"valid-subexpression": {
+			attribute:  t.Name(),
+			expression: [][]string{{"a=b"}},
+		},
+		"valid-nil-expression": {
+			attribute:  t.Name(),
+			expression: nil,
+		},
+		"valid-empty-expression": {
+			attribute:  t.Name(),
+			expression: [][]string{},
+		},
+		"invalid-empty-expression": {
+			attribute:   t.Name(),
+			expression:  [][]string{{"a=b"}, {}},
+			expectedErr: makeValidationError(t.Name(), "Sub-expression must not be empty"),
+		},
+	}
+
+	for name, tc := range cases {
+		t.Run(name, func(t *testing.T) {
+
+			err := ValidateSubExpressionsNotEmpty(tc.attribute, tc.expression)
+			if err == nil && tc.expectedErr == (elemental.Error{}) {
+				return
+			}
+
+			var actual elemental.Error
+			if ok := errors.As(err, &actual); !ok {
+				t.Fatalf("unexpected error type\nwant: %T\n got: %T", elemental.Error{}, err)
+			}
+			if !reflect.DeepEqual(actual, tc.expectedErr) {
+				t.Fatalf(
+					"actual error does not match expected\nwant: '%s'\n got: '%s'",
+					tc.expectedErr, actual,
+				)
+			}
+		})
+	}
+}
+
+func TestValidateEachSubExpressionHasNoDuplicateTags(t *testing.T) {
+
+	cases := map[string]struct {
+		attribute   string
+		expression  [][]string
+		expectedErr elemental.Error
+	}{
+		"valid-subexpressions": {
+			attribute:  t.Name(),
+			expression: [][]string{{"a=b"}, {"a=b"}, {"c=d"}},
+		},
+		"valid-nil-expression": {
+			attribute:  t.Name(),
+			expression: nil,
+		},
+		"valid-empty-expression": {
+			attribute:  t.Name(),
+			expression: [][]string{},
+		},
+		"invalid-subexpression": {
+			attribute:   t.Name(),
+			expression:  [][]string{{"a=b"}, {"c=d", "c=d"}},
+			expectedErr: makeValidationError(t.Name(), "Duplicate tag in a sub-expression: 'c=d'"),
+		},
+	}
+
+	for name, tc := range cases {
+		t.Run(name, func(t *testing.T) {
+
+			err := ValidateEachSubExpressionHasNoDuplicateTags(tc.attribute, tc.expression)
+			if err == nil && tc.expectedErr == (elemental.Error{}) {
+				return
+			}
+
+			var actual elemental.Error
+			if ok := errors.As(err, &actual); !ok {
+				t.Fatalf("unexpected error type\nwant: %T\n got: %T", elemental.Error{}, err)
+			}
+			if !reflect.DeepEqual(actual, tc.expectedErr) {
+				t.Fatalf(
+					"actual error does not match expected\nwant: '%s'\n got: '%s'",
+					tc.expectedErr, actual,
+				)
+			}
+		})
+	}
+}
+
+func TestValidateNoDuplicateSubExpressions(t *testing.T) {
+
+	cases := map[string]struct {
+		attribute   string
+		expression  [][]string
+		expectedErr elemental.Error
+	}{
+		"valid-subexpressions": {
+			attribute:  t.Name(),
+			expression: [][]string{{"a=b", "c=d"}, {"a=b"}, {"c=d"}},
+		},
+		"valid-nil-expression": {
+			attribute:  t.Name(),
+			expression: nil,
+		},
+		"valid-empty-expression": {
+			attribute:  t.Name(),
+			expression: [][]string{},
+		},
+		"invalid-expression": {
+			attribute:   t.Name(),
+			expression:  [][]string{{"a=b", "c=d"}, {"c=d"}, {"a=b"}, {"c=d", "a=b"}},
+			expectedErr: makeValidationError(t.Name(), "Duplicate equivalent sub-expressions found"),
+		},
+	}
+
+	for name, tc := range cases {
+		t.Run(name, func(t *testing.T) {
+
+			err := ValidateNoDuplicateSubExpressions(tc.attribute, tc.expression)
+			if err == nil && tc.expectedErr == (elemental.Error{}) {
+				return
+			}
+
+			var actual elemental.Error
+			if ok := errors.As(err, &actual); !ok {
+				t.Fatalf("unexpected error type\nwant: %T\n got: %T", elemental.Error{}, err)
+			}
+			if !reflect.DeepEqual(actual, tc.expectedErr) {
+				t.Fatalf(
+					"actual error does not match expected\nwant: '%s'\n got: '%s'",
+					tc.expectedErr, actual,
+				)
+			}
+		})
+	}
+}
+
 func TestValidatePortsList(t *testing.T) {
 	type args struct {
 		attribute string
@@ -4132,6 +4498,81 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 				},
 			},
 			true,
+		},
+		{
+			"east/west with no source VPC",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						AccountIDs: []string{"account1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"east/west with no destination VPC",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						AccountIDs: []string{"account1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"east/west with multiple source VPCs",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1", "vpc2"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"east/west with multiple destination VPCs",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1", "vpc2"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"east/west valid",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc2"},
+					},
+				},
+			},
+			false,
 		},
 		{
 			"source ip and selector set",
@@ -4339,6 +4780,86 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 			},
 			true,
 		},
+		{
+			"cloud network path with source without object",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					Type: CloudNetworkQueryTypeNetworkPath,
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs:    []string{"vpc3"},
+						ObjectIDs: []string{"object1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"cloud network path with destination without object",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					Type: CloudNetworkQueryTypeNetworkPath,
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs:    []string{"vpc3"},
+						ObjectIDs: []string{"object1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"cloud network path with destination without object and source IP",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					Type: CloudNetworkQueryTypeNetworkPath,
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					SourceIP: "1.1.1.0/24",
+				},
+			},
+			true,
+		},
+		{
+			"cloud network path with source without object and destination IP",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					Type: CloudNetworkQueryTypeNetworkPath,
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs: []string{"vpc1"},
+					},
+					DestinationIP: "1.1.1.0/24",
+				},
+			},
+			true,
+		},
+		{
+			"cloud network path with source without object",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					Type: CloudNetworkQueryTypeNetworkPath,
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs:    []string{"vpc1"},
+						ObjectIDs: []string{"object1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs:    []string{"vpc3"},
+						ObjectIDs: []string{"object1"},
+					},
+				},
+			},
+			false,
+		},
 	}
 
 	for _, tt := range tests {
@@ -4487,6 +5008,74 @@ func TestIsAddressPrivate(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if private, err := IsAddressPrivate(tt.args); (private != tt.want) || (err == nil) == tt.wantErr {
 				t.Errorf("IsAddressPrivate() got wrong response %v for %+v with error %s", private, tt.args, err)
+			}
+		})
+	}
+}
+
+func TestValidateAPIServerServiceName(t *testing.T) {
+	type args struct {
+		attribute   string
+		serviceName string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			"valid",
+			args{
+				"attr",
+				"abc.abcns.svc",
+			},
+			false,
+		},
+		{
+			"empty name",
+			args{
+				"attr",
+				".abcns.svc",
+			},
+			true,
+		},
+		{
+			"empty namespace",
+			args{
+				"attr",
+				"abc..svc",
+			},
+			true,
+		},
+		{
+			"empty name and namespace",
+			args{
+				"attr",
+				"..svc",
+			},
+			true,
+		},
+		{
+			"empty name, namespace and svc",
+			args{
+				"attr",
+				"..",
+			},
+			true,
+		},
+		{
+			"empty",
+			args{
+				"attr",
+				"",
+			},
+			true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := ValidateAPIServerServiceName(tt.args.attribute, tt.args.serviceName); (err != nil) != tt.wantErr {
+				t.Errorf("ValidateAPIServerServiceName() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

@@ -3,7 +3,8 @@ attributes:
   v1:
   - name: controller
     description: |-
-      The Microsegmentation Console identifier managing this object. This property is mostly
+      The Microsegmentation Console identifier managing this object. This property is
+      mostly
       useful when federating multiple Microsegmentation Consoles.
     type: string
     exposed: true

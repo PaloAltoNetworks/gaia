@@ -677,6 +677,12 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[CNSRQLQueryIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
 	relationshipsRegistry[CNSSearchIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -751,6 +757,102 @@ func init() {
 			"root": {},
 		},
 		Retrieve: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+	}
+
+	relationshipsRegistry[CloudAlertRecordIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Update: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Patch: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Delete: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Retrieve: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+	}
+
+	relationshipsRegistry[CloudAlertRuleIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Update: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Patch: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Delete: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Retrieve: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
 			"root": {
 				Parameters: []elemental.ParameterDefinition{
 					{
@@ -1044,6 +1146,7 @@ func init() {
 	relationshipsRegistry[CloudPolicyIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"cloudnetworkquery": {},
+			"root":              {},
 		},
 		Update: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -1067,9 +1170,27 @@ func init() {
 		},
 		RetrieveMany: map[string]*elemental.RelationshipInfo{
 			"cloudnetworkquery": {},
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
 		},
 		Info: map[string]*elemental.RelationshipInfo{
 			"cloudnetworkquery": {},
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
 		},
 	}
 
@@ -1095,6 +1216,34 @@ func init() {
 			},
 		},
 		Retrieve: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+	}
+
+	relationshipsRegistry[CloudScheduledNetworkQueryIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
 		},
 		RetrieveMany: map[string]*elemental.RelationshipInfo{
@@ -2940,6 +3089,54 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[KubernetesClusterIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Update: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Patch: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Delete: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Retrieve: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+					{
+						Name: "archived",
+						Type: "boolean",
+					},
+				},
+			},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+					{
+						Name: "archived",
+						Type: "boolean",
+					},
+				},
+			},
+		},
+	}
+
 	relationshipsRegistry[LDAPProviderIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -3249,6 +3446,15 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[NamespaceInfoIdentity] = &elemental.Relationship{
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
 	relationshipsRegistry[NamespaceMappingPolicyIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -3299,10 +3505,14 @@ func init() {
 
 	relationshipsRegistry[NamespacePolicyInfoIdentity] = &elemental.Relationship{
 		RetrieveMany: map[string]*elemental.RelationshipInfo{
-			"root": {},
+			"root": {
+				Deprecated: true,
+			},
 		},
 		Info: map[string]*elemental.RelationshipInfo{
-			"root": {},
+			"root": {
+				Deprecated: true,
+			},
 		},
 	}
 
@@ -4861,6 +5071,61 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[ServiceCertificateIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Update: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Patch: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Delete: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Retrieve: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "propagated",
+						Type: "boolean",
+					},
+				},
+			},
+		},
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+					{
+						Name: "propagated",
+						Type: "boolean",
+					},
+				},
+			},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+					{
+						Name: "propagated",
+						Type: "boolean",
+					},
+				},
+			},
+		},
+	}
+
 	relationshipsRegistry[ServiceDependencyPolicyIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -5067,19 +5332,6 @@ func init() {
 				),
 				Parameters: []elemental.ParameterDefinition{
 					{
-						Name: "filterAction",
-						Type: "enum",
-						AllowedChoices: []string{
-							"include",
-							"exclude",
-						},
-					},
-					{
-						Name:     "filterTags",
-						Type:     "string",
-						Multiple: true,
-					},
-					{
 						Name: "endAbsolute",
 						Type: "time",
 					},
@@ -5133,19 +5385,6 @@ func init() {
 					},
 				),
 				Parameters: []elemental.ParameterDefinition{
-					{
-						Name: "filterAction",
-						Type: "enum",
-						AllowedChoices: []string{
-							"include",
-							"exclude",
-						},
-					},
-					{
-						Name:     "filterTags",
-						Type:     "string",
-						Multiple: true,
-					},
 					{
 						Name: "endAbsolute",
 						Type: "time",
@@ -5212,7 +5451,14 @@ func init() {
 
 	relationshipsRegistry[TagPrefixIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
-			"root": {},
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "force",
+						Type: "boolean",
+					},
+				},
+			},
 		},
 		RetrieveMany: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -5556,6 +5802,12 @@ func init() {
 					},
 				},
 			},
+		},
+	}
+
+	relationshipsRegistry[ValidateRQLIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
 		},
 	}
 

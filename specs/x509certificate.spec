@@ -74,12 +74,19 @@ attributes:
     exposed: true
     allowed_choices:
     - Public
+    - Namespace
     - System
     default_value: Public
 
+  - name: signerID
+    description: |-
+      Selects the ID of the CA that should sign the certificate when signer is set to
+      Namespace.
+    type: string
+    exposed: true
+
   - name: subjectOverride
-    description: Additional subject information to use to override the ones in the
-      CSR.
+    description: Additional subject information to use to override the ones in the CSR.
     type: ref
     exposed: true
     subtype: pkixname

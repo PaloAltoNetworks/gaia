@@ -20,6 +20,7 @@ const (
 )
 
 // NetworkRule represents the model of a networkrule
+// +k8s:openapi-gen=true
 type NetworkRule struct {
 	// Defines the action to apply to a flow.
 	// - `Allow`: allows the defined traffic.
@@ -156,6 +157,18 @@ func (o *NetworkRule) Validate() error {
 		}
 	}
 
+	if err := ValidateEachSubExpressionHasNoDuplicateTags("object", o.Object); err != nil {
+		errors = errors.Append(err)
+	}
+	if err := ValidateExpressionNotEmpty("object", o.Object); err != nil {
+		errors = errors.Append(err)
+	}
+	if err := ValidateNoDuplicateSubExpressions("object", o.Object); err != nil {
+		errors = errors.Append(err)
+	}
+	if err := ValidateSubExpressionsNotEmpty("object", o.Object); err != nil {
+		errors = errors.Append(err)
+	}
 	if err := ValidateTagsExpression("object", o.Object); err != nil {
 		errors = errors.Append(err)
 	}

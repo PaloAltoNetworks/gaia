@@ -6,9 +6,9 @@ model:
   package: squall
   group: policy/services
   description: |-
-    Defines a set of policies that allow customization of the
-    authorization tokens issued by the Microsegmentation Console. This allows 
-    Microsegmentation tokens to be used by external applications.
+    Defines a set of policies that allow customization of the authorization tokens
+    issued by the Microsegmentation Console. This allows Microsegmentation tokens to
+    be used by external applications.
   aliases:
   - tsp
   get:

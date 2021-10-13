@@ -170,7 +170,8 @@ func (o *Sandbox) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *Sandbox) Doc() string {
 
-	return `This APIs allows to create a temporary namespace to experiment with Microsegmentation.
+	return `This APIs allows to create a temporary namespace to experiment with
+Microsegmentation.
 This API is not authenticated, and contains small quotas. After one hour,
 everything will be deleted.`
 }

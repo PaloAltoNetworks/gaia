@@ -16,13 +16,14 @@ attributes:
     description: The service object that will be published.
     type: ref
     exposed: true
-    required: true
     subtype: service
+    required: true
+    example_value:
+      exposedPort: 443
+      hosts:
+      - localhost
+      name: referenced-service
+      port: 443
+      propagate: true
     extensions:
       refMode: pointer
-    example_value:
-      hosts: ["localhost"]
-      name: "referenced-service"
-      port: 443
-      exposedPort: 443
-      propagate: true

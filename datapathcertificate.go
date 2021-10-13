@@ -15,6 +15,9 @@ const (
 	// DataPathCertificateTypeEnforcer represents the value Enforcer.
 	DataPathCertificateTypeEnforcer DataPathCertificateTypeValue = "Enforcer"
 
+	// DataPathCertificateTypeK8SAPIServer represents the value K8SAPIServer.
+	DataPathCertificateTypeK8SAPIServer DataPathCertificateTypeValue = "K8SAPIServer"
+
 	// DataPathCertificateTypeService represents the value Service.
 	DataPathCertificateTypeService DataPathCertificateTypeValue = "Service"
 
@@ -94,9 +97,9 @@ func (o DataPathCertificatesList) Version() int {
 
 // DataPathCertificate represents the model of a datapathcertificate
 type DataPathCertificate struct {
-	// Contains a certificate signing request (CSR) from the enforcer.
-	// Depending on the certificate there will be various requirements
-	// for the Microsegmentation Console to accept the CSR.
+	// Contains a certificate signing request (CSR) from the enforcer. Depending on the
+	// certificate there will be various requirements for the Microsegmentation Console
+	// to accept the CSR.
 	CSR string `json:"CSR" msgpack:"CSR" bson:"-" mapstructure:"CSR,omitempty"`
 
 	// The certificate.
@@ -312,7 +315,7 @@ func (o *DataPathCertificate) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Enforcer", "Service", "ServicePing"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Enforcer", "Service", "ServicePing", "K8SAPIServer"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -374,9 +377,9 @@ var DataPathCertificateAttributesMap = map[string]elemental.AttributeSpecificati
 	"CSR": {
 		AllowedChoices: []string{},
 		ConvertedName:  "CSR",
-		Description: `Contains a certificate signing request (CSR) from the enforcer.
-Depending on the certificate there will be various requirements 
-for the Microsegmentation Console to accept the CSR.`,
+		Description: `Contains a certificate signing request (CSR) from the enforcer. Depending on the
+certificate there will be various requirements for the Microsegmentation Console
+to accept the CSR.`,
 		Exposed:  true,
 		Name:     "CSR",
 		Required: true,
@@ -430,7 +433,7 @@ for the Microsegmentation Console to accept the CSR.`,
 		Type:           "string",
 	},
 	"Type": {
-		AllowedChoices: []string{"Enforcer", "Service", "ServicePing"},
+		AllowedChoices: []string{"Enforcer", "Service", "ServicePing", "K8SAPIServer"},
 		ConvertedName:  "Type",
 		Description:    `Type of certificate.`,
 		Exposed:        true,
@@ -444,9 +447,9 @@ var DataPathCertificateLowerCaseAttributesMap = map[string]elemental.AttributeSp
 	"csr": {
 		AllowedChoices: []string{},
 		ConvertedName:  "CSR",
-		Description: `Contains a certificate signing request (CSR) from the enforcer.
-Depending on the certificate there will be various requirements 
-for the Microsegmentation Console to accept the CSR.`,
+		Description: `Contains a certificate signing request (CSR) from the enforcer. Depending on the
+certificate there will be various requirements for the Microsegmentation Console
+to accept the CSR.`,
 		Exposed:  true,
 		Name:     "CSR",
 		Required: true,
@@ -500,7 +503,7 @@ for the Microsegmentation Console to accept the CSR.`,
 		Type:           "string",
 	},
 	"type": {
-		AllowedChoices: []string{"Enforcer", "Service", "ServicePing"},
+		AllowedChoices: []string{"Enforcer", "Service", "ServicePing", "K8SAPIServer"},
 		ConvertedName:  "Type",
 		Description:    `Type of certificate.`,
 		Exposed:        true,
@@ -572,9 +575,9 @@ func (o SparseDataPathCertificatesList) Version() int {
 
 // SparseDataPathCertificate represents the sparse version of a datapathcertificate.
 type SparseDataPathCertificate struct {
-	// Contains a certificate signing request (CSR) from the enforcer.
-	// Depending on the certificate there will be various requirements
-	// for the Microsegmentation Console to accept the CSR.
+	// Contains a certificate signing request (CSR) from the enforcer. Depending on the
+	// certificate there will be various requirements for the Microsegmentation Console
+	// to accept the CSR.
 	CSR *string `json:"CSR,omitempty" msgpack:"CSR,omitempty" bson:"-" mapstructure:"CSR,omitempty"`
 
 	// The certificate.

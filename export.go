@@ -184,9 +184,9 @@ func (o *Export) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *Export) Doc() string {
 
-	return `Allows you to obtain a JSON object containing policies and other objects 
-from a given namespace. You can then import this JSON object into a 
-different namespace.`
+	return `Allows you to obtain a JSON object containing policies and other objects from a
+given namespace. You can then import this JSON object into a different
+namespace.`
 }
 
 func (o *Export) String() string {

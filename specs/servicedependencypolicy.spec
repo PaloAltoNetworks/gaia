@@ -67,5 +67,4 @@ relations:
 
 - rest_name: service
   get:
-    description: Returns the list of external services that are targets of service
-      dependency.
+    description: Returns the list of external services that are targets of service dependency.

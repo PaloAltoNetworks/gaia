@@ -7,13 +7,15 @@ model:
   group: core/enforcer
   description: Represents the tracing mode to apply to a processing unit.
   detached: true
+  extensions:
+    commentFlags:
+    - +k8s:openapi-gen=true
 
 # Attributes
 attributes:
   v1:
   - name: IPTables
-    description: Instructs the enforcers to provide an iptables trace for
-      a processing unit.
+    description: Instructs the enforcers to provide an iptables trace for a processing unit.
     type: boolean
     exposed: true
     stored: true
@@ -29,7 +31,8 @@ attributes:
   - name: interval
     description: |-
       Determines the length of the time interval that the trace must be
-      enabled, using [Golang duration syntax](https://golang.org/pkg/time/#example_Duration).
+      enabled, using [Golang duration
+      syntax](https://golang.org/pkg/time/#example_Duration).
     type: string
     exposed: true
     stored: true

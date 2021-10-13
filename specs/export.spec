@@ -6,9 +6,9 @@ model:
   package: yuna
   group: core
   description: |-
-    Allows you to obtain a JSON object containing policies and other objects 
-    from a given namespace. You can then import this JSON object into a 
-    different namespace.
+    Allows you to obtain a JSON object containing policies and other objects from a
+    given namespace. You can then import this JSON object into a different
+    namespace.
 
 # Attributes
 attributes:

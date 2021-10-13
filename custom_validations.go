@@ -1,13 +1,16 @@
 package gaia
 
 import (
+	"crypto/sha256"
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
+	"hash/fnv"
 	"net"
 	"net/http"
 	"net/url"
 	"regexp"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -310,10 +313,6 @@ func ValidateServiceEntity(service *Service) error {
 
 		if service.TLSCertificate == "" {
 			errs = errs.Append(makeValidationError("TLSCertificate", "`TLSCertificate` is required when `TLSType` is set to `External`"))
-		}
-
-		if service.TLSCertificateKey == "" {
-			errs = errs.Append(makeValidationError("TLSCertificateKey", "`TLSCertificateKey` is required when `TLSType` is set to `External`"))
 		}
 	}
 
@@ -711,7 +710,15 @@ func ValidateHostServicesNonOverlapPorts(svcs []string) error {
 // ValidateServicePorts validates a list of serviceports.
 func ValidateServicePorts(attribute string, servicePorts []string) error {
 
+	seen := make(map[string]struct{}, len(servicePorts))
+
 	for _, servicePort := range servicePorts {
+
+		sp := strings.ToLower(servicePort)
+		if _, ok := seen[sp]; ok {
+			return makeValidationError(attribute, fmt.Sprintf("duplicate port: '%s'", servicePort))
+		}
+		seen[sp] = struct{}{}
 
 		if strings.EqualFold(servicePort, protocols.ANY) {
 			if len(servicePorts) != 1 {
@@ -949,6 +956,131 @@ func ValidateTags(attribute string, tags []string) error {
 // ValidateTagsWithoutReservedPrefixes a list of tags are valid. Refuse those with reserved prefix.
 func ValidateTagsWithoutReservedPrefixes(attribute string, tags []string) error {
 	return validateTagStrings(attribute, false, tags...)
+}
+
+// ValidateExpressionNotEmpty validates that expression length is >= 1
+func ValidateExpressionNotEmpty(attribute string, expression [][]string) error {
+	if len(expression) == 0 {
+		return makeValidationError(attribute, "Expression must contain at least one sub-expression")
+	}
+	return nil
+}
+
+// ValidateSubExpressionsNotEmpty validates that subexpression slices are not empty
+func ValidateSubExpressionsNotEmpty(attribute string, expression [][]string) error {
+	for _, subExpr := range expression {
+		if len(subExpr) == 0 {
+			return makeValidationError(attribute, "Sub-expression must not be empty")
+		}
+	}
+	return nil
+}
+
+// ValidateEachSubExpressionHasNoDuplicateTags ensures that each sub expression in the given
+// expression has unique tags
+func ValidateEachSubExpressionHasNoDuplicateTags(attribute string, expression [][]string) error {
+
+	for _, subExpr := range expression {
+		seen := map[string]struct{}{}
+
+		for _, tag := range subExpr {
+
+			if _, ok := seen[tag]; !ok {
+				seen[tag] = struct{}{}
+				continue
+			}
+
+			err := makeValidationError(
+				attribute,
+				fmt.Sprintf("Duplicate tag in a sub-expression: '%s'", tag),
+			)
+			return err
+		}
+	}
+
+	return nil
+}
+
+// ValidateNoDuplicateSubExpressions ensures that all sub expressions are unique
+func ValidateNoDuplicateSubExpressions(attribute string, expression [][]string) error {
+
+	seen := map[uint32]struct{}{}
+	for _, subExpr := range expression {
+
+		cpy := append([]string{}, subExpr...)
+		sort.Strings(cpy)
+		hash := fnv.New32a()
+		for _, tag := range cpy {
+			_, _ = hash.Write([]byte(tag))
+			_, _ = hash.Write([]byte("/"))
+		}
+
+		if _, ok := seen[hash.Sum32()]; !ok {
+			seen[hash.Sum32()] = struct{}{}
+			continue
+		}
+
+		return makeValidationError(attribute, "Duplicate equivalent sub-expressions found")
+	}
+
+	return nil
+}
+
+// ValidateNoDuplicateNetworkRules ensures that all the given network rules are all unique
+func ValidateNoDuplicateNetworkRules(attribute string, rules []*NetworkRule) error {
+
+	type indexedRule struct {
+		index int
+		rule  *NetworkRule
+	}
+	seen := make(map[[sha256.Size]byte]*indexedRule, len(rules))
+	for iRule, rule := range rules {
+
+		if rule == nil {
+			continue
+		}
+
+		hash := sha256.New()
+
+		// hash the action
+		fmt.Fprintf(hash, "%s/", rule.Action)
+
+		// hash the object
+		obj := make([]string, len(rule.Object))
+		for i, subExpr := range rule.Object {
+			cpy := append([]string{}, subExpr...)
+			sort.Strings(cpy)
+			obj[i] = strings.Join(cpy, "/")
+		}
+		sort.Strings(obj)
+		for _, subExpr := range obj {
+			fmt.Fprintf(hash, "[%s]/", subExpr)
+		}
+
+		// hash the ports
+		protoPortCpy := append([]string{}, rule.ProtocolPorts...)
+		for i, port := range protoPortCpy {
+			protoPortCpy[i] = strings.ToLower(port)
+		}
+		sort.Strings(protoPortCpy)
+		for _, port := range protoPortCpy {
+			fmt.Fprintf(hash, "%s/", port)
+		}
+
+		// check if hash was seen before
+		var digest [sha256.Size]byte
+		copy(digest[:], hash.Sum(nil))
+		if prevRule, ok := seen[digest]; ok {
+			return makeValidationError(
+				attribute,
+				fmt.Sprintf("Duplicate network rules at the following indexes: [%d, %d]", prevRule.index+1, iRule+1),
+			)
+		}
+
+		seen[digest] = &indexedRule{index: iRule, rule: rule}
+	}
+
+	return nil
 }
 
 // ValidateTagsExpression validates an [][]string is a valid tag expression.
@@ -1343,6 +1475,29 @@ func ValidatePortsList(attribute string, ports []*portutils.PortsRange) error {
 	return nil
 }
 
+// ValidateAPIServerServiceName validates the api server service name.
+func ValidateAPIServerServiceName(attribute string, serviceName string) error {
+
+	parts := strings.Split(serviceName, ".")
+	if len(parts) != 3 {
+		return makeValidationError(attribute, fmt.Sprintf("invalid service name, should be of format <service name>.<service namespace>.svc: %s", serviceName))
+	}
+
+	if parts[0] == "" {
+		return makeValidationError(attribute, fmt.Sprintf("service name is missing : %s", serviceName))
+	}
+
+	if parts[1] == "" {
+		return makeValidationError(attribute, fmt.Sprintf("service namespace is missing : %s", serviceName))
+	}
+
+	if parts[2] != "svc" {
+		return makeValidationError(attribute, fmt.Sprintf("svc keyword is missing : %s", serviceName))
+	}
+
+	return nil
+}
+
 // ValidateCloudNetworkQueryEntity validates the CloudNetworkQuery entity and all the attribute relations.
 func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 
@@ -1403,6 +1558,33 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 	if q.DestinationSelector != nil {
 		if err := ValidateCloudNetworkQueryFilter("destinationSelector", q.DestinationSelector); err != nil {
 			return err
+		}
+	}
+
+	if q.SourceIP == "" && q.DestinationIP == "" {
+		if q.SourceSelector != nil && len(q.SourceSelector.VPCIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "a single source VPC must be provided for all East/West queries")
+		}
+		if q.DestinationSelector != nil && len(q.DestinationSelector.VPCIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "a single destination VPC must be provided for all East/West queries")
+		}
+	}
+
+	if q.Type == CloudNetworkQueryTypeNetworkPath {
+		if len(q.SourceIP) != 0 && len(q.DestinationSelector.ObjectIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the destination selector for network path queries")
+		}
+
+		if len(q.DestinationIP) != 0 && len(q.SourceSelector.ObjectIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
+		}
+
+		if len(q.SourceIP) == 0 && len(q.SourceSelector.ObjectIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
+		}
+
+		if len(q.DestinationIP) == 0 && len(q.DestinationSelector.ObjectIDs) != 1 {
+			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
 		}
 	}
 

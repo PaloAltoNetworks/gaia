@@ -92,7 +92,8 @@ type PCCProvider struct {
 	// List of tags attached to an entity.
 	AssociatedTags []string `json:"associatedTags" msgpack:"associatedTags" bson:"associatedtags" mapstructure:"associatedTags,omitempty"`
 
-	// Set the CA to use to contact the PCC Console in case it uses a non widely trusted
+	// Set the CA to use to contact the PCC Console in case it uses a non widely
+	// trusted
 	// certificate authority.
 	CertificateAuthority string `json:"certificateAuthority" msgpack:"certificateAuthority" bson:"certificateauthority" mapstructure:"certificateAuthority,omitempty"`
 
@@ -261,7 +262,9 @@ func (o *PCCProvider) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *PCCProvider) Doc() string {
 
-	return `Allows you to declare a trusted Prisma Cloud Compute (PCC) authentication provider. Microsegmentation will accept JSON web tokens (JWT) from the specified PCC provider.`
+	return `Allows you to declare a trusted Prisma Cloud Compute (PCC) authentication
+provider. Microsegmentation will accept JSON web tokens (JWT) from the specified
+PCC provider.`
 }
 
 func (o *PCCProvider) String() string {
@@ -725,7 +728,8 @@ var PCCProviderAttributesMap = map[string]elemental.AttributeSpecification{
 		AllowedChoices: []string{},
 		BSONFieldName:  "certificateauthority",
 		ConvertedName:  "CertificateAuthority",
-		Description: `Set the CA to use to contact the PCC Console in case it uses a non widely trusted
+		Description: `Set the CA to use to contact the PCC Console in case it uses a non widely
+trusted
 certificate authority.`,
 		Exposed: true,
 		Name:    "certificateAuthority",
@@ -961,7 +965,8 @@ var PCCProviderLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		AllowedChoices: []string{},
 		BSONFieldName:  "certificateauthority",
 		ConvertedName:  "CertificateAuthority",
-		Description: `Set the CA to use to contact the PCC Console in case it uses a non widely trusted
+		Description: `Set the CA to use to contact the PCC Console in case it uses a non widely
+trusted
 certificate authority.`,
 		Exposed: true,
 		Name:    "certificateAuthority",
@@ -1224,7 +1229,8 @@ type SparsePCCProvider struct {
 	// List of tags attached to an entity.
 	AssociatedTags *[]string `json:"associatedTags,omitempty" msgpack:"associatedTags,omitempty" bson:"associatedtags,omitempty" mapstructure:"associatedTags,omitempty"`
 
-	// Set the CA to use to contact the PCC Console in case it uses a non widely trusted
+	// Set the CA to use to contact the PCC Console in case it uses a non widely
+	// trusted
 	// certificate authority.
 	CertificateAuthority *string `json:"certificateAuthority,omitempty" msgpack:"certificateAuthority,omitempty" bson:"certificateauthority,omitempty" mapstructure:"certificateAuthority,omitempty"`
 

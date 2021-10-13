@@ -30,8 +30,10 @@ var (
 		"clausesmatch":        ClauseMatchIdentity,
 		"cloudaccountcleaner": CloudAccountCleanerIdentity,
 
-		"cloudalert":    CloudAlertIdentity,
-		"cloudendpoint": CloudEndpointIdentity,
+		"cloudalert":       CloudAlertIdentity,
+		"cloudalertrecord": CloudAlertRecordIdentity,
+		"cloudalertrule":   CloudAlertRuleIdentity,
+		"cloudendpoint":    CloudEndpointIdentity,
 
 		"cloudgraph": CloudGraphIdentity,
 
@@ -41,16 +43,19 @@ var (
 
 		"cloudnetworkruleset": CloudNetworkRuleSetIdentity,
 
-		"cloudnode":   CloudNodeIdentity,
+		"cloudnode": CloudNodeIdentity,
+
 		"cloudpolicy": CloudPolicyIdentity,
 
-		"cloudroutetable":      CloudRouteTableIdentity,
-		"cloudsnapshotaccount": CloudSnapshotAccountIdentity,
-		"cloudsubnet":          CloudSubnetIdentity,
+		"cloudroutetable":            CloudRouteTableIdentity,
+		"cloudschedulednetworkquery": CloudScheduledNetworkQueryIdentity,
+		"cloudsnapshotaccount":       CloudSnapshotAccountIdentity,
+		"cloudsubnet":                CloudSubnetIdentity,
 
 		"cloudvpc": CloudVPCIdentity,
 
 		"cnsconfig":     CNSConfigIdentity,
+		"cnsrqlquery":   CNSRQLQueryIdentity,
 		"cnssearch":     CNSSearchIdentity,
 		"cnssuggestion": CNSSuggestionIdentity,
 
@@ -98,6 +103,7 @@ var (
 		"issue":                    IssueIdentity,
 		"issueservicetoken":        IssueServiceTokenIdentity,
 
+		"kubernetescluster":      KubernetesClusterIdentity,
 		"ldapprovider":           LDAPProviderIdentity,
 		"localca":                LocalCAIdentity,
 		"log":                    LogIdentity,
@@ -106,6 +112,7 @@ var (
 		"metricsquery":           MetricsQueryIdentity,
 		"metricsqueryrange":      MetricsQueryRangeIdentity,
 		"namespace":              NamespaceIdentity,
+		"namespaceinfo":          NamespaceInfoIdentity,
 		"namespacemappingpolicy": NamespaceMappingPolicyIdentity,
 		"namespacepolicyinfo":    NamespacePolicyInfoIdentity,
 		"namespacerenderer":      NamespaceRendererIdentity,
@@ -157,6 +164,7 @@ var (
 		"sandbox":                 SandboxIdentity,
 		"search":                  SearchIdentity,
 		"service":                 ServiceIdentity,
+		"servicecertificate":      ServiceCertificateIdentity,
 		"servicedependencypolicy": ServiceDependencyPolicyIdentity,
 		"servicepublication":      ServicePublicationIdentity,
 		"servicetoken":            ServiceTokenIdentity,
@@ -183,6 +191,7 @@ var (
 		"trustednamespace": TrustedNamespaceIdentity,
 
 		"useraccesspolicy":     UserAccessPolicyIdentity,
+		"validaterql":          ValidateRQLIdentity,
 		"validateuiparameter":  ValidateUIParameterIdentity,
 		"vulnerability":        VulnerabilityIdentity,
 		"x509certificate":      X509CertificateIdentity,
@@ -216,8 +225,10 @@ var (
 		"clausesmatches":      ClauseMatchIdentity,
 		"cloudaccountcleaner": CloudAccountCleanerIdentity,
 
-		"cloudalerts":    CloudAlertIdentity,
-		"cloudendpoints": CloudEndpointIdentity,
+		"cloudalerts":       CloudAlertIdentity,
+		"cloudalertrecords": CloudAlertRecordIdentity,
+		"cloudalertsrule":   CloudAlertRuleIdentity,
+		"cloudendpoints":    CloudEndpointIdentity,
 
 		"cloudgraphs": CloudGraphIdentity,
 
@@ -227,16 +238,19 @@ var (
 
 		"cloudnetworkrulesets": CloudNetworkRuleSetIdentity,
 
-		"cloudnodes":    CloudNodeIdentity,
+		"cloudnodes": CloudNodeIdentity,
+
 		"cloudpolicies": CloudPolicyIdentity,
 
-		"cloudroutetables":      CloudRouteTableIdentity,
-		"cloudsnapshotaccounts": CloudSnapshotAccountIdentity,
-		"cloudsubnets":          CloudSubnetIdentity,
+		"cloudroutetables":             CloudRouteTableIdentity,
+		"cloudschedulednetworkqueries": CloudScheduledNetworkQueryIdentity,
+		"cloudsnapshotaccounts":        CloudSnapshotAccountIdentity,
+		"cloudsubnets":                 CloudSubnetIdentity,
 
 		"cloudvpcs": CloudVPCIdentity,
 
 		"cnsconfigs":     CNSConfigIdentity,
+		"cnsrqlquery":    CNSRQLQueryIdentity,
 		"cnssearches":    CNSSearchIdentity,
 		"cnssuggestions": CNSSuggestionIdentity,
 
@@ -284,6 +298,7 @@ var (
 		"issue":                      IssueIdentity,
 		"issueservicetokens":         IssueServiceTokenIdentity,
 
+		"kubernetesclusters":       KubernetesClusterIdentity,
 		"ldapproviders":            LDAPProviderIdentity,
 		"localcas":                 LocalCAIdentity,
 		"logs":                     LogIdentity,
@@ -292,6 +307,7 @@ var (
 		"metricsquery":             MetricsQueryIdentity,
 		"metricsqueryrange":        MetricsQueryRangeIdentity,
 		"namespaces":               NamespaceIdentity,
+		"namespaceinfo":            NamespaceInfoIdentity,
 		"namespacemappingpolicies": NamespaceMappingPolicyIdentity,
 		"namespacepolicyinfo":      NamespacePolicyInfoIdentity,
 		"namespacerenderers":       NamespaceRendererIdentity,
@@ -343,6 +359,7 @@ var (
 		"sandboxes":                 SandboxIdentity,
 		"search":                    SearchIdentity,
 		"services":                  ServiceIdentity,
+		"servicecertificates":       ServiceCertificateIdentity,
 		"servicedependencypolicies": ServiceDependencyPolicyIdentity,
 		"servicepublications":       ServicePublicationIdentity,
 		"servicetoken":              ServiceTokenIdentity,
@@ -369,6 +386,7 @@ var (
 		"trustednamespaces": TrustedNamespaceIdentity,
 
 		"useraccesspolicies":    UserAccessPolicyIdentity,
+		"validaterql":           ValidateRQLIdentity,
 		"validateuiparameters":  ValidateUIParameterIdentity,
 		"vulnerabilities":       VulnerabilityIdentity,
 		"x509certificates":      X509CertificateIdentity,
@@ -426,6 +444,8 @@ var (
 		"iapps":           InstalledAppIdentity,
 		"iapp":            InstalledAppIdentity,
 		"ip":              IsolationProfileIdentity,
+		"k8scluster":      KubernetesClusterIdentity,
+		"k8sclusters":     KubernetesClusterIdentity,
 		"mess":            MessageIdentity,
 		"mq":              MetricsQueryIdentity,
 		"mqr":             MetricsQueryRangeIdentity,
@@ -522,9 +542,26 @@ var (
 			{"kind"},
 			{"createIdempotencyKey"},
 		},
-		"apiauthorizationpolicy": nil,
-		"apicheck":               nil,
-		"app":                    nil,
+		"apiauthorizationpolicy": {
+			{"updateIdempotencyKey"},
+			{"propagate"},
+			{"namespace", "allSubjectTags", "disabled"},
+			{"namespace", "allObjectTags", "propagate"},
+			{"namespace", "allSubjectTags", "propagate"},
+			{"namespace", "normalizedTags"},
+			{"namespace"},
+			{"namespace", "allObjectTags", "disabled"},
+			{"namespace", "fallback"},
+			{"namespace", "disabled"},
+			{":shard", ":unique", "zone", "zHash"},
+			{"namespace", "name"},
+			{"name"},
+			{"fallback"},
+			{"disabled"},
+			{"createIdempotencyKey"},
+		},
+		"apicheck": nil,
+		"app":      nil,
 		"appcredential": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
@@ -590,6 +627,29 @@ var (
 			{"namespace", "name"},
 			{"namespace"},
 			{"namespace", "normalizedTags"},
+			{"name"},
+			{"createIdempotencyKey"},
+		},
+		"cloudalertrecord": {
+			{"updateIdempotencyKey"},
+			{"namespace", "published"},
+			{"namespace", "resourceid", "prismacloudpolicyid", "prismacloudalertruleid"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "lastexecutiontimestamp"},
+			{"namespace", "normalizedTags"},
+			{"name"},
+			{"createIdempotencyKey"},
+			{":shard", ":unique", "zone", "zHash"},
+		},
+		"cloudalertrule": {
+			{":unique", "prismaCloudAlertRuleID"},
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "prismaCloudAlertRuleID"},
 			{"name"},
 			{"createIdempotencyKey"},
 		},
@@ -669,8 +729,10 @@ var (
 		"cloudpolicy": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
+			{"namespace", "severity"},
 			{"namespace", "name"},
 			{"namespace"},
+			{"namespace", "prismaCloudPolicyID"},
 			{"namespace", "normalizedTags"},
 			{"name"},
 			{"createIdempotencyKey"},
@@ -684,6 +746,16 @@ var (
 			{"namespace", "accountid"},
 			{"namespace", "vpcid"},
 			{"createIdempotencyKey"},
+		},
+		"cloudschedulednetworkquery": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"prismacloudalertruleid"},
+			{"prismacloudalertruleid", "prismacloudpolicyid"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"name"},
+			{"lastexecutiontimestamp"},
 		},
 		"cloudsnapshotaccount": {
 			{"updateIdempotencyKey"},
@@ -720,6 +792,7 @@ var (
 			{"createIdempotencyKey"},
 			{":shard", ":unique", "zone", "zHash"},
 		},
+		"cnsrqlquery":   nil,
 		"cnssearch":     nil,
 		"cnssuggestion": nil,
 		"connectionexceptionreport": {
@@ -922,6 +995,15 @@ var (
 		},
 		"issue":             nil,
 		"issueservicetoken": nil,
+		"kubernetescluster": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"name"},
+			{"createIdempotencyKey"},
+		},
 		"ldapprovider": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
@@ -956,6 +1038,7 @@ var (
 			{"name"},
 			{"createIdempotencyKey"},
 		},
+		"namespaceinfo":          nil,
 		"namespacemappingpolicy": nil,
 		"namespacepolicyinfo":    nil,
 		"namespacerenderer":      nil,
@@ -1109,6 +1192,18 @@ var (
 			{"allProcessingUnitsTags"},
 			{"allAPITags"},
 		},
+		"servicecertificate": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"propagate"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "fingerprint"},
+			{"namespace", "normalizedTags"},
+			{"name"},
+			{"fingerprint"},
+			{"createIdempotencyKey"},
+		},
 		"servicedependencypolicy": nil,
 		"servicepublication":      nil,
 		"servicetoken":            nil,
@@ -1154,6 +1249,7 @@ var (
 			{"createIdempotencyKey"},
 		},
 		"useraccesspolicy":    nil,
+		"validaterql":         nil,
 		"validateuiparameter": nil,
 		"vulnerability": {
 			{":shard", ":unique", "zone", "zHash"},
@@ -1261,6 +1357,10 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudAccountCleaner()
 	case CloudAlertIdentity:
 		return NewCloudAlert()
+	case CloudAlertRecordIdentity:
+		return NewCloudAlertRecord()
+	case CloudAlertRuleIdentity:
+		return NewCloudAlertRule()
 	case CloudEndpointIdentity:
 		return NewCloudEndpoint()
 	case CloudGraphIdentity:
@@ -1279,6 +1379,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudPolicy()
 	case CloudRouteTableIdentity:
 		return NewCloudRouteTable()
+	case CloudScheduledNetworkQueryIdentity:
+		return NewCloudScheduledNetworkQuery()
 	case CloudSnapshotAccountIdentity:
 		return NewCloudSnapshotAccount()
 	case CloudSubnetIdentity:
@@ -1287,6 +1389,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudVPC()
 	case CNSConfigIdentity:
 		return NewCNSConfig()
+	case CNSRQLQueryIdentity:
+		return NewCNSRQLQuery()
 	case CNSSearchIdentity:
 		return NewCNSSearch()
 	case CNSSuggestionIdentity:
@@ -1371,6 +1475,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewIssue()
 	case IssueServiceTokenIdentity:
 		return NewIssueServiceToken()
+	case KubernetesClusterIdentity:
+		return NewKubernetesCluster()
 	case LDAPProviderIdentity:
 		return NewLDAPProvider()
 	case LocalCAIdentity:
@@ -1387,6 +1493,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewMetricsQueryRange()
 	case NamespaceIdentity:
 		return NewNamespace()
+	case NamespaceInfoIdentity:
+		return NewNamespaceInfo()
 	case NamespaceMappingPolicyIdentity:
 		return NewNamespaceMappingPolicy()
 	case NamespacePolicyInfoIdentity:
@@ -1479,6 +1587,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewSearch()
 	case ServiceIdentity:
 		return NewService()
+	case ServiceCertificateIdentity:
+		return NewServiceCertificate()
 	case ServiceDependencyPolicyIdentity:
 		return NewServiceDependencyPolicy()
 	case ServicePublicationIdentity:
@@ -1525,6 +1635,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewTrustedNamespace()
 	case UserAccessPolicyIdentity:
 		return NewUserAccessPolicy()
+	case ValidateRQLIdentity:
+		return NewValidateRQL()
 	case ValidateUIParameterIdentity:
 		return NewValidateUIParameter()
 	case VulnerabilityIdentity:
@@ -1592,6 +1704,10 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudAccountCleaner()
 	case CloudAlertIdentity:
 		return NewSparseCloudAlert()
+	case CloudAlertRecordIdentity:
+		return NewSparseCloudAlertRecord()
+	case CloudAlertRuleIdentity:
+		return NewSparseCloudAlertRule()
 	case CloudEndpointIdentity:
 		return NewSparseCloudEndpoint()
 	case CloudGraphIdentity:
@@ -1610,6 +1726,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudPolicy()
 	case CloudRouteTableIdentity:
 		return NewSparseCloudRouteTable()
+	case CloudScheduledNetworkQueryIdentity:
+		return NewSparseCloudScheduledNetworkQuery()
 	case CloudSnapshotAccountIdentity:
 		return NewSparseCloudSnapshotAccount()
 	case CloudSubnetIdentity:
@@ -1618,6 +1736,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudVPC()
 	case CNSConfigIdentity:
 		return NewSparseCNSConfig()
+	case CNSRQLQueryIdentity:
+		return NewSparseCNSRQLQuery()
 	case CNSSearchIdentity:
 		return NewSparseCNSSearch()
 	case CNSSuggestionIdentity:
@@ -1702,6 +1822,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseIssue()
 	case IssueServiceTokenIdentity:
 		return NewSparseIssueServiceToken()
+	case KubernetesClusterIdentity:
+		return NewSparseKubernetesCluster()
 	case LDAPProviderIdentity:
 		return NewSparseLDAPProvider()
 	case LocalCAIdentity:
@@ -1718,6 +1840,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseMetricsQueryRange()
 	case NamespaceIdentity:
 		return NewSparseNamespace()
+	case NamespaceInfoIdentity:
+		return NewSparseNamespaceInfo()
 	case NamespaceMappingPolicyIdentity:
 		return NewSparseNamespaceMappingPolicy()
 	case NamespacePolicyInfoIdentity:
@@ -1808,6 +1932,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseSearch()
 	case ServiceIdentity:
 		return NewSparseService()
+	case ServiceCertificateIdentity:
+		return NewSparseServiceCertificate()
 	case ServiceDependencyPolicyIdentity:
 		return NewSparseServiceDependencyPolicy()
 	case ServicePublicationIdentity:
@@ -1854,6 +1980,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseTrustedNamespace()
 	case UserAccessPolicyIdentity:
 		return NewSparseUserAccessPolicy()
+	case ValidateRQLIdentity:
+		return NewSparseValidateRQL()
 	case ValidateUIParameterIdentity:
 		return NewSparseValidateUIParameter()
 	case VulnerabilityIdentity:
@@ -1931,6 +2059,10 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudAccountCleanersList{}
 	case CloudAlertIdentity:
 		return &CloudAlertsList{}
+	case CloudAlertRecordIdentity:
+		return &CloudAlertRecordsList{}
+	case CloudAlertRuleIdentity:
+		return &CloudAlertRulesList{}
 	case CloudEndpointIdentity:
 		return &CloudEndpointsList{}
 	case CloudGraphIdentity:
@@ -1949,6 +2081,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudPoliciesList{}
 	case CloudRouteTableIdentity:
 		return &CloudRouteTablesList{}
+	case CloudScheduledNetworkQueryIdentity:
+		return &CloudScheduledNetworkQueriesList{}
 	case CloudSnapshotAccountIdentity:
 		return &CloudSnapshotAccountsList{}
 	case CloudSubnetIdentity:
@@ -1957,6 +2091,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudVPCsList{}
 	case CNSConfigIdentity:
 		return &CNSConfigsList{}
+	case CNSRQLQueryIdentity:
+		return &CNSRQLQueriesList{}
 	case CNSSearchIdentity:
 		return &CNSSearchesList{}
 	case CNSSuggestionIdentity:
@@ -2041,6 +2177,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &IssuesList{}
 	case IssueServiceTokenIdentity:
 		return &IssueServiceTokensList{}
+	case KubernetesClusterIdentity:
+		return &KubernetesClustersList{}
 	case LDAPProviderIdentity:
 		return &LDAPProvidersList{}
 	case LocalCAIdentity:
@@ -2057,6 +2195,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &MetricsQueryRangesList{}
 	case NamespaceIdentity:
 		return &NamespacesList{}
+	case NamespaceInfoIdentity:
+		return &NamespaceInfosList{}
 	case NamespaceMappingPolicyIdentity:
 		return &NamespaceMappingPoliciesList{}
 	case NamespacePolicyInfoIdentity:
@@ -2147,6 +2287,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &SearchesList{}
 	case ServiceIdentity:
 		return &ServicesList{}
+	case ServiceCertificateIdentity:
+		return &ServiceCertificatesList{}
 	case ServiceDependencyPolicyIdentity:
 		return &ServiceDependencyPoliciesList{}
 	case ServicePublicationIdentity:
@@ -2193,6 +2335,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &TrustedNamespacesList{}
 	case UserAccessPolicyIdentity:
 		return &UserAccessPoliciesList{}
+	case ValidateRQLIdentity:
+		return &ValidateRQLsList{}
 	case ValidateUIParameterIdentity:
 		return &ValidateUIParametersList{}
 	case VulnerabilityIdentity:
@@ -2260,6 +2404,10 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudAccountCleanersList{}
 	case CloudAlertIdentity:
 		return &SparseCloudAlertsList{}
+	case CloudAlertRecordIdentity:
+		return &SparseCloudAlertRecordsList{}
+	case CloudAlertRuleIdentity:
+		return &SparseCloudAlertRulesList{}
 	case CloudEndpointIdentity:
 		return &SparseCloudEndpointsList{}
 	case CloudGraphIdentity:
@@ -2278,6 +2426,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudPoliciesList{}
 	case CloudRouteTableIdentity:
 		return &SparseCloudRouteTablesList{}
+	case CloudScheduledNetworkQueryIdentity:
+		return &SparseCloudScheduledNetworkQueriesList{}
 	case CloudSnapshotAccountIdentity:
 		return &SparseCloudSnapshotAccountsList{}
 	case CloudSubnetIdentity:
@@ -2286,6 +2436,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudVPCsList{}
 	case CNSConfigIdentity:
 		return &SparseCNSConfigsList{}
+	case CNSRQLQueryIdentity:
+		return &SparseCNSRQLQueriesList{}
 	case CNSSearchIdentity:
 		return &SparseCNSSearchesList{}
 	case CNSSuggestionIdentity:
@@ -2370,6 +2522,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseIssuesList{}
 	case IssueServiceTokenIdentity:
 		return &SparseIssueServiceTokensList{}
+	case KubernetesClusterIdentity:
+		return &SparseKubernetesClustersList{}
 	case LDAPProviderIdentity:
 		return &SparseLDAPProvidersList{}
 	case LocalCAIdentity:
@@ -2386,6 +2540,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseMetricsQueryRangesList{}
 	case NamespaceIdentity:
 		return &SparseNamespacesList{}
+	case NamespaceInfoIdentity:
+		return &SparseNamespaceInfosList{}
 	case NamespaceMappingPolicyIdentity:
 		return &SparseNamespaceMappingPoliciesList{}
 	case NamespacePolicyInfoIdentity:
@@ -2476,6 +2632,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseSearchesList{}
 	case ServiceIdentity:
 		return &SparseServicesList{}
+	case ServiceCertificateIdentity:
+		return &SparseServiceCertificatesList{}
 	case ServiceDependencyPolicyIdentity:
 		return &SparseServiceDependencyPoliciesList{}
 	case ServicePublicationIdentity:
@@ -2522,6 +2680,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseTrustedNamespacesList{}
 	case UserAccessPolicyIdentity:
 		return &SparseUserAccessPoliciesList{}
+	case ValidateRQLIdentity:
+		return &SparseValidateRQLsList{}
 	case ValidateUIParameterIdentity:
 		return &SparseValidateUIParametersList{}
 	case VulnerabilityIdentity:
@@ -2583,6 +2743,8 @@ func AllIdentities() []elemental.Identity {
 		ClauseMatchIdentity,
 		CloudAccountCleanerIdentity,
 		CloudAlertIdentity,
+		CloudAlertRecordIdentity,
+		CloudAlertRuleIdentity,
 		CloudEndpointIdentity,
 		CloudGraphIdentity,
 		CloudManagedNetworkIdentity,
@@ -2592,10 +2754,12 @@ func AllIdentities() []elemental.Identity {
 		CloudNodeIdentity,
 		CloudPolicyIdentity,
 		CloudRouteTableIdentity,
+		CloudScheduledNetworkQueryIdentity,
 		CloudSnapshotAccountIdentity,
 		CloudSubnetIdentity,
 		CloudVPCIdentity,
 		CNSConfigIdentity,
+		CNSRQLQueryIdentity,
 		CNSSearchIdentity,
 		CNSSuggestionIdentity,
 		ConnectionExceptionReportIdentity,
@@ -2638,6 +2802,7 @@ func AllIdentities() []elemental.Identity {
 		IsolationProfileIdentity,
 		IssueIdentity,
 		IssueServiceTokenIdentity,
+		KubernetesClusterIdentity,
 		LDAPProviderIdentity,
 		LocalCAIdentity,
 		LogIdentity,
@@ -2646,6 +2811,7 @@ func AllIdentities() []elemental.Identity {
 		MetricsQueryIdentity,
 		MetricsQueryRangeIdentity,
 		NamespaceIdentity,
+		NamespaceInfoIdentity,
 		NamespaceMappingPolicyIdentity,
 		NamespacePolicyInfoIdentity,
 		NamespaceRendererIdentity,
@@ -2692,6 +2858,7 @@ func AllIdentities() []elemental.Identity {
 		SandboxIdentity,
 		SearchIdentity,
 		ServiceIdentity,
+		ServiceCertificateIdentity,
 		ServiceDependencyPolicyIdentity,
 		ServicePublicationIdentity,
 		ServiceTokenIdentity,
@@ -2715,6 +2882,7 @@ func AllIdentities() []elemental.Identity {
 		TrustedCAIdentity,
 		TrustedNamespaceIdentity,
 		UserAccessPolicyIdentity,
+		ValidateRQLIdentity,
 		ValidateUIParameterIdentity,
 		VulnerabilityIdentity,
 		X509CertificateIdentity,
@@ -2796,6 +2964,10 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{}
 	case CloudAlertIdentity:
 		return []string{}
+	case CloudAlertRecordIdentity:
+		return []string{}
+	case CloudAlertRuleIdentity:
+		return []string{}
 	case CloudEndpointIdentity:
 		return []string{}
 	case CloudGraphIdentity:
@@ -2816,6 +2988,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{}
 	case CloudRouteTableIdentity:
 		return []string{}
+	case CloudScheduledNetworkQueryIdentity:
+		return []string{}
 	case CloudSnapshotAccountIdentity:
 		return []string{}
 	case CloudSubnetIdentity:
@@ -2829,6 +3003,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"pcc",
 		}
+	case CNSRQLQueryIdentity:
+		return []string{}
 	case CNSSearchIdentity:
 		return []string{}
 	case CNSSuggestionIdentity:
@@ -2962,6 +3138,11 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{}
 	case IssueServiceTokenIdentity:
 		return []string{}
+	case KubernetesClusterIdentity:
+		return []string{
+			"k8scluster",
+			"k8sclusters",
+		}
 	case LDAPProviderIdentity:
 		return []string{}
 	case LocalCAIdentity:
@@ -2986,6 +3167,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"ns",
 		}
+	case NamespaceInfoIdentity:
+		return []string{}
 	case NamespaceMappingPolicyIdentity:
 		return []string{
 			"nspolicy",
@@ -3125,6 +3308,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"srv",
 		}
+	case ServiceCertificateIdentity:
+		return []string{}
 	case ServiceDependencyPolicyIdentity:
 		return []string{
 			"srvdep",
@@ -3193,6 +3378,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"usrpol",
 			"usrpols",
 		}
+	case ValidateRQLIdentity:
+		return []string{}
 	case ValidateUIParameterIdentity:
 		return []string{
 			"validparam",

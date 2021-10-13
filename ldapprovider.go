@@ -150,7 +150,8 @@ type LDAPProvider struct {
 	// Description of the object.
 	Description string `json:"description" msgpack:"description" bson:"description" mapstructure:"description,omitempty"`
 
-	// A list of keys that must not be imported into a Microsegmentation authorization. If
+	// A list of keys that must not be imported into a Microsegmentation authorization.
+	// If
 	// `includedKeys` is also set, and a key is in both lists, the key will be ignored.
 	IgnoredKeys []string `json:"ignoredKeys" msgpack:"ignoredKeys" bson:"ignoredkeys" mapstructure:"ignoredKeys,omitempty"`
 
@@ -1058,7 +1059,8 @@ given, the default will be used.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "ignoredkeys",
 		ConvertedName:  "IgnoredKeys",
-		Description: `A list of keys that must not be imported into a Microsegmentation authorization. If
+		Description: `A list of keys that must not be imported into a Microsegmentation authorization.
+If
 ` + "`" + `includedKeys` + "`" + ` is also set, and a key is in both lists, the key will be ignored.`,
 		Exposed:   true,
 		Name:      "ignoredKeys",
@@ -1428,7 +1430,8 @@ given, the default will be used.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "ignoredkeys",
 		ConvertedName:  "IgnoredKeys",
-		Description: `A list of keys that must not be imported into a Microsegmentation authorization. If
+		Description: `A list of keys that must not be imported into a Microsegmentation authorization.
+If
 ` + "`" + `includedKeys` + "`" + ` is also set, and a key is in both lists, the key will be ignored.`,
 		Exposed:   true,
 		Name:      "ignoredKeys",
@@ -1719,7 +1722,8 @@ type SparseLDAPProvider struct {
 	// Description of the object.
 	Description *string `json:"description,omitempty" msgpack:"description,omitempty" bson:"description,omitempty" mapstructure:"description,omitempty"`
 
-	// A list of keys that must not be imported into a Microsegmentation authorization. If
+	// A list of keys that must not be imported into a Microsegmentation authorization.
+	// If
 	// `includedKeys` is also set, and a key is in both lists, the key will be ignored.
 	IgnoredKeys *[]string `json:"ignoredKeys,omitempty" msgpack:"ignoredKeys,omitempty" bson:"ignoredkeys,omitempty" mapstructure:"ignoredKeys,omitempty"`
 
