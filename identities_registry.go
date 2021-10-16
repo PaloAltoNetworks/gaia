@@ -748,14 +748,14 @@ var (
 			{"createIdempotencyKey"},
 		},
 		"cloudschedulednetworkquery": {
-			{":shard", ":unique", "zone", "zHash"},
-			{"prismacloudalertruleid"},
-			{"prismacloudalertruleid", "prismacloudpolicyid"},
+			{"namespace", "prismacloudalertruleid"},
 			{"namespace", "name"},
+			{"namespace", "prismacloudalertruleid", "prismacloudpolicyid"},
+			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
 			{"namespace", "normalizedTags"},
 			{"name"},
-			{"lastexecutiontimestamp"},
+			{"disabled", "lastexecutiontimestamp"},
 		},
 		"cloudsnapshotaccount": {
 			{"updateIdempotencyKey"},
