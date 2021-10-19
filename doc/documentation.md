@@ -289,13 +289,16 @@ Data to import.
 
 ##### `mode`
 
-Type: `enum(ReplacePartial | Import | Remove)`
+Type: `enum(Import | ImportRemoveOnFailure | Remove)`
 
-How to import the data: `ReplacePartial`, `Import` (default), or `Remove`.
-`ReplacePartial`
-is deprecated. Use `Import` instead. While you can use `ReplacePartial` it will
-be interpreted
-as `Import`.
+The mode defines how the import reacts:
+- `Import` (default): Creates all objects within the request. Exiting objects
+that do not match their hash are destroyed and recreated. Objects that fail to
+import are dropped.
+- `ImportRemoveOnFailure`: Creates all objects within the request. Removes all
+objects touched if any object fails to import.
+- `Remove`: Removes all objects within the request. Removed objects that fail
+are ignored.
 
 Default value:
 

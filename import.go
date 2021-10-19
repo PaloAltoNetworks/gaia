@@ -15,11 +15,11 @@ const (
 	// ImportModeImport represents the value Import.
 	ImportModeImport ImportModeValue = "Import"
 
+	// ImportModeImportRemoveOnFailure represents the value ImportRemoveOnFailure.
+	ImportModeImportRemoveOnFailure ImportModeValue = "ImportRemoveOnFailure"
+
 	// ImportModeRemove represents the value Remove.
 	ImportModeRemove ImportModeValue = "Remove"
-
-	// ImportModeReplacePartial represents the value ReplacePartial.
-	ImportModeReplacePartial ImportModeValue = "ReplacePartial"
 )
 
 // ImportIdentity represents the Identity of the object.
@@ -97,11 +97,14 @@ type Import struct {
 	// Data to import.
 	Data *Export `json:"data" msgpack:"data" bson:"-" mapstructure:"data,omitempty"`
 
-	// How to import the data: `ReplacePartial`, `Import` (default), or `Remove`.
-	// `ReplacePartial`
-	// is deprecated. Use `Import` instead. While you can use `ReplacePartial` it will
-	// be interpreted
-	// as `Import`.
+	// The mode defines how the import reacts:
+	// - `Import` (default): Creates all objects within the request. Exiting objects
+	// that do not match their hash are destroyed and recreated. Objects that fail to
+	// import are dropped.
+	// - `ImportRemoveOnFailure`: Creates all objects within the request. Removes all
+	// objects touched if any object fails to import.
+	// - `Remove`: Removes all objects within the request. Removed objects that fail
+	// are ignored.
 	Mode ImportModeValue `json:"mode" msgpack:"mode" bson:"-" mapstructure:"mode,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
@@ -269,7 +272,7 @@ func (o *Import) Validate() error {
 		}
 	}
 
-	if err := elemental.ValidateStringInList("mode", string(o.Mode), []string{"ReplacePartial", "Import", "Remove"}, false); err != nil {
+	if err := elemental.ValidateStringInList("mode", string(o.Mode), []string{"Import", "ImportRemoveOnFailure", "Remove"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -329,14 +332,17 @@ var ImportAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "ref",
 	},
 	"Mode": {
-		AllowedChoices: []string{"ReplacePartial", "Import", "Remove"},
+		AllowedChoices: []string{"Import", "ImportRemoveOnFailure", "Remove"},
 		ConvertedName:  "Mode",
 		DefaultValue:   ImportModeImport,
-		Description: `How to import the data: ` + "`" + `ReplacePartial` + "`" + `, ` + "`" + `Import` + "`" + ` (default), or ` + "`" + `Remove` + "`" + `.
-` + "`" + `ReplacePartial` + "`" + `
-is deprecated. Use ` + "`" + `Import` + "`" + ` instead. While you can use ` + "`" + `ReplacePartial` + "`" + ` it will
-be interpreted
-as ` + "`" + `Import` + "`" + `.`,
+		Description: `The mode defines how the import reacts:
+- ` + "`" + `Import` + "`" + ` (default): Creates all objects within the request. Exiting objects
+that do not match their hash are destroyed and recreated. Objects that fail to
+import are dropped.
+- ` + "`" + `ImportRemoveOnFailure` + "`" + `: Creates all objects within the request. Removes all
+objects touched if any object fails to import.
+- ` + "`" + `Remove` + "`" + `: Removes all objects within the request. Removed objects that fail
+are ignored.`,
 		Exposed: true,
 		Name:    "mode",
 		Type:    "enum",
@@ -356,14 +362,17 @@ var ImportLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "ref",
 	},
 	"mode": {
-		AllowedChoices: []string{"ReplacePartial", "Import", "Remove"},
+		AllowedChoices: []string{"Import", "ImportRemoveOnFailure", "Remove"},
 		ConvertedName:  "Mode",
 		DefaultValue:   ImportModeImport,
-		Description: `How to import the data: ` + "`" + `ReplacePartial` + "`" + `, ` + "`" + `Import` + "`" + ` (default), or ` + "`" + `Remove` + "`" + `.
-` + "`" + `ReplacePartial` + "`" + `
-is deprecated. Use ` + "`" + `Import` + "`" + ` instead. While you can use ` + "`" + `ReplacePartial` + "`" + ` it will
-be interpreted
-as ` + "`" + `Import` + "`" + `.`,
+		Description: `The mode defines how the import reacts:
+- ` + "`" + `Import` + "`" + ` (default): Creates all objects within the request. Exiting objects
+that do not match their hash are destroyed and recreated. Objects that fail to
+import are dropped.
+- ` + "`" + `ImportRemoveOnFailure` + "`" + `: Creates all objects within the request. Removes all
+objects touched if any object fails to import.
+- ` + "`" + `Remove` + "`" + `: Removes all objects within the request. Removed objects that fail
+are ignored.`,
 		Exposed: true,
 		Name:    "mode",
 		Type:    "enum",
@@ -436,11 +445,14 @@ type SparseImport struct {
 	// Data to import.
 	Data *Export `json:"data,omitempty" msgpack:"data,omitempty" bson:"-" mapstructure:"data,omitempty"`
 
-	// How to import the data: `ReplacePartial`, `Import` (default), or `Remove`.
-	// `ReplacePartial`
-	// is deprecated. Use `Import` instead. While you can use `ReplacePartial` it will
-	// be interpreted
-	// as `Import`.
+	// The mode defines how the import reacts:
+	// - `Import` (default): Creates all objects within the request. Exiting objects
+	// that do not match their hash are destroyed and recreated. Objects that fail to
+	// import are dropped.
+	// - `ImportRemoveOnFailure`: Creates all objects within the request. Removes all
+	// objects touched if any object fails to import.
+	// - `Remove`: Removes all objects within the request. Removed objects that fail
+	// are ignored.
 	Mode *ImportModeValue `json:"mode,omitempty" msgpack:"mode,omitempty" bson:"-" mapstructure:"mode,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
