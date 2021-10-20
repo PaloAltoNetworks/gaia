@@ -34,6 +34,12 @@ indexes:
   - resourceid
   - prismacloudpolicyid
   - prismacloudalertruleid
+- - namespace
+  - prismacloudalertruleid
+  - accountid
+- - namespace
+  - prismacloudalertruleid
+  - region
 
 # Attributes
 attributes:
