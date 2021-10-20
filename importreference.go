@@ -23,6 +23,17 @@ const (
 	ImportReferenceConstraintUnrestricted ImportReferenceConstraintValue = "Unrestricted"
 )
 
+// ImportReferenceModeValue represents the possible values for attribute "mode".
+type ImportReferenceModeValue string
+
+const (
+	// ImportReferenceModeImport represents the value Import.
+	ImportReferenceModeImport ImportReferenceModeValue = "Import"
+
+	// ImportReferenceModeImportRemoveOnFailure represents the value ImportRemoveOnFailure.
+	ImportReferenceModeImportRemoveOnFailure ImportReferenceModeValue = "ImportRemoveOnFailure"
+)
+
 // ImportReferenceIdentity represents the Identity of the object.
 var ImportReferenceIdentity = elemental.Identity{
 	Name:     "importreference",
@@ -137,6 +148,14 @@ type ImportReference struct {
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
+	// The mode defines how the import reacts:
+	// - `Import` (default): Creates all objects within the request. Exiting objects
+	// that do not match their hash are destroyed and recreated. Objects that fail to
+	// import are dropped.
+	// - `ImportRemoveOnFailure`: Creates all objects within the request. Removes all
+	// objects touched if any object fails to import.
+	Mode ImportReferenceModeValue `json:"mode" msgpack:"mode" bson:"-" mapstructure:"mode,omitempty"`
+
 	// Name of the entity.
 	Name string `json:"name" msgpack:"name" bson:"name" mapstructure:"name,omitempty"`
 
@@ -177,6 +196,7 @@ func NewImportReference() *ImportReference {
 		Data:           NewExport(),
 		Metadata:       []string{},
 		MigrationsLog:  map[string]string{},
+		Mode:           ImportReferenceModeImport,
 		NormalizedTags: []string{},
 	}
 }
@@ -502,6 +522,7 @@ func (o *ImportReference) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			Label:                &o.Label,
 			Metadata:             &o.Metadata,
 			MigrationsLog:        &o.MigrationsLog,
+			Mode:                 &o.Mode,
 			Name:                 &o.Name,
 			Namespace:            &o.Namespace,
 			NormalizedTags:       &o.NormalizedTags,
@@ -540,6 +561,8 @@ func (o *ImportReference) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			sp.Metadata = &(o.Metadata)
 		case "migrationsLog":
 			sp.MigrationsLog = &(o.MigrationsLog)
+		case "mode":
+			sp.Mode = &(o.Mode)
 		case "name":
 			sp.Name = &(o.Name)
 		case "namespace":
@@ -604,6 +627,9 @@ func (o *ImportReference) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.MigrationsLog != nil {
 		o.MigrationsLog = *so.MigrationsLog
+	}
+	if so.Mode != nil {
+		o.Mode = *so.Mode
 	}
 	if so.Name != nil {
 		o.Name = *so.Name
@@ -684,6 +710,10 @@ func (o *ImportReference) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := elemental.ValidateStringInList("mode", string(o.Mode), []string{"Import", "ImportRemoveOnFailure"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if err := elemental.ValidateRequiredString("name", o.Name); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
@@ -750,6 +780,8 @@ func (o *ImportReference) ValueForAttribute(name string) interface{} {
 		return o.Metadata
 	case "migrationsLog":
 		return o.MigrationsLog
+	case "mode":
+		return o.Mode
 	case "name":
 		return o.Name
 	case "namespace":
@@ -933,6 +965,20 @@ with the '@' prefix, and should only be used by external systems.`,
 		Stored:         true,
 		SubType:        "map[string]string",
 		Type:           "external",
+	},
+	"Mode": {
+		AllowedChoices: []string{"Import", "ImportRemoveOnFailure"},
+		ConvertedName:  "Mode",
+		DefaultValue:   ImportReferenceModeImport,
+		Description: `The mode defines how the import reacts:
+- ` + "`" + `Import` + "`" + ` (default): Creates all objects within the request. Exiting objects
+that do not match their hash are destroyed and recreated. Objects that fail to
+import are dropped.
+- ` + "`" + `ImportRemoveOnFailure` + "`" + `: Creates all objects within the request. Removes all
+objects touched if any object fails to import.`,
+		Exposed: true,
+		Name:    "mode",
+		Type:    "enum",
 	},
 	"Name": {
 		AllowedChoices: []string{},
@@ -1216,6 +1262,20 @@ with the '@' prefix, and should only be used by external systems.`,
 		SubType:        "map[string]string",
 		Type:           "external",
 	},
+	"mode": {
+		AllowedChoices: []string{"Import", "ImportRemoveOnFailure"},
+		ConvertedName:  "Mode",
+		DefaultValue:   ImportReferenceModeImport,
+		Description: `The mode defines how the import reacts:
+- ` + "`" + `Import` + "`" + ` (default): Creates all objects within the request. Exiting objects
+that do not match their hash are destroyed and recreated. Objects that fail to
+import are dropped.
+- ` + "`" + `ImportRemoveOnFailure` + "`" + `: Creates all objects within the request. Removes all
+objects touched if any object fails to import.`,
+		Exposed: true,
+		Name:    "mode",
+		Type:    "enum",
+	},
 	"name": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "name",
@@ -1439,6 +1499,14 @@ type SparseImportReference struct {
 
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
+
+	// The mode defines how the import reacts:
+	// - `Import` (default): Creates all objects within the request. Exiting objects
+	// that do not match their hash are destroyed and recreated. Objects that fail to
+	// import are dropped.
+	// - `ImportRemoveOnFailure`: Creates all objects within the request. Removes all
+	// objects touched if any object fails to import.
+	Mode *ImportReferenceModeValue `json:"mode,omitempty" msgpack:"mode,omitempty" bson:"-" mapstructure:"mode,omitempty"`
 
 	// Name of the entity.
 	Name *string `json:"name,omitempty" msgpack:"name,omitempty" bson:"name,omitempty" mapstructure:"name,omitempty"`
@@ -1693,6 +1761,9 @@ func (o *SparseImportReference) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.MigrationsLog != nil {
 		out.MigrationsLog = *o.MigrationsLog
+	}
+	if o.Mode != nil {
+		out.Mode = *o.Mode
 	}
 	if o.Name != nil {
 		out.Name = *o.Name

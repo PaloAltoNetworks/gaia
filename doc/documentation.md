@@ -369,6 +369,7 @@ Allows you to import and keep a reference.
       }
     ]
   },
+  "mode": "Import",
   "name": "the name",
   "protected": false
 }
@@ -479,6 +480,23 @@ Type: `[]string`
 
 Contains tags that can only be set during creation, must all start
 with the '@' prefix, and should only be used by external systems.
+
+##### `mode`
+
+Type: `enum(Import | ImportRemoveOnFailure)`
+
+The mode defines how the import reacts:
+- `Import` (default): Creates all objects within the request. Exiting objects
+that do not match their hash are destroyed and recreated. Objects that fail to
+import are dropped.
+- `ImportRemoveOnFailure`: Creates all objects within the request. Removes all
+objects touched if any object fails to import.
+
+Default value:
+
+```json
+"Import"
+```
 
 ##### `name` [`required`,`max_length=256`]
 
