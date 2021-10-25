@@ -109,7 +109,7 @@ const (
 	L4ProtocolSCCSP             = "SCC-SP"
 	L4ProtocolETHERIP           = "ETHERIP"
 	L4ProtocolENCAP             = "ENCAP"
-	L4ProtocolPrivateEncryption = "PrivateEncryption"
+	L4ProtocolPrivateEncryption = "PRIVATEENCRYPTION"
 	L4ProtocolGMTP              = "GMTP"
 	L4ProtocolIFMP              = "IFMP"
 	L4ProtocolPNNI              = "PNNI"
