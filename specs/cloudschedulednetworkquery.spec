@@ -18,9 +18,12 @@ model:
 
 # Indexes
 indexes:
-- - prismacloudalertruleid
-- - lastexecutiontimestamp
-- - prismacloudalertruleid
+- - namespace
+  - prismacloudalertruleid
+- - disabled
+  - lastexecutiontimestamp
+- - namespace
+  - prismacloudalertruleid
   - prismacloudpolicyid
 
 # Attributes
