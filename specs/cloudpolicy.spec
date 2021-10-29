@@ -46,6 +46,14 @@ attributes:
     exposed: true
     stored: true
 
+  - name: key
+    description: |-
+      Unique key which is a combination of tenant id and policy id to identify the
+      policy.
+    type: string
+    exposed: true
+    stored: true
+
   - name: prismaCloudPolicyID
     description: Reference to the corresponding Prisma Cloud Policy ID.
     type: string
