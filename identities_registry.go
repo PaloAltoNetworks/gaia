@@ -729,12 +729,13 @@ var (
 		"cloudpolicy": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
+			{"namespace", "normalizedTags"},
 			{"namespace", "severity"},
 			{"namespace", "name"},
-			{"namespace"},
 			{"namespace", "prismaCloudPolicyID"},
-			{"namespace", "normalizedTags"},
+			{"namespace"},
 			{"name"},
+			{"key"},
 			{"createIdempotencyKey"},
 		},
 		"cloudroutetable": {

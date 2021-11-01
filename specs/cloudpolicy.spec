@@ -26,6 +26,7 @@ model:
 
 # Indexes
 indexes:
+- - key
 - - namespace
   - prismaCloudPolicyID
 - - namespace
