@@ -58,7 +58,7 @@ lint: spelling
 		--enable=errcheck \
 		--enable=goimports \
 		--enable=ineffassign \
-		--enable=golint \
+		--enable=revive \
 		--enable=unused \
 		--enable=structcheck \
 		--enable=staticcheck \
@@ -68,6 +68,9 @@ lint: spelling
 		--enable=misspell \
 		--enable=prealloc \
 		--enable=nakedret \
+		--enable=typecheck \
+		--enable=unparam \
+		--enable=gosimple \
 		./...
 
 spelling:
