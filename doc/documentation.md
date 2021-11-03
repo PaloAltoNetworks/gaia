@@ -11440,6 +11440,13 @@ Type: `boolean`
 
 Defines whether the Policy is enabled.
 
+##### `key`
+
+Type: `string`
+
+Unique key which is a combination of tenant id and policy id to identify the
+policy.
+
 ##### `name` [`required`,`max_length=256`]
 
 Type: `string`
