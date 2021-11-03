@@ -26,6 +26,7 @@ model:
 
 # Indexes
 indexes:
+- - key
 - - namespace
   - prismaCloudPolicyID
 - - namespace
@@ -43,6 +44,14 @@ attributes:
   - name: enabled
     description: Defines whether the Policy is enabled.
     type: boolean
+    exposed: true
+    stored: true
+
+  - name: key
+    description: |-
+      Unique key which is a combination of tenant id and policy id to identify the
+      policy.
+    type: string
     exposed: true
     stored: true
 

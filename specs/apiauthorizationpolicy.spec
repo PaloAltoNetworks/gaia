@@ -32,7 +32,6 @@ model:
   - '@named'
   - '@hidden'
   - '@fallback'
-  - '@propagated'
   - '@schedulable'
   - '@timeable'
   - '@zoned'
@@ -91,7 +90,8 @@ attributes:
     - $optionalcidrs
 
   - name: expirationTime
-    description: If set, the policy will be automatically deleted after the given time.
+    description: If set, the policy will be automatically deleted after the given
+      time.
     type: time
     exposed: true
     stored: true
