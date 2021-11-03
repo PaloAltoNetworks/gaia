@@ -462,9 +462,9 @@ func ValidateProcessingUnitPolicy(policy *ProcessingUnitPolicy) error {
 
 	if policy.Action == ProcessingUnitPolicyActionDefault && policy.DatapathType == ProcessingUnitPolicyDatapathTypeDefault {
 		if len(policy.IsolationProfileSelector) == 0 {
-			return makeValidationError("datapathType", fmt.Sprintf("Both datapath and action cannot be set to default"))
+			return makeValidationError("datapathType", "Both datapath and action cannot be set to default")
 		}
-		return makeValidationError("action", fmt.Sprintf("Both datapath and action cannot be set to default"))
+		return makeValidationError("action", "Both datapath and action cannot be set to default")
 	}
 
 	return nil
@@ -826,7 +826,7 @@ func ValidateICMPTypeCodeNotation(attribute string, protocol string, typeCode st
 }
 
 // isNumberBetween check if a string is a number within the min and max boundaries.
-func isNumberBetween(attribute string, protocol string, s string, min int, max int) (int, error) {
+func isNumberBetween(attribute string, protocol string, s string, min int, max int) (int, error) { //nolint:unparam
 
 	i, err := strconv.Atoi(s)
 	if err != nil {
@@ -1244,7 +1244,7 @@ func ValidateWriteOperations(attribute string, operations []string) error {
 	}
 
 	if ncreate > 1 || nupdate > 1 || ndelete > 1 {
-		return makeValidationError(attribute, fmt.Sprintf("Must not contain the same operation multiple times"))
+		return makeValidationError(attribute, "Must not contain the same operation multiple times")
 	}
 
 	return nil

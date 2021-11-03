@@ -49,8 +49,7 @@ format-parameter:
 	rego format -m parametermapping < $(target) > $(target).formatted
 	mv $(target).formatted $(target)
 
-lint: spelling
-	# --enable=unparam
+lint:
 	golangci-lint run \
 		--timeout 2m \
 		--disable-all \
