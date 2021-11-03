@@ -26,6 +26,14 @@ attributes:
     validations:
     - $tagsExpression
 
+  - name: includeArchived
+    description: |-
+      if set to true, archived objects will also be included in in the matched
+      objects.
+    type: boolean
+    exposed: true
+    default_value: false
+
   - name: match
     description: Contains the matched objects.
     type: external
