@@ -83,6 +83,9 @@ type ClauseMatch struct {
 	// The tag clause to resolve.
 	Clauses [][]string `json:"clauses" msgpack:"clauses" bson:"clauses" mapstructure:"clauses,omitempty"`
 
+	// if set to true, archived objects will also be included in in the matched objects.
+	IncludeArchived bool `json:"includeArchived" msgpack:"includeArchived" bson:"-" mapstructure:"includeArchived,omitempty"`
+
 	// Contains the matched objects.
 	Match []map[string]interface{} `json:"match" msgpack:"match" bson:"-" mapstructure:"match,omitempty"`
 
@@ -96,9 +99,10 @@ type ClauseMatch struct {
 func NewClauseMatch() *ClauseMatch {
 
 	return &ClauseMatch{
-		ModelVersion: 1,
-		Clauses:      [][]string{},
-		Match:        []map[string]interface{}{},
+		ModelVersion:    1,
+		Clauses:         [][]string{},
+		IncludeArchived: false,
+		Match:           []map[string]interface{}{},
 	}
 }
 
@@ -189,9 +193,10 @@ func (o *ClauseMatch) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseClauseMatch{
-			Clauses:        &o.Clauses,
-			Match:          &o.Match,
-			TargetIdentity: &o.TargetIdentity,
+			Clauses:         &o.Clauses,
+			IncludeArchived: &o.IncludeArchived,
+			Match:           &o.Match,
+			TargetIdentity:  &o.TargetIdentity,
 		}
 	}
 
@@ -200,6 +205,8 @@ func (o *ClauseMatch) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		switch f {
 		case "clauses":
 			sp.Clauses = &(o.Clauses)
+		case "includeArchived":
+			sp.IncludeArchived = &(o.IncludeArchived)
 		case "match":
 			sp.Match = &(o.Match)
 		case "targetIdentity":
@@ -219,6 +226,9 @@ func (o *ClauseMatch) Patch(sparse elemental.SparseIdentifiable) {
 	so := sparse.(*SparseClauseMatch)
 	if so.Clauses != nil {
 		o.Clauses = *so.Clauses
+	}
+	if so.IncludeArchived != nil {
+		o.IncludeArchived = *so.IncludeArchived
 	}
 	if so.Match != nil {
 		o.Match = *so.Match
@@ -310,6 +320,8 @@ func (o *ClauseMatch) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "clauses":
 		return o.Clauses
+	case "includeArchived":
+		return o.IncludeArchived
 	case "match":
 		return o.Match
 	case "targetIdentity":
@@ -332,6 +344,14 @@ var ClauseMatchAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		SubType:        "[][]string",
 		Type:           "external",
+	},
+	"IncludeArchived": {
+		AllowedChoices: []string{},
+		ConvertedName:  "IncludeArchived",
+		Description:    `if set to true, archived objects will also be included in in the matched objects.`,
+		Exposed:        true,
+		Name:           "includeArchived",
+		Type:           "boolean",
 	},
 	"Match": {
 		AllowedChoices: []string{},
@@ -368,6 +388,14 @@ var ClauseMatchLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Stored:         true,
 		SubType:        "[][]string",
 		Type:           "external",
+	},
+	"includearchived": {
+		AllowedChoices: []string{},
+		ConvertedName:  "IncludeArchived",
+		Description:    `if set to true, archived objects will also be included in in the matched objects.`,
+		Exposed:        true,
+		Name:           "includeArchived",
+		Type:           "boolean",
 	},
 	"match": {
 		AllowedChoices: []string{},
@@ -457,6 +485,9 @@ type SparseClauseMatch struct {
 	// The tag clause to resolve.
 	Clauses *[][]string `json:"clauses,omitempty" msgpack:"clauses,omitempty" bson:"clauses,omitempty" mapstructure:"clauses,omitempty"`
 
+	// if set to true, archived objects will also be included in in the matched objects.
+	IncludeArchived *bool `json:"includeArchived,omitempty" msgpack:"includeArchived,omitempty" bson:"-" mapstructure:"includeArchived,omitempty"`
+
 	// Contains the matched objects.
 	Match *[]map[string]interface{} `json:"match,omitempty" msgpack:"match,omitempty" bson:"-" mapstructure:"match,omitempty"`
 
@@ -537,6 +568,9 @@ func (o *SparseClauseMatch) ToPlain() elemental.PlainIdentifiable {
 	out := NewClauseMatch()
 	if o.Clauses != nil {
 		out.Clauses = *o.Clauses
+	}
+	if o.IncludeArchived != nil {
+		out.IncludeArchived = *o.IncludeArchived
 	}
 	if o.Match != nil {
 		out.Match = *o.Match
