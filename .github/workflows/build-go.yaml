@@ -19,8 +19,9 @@ jobs:
       fail-fast: false
       matrix:
         go:
-          - 1.15
+          - 1.17
           - 1.16
+          - 1.15
     steps:
       - uses: actions/checkout@v2
 
