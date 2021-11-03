@@ -10479,6 +10479,7 @@ Provides the parameters for an effective network permissions query.
 {
   "alertOn": "None",
   "effectiveAction": "Allowed",
+  "exactMatch": false,
   "excludeEnterpriseIPs": false,
   "name": "the name",
   "protected": false,
@@ -10595,6 +10596,13 @@ Default value:
 ```json
 "Allowed"
 ```
+
+##### `exactMatch`
+
+Type: `boolean`
+
+Indicates how IP matching is handled. True means exact match, false means subnet
+match.
 
 ##### `excludeEnterpriseIPs`
 

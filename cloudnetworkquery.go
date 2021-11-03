@@ -166,6 +166,10 @@ type CloudNetworkQuery struct {
 	// irrespective of the security rules.
 	EffectiveAction CloudNetworkQueryEffectiveActionValue `json:"effectiveAction" msgpack:"effectiveAction" bson:"effectiveaction" mapstructure:"effectiveAction,omitempty"`
 
+	// Indicates how IP matching is handled. True means exact match, false means subnet
+	// match.
+	ExactMatch bool `json:"exactMatch" msgpack:"exactMatch" bson:"-" mapstructure:"exactMatch,omitempty"`
+
 	// If set, the evaluation will exclude enterprise IPs from the effective
 	// permissions.
 	ExcludeEnterpriseIPs bool `json:"excludeEnterpriseIPs" msgpack:"excludeEnterpriseIPs" bson:"excludeenterpriseips" mapstructure:"excludeEnterpriseIPs,omitempty"`
@@ -231,9 +235,9 @@ func NewCloudNetworkQuery() *CloudNetworkQuery {
 		ExcludedNetworks:    []string{},
 		DestinationSelector: NewCloudNetworkQueryFilter(),
 		EffectiveAction:     CloudNetworkQueryEffectiveActionAllowed,
+		MigrationsLog:       map[string]string{},
 		NormalizedTags:      []string{},
 		ProtocolPorts:       []string{},
-		MigrationsLog:       map[string]string{},
 		SourceSelector:      NewCloudNetworkQueryFilter(),
 		Type:                CloudNetworkQueryTypeSummary,
 	}
@@ -529,6 +533,7 @@ func (o *CloudNetworkQuery) ToSparse(fields ...string) elemental.SparseIdentifia
 			DestinationIP:        &o.DestinationIP,
 			DestinationSelector:  o.DestinationSelector,
 			EffectiveAction:      &o.EffectiveAction,
+			ExactMatch:           &o.ExactMatch,
 			ExcludeEnterpriseIPs: &o.ExcludeEnterpriseIPs,
 			ExcludedNetworks:     &o.ExcludedNetworks,
 			MigrationsLog:        &o.MigrationsLog,
@@ -568,6 +573,8 @@ func (o *CloudNetworkQuery) ToSparse(fields ...string) elemental.SparseIdentifia
 			sp.DestinationSelector = o.DestinationSelector
 		case "effectiveAction":
 			sp.EffectiveAction = &(o.EffectiveAction)
+		case "exactMatch":
+			sp.ExactMatch = &(o.ExactMatch)
 		case "excludeEnterpriseIPs":
 			sp.ExcludeEnterpriseIPs = &(o.ExcludeEnterpriseIPs)
 		case "excludedNetworks":
@@ -637,6 +644,9 @@ func (o *CloudNetworkQuery) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.EffectiveAction != nil {
 		o.EffectiveAction = *so.EffectiveAction
+	}
+	if so.ExactMatch != nil {
+		o.ExactMatch = *so.ExactMatch
 	}
 	if so.ExcludeEnterpriseIPs != nil {
 		o.ExcludeEnterpriseIPs = *so.ExcludeEnterpriseIPs
@@ -830,6 +840,8 @@ func (o *CloudNetworkQuery) ValueForAttribute(name string) interface{} {
 		return o.DestinationSelector
 	case "effectiveAction":
 		return o.EffectiveAction
+	case "exactMatch":
+		return o.ExactMatch
 	case "excludeEnterpriseIPs":
 		return o.ExcludeEnterpriseIPs
 	case "excludedNetworks":
@@ -983,6 +995,15 @@ irrespective of the security rules.`,
 		Name:    "effectiveAction",
 		Stored:  true,
 		Type:    "enum",
+	},
+	"ExactMatch": {
+		AllowedChoices: []string{},
+		ConvertedName:  "ExactMatch",
+		Description: `Indicates how IP matching is handled. True means exact match, false means subnet
+match.`,
+		Exposed: true,
+		Name:    "exactMatch",
+		Type:    "boolean",
 	},
 	"ExcludeEnterpriseIPs": {
 		AllowedChoices: []string{},
@@ -1299,6 +1320,15 @@ irrespective of the security rules.`,
 		Stored:  true,
 		Type:    "enum",
 	},
+	"exactmatch": {
+		AllowedChoices: []string{},
+		ConvertedName:  "ExactMatch",
+		Description: `Indicates how IP matching is handled. True means exact match, false means subnet
+match.`,
+		Exposed: true,
+		Name:    "exactMatch",
+		Type:    "boolean",
+	},
 	"excludeenterpriseips": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "excludeenterpriseips",
@@ -1592,6 +1622,10 @@ type SparseCloudNetworkQuery struct {
 	// returns all destinations that are reachable from the selected sources
 	// irrespective of the security rules.
 	EffectiveAction *CloudNetworkQueryEffectiveActionValue `json:"effectiveAction,omitempty" msgpack:"effectiveAction,omitempty" bson:"effectiveaction,omitempty" mapstructure:"effectiveAction,omitempty"`
+
+	// Indicates how IP matching is handled. True means exact match, false means subnet
+	// match.
+	ExactMatch *bool `json:"exactMatch,omitempty" msgpack:"exactMatch,omitempty" bson:"-" mapstructure:"exactMatch,omitempty"`
 
 	// If set, the evaluation will exclude enterprise IPs from the effective
 	// permissions.
@@ -1887,6 +1921,9 @@ func (o *SparseCloudNetworkQuery) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.EffectiveAction != nil {
 		out.EffectiveAction = *o.EffectiveAction
+	}
+	if o.ExactMatch != nil {
+		out.ExactMatch = *o.ExactMatch
 	}
 	if o.ExcludeEnterpriseIPs != nil {
 		out.ExcludeEnterpriseIPs = *o.ExcludeEnterpriseIPs

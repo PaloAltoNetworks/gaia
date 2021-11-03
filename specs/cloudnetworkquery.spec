@@ -44,7 +44,8 @@ attributes:
     default_value: None
 
   - name: destinationIP
-    description: The destination IP of a trace route request. Might not always be an endpoint.
+    description: The destination IP of a trace route request. Might not always be
+      an endpoint.
     type: string
     exposed: true
     stored: true
@@ -76,6 +77,13 @@ attributes:
     - Denied
     - Reachable
     default_value: Allowed
+
+  - name: exactMatch
+    description: |-
+      Indicates how IP matching is handled. True means exact match, false means subnet
+      match.
+    type: boolean
+    exposed: true
 
   - name: excludeEnterpriseIPs
     description: |-
@@ -149,7 +157,8 @@ attributes:
 relations:
 - rest_name: cloudgraph
   get:
-    description: Initiates a calculation of the query and retrieves the results in CloudGraph.
+    description: Initiates a calculation of the query and retrieves the results in
+      CloudGraph.
 
 - rest_name: cloudpolicy
   get:
