@@ -28,10 +28,23 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
 
+      - name: setup-for-go-115
+        if: ${{ matrix.go == 1.15 }}
+        run: |
+          # stay on an old version of golangci-lint which still builds against 1.15
+          #
+          # see release notes and this file for detail:
+          # https://github.com/golangci/golangci-lint/blob/v1.43.0/.github/workflows/pr.yml#L67-70
+          go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.42.1
+
+      - name: setup-for-new-go
+        if: ${{ matrix.go != 1.15 }}
+        run: |
+          go get github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
       - name: setup
         run: |
           go version
-          go get github.com/golangci/golangci-lint/cmd/golangci-lint@latest
           go get github.com/securego/gosec/cmd/gosec
           #go get golang.org/x/tools/cmd/cover
           go get github.com/axw/gocov/gocov
