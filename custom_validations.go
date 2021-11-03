@@ -826,7 +826,7 @@ func ValidateICMPTypeCodeNotation(attribute string, protocol string, typeCode st
 }
 
 // isNumberBetween check if a string is a number within the min and max boundaries.
-func isNumberBetween(attribute string, protocol string, s string, min int, max int) (int, error) { //nolint:unparam
+func isNumberBetween(attribute string, protocol string, s string, min int, max int) (int, error) { // nolint:unparam
 
 	i, err := strconv.Atoi(s)
 	if err != nil {

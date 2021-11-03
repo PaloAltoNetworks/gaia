@@ -28,7 +28,7 @@ type cidr struct {
 	str string
 }
 
-func checkExcPfxContainedInc(entries []cidranger.RangerEntry, mask net.IPMask, ip net.IPNet) bool { //nolint:unparam
+func checkExcPfxContainedInc(entries []cidranger.RangerEntry, mask net.IPMask, ip net.IPNet) bool { // nolint:unparam
 
 	for _, e := range entries {
 		cidr := e.(*cidr)
