@@ -10478,11 +10478,12 @@ Provides the parameters for an effective network permissions query.
 ```json
 {
   "alertOn": "None",
+  "destinationNetworkScope": "SubnetMatch",
   "effectiveAction": "Allowed",
-  "exactMatch": false,
   "excludeEnterpriseIPs": false,
   "name": "the name",
   "protected": false,
+  "sourceNetworkScope": "SubnetMatch",
   "type": "Summary"
 }
 ```
@@ -10574,6 +10575,20 @@ Type: `string`
 
 The destination IP of a trace route request. Might not always be an endpoint.
 
+##### `destinationNetworkScope`
+
+Type: `enum(ExactMatch | SubnetMatch)`
+
+Indicates how destination IP matching is handled. True means exact match, false
+means subnet
+match.
+
+Default value:
+
+```json
+"SubnetMatch"
+```
+
 ##### `destinationSelector`
 
 Type: [`cloudnetworkqueryfilter`](#cloudnetworkqueryfilter)
@@ -10596,13 +10611,6 @@ Default value:
 ```json
 "Allowed"
 ```
-
-##### `exactMatch`
-
-Type: `boolean`
-
-Indicates how IP matching is handled. True means exact match, false means subnet
-match.
 
 ##### `excludeEnterpriseIPs`
 
@@ -10662,6 +10670,20 @@ The RQL string for this query as a reference.
 Type: `string`
 
 The source IP of a trace route request. Might not be always and endpoint.
+
+##### `sourceNetworkScope`
+
+Type: `enum(ExactMatch | SubnetMatch)`
+
+Indicates how source IP matching is handled. True means exact match, false means
+subnet
+match.
+
+Default value:
+
+```json
+"SubnetMatch"
+```
 
 ##### `sourceSelector`
 

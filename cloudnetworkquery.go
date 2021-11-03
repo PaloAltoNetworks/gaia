@@ -28,6 +28,17 @@ const (
 	CloudNetworkQueryAlertOnSourceVPC CloudNetworkQueryAlertOnValue = "SourceVPC"
 )
 
+// CloudNetworkQueryDestinationNetworkScopeValue represents the possible values for attribute "destinationNetworkScope".
+type CloudNetworkQueryDestinationNetworkScopeValue string
+
+const (
+	// CloudNetworkQueryDestinationNetworkScopeExactMatch represents the value ExactMatch.
+	CloudNetworkQueryDestinationNetworkScopeExactMatch CloudNetworkQueryDestinationNetworkScopeValue = "ExactMatch"
+
+	// CloudNetworkQueryDestinationNetworkScopeSubnetMatch represents the value SubnetMatch.
+	CloudNetworkQueryDestinationNetworkScopeSubnetMatch CloudNetworkQueryDestinationNetworkScopeValue = "SubnetMatch"
+)
+
 // CloudNetworkQueryEffectiveActionValue represents the possible values for attribute "effectiveAction".
 type CloudNetworkQueryEffectiveActionValue string
 
@@ -40,6 +51,17 @@ const (
 
 	// CloudNetworkQueryEffectiveActionReachable represents the value Reachable.
 	CloudNetworkQueryEffectiveActionReachable CloudNetworkQueryEffectiveActionValue = "Reachable"
+)
+
+// CloudNetworkQuerySourceNetworkScopeValue represents the possible values for attribute "sourceNetworkScope".
+type CloudNetworkQuerySourceNetworkScopeValue string
+
+const (
+	// CloudNetworkQuerySourceNetworkScopeExactMatch represents the value ExactMatch.
+	CloudNetworkQuerySourceNetworkScopeExactMatch CloudNetworkQuerySourceNetworkScopeValue = "ExactMatch"
+
+	// CloudNetworkQuerySourceNetworkScopeSubnetMatch represents the value SubnetMatch.
+	CloudNetworkQuerySourceNetworkScopeSubnetMatch CloudNetworkQuerySourceNetworkScopeValue = "SubnetMatch"
 )
 
 // CloudNetworkQueryTypeValue represents the possible values for attribute "type".
@@ -155,6 +177,11 @@ type CloudNetworkQuery struct {
 	// The destination IP of a trace route request. Might not always be an endpoint.
 	DestinationIP string `json:"destinationIP" msgpack:"destinationIP" bson:"destinationip" mapstructure:"destinationIP,omitempty"`
 
+	// Indicates how destination IP matching is handled. True means exact match, false
+	// means subnet
+	// match.
+	DestinationNetworkScope CloudNetworkQueryDestinationNetworkScopeValue `json:"destinationNetworkScope" msgpack:"destinationNetworkScope" bson:"-" mapstructure:"destinationNetworkScope,omitempty"`
+
 	// A filter for selecting destinations for the query.
 	DestinationSelector *CloudNetworkQueryFilter `json:"destinationSelector" msgpack:"destinationSelector" bson:"destinationselector" mapstructure:"destinationSelector,omitempty"`
 
@@ -165,10 +192,6 @@ type CloudNetworkQuery struct {
 	// returns all destinations that are reachable from the selected sources
 	// irrespective of the security rules.
 	EffectiveAction CloudNetworkQueryEffectiveActionValue `json:"effectiveAction" msgpack:"effectiveAction" bson:"effectiveaction" mapstructure:"effectiveAction,omitempty"`
-
-	// Indicates how IP matching is handled. True means exact match, false means subnet
-	// match.
-	ExactMatch bool `json:"exactMatch" msgpack:"exactMatch" bson:"-" mapstructure:"exactMatch,omitempty"`
 
 	// If set, the evaluation will exclude enterprise IPs from the effective
 	// permissions.
@@ -205,6 +228,11 @@ type CloudNetworkQuery struct {
 	// The source IP of a trace route request. Might not be always and endpoint.
 	SourceIP string `json:"sourceIP" msgpack:"sourceIP" bson:"sourceip" mapstructure:"sourceIP,omitempty"`
 
+	// Indicates how source IP matching is handled. True means exact match, false means
+	// subnet
+	// match.
+	SourceNetworkScope CloudNetworkQuerySourceNetworkScopeValue `json:"sourceNetworkScope" msgpack:"sourceNetworkScope" bson:"-" mapstructure:"sourceNetworkScope,omitempty"`
+
 	// A filter for selecting the sources of the request.
 	SourceSelector *CloudNetworkQueryFilter `json:"sourceSelector" msgpack:"sourceSelector" bson:"sourceselector" mapstructure:"sourceSelector,omitempty"`
 
@@ -228,18 +256,20 @@ type CloudNetworkQuery struct {
 func NewCloudNetworkQuery() *CloudNetworkQuery {
 
 	return &CloudNetworkQuery{
-		ModelVersion:        1,
-		AlertOn:             CloudNetworkQueryAlertOnNone,
-		Annotations:         map[string][]string{},
-		AssociatedTags:      []string{},
-		ExcludedNetworks:    []string{},
-		DestinationSelector: NewCloudNetworkQueryFilter(),
-		EffectiveAction:     CloudNetworkQueryEffectiveActionAllowed,
-		MigrationsLog:       map[string]string{},
-		NormalizedTags:      []string{},
-		ProtocolPorts:       []string{},
-		SourceSelector:      NewCloudNetworkQueryFilter(),
-		Type:                CloudNetworkQueryTypeSummary,
+		ModelVersion:            1,
+		AlertOn:                 CloudNetworkQueryAlertOnNone,
+		Annotations:             map[string][]string{},
+		AssociatedTags:          []string{},
+		ExcludedNetworks:        []string{},
+		DestinationNetworkScope: CloudNetworkQueryDestinationNetworkScopeSubnetMatch,
+		DestinationSelector:     NewCloudNetworkQueryFilter(),
+		EffectiveAction:         CloudNetworkQueryEffectiveActionAllowed,
+		MigrationsLog:           map[string]string{},
+		NormalizedTags:          []string{},
+		ProtocolPorts:           []string{},
+		SourceNetworkScope:      CloudNetworkQuerySourceNetworkScopeSubnetMatch,
+		SourceSelector:          NewCloudNetworkQueryFilter(),
+		Type:                    CloudNetworkQueryTypeSummary,
 	}
 }
 
@@ -524,31 +554,32 @@ func (o *CloudNetworkQuery) ToSparse(fields ...string) elemental.SparseIdentifia
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseCloudNetworkQuery{
-			ID:                   &o.ID,
-			AlertOn:              &o.AlertOn,
-			Annotations:          &o.Annotations,
-			AssociatedTags:       &o.AssociatedTags,
-			CreateIdempotencyKey: &o.CreateIdempotencyKey,
-			Description:          &o.Description,
-			DestinationIP:        &o.DestinationIP,
-			DestinationSelector:  o.DestinationSelector,
-			EffectiveAction:      &o.EffectiveAction,
-			ExactMatch:           &o.ExactMatch,
-			ExcludeEnterpriseIPs: &o.ExcludeEnterpriseIPs,
-			ExcludedNetworks:     &o.ExcludedNetworks,
-			MigrationsLog:        &o.MigrationsLog,
-			Name:                 &o.Name,
-			Namespace:            &o.Namespace,
-			NormalizedTags:       &o.NormalizedTags,
-			Protected:            &o.Protected,
-			ProtocolPorts:        &o.ProtocolPorts,
-			RawRQL:               &o.RawRQL,
-			SourceIP:             &o.SourceIP,
-			SourceSelector:       o.SourceSelector,
-			Type:                 &o.Type,
-			UpdateIdempotencyKey: &o.UpdateIdempotencyKey,
-			ZHash:                &o.ZHash,
-			Zone:                 &o.Zone,
+			ID:                      &o.ID,
+			AlertOn:                 &o.AlertOn,
+			Annotations:             &o.Annotations,
+			AssociatedTags:          &o.AssociatedTags,
+			CreateIdempotencyKey:    &o.CreateIdempotencyKey,
+			Description:             &o.Description,
+			DestinationIP:           &o.DestinationIP,
+			DestinationNetworkScope: &o.DestinationNetworkScope,
+			DestinationSelector:     o.DestinationSelector,
+			EffectiveAction:         &o.EffectiveAction,
+			ExcludeEnterpriseIPs:    &o.ExcludeEnterpriseIPs,
+			ExcludedNetworks:        &o.ExcludedNetworks,
+			MigrationsLog:           &o.MigrationsLog,
+			Name:                    &o.Name,
+			Namespace:               &o.Namespace,
+			NormalizedTags:          &o.NormalizedTags,
+			Protected:               &o.Protected,
+			ProtocolPorts:           &o.ProtocolPorts,
+			RawRQL:                  &o.RawRQL,
+			SourceIP:                &o.SourceIP,
+			SourceNetworkScope:      &o.SourceNetworkScope,
+			SourceSelector:          o.SourceSelector,
+			Type:                    &o.Type,
+			UpdateIdempotencyKey:    &o.UpdateIdempotencyKey,
+			ZHash:                   &o.ZHash,
+			Zone:                    &o.Zone,
 		}
 	}
 
@@ -569,12 +600,12 @@ func (o *CloudNetworkQuery) ToSparse(fields ...string) elemental.SparseIdentifia
 			sp.Description = &(o.Description)
 		case "destinationIP":
 			sp.DestinationIP = &(o.DestinationIP)
+		case "destinationNetworkScope":
+			sp.DestinationNetworkScope = &(o.DestinationNetworkScope)
 		case "destinationSelector":
 			sp.DestinationSelector = o.DestinationSelector
 		case "effectiveAction":
 			sp.EffectiveAction = &(o.EffectiveAction)
-		case "exactMatch":
-			sp.ExactMatch = &(o.ExactMatch)
 		case "excludeEnterpriseIPs":
 			sp.ExcludeEnterpriseIPs = &(o.ExcludeEnterpriseIPs)
 		case "excludedNetworks":
@@ -595,6 +626,8 @@ func (o *CloudNetworkQuery) ToSparse(fields ...string) elemental.SparseIdentifia
 			sp.RawRQL = &(o.RawRQL)
 		case "sourceIP":
 			sp.SourceIP = &(o.SourceIP)
+		case "sourceNetworkScope":
+			sp.SourceNetworkScope = &(o.SourceNetworkScope)
 		case "sourceSelector":
 			sp.SourceSelector = o.SourceSelector
 		case "type":
@@ -639,14 +672,14 @@ func (o *CloudNetworkQuery) Patch(sparse elemental.SparseIdentifiable) {
 	if so.DestinationIP != nil {
 		o.DestinationIP = *so.DestinationIP
 	}
+	if so.DestinationNetworkScope != nil {
+		o.DestinationNetworkScope = *so.DestinationNetworkScope
+	}
 	if so.DestinationSelector != nil {
 		o.DestinationSelector = so.DestinationSelector
 	}
 	if so.EffectiveAction != nil {
 		o.EffectiveAction = *so.EffectiveAction
-	}
-	if so.ExactMatch != nil {
-		o.ExactMatch = *so.ExactMatch
 	}
 	if so.ExcludeEnterpriseIPs != nil {
 		o.ExcludeEnterpriseIPs = *so.ExcludeEnterpriseIPs
@@ -677,6 +710,9 @@ func (o *CloudNetworkQuery) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.SourceIP != nil {
 		o.SourceIP = *so.SourceIP
+	}
+	if so.SourceNetworkScope != nil {
+		o.SourceNetworkScope = *so.SourceNetworkScope
 	}
 	if so.SourceSelector != nil {
 		o.SourceSelector = so.SourceSelector
@@ -741,6 +777,10 @@ func (o *CloudNetworkQuery) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := elemental.ValidateStringInList("destinationNetworkScope", string(o.DestinationNetworkScope), []string{"ExactMatch", "SubnetMatch"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if o.DestinationSelector != nil {
 		elemental.ResetDefaultForZeroValues(o.DestinationSelector)
 		if err := o.DestinationSelector.Validate(); err != nil {
@@ -769,6 +809,10 @@ func (o *CloudNetworkQuery) Validate() error {
 	}
 
 	if err := ValidateOptionalCIDRorIP("sourceIP", o.SourceIP); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := elemental.ValidateStringInList("sourceNetworkScope", string(o.SourceNetworkScope), []string{"ExactMatch", "SubnetMatch"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -836,12 +880,12 @@ func (o *CloudNetworkQuery) ValueForAttribute(name string) interface{} {
 		return o.Description
 	case "destinationIP":
 		return o.DestinationIP
+	case "destinationNetworkScope":
+		return o.DestinationNetworkScope
 	case "destinationSelector":
 		return o.DestinationSelector
 	case "effectiveAction":
 		return o.EffectiveAction
-	case "exactMatch":
-		return o.ExactMatch
 	case "excludeEnterpriseIPs":
 		return o.ExcludeEnterpriseIPs
 	case "excludedNetworks":
@@ -862,6 +906,8 @@ func (o *CloudNetworkQuery) ValueForAttribute(name string) interface{} {
 		return o.RawRQL
 	case "sourceIP":
 		return o.SourceIP
+	case "sourceNetworkScope":
+		return o.SourceNetworkScope
 	case "sourceSelector":
 		return o.SourceSelector
 	case "type":
@@ -969,6 +1015,17 @@ alerts can be raised against the grouped resource.`,
 		Stored:         true,
 		Type:           "string",
 	},
+	"DestinationNetworkScope": {
+		AllowedChoices: []string{"ExactMatch", "SubnetMatch"},
+		ConvertedName:  "DestinationNetworkScope",
+		DefaultValue:   CloudNetworkQueryDestinationNetworkScopeSubnetMatch,
+		Description: `Indicates how destination IP matching is handled. True means exact match, false
+means subnet
+match.`,
+		Exposed: true,
+		Name:    "destinationNetworkScope",
+		Type:    "enum",
+	},
 	"DestinationSelector": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "destinationselector",
@@ -995,15 +1052,6 @@ irrespective of the security rules.`,
 		Name:    "effectiveAction",
 		Stored:  true,
 		Type:    "enum",
-	},
-	"ExactMatch": {
-		AllowedChoices: []string{},
-		ConvertedName:  "ExactMatch",
-		Description: `Indicates how IP matching is handled. True means exact match, false means subnet
-match.`,
-		Exposed: true,
-		Name:    "exactMatch",
-		Type:    "boolean",
 	},
 	"ExcludeEnterpriseIPs": {
 		AllowedChoices: []string{},
@@ -1135,6 +1183,17 @@ is not allowed.`,
 		Name:           "sourceIP",
 		Stored:         true,
 		Type:           "string",
+	},
+	"SourceNetworkScope": {
+		AllowedChoices: []string{"ExactMatch", "SubnetMatch"},
+		ConvertedName:  "SourceNetworkScope",
+		DefaultValue:   CloudNetworkQuerySourceNetworkScopeSubnetMatch,
+		Description: `Indicates how source IP matching is handled. True means exact match, false means
+subnet
+match.`,
+		Exposed: true,
+		Name:    "sourceNetworkScope",
+		Type:    "enum",
 	},
 	"SourceSelector": {
 		AllowedChoices: []string{},
@@ -1293,6 +1352,17 @@ alerts can be raised against the grouped resource.`,
 		Stored:         true,
 		Type:           "string",
 	},
+	"destinationnetworkscope": {
+		AllowedChoices: []string{"ExactMatch", "SubnetMatch"},
+		ConvertedName:  "DestinationNetworkScope",
+		DefaultValue:   CloudNetworkQueryDestinationNetworkScopeSubnetMatch,
+		Description: `Indicates how destination IP matching is handled. True means exact match, false
+means subnet
+match.`,
+		Exposed: true,
+		Name:    "destinationNetworkScope",
+		Type:    "enum",
+	},
 	"destinationselector": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "destinationselector",
@@ -1319,15 +1389,6 @@ irrespective of the security rules.`,
 		Name:    "effectiveAction",
 		Stored:  true,
 		Type:    "enum",
-	},
-	"exactmatch": {
-		AllowedChoices: []string{},
-		ConvertedName:  "ExactMatch",
-		Description: `Indicates how IP matching is handled. True means exact match, false means subnet
-match.`,
-		Exposed: true,
-		Name:    "exactMatch",
-		Type:    "boolean",
 	},
 	"excludeenterpriseips": {
 		AllowedChoices: []string{},
@@ -1459,6 +1520,17 @@ is not allowed.`,
 		Name:           "sourceIP",
 		Stored:         true,
 		Type:           "string",
+	},
+	"sourcenetworkscope": {
+		AllowedChoices: []string{"ExactMatch", "SubnetMatch"},
+		ConvertedName:  "SourceNetworkScope",
+		DefaultValue:   CloudNetworkQuerySourceNetworkScopeSubnetMatch,
+		Description: `Indicates how source IP matching is handled. True means exact match, false means
+subnet
+match.`,
+		Exposed: true,
+		Name:    "sourceNetworkScope",
+		Type:    "enum",
 	},
 	"sourceselector": {
 		AllowedChoices: []string{},
@@ -1612,6 +1684,11 @@ type SparseCloudNetworkQuery struct {
 	// The destination IP of a trace route request. Might not always be an endpoint.
 	DestinationIP *string `json:"destinationIP,omitempty" msgpack:"destinationIP,omitempty" bson:"destinationip,omitempty" mapstructure:"destinationIP,omitempty"`
 
+	// Indicates how destination IP matching is handled. True means exact match, false
+	// means subnet
+	// match.
+	DestinationNetworkScope *CloudNetworkQueryDestinationNetworkScopeValue `json:"destinationNetworkScope,omitempty" msgpack:"destinationNetworkScope,omitempty" bson:"-" mapstructure:"destinationNetworkScope,omitempty"`
+
 	// A filter for selecting destinations for the query.
 	DestinationSelector *CloudNetworkQueryFilter `json:"destinationSelector,omitempty" msgpack:"destinationSelector,omitempty" bson:"destinationselector,omitempty" mapstructure:"destinationSelector,omitempty"`
 
@@ -1622,10 +1699,6 @@ type SparseCloudNetworkQuery struct {
 	// returns all destinations that are reachable from the selected sources
 	// irrespective of the security rules.
 	EffectiveAction *CloudNetworkQueryEffectiveActionValue `json:"effectiveAction,omitempty" msgpack:"effectiveAction,omitempty" bson:"effectiveaction,omitempty" mapstructure:"effectiveAction,omitempty"`
-
-	// Indicates how IP matching is handled. True means exact match, false means subnet
-	// match.
-	ExactMatch *bool `json:"exactMatch,omitempty" msgpack:"exactMatch,omitempty" bson:"-" mapstructure:"exactMatch,omitempty"`
 
 	// If set, the evaluation will exclude enterprise IPs from the effective
 	// permissions.
@@ -1661,6 +1734,11 @@ type SparseCloudNetworkQuery struct {
 
 	// The source IP of a trace route request. Might not be always and endpoint.
 	SourceIP *string `json:"sourceIP,omitempty" msgpack:"sourceIP,omitempty" bson:"sourceip,omitempty" mapstructure:"sourceIP,omitempty"`
+
+	// Indicates how source IP matching is handled. True means exact match, false means
+	// subnet
+	// match.
+	SourceNetworkScope *CloudNetworkQuerySourceNetworkScopeValue `json:"sourceNetworkScope,omitempty" msgpack:"sourceNetworkScope,omitempty" bson:"-" mapstructure:"sourceNetworkScope,omitempty"`
 
 	// A filter for selecting the sources of the request.
 	SourceSelector *CloudNetworkQueryFilter `json:"sourceSelector,omitempty" msgpack:"sourceSelector,omitempty" bson:"sourceselector,omitempty" mapstructure:"sourceSelector,omitempty"`
@@ -1916,14 +1994,14 @@ func (o *SparseCloudNetworkQuery) ToPlain() elemental.PlainIdentifiable {
 	if o.DestinationIP != nil {
 		out.DestinationIP = *o.DestinationIP
 	}
+	if o.DestinationNetworkScope != nil {
+		out.DestinationNetworkScope = *o.DestinationNetworkScope
+	}
 	if o.DestinationSelector != nil {
 		out.DestinationSelector = o.DestinationSelector
 	}
 	if o.EffectiveAction != nil {
 		out.EffectiveAction = *o.EffectiveAction
-	}
-	if o.ExactMatch != nil {
-		out.ExactMatch = *o.ExactMatch
 	}
 	if o.ExcludeEnterpriseIPs != nil {
 		out.ExcludeEnterpriseIPs = *o.ExcludeEnterpriseIPs
@@ -1954,6 +2032,9 @@ func (o *SparseCloudNetworkQuery) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.SourceIP != nil {
 		out.SourceIP = *o.SourceIP
+	}
+	if o.SourceNetworkScope != nil {
+		out.SourceNetworkScope = *o.SourceNetworkScope
 	}
 	if o.SourceSelector != nil {
 		out.SourceSelector = o.SourceSelector

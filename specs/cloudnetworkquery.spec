@@ -52,6 +52,18 @@ attributes:
     validations:
     - $optionalcidrorip
 
+  - name: destinationNetworkScope
+    description: |-
+      Indicates how destination IP matching is handled. True means exact match, false
+      means subnet
+      match.
+    type: enum
+    exposed: true
+    allowed_choices:
+    - ExactMatch
+    - SubnetMatch
+    default_value: SubnetMatch
+
   - name: destinationSelector
     description: A filter for selecting destinations for the query.
     type: ref
@@ -77,13 +89,6 @@ attributes:
     - Denied
     - Reachable
     default_value: Allowed
-
-  - name: exactMatch
-    description: |-
-      Indicates how IP matching is handled. True means exact match, false means subnet
-      match.
-    type: boolean
-    exposed: true
 
   - name: excludeEnterpriseIPs
     description: |-
@@ -131,6 +136,18 @@ attributes:
     stored: true
     validations:
     - $optionalcidrorip
+
+  - name: sourceNetworkScope
+    description: |-
+      Indicates how source IP matching is handled. True means exact match, false means
+      subnet
+      match.
+    type: enum
+    exposed: true
+    allowed_choices:
+    - ExactMatch
+    - SubnetMatch
+    default_value: SubnetMatch
 
   - name: sourceSelector
     description: A filter for selecting the sources of the request.
