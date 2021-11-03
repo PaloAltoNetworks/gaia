@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"strings"
 	"testing"
 
 	"go.aporeto.io/elemental"
@@ -3290,7 +3291,7 @@ AiBZg9mafabskWu9ekgZm50rKkPeqF94tY6R7tuZBUdcVQ==
 				"attr",
 				brokenCA,
 			},
-			true, `error 422 (gaia): Validation Error: Unable to parse x509 certificate: asn1: structure error: tags don't match (16 vs {class:0 tag:1 length:62 isCompound:false}) {optional:false explicit:false application:false private:false defaultValue:<nil> tag:<nil> stringType:0 timeType:0 set:false omitEmpty:false} tbsCertificate @2`,
+			true, `error 422 (gaia): Validation Error: Unable to parse x509 certificate:`,
 		},
 		{
 			"valid pem but not CA",
@@ -3317,7 +3318,7 @@ AiBZg9mafabskWu9ekgZm50rKkPeqF94tY6R7tuZBUdcVQ==
 				t.Errorf("ValidateCA() error = %v, wantErr %v", err, tt.wantErr)
 			}
 
-			if err != nil && err.Error() != tt.wantErrString {
+			if err != nil && !strings.HasPrefix(err.Error(), tt.wantErrString) {
 				t.Errorf("ValidateCA() error = '%v', wantErrString = '%v'", err, tt.wantErrString)
 			}
 		})
