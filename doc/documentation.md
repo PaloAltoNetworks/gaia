@@ -19533,6 +19533,8 @@ Represents an edge from the dependency map.
 ```json
 {
   "acceptedFlows": false,
+  "defaultAcceptedFlows": false,
+  "defaultRejectedFlows": false,
   "destinationType": "ProcessingUnit",
   "encrypted": false,
   "observedAcceptedFlows": false,
@@ -19568,6 +19570,18 @@ Mandatory Parameters
 Type: `boolean`
 
 Number of accepted flows in the edge.
+
+##### `defaultAcceptedFlows`
+
+Type: `boolean`
+
+The truth value that indicates if there are accepted default flows.
+
+##### `defaultRejectedFlows`
+
+Type: `boolean`
+
+The truth value that indicates if there are rejected default flows.
 
 ##### `destinationController`
 
