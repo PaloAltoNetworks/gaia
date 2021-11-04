@@ -238,6 +238,10 @@ $uiparameters:
   elemental:
     name: ValidateUIParameters
 
+$validateFormatForAuthorizedIdentities:
+  elemental:
+    name: ValidateFormatForAuthorizedIdentities
+
 $writeoperations:
   elemental:
     name: ValidateWriteOperations

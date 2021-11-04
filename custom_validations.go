@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"crypto/x509"
 	"encoding/pem"
+	"errors"
 	"fmt"
 	"hash/fnv"
 	"net"
@@ -1682,4 +1683,54 @@ func IsAddressPrivate(address string) (bool, error) {
 	}
 
 	return false, nil
+}
+
+func ValidateFormatForAuthorizedIdentities(attribute string, authorizedIdentities []string) error {
+	for _, id := range authorizedIdentities {
+		if err := validateFormatForAuthorizedIdentity(id); err != nil {
+			return makeValidationError(attribute, fmt.Sprintf("%s': malformed authorized identity: %v", id, err))
+		}
+	}
+	return nil
+}
+
+func validateFormatForAuthorizedIdentity(id string) error {
+
+	if strings.HasPrefix(id, "@auth:role=") {
+		return nil
+	}
+
+	split := strings.Split(id, ":")
+	switch {
+	case len(split) > 2:
+		return errors.New("too many colons")
+	case len(split) == 2 && split[1] == "":
+		return errors.New("a colon must be followed by an objectID")
+	}
+	commaSepPart := split[0]
+
+	split = strings.Split(commaSepPart, ",")
+	if len(split) == 0 {
+		return errors.New("no target identity")
+	}
+	if len(split) == 1 {
+		return errors.New("missing allowed operation(s) on target identity")
+	}
+	gaiaIdentity, operations := split[0], split[1:]
+
+	// shall we check aliasesMap ?
+	if _, ok := identityNamesMap[gaiaIdentity]; !ok {
+		return fmt.Errorf("'%s': unknown identity", gaiaIdentity)
+	}
+
+	for _, op := range operations {
+		switch op {
+		case "get", "post", "delete", "put", "patch", "any": // "any" ?
+			continue
+		default:
+			return fmt.Errorf("'%s': unknown operation", op)
+		}
+	}
+
+	return nil
 }

@@ -69,6 +69,8 @@ attributes:
     required: true
     example_value:
     - '@auth:role=namespace.administrator'
+    validations:
+    - $validateFormatForAuthorizedIdentities
 
   - name: authorizedNamespace
     description: Defines the namespace the user is authorized to access.
@@ -90,8 +92,7 @@ attributes:
     - $optionalcidrs
 
   - name: expirationTime
-    description: If set, the policy will be automatically deleted after the given
-      time.
+    description: If set, the policy will be automatically deleted after the given time.
     type: time
     exposed: true
     stored: true
