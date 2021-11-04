@@ -80,6 +80,10 @@ func (o ClauseMatchesList) Version() int {
 
 // ClauseMatch represents the model of a clausesmatch
 type ClauseMatch struct {
+	// if set to true, archived objects will also be included in in the matched
+	// objects.
+	Archived bool `json:"archived" msgpack:"archived" bson:"-" mapstructure:"archived,omitempty"`
+
 	// The tag clause to resolve.
 	Clauses [][]string `json:"clauses" msgpack:"clauses" bson:"clauses" mapstructure:"clauses,omitempty"`
 
@@ -97,6 +101,7 @@ func NewClauseMatch() *ClauseMatch {
 
 	return &ClauseMatch{
 		ModelVersion: 1,
+		Archived:     false,
 		Clauses:      [][]string{},
 		Match:        []map[string]interface{}{},
 	}
@@ -189,6 +194,7 @@ func (o *ClauseMatch) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseClauseMatch{
+			Archived:       &o.Archived,
 			Clauses:        &o.Clauses,
 			Match:          &o.Match,
 			TargetIdentity: &o.TargetIdentity,
@@ -198,6 +204,8 @@ func (o *ClauseMatch) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	sp := &SparseClauseMatch{}
 	for _, f := range fields {
 		switch f {
+		case "archived":
+			sp.Archived = &(o.Archived)
 		case "clauses":
 			sp.Clauses = &(o.Clauses)
 		case "match":
@@ -217,6 +225,9 @@ func (o *ClauseMatch) Patch(sparse elemental.SparseIdentifiable) {
 	}
 
 	so := sparse.(*SparseClauseMatch)
+	if so.Archived != nil {
+		o.Archived = *so.Archived
+	}
 	if so.Clauses != nil {
 		o.Clauses = *so.Clauses
 	}
@@ -308,6 +319,8 @@ func (*ClauseMatch) AttributeSpecifications() map[string]elemental.AttributeSpec
 func (o *ClauseMatch) ValueForAttribute(name string) interface{} {
 
 	switch name {
+	case "archived":
+		return o.Archived
 	case "clauses":
 		return o.Clauses
 	case "match":
@@ -321,6 +334,15 @@ func (o *ClauseMatch) ValueForAttribute(name string) interface{} {
 
 // ClauseMatchAttributesMap represents the map of attribute for ClauseMatch.
 var ClauseMatchAttributesMap = map[string]elemental.AttributeSpecification{
+	"Archived": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Archived",
+		Description: `if set to true, archived objects will also be included in in the matched
+objects.`,
+		Exposed: true,
+		Name:    "archived",
+		Type:    "boolean",
+	},
 	"Clauses": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "clauses",
@@ -357,6 +379,15 @@ var ClauseMatchAttributesMap = map[string]elemental.AttributeSpecification{
 
 // ClauseMatchLowerCaseAttributesMap represents the map of attribute for ClauseMatch.
 var ClauseMatchLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"archived": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Archived",
+		Description: `if set to true, archived objects will also be included in in the matched
+objects.`,
+		Exposed: true,
+		Name:    "archived",
+		Type:    "boolean",
+	},
 	"clauses": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "clauses",
@@ -454,6 +485,10 @@ func (o SparseClauseMatchesList) Version() int {
 
 // SparseClauseMatch represents the sparse version of a clausesmatch.
 type SparseClauseMatch struct {
+	// if set to true, archived objects will also be included in in the matched
+	// objects.
+	Archived *bool `json:"archived,omitempty" msgpack:"archived,omitempty" bson:"-" mapstructure:"archived,omitempty"`
+
 	// The tag clause to resolve.
 	Clauses *[][]string `json:"clauses,omitempty" msgpack:"clauses,omitempty" bson:"clauses,omitempty" mapstructure:"clauses,omitempty"`
 
@@ -535,6 +570,9 @@ func (o *SparseClauseMatch) Version() int {
 func (o *SparseClauseMatch) ToPlain() elemental.PlainIdentifiable {
 
 	out := NewClauseMatch()
+	if o.Archived != nil {
+		out.Archived = *o.Archived
+	}
 	if o.Clauses != nil {
 		out.Clauses = *o.Clauses
 	}

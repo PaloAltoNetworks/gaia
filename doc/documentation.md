@@ -5340,6 +5340,7 @@ clause in a policy resolution.
 
 ```json
 {
+  "archived": false,
   "clauses": [
     [
       "color=blue",
@@ -5360,6 +5361,19 @@ clause in a policy resolution.
 Performs a clause matching.
 
 #### Attributes
+
+##### `archived`
+
+Type: `boolean`
+
+if set to true, archived objects will also be included in in the matched
+objects.
+
+Default value:
+
+```json
+false
+```
 
 ##### `clauses` [`required`]
 
