@@ -13,11 +13,13 @@ codegen:
 	mv custom_validations_test.go custom_validations_test.go.keep
 	mv helpers_test.go helpers_test.go.keep
 	mv networkrulesetpolicy_test.go networkrulesetpolicy_test.go.keep
+	mv typemapping_test.go typemapping_test.go.keep
 	rm -rf ./*.go
 	mv custom_validations.go.keep custom_validations.go
 	mv custom_validations_test.go.keep custom_validations_test.go
 	mv helpers_test.go.keep helpers_test.go
 	mv networkrulesetpolicy_test.go.keep networkrulesetpolicy_test.go
+	mv typemapping_test.go.keep typemapping_test.go
 	mv codegen/elemental/*.go ./
 	rm -rf codegen
 	data=$$(rego doc -d specs || exit 1) && \
