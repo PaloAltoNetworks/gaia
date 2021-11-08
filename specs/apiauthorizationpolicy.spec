@@ -32,7 +32,6 @@ model:
   - '@named'
   - '@hidden'
   - '@fallback'
-  - '@propagated'
   - '@schedulable'
   - '@timeable'
   - '@zoned'

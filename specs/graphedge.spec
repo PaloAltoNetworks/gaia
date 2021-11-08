@@ -69,6 +69,18 @@ attributes:
     type: time
     stored: true
 
+  - name: defaultAcceptedFlows
+    description: The truth value that indicates if there are accepted default flows.
+    type: boolean
+    exposed: true
+    stored: true
+
+  - name: defaultRejectedFlows
+    description: The truth value that indicates if there are rejected default flows.
+    type: boolean
+    exposed: true
+    stored: true
+
   - name: destinationController
     description: Name of the remote destination controller if different than the current one.
     type: string
