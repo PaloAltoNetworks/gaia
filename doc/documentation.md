@@ -10492,12 +10492,12 @@ Provides the parameters for an effective network permissions query.
 ```json
 {
   "alertOn": "None",
-  "destinationNetworkScope": "SubnetMatch",
+  "destinationNetworkScope": "PartialMatch",
   "effectiveAction": "Allowed",
   "excludeEnterpriseIPs": false,
   "name": "the name",
   "protected": false,
-  "sourceNetworkScope": "SubnetMatch",
+  "sourceNetworkScope": "PartialMatch",
   "type": "Summary"
 }
 ```
@@ -10591,7 +10591,7 @@ The destination IP of a trace route request. Might not always be an endpoint.
 
 ##### `destinationNetworkScope`
 
-Type: `enum(ExactMatch | SubnetMatch)`
+Type: `enum(FullMatch | PartialMatch)`
 
 Indicates how destination IP matching is handled. True means exact match, false
 means subnet
@@ -10600,7 +10600,7 @@ match.
 Default value:
 
 ```json
-"SubnetMatch"
+"PartialMatch"
 ```
 
 ##### `destinationSelector`
@@ -10687,7 +10687,7 @@ The source IP of a trace route request. Might not be always and endpoint.
 
 ##### `sourceNetworkScope`
 
-Type: `enum(ExactMatch | SubnetMatch)`
+Type: `enum(FullMatch | PartialMatch)`
 
 Indicates how source IP matching is handled. True means exact match, false means
 subnet
@@ -10696,7 +10696,7 @@ match.
 Default value:
 
 ```json
-"SubnetMatch"
+"PartialMatch"
 ```
 
 ##### `sourceSelector`

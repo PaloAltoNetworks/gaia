@@ -32,11 +32,11 @@ const (
 type CloudNetworkQueryDestinationNetworkScopeValue string
 
 const (
-	// CloudNetworkQueryDestinationNetworkScopeExactMatch represents the value ExactMatch.
-	CloudNetworkQueryDestinationNetworkScopeExactMatch CloudNetworkQueryDestinationNetworkScopeValue = "ExactMatch"
+	// CloudNetworkQueryDestinationNetworkScopeFullMatch represents the value FullMatch.
+	CloudNetworkQueryDestinationNetworkScopeFullMatch CloudNetworkQueryDestinationNetworkScopeValue = "FullMatch"
 
-	// CloudNetworkQueryDestinationNetworkScopeSubnetMatch represents the value SubnetMatch.
-	CloudNetworkQueryDestinationNetworkScopeSubnetMatch CloudNetworkQueryDestinationNetworkScopeValue = "SubnetMatch"
+	// CloudNetworkQueryDestinationNetworkScopePartialMatch represents the value PartialMatch.
+	CloudNetworkQueryDestinationNetworkScopePartialMatch CloudNetworkQueryDestinationNetworkScopeValue = "PartialMatch"
 )
 
 // CloudNetworkQueryEffectiveActionValue represents the possible values for attribute "effectiveAction".
@@ -57,11 +57,11 @@ const (
 type CloudNetworkQuerySourceNetworkScopeValue string
 
 const (
-	// CloudNetworkQuerySourceNetworkScopeExactMatch represents the value ExactMatch.
-	CloudNetworkQuerySourceNetworkScopeExactMatch CloudNetworkQuerySourceNetworkScopeValue = "ExactMatch"
+	// CloudNetworkQuerySourceNetworkScopeFullMatch represents the value FullMatch.
+	CloudNetworkQuerySourceNetworkScopeFullMatch CloudNetworkQuerySourceNetworkScopeValue = "FullMatch"
 
-	// CloudNetworkQuerySourceNetworkScopeSubnetMatch represents the value SubnetMatch.
-	CloudNetworkQuerySourceNetworkScopeSubnetMatch CloudNetworkQuerySourceNetworkScopeValue = "SubnetMatch"
+	// CloudNetworkQuerySourceNetworkScopePartialMatch represents the value PartialMatch.
+	CloudNetworkQuerySourceNetworkScopePartialMatch CloudNetworkQuerySourceNetworkScopeValue = "PartialMatch"
 )
 
 // CloudNetworkQueryTypeValue represents the possible values for attribute "type".
@@ -261,13 +261,13 @@ func NewCloudNetworkQuery() *CloudNetworkQuery {
 		Annotations:             map[string][]string{},
 		AssociatedTags:          []string{},
 		ExcludedNetworks:        []string{},
-		DestinationNetworkScope: CloudNetworkQueryDestinationNetworkScopeSubnetMatch,
+		DestinationNetworkScope: CloudNetworkQueryDestinationNetworkScopePartialMatch,
 		DestinationSelector:     NewCloudNetworkQueryFilter(),
 		EffectiveAction:         CloudNetworkQueryEffectiveActionAllowed,
 		MigrationsLog:           map[string]string{},
 		NormalizedTags:          []string{},
 		ProtocolPorts:           []string{},
-		SourceNetworkScope:      CloudNetworkQuerySourceNetworkScopeSubnetMatch,
+		SourceNetworkScope:      CloudNetworkQuerySourceNetworkScopePartialMatch,
 		SourceSelector:          NewCloudNetworkQueryFilter(),
 		Type:                    CloudNetworkQueryTypeSummary,
 	}
@@ -777,7 +777,7 @@ func (o *CloudNetworkQuery) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("destinationNetworkScope", string(o.DestinationNetworkScope), []string{"ExactMatch", "SubnetMatch"}, false); err != nil {
+	if err := elemental.ValidateStringInList("destinationNetworkScope", string(o.DestinationNetworkScope), []string{"FullMatch", "PartialMatch"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -812,7 +812,7 @@ func (o *CloudNetworkQuery) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("sourceNetworkScope", string(o.SourceNetworkScope), []string{"ExactMatch", "SubnetMatch"}, false); err != nil {
+	if err := elemental.ValidateStringInList("sourceNetworkScope", string(o.SourceNetworkScope), []string{"FullMatch", "PartialMatch"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1016,9 +1016,9 @@ alerts can be raised against the grouped resource.`,
 		Type:           "string",
 	},
 	"DestinationNetworkScope": {
-		AllowedChoices: []string{"ExactMatch", "SubnetMatch"},
+		AllowedChoices: []string{"FullMatch", "PartialMatch"},
 		ConvertedName:  "DestinationNetworkScope",
-		DefaultValue:   CloudNetworkQueryDestinationNetworkScopeSubnetMatch,
+		DefaultValue:   CloudNetworkQueryDestinationNetworkScopePartialMatch,
 		Description: `Indicates how destination IP matching is handled. True means exact match, false
 means subnet
 match.`,
@@ -1185,9 +1185,9 @@ is not allowed.`,
 		Type:           "string",
 	},
 	"SourceNetworkScope": {
-		AllowedChoices: []string{"ExactMatch", "SubnetMatch"},
+		AllowedChoices: []string{"FullMatch", "PartialMatch"},
 		ConvertedName:  "SourceNetworkScope",
-		DefaultValue:   CloudNetworkQuerySourceNetworkScopeSubnetMatch,
+		DefaultValue:   CloudNetworkQuerySourceNetworkScopePartialMatch,
 		Description: `Indicates how source IP matching is handled. True means exact match, false means
 subnet
 match.`,
@@ -1353,9 +1353,9 @@ alerts can be raised against the grouped resource.`,
 		Type:           "string",
 	},
 	"destinationnetworkscope": {
-		AllowedChoices: []string{"ExactMatch", "SubnetMatch"},
+		AllowedChoices: []string{"FullMatch", "PartialMatch"},
 		ConvertedName:  "DestinationNetworkScope",
-		DefaultValue:   CloudNetworkQueryDestinationNetworkScopeSubnetMatch,
+		DefaultValue:   CloudNetworkQueryDestinationNetworkScopePartialMatch,
 		Description: `Indicates how destination IP matching is handled. True means exact match, false
 means subnet
 match.`,
@@ -1522,9 +1522,9 @@ is not allowed.`,
 		Type:           "string",
 	},
 	"sourcenetworkscope": {
-		AllowedChoices: []string{"ExactMatch", "SubnetMatch"},
+		AllowedChoices: []string{"FullMatch", "PartialMatch"},
 		ConvertedName:  "SourceNetworkScope",
-		DefaultValue:   CloudNetworkQuerySourceNetworkScopeSubnetMatch,
+		DefaultValue:   CloudNetworkQuerySourceNetworkScopePartialMatch,
 		Description: `Indicates how source IP matching is handled. True means exact match, false means
 subnet
 match.`,

@@ -60,9 +60,9 @@ attributes:
     type: enum
     exposed: true
     allowed_choices:
-    - ExactMatch
-    - SubnetMatch
-    default_value: SubnetMatch
+    - FullMatch
+    - PartialMatch
+    default_value: PartialMatch
 
   - name: destinationSelector
     description: A filter for selecting destinations for the query.
@@ -145,9 +145,9 @@ attributes:
     type: enum
     exposed: true
     allowed_choices:
-    - ExactMatch
-    - SubnetMatch
-    default_value: SubnetMatch
+    - FullMatch
+    - PartialMatch
+    default_value: PartialMatch
 
   - name: sourceSelector
     description: A filter for selecting the sources of the request.
