@@ -10491,13 +10491,12 @@ Provides the parameters for an effective network permissions query.
 
 ```json
 {
+  "addressMatchCriteria": "PartialMatch",
   "alertOn": "None",
-  "destinationNetworkScope": "PartialMatch",
   "effectiveAction": "Allowed",
   "excludeEnterpriseIPs": false,
   "name": "the name",
   "protected": false,
-  "sourceNetworkScope": "PartialMatch",
   "type": "Summary"
 }
 ```
@@ -10552,6 +10551,14 @@ Type: `string`
 
 Identifier of the object.
 
+##### `addressMatchCriteria`
+
+Type: `enum(FullMatch | PartialMatch)`
+
+If set to FullMatch, a policy match is true only if the given IPs are a subset
+of policy IPs. If set to PartialMatch, a policy match is true if there is an
+overlap between given IPs and policy IPs.
+
 ##### `alertOn`
 
 Type: `enum(SourceVPC | SourceSubnet | DestVPC | DestSubnet | None)`
@@ -10588,20 +10595,6 @@ Description of the object.
 Type: `string`
 
 The destination IP of a trace route request. Might not always be an endpoint.
-
-##### `destinationNetworkScope`
-
-Type: `enum(FullMatch | PartialMatch)`
-
-Indicates how destination IP matching is handled. True means exact match, false
-means subnet
-match.
-
-Default value:
-
-```json
-"PartialMatch"
-```
 
 ##### `destinationSelector`
 
@@ -10684,20 +10677,6 @@ The RQL string for this query as a reference.
 Type: `string`
 
 The source IP of a trace route request. Might not be always and endpoint.
-
-##### `sourceNetworkScope`
-
-Type: `enum(FullMatch | PartialMatch)`
-
-Indicates how source IP matching is handled. True means exact match, false means
-subnet
-match.
-
-Default value:
-
-```json
-"PartialMatch"
-```
 
 ##### `sourceSelector`
 
