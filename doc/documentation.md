@@ -13994,7 +13994,10 @@ profile mapping.
   "metadataExtractor": "Docker",
   "name": "the name",
   "propagate": false,
-  "protected": false
+  "protected": false,
+  "syslogEnable": false,
+  "syslogFormat": "Auto",
+  "syslogPriority": "PRIUSR"
 }
 ```
 
@@ -14169,6 +14172,55 @@ Propagates the policy to all of its children.
 Type: `boolean`
 
 Defines if the object is protected.
+
+##### `syslogEnable`
+
+Type: `boolean`
+
+Enables syslog functionality of enforcers using this enforcerprofile.
+
+##### `syslogEndpoint`
+
+Type: `string`
+
+Contains the remote endpoint to dispatch the syslog messages.
+
+##### `syslogEndpointTLSClientCertificate`
+
+Type: `string`
+
+PEM-encoded certificate to expose to the clients for TLS.
+
+##### `syslogEndpointTLSClientCertificateKey`
+
+Type: `string`
+
+PEM-encoded certificate key associated with
+`syslogEndpointTLSClientCertificate`.
+
+##### `syslogFormat`
+
+Type: `enum(Auto | BSD | IETF)`
+
+Contains the list of supported syslog message format.
+
+Default value:
+
+```json
+"Auto"
+```
+
+##### `syslogPriority`
+
+Type: `enum(PRIUSR | BSD | IETF)`
+
+Contains the list of supported syslog priorities.
+
+Default value:
+
+```json
+"PRIUSR"
+```
 
 ##### `targetNetworks`
 
