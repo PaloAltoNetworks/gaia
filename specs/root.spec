@@ -169,9 +169,13 @@ relations:
   create:
     description: Creates a new Automation.
 
-- rest_name: automationtemplate
+- rest_name: automationaction
   get:
-    description: Retrieves the list of automation templates.
+    description: Retrieves the list of automation actions.
+
+- rest_name: automationcondition
+  get:
+    description: Retrieves the list of automation conditions.
 
 - rest_name: cachedflowreport
   create:

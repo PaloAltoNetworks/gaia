@@ -1,15 +1,15 @@
 # Model
 model:
-  rest_name: automationtemplate
-  resource_name: automationtemplates
-  entity_name: AutomationTemplate
+  rest_name: automationcondition
+  resource_name: automationconditions
+  entity_name: AutomationCondition
   package: sephiroth
   group: integration/automation
-  description: Templates that can be used in automations.
+  description: Condition that can be used in automations.
   aliases:
-  - autotmpl
+  - con
   get:
-    description: Retrieves the template with the given ID.
+    description: Retrieves the automation condition with the given ID.
   extends:
   - '@described'
   - '@named'
@@ -33,18 +33,9 @@ attributes:
     exposed: true
 
   - name: key
-    description: Contains the unique identifier key for the template.
+    description: Contains the unique identifier key for the condition.
     type: string
     exposed: true
-
-  - name: kind
-    description: Represents the kind of template.
-    type: enum
-    exposed: true
-    allowed_choices:
-    - Action
-    - Condition
-    default_value: Condition
 
   - name: parameters
     description: Contains the computed parameters.

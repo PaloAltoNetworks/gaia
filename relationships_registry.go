@@ -625,7 +625,19 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[AutomationTemplateIdentity] = &elemental.Relationship{
+	relationshipsRegistry[AutomationActionIdentity] = &elemental.Relationship{
+		Retrieve: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
+	relationshipsRegistry[AutomationConditionIdentity] = &elemental.Relationship{
 		Retrieve: map[string]*elemental.RelationshipInfo{
 			"root": {},
 		},

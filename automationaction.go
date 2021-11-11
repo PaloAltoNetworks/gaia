@@ -8,54 +8,43 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// AutomationTemplateKindValue represents the possible values for attribute "kind".
-type AutomationTemplateKindValue string
-
-const (
-	// AutomationTemplateKindAction represents the value Action.
-	AutomationTemplateKindAction AutomationTemplateKindValue = "Action"
-
-	// AutomationTemplateKindCondition represents the value Condition.
-	AutomationTemplateKindCondition AutomationTemplateKindValue = "Condition"
-)
-
-// AutomationTemplateIdentity represents the Identity of the object.
-var AutomationTemplateIdentity = elemental.Identity{
-	Name:     "automationtemplate",
-	Category: "automationtemplates",
+// AutomationActionIdentity represents the Identity of the object.
+var AutomationActionIdentity = elemental.Identity{
+	Name:     "automationaction",
+	Category: "automationactions",
 	Package:  "sephiroth",
 	Private:  false,
 }
 
-// AutomationTemplatesList represents a list of AutomationTemplates
-type AutomationTemplatesList []*AutomationTemplate
+// AutomationActionsList represents a list of AutomationActions
+type AutomationActionsList []*AutomationAction
 
 // Identity returns the identity of the objects in the list.
-func (o AutomationTemplatesList) Identity() elemental.Identity {
+func (o AutomationActionsList) Identity() elemental.Identity {
 
-	return AutomationTemplateIdentity
+	return AutomationActionIdentity
 }
 
-// Copy returns a pointer to a copy the AutomationTemplatesList.
-func (o AutomationTemplatesList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the AutomationActionsList.
+func (o AutomationActionsList) Copy() elemental.Identifiables {
 
-	copy := append(AutomationTemplatesList{}, o...)
+	copy := append(AutomationActionsList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the AutomationTemplatesList.
-func (o AutomationTemplatesList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the AutomationActionsList.
+func (o AutomationActionsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(AutomationTemplatesList{}, o...)
+	out := append(AutomationActionsList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*AutomationTemplate))
+		out = append(out, obj.(*AutomationAction))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o AutomationTemplatesList) List() elemental.IdentifiablesList {
+func (o AutomationActionsList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -66,33 +55,33 @@ func (o AutomationTemplatesList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o AutomationTemplatesList) DefaultOrder() []string {
+func (o AutomationActionsList) DefaultOrder() []string {
 
 	return []string{
 		"name",
 	}
 }
 
-// ToSparse returns the AutomationTemplatesList converted to SparseAutomationTemplatesList.
+// ToSparse returns the AutomationActionsList converted to SparseAutomationActionsList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o AutomationTemplatesList) ToSparse(fields ...string) elemental.Identifiables {
+func (o AutomationActionsList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseAutomationTemplatesList, len(o))
+	out := make(SparseAutomationActionsList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseAutomationTemplate)
+		out[i] = o[i].ToSparse(fields...).(*SparseAutomationAction)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o AutomationTemplatesList) Version() int {
+func (o AutomationActionsList) Version() int {
 
 	return 1
 }
 
-// AutomationTemplate represents the model of a automationtemplate
-type AutomationTemplate struct {
+// AutomationAction represents the model of a automationaction
+type AutomationAction struct {
 	// Description of the object.
 	Description string `json:"description" msgpack:"description" bson:"description" mapstructure:"description,omitempty"`
 
@@ -102,11 +91,8 @@ type AutomationTemplate struct {
 	// Function contains the code.
 	Function string `json:"function" msgpack:"function" bson:"-" mapstructure:"function,omitempty"`
 
-	// Contains the unique identifier key for the template.
+	// Contains the unique identifier key for the action.
 	Key string `json:"key" msgpack:"key" bson:"-" mapstructure:"key,omitempty"`
-
-	// Represents the kind of template.
-	Kind AutomationTemplateKindValue `json:"kind" msgpack:"kind" bson:"-" mapstructure:"kind,omitempty"`
 
 	// Name of the entity.
 	Name string `json:"name" msgpack:"name" bson:"name" mapstructure:"name,omitempty"`
@@ -120,44 +106,43 @@ type AutomationTemplate struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewAutomationTemplate returns a new *AutomationTemplate
-func NewAutomationTemplate() *AutomationTemplate {
+// NewAutomationAction returns a new *AutomationAction
+func NewAutomationAction() *AutomationAction {
 
-	return &AutomationTemplate{
+	return &AutomationAction{
 		ModelVersion: 1,
 		Entitlements: map[string][]elemental.Operation{},
-		Kind:         AutomationTemplateKindCondition,
 		Parameters:   map[string]interface{}{},
 		Steps:        []*UIStep{},
 	}
 }
 
 // Identity returns the Identity of the object.
-func (o *AutomationTemplate) Identity() elemental.Identity {
+func (o *AutomationAction) Identity() elemental.Identity {
 
-	return AutomationTemplateIdentity
+	return AutomationActionIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *AutomationTemplate) Identifier() string {
+func (o *AutomationAction) Identifier() string {
 
 	return ""
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *AutomationTemplate) SetIdentifier(id string) {
+func (o *AutomationAction) SetIdentifier(id string) {
 
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *AutomationTemplate) GetBSON() (interface{}, error) {
+func (o *AutomationAction) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesAutomationTemplate{}
+	s := &mongoAttributesAutomationAction{}
 
 	s.Description = o.Description
 	s.Name = o.Name
@@ -167,13 +152,13 @@ func (o *AutomationTemplate) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *AutomationTemplate) SetBSON(raw bson.Raw) error {
+func (o *AutomationAction) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesAutomationTemplate{}
+	s := &mongoAttributesAutomationAction{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -185,19 +170,19 @@ func (o *AutomationTemplate) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *AutomationTemplate) Version() int {
+func (o *AutomationAction) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *AutomationTemplate) BleveType() string {
+func (o *AutomationAction) BleveType() string {
 
-	return "automationtemplate"
+	return "automationaction"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *AutomationTemplate) DefaultOrder() []string {
+func (o *AutomationAction) DefaultOrder() []string {
 
 	return []string{
 		"name",
@@ -205,59 +190,58 @@ func (o *AutomationTemplate) DefaultOrder() []string {
 }
 
 // Doc returns the documentation for the object
-func (o *AutomationTemplate) Doc() string {
+func (o *AutomationAction) Doc() string {
 
-	return `Templates that can be used in automations.`
+	return `Action that can be used in automations.`
 }
 
-func (o *AutomationTemplate) String() string {
+func (o *AutomationAction) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // GetDescription returns the Description of the receiver.
-func (o *AutomationTemplate) GetDescription() string {
+func (o *AutomationAction) GetDescription() string {
 
 	return o.Description
 }
 
 // SetDescription sets the property Description of the receiver using the given value.
-func (o *AutomationTemplate) SetDescription(description string) {
+func (o *AutomationAction) SetDescription(description string) {
 
 	o.Description = description
 }
 
 // GetName returns the Name of the receiver.
-func (o *AutomationTemplate) GetName() string {
+func (o *AutomationAction) GetName() string {
 
 	return o.Name
 }
 
 // SetName sets the property Name of the receiver using the given value.
-func (o *AutomationTemplate) SetName(name string) {
+func (o *AutomationAction) SetName(name string) {
 
 	o.Name = name
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *AutomationTemplate) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *AutomationAction) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseAutomationTemplate{
+		return &SparseAutomationAction{
 			Description:  &o.Description,
 			Entitlements: &o.Entitlements,
 			Function:     &o.Function,
 			Key:          &o.Key,
-			Kind:         &o.Kind,
 			Name:         &o.Name,
 			Parameters:   &o.Parameters,
 			Steps:        &o.Steps,
 		}
 	}
 
-	sp := &SparseAutomationTemplate{}
+	sp := &SparseAutomationAction{}
 	for _, f := range fields {
 		switch f {
 		case "description":
@@ -268,8 +252,6 @@ func (o *AutomationTemplate) ToSparse(fields ...string) elemental.SparseIdentifi
 			sp.Function = &(o.Function)
 		case "key":
 			sp.Key = &(o.Key)
-		case "kind":
-			sp.Kind = &(o.Kind)
 		case "name":
 			sp.Name = &(o.Name)
 		case "parameters":
@@ -282,13 +264,13 @@ func (o *AutomationTemplate) ToSparse(fields ...string) elemental.SparseIdentifi
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseAutomationTemplate to the object.
-func (o *AutomationTemplate) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseAutomationAction to the object.
+func (o *AutomationAction) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseAutomationTemplate)
+	so := sparse.(*SparseAutomationAction)
 	if so.Description != nil {
 		o.Description = *so.Description
 	}
@@ -301,9 +283,6 @@ func (o *AutomationTemplate) Patch(sparse elemental.SparseIdentifiable) {
 	if so.Key != nil {
 		o.Key = *so.Key
 	}
-	if so.Kind != nil {
-		o.Kind = *so.Kind
-	}
 	if so.Name != nil {
 		o.Name = *so.Name
 	}
@@ -315,41 +294,37 @@ func (o *AutomationTemplate) Patch(sparse elemental.SparseIdentifiable) {
 	}
 }
 
-// DeepCopy returns a deep copy if the AutomationTemplate.
-func (o *AutomationTemplate) DeepCopy() *AutomationTemplate {
+// DeepCopy returns a deep copy if the AutomationAction.
+func (o *AutomationAction) DeepCopy() *AutomationAction {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &AutomationTemplate{}
+	out := &AutomationAction{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *AutomationTemplate.
-func (o *AutomationTemplate) DeepCopyInto(out *AutomationTemplate) {
+// DeepCopyInto copies the receiver into the given *AutomationAction.
+func (o *AutomationAction) DeepCopyInto(out *AutomationAction) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy AutomationTemplate: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy AutomationAction: %s", err))
 	}
 
-	*out = *target.(*AutomationTemplate)
+	*out = *target.(*AutomationAction)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *AutomationTemplate) Validate() error {
+func (o *AutomationAction) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
 	if err := elemental.ValidateMaximumLength("description", o.Description, 1024, false); err != nil {
-		errors = errors.Append(err)
-	}
-
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Action", "Condition"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -383,26 +358,26 @@ func (o *AutomationTemplate) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*AutomationTemplate) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*AutomationAction) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := AutomationTemplateAttributesMap[name]; ok {
+	if v, ok := AutomationActionAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return AutomationTemplateLowerCaseAttributesMap[name]
+	return AutomationActionLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*AutomationTemplate) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*AutomationAction) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return AutomationTemplateAttributesMap
+	return AutomationActionAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *AutomationTemplate) ValueForAttribute(name string) interface{} {
+func (o *AutomationAction) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "description":
@@ -413,8 +388,6 @@ func (o *AutomationTemplate) ValueForAttribute(name string) interface{} {
 		return o.Function
 	case "key":
 		return o.Key
-	case "kind":
-		return o.Kind
 	case "name":
 		return o.Name
 	case "parameters":
@@ -426,8 +399,8 @@ func (o *AutomationTemplate) ValueForAttribute(name string) interface{} {
 	return nil
 }
 
-// AutomationTemplateAttributesMap represents the map of attribute for AutomationTemplate.
-var AutomationTemplateAttributesMap = map[string]elemental.AttributeSpecification{
+// AutomationActionAttributesMap represents the map of attribute for AutomationAction.
+var AutomationActionAttributesMap = map[string]elemental.AttributeSpecification{
 	"Description": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "description",
@@ -462,19 +435,10 @@ var AutomationTemplateAttributesMap = map[string]elemental.AttributeSpecificatio
 	"Key": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Key",
-		Description:    `Contains the unique identifier key for the template.`,
+		Description:    `Contains the unique identifier key for the action.`,
 		Exposed:        true,
 		Name:           "key",
 		Type:           "string",
-	},
-	"Kind": {
-		AllowedChoices: []string{"Action", "Condition"},
-		ConvertedName:  "Kind",
-		DefaultValue:   AutomationTemplateKindCondition,
-		Description:    `Represents the kind of template.`,
-		Exposed:        true,
-		Name:           "kind",
-		Type:           "enum",
 	},
 	"Name": {
 		AllowedChoices: []string{},
@@ -512,8 +476,8 @@ var AutomationTemplateAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 }
 
-// AutomationTemplateLowerCaseAttributesMap represents the map of attribute for AutomationTemplate.
-var AutomationTemplateLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// AutomationActionLowerCaseAttributesMap represents the map of attribute for AutomationAction.
+var AutomationActionLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"description": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "description",
@@ -548,19 +512,10 @@ var AutomationTemplateLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 	"key": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Key",
-		Description:    `Contains the unique identifier key for the template.`,
+		Description:    `Contains the unique identifier key for the action.`,
 		Exposed:        true,
 		Name:           "key",
 		Type:           "string",
-	},
-	"kind": {
-		AllowedChoices: []string{"Action", "Condition"},
-		ConvertedName:  "Kind",
-		DefaultValue:   AutomationTemplateKindCondition,
-		Description:    `Represents the kind of template.`,
-		Exposed:        true,
-		Name:           "kind",
-		Type:           "enum",
 	},
 	"name": {
 		AllowedChoices: []string{},
@@ -598,35 +553,35 @@ var AutomationTemplateLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 	},
 }
 
-// SparseAutomationTemplatesList represents a list of SparseAutomationTemplates
-type SparseAutomationTemplatesList []*SparseAutomationTemplate
+// SparseAutomationActionsList represents a list of SparseAutomationActions
+type SparseAutomationActionsList []*SparseAutomationAction
 
 // Identity returns the identity of the objects in the list.
-func (o SparseAutomationTemplatesList) Identity() elemental.Identity {
+func (o SparseAutomationActionsList) Identity() elemental.Identity {
 
-	return AutomationTemplateIdentity
+	return AutomationActionIdentity
 }
 
-// Copy returns a pointer to a copy the SparseAutomationTemplatesList.
-func (o SparseAutomationTemplatesList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseAutomationActionsList.
+func (o SparseAutomationActionsList) Copy() elemental.Identifiables {
 
-	copy := append(SparseAutomationTemplatesList{}, o...)
+	copy := append(SparseAutomationActionsList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseAutomationTemplatesList.
-func (o SparseAutomationTemplatesList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseAutomationActionsList.
+func (o SparseAutomationActionsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseAutomationTemplatesList{}, o...)
+	out := append(SparseAutomationActionsList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseAutomationTemplate))
+		out = append(out, obj.(*SparseAutomationAction))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseAutomationTemplatesList) List() elemental.IdentifiablesList {
+func (o SparseAutomationActionsList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -637,15 +592,15 @@ func (o SparseAutomationTemplatesList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseAutomationTemplatesList) DefaultOrder() []string {
+func (o SparseAutomationActionsList) DefaultOrder() []string {
 
 	return []string{
 		"name",
 	}
 }
 
-// ToPlain returns the SparseAutomationTemplatesList converted to AutomationTemplatesList.
-func (o SparseAutomationTemplatesList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseAutomationActionsList converted to AutomationActionsList.
+func (o SparseAutomationActionsList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -656,13 +611,13 @@ func (o SparseAutomationTemplatesList) ToPlain() elemental.IdentifiablesList {
 }
 
 // Version returns the version of the content.
-func (o SparseAutomationTemplatesList) Version() int {
+func (o SparseAutomationActionsList) Version() int {
 
 	return 1
 }
 
-// SparseAutomationTemplate represents the sparse version of a automationtemplate.
-type SparseAutomationTemplate struct {
+// SparseAutomationAction represents the sparse version of a automationaction.
+type SparseAutomationAction struct {
 	// Description of the object.
 	Description *string `json:"description,omitempty" msgpack:"description,omitempty" bson:"description,omitempty" mapstructure:"description,omitempty"`
 
@@ -672,11 +627,8 @@ type SparseAutomationTemplate struct {
 	// Function contains the code.
 	Function *string `json:"function,omitempty" msgpack:"function,omitempty" bson:"-" mapstructure:"function,omitempty"`
 
-	// Contains the unique identifier key for the template.
+	// Contains the unique identifier key for the action.
 	Key *string `json:"key,omitempty" msgpack:"key,omitempty" bson:"-" mapstructure:"key,omitempty"`
-
-	// Represents the kind of template.
-	Kind *AutomationTemplateKindValue `json:"kind,omitempty" msgpack:"kind,omitempty" bson:"-" mapstructure:"kind,omitempty"`
 
 	// Name of the entity.
 	Name *string `json:"name,omitempty" msgpack:"name,omitempty" bson:"name,omitempty" mapstructure:"name,omitempty"`
@@ -690,37 +642,37 @@ type SparseAutomationTemplate struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseAutomationTemplate returns a new  SparseAutomationTemplate.
-func NewSparseAutomationTemplate() *SparseAutomationTemplate {
-	return &SparseAutomationTemplate{}
+// NewSparseAutomationAction returns a new  SparseAutomationAction.
+func NewSparseAutomationAction() *SparseAutomationAction {
+	return &SparseAutomationAction{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseAutomationTemplate) Identity() elemental.Identity {
+func (o *SparseAutomationAction) Identity() elemental.Identity {
 
-	return AutomationTemplateIdentity
+	return AutomationActionIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseAutomationTemplate) Identifier() string {
+func (o *SparseAutomationAction) Identifier() string {
 
 	return ""
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseAutomationTemplate) SetIdentifier(id string) {
+func (o *SparseAutomationAction) SetIdentifier(id string) {
 
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAutomationTemplate) GetBSON() (interface{}, error) {
+func (o *SparseAutomationAction) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseAutomationTemplate{}
+	s := &mongoAttributesSparseAutomationAction{}
 
 	if o.Description != nil {
 		s.Description = o.Description
@@ -734,13 +686,13 @@ func (o *SparseAutomationTemplate) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAutomationTemplate) SetBSON(raw bson.Raw) error {
+func (o *SparseAutomationAction) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseAutomationTemplate{}
+	s := &mongoAttributesSparseAutomationAction{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -756,15 +708,15 @@ func (o *SparseAutomationTemplate) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseAutomationTemplate) Version() int {
+func (o *SparseAutomationAction) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseAutomationTemplate) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseAutomationAction) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewAutomationTemplate()
+	out := NewAutomationAction()
 	if o.Description != nil {
 		out.Description = *o.Description
 	}
@@ -776,9 +728,6 @@ func (o *SparseAutomationTemplate) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Key != nil {
 		out.Key = *o.Key
-	}
-	if o.Kind != nil {
-		out.Kind = *o.Kind
 	}
 	if o.Name != nil {
 		out.Name = *o.Name
@@ -794,7 +743,7 @@ func (o *SparseAutomationTemplate) ToPlain() elemental.PlainIdentifiable {
 }
 
 // GetDescription returns the Description of the receiver.
-func (o *SparseAutomationTemplate) GetDescription() (out string) {
+func (o *SparseAutomationAction) GetDescription() (out string) {
 
 	if o.Description == nil {
 		return
@@ -804,13 +753,13 @@ func (o *SparseAutomationTemplate) GetDescription() (out string) {
 }
 
 // SetDescription sets the property Description of the receiver using the address of the given value.
-func (o *SparseAutomationTemplate) SetDescription(description string) {
+func (o *SparseAutomationAction) SetDescription(description string) {
 
 	o.Description = &description
 }
 
 // GetName returns the Name of the receiver.
-func (o *SparseAutomationTemplate) GetName() (out string) {
+func (o *SparseAutomationAction) GetName() (out string) {
 
 	if o.Name == nil {
 		return
@@ -820,40 +769,40 @@ func (o *SparseAutomationTemplate) GetName() (out string) {
 }
 
 // SetName sets the property Name of the receiver using the address of the given value.
-func (o *SparseAutomationTemplate) SetName(name string) {
+func (o *SparseAutomationAction) SetName(name string) {
 
 	o.Name = &name
 }
 
-// DeepCopy returns a deep copy if the SparseAutomationTemplate.
-func (o *SparseAutomationTemplate) DeepCopy() *SparseAutomationTemplate {
+// DeepCopy returns a deep copy if the SparseAutomationAction.
+func (o *SparseAutomationAction) DeepCopy() *SparseAutomationAction {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseAutomationTemplate{}
+	out := &SparseAutomationAction{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseAutomationTemplate.
-func (o *SparseAutomationTemplate) DeepCopyInto(out *SparseAutomationTemplate) {
+// DeepCopyInto copies the receiver into the given *SparseAutomationAction.
+func (o *SparseAutomationAction) DeepCopyInto(out *SparseAutomationAction) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseAutomationTemplate: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseAutomationAction: %s", err))
 	}
 
-	*out = *target.(*SparseAutomationTemplate)
+	*out = *target.(*SparseAutomationAction)
 }
 
-type mongoAttributesAutomationTemplate struct {
+type mongoAttributesAutomationAction struct {
 	Description string `bson:"description"`
 	Name        string `bson:"name"`
 }
-type mongoAttributesSparseAutomationTemplate struct {
+type mongoAttributesSparseAutomationAction struct {
 	Description *string `bson:"description,omitempty"`
 	Name        *string `bson:"name,omitempty"`
 }

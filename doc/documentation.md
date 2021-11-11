@@ -8731,28 +8731,27 @@ Type: `time`
 
 Last update date of the object.
 
-### AutomationTemplate
+### AutomationAction
 
-Templates that can be used in automations.
+Action that can be used in automations.
 
 #### Example
 
 ```json
 {
-  "kind": "Condition",
   "name": "the name"
 }
 ```
 
 #### Relations
 
-##### `GET /automationtemplates`
+##### `GET /automationactions`
 
-Retrieves the list of automation templates.
+Retrieves the list of automation actions.
 
-##### `GET /automationtemplates/:id`
+##### `GET /automationactions/:id`
 
-Retrieves the template with the given ID.
+Retrieves the automation action with the given ID.
 
 #### Attributes
 
@@ -8778,19 +8777,73 @@ Function contains the code.
 
 Type: `string`
 
-Contains the unique identifier key for the template.
+Contains the unique identifier key for the action.
 
-##### `kind`
+##### `name` [`required`,`max_length=256`]
 
-Type: `enum(Action | Condition)`
+Type: `string`
 
-Represents the kind of template.
+Name of the entity.
 
-Default value:
+##### `parameters`
+
+Type: `map[string]interface{}`
+
+Contains the computed parameters.
+
+##### `steps`
+
+Type: [`[]uistep`](#uistep)
+
+Contains all the steps with parameters.
+
+### AutomationCondition
+
+Condition that can be used in automations.
+
+#### Example
 
 ```json
-"Condition"
+{
+  "name": "the name"
+}
 ```
+
+#### Relations
+
+##### `GET /automationconditions`
+
+Retrieves the list of automation conditions.
+
+##### `GET /automationconditions/:id`
+
+Retrieves the automation condition with the given ID.
+
+#### Attributes
+
+##### `description` [`max_length=1024`]
+
+Type: `string`
+
+Description of the object.
+
+##### `entitlements`
+
+Type: `_automation_entitlements`
+
+Contains the entitlements needed for executing the function.
+
+##### `function`
+
+Type: `string`
+
+Function contains the code.
+
+##### `key`
+
+Type: `string`
+
+Contains the unique identifier key for the condition.
 
 ##### `name` [`required`,`max_length=256`]
 
