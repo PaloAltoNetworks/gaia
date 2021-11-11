@@ -172,10 +172,20 @@ relations:
 - rest_name: automationaction
   get:
     description: Retrieves the list of automation actions.
+    global_parameters:
+    - $filtering
+    - $propagatable
+  create:
+    description: Creates a new automation action.
 
 - rest_name: automationcondition
   get:
     description: Retrieves the list of automation conditions.
+    global_parameters:
+    - $filtering
+    - $propagatable
+  create:
+    description: Creates a new automation condition.
 
 - rest_name: cachedflowreport
   create:

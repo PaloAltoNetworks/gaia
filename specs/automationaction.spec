@@ -7,16 +7,28 @@ model:
   group: integration/automation
   description: Action that can be used in automations.
   aliases:
-  - act
+  - autoact
   get:
     description: Retrieves the automation action with the given ID.
+    global_parameters:
+    - $propagatable
+  update:
+    description: Updates the automation action with the given ID.
+  delete:
+    description: Deletes the automation action with the given ID.
+    global_parameters:
+    - $filtering
   extends:
+  - '@zoned'
+  - '@migratable'
+  - '@base'
+  - '@namespaced'
   - '@described'
+  - '@identifiable-stored'
   - '@named'
-
-# Indexes
-indexes:
-- - :no-inherit
+  - '@metadatable'
+  - '@propagated'
+  - '@timeable'
 
 # Attributes
 attributes:

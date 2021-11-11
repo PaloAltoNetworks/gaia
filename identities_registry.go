@@ -407,8 +407,8 @@ var (
 		"ca":              AuthorityIdentity,
 		"autos":           AutomationIdentity,
 		"auto":            AutomationIdentity,
-		"act":             AutomationActionIdentity,
-		"con":             AutomationConditionIdentity,
+		"autoact":         AutomationActionIdentity,
+		"autocon":         AutomationConditionIdentity,
 		"crules":          CloudNetworkRuleSetIdentity,
 		"vpc":             CloudVPCIdentity,
 		"vpcs":            CloudVPCIdentity,
@@ -607,8 +607,26 @@ var (
 			{"disabled"},
 			{"createIdempotencyKey"},
 		},
-		"automationaction":    nil,
-		"automationcondition": nil,
+		"automationaction": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"propagate"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"name"},
+			{"createIdempotencyKey"},
+		},
+		"automationcondition": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"propagate"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"name"},
+			{"createIdempotencyKey"},
+		},
 		"cachedflowreport": {
 			{"sourceID"},
 			{"namespace", "timestamp"},
@@ -2963,11 +2981,11 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		}
 	case AutomationActionIdentity:
 		return []string{
-			"act",
+			"autoact",
 		}
 	case AutomationConditionIdentity:
 		return []string{
-			"con",
+			"autocon",
 		}
 	case CachedFlowReportIdentity:
 		return []string{}

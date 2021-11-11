@@ -7,16 +7,28 @@ model:
   group: integration/automation
   description: Condition that can be used in automations.
   aliases:
-  - con
+  - autocon
   get:
     description: Retrieves the automation condition with the given ID.
+    global_parameters:
+    - $propagatable
+  update:
+    description: Updates the automation condition with the given ID.
+  delete:
+    description: Deletes the automation condition with the given ID.
+    global_parameters:
+    - $filtering
   extends:
+  - '@zoned'
+  - '@migratable'
+  - '@base'
+  - '@namespaced'
   - '@described'
+  - '@identifiable-stored'
   - '@named'
-
-# Indexes
-indexes:
-- - :no-inherit
+  - '@metadatable'
+  - '@propagated'
+  - '@timeable'
 
 # Attributes
 attributes:
