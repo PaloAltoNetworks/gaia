@@ -51,20 +51,6 @@ const (
 	EnforcerProfileSyslogFormatIETF EnforcerProfileSyslogFormatValue = "IETF"
 )
 
-// EnforcerProfileSyslogPriorityValue represents the possible values for attribute "syslogPriority".
-type EnforcerProfileSyslogPriorityValue string
-
-const (
-	// EnforcerProfileSyslogPriorityBSD represents the value BSD.
-	EnforcerProfileSyslogPriorityBSD EnforcerProfileSyslogPriorityValue = "BSD"
-
-	// EnforcerProfileSyslogPriorityIETF represents the value IETF.
-	EnforcerProfileSyslogPriorityIETF EnforcerProfileSyslogPriorityValue = "IETF"
-
-	// EnforcerProfileSyslogPriorityPRIUSR represents the value PRIUSR.
-	EnforcerProfileSyslogPriorityPRIUSR EnforcerProfileSyslogPriorityValue = "PRIUSR"
-)
-
 // EnforcerProfileIdentity represents the Identity of the object.
 var EnforcerProfileIdentity = elemental.Identity{
 	Name:     "enforcerprofile",
@@ -216,11 +202,11 @@ type EnforcerProfile struct {
 	// `syslogEndpointTLSClientCertificate`.
 	SyslogEndpointTLSClientCertificateKey string `json:"syslogEndpointTLSClientCertificateKey" msgpack:"syslogEndpointTLSClientCertificateKey" bson:"syslogendpointtlsclientcertificatekey" mapstructure:"syslogEndpointTLSClientCertificateKey,omitempty"`
 
+	// Contains the list of supported syslog facilities.
+	SyslogFacility int `json:"syslogFacility" msgpack:"syslogFacility" bson:"syslogfacility" mapstructure:"syslogFacility,omitempty"`
+
 	// Contains the list of supported syslog message format.
 	SyslogFormat EnforcerProfileSyslogFormatValue `json:"syslogFormat" msgpack:"syslogFormat" bson:"syslogformat" mapstructure:"syslogFormat,omitempty"`
-
-	// Contains the list of supported syslog priorities.
-	SyslogPriority EnforcerProfileSyslogPriorityValue `json:"syslogPriority" msgpack:"syslogPriority" bson:"syslogpriority" mapstructure:"syslogPriority,omitempty"`
 
 	// If empty, the enforcer auto-discovers the TCP networks. Auto-discovery
 	// works best in Kubernetes and OpenShift deployments. You may need to manually
@@ -265,8 +251,8 @@ func NewEnforcerProfile() *EnforcerProfile {
 		NormalizedTags:              []string{},
 		IgnoreExpression:            [][]string{},
 		MetadataExtractor:           EnforcerProfileMetadataExtractorDocker,
+		SyslogFacility:              1,
 		SyslogFormat:                EnforcerProfileSyslogFormatAuto,
-		SyslogPriority:              EnforcerProfileSyslogPriorityPRIUSR,
 		TargetNetworks:              []string{},
 		TrustedCAs:                  []string{},
 		TargetUDPNetworks:           []string{},
@@ -329,8 +315,8 @@ func (o *EnforcerProfile) GetBSON() (interface{}, error) {
 	s.SyslogEndpoint = o.SyslogEndpoint
 	s.SyslogEndpointTLSClientCertificate = o.SyslogEndpointTLSClientCertificate
 	s.SyslogEndpointTLSClientCertificateKey = o.SyslogEndpointTLSClientCertificateKey
+	s.SyslogFacility = o.SyslogFacility
 	s.SyslogFormat = o.SyslogFormat
-	s.SyslogPriority = o.SyslogPriority
 	s.TargetNetworks = o.TargetNetworks
 	s.TargetUDPNetworks = o.TargetUDPNetworks
 	s.TrustedCAs = o.TrustedCAs
@@ -378,8 +364,8 @@ func (o *EnforcerProfile) SetBSON(raw bson.Raw) error {
 	o.SyslogEndpoint = s.SyslogEndpoint
 	o.SyslogEndpointTLSClientCertificate = s.SyslogEndpointTLSClientCertificate
 	o.SyslogEndpointTLSClientCertificateKey = s.SyslogEndpointTLSClientCertificateKey
+	o.SyslogFacility = s.SyslogFacility
 	o.SyslogFormat = s.SyslogFormat
-	o.SyslogPriority = s.SyslogPriority
 	o.TargetNetworks = s.TargetNetworks
 	o.TargetUDPNetworks = s.TargetUDPNetworks
 	o.TrustedCAs = s.TrustedCAs
@@ -647,8 +633,8 @@ func (o *EnforcerProfile) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			SyslogEndpoint:                        &o.SyslogEndpoint,
 			SyslogEndpointTLSClientCertificate:    &o.SyslogEndpointTLSClientCertificate,
 			SyslogEndpointTLSClientCertificateKey: &o.SyslogEndpointTLSClientCertificateKey,
+			SyslogFacility:                        &o.SyslogFacility,
 			SyslogFormat:                          &o.SyslogFormat,
-			SyslogPriority:                        &o.SyslogPriority,
 			TargetNetworks:                        &o.TargetNetworks,
 			TargetUDPNetworks:                     &o.TargetUDPNetworks,
 			TrustedCAs:                            &o.TrustedCAs,
@@ -708,10 +694,10 @@ func (o *EnforcerProfile) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			sp.SyslogEndpointTLSClientCertificate = &(o.SyslogEndpointTLSClientCertificate)
 		case "syslogEndpointTLSClientCertificateKey":
 			sp.SyslogEndpointTLSClientCertificateKey = &(o.SyslogEndpointTLSClientCertificateKey)
+		case "syslogFacility":
+			sp.SyslogFacility = &(o.SyslogFacility)
 		case "syslogFormat":
 			sp.SyslogFormat = &(o.SyslogFormat)
-		case "syslogPriority":
-			sp.SyslogPriority = &(o.SyslogPriority)
 		case "targetNetworks":
 			sp.TargetNetworks = &(o.TargetNetworks)
 		case "targetUDPNetworks":
@@ -828,11 +814,11 @@ func (o *EnforcerProfile) Patch(sparse elemental.SparseIdentifiable) {
 	if so.SyslogEndpointTLSClientCertificateKey != nil {
 		o.SyslogEndpointTLSClientCertificateKey = *so.SyslogEndpointTLSClientCertificateKey
 	}
+	if so.SyslogFacility != nil {
+		o.SyslogFacility = *so.SyslogFacility
+	}
 	if so.SyslogFormat != nil {
 		o.SyslogFormat = *so.SyslogFormat
-	}
-	if so.SyslogPriority != nil {
-		o.SyslogPriority = *so.SyslogPriority
 	}
 	if so.TargetNetworks != nil {
 		o.TargetNetworks = *so.TargetNetworks
@@ -919,11 +905,11 @@ func (o *EnforcerProfile) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("syslogFormat", string(o.SyslogFormat), []string{"Auto", "BSD", "IETF"}, false); err != nil {
+	if err := elemental.ValidateMaximumInt("syslogFacility", o.SyslogFacility, int(23), false); err != nil {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("syslogPriority", string(o.SyslogPriority), []string{"PRIUSR", "BSD", "IETF"}, false); err != nil {
+	if err := elemental.ValidateStringInList("syslogFormat", string(o.SyslogFormat), []string{"Auto", "BSD", "IETF"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1012,10 +998,10 @@ func (o *EnforcerProfile) ValueForAttribute(name string) interface{} {
 		return o.SyslogEndpointTLSClientCertificate
 	case "syslogEndpointTLSClientCertificateKey":
 		return o.SyslogEndpointTLSClientCertificateKey
+	case "syslogFacility":
+		return o.SyslogFacility
 	case "syslogFormat":
 		return o.SyslogFormat
-	case "syslogPriority":
-		return o.SyslogPriority
 	case "targetNetworks":
 		return o.TargetNetworks
 	case "targetUDPNetworks":
@@ -1339,6 +1325,18 @@ with the '@' prefix, and should only be used by external systems.`,
 		Stored:    true,
 		Type:      "string",
 	},
+	"SyslogFacility": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogfacility",
+		ConvertedName:  "SyslogFacility",
+		DefaultValue:   1,
+		Description:    `Contains the list of supported syslog facilities.`,
+		Exposed:        true,
+		MaxValue:       23,
+		Name:           "syslogFacility",
+		Stored:         true,
+		Type:           "integer",
+	},
 	"SyslogFormat": {
 		AllowedChoices: []string{"Auto", "BSD", "IETF"},
 		BSONFieldName:  "syslogformat",
@@ -1347,17 +1345,6 @@ with the '@' prefix, and should only be used by external systems.`,
 		Description:    `Contains the list of supported syslog message format.`,
 		Exposed:        true,
 		Name:           "syslogFormat",
-		Stored:         true,
-		Type:           "enum",
-	},
-	"SyslogPriority": {
-		AllowedChoices: []string{"PRIUSR", "BSD", "IETF"},
-		BSONFieldName:  "syslogpriority",
-		ConvertedName:  "SyslogPriority",
-		DefaultValue:   EnforcerProfileSyslogPriorityPRIUSR,
-		Description:    `Contains the list of supported syslog priorities.`,
-		Exposed:        true,
-		Name:           "syslogPriority",
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -1764,6 +1751,18 @@ with the '@' prefix, and should only be used by external systems.`,
 		Stored:    true,
 		Type:      "string",
 	},
+	"syslogfacility": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogfacility",
+		ConvertedName:  "SyslogFacility",
+		DefaultValue:   1,
+		Description:    `Contains the list of supported syslog facilities.`,
+		Exposed:        true,
+		MaxValue:       23,
+		Name:           "syslogFacility",
+		Stored:         true,
+		Type:           "integer",
+	},
 	"syslogformat": {
 		AllowedChoices: []string{"Auto", "BSD", "IETF"},
 		BSONFieldName:  "syslogformat",
@@ -1772,17 +1771,6 @@ with the '@' prefix, and should only be used by external systems.`,
 		Description:    `Contains the list of supported syslog message format.`,
 		Exposed:        true,
 		Name:           "syslogFormat",
-		Stored:         true,
-		Type:           "enum",
-	},
-	"syslogpriority": {
-		AllowedChoices: []string{"PRIUSR", "BSD", "IETF"},
-		BSONFieldName:  "syslogpriority",
-		ConvertedName:  "SyslogPriority",
-		DefaultValue:   EnforcerProfileSyslogPriorityPRIUSR,
-		Description:    `Contains the list of supported syslog priorities.`,
-		Exposed:        true,
-		Name:           "syslogPriority",
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -2027,11 +2015,11 @@ type SparseEnforcerProfile struct {
 	// `syslogEndpointTLSClientCertificate`.
 	SyslogEndpointTLSClientCertificateKey *string `json:"syslogEndpointTLSClientCertificateKey,omitempty" msgpack:"syslogEndpointTLSClientCertificateKey,omitempty" bson:"syslogendpointtlsclientcertificatekey,omitempty" mapstructure:"syslogEndpointTLSClientCertificateKey,omitempty"`
 
+	// Contains the list of supported syslog facilities.
+	SyslogFacility *int `json:"syslogFacility,omitempty" msgpack:"syslogFacility,omitempty" bson:"syslogfacility,omitempty" mapstructure:"syslogFacility,omitempty"`
+
 	// Contains the list of supported syslog message format.
 	SyslogFormat *EnforcerProfileSyslogFormatValue `json:"syslogFormat,omitempty" msgpack:"syslogFormat,omitempty" bson:"syslogformat,omitempty" mapstructure:"syslogFormat,omitempty"`
-
-	// Contains the list of supported syslog priorities.
-	SyslogPriority *EnforcerProfileSyslogPriorityValue `json:"syslogPriority,omitempty" msgpack:"syslogPriority,omitempty" bson:"syslogpriority,omitempty" mapstructure:"syslogPriority,omitempty"`
 
 	// If empty, the enforcer auto-discovers the TCP networks. Auto-discovery
 	// works best in Kubernetes and OpenShift deployments. You may need to manually
@@ -2173,11 +2161,11 @@ func (o *SparseEnforcerProfile) GetBSON() (interface{}, error) {
 	if o.SyslogEndpointTLSClientCertificateKey != nil {
 		s.SyslogEndpointTLSClientCertificateKey = o.SyslogEndpointTLSClientCertificateKey
 	}
+	if o.SyslogFacility != nil {
+		s.SyslogFacility = o.SyslogFacility
+	}
 	if o.SyslogFormat != nil {
 		s.SyslogFormat = o.SyslogFormat
-	}
-	if o.SyslogPriority != nil {
-		s.SyslogPriority = o.SyslogPriority
 	}
 	if o.TargetNetworks != nil {
 		s.TargetNetworks = o.TargetNetworks
@@ -2285,11 +2273,11 @@ func (o *SparseEnforcerProfile) SetBSON(raw bson.Raw) error {
 	if s.SyslogEndpointTLSClientCertificateKey != nil {
 		o.SyslogEndpointTLSClientCertificateKey = s.SyslogEndpointTLSClientCertificateKey
 	}
+	if s.SyslogFacility != nil {
+		o.SyslogFacility = s.SyslogFacility
+	}
 	if s.SyslogFormat != nil {
 		o.SyslogFormat = s.SyslogFormat
-	}
-	if s.SyslogPriority != nil {
-		o.SyslogPriority = s.SyslogPriority
 	}
 	if s.TargetNetworks != nil {
 		o.TargetNetworks = s.TargetNetworks
@@ -2395,11 +2383,11 @@ func (o *SparseEnforcerProfile) ToPlain() elemental.PlainIdentifiable {
 	if o.SyslogEndpointTLSClientCertificateKey != nil {
 		out.SyslogEndpointTLSClientCertificateKey = *o.SyslogEndpointTLSClientCertificateKey
 	}
+	if o.SyslogFacility != nil {
+		out.SyslogFacility = *o.SyslogFacility
+	}
 	if o.SyslogFormat != nil {
 		out.SyslogFormat = *o.SyslogFormat
-	}
-	if o.SyslogPriority != nil {
-		out.SyslogPriority = *o.SyslogPriority
 	}
 	if o.TargetNetworks != nil {
 		out.TargetNetworks = *o.TargetNetworks
@@ -2750,8 +2738,8 @@ type mongoAttributesEnforcerProfile struct {
 	SyslogEndpoint                        string                                          `bson:"syslogendpoint"`
 	SyslogEndpointTLSClientCertificate    string                                          `bson:"syslogendpointtlsclientcertificate"`
 	SyslogEndpointTLSClientCertificateKey string                                          `bson:"syslogendpointtlsclientcertificatekey"`
+	SyslogFacility                        int                                             `bson:"syslogfacility"`
 	SyslogFormat                          EnforcerProfileSyslogFormatValue                `bson:"syslogformat"`
-	SyslogPriority                        EnforcerProfileSyslogPriorityValue              `bson:"syslogpriority"`
 	TargetNetworks                        []string                                        `bson:"targetnetworks"`
 	TargetUDPNetworks                     []string                                        `bson:"targetudpnetworks"`
 	TrustedCAs                            []string                                        `bson:"trustedcas"`
@@ -2784,8 +2772,8 @@ type mongoAttributesSparseEnforcerProfile struct {
 	SyslogEndpoint                        *string                                          `bson:"syslogendpoint,omitempty"`
 	SyslogEndpointTLSClientCertificate    *string                                          `bson:"syslogendpointtlsclientcertificate,omitempty"`
 	SyslogEndpointTLSClientCertificateKey *string                                          `bson:"syslogendpointtlsclientcertificatekey,omitempty"`
+	SyslogFacility                        *int                                             `bson:"syslogfacility,omitempty"`
 	SyslogFormat                          *EnforcerProfileSyslogFormatValue                `bson:"syslogformat,omitempty"`
-	SyslogPriority                        *EnforcerProfileSyslogPriorityValue              `bson:"syslogpriority,omitempty"`
 	TargetNetworks                        *[]string                                        `bson:"targetnetworks,omitempty"`
 	TargetUDPNetworks                     *[]string                                        `bson:"targetudpnetworks,omitempty"`
 	TrustedCAs                            *[]string                                        `bson:"trustedcas,omitempty"`

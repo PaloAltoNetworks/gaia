@@ -134,6 +134,14 @@ attributes:
     stored: true
     encrypted: true
 
+  - name: syslogFacility
+    description: Contains the list of supported syslog facilities.
+    type: integer
+    exposed: true
+    stored: true
+    default_value: 1
+    max_value: 23
+
   - name: syslogFormat
     description: Contains the list of supported syslog message format.
     type: enum
@@ -144,17 +152,6 @@ attributes:
     - BSD
     - IETF
     default_value: Auto
-
-  - name: syslogPriority
-    description: Contains the list of supported syslog priorities.
-    type: enum
-    exposed: true
-    stored: true
-    allowed_choices:
-    - PRIUSR
-    - BSD
-    - IETF
-    default_value: PRIUSR
 
   - name: targetNetworks
     description: |-

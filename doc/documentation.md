@@ -13996,8 +13996,8 @@ profile mapping.
   "propagate": false,
   "protected": false,
   "syslogEnable": false,
-  "syslogFormat": "Auto",
-  "syslogPriority": "PRIUSR"
+  "syslogFacility": 1,
+  "syslogFormat": "Auto"
 }
 ```
 
@@ -14198,6 +14198,18 @@ Type: `string`
 PEM-encoded certificate key associated with
 `syslogEndpointTLSClientCertificate`.
 
+##### `syslogFacility` [`max_value=23.000000`]
+
+Type: `integer`
+
+Contains the list of supported syslog facilities.
+
+Default value:
+
+```json
+1
+```
+
 ##### `syslogFormat`
 
 Type: `enum(Auto | BSD | IETF)`
@@ -14208,18 +14220,6 @@ Default value:
 
 ```json
 "Auto"
-```
-
-##### `syslogPriority`
-
-Type: `enum(PRIUSR | BSD | IETF)`
-
-Contains the list of supported syslog priorities.
-
-Default value:
-
-```json
-"PRIUSR"
 ```
 
 ##### `targetNetworks`
