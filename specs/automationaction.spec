@@ -38,27 +38,32 @@ attributes:
     type: external
     exposed: true
     subtype: _automation_entitlements
+    stored: true
 
   - name: function
     description: Function contains the code.
     type: string
     exposed: true
+    stored: true
 
   - name: key
     description: Contains the unique identifier key for the action.
     type: string
     exposed: true
+    stored: true
 
   - name: parameters
     description: Contains the computed parameters.
     type: external
     exposed: true
     subtype: map[string]interface{}
+    stored: true
 
   - name: steps
     description: Contains all the steps with parameters.
     type: refList
     exposed: true
     subtype: uistep
+    stored: true
     extensions:
       refMode: pointer

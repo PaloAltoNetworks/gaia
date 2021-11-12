@@ -102,13 +102,13 @@ type AutomationCondition struct {
 	Description string `json:"description" msgpack:"description" bson:"description" mapstructure:"description,omitempty"`
 
 	// Contains the entitlements needed for executing the function.
-	Entitlements map[string][]elemental.Operation `json:"entitlements" msgpack:"entitlements" bson:"-" mapstructure:"entitlements,omitempty"`
+	Entitlements map[string][]elemental.Operation `json:"entitlements" msgpack:"entitlements" bson:"entitlements" mapstructure:"entitlements,omitempty"`
 
 	// Function contains the code.
-	Function string `json:"function" msgpack:"function" bson:"-" mapstructure:"function,omitempty"`
+	Function string `json:"function" msgpack:"function" bson:"function" mapstructure:"function,omitempty"`
 
 	// Contains the unique identifier key for the condition.
-	Key string `json:"key" msgpack:"key" bson:"-" mapstructure:"key,omitempty"`
+	Key string `json:"key" msgpack:"key" bson:"key" mapstructure:"key,omitempty"`
 
 	// Contains tags that can only be set during creation, must all start
 	// with the '@' prefix, and should only be used by external systems.
@@ -127,7 +127,7 @@ type AutomationCondition struct {
 	NormalizedTags []string `json:"normalizedTags" msgpack:"normalizedTags" bson:"normalizedtags" mapstructure:"normalizedTags,omitempty"`
 
 	// Contains the computed parameters.
-	Parameters map[string]interface{} `json:"parameters" msgpack:"parameters" bson:"-" mapstructure:"parameters,omitempty"`
+	Parameters map[string]interface{} `json:"parameters" msgpack:"parameters" bson:"parameters" mapstructure:"parameters,omitempty"`
 
 	// Propagates the policy to all of its children.
 	Propagate bool `json:"propagate" msgpack:"propagate" bson:"propagate" mapstructure:"propagate,omitempty"`
@@ -136,7 +136,7 @@ type AutomationCondition struct {
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
 	// Contains all the steps with parameters.
-	Steps []*UIStep `json:"steps" msgpack:"steps" bson:"-" mapstructure:"steps,omitempty"`
+	Steps []*UIStep `json:"steps" msgpack:"steps" bson:"steps" mapstructure:"steps,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey string `json:"-" msgpack:"-" bson:"updateidempotencykey" mapstructure:"-,omitempty"`
@@ -206,13 +206,18 @@ func (o *AutomationCondition) GetBSON() (interface{}, error) {
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	s.CreateTime = o.CreateTime
 	s.Description = o.Description
+	s.Entitlements = o.Entitlements
+	s.Function = o.Function
+	s.Key = o.Key
 	s.Metadata = o.Metadata
 	s.MigrationsLog = o.MigrationsLog
 	s.Name = o.Name
 	s.Namespace = o.Namespace
 	s.NormalizedTags = o.NormalizedTags
+	s.Parameters = o.Parameters
 	s.Propagate = o.Propagate
 	s.Protected = o.Protected
+	s.Steps = o.Steps
 	s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
 	s.UpdateTime = o.UpdateTime
 	s.ZHash = o.ZHash
@@ -240,13 +245,18 @@ func (o *AutomationCondition) SetBSON(raw bson.Raw) error {
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	o.CreateTime = s.CreateTime
 	o.Description = s.Description
+	o.Entitlements = s.Entitlements
+	o.Function = s.Function
+	o.Key = s.Key
 	o.Metadata = s.Metadata
 	o.MigrationsLog = s.MigrationsLog
 	o.Name = s.Name
 	o.Namespace = s.Namespace
 	o.NormalizedTags = s.NormalizedTags
+	o.Parameters = s.Parameters
 	o.Propagate = s.Propagate
 	o.Protected = s.Protected
+	o.Steps = s.Steps
 	o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
 	o.UpdateTime = s.UpdateTime
 	o.ZHash = s.ZHash
@@ -868,27 +878,33 @@ var AutomationConditionAttributesMap = map[string]elemental.AttributeSpecificati
 	},
 	"Entitlements": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "entitlements",
 		ConvertedName:  "Entitlements",
 		Description:    `Contains the entitlements needed for executing the function.`,
 		Exposed:        true,
 		Name:           "entitlements",
+		Stored:         true,
 		SubType:        "_automation_entitlements",
 		Type:           "external",
 	},
 	"Function": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "function",
 		ConvertedName:  "Function",
 		Description:    `Function contains the code.`,
 		Exposed:        true,
 		Name:           "function",
+		Stored:         true,
 		Type:           "string",
 	},
 	"Key": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "key",
 		ConvertedName:  "Key",
 		Description:    `Contains the unique identifier key for the condition.`,
 		Exposed:        true,
 		Name:           "key",
+		Stored:         true,
 		Type:           "string",
 	},
 	"Metadata": {
@@ -969,10 +985,12 @@ with the '@' prefix, and should only be used by external systems.`,
 	},
 	"Parameters": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
 		Description:    `Contains the computed parameters.`,
 		Exposed:        true,
 		Name:           "parameters",
+		Stored:         true,
 		SubType:        "map[string]interface{}",
 		Type:           "external",
 	},
@@ -1004,10 +1022,12 @@ with the '@' prefix, and should only be used by external systems.`,
 	},
 	"Steps": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "steps",
 		ConvertedName:  "Steps",
 		Description:    `Contains all the steps with parameters.`,
 		Exposed:        true,
 		Name:           "steps",
+		Stored:         true,
 		SubType:        "uistep",
 		Type:           "refList",
 	},
@@ -1156,27 +1176,33 @@ var AutomationConditionLowerCaseAttributesMap = map[string]elemental.AttributeSp
 	},
 	"entitlements": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "entitlements",
 		ConvertedName:  "Entitlements",
 		Description:    `Contains the entitlements needed for executing the function.`,
 		Exposed:        true,
 		Name:           "entitlements",
+		Stored:         true,
 		SubType:        "_automation_entitlements",
 		Type:           "external",
 	},
 	"function": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "function",
 		ConvertedName:  "Function",
 		Description:    `Function contains the code.`,
 		Exposed:        true,
 		Name:           "function",
+		Stored:         true,
 		Type:           "string",
 	},
 	"key": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "key",
 		ConvertedName:  "Key",
 		Description:    `Contains the unique identifier key for the condition.`,
 		Exposed:        true,
 		Name:           "key",
+		Stored:         true,
 		Type:           "string",
 	},
 	"metadata": {
@@ -1257,10 +1283,12 @@ with the '@' prefix, and should only be used by external systems.`,
 	},
 	"parameters": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
 		Description:    `Contains the computed parameters.`,
 		Exposed:        true,
 		Name:           "parameters",
+		Stored:         true,
 		SubType:        "map[string]interface{}",
 		Type:           "external",
 	},
@@ -1292,10 +1320,12 @@ with the '@' prefix, and should only be used by external systems.`,
 	},
 	"steps": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "steps",
 		ConvertedName:  "Steps",
 		Description:    `Contains all the steps with parameters.`,
 		Exposed:        true,
 		Name:           "steps",
+		Stored:         true,
 		SubType:        "uistep",
 		Type:           "refList",
 	},
@@ -1441,13 +1471,13 @@ type SparseAutomationCondition struct {
 	Description *string `json:"description,omitempty" msgpack:"description,omitempty" bson:"description,omitempty" mapstructure:"description,omitempty"`
 
 	// Contains the entitlements needed for executing the function.
-	Entitlements *map[string][]elemental.Operation `json:"entitlements,omitempty" msgpack:"entitlements,omitempty" bson:"-" mapstructure:"entitlements,omitempty"`
+	Entitlements *map[string][]elemental.Operation `json:"entitlements,omitempty" msgpack:"entitlements,omitempty" bson:"entitlements,omitempty" mapstructure:"entitlements,omitempty"`
 
 	// Function contains the code.
-	Function *string `json:"function,omitempty" msgpack:"function,omitempty" bson:"-" mapstructure:"function,omitempty"`
+	Function *string `json:"function,omitempty" msgpack:"function,omitempty" bson:"function,omitempty" mapstructure:"function,omitempty"`
 
 	// Contains the unique identifier key for the condition.
-	Key *string `json:"key,omitempty" msgpack:"key,omitempty" bson:"-" mapstructure:"key,omitempty"`
+	Key *string `json:"key,omitempty" msgpack:"key,omitempty" bson:"key,omitempty" mapstructure:"key,omitempty"`
 
 	// Contains tags that can only be set during creation, must all start
 	// with the '@' prefix, and should only be used by external systems.
@@ -1466,7 +1496,7 @@ type SparseAutomationCondition struct {
 	NormalizedTags *[]string `json:"normalizedTags,omitempty" msgpack:"normalizedTags,omitempty" bson:"normalizedtags,omitempty" mapstructure:"normalizedTags,omitempty"`
 
 	// Contains the computed parameters.
-	Parameters *map[string]interface{} `json:"parameters,omitempty" msgpack:"parameters,omitempty" bson:"-" mapstructure:"parameters,omitempty"`
+	Parameters *map[string]interface{} `json:"parameters,omitempty" msgpack:"parameters,omitempty" bson:"parameters,omitempty" mapstructure:"parameters,omitempty"`
 
 	// Propagates the policy to all of its children.
 	Propagate *bool `json:"propagate,omitempty" msgpack:"propagate,omitempty" bson:"propagate,omitempty" mapstructure:"propagate,omitempty"`
@@ -1475,7 +1505,7 @@ type SparseAutomationCondition struct {
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
 	// Contains all the steps with parameters.
-	Steps *[]*UIStep `json:"steps,omitempty" msgpack:"steps,omitempty" bson:"-" mapstructure:"steps,omitempty"`
+	Steps *[]*UIStep `json:"steps,omitempty" msgpack:"steps,omitempty" bson:"steps,omitempty" mapstructure:"steps,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey *string `json:"-" msgpack:"-" bson:"updateidempotencykey,omitempty" mapstructure:"-,omitempty"`
@@ -1551,6 +1581,15 @@ func (o *SparseAutomationCondition) GetBSON() (interface{}, error) {
 	if o.Description != nil {
 		s.Description = o.Description
 	}
+	if o.Entitlements != nil {
+		s.Entitlements = o.Entitlements
+	}
+	if o.Function != nil {
+		s.Function = o.Function
+	}
+	if o.Key != nil {
+		s.Key = o.Key
+	}
 	if o.Metadata != nil {
 		s.Metadata = o.Metadata
 	}
@@ -1566,11 +1605,17 @@ func (o *SparseAutomationCondition) GetBSON() (interface{}, error) {
 	if o.NormalizedTags != nil {
 		s.NormalizedTags = o.NormalizedTags
 	}
+	if o.Parameters != nil {
+		s.Parameters = o.Parameters
+	}
 	if o.Propagate != nil {
 		s.Propagate = o.Propagate
 	}
 	if o.Protected != nil {
 		s.Protected = o.Protected
+	}
+	if o.Steps != nil {
+		s.Steps = o.Steps
 	}
 	if o.UpdateIdempotencyKey != nil {
 		s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
@@ -1618,6 +1663,15 @@ func (o *SparseAutomationCondition) SetBSON(raw bson.Raw) error {
 	if s.Description != nil {
 		o.Description = s.Description
 	}
+	if s.Entitlements != nil {
+		o.Entitlements = s.Entitlements
+	}
+	if s.Function != nil {
+		o.Function = s.Function
+	}
+	if s.Key != nil {
+		o.Key = s.Key
+	}
 	if s.Metadata != nil {
 		o.Metadata = s.Metadata
 	}
@@ -1633,11 +1687,17 @@ func (o *SparseAutomationCondition) SetBSON(raw bson.Raw) error {
 	if s.NormalizedTags != nil {
 		o.NormalizedTags = s.NormalizedTags
 	}
+	if s.Parameters != nil {
+		o.Parameters = s.Parameters
+	}
 	if s.Propagate != nil {
 		o.Propagate = s.Propagate
 	}
 	if s.Protected != nil {
 		o.Protected = s.Protected
+	}
+	if s.Steps != nil {
+		o.Steps = s.Steps
 	}
 	if s.UpdateIdempotencyKey != nil {
 		o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
@@ -2016,40 +2076,50 @@ func (o *SparseAutomationCondition) DeepCopyInto(out *SparseAutomationCondition)
 }
 
 type mongoAttributesAutomationCondition struct {
-	ID                   bson.ObjectId       `bson:"_id,omitempty"`
-	Annotations          map[string][]string `bson:"annotations"`
-	AssociatedTags       []string            `bson:"associatedtags"`
-	CreateIdempotencyKey string              `bson:"createidempotencykey"`
-	CreateTime           time.Time           `bson:"createtime"`
-	Description          string              `bson:"description"`
-	Metadata             []string            `bson:"metadata"`
-	MigrationsLog        map[string]string   `bson:"migrationslog,omitempty"`
-	Name                 string              `bson:"name"`
-	Namespace            string              `bson:"namespace"`
-	NormalizedTags       []string            `bson:"normalizedtags"`
-	Propagate            bool                `bson:"propagate"`
-	Protected            bool                `bson:"protected"`
-	UpdateIdempotencyKey string              `bson:"updateidempotencykey"`
-	UpdateTime           time.Time           `bson:"updatetime"`
-	ZHash                int                 `bson:"zhash"`
-	Zone                 int                 `bson:"zone"`
+	ID                   bson.ObjectId                    `bson:"_id,omitempty"`
+	Annotations          map[string][]string              `bson:"annotations"`
+	AssociatedTags       []string                         `bson:"associatedtags"`
+	CreateIdempotencyKey string                           `bson:"createidempotencykey"`
+	CreateTime           time.Time                        `bson:"createtime"`
+	Description          string                           `bson:"description"`
+	Entitlements         map[string][]elemental.Operation `bson:"entitlements"`
+	Function             string                           `bson:"function"`
+	Key                  string                           `bson:"key"`
+	Metadata             []string                         `bson:"metadata"`
+	MigrationsLog        map[string]string                `bson:"migrationslog,omitempty"`
+	Name                 string                           `bson:"name"`
+	Namespace            string                           `bson:"namespace"`
+	NormalizedTags       []string                         `bson:"normalizedtags"`
+	Parameters           map[string]interface{}           `bson:"parameters"`
+	Propagate            bool                             `bson:"propagate"`
+	Protected            bool                             `bson:"protected"`
+	Steps                []*UIStep                        `bson:"steps"`
+	UpdateIdempotencyKey string                           `bson:"updateidempotencykey"`
+	UpdateTime           time.Time                        `bson:"updatetime"`
+	ZHash                int                              `bson:"zhash"`
+	Zone                 int                              `bson:"zone"`
 }
 type mongoAttributesSparseAutomationCondition struct {
-	ID                   bson.ObjectId        `bson:"_id,omitempty"`
-	Annotations          *map[string][]string `bson:"annotations,omitempty"`
-	AssociatedTags       *[]string            `bson:"associatedtags,omitempty"`
-	CreateIdempotencyKey *string              `bson:"createidempotencykey,omitempty"`
-	CreateTime           *time.Time           `bson:"createtime,omitempty"`
-	Description          *string              `bson:"description,omitempty"`
-	Metadata             *[]string            `bson:"metadata,omitempty"`
-	MigrationsLog        *map[string]string   `bson:"migrationslog,omitempty"`
-	Name                 *string              `bson:"name,omitempty"`
-	Namespace            *string              `bson:"namespace,omitempty"`
-	NormalizedTags       *[]string            `bson:"normalizedtags,omitempty"`
-	Propagate            *bool                `bson:"propagate,omitempty"`
-	Protected            *bool                `bson:"protected,omitempty"`
-	UpdateIdempotencyKey *string              `bson:"updateidempotencykey,omitempty"`
-	UpdateTime           *time.Time           `bson:"updatetime,omitempty"`
-	ZHash                *int                 `bson:"zhash,omitempty"`
-	Zone                 *int                 `bson:"zone,omitempty"`
+	ID                   bson.ObjectId                     `bson:"_id,omitempty"`
+	Annotations          *map[string][]string              `bson:"annotations,omitempty"`
+	AssociatedTags       *[]string                         `bson:"associatedtags,omitempty"`
+	CreateIdempotencyKey *string                           `bson:"createidempotencykey,omitempty"`
+	CreateTime           *time.Time                        `bson:"createtime,omitempty"`
+	Description          *string                           `bson:"description,omitempty"`
+	Entitlements         *map[string][]elemental.Operation `bson:"entitlements,omitempty"`
+	Function             *string                           `bson:"function,omitempty"`
+	Key                  *string                           `bson:"key,omitempty"`
+	Metadata             *[]string                         `bson:"metadata,omitempty"`
+	MigrationsLog        *map[string]string                `bson:"migrationslog,omitempty"`
+	Name                 *string                           `bson:"name,omitempty"`
+	Namespace            *string                           `bson:"namespace,omitempty"`
+	NormalizedTags       *[]string                         `bson:"normalizedtags,omitempty"`
+	Parameters           *map[string]interface{}           `bson:"parameters,omitempty"`
+	Propagate            *bool                             `bson:"propagate,omitempty"`
+	Protected            *bool                             `bson:"protected,omitempty"`
+	Steps                *[]*UIStep                        `bson:"steps,omitempty"`
+	UpdateIdempotencyKey *string                           `bson:"updateidempotencykey,omitempty"`
+	UpdateTime           *time.Time                        `bson:"updatetime,omitempty"`
+	ZHash                *int                              `bson:"zhash,omitempty"`
+	Zone                 *int                              `bson:"zone,omitempty"`
 }
