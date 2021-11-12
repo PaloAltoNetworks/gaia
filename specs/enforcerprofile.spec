@@ -107,7 +107,7 @@ attributes:
     default_value: Docker
     deprecated: true
 
-  - name: syslogEnable
+  - name: syslogEnabled
     description: Enables syslog functionality of enforcers using this enforcerprofile.
     type: boolean
     exposed: true

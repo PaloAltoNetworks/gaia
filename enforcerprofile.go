@@ -190,7 +190,7 @@ type EnforcerProfile struct {
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
 	// Enables syslog functionality of enforcers using this enforcerprofile.
-	SyslogEnable bool `json:"syslogEnable" msgpack:"syslogEnable" bson:"syslogenable" mapstructure:"syslogEnable,omitempty"`
+	SyslogEnabled bool `json:"syslogEnabled" msgpack:"syslogEnabled" bson:"syslogenabled" mapstructure:"syslogEnabled,omitempty"`
 
 	// Contains the remote endpoint to dispatch the syslog messages.
 	SyslogEndpoint string `json:"syslogEndpoint" msgpack:"syslogEndpoint" bson:"syslogendpoint" mapstructure:"syslogEndpoint,omitempty"`
@@ -314,7 +314,7 @@ func (o *EnforcerProfile) GetBSON() (interface{}, error) {
 	s.NormalizedTags = o.NormalizedTags
 	s.Propagate = o.Propagate
 	s.Protected = o.Protected
-	s.SyslogEnable = o.SyslogEnable
+	s.SyslogEnabled = o.SyslogEnabled
 	s.SyslogEndpoint = o.SyslogEndpoint
 	s.SyslogEndpointTLSClientCertificate = o.SyslogEndpointTLSClientCertificate
 	s.SyslogEndpointTLSClientCertificateKey = o.SyslogEndpointTLSClientCertificateKey
@@ -364,7 +364,7 @@ func (o *EnforcerProfile) SetBSON(raw bson.Raw) error {
 	o.NormalizedTags = s.NormalizedTags
 	o.Propagate = s.Propagate
 	o.Protected = s.Protected
-	o.SyslogEnable = s.SyslogEnable
+	o.SyslogEnabled = s.SyslogEnabled
 	o.SyslogEndpoint = s.SyslogEndpoint
 	o.SyslogEndpointTLSClientCertificate = s.SyslogEndpointTLSClientCertificate
 	o.SyslogEndpointTLSClientCertificateKey = s.SyslogEndpointTLSClientCertificateKey
@@ -634,7 +634,7 @@ func (o *EnforcerProfile) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			NormalizedTags:                        &o.NormalizedTags,
 			Propagate:                             &o.Propagate,
 			Protected:                             &o.Protected,
-			SyslogEnable:                          &o.SyslogEnable,
+			SyslogEnabled:                         &o.SyslogEnabled,
 			SyslogEndpoint:                        &o.SyslogEndpoint,
 			SyslogEndpointTLSClientCertificate:    &o.SyslogEndpointTLSClientCertificate,
 			SyslogEndpointTLSClientCertificateKey: &o.SyslogEndpointTLSClientCertificateKey,
@@ -692,8 +692,8 @@ func (o *EnforcerProfile) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			sp.Propagate = &(o.Propagate)
 		case "protected":
 			sp.Protected = &(o.Protected)
-		case "syslogEnable":
-			sp.SyslogEnable = &(o.SyslogEnable)
+		case "syslogEnabled":
+			sp.SyslogEnabled = &(o.SyslogEnabled)
 		case "syslogEndpoint":
 			sp.SyslogEndpoint = &(o.SyslogEndpoint)
 		case "syslogEndpointTLSClientCertificate":
@@ -810,8 +810,8 @@ func (o *EnforcerProfile) Patch(sparse elemental.SparseIdentifiable) {
 	if so.Protected != nil {
 		o.Protected = *so.Protected
 	}
-	if so.SyslogEnable != nil {
-		o.SyslogEnable = *so.SyslogEnable
+	if so.SyslogEnabled != nil {
+		o.SyslogEnabled = *so.SyslogEnabled
 	}
 	if so.SyslogEndpoint != nil {
 		o.SyslogEndpoint = *so.SyslogEndpoint
@@ -1001,8 +1001,8 @@ func (o *EnforcerProfile) ValueForAttribute(name string) interface{} {
 		return o.Propagate
 	case "protected":
 		return o.Protected
-	case "syslogEnable":
-		return o.SyslogEnable
+	case "syslogEnabled":
+		return o.SyslogEnabled
 	case "syslogEndpoint":
 		return o.SyslogEndpoint
 	case "syslogEndpointTLSClientCertificate":
@@ -1296,13 +1296,13 @@ with the '@' prefix, and should only be used by external systems.`,
 		Stored:         true,
 		Type:           "boolean",
 	},
-	"SyslogEnable": {
+	"SyslogEnabled": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "syslogenable",
-		ConvertedName:  "SyslogEnable",
+		BSONFieldName:  "syslogenabled",
+		ConvertedName:  "SyslogEnabled",
 		Description:    `Enables syslog functionality of enforcers using this enforcerprofile.`,
 		Exposed:        true,
-		Name:           "syslogEnable",
+		Name:           "syslogEnabled",
 		Stored:         true,
 		Type:           "boolean",
 	},
@@ -1732,13 +1732,13 @@ with the '@' prefix, and should only be used by external systems.`,
 		Stored:         true,
 		Type:           "boolean",
 	},
-	"syslogenable": {
+	"syslogenabled": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "syslogenable",
-		ConvertedName:  "SyslogEnable",
+		BSONFieldName:  "syslogenabled",
+		ConvertedName:  "SyslogEnabled",
 		Description:    `Enables syslog functionality of enforcers using this enforcerprofile.`,
 		Exposed:        true,
-		Name:           "syslogEnable",
+		Name:           "syslogEnabled",
 		Stored:         true,
 		Type:           "boolean",
 	},
@@ -2036,7 +2036,7 @@ type SparseEnforcerProfile struct {
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
 	// Enables syslog functionality of enforcers using this enforcerprofile.
-	SyslogEnable *bool `json:"syslogEnable,omitempty" msgpack:"syslogEnable,omitempty" bson:"syslogenable,omitempty" mapstructure:"syslogEnable,omitempty"`
+	SyslogEnabled *bool `json:"syslogEnabled,omitempty" msgpack:"syslogEnabled,omitempty" bson:"syslogenabled,omitempty" mapstructure:"syslogEnabled,omitempty"`
 
 	// Contains the remote endpoint to dispatch the syslog messages.
 	SyslogEndpoint *string `json:"syslogEndpoint,omitempty" msgpack:"syslogEndpoint,omitempty" bson:"syslogendpoint,omitempty" mapstructure:"syslogEndpoint,omitempty"`
@@ -2185,8 +2185,8 @@ func (o *SparseEnforcerProfile) GetBSON() (interface{}, error) {
 	if o.Protected != nil {
 		s.Protected = o.Protected
 	}
-	if o.SyslogEnable != nil {
-		s.SyslogEnable = o.SyslogEnable
+	if o.SyslogEnabled != nil {
+		s.SyslogEnabled = o.SyslogEnabled
 	}
 	if o.SyslogEndpoint != nil {
 		s.SyslogEndpoint = o.SyslogEndpoint
@@ -2300,8 +2300,8 @@ func (o *SparseEnforcerProfile) SetBSON(raw bson.Raw) error {
 	if s.Protected != nil {
 		o.Protected = s.Protected
 	}
-	if s.SyslogEnable != nil {
-		o.SyslogEnable = s.SyslogEnable
+	if s.SyslogEnabled != nil {
+		o.SyslogEnabled = s.SyslogEnabled
 	}
 	if s.SyslogEndpoint != nil {
 		o.SyslogEndpoint = s.SyslogEndpoint
@@ -2413,8 +2413,8 @@ func (o *SparseEnforcerProfile) ToPlain() elemental.PlainIdentifiable {
 	if o.Protected != nil {
 		out.Protected = *o.Protected
 	}
-	if o.SyslogEnable != nil {
-		out.SyslogEnable = *o.SyslogEnable
+	if o.SyslogEnabled != nil {
+		out.SyslogEnabled = *o.SyslogEnabled
 	}
 	if o.SyslogEndpoint != nil {
 		out.SyslogEndpoint = *o.SyslogEndpoint
@@ -2779,7 +2779,7 @@ type mongoAttributesEnforcerProfile struct {
 	NormalizedTags                        []string                                        `bson:"normalizedtags"`
 	Propagate                             bool                                            `bson:"propagate"`
 	Protected                             bool                                            `bson:"protected"`
-	SyslogEnable                          bool                                            `bson:"syslogenable"`
+	SyslogEnabled                         bool                                            `bson:"syslogenabled"`
 	SyslogEndpoint                        string                                          `bson:"syslogendpoint"`
 	SyslogEndpointTLSClientCertificate    string                                          `bson:"syslogendpointtlsclientcertificate"`
 	SyslogEndpointTLSClientCertificateKey string                                          `bson:"syslogendpointtlsclientcertificatekey"`
@@ -2814,7 +2814,7 @@ type mongoAttributesSparseEnforcerProfile struct {
 	NormalizedTags                        *[]string                                        `bson:"normalizedtags,omitempty"`
 	Propagate                             *bool                                            `bson:"propagate,omitempty"`
 	Protected                             *bool                                            `bson:"protected,omitempty"`
-	SyslogEnable                          *bool                                            `bson:"syslogenable,omitempty"`
+	SyslogEnabled                         *bool                                            `bson:"syslogenabled,omitempty"`
 	SyslogEndpoint                        *string                                          `bson:"syslogendpoint,omitempty"`
 	SyslogEndpointTLSClientCertificate    *string                                          `bson:"syslogendpointtlsclientcertificate,omitempty"`
 	SyslogEndpointTLSClientCertificateKey *string                                          `bson:"syslogendpointtlsclientcertificatekey,omitempty"`

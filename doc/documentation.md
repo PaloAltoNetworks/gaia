@@ -13995,7 +13995,7 @@ profile mapping.
   "name": "the name",
   "propagate": false,
   "protected": false,
-  "syslogEnable": false,
+  "syslogEnabled": false,
   "syslogFacility": 1,
   "syslogFormat": "Auto"
 }
@@ -14173,7 +14173,7 @@ Type: `boolean`
 
 Defines if the object is protected.
 
-##### `syslogEnable`
+##### `syslogEnabled`
 
 Type: `boolean`
 
