@@ -4861,6 +4861,25 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 			},
 			false,
 		},
+		{
+			"both source and dest IP empty but address match is set",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					Type: CloudNetworkQueryTypeNetworkPath,
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs:    []string{"vpc1"},
+						ObjectIDs: []string{"object1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs:    []string{"vpc3"},
+						ObjectIDs: []string{"object1"},
+					},
+					AddressMatchCriteria: CloudNetworkQueryAddressMatchCriteriaValue(CloudNetworkQueryAddressMatchCriteriaPartialMatch),
+				},
+			},
+			true,
+		},
 	}
 
 	for _, tt := range tests {

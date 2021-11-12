@@ -1588,6 +1588,10 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 		}
 	}
 
+	if q.SourceIP == "" && q.DestinationIP == "" && q.AddressMatchCriteria != "" {
+		return makeValidationError("Entity CloudNetworkQuery", "'AddressMatchCriteria' can only be set when IPs are given")
+	}
+
 	return nil
 }
 
