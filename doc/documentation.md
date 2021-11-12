@@ -14198,6 +14198,12 @@ Type: `string`
 PEM-encoded certificate key associated with
 `syslogEndpointTLSClientCertificate`.
 
+##### `syslogEndpointTLSServerCA`
+
+Type: `string`
+
+PEM-encoded server CA certificate.
+
 ##### `syslogFacility` [`max_value=23.000000`]
 
 Type: `integer`

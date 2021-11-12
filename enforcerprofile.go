@@ -202,6 +202,9 @@ type EnforcerProfile struct {
 	// `syslogEndpointTLSClientCertificate`.
 	SyslogEndpointTLSClientCertificateKey string `json:"syslogEndpointTLSClientCertificateKey" msgpack:"syslogEndpointTLSClientCertificateKey" bson:"syslogendpointtlsclientcertificatekey" mapstructure:"syslogEndpointTLSClientCertificateKey,omitempty"`
 
+	// PEM-encoded server CA certificate.
+	SyslogEndpointTLSServerCA string `json:"syslogEndpointTLSServerCA" msgpack:"syslogEndpointTLSServerCA" bson:"syslogendpointtlsserverca" mapstructure:"syslogEndpointTLSServerCA,omitempty"`
+
 	// Contains the list of supported syslog facilities.
 	SyslogFacility int `json:"syslogFacility" msgpack:"syslogFacility" bson:"syslogfacility" mapstructure:"syslogFacility,omitempty"`
 
@@ -249,16 +252,16 @@ func NewEnforcerProfile() *EnforcerProfile {
 		AssociatedTags:              []string{},
 		ExcludedNetworks:            []string{},
 		NormalizedTags:              []string{},
-		IgnoreExpression:            [][]string{},
-		MetadataExtractor:           EnforcerProfileMetadataExtractorDocker,
-		SyslogFacility:              1,
-		SyslogFormat:                EnforcerProfileSyslogFormatAuto,
-		TargetNetworks:              []string{},
-		TrustedCAs:                  []string{},
-		TargetUDPNetworks:           []string{},
-		MigrationsLog:               map[string]string{},
 		KubernetesMetadataExtractor: EnforcerProfileKubernetesMetadataExtractorPodAtomic,
 		Metadata:                    []string{},
+		MigrationsLog:               map[string]string{},
+		SyslogFacility:              1,
+		SyslogFormat:                EnforcerProfileSyslogFormatAuto,
+		TargetUDPNetworks:           []string{},
+		TargetNetworks:              []string{},
+		MetadataExtractor:           EnforcerProfileMetadataExtractorDocker,
+		TrustedCAs:                  []string{},
+		IgnoreExpression:            [][]string{},
 	}
 }
 
@@ -315,6 +318,7 @@ func (o *EnforcerProfile) GetBSON() (interface{}, error) {
 	s.SyslogEndpoint = o.SyslogEndpoint
 	s.SyslogEndpointTLSClientCertificate = o.SyslogEndpointTLSClientCertificate
 	s.SyslogEndpointTLSClientCertificateKey = o.SyslogEndpointTLSClientCertificateKey
+	s.SyslogEndpointTLSServerCA = o.SyslogEndpointTLSServerCA
 	s.SyslogFacility = o.SyslogFacility
 	s.SyslogFormat = o.SyslogFormat
 	s.TargetNetworks = o.TargetNetworks
@@ -364,6 +368,7 @@ func (o *EnforcerProfile) SetBSON(raw bson.Raw) error {
 	o.SyslogEndpoint = s.SyslogEndpoint
 	o.SyslogEndpointTLSClientCertificate = s.SyslogEndpointTLSClientCertificate
 	o.SyslogEndpointTLSClientCertificateKey = s.SyslogEndpointTLSClientCertificateKey
+	o.SyslogEndpointTLSServerCA = s.SyslogEndpointTLSServerCA
 	o.SyslogFacility = s.SyslogFacility
 	o.SyslogFormat = s.SyslogFormat
 	o.TargetNetworks = s.TargetNetworks
@@ -633,6 +638,7 @@ func (o *EnforcerProfile) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			SyslogEndpoint:                        &o.SyslogEndpoint,
 			SyslogEndpointTLSClientCertificate:    &o.SyslogEndpointTLSClientCertificate,
 			SyslogEndpointTLSClientCertificateKey: &o.SyslogEndpointTLSClientCertificateKey,
+			SyslogEndpointTLSServerCA:             &o.SyslogEndpointTLSServerCA,
 			SyslogFacility:                        &o.SyslogFacility,
 			SyslogFormat:                          &o.SyslogFormat,
 			TargetNetworks:                        &o.TargetNetworks,
@@ -694,6 +700,8 @@ func (o *EnforcerProfile) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			sp.SyslogEndpointTLSClientCertificate = &(o.SyslogEndpointTLSClientCertificate)
 		case "syslogEndpointTLSClientCertificateKey":
 			sp.SyslogEndpointTLSClientCertificateKey = &(o.SyslogEndpointTLSClientCertificateKey)
+		case "syslogEndpointTLSServerCA":
+			sp.SyslogEndpointTLSServerCA = &(o.SyslogEndpointTLSServerCA)
 		case "syslogFacility":
 			sp.SyslogFacility = &(o.SyslogFacility)
 		case "syslogFormat":
@@ -813,6 +821,9 @@ func (o *EnforcerProfile) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.SyslogEndpointTLSClientCertificateKey != nil {
 		o.SyslogEndpointTLSClientCertificateKey = *so.SyslogEndpointTLSClientCertificateKey
+	}
+	if so.SyslogEndpointTLSServerCA != nil {
+		o.SyslogEndpointTLSServerCA = *so.SyslogEndpointTLSServerCA
 	}
 	if so.SyslogFacility != nil {
 		o.SyslogFacility = *so.SyslogFacility
@@ -998,6 +1009,8 @@ func (o *EnforcerProfile) ValueForAttribute(name string) interface{} {
 		return o.SyslogEndpointTLSClientCertificate
 	case "syslogEndpointTLSClientCertificateKey":
 		return o.SyslogEndpointTLSClientCertificateKey
+	case "syslogEndpointTLSServerCA":
+		return o.SyslogEndpointTLSServerCA
 	case "syslogFacility":
 		return o.SyslogFacility
 	case "syslogFormat":
@@ -1324,6 +1337,16 @@ with the '@' prefix, and should only be used by external systems.`,
 		Name:      "syslogEndpointTLSClientCertificateKey",
 		Stored:    true,
 		Type:      "string",
+	},
+	"SyslogEndpointTLSServerCA": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogendpointtlsserverca",
+		ConvertedName:  "SyslogEndpointTLSServerCA",
+		Description:    `PEM-encoded server CA certificate.`,
+		Exposed:        true,
+		Name:           "syslogEndpointTLSServerCA",
+		Stored:         true,
+		Type:           "string",
 	},
 	"SyslogFacility": {
 		AllowedChoices: []string{},
@@ -1751,6 +1774,16 @@ with the '@' prefix, and should only be used by external systems.`,
 		Stored:    true,
 		Type:      "string",
 	},
+	"syslogendpointtlsserverca": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogendpointtlsserverca",
+		ConvertedName:  "SyslogEndpointTLSServerCA",
+		Description:    `PEM-encoded server CA certificate.`,
+		Exposed:        true,
+		Name:           "syslogEndpointTLSServerCA",
+		Stored:         true,
+		Type:           "string",
+	},
 	"syslogfacility": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "syslogfacility",
@@ -2015,6 +2048,9 @@ type SparseEnforcerProfile struct {
 	// `syslogEndpointTLSClientCertificate`.
 	SyslogEndpointTLSClientCertificateKey *string `json:"syslogEndpointTLSClientCertificateKey,omitempty" msgpack:"syslogEndpointTLSClientCertificateKey,omitempty" bson:"syslogendpointtlsclientcertificatekey,omitempty" mapstructure:"syslogEndpointTLSClientCertificateKey,omitempty"`
 
+	// PEM-encoded server CA certificate.
+	SyslogEndpointTLSServerCA *string `json:"syslogEndpointTLSServerCA,omitempty" msgpack:"syslogEndpointTLSServerCA,omitempty" bson:"syslogendpointtlsserverca,omitempty" mapstructure:"syslogEndpointTLSServerCA,omitempty"`
+
 	// Contains the list of supported syslog facilities.
 	SyslogFacility *int `json:"syslogFacility,omitempty" msgpack:"syslogFacility,omitempty" bson:"syslogfacility,omitempty" mapstructure:"syslogFacility,omitempty"`
 
@@ -2161,6 +2197,9 @@ func (o *SparseEnforcerProfile) GetBSON() (interface{}, error) {
 	if o.SyslogEndpointTLSClientCertificateKey != nil {
 		s.SyslogEndpointTLSClientCertificateKey = o.SyslogEndpointTLSClientCertificateKey
 	}
+	if o.SyslogEndpointTLSServerCA != nil {
+		s.SyslogEndpointTLSServerCA = o.SyslogEndpointTLSServerCA
+	}
 	if o.SyslogFacility != nil {
 		s.SyslogFacility = o.SyslogFacility
 	}
@@ -2273,6 +2312,9 @@ func (o *SparseEnforcerProfile) SetBSON(raw bson.Raw) error {
 	if s.SyslogEndpointTLSClientCertificateKey != nil {
 		o.SyslogEndpointTLSClientCertificateKey = s.SyslogEndpointTLSClientCertificateKey
 	}
+	if s.SyslogEndpointTLSServerCA != nil {
+		o.SyslogEndpointTLSServerCA = s.SyslogEndpointTLSServerCA
+	}
 	if s.SyslogFacility != nil {
 		o.SyslogFacility = s.SyslogFacility
 	}
@@ -2382,6 +2424,9 @@ func (o *SparseEnforcerProfile) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.SyslogEndpointTLSClientCertificateKey != nil {
 		out.SyslogEndpointTLSClientCertificateKey = *o.SyslogEndpointTLSClientCertificateKey
+	}
+	if o.SyslogEndpointTLSServerCA != nil {
+		out.SyslogEndpointTLSServerCA = *o.SyslogEndpointTLSServerCA
 	}
 	if o.SyslogFacility != nil {
 		out.SyslogFacility = *o.SyslogFacility
@@ -2738,6 +2783,7 @@ type mongoAttributesEnforcerProfile struct {
 	SyslogEndpoint                        string                                          `bson:"syslogendpoint"`
 	SyslogEndpointTLSClientCertificate    string                                          `bson:"syslogendpointtlsclientcertificate"`
 	SyslogEndpointTLSClientCertificateKey string                                          `bson:"syslogendpointtlsclientcertificatekey"`
+	SyslogEndpointTLSServerCA             string                                          `bson:"syslogendpointtlsserverca"`
 	SyslogFacility                        int                                             `bson:"syslogfacility"`
 	SyslogFormat                          EnforcerProfileSyslogFormatValue                `bson:"syslogformat"`
 	TargetNetworks                        []string                                        `bson:"targetnetworks"`
@@ -2772,6 +2818,7 @@ type mongoAttributesSparseEnforcerProfile struct {
 	SyslogEndpoint                        *string                                          `bson:"syslogendpoint,omitempty"`
 	SyslogEndpointTLSClientCertificate    *string                                          `bson:"syslogendpointtlsclientcertificate,omitempty"`
 	SyslogEndpointTLSClientCertificateKey *string                                          `bson:"syslogendpointtlsclientcertificatekey,omitempty"`
+	SyslogEndpointTLSServerCA             *string                                          `bson:"syslogendpointtlsserverca,omitempty"`
 	SyslogFacility                        *int                                             `bson:"syslogfacility,omitempty"`
 	SyslogFormat                          *EnforcerProfileSyslogFormatValue                `bson:"syslogformat,omitempty"`
 	TargetNetworks                        *[]string                                        `bson:"targetnetworks,omitempty"`

@@ -134,6 +134,12 @@ attributes:
     stored: true
     encrypted: true
 
+  - name: syslogEndpointTLSServerCA
+    description: PEM-encoded server CA certificate.
+    type: string
+    exposed: true
+    stored: true
+
   - name: syslogFacility
     description: Contains the list of supported syslog facilities.
     type: integer
