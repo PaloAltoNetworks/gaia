@@ -5340,6 +5340,7 @@ clause in a policy resolution.
 
 ```json
 {
+  "archived": false,
   "clauses": [
     [
       "color=blue",
@@ -5360,6 +5361,19 @@ clause in a policy resolution.
 Performs a clause matching.
 
 #### Attributes
+
+##### `archived`
+
+Type: `boolean`
+
+if set to true, archived objects will also be included in in the matched
+objects.
+
+Default value:
+
+```json
+false
+```
 
 ##### `clauses` [`required`]
 
@@ -19519,6 +19533,8 @@ Represents an edge from the dependency map.
 ```json
 {
   "acceptedFlows": false,
+  "defaultAcceptedFlows": false,
+  "defaultRejectedFlows": false,
   "destinationType": "ProcessingUnit",
   "encrypted": false,
   "observedAcceptedFlows": false,
@@ -19554,6 +19570,18 @@ Mandatory Parameters
 Type: `boolean`
 
 Number of accepted flows in the edge.
+
+##### `defaultAcceptedFlows`
+
+Type: `boolean`
+
+The truth value that indicates if there are accepted default flows.
+
+##### `defaultRejectedFlows`
+
+Type: `boolean`
+
+The truth value that indicates if there are rejected default flows.
 
 ##### `destinationController`
 
