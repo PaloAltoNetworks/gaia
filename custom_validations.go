@@ -1684,6 +1684,8 @@ func IsAddressPrivate(address string) (bool, error) {
 	return false, nil
 }
 
+// ValidateAuthorizedNamespaceGiven ensures that AuthorizedNamespaces and AuthorizedNamespaces
+// are not both empty.
 func ValidateAuthorizedNamespaceGiven(p *APIAuthorizationPolicy) error {
 	if p.AuthorizedNamespace == "" && len(p.AuthorizedNamespaces) == 0 {
 		return makeValidationError("authorizedNamespaces", "A minimum of one authorized namespace must be given")
