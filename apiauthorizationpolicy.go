@@ -109,6 +109,9 @@ type APIAuthorizationPolicy struct {
 	// Defines the namespace the user is authorized to access.
 	AuthorizedNamespace string `json:"authorizedNamespace" msgpack:"authorizedNamespace" bson:"authorizednamespace" mapstructure:"authorizedNamespace,omitempty"`
 
+	// Defines the namespaces this policy applies to.
+	AuthorizedNamespaces []string `json:"authorizedNamespaces" msgpack:"authorizedNamespaces" bson:"authorizednamespaces" mapstructure:"authorizedNamespaces,omitempty"`
+
 	// If set, the API authorization will only be valid if the request comes from one
 	// the declared subnets.
 	AuthorizedSubnets []string `json:"authorizedSubnets" msgpack:"authorizedSubnets" bson:"authorizedsubnets" mapstructure:"authorizedSubnets,omitempty"`
@@ -185,6 +188,7 @@ func NewAPIAuthorizationPolicy() *APIAuthorizationPolicy {
 		AllSubjectTags:       []string{},
 		Annotations:          map[string][]string{},
 		AssociatedTags:       []string{},
+		AuthorizedNamespaces: []string{},
 		AuthorizedSubnets:    []string{},
 		Metadata:             []string{},
 		NormalizedTags:       []string{},
@@ -231,6 +235,7 @@ func (o *APIAuthorizationPolicy) GetBSON() (interface{}, error) {
 	s.AssociatedTags = o.AssociatedTags
 	s.AuthorizedIdentities = o.AuthorizedIdentities
 	s.AuthorizedNamespace = o.AuthorizedNamespace
+	s.AuthorizedNamespaces = o.AuthorizedNamespaces
 	s.AuthorizedSubnets = o.AuthorizedSubnets
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	s.CreateTime = o.CreateTime
@@ -275,6 +280,7 @@ func (o *APIAuthorizationPolicy) SetBSON(raw bson.Raw) error {
 	o.AssociatedTags = s.AssociatedTags
 	o.AuthorizedIdentities = s.AuthorizedIdentities
 	o.AuthorizedNamespace = s.AuthorizedNamespace
+	o.AuthorizedNamespaces = s.AuthorizedNamespaces
 	o.AuthorizedSubnets = s.AuthorizedSubnets
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	o.CreateTime = s.CreateTime
@@ -600,6 +606,7 @@ func (o *APIAuthorizationPolicy) ToSparse(fields ...string) elemental.SparseIden
 			AssociatedTags:       &o.AssociatedTags,
 			AuthorizedIdentities: &o.AuthorizedIdentities,
 			AuthorizedNamespace:  &o.AuthorizedNamespace,
+			AuthorizedNamespaces: &o.AuthorizedNamespaces,
 			AuthorizedSubnets:    &o.AuthorizedSubnets,
 			CreateIdempotencyKey: &o.CreateIdempotencyKey,
 			CreateTime:           &o.CreateTime,
@@ -641,6 +648,8 @@ func (o *APIAuthorizationPolicy) ToSparse(fields ...string) elemental.SparseIden
 			sp.AuthorizedIdentities = &(o.AuthorizedIdentities)
 		case "authorizedNamespace":
 			sp.AuthorizedNamespace = &(o.AuthorizedNamespace)
+		case "authorizedNamespaces":
+			sp.AuthorizedNamespaces = &(o.AuthorizedNamespaces)
 		case "authorizedSubnets":
 			sp.AuthorizedSubnets = &(o.AuthorizedSubnets)
 		case "createIdempotencyKey":
@@ -715,6 +724,9 @@ func (o *APIAuthorizationPolicy) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.AuthorizedNamespace != nil {
 		o.AuthorizedNamespace = *so.AuthorizedNamespace
+	}
+	if so.AuthorizedNamespaces != nil {
+		o.AuthorizedNamespaces = *so.AuthorizedNamespaces
 	}
 	if so.AuthorizedSubnets != nil {
 		o.AuthorizedSubnets = *so.AuthorizedSubnets
@@ -817,10 +829,6 @@ func (o *APIAuthorizationPolicy) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateRequiredString("authorizedNamespace", o.AuthorizedNamespace); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
 	if err := ValidateOptionalCIDRList("authorizedSubnets", o.AuthorizedSubnets); err != nil {
 		errors = errors.Append(err)
 	}
@@ -845,6 +853,11 @@ func (o *APIAuthorizationPolicy) Validate() error {
 		errors = errors.Append(err)
 	}
 	if err := ValidateTagsExpression("subject", o.Subject); err != nil {
+		errors = errors.Append(err)
+	}
+
+	// Custom object validation.
+	if err := ValidateAuthorizedNamespaceGiven(o); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -898,6 +911,8 @@ func (o *APIAuthorizationPolicy) ValueForAttribute(name string) interface{} {
 		return o.AuthorizedIdentities
 	case "authorizedNamespace":
 		return o.AuthorizedNamespace
+	case "authorizedNamespaces":
+		return o.AuthorizedNamespaces
 	case "authorizedSubnets":
 		return o.AuthorizedSubnets
 	case "createIdempotencyKey":
@@ -1040,9 +1055,19 @@ The policy will be active for the given ` + "`" + `activeDuration` + "`" + `.`,
 		Description:    `Defines the namespace the user is authorized to access.`,
 		Exposed:        true,
 		Name:           "authorizedNamespace",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"AuthorizedNamespaces": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "authorizednamespaces",
+		ConvertedName:  "AuthorizedNamespaces",
+		Description:    `Defines the namespaces this policy applies to.`,
+		Exposed:        true,
+		Name:           "authorizedNamespaces",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
 	},
 	"AuthorizedSubnets": {
 		AllowedChoices: []string{},
@@ -1413,9 +1438,19 @@ The policy will be active for the given ` + "`" + `activeDuration` + "`" + `.`,
 		Description:    `Defines the namespace the user is authorized to access.`,
 		Exposed:        true,
 		Name:           "authorizedNamespace",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"authorizednamespaces": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "authorizednamespaces",
+		ConvertedName:  "AuthorizedNamespaces",
+		Description:    `Defines the namespaces this policy applies to.`,
+		Exposed:        true,
+		Name:           "authorizedNamespaces",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
 	},
 	"authorizedsubnets": {
 		AllowedChoices: []string{},
@@ -1778,6 +1813,9 @@ type SparseAPIAuthorizationPolicy struct {
 	// Defines the namespace the user is authorized to access.
 	AuthorizedNamespace *string `json:"authorizedNamespace,omitempty" msgpack:"authorizedNamespace,omitempty" bson:"authorizednamespace,omitempty" mapstructure:"authorizedNamespace,omitempty"`
 
+	// Defines the namespaces this policy applies to.
+	AuthorizedNamespaces *[]string `json:"authorizedNamespaces,omitempty" msgpack:"authorizedNamespaces,omitempty" bson:"authorizednamespaces,omitempty" mapstructure:"authorizedNamespaces,omitempty"`
+
 	// If set, the API authorization will only be valid if the request comes from one
 	// the declared subnets.
 	AuthorizedSubnets *[]string `json:"authorizedSubnets,omitempty" msgpack:"authorizedSubnets,omitempty" bson:"authorizedsubnets,omitempty" mapstructure:"authorizedSubnets,omitempty"`
@@ -1909,6 +1947,9 @@ func (o *SparseAPIAuthorizationPolicy) GetBSON() (interface{}, error) {
 	if o.AuthorizedNamespace != nil {
 		s.AuthorizedNamespace = o.AuthorizedNamespace
 	}
+	if o.AuthorizedNamespaces != nil {
+		s.AuthorizedNamespaces = o.AuthorizedNamespaces
+	}
 	if o.AuthorizedSubnets != nil {
 		s.AuthorizedSubnets = o.AuthorizedSubnets
 	}
@@ -2006,6 +2047,9 @@ func (o *SparseAPIAuthorizationPolicy) SetBSON(raw bson.Raw) error {
 	if s.AuthorizedNamespace != nil {
 		o.AuthorizedNamespace = s.AuthorizedNamespace
 	}
+	if s.AuthorizedNamespaces != nil {
+		o.AuthorizedNamespaces = s.AuthorizedNamespaces
+	}
 	if s.AuthorizedSubnets != nil {
 		o.AuthorizedSubnets = s.AuthorizedSubnets
 	}
@@ -2100,6 +2144,9 @@ func (o *SparseAPIAuthorizationPolicy) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.AuthorizedNamespace != nil {
 		out.AuthorizedNamespace = *o.AuthorizedNamespace
+	}
+	if o.AuthorizedNamespaces != nil {
+		out.AuthorizedNamespaces = *o.AuthorizedNamespaces
 	}
 	if o.AuthorizedSubnets != nil {
 		out.AuthorizedSubnets = *o.AuthorizedSubnets
@@ -2531,6 +2578,7 @@ type mongoAttributesAPIAuthorizationPolicy struct {
 	AssociatedTags       []string            `bson:"associatedtags"`
 	AuthorizedIdentities []string            `bson:"authorizedidentities"`
 	AuthorizedNamespace  string              `bson:"authorizednamespace"`
+	AuthorizedNamespaces []string            `bson:"authorizednamespaces"`
 	AuthorizedSubnets    []string            `bson:"authorizedsubnets"`
 	CreateIdempotencyKey string              `bson:"createidempotencykey"`
 	CreateTime           time.Time           `bson:"createtime"`
@@ -2560,6 +2608,7 @@ type mongoAttributesSparseAPIAuthorizationPolicy struct {
 	AssociatedTags       *[]string            `bson:"associatedtags,omitempty"`
 	AuthorizedIdentities *[]string            `bson:"authorizedidentities,omitempty"`
 	AuthorizedNamespace  *string              `bson:"authorizednamespace,omitempty"`
+	AuthorizedNamespaces *[]string            `bson:"authorizednamespaces,omitempty"`
 	AuthorizedSubnets    *[]string            `bson:"authorizedsubnets,omitempty"`
 	CreateIdempotencyKey *string              `bson:"createidempotencykey,omitempty"`
 	CreateTime           *time.Time           `bson:"createtime,omitempty"`
