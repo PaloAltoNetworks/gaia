@@ -78,6 +78,16 @@ attributes:
     required: true
     example_value: /namespace
 
+  - name: authorizedNamespaces
+    description: Defines the namespaces this policy applies to.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    example_value:
+    - /namespace
+    - /namespace/child
+
   - name: authorizedSubnets
     description: |-
       If set, the API authorization will only be valid if the request comes from one
