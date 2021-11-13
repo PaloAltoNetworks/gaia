@@ -35,6 +35,8 @@ model:
   - '@schedulable'
   - '@timeable'
   - '@zoned'
+  validations:
+  - $authorizedNamespaceGiven
 
 # Indexes
 indexes:
