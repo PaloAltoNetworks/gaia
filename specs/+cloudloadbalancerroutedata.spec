@@ -11,25 +11,25 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: HealthStatus
+  - name: healthStatus
     description: The status of the target.
     type: string
     exposed: true
     stored: true
     example_value: healthly
 
-  - name: Port
+  - name: port
     description: The port for the target group.
     type: string
     exposed: true
 
-  - name: TargetGroupID
+  - name: targetGroupID
     description: The ID for the target group.
     type: string
     exposed: true
     stored: true
 
-  - name: TargetID
+  - name: targetID
     description: The ID of the target object.
     type: string
     exposed: true
