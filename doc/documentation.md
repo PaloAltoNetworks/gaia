@@ -10292,7 +10292,7 @@ Parameters associated with a cloud load balancer.
 
 Type: `map[string][]string`
 
-Mapping of target group ID list associated with a listener.
+Mapping of a listener to its associated target group ID list.
 
 ##### `name`
 

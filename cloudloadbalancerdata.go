@@ -10,7 +10,7 @@ import (
 
 // CloudLoadBalancerData represents the model of a cloudloadbalancerdata
 type CloudLoadBalancerData struct {
-	// Mapping of target group ID list associated with a listener.
+	// Mapping of a listener to its associated target group ID list.
 	Listenertargetmapping map[string][]string `json:"listenertargetmapping" msgpack:"listenertargetmapping" bson:"listenertargetmapping" mapstructure:"listenertargetmapping,omitempty"`
 
 	// The name of the load balancer.
