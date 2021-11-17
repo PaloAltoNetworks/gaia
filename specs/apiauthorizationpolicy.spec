@@ -3,7 +3,7 @@ model:
   rest_name: apiauthorizationpolicy
   resource_name: apiauthorizationpolicies
   entity_name: APIAuthorizationPolicy
-  package: squall
+  package: cid
   group: policy/authorization
   description: |-
     An API authorization defines the operations a user can perform in a
