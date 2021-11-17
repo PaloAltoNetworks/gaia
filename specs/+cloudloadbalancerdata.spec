@@ -17,8 +17,6 @@ attributes:
     exposed: true
     subtype: map[string][]string
     stored: true
-    extensions:
-      refMode: pointer
 
   - name: name
     description: The name of the load balancer.
