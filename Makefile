@@ -9,19 +9,13 @@ all: format codegen lint test
 .PHONY:codegen
 codegen:
 	elegen folder -d specs -o codegen || exit 1
-	mv custom_validations.go custom_validations.go.keep
-	mv custom_validations_test.go custom_validations_test.go.keep
-	mv helpers_test.go helpers_test.go.keep
-	mv networkrulesetpolicy_test.go networkrulesetpolicy_test.go.keep
-	mv typemapping_test.go typemapping_test.go.keep
+	mkdir .keep
+	mv custom_validations.go .keep/custom_validations.go
+	find . -maxdepth 1 -name  "*_test.go" -exec mv {} .keep/{} \;
 	rm -rf ./*.go
-	mv custom_validations.go.keep custom_validations.go
-	mv custom_validations_test.go.keep custom_validations_test.go
-	mv helpers_test.go.keep helpers_test.go
-	mv networkrulesetpolicy_test.go.keep networkrulesetpolicy_test.go
-	mv typemapping_test.go.keep typemapping_test.go
+	cd .keep && find . -type f -exec mv {} ../{} \; && cd ..
 	mv codegen/elemental/*.go ./
-	rm -rf codegen
+	rm -rf codegen .keep
 	data=$$(rego doc -d specs || exit 1) && \
 		echo -e "$${data}" > doc/documentation.md
 
