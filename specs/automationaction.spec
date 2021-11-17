@@ -30,6 +30,11 @@ model:
   - '@propagated'
   - '@timeable'
 
+# Indexes
+indexes:
+- - namespace
+  - key
+
 # Attributes
 attributes:
   v1:
