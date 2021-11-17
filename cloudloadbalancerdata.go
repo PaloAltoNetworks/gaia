@@ -10,14 +10,14 @@ import (
 
 // CloudLoadBalancerData represents the model of a cloudloadbalancerdata
 type CloudLoadBalancerData struct {
+	// Mapping of target group list associated with a listener.
+	Listenertargetmapping map[string][]string `json:"listenertargetmapping" msgpack:"listenertargetmapping" bson:"listenertargetmapping" mapstructure:"listenertargetmapping,omitempty"`
+
 	// The name of the load balancer.
 	Name string `json:"name" msgpack:"name" bson:"name" mapstructure:"name,omitempty"`
 
 	// The scheme tells whether the load balancer is internet facing or internal.
 	Scheme string `json:"scheme" msgpack:"scheme" bson:"scheme" mapstructure:"scheme,omitempty"`
-
-	// Target groups associated with this load balancer.
-	TargetGrouplist []*CloudTargetGroup `json:"targetGrouplist" msgpack:"targetGrouplist" bson:"targetgrouplist" mapstructure:"targetGrouplist,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -26,8 +26,8 @@ type CloudLoadBalancerData struct {
 func NewCloudLoadBalancerData() *CloudLoadBalancerData {
 
 	return &CloudLoadBalancerData{
-		ModelVersion:    1,
-		TargetGrouplist: []*CloudTargetGroup{},
+		ModelVersion:          1,
+		Listenertargetmapping: map[string][]string{},
 	}
 }
 
@@ -41,9 +41,9 @@ func (o *CloudLoadBalancerData) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesCloudLoadBalancerData{}
 
+	s.Listenertargetmapping = o.Listenertargetmapping
 	s.Name = o.Name
 	s.Scheme = o.Scheme
-	s.TargetGrouplist = o.TargetGrouplist
 
 	return s, nil
 }
@@ -61,9 +61,9 @@ func (o *CloudLoadBalancerData) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	o.Listenertargetmapping = s.Listenertargetmapping
 	o.Name = s.Name
 	o.Scheme = s.Scheme
-	o.TargetGrouplist = s.TargetGrouplist
 
 	return nil
 }
@@ -104,16 +104,6 @@ func (o *CloudLoadBalancerData) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	for _, sub := range o.TargetGrouplist {
-		if sub == nil {
-			continue
-		}
-		elemental.ResetDefaultForZeroValues(sub)
-		if err := sub.Validate(); err != nil {
-			errors = errors.Append(err)
-		}
-	}
-
 	if len(requiredErrors) > 0 {
 		return requiredErrors
 	}
@@ -126,7 +116,7 @@ func (o *CloudLoadBalancerData) Validate() error {
 }
 
 type mongoAttributesCloudLoadBalancerData struct {
-	Name            string              `bson:"name"`
-	Scheme          string              `bson:"scheme"`
-	TargetGrouplist []*CloudTargetGroup `bson:"targetgrouplist"`
+	Listenertargetmapping map[string][]string `bson:"listenertargetmapping"`
+	Name                  string              `bson:"name"`
+	Scheme                string              `bson:"scheme"`
 }

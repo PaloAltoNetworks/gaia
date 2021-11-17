@@ -10,9 +10,6 @@ import (
 
 // CloudLoadBalancerRouteData represents the model of a cloudloadbalancerroutedata
 type CloudLoadBalancerRouteData struct {
-	// The status of the target.
-	HealthStatus string `json:"healthStatus" msgpack:"healthStatus" bson:"healthstatus" mapstructure:"healthStatus,omitempty"`
-
 	// The port for the target group.
 	Port string `json:"port" msgpack:"port" bson:"-" mapstructure:"port,omitempty"`
 
@@ -43,7 +40,6 @@ func (o *CloudLoadBalancerRouteData) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesCloudLoadBalancerRouteData{}
 
-	s.HealthStatus = o.HealthStatus
 	s.TargetGroupID = o.TargetGroupID
 	s.TargetID = o.TargetID
 
@@ -63,7 +59,6 @@ func (o *CloudLoadBalancerRouteData) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
-	o.HealthStatus = s.HealthStatus
 	o.TargetGroupID = s.TargetGroupID
 	o.TargetID = s.TargetID
 
@@ -118,7 +113,6 @@ func (o *CloudLoadBalancerRouteData) Validate() error {
 }
 
 type mongoAttributesCloudLoadBalancerRouteData struct {
-	HealthStatus  string `bson:"healthstatus"`
 	TargetGroupID string `bson:"targetgroupid"`
 	TargetID      string `bson:"targetid"`
 }

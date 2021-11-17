@@ -10288,6 +10288,12 @@ Parameters associated with a cloud load balancer.
 
 #### Attributes
 
+##### `listenertargetmapping`
+
+Type: `map[string][]string`
+
+Mapping of target group list associated with a listener.
+
 ##### `name`
 
 Type: `string`
@@ -10299,12 +10305,6 @@ The name of the load balancer.
 Type: `string`
 
 The scheme tells whether the load balancer is internet facing or internal.
-
-##### `targetGrouplist`
-
-Type: [`[]cloudtargetgroup`](#cloudtargetgroup)
-
-Target groups associated with this load balancer.
 
 ### CloudLoadBalancerRoute
 
@@ -10484,18 +10484,11 @@ Parameters associated with a cloud load balancer route.
 
 ```json
 {
-  "healthStatus": "healthly",
-  "targetID": "i-1234"
+  "targetID": "i-d867b126f574d"
 }
 ```
 
 #### Attributes
-
-##### `healthStatus`
-
-Type: `string`
-
-The status of the target.
 
 ##### `port`
 
@@ -12588,45 +12581,6 @@ The availability zone ID of the subnet.
 Type: `string`
 
 The availability zone of the subnet.
-
-### CloudTargetGroup
-
-Describes a target group in a load balancer.
-
-#### Example
-
-```json
-{
-  "loadBalancerName": "lb-1234",
-  "targetType": "i-1234"
-}
-```
-
-#### Attributes
-
-##### `loadBalancerName`
-
-Type: `string`
-
-The name of the load balancer.
-
-##### `port`
-
-Type: `string`
-
-The port for the target group.
-
-##### `targetGroupID`
-
-Type: `string`
-
-The ID for the target group.
-
-##### `targetType`
-
-Type: `string`
-
-The type of the next hop object.
 
 ### CloudVPC
 

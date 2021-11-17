@@ -11,6 +11,15 @@ model:
 # Attributes
 attributes:
   v1:
+  - name: listenertargetmapping
+    description: Mapping of target group list associated with a listener.
+    type: external
+    exposed: true
+    subtype: map[string][]string
+    stored: true
+    extensions:
+      refMode: pointer
+
   - name: name
     description: The name of the load balancer.
     type: string
@@ -25,12 +34,3 @@ attributes:
     exposed: true
     stored: true
     example_value: internet-facing
-
-  - name: targetGrouplist
-    description: Target groups associated with this load balancer.
-    type: refList
-    exposed: true
-    subtype: cloudtargetgroup
-    stored: true
-    extensions:
-      refMode: pointer

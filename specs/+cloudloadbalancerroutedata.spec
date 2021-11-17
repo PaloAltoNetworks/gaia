@@ -11,13 +11,6 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: healthStatus
-    description: The status of the target.
-    type: string
-    exposed: true
-    stored: true
-    example_value: healthly
-
   - name: port
     description: The port for the target group.
     type: string
@@ -34,4 +27,4 @@ attributes:
     type: string
     exposed: true
     stored: true
-    example_value: i-1234
+    example_value: i-d867b126f574d
