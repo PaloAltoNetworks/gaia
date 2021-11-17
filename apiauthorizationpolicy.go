@@ -140,6 +140,9 @@ type APIAuthorizationPolicy struct {
 	// with the '@' prefix, and should only be used by external systems.
 	Metadata []string `json:"metadata" msgpack:"metadata" bson:"metadata" mapstructure:"metadata,omitempty"`
 
+	// Internal property maintaining migrations information.
+	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
+
 	// Name of the entity.
 	Name string `json:"name" msgpack:"name" bson:"name" mapstructure:"name,omitempty"`
 
@@ -190,9 +193,10 @@ func NewAPIAuthorizationPolicy() *APIAuthorizationPolicy {
 		AssociatedTags:       []string{},
 		AuthorizedNamespaces: []string{},
 		AuthorizedSubnets:    []string{},
-		Metadata:             []string{},
+		MigrationsLog:        map[string]string{},
 		NormalizedTags:       []string{},
 		Propagate:            true,
+		Metadata:             []string{},
 		Subject:              [][]string{},
 	}
 }
@@ -244,6 +248,7 @@ func (o *APIAuthorizationPolicy) GetBSON() (interface{}, error) {
 	s.ExpirationTime = o.ExpirationTime
 	s.Fallback = o.Fallback
 	s.Metadata = o.Metadata
+	s.MigrationsLog = o.MigrationsLog
 	s.Name = o.Name
 	s.Namespace = o.Namespace
 	s.NormalizedTags = o.NormalizedTags
@@ -289,6 +294,7 @@ func (o *APIAuthorizationPolicy) SetBSON(raw bson.Raw) error {
 	o.ExpirationTime = s.ExpirationTime
 	o.Fallback = s.Fallback
 	o.Metadata = s.Metadata
+	o.MigrationsLog = s.MigrationsLog
 	o.Name = s.Name
 	o.Namespace = s.Namespace
 	o.NormalizedTags = s.NormalizedTags
@@ -471,6 +477,18 @@ func (o *APIAuthorizationPolicy) SetMetadata(metadata []string) {
 	o.Metadata = metadata
 }
 
+// GetMigrationsLog returns the MigrationsLog of the receiver.
+func (o *APIAuthorizationPolicy) GetMigrationsLog() map[string]string {
+
+	return o.MigrationsLog
+}
+
+// SetMigrationsLog sets the property MigrationsLog of the receiver using the given value.
+func (o *APIAuthorizationPolicy) SetMigrationsLog(migrationsLog map[string]string) {
+
+	o.MigrationsLog = migrationsLog
+}
+
 // GetName returns the Name of the receiver.
 func (o *APIAuthorizationPolicy) GetName() string {
 
@@ -615,6 +633,7 @@ func (o *APIAuthorizationPolicy) ToSparse(fields ...string) elemental.SparseIden
 			ExpirationTime:       &o.ExpirationTime,
 			Fallback:             &o.Fallback,
 			Metadata:             &o.Metadata,
+			MigrationsLog:        &o.MigrationsLog,
 			Name:                 &o.Name,
 			Namespace:            &o.Namespace,
 			NormalizedTags:       &o.NormalizedTags,
@@ -666,6 +685,8 @@ func (o *APIAuthorizationPolicy) ToSparse(fields ...string) elemental.SparseIden
 			sp.Fallback = &(o.Fallback)
 		case "metadata":
 			sp.Metadata = &(o.Metadata)
+		case "migrationsLog":
+			sp.MigrationsLog = &(o.MigrationsLog)
 		case "name":
 			sp.Name = &(o.Name)
 		case "namespace":
@@ -751,6 +772,9 @@ func (o *APIAuthorizationPolicy) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Metadata != nil {
 		o.Metadata = *so.Metadata
+	}
+	if so.MigrationsLog != nil {
+		o.MigrationsLog = *so.MigrationsLog
 	}
 	if so.Name != nil {
 		o.Name = *so.Name
@@ -929,6 +953,8 @@ func (o *APIAuthorizationPolicy) ValueForAttribute(name string) interface{} {
 		return o.Fallback
 	case "metadata":
 		return o.Metadata
+	case "migrationsLog":
+		return o.MigrationsLog
 	case "name":
 		return o.Name
 	case "namespace":
@@ -1178,6 +1204,18 @@ with the '@' prefix, and should only be used by external systems.`,
 		Stored:     true,
 		SubType:    "string",
 		Type:       "list",
+	},
+	"MigrationsLog": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "migrationslog",
+		ConvertedName:  "MigrationsLog",
+		Description:    `Internal property maintaining migrations information.`,
+		Getter:         true,
+		Name:           "migrationsLog",
+		Setter:         true,
+		Stored:         true,
+		SubType:        "map[string]string",
+		Type:           "external",
 	},
 	"Name": {
 		AllowedChoices: []string{},
@@ -1562,6 +1600,18 @@ with the '@' prefix, and should only be used by external systems.`,
 		SubType:    "string",
 		Type:       "list",
 	},
+	"migrationslog": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "migrationslog",
+		ConvertedName:  "MigrationsLog",
+		Description:    `Internal property maintaining migrations information.`,
+		Getter:         true,
+		Name:           "migrationsLog",
+		Setter:         true,
+		Stored:         true,
+		SubType:        "map[string]string",
+		Type:           "external",
+	},
 	"name": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "name",
@@ -1844,6 +1894,9 @@ type SparseAPIAuthorizationPolicy struct {
 	// with the '@' prefix, and should only be used by external systems.
 	Metadata *[]string `json:"metadata,omitempty" msgpack:"metadata,omitempty" bson:"metadata,omitempty" mapstructure:"metadata,omitempty"`
 
+	// Internal property maintaining migrations information.
+	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
+
 	// Name of the entity.
 	Name *string `json:"name,omitempty" msgpack:"name,omitempty" bson:"name,omitempty" mapstructure:"name,omitempty"`
 
@@ -1974,6 +2027,9 @@ func (o *SparseAPIAuthorizationPolicy) GetBSON() (interface{}, error) {
 	if o.Metadata != nil {
 		s.Metadata = o.Metadata
 	}
+	if o.MigrationsLog != nil {
+		s.MigrationsLog = o.MigrationsLog
+	}
 	if o.Name != nil {
 		s.Name = o.Name
 	}
@@ -2074,6 +2130,9 @@ func (o *SparseAPIAuthorizationPolicy) SetBSON(raw bson.Raw) error {
 	if s.Metadata != nil {
 		o.Metadata = s.Metadata
 	}
+	if s.MigrationsLog != nil {
+		o.MigrationsLog = s.MigrationsLog
+	}
 	if s.Name != nil {
 		o.Name = s.Name
 	}
@@ -2171,6 +2230,9 @@ func (o *SparseAPIAuthorizationPolicy) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Metadata != nil {
 		out.Metadata = *o.Metadata
+	}
+	if o.MigrationsLog != nil {
+		out.MigrationsLog = *o.MigrationsLog
 	}
 	if o.Name != nil {
 		out.Name = *o.Name
@@ -2385,6 +2447,22 @@ func (o *SparseAPIAuthorizationPolicy) SetMetadata(metadata []string) {
 	o.Metadata = &metadata
 }
 
+// GetMigrationsLog returns the MigrationsLog of the receiver.
+func (o *SparseAPIAuthorizationPolicy) GetMigrationsLog() (out map[string]string) {
+
+	if o.MigrationsLog == nil {
+		return
+	}
+
+	return *o.MigrationsLog
+}
+
+// SetMigrationsLog sets the property MigrationsLog of the receiver using the address of the given value.
+func (o *SparseAPIAuthorizationPolicy) SetMigrationsLog(migrationsLog map[string]string) {
+
+	o.MigrationsLog = &migrationsLog
+}
+
 // GetName returns the Name of the receiver.
 func (o *SparseAPIAuthorizationPolicy) GetName() (out string) {
 
@@ -2587,6 +2665,7 @@ type mongoAttributesAPIAuthorizationPolicy struct {
 	ExpirationTime       time.Time           `bson:"expirationtime"`
 	Fallback             bool                `bson:"fallback"`
 	Metadata             []string            `bson:"metadata"`
+	MigrationsLog        map[string]string   `bson:"migrationslog,omitempty"`
 	Name                 string              `bson:"name"`
 	Namespace            string              `bson:"namespace"`
 	NormalizedTags       []string            `bson:"normalizedtags"`
@@ -2617,6 +2696,7 @@ type mongoAttributesSparseAPIAuthorizationPolicy struct {
 	ExpirationTime       *time.Time           `bson:"expirationtime,omitempty"`
 	Fallback             *bool                `bson:"fallback,omitempty"`
 	Metadata             *[]string            `bson:"metadata,omitempty"`
+	MigrationsLog        *map[string]string   `bson:"migrationslog,omitempty"`
 	Name                 *string              `bson:"name,omitempty"`
 	Namespace            *string              `bson:"namespace,omitempty"`
 	NormalizedTags       *[]string            `bson:"normalizedtags,omitempty"`

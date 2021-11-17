@@ -29,6 +29,7 @@ model:
   - '@disabled'
   - '@identifiable-stored'
   - '@metadatable'
+  - '@migratable'
   - '@named'
   - '@hidden'
   - '@fallback'
