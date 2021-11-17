@@ -12,7 +12,7 @@ model:
 attributes:
   v1:
   - name: listenertargetmapping
-    description: Mapping of target group list associated with a listener.
+    description: Mapping of target group ID list associated with a listener.
     type: external
     exposed: true
     subtype: map[string][]string
