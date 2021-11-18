@@ -77,6 +77,7 @@ attributes:
     description: Defines the namespace the user is authorized to access.
     type: string
     exposed: true
+    deprecated: true
     example_value: /namespace
 
   - name: authorizedNamespaces

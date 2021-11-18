@@ -13428,6 +13428,8 @@ A list of roles assigned to the user.
 
 ##### `authorizedNamespace`
 
+_This attribute is deprecated_.
+
 Type: `string`
 
 Defines the namespace the user is authorized to access.
