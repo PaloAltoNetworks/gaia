@@ -77,7 +77,6 @@ attributes:
     description: Defines the namespace the user is authorized to access.
     type: string
     exposed: true
-    stored: true
     example_value: /namespace
 
   - name: authorizedNamespaces
