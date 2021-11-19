@@ -1,22 +1,39 @@
 # Model
 model:
-  rest_name: automationtemplate
-  resource_name: automationtemplates
-  entity_name: AutomationTemplate
+  rest_name: automationcondition
+  resource_name: automationconditions
+  entity_name: AutomationCondition
   package: sephiroth
   group: integration/automation
-  description: Templates that can be used in automations.
+  description: Condition that can be used in automations.
   aliases:
-  - autotmpl
+  - autocon
   get:
-    description: Retrieves the template with the given ID.
+    description: Retrieves the automation condition with the given ID.
+    global_parameters:
+    - $propagatable
+  update:
+    description: Updates the automation condition with the given ID.
+  delete:
+    description: Deletes the automation condition with the given ID.
+    global_parameters:
+    - $filtering
   extends:
+  - '@zoned'
+  - '@migratable'
+  - '@base'
+  - '@namespaced'
   - '@described'
+  - '@identifiable-stored'
   - '@named'
+  - '@metadatable'
+  - '@propagated'
+  - '@timeable'
 
 # Indexes
 indexes:
-- - :no-inherit
+- - namespace
+  - key
 
 # Attributes
 attributes:
@@ -26,36 +43,32 @@ attributes:
     type: external
     exposed: true
     subtype: _automation_entitlements
+    stored: true
 
   - name: function
     description: Function contains the code.
     type: string
     exposed: true
+    stored: true
 
   - name: key
-    description: Contains the unique identifier key for the template.
+    description: Contains the unique identifier key for the condition.
     type: string
     exposed: true
-
-  - name: kind
-    description: Represents the kind of template.
-    type: enum
-    exposed: true
-    allowed_choices:
-    - Action
-    - Condition
-    default_value: Condition
+    stored: true
 
   - name: parameters
     description: Contains the computed parameters.
     type: external
     exposed: true
     subtype: map[string]interface{}
+    stored: true
 
   - name: steps
     description: Contains all the steps with parameters.
     type: refList
     exposed: true
     subtype: uistep
+    stored: true
     extensions:
       refMode: pointer
