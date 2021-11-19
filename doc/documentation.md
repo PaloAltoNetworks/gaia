@@ -10133,6 +10133,18 @@ The Load Balancer is essentially an L4,L7 or gateway load balancer with atleast
 
 #### Relations
 
+##### `GET /cloudloadbalancers`
+
+Retrieves the list of cloud load balancers.
+
+Parameters:
+
+- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
+
+##### `POST /cloudloadbalancers`
+
+Creates a cloud Load Balancer.
+
 ##### `DELETE /cloudloadbalancers/:id`
 
 Deletes the object with the given ID.
@@ -10335,6 +10347,18 @@ The Load Balancer Route is essentially a route from load balancer to the
 ```
 
 #### Relations
+
+##### `GET /cloudloadbalancerroutes`
+
+Retrieves the list of cloud load balancers route.
+
+Parameters:
+
+- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
+
+##### `POST /cloudloadbalancerroutes`
+
+Creates a cloud Load Balancer Route.
 
 ##### `DELETE /cloudloadbalancerroutes/:id`
 
