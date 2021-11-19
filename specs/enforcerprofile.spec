@@ -192,4 +192,4 @@ attributes:
 relations:
 - rest_name: enforcersecret
   get:
-    description: Returns the enforcer secrets that must be used by a enforcer profile.
+    description: Returns the enforcer secrets that must be used by an enforcer profile.

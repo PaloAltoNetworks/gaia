@@ -8973,7 +8973,7 @@ Retrieves enforcer secrets information.
 
 ##### `GET /enforcerprofiles/:id/enforcersecrets`
 
-Returns the enforcer secrets that must be used by a enforcer profile.
+Returns the enforcer secrets that must be used by an enforcer profile.
 
 #### Attributes
 
@@ -14100,7 +14100,7 @@ Returns the enforcer profile that must be used by a enforcer.
 
 ##### `GET /enforcerprofiles/:id/enforcersecrets`
 
-Returns the enforcer secrets that must be used by a enforcer profile.
+Returns the enforcer secrets that must be used by an enforcer profile.
 
 #### Attributes
 
