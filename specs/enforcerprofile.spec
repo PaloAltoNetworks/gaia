@@ -118,27 +118,24 @@ attributes:
     type: string
     exposed: true
     stored: true
+    validations:
+    - $syslogendpoint
 
   - name: syslogEndpointTLSClientCertificate
     description: PEM-encoded certificate to expose to the clients for TLS.
     type: string
     exposed: true
     stored: true
-
-  - name: syslogEndpointTLSClientCertificateKey
-    description: |-
-      PEM-encoded certificate key associated with
-      `syslogEndpointTLSClientCertificate`.
-    type: string
-    exposed: true
-    stored: true
-    encrypted: true
+    validations:
+    - $pem
 
   - name: syslogEndpointTLSServerCA
     description: PEM-encoded server CA certificate.
     type: string
     exposed: true
     stored: true
+    validations:
+    - $capem
 
   - name: syslogFacility
     description: Contains the list of supported syslog facilities.
@@ -190,3 +187,9 @@ attributes:
     exposed: true
     subtype: string
     stored: true
+
+# Relations
+relations:
+- rest_name: enforcersecret
+  get:
+    description: Returns the enforcer secrets that must be used by a enforcer profile.

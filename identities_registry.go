@@ -76,6 +76,7 @@ var (
 		"enforcerprofilemappingpolicy": EnforcerProfileMappingPolicyIdentity,
 		"enforcerrefresh":              EnforcerRefreshIdentity,
 		"enforcerreport":               EnforcerReportIdentity,
+		"enforcersecret":               EnforcerSecretIdentity,
 		"enforcertracereport":          EnforcerTraceReportIdentity,
 		"eventlog":                     EventLogIdentity,
 		"export":                       ExportIdentity,
@@ -271,6 +272,7 @@ var (
 		"enforcerprofilemappingpolicies": EnforcerProfileMappingPolicyIdentity,
 		"enforcerrefreshes":              EnforcerRefreshIdentity,
 		"enforcerreports":                EnforcerReportIdentity,
+		"enforcersecrets":                EnforcerSecretIdentity,
 		"enforcertracereports":           EnforcerTraceReportIdentity,
 		"eventlogs":                      EventLogIdentity,
 		"export":                         ExportIdentity,
@@ -863,6 +865,7 @@ var (
 			{"enforcerID"},
 			{":shard", "zone", "zHash", "_id"},
 		},
+		"enforcersecret": nil,
 		"enforcertracereport": {
 			{"namespace", "timestamp"},
 			{"namespace", "enforcerID"},
@@ -1425,6 +1428,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewEnforcerRefresh()
 	case EnforcerReportIdentity:
 		return NewEnforcerReport()
+	case EnforcerSecretIdentity:
+		return NewEnforcerSecret()
 	case EnforcerTraceReportIdentity:
 		return NewEnforcerTraceReport()
 	case EventLogIdentity:
@@ -1772,6 +1777,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseEnforcerRefresh()
 	case EnforcerReportIdentity:
 		return NewSparseEnforcerReport()
+	case EnforcerSecretIdentity:
+		return NewSparseEnforcerSecret()
 	case EnforcerTraceReportIdentity:
 		return NewSparseEnforcerTraceReport()
 	case EventLogIdentity:
@@ -2127,6 +2134,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &EnforcerRefreshsList{}
 	case EnforcerReportIdentity:
 		return &EnforcerReportsList{}
+	case EnforcerSecretIdentity:
+		return &EnforcerSecretsList{}
 	case EnforcerTraceReportIdentity:
 		return &EnforcerTraceReportsList{}
 	case EventLogIdentity:
@@ -2472,6 +2481,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseEnforcerRefreshsList{}
 	case EnforcerReportIdentity:
 		return &SparseEnforcerReportsList{}
+	case EnforcerSecretIdentity:
+		return &SparseEnforcerSecretsList{}
 	case EnforcerTraceReportIdentity:
 		return &SparseEnforcerTraceReportsList{}
 	case EventLogIdentity:
@@ -2777,6 +2788,7 @@ func AllIdentities() []elemental.Identity {
 		EnforcerProfileMappingPolicyIdentity,
 		EnforcerRefreshIdentity,
 		EnforcerReportIdentity,
+		EnforcerSecretIdentity,
 		EnforcerTraceReportIdentity,
 		EventLogIdentity,
 		ExportIdentity,
@@ -3050,6 +3062,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case EnforcerRefreshIdentity:
 		return []string{}
 	case EnforcerReportIdentity:
+		return []string{}
+	case EnforcerSecretIdentity:
 		return []string{}
 	case EnforcerTraceReportIdentity:
 		return []string{}
