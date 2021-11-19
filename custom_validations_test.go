@@ -4443,6 +4443,11 @@ func TestValidateNativeID(t *testing.T) {
 			"",
 			true,
 		},
+		{
+			"valid",
+			"arn:aws:elasticloadbalancing:us-east-2:345744466724:loadbalancer/app/abhi-aws-v2/eb7edb2d68b71a0f",
+			false,
+		},
 	}
 
 	for _, tt := range tests {

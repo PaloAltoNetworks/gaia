@@ -1430,7 +1430,7 @@ func ValidateCloudTag(attribute string, tag string) error {
 }
 
 // nativeIDRegex is the regular expression to check the format of the nativeID.
-var nativeIDRegex = regexp.MustCompile(`^[a-zA-Z0-9-_#+.:@]+$`)
+var nativeIDRegex = regexp.MustCompile(`^[a-zA-Z0-9-_#+.\/:@]+$`)
 
 // ValidateNativeID validates a single tag.
 func ValidateNativeID(attribute string, tag string) error {
