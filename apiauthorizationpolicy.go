@@ -107,7 +107,7 @@ type APIAuthorizationPolicy struct {
 	AuthorizedIdentities []string `json:"authorizedIdentities" msgpack:"authorizedIdentities" bson:"authorizedidentities" mapstructure:"authorizedIdentities,omitempty"`
 
 	// Defines the namespace the user is authorized to access.
-	AuthorizedNamespace string `json:"authorizedNamespace" msgpack:"authorizedNamespace" bson:"-" mapstructure:"authorizedNamespace,omitempty"`
+	AuthorizedNamespace string `json:"authorizedNamespace" msgpack:"authorizedNamespace" bson:"authorizednamespace" mapstructure:"authorizedNamespace,omitempty"`
 
 	// Defines the namespaces this policy applies to.
 	AuthorizedNamespaces []string `json:"authorizedNamespaces" msgpack:"authorizedNamespaces" bson:"authorizednamespaces" mapstructure:"authorizedNamespaces,omitempty"`
@@ -238,6 +238,7 @@ func (o *APIAuthorizationPolicy) GetBSON() (interface{}, error) {
 	s.Annotations = o.Annotations
 	s.AssociatedTags = o.AssociatedTags
 	s.AuthorizedIdentities = o.AuthorizedIdentities
+	s.AuthorizedNamespace = o.AuthorizedNamespace
 	s.AuthorizedNamespaces = o.AuthorizedNamespaces
 	s.AuthorizedSubnets = o.AuthorizedSubnets
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
@@ -283,6 +284,7 @@ func (o *APIAuthorizationPolicy) SetBSON(raw bson.Raw) error {
 	o.Annotations = s.Annotations
 	o.AssociatedTags = s.AssociatedTags
 	o.AuthorizedIdentities = s.AuthorizedIdentities
+	o.AuthorizedNamespace = s.AuthorizedNamespace
 	o.AuthorizedNamespaces = s.AuthorizedNamespaces
 	o.AuthorizedSubnets = s.AuthorizedSubnets
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
@@ -1074,11 +1076,13 @@ The policy will be active for the given ` + "`" + `activeDuration` + "`" + `.`,
 	},
 	"AuthorizedNamespace": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "authorizednamespace",
 		ConvertedName:  "AuthorizedNamespace",
 		Deprecated:     true,
 		Description:    `Defines the namespace the user is authorized to access.`,
 		Exposed:        true,
 		Name:           "authorizedNamespace",
+		Stored:         true,
 		Type:           "string",
 	},
 	"AuthorizedNamespaces": {
@@ -1468,11 +1472,13 @@ The policy will be active for the given ` + "`" + `activeDuration` + "`" + `.`,
 	},
 	"authorizednamespace": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "authorizednamespace",
 		ConvertedName:  "AuthorizedNamespace",
 		Deprecated:     true,
 		Description:    `Defines the namespace the user is authorized to access.`,
 		Exposed:        true,
 		Name:           "authorizedNamespace",
+		Stored:         true,
 		Type:           "string",
 	},
 	"authorizednamespaces": {
@@ -1857,7 +1863,7 @@ type SparseAPIAuthorizationPolicy struct {
 	AuthorizedIdentities *[]string `json:"authorizedIdentities,omitempty" msgpack:"authorizedIdentities,omitempty" bson:"authorizedidentities,omitempty" mapstructure:"authorizedIdentities,omitempty"`
 
 	// Defines the namespace the user is authorized to access.
-	AuthorizedNamespace *string `json:"authorizedNamespace,omitempty" msgpack:"authorizedNamespace,omitempty" bson:"-" mapstructure:"authorizedNamespace,omitempty"`
+	AuthorizedNamespace *string `json:"authorizedNamespace,omitempty" msgpack:"authorizedNamespace,omitempty" bson:"authorizednamespace,omitempty" mapstructure:"authorizedNamespace,omitempty"`
 
 	// Defines the namespaces this policy applies to.
 	AuthorizedNamespaces *[]string `json:"authorizedNamespaces,omitempty" msgpack:"authorizedNamespaces,omitempty" bson:"authorizednamespaces,omitempty" mapstructure:"authorizedNamespaces,omitempty"`
@@ -1993,6 +1999,9 @@ func (o *SparseAPIAuthorizationPolicy) GetBSON() (interface{}, error) {
 	if o.AuthorizedIdentities != nil {
 		s.AuthorizedIdentities = o.AuthorizedIdentities
 	}
+	if o.AuthorizedNamespace != nil {
+		s.AuthorizedNamespace = o.AuthorizedNamespace
+	}
 	if o.AuthorizedNamespaces != nil {
 		s.AuthorizedNamespaces = o.AuthorizedNamespaces
 	}
@@ -2092,6 +2101,9 @@ func (o *SparseAPIAuthorizationPolicy) SetBSON(raw bson.Raw) error {
 	}
 	if s.AuthorizedIdentities != nil {
 		o.AuthorizedIdentities = s.AuthorizedIdentities
+	}
+	if s.AuthorizedNamespace != nil {
+		o.AuthorizedNamespace = s.AuthorizedNamespace
 	}
 	if s.AuthorizedNamespaces != nil {
 		o.AuthorizedNamespaces = s.AuthorizedNamespaces
@@ -2645,6 +2657,7 @@ type mongoAttributesAPIAuthorizationPolicy struct {
 	Annotations          map[string][]string `bson:"annotations"`
 	AssociatedTags       []string            `bson:"associatedtags"`
 	AuthorizedIdentities []string            `bson:"authorizedidentities"`
+	AuthorizedNamespace  string              `bson:"authorizednamespace"`
 	AuthorizedNamespaces []string            `bson:"authorizednamespaces"`
 	AuthorizedSubnets    []string            `bson:"authorizedsubnets"`
 	CreateIdempotencyKey string              `bson:"createidempotencykey"`
@@ -2675,6 +2688,7 @@ type mongoAttributesSparseAPIAuthorizationPolicy struct {
 	Annotations          *map[string][]string `bson:"annotations,omitempty"`
 	AssociatedTags       *[]string            `bson:"associatedtags,omitempty"`
 	AuthorizedIdentities *[]string            `bson:"authorizedidentities,omitempty"`
+	AuthorizedNamespace  *string              `bson:"authorizednamespace,omitempty"`
 	AuthorizedNamespaces *[]string            `bson:"authorizednamespaces,omitempty"`
 	AuthorizedSubnets    *[]string            `bson:"authorizedsubnets,omitempty"`
 	CreateIdempotencyKey *string              `bson:"createidempotencykey,omitempty"`
