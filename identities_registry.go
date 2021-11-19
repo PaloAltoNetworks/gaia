@@ -22,7 +22,8 @@ var (
 		"authority":                 AuthorityIdentity,
 		"authz":                     AuthzIdentity,
 		"automation":                AutomationIdentity,
-		"automationtemplate":        AutomationTemplateIdentity,
+		"automationaction":          AutomationActionIdentity,
+		"automationcondition":       AutomationConditionIdentity,
 		"cachedflowreport":          CachedFlowReportIdentity,
 		"category":                  CategoryIdentity,
 
@@ -221,7 +222,8 @@ var (
 		"authorities":                 AuthorityIdentity,
 		"authz":                       AuthzIdentity,
 		"automations":                 AutomationIdentity,
-		"automationtemplates":         AutomationTemplateIdentity,
+		"automationactions":           AutomationActionIdentity,
+		"automationconditions":        AutomationConditionIdentity,
 		"cachedflowreports":           CachedFlowReportIdentity,
 		"categories":                  CategoryIdentity,
 
@@ -413,7 +415,8 @@ var (
 		"ca":                 AuthorityIdentity,
 		"autos":              AutomationIdentity,
 		"auto":               AutomationIdentity,
-		"autotmpl":           AutomationTemplateIdentity,
+		"autoact":            AutomationActionIdentity,
+		"autocon":            AutomationConditionIdentity,
 		"loadbalancer":       CloudLoadBalancerIdentity,
 		"loadbalancers":      CloudLoadBalancerIdentity,
 		"loadbalancerroute":  CloudLoadBalancerRouteIdentity,
@@ -616,7 +619,28 @@ var (
 			{"disabled"},
 			{"createIdempotencyKey"},
 		},
-		"automationtemplate": nil,
+		"automationaction": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"propagate"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "key"},
+			{"name"},
+			{"createIdempotencyKey"},
+		},
+		"automationcondition": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"propagate"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "key"},
+			{"name"},
+			{"createIdempotencyKey"},
+		},
 		"cachedflowreport": {
 			{"sourceID"},
 			{"namespace", "timestamp"},
@@ -1375,8 +1399,10 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewAuthz()
 	case AutomationIdentity:
 		return NewAutomation()
-	case AutomationTemplateIdentity:
-		return NewAutomationTemplate()
+	case AutomationActionIdentity:
+		return NewAutomationAction()
+	case AutomationConditionIdentity:
+		return NewAutomationCondition()
 	case CachedFlowReportIdentity:
 		return NewCachedFlowReport()
 	case CategoryIdentity:
@@ -1726,8 +1752,10 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseAuthz()
 	case AutomationIdentity:
 		return NewSparseAutomation()
-	case AutomationTemplateIdentity:
-		return NewSparseAutomationTemplate()
+	case AutomationActionIdentity:
+		return NewSparseAutomationAction()
+	case AutomationConditionIdentity:
+		return NewSparseAutomationCondition()
 	case CachedFlowReportIdentity:
 		return NewSparseCachedFlowReport()
 	case CategoryIdentity:
@@ -2085,8 +2113,10 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &AuthzsList{}
 	case AutomationIdentity:
 		return &AutomationsList{}
-	case AutomationTemplateIdentity:
-		return &AutomationTemplatesList{}
+	case AutomationActionIdentity:
+		return &AutomationActionsList{}
+	case AutomationConditionIdentity:
+		return &AutomationConditionsList{}
 	case CachedFlowReportIdentity:
 		return &CachedFlowReportsList{}
 	case CategoryIdentity:
@@ -2434,8 +2464,10 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseAuthzsList{}
 	case AutomationIdentity:
 		return &SparseAutomationsList{}
-	case AutomationTemplateIdentity:
-		return &SparseAutomationTemplatesList{}
+	case AutomationActionIdentity:
+		return &SparseAutomationActionsList{}
+	case AutomationConditionIdentity:
+		return &SparseAutomationConditionsList{}
 	case CachedFlowReportIdentity:
 		return &SparseCachedFlowReportsList{}
 	case CategoryIdentity:
@@ -2784,7 +2816,8 @@ func AllIdentities() []elemental.Identity {
 		AuthorityIdentity,
 		AuthzIdentity,
 		AutomationIdentity,
-		AutomationTemplateIdentity,
+		AutomationActionIdentity,
+		AutomationConditionIdentity,
 		CachedFlowReportIdentity,
 		CategoryIdentity,
 		ClaimsIdentity,
@@ -2998,9 +3031,13 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"autos",
 			"auto",
 		}
-	case AutomationTemplateIdentity:
+	case AutomationActionIdentity:
 		return []string{
-			"autotmpl",
+			"autoact",
+		}
+	case AutomationConditionIdentity:
+		return []string{
+			"autocon",
 		}
 	case CachedFlowReportIdentity:
 		return []string{}
