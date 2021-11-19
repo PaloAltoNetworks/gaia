@@ -81,10 +81,10 @@ func (o EnforcerSecretsList) Version() int {
 // EnforcerSecret represents the model of a enforcersecret
 type EnforcerSecret struct {
 	// Syslog public key in PEM format.
-	SyslogCertificate string `json:"syslogCertificate" msgpack:"syslogCertificate" bson:"syslogcertificate" mapstructure:"syslogCertificate,omitempty"`
+	SyslogCertificate string `json:"syslogCertificate" msgpack:"syslogCertificate" bson:"-" mapstructure:"syslogCertificate,omitempty"`
 
 	// Syslog private key in PEM format.
-	SyslogCertificateKey string `json:"syslogCertificateKey" msgpack:"syslogCertificateKey" bson:"syslogcertificatekey" mapstructure:"syslogCertificateKey,omitempty"`
+	SyslogCertificateKey string `json:"syslogCertificateKey" msgpack:"syslogCertificateKey" bson:"-" mapstructure:"syslogCertificateKey,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -124,9 +124,6 @@ func (o *EnforcerSecret) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesEnforcerSecret{}
 
-	s.SyslogCertificate = o.SyslogCertificate
-	s.SyslogCertificateKey = o.SyslogCertificateKey
-
 	return s, nil
 }
 
@@ -142,9 +139,6 @@ func (o *EnforcerSecret) SetBSON(raw bson.Raw) error {
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
-
-	o.SyslogCertificate = s.SyslogCertificate
-	o.SyslogCertificateKey = s.SyslogCertificateKey
 
 	return nil
 }
@@ -201,26 +195,6 @@ func (o *EnforcerSecret) ToSparse(fields ...string) elemental.SparseIdentifiable
 	}
 
 	return sp
-}
-
-// EncryptAttributes encrypts the attributes marked as `encrypted` using the given encrypter.
-func (o *EnforcerSecret) EncryptAttributes(encrypter elemental.AttributeEncrypter) (err error) {
-
-	if o.SyslogCertificateKey, err = encrypter.EncryptString(o.SyslogCertificateKey); err != nil {
-		return fmt.Errorf("unable to encrypt attribute 'SyslogCertificateKey' for 'EnforcerSecret' (%s): %s", o.Identifier(), err)
-	}
-
-	return nil
-}
-
-// DecryptAttributes decrypts the attributes marked as `encrypted` using the given decrypter.
-func (o *EnforcerSecret) DecryptAttributes(encrypter elemental.AttributeEncrypter) (err error) {
-
-	if o.SyslogCertificateKey, err = encrypter.DecryptString(o.SyslogCertificateKey); err != nil {
-		return fmt.Errorf("unable to decrypt attribute 'SyslogCertificateKey' for 'EnforcerSecret' (%s): %s", o.Identifier(), err)
-	}
-
-	return nil
 }
 
 // Patch apply the non nil value of a *SparseEnforcerSecret to the object.
@@ -331,25 +305,20 @@ func (o *EnforcerSecret) ValueForAttribute(name string) interface{} {
 var EnforcerSecretAttributesMap = map[string]elemental.AttributeSpecification{
 	"SyslogCertificate": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "syslogcertificate",
 		ConvertedName:  "SyslogCertificate",
 		Description:    `Syslog public key in PEM format.`,
 		Exposed:        true,
 		Name:           "syslogCertificate",
 		Required:       true,
-		Stored:         true,
 		Type:           "string",
 	},
 	"SyslogCertificateKey": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "syslogcertificatekey",
 		ConvertedName:  "SyslogCertificateKey",
 		Description:    `Syslog private key in PEM format.`,
-		Encrypted:      true,
 		Exposed:        true,
 		Name:           "syslogCertificateKey",
 		Required:       true,
-		Stored:         true,
 		Type:           "string",
 	},
 }
@@ -358,25 +327,20 @@ var EnforcerSecretAttributesMap = map[string]elemental.AttributeSpecification{
 var EnforcerSecretLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"syslogcertificate": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "syslogcertificate",
 		ConvertedName:  "SyslogCertificate",
 		Description:    `Syslog public key in PEM format.`,
 		Exposed:        true,
 		Name:           "syslogCertificate",
 		Required:       true,
-		Stored:         true,
 		Type:           "string",
 	},
 	"syslogcertificatekey": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "syslogcertificatekey",
 		ConvertedName:  "SyslogCertificateKey",
 		Description:    `Syslog private key in PEM format.`,
-		Encrypted:      true,
 		Exposed:        true,
 		Name:           "syslogCertificateKey",
 		Required:       true,
-		Stored:         true,
 		Type:           "string",
 	},
 }
@@ -445,10 +409,10 @@ func (o SparseEnforcerSecretsList) Version() int {
 // SparseEnforcerSecret represents the sparse version of a enforcersecret.
 type SparseEnforcerSecret struct {
 	// Syslog public key in PEM format.
-	SyslogCertificate *string `json:"syslogCertificate,omitempty" msgpack:"syslogCertificate,omitempty" bson:"syslogcertificate,omitempty" mapstructure:"syslogCertificate,omitempty"`
+	SyslogCertificate *string `json:"syslogCertificate,omitempty" msgpack:"syslogCertificate,omitempty" bson:"-" mapstructure:"syslogCertificate,omitempty"`
 
 	// Syslog private key in PEM format.
-	SyslogCertificateKey *string `json:"syslogCertificateKey,omitempty" msgpack:"syslogCertificateKey,omitempty" bson:"syslogcertificatekey,omitempty" mapstructure:"syslogCertificateKey,omitempty"`
+	SyslogCertificateKey *string `json:"syslogCertificateKey,omitempty" msgpack:"syslogCertificateKey,omitempty" bson:"-" mapstructure:"syslogCertificateKey,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -485,13 +449,6 @@ func (o *SparseEnforcerSecret) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesSparseEnforcerSecret{}
 
-	if o.SyslogCertificate != nil {
-		s.SyslogCertificate = o.SyslogCertificate
-	}
-	if o.SyslogCertificateKey != nil {
-		s.SyslogCertificateKey = o.SyslogCertificateKey
-	}
-
 	return s, nil
 }
 
@@ -506,13 +463,6 @@ func (o *SparseEnforcerSecret) SetBSON(raw bson.Raw) error {
 	s := &mongoAttributesSparseEnforcerSecret{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
-	}
-
-	if s.SyslogCertificate != nil {
-		o.SyslogCertificate = s.SyslogCertificate
-	}
-	if s.SyslogCertificateKey != nil {
-		o.SyslogCertificateKey = s.SyslogCertificateKey
 	}
 
 	return nil
@@ -536,26 +486,6 @@ func (o *SparseEnforcerSecret) ToPlain() elemental.PlainIdentifiable {
 	}
 
 	return out
-}
-
-// EncryptAttributes encrypts the attributes marked as `encrypted` using the given encrypter.
-func (o *SparseEnforcerSecret) EncryptAttributes(encrypter elemental.AttributeEncrypter) (err error) {
-
-	if *o.SyslogCertificateKey, err = encrypter.EncryptString(*o.SyslogCertificateKey); err != nil {
-		return fmt.Errorf("unable to encrypt attribute 'SyslogCertificateKey' for 'SparseEnforcerSecret' (%s): %s", o.Identifier(), err)
-	}
-
-	return nil
-}
-
-// DecryptAttributes decrypts the attributes marked as `encrypted` using the given decrypter.
-func (o *SparseEnforcerSecret) DecryptAttributes(encrypter elemental.AttributeEncrypter) (err error) {
-
-	if *o.SyslogCertificateKey, err = encrypter.DecryptString(*o.SyslogCertificateKey); err != nil {
-		return fmt.Errorf("unable to decrypt attribute 'SyslogCertificateKey' for 'SparseEnforcerSecret' (%s): %s", o.Identifier(), err)
-	}
-
-	return nil
 }
 
 // DeepCopy returns a deep copy if the SparseEnforcerSecret.
@@ -583,10 +513,6 @@ func (o *SparseEnforcerSecret) DeepCopyInto(out *SparseEnforcerSecret) {
 }
 
 type mongoAttributesEnforcerSecret struct {
-	SyslogCertificate    string `bson:"syslogcertificate"`
-	SyslogCertificateKey string `bson:"syslogcertificatekey"`
 }
 type mongoAttributesSparseEnforcerSecret struct {
-	SyslogCertificate    *string `bson:"syslogcertificate,omitempty"`
-	SyslogCertificateKey *string `bson:"syslogcertificatekey,omitempty"`
 }

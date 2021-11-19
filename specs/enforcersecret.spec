@@ -16,7 +16,6 @@ attributes:
     description: Syslog public key in PEM format.
     type: string
     exposed: true
-    stored: true
     required: true
     example_value: |-
       -----BEGIN CERTIFICATE-----
@@ -35,7 +34,6 @@ attributes:
     description: Syslog private key in PEM format.
     type: string
     exposed: true
-    stored: true
     required: true
     example_value: |-
       -----BEGIN EC PRIVATE KEY-----
@@ -43,6 +41,5 @@ attributes:
       AwEHoUQDQgAEBzbAGpf40lZVupONiSmjKcK4BS6hxk41LGXXsTa2kztqhkm+sfV+
       8kwyOG9ewI4GDHgT/6rwX3GEIudglZ6ecQ==
       -----END EC PRIVATE KEY-----
-    encrypted: true
     validations:
     - $pem
