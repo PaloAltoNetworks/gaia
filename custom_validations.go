@@ -78,6 +78,10 @@ func ValidatePortStringList(attribute string, ports []string) error {
 // ValidateSyslogEndpoint validates syslog endpoint.
 func ValidateSyslogEndpoint(attribute string, endpoint string) error {
 
+	if endpoint == "" {
+		return nil
+	}
+
 	prefixes := []string{"udp://", "tcp://", "tls://"}
 
 	for _, p := range prefixes {
