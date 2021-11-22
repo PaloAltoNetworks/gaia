@@ -75,6 +75,20 @@ func ValidatePortStringList(attribute string, ports []string) error {
 	return nil
 }
 
+// ValidateSyslogEndpoint validates syslog endpoint.
+func ValidateSyslogEndpoint(attribute string, endpoint string) error {
+
+	prefixes := []string{"udp://", "tcp://", "tls://"}
+
+	for _, p := range prefixes {
+		if strings.HasPrefix(endpoint, p) {
+			return nil
+		}
+	}
+
+	return makeValidationError(attribute, fmt.Sprintf("Attribute '%s' is not a valid syslog endpoint", attribute))
+}
+
 var rxDNSName = regexp.MustCompile(`^(\*\.){0,1}([a-zA-Z0-9_]{1}[a-zA-Z0-9_-]{0,62}){1}(\.[a-zA-Z0-9_]{1}[a-zA-Z0-9_-]{0,62})*[\._]?$`)
 
 // ValidateNetworkOrHostnameList validates a list of networks.
