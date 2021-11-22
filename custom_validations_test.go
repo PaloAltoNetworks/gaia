@@ -5098,6 +5098,14 @@ func TestValidateSyslogEndpoint(t *testing.T) {
 		wantErr bool
 	}{
 		{
+			name: "empty endpoint",
+			args: args{
+				"syslogEndpoint",
+				"",
+			},
+			wantErr: false,
+		},
+		{
 			name: "valid udp",
 			args: args{
 				"syslogEndpoint",
