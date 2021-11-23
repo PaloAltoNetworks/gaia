@@ -75,6 +75,24 @@ func ValidatePortStringList(attribute string, ports []string) error {
 	return nil
 }
 
+// ValidateSyslogEndpoint validates syslog endpoint.
+func ValidateSyslogEndpoint(attribute string, endpoint string) error {
+
+	if endpoint == "" {
+		return nil
+	}
+
+	prefixes := []string{"udp://", "tcp://", "tls://"}
+
+	for _, p := range prefixes {
+		if strings.HasPrefix(endpoint, p) {
+			return nil
+		}
+	}
+
+	return makeValidationError(attribute, fmt.Sprintf("Attribute '%s' is not a valid syslog endpoint", attribute))
+}
+
 var rxDNSName = regexp.MustCompile(`^(\*\.){0,1}([a-zA-Z0-9_]{1}[a-zA-Z0-9_-]{0,62}){1}(\.[a-zA-Z0-9_]{1}[a-zA-Z0-9_-]{0,62})*[\._]?$`)
 
 // ValidateNetworkOrHostnameList validates a list of networks.
@@ -1430,7 +1448,7 @@ func ValidateCloudTag(attribute string, tag string) error {
 }
 
 // nativeIDRegex is the regular expression to check the format of the nativeID.
-var nativeIDRegex = regexp.MustCompile(`^[a-zA-Z0-9-_#+.:@]+$`)
+var nativeIDRegex = regexp.MustCompile(`^[a-zA-Z0-9-_#+.\/:@]+$`)
 
 // ValidateNativeID validates a single tag.
 func ValidateNativeID(attribute string, tag string) error {

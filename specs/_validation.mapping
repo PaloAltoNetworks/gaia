@@ -214,6 +214,10 @@ $subExpressionsNotEmpty:
   elemental:
     name: ValidateSubExpressionsNotEmpty
 
+$syslogendpoint:
+  elemental:
+    name: ValidateSyslogEndpoint
+
 $tag:
   elemental:
     name: ValidateTag

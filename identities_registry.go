@@ -22,7 +22,8 @@ var (
 		"authority":                 AuthorityIdentity,
 		"authz":                     AuthzIdentity,
 		"automation":                AutomationIdentity,
-		"automationtemplate":        AutomationTemplateIdentity,
+		"automationaction":          AutomationActionIdentity,
+		"automationcondition":       AutomationConditionIdentity,
 		"cachedflowreport":          CachedFlowReportIdentity,
 		"category":                  CategoryIdentity,
 
@@ -36,6 +37,10 @@ var (
 		"cloudendpoint":    CloudEndpointIdentity,
 
 		"cloudgraph": CloudGraphIdentity,
+
+		"cloudloadbalancer": CloudLoadBalancerIdentity,
+
+		"cloudloadbalancerroute": CloudLoadBalancerRouteIdentity,
 
 		"cloudmanagednetwork":   CloudManagedNetworkIdentity,
 		"cloudnetworkinterface": CloudNetworkInterfaceIdentity,
@@ -76,6 +81,7 @@ var (
 		"enforcerprofilemappingpolicy": EnforcerProfileMappingPolicyIdentity,
 		"enforcerrefresh":              EnforcerRefreshIdentity,
 		"enforcerreport":               EnforcerReportIdentity,
+		"enforcersecret":               EnforcerSecretIdentity,
 		"enforcertracereport":          EnforcerTraceReportIdentity,
 		"eventlog":                     EventLogIdentity,
 		"export":                       ExportIdentity,
@@ -217,7 +223,8 @@ var (
 		"authorities":                 AuthorityIdentity,
 		"authz":                       AuthzIdentity,
 		"automations":                 AutomationIdentity,
-		"automationtemplates":         AutomationTemplateIdentity,
+		"automationactions":           AutomationActionIdentity,
+		"automationconditions":        AutomationConditionIdentity,
 		"cachedflowreports":           CachedFlowReportIdentity,
 		"categories":                  CategoryIdentity,
 
@@ -231,6 +238,10 @@ var (
 		"cloudendpoints":    CloudEndpointIdentity,
 
 		"cloudgraphs": CloudGraphIdentity,
+
+		"cloudloadbalancers": CloudLoadBalancerIdentity,
+
+		"cloudloadbalancerroutes": CloudLoadBalancerRouteIdentity,
 
 		"cloudmanagednetworks":   CloudManagedNetworkIdentity,
 		"cloudnetworkinterfaces": CloudNetworkInterfaceIdentity,
@@ -271,6 +282,7 @@ var (
 		"enforcerprofilemappingpolicies": EnforcerProfileMappingPolicyIdentity,
 		"enforcerrefreshes":              EnforcerRefreshIdentity,
 		"enforcerreports":                EnforcerReportIdentity,
+		"enforcersecrets":                EnforcerSecretIdentity,
 		"enforcertracereports":           EnforcerTraceReportIdentity,
 		"eventlogs":                      EventLogIdentity,
 		"export":                         ExportIdentity,
@@ -394,113 +406,118 @@ var (
 	}
 
 	aliasesMap = map[string]elemental.Identity{
-		"accns":           AccessibleNamespaceIdentity,
-		"apiauth":         APIAuthorizationPolicyIdentity,
-		"apiauths":        APIAuthorizationPolicyIdentity,
-		"appcred":         AppCredentialIdentity,
-		"appcreds":        AppCredentialIdentity,
-		"ap":              AuditProfileIdentity,
-		"audpol":          AuditProfileMappingPolicyIdentity,
-		"audpols":         AuditProfileMappingPolicyIdentity,
-		"ca":              AuthorityIdentity,
-		"autos":           AutomationIdentity,
-		"auto":            AutomationIdentity,
-		"autotmpl":        AutomationTemplateIdentity,
-		"crules":          CloudNetworkRuleSetIdentity,
-		"vpc":             CloudVPCIdentity,
-		"vpcs":            CloudVPCIdentity,
-		"pcc":             CNSConfigIdentity,
-		"depmaps":         DependencyMapIdentity,
-		"depmap":          DependencyMapIdentity,
-		"defender":        EnforcerIdentity,
-		"profile":         EnforcerProfileIdentity,
-		"profiles":        EnforcerProfileIdentity,
-		"enfpols":         EnforcerProfileMappingPolicyIdentity,
-		"enfpol":          EnforcerProfileMappingPolicyIdentity,
-		"epm":             EnforcerProfileMappingPolicyIdentity,
-		"extnet":          ExternalNetworkIdentity,
-		"extnets":         ExternalNetworkIdentity,
-		"fp":              FilePathIdentity,
-		"fps":             FilePathIdentity,
-		"hook":            HookPolicyIdentity,
-		"hooks":           HookPolicyIdentity,
-		"hookpol":         HookPolicyIdentity,
-		"hookpols":        HookPolicyIdentity,
-		"hostsrv":         HostServiceIdentity,
-		"hostsrvs":        HostServiceIdentity,
-		"hostsrvmappol":   HostServiceMappingPolicyIdentity,
-		"hostsrvmappols":  HostServiceMappingPolicyIdentity,
-		"httpresource":    HTTPResourceSpecIdentity,
-		"resource":        HTTPResourceSpecIdentity,
-		"httpspec":        HTTPResourceSpecIdentity,
-		"importref":       ImportReferenceIdentity,
-		"impref":          ImportReferenceIdentity,
-		"req":             ImportRequestIdentity,
-		"reqs":            ImportRequestIdentity,
-		"ireq":            ImportRequestIdentity,
-		"ireqs":           ImportRequestIdentity,
-		"infrapol":        InfrastructurePolicyIdentity,
-		"infrapols":       InfrastructurePolicyIdentity,
-		"iapps":           InstalledAppIdentity,
-		"iapp":            InstalledAppIdentity,
-		"ip":              IsolationProfileIdentity,
-		"k8scluster":      KubernetesClusterIdentity,
-		"k8sclusters":     KubernetesClusterIdentity,
-		"mess":            MessageIdentity,
-		"mq":              MetricsQueryIdentity,
-		"mqr":             MetricsQueryRangeIdentity,
-		"ns":              NamespaceIdentity,
-		"nspolicy":        NamespaceMappingPolicyIdentity,
-		"nspolicies":      NamespaceMappingPolicyIdentity,
-		"nsmap":           NamespaceMappingPolicyIdentity,
-		"nsmaps":          NamespaceMappingPolicyIdentity,
-		"nsrenderer":      NamespaceRendererIdentity,
-		"netpol":          NetworkAccessPolicyIdentity,
-		"netpols":         NetworkAccessPolicyIdentity,
-		"netruleset":      NetworkRuleSetPolicyIdentity,
-		"netrulesets":     NetworkRuleSetPolicyIdentity,
-		"netset":          NetworkRuleSetPolicyIdentity,
-		"netsets":         NetworkRuleSetPolicyIdentity,
-		"networkruleset":  NetworkRuleSetPolicyIdentity,
-		"networkrulesets": NetworkRuleSetPolicyIdentity,
-		"om":              OrganizationalMetadataIdentity,
-		"polgraph":        PolicyGraphIdentity,
-		"pu":              ProcessingUnitIdentity,
-		"pus":             ProcessingUnitIdentity,
-		"pup":             ProcessingUnitPolicyIdentity,
-		"pups":            ProcessingUnitPolicyIdentity,
-		"quota":           QuotaPolicyIdentity,
-		"quotas":          QuotaPolicyIdentity,
-		"quotapol":        QuotaPolicyIdentity,
-		"quotapols":       QuotaPolicyIdentity,
-		"rcp":             RecipeIdentity,
-		"hks":             RemoteProcessorIdentity,
-		"hk":              RemoteProcessorIdentity,
-		"rpol":            RenderedPolicyIdentity,
-		"rpols":           RenderedPolicyIdentity,
-		"cook":            RenderTemplateIdentity,
-		"rtpl":            RenderTemplateIdentity,
-		"rq":              ReportsQueryIdentity,
-		"srv":             ServiceIdentity,
-		"srvdep":          ServiceDependencyPolicyIdentity,
-		"srvdeps":         ServiceDependencyPolicyIdentity,
-		"sshpol":          SSHAuthorizationPolicyIdentity,
-		"sshpols":         SSHAuthorizationPolicyIdentity,
-		"si":              StatsInfoIdentity,
-		"sq":              StatsQueryIdentity,
-		"sugpol":          SuggestedPolicyIdentity,
-		"sugpols":         SuggestedPolicyIdentity,
-		"sugg":            SuggestedPolicyIdentity,
-		"suggs":           SuggestedPolicyIdentity,
-		"tsp":             TokenScopePolicyIdentity,
-		"trustedns":       TrustedNamespaceIdentity,
-		"usrpol":          UserAccessPolicyIdentity,
-		"usrpols":         UserAccessPolicyIdentity,
-		"validparam":      ValidateUIParameterIdentity,
-		"vulns":           VulnerabilityIdentity,
-		"vul":             VulnerabilityIdentity,
-		"vuln":            VulnerabilityIdentity,
-		"vuls":            VulnerabilityIdentity,
+		"accns":              AccessibleNamespaceIdentity,
+		"apiauth":            APIAuthorizationPolicyIdentity,
+		"apiauths":           APIAuthorizationPolicyIdentity,
+		"appcred":            AppCredentialIdentity,
+		"appcreds":           AppCredentialIdentity,
+		"ap":                 AuditProfileIdentity,
+		"audpol":             AuditProfileMappingPolicyIdentity,
+		"audpols":            AuditProfileMappingPolicyIdentity,
+		"ca":                 AuthorityIdentity,
+		"autos":              AutomationIdentity,
+		"auto":               AutomationIdentity,
+		"autoact":            AutomationActionIdentity,
+		"autocon":            AutomationConditionIdentity,
+		"loadbalancer":       CloudLoadBalancerIdentity,
+		"loadbalancers":      CloudLoadBalancerIdentity,
+		"loadbalancerroute":  CloudLoadBalancerRouteIdentity,
+		"loadbalancerroutes": CloudLoadBalancerRouteIdentity,
+		"crules":             CloudNetworkRuleSetIdentity,
+		"vpc":                CloudVPCIdentity,
+		"vpcs":               CloudVPCIdentity,
+		"pcc":                CNSConfigIdentity,
+		"depmaps":            DependencyMapIdentity,
+		"depmap":             DependencyMapIdentity,
+		"defender":           EnforcerIdentity,
+		"profile":            EnforcerProfileIdentity,
+		"profiles":           EnforcerProfileIdentity,
+		"enfpols":            EnforcerProfileMappingPolicyIdentity,
+		"enfpol":             EnforcerProfileMappingPolicyIdentity,
+		"epm":                EnforcerProfileMappingPolicyIdentity,
+		"extnet":             ExternalNetworkIdentity,
+		"extnets":            ExternalNetworkIdentity,
+		"fp":                 FilePathIdentity,
+		"fps":                FilePathIdentity,
+		"hook":               HookPolicyIdentity,
+		"hooks":              HookPolicyIdentity,
+		"hookpol":            HookPolicyIdentity,
+		"hookpols":           HookPolicyIdentity,
+		"hostsrv":            HostServiceIdentity,
+		"hostsrvs":           HostServiceIdentity,
+		"hostsrvmappol":      HostServiceMappingPolicyIdentity,
+		"hostsrvmappols":     HostServiceMappingPolicyIdentity,
+		"httpresource":       HTTPResourceSpecIdentity,
+		"resource":           HTTPResourceSpecIdentity,
+		"httpspec":           HTTPResourceSpecIdentity,
+		"importref":          ImportReferenceIdentity,
+		"impref":             ImportReferenceIdentity,
+		"req":                ImportRequestIdentity,
+		"reqs":               ImportRequestIdentity,
+		"ireq":               ImportRequestIdentity,
+		"ireqs":              ImportRequestIdentity,
+		"infrapol":           InfrastructurePolicyIdentity,
+		"infrapols":          InfrastructurePolicyIdentity,
+		"iapps":              InstalledAppIdentity,
+		"iapp":               InstalledAppIdentity,
+		"ip":                 IsolationProfileIdentity,
+		"k8scluster":         KubernetesClusterIdentity,
+		"k8sclusters":        KubernetesClusterIdentity,
+		"mess":               MessageIdentity,
+		"mq":                 MetricsQueryIdentity,
+		"mqr":                MetricsQueryRangeIdentity,
+		"ns":                 NamespaceIdentity,
+		"nspolicy":           NamespaceMappingPolicyIdentity,
+		"nspolicies":         NamespaceMappingPolicyIdentity,
+		"nsmap":              NamespaceMappingPolicyIdentity,
+		"nsmaps":             NamespaceMappingPolicyIdentity,
+		"nsrenderer":         NamespaceRendererIdentity,
+		"netpol":             NetworkAccessPolicyIdentity,
+		"netpols":            NetworkAccessPolicyIdentity,
+		"netruleset":         NetworkRuleSetPolicyIdentity,
+		"netrulesets":        NetworkRuleSetPolicyIdentity,
+		"netset":             NetworkRuleSetPolicyIdentity,
+		"netsets":            NetworkRuleSetPolicyIdentity,
+		"networkruleset":     NetworkRuleSetPolicyIdentity,
+		"networkrulesets":    NetworkRuleSetPolicyIdentity,
+		"om":                 OrganizationalMetadataIdentity,
+		"polgraph":           PolicyGraphIdentity,
+		"pu":                 ProcessingUnitIdentity,
+		"pus":                ProcessingUnitIdentity,
+		"pup":                ProcessingUnitPolicyIdentity,
+		"pups":               ProcessingUnitPolicyIdentity,
+		"quota":              QuotaPolicyIdentity,
+		"quotas":             QuotaPolicyIdentity,
+		"quotapol":           QuotaPolicyIdentity,
+		"quotapols":          QuotaPolicyIdentity,
+		"rcp":                RecipeIdentity,
+		"hks":                RemoteProcessorIdentity,
+		"hk":                 RemoteProcessorIdentity,
+		"rpol":               RenderedPolicyIdentity,
+		"rpols":              RenderedPolicyIdentity,
+		"cook":               RenderTemplateIdentity,
+		"rtpl":               RenderTemplateIdentity,
+		"rq":                 ReportsQueryIdentity,
+		"srv":                ServiceIdentity,
+		"srvdep":             ServiceDependencyPolicyIdentity,
+		"srvdeps":            ServiceDependencyPolicyIdentity,
+		"sshpol":             SSHAuthorizationPolicyIdentity,
+		"sshpols":            SSHAuthorizationPolicyIdentity,
+		"si":                 StatsInfoIdentity,
+		"sq":                 StatsQueryIdentity,
+		"sugpol":             SuggestedPolicyIdentity,
+		"sugpols":            SuggestedPolicyIdentity,
+		"sugg":               SuggestedPolicyIdentity,
+		"suggs":              SuggestedPolicyIdentity,
+		"tsp":                TokenScopePolicyIdentity,
+		"trustedns":          TrustedNamespaceIdentity,
+		"usrpol":             UserAccessPolicyIdentity,
+		"usrpols":            UserAccessPolicyIdentity,
+		"validparam":         ValidateUIParameterIdentity,
+		"vulns":              VulnerabilityIdentity,
+		"vul":                VulnerabilityIdentity,
+		"vuln":               VulnerabilityIdentity,
+		"vuls":               VulnerabilityIdentity,
 	}
 
 	indexesMap = map[string][][]string{
@@ -604,7 +621,28 @@ var (
 			{"disabled"},
 			{"createIdempotencyKey"},
 		},
-		"automationtemplate": nil,
+		"automationaction": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"propagate"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "key"},
+			{"name"},
+			{"createIdempotencyKey"},
+		},
+		"automationcondition": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"propagate"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "key"},
+			{"name"},
+			{"createIdempotencyKey"},
+		},
 		"cachedflowreport": {
 			{"sourceID"},
 			{"namespace", "timestamp"},
@@ -663,6 +701,26 @@ var (
 			{"createIdempotencyKey"},
 		},
 		"cloudgraph": nil,
+		"cloudloadbalancer": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "nativeID"},
+			{"namespace", "accountid"},
+			{"namespace", "vpcid"},
+			{"createIdempotencyKey"},
+		},
+		"cloudloadbalancerroute": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "nativeID"},
+			{"namespace", "accountid"},
+			{"namespace", "vpcid"},
+			{"createIdempotencyKey"},
+		},
 		"cloudmanagednetwork": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
@@ -863,6 +921,7 @@ var (
 			{"enforcerID"},
 			{":shard", "zone", "zHash", "_id"},
 		},
+		"enforcersecret": nil,
 		"enforcertracereport": {
 			{"namespace", "timestamp"},
 			{"namespace", "enforcerID"},
@@ -1343,8 +1402,10 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewAuthz()
 	case AutomationIdentity:
 		return NewAutomation()
-	case AutomationTemplateIdentity:
-		return NewAutomationTemplate()
+	case AutomationActionIdentity:
+		return NewAutomationAction()
+	case AutomationConditionIdentity:
+		return NewAutomationCondition()
 	case CachedFlowReportIdentity:
 		return NewCachedFlowReport()
 	case CategoryIdentity:
@@ -1365,6 +1426,10 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudEndpoint()
 	case CloudGraphIdentity:
 		return NewCloudGraph()
+	case CloudLoadBalancerIdentity:
+		return NewCloudLoadBalancer()
+	case CloudLoadBalancerRouteIdentity:
+		return NewCloudLoadBalancerRoute()
 	case CloudManagedNetworkIdentity:
 		return NewCloudManagedNetwork()
 	case CloudNetworkInterfaceIdentity:
@@ -1425,6 +1490,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewEnforcerRefresh()
 	case EnforcerReportIdentity:
 		return NewEnforcerReport()
+	case EnforcerSecretIdentity:
+		return NewEnforcerSecret()
 	case EnforcerTraceReportIdentity:
 		return NewEnforcerTraceReport()
 	case EventLogIdentity:
@@ -1690,8 +1757,10 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseAuthz()
 	case AutomationIdentity:
 		return NewSparseAutomation()
-	case AutomationTemplateIdentity:
-		return NewSparseAutomationTemplate()
+	case AutomationActionIdentity:
+		return NewSparseAutomationAction()
+	case AutomationConditionIdentity:
+		return NewSparseAutomationCondition()
 	case CachedFlowReportIdentity:
 		return NewSparseCachedFlowReport()
 	case CategoryIdentity:
@@ -1712,6 +1781,10 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudEndpoint()
 	case CloudGraphIdentity:
 		return NewSparseCloudGraph()
+	case CloudLoadBalancerIdentity:
+		return NewSparseCloudLoadBalancer()
+	case CloudLoadBalancerRouteIdentity:
+		return NewSparseCloudLoadBalancerRoute()
 	case CloudManagedNetworkIdentity:
 		return NewSparseCloudManagedNetwork()
 	case CloudNetworkInterfaceIdentity:
@@ -1772,6 +1845,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseEnforcerRefresh()
 	case EnforcerReportIdentity:
 		return NewSparseEnforcerReport()
+	case EnforcerSecretIdentity:
+		return NewSparseEnforcerSecret()
 	case EnforcerTraceReportIdentity:
 		return NewSparseEnforcerTraceReport()
 	case EventLogIdentity:
@@ -2045,8 +2120,10 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &AuthzsList{}
 	case AutomationIdentity:
 		return &AutomationsList{}
-	case AutomationTemplateIdentity:
-		return &AutomationTemplatesList{}
+	case AutomationActionIdentity:
+		return &AutomationActionsList{}
+	case AutomationConditionIdentity:
+		return &AutomationConditionsList{}
 	case CachedFlowReportIdentity:
 		return &CachedFlowReportsList{}
 	case CategoryIdentity:
@@ -2067,6 +2144,10 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudEndpointsList{}
 	case CloudGraphIdentity:
 		return &CloudGraphsList{}
+	case CloudLoadBalancerIdentity:
+		return &CloudLoadBalancersList{}
+	case CloudLoadBalancerRouteIdentity:
+		return &CloudLoadBalancerRoutesList{}
 	case CloudManagedNetworkIdentity:
 		return &CloudManagedNetworksList{}
 	case CloudNetworkInterfaceIdentity:
@@ -2127,6 +2208,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &EnforcerRefreshsList{}
 	case EnforcerReportIdentity:
 		return &EnforcerReportsList{}
+	case EnforcerSecretIdentity:
+		return &EnforcerSecretsList{}
 	case EnforcerTraceReportIdentity:
 		return &EnforcerTraceReportsList{}
 	case EventLogIdentity:
@@ -2390,8 +2473,10 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseAuthzsList{}
 	case AutomationIdentity:
 		return &SparseAutomationsList{}
-	case AutomationTemplateIdentity:
-		return &SparseAutomationTemplatesList{}
+	case AutomationActionIdentity:
+		return &SparseAutomationActionsList{}
+	case AutomationConditionIdentity:
+		return &SparseAutomationConditionsList{}
 	case CachedFlowReportIdentity:
 		return &SparseCachedFlowReportsList{}
 	case CategoryIdentity:
@@ -2412,6 +2497,10 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudEndpointsList{}
 	case CloudGraphIdentity:
 		return &SparseCloudGraphsList{}
+	case CloudLoadBalancerIdentity:
+		return &SparseCloudLoadBalancersList{}
+	case CloudLoadBalancerRouteIdentity:
+		return &SparseCloudLoadBalancerRoutesList{}
 	case CloudManagedNetworkIdentity:
 		return &SparseCloudManagedNetworksList{}
 	case CloudNetworkInterfaceIdentity:
@@ -2472,6 +2561,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseEnforcerRefreshsList{}
 	case EnforcerReportIdentity:
 		return &SparseEnforcerReportsList{}
+	case EnforcerSecretIdentity:
+		return &SparseEnforcerSecretsList{}
 	case EnforcerTraceReportIdentity:
 		return &SparseEnforcerTraceReportsList{}
 	case EventLogIdentity:
@@ -2736,7 +2827,8 @@ func AllIdentities() []elemental.Identity {
 		AuthorityIdentity,
 		AuthzIdentity,
 		AutomationIdentity,
-		AutomationTemplateIdentity,
+		AutomationActionIdentity,
+		AutomationConditionIdentity,
 		CachedFlowReportIdentity,
 		CategoryIdentity,
 		ClaimsIdentity,
@@ -2747,6 +2839,8 @@ func AllIdentities() []elemental.Identity {
 		CloudAlertRuleIdentity,
 		CloudEndpointIdentity,
 		CloudGraphIdentity,
+		CloudLoadBalancerIdentity,
+		CloudLoadBalancerRouteIdentity,
 		CloudManagedNetworkIdentity,
 		CloudNetworkInterfaceIdentity,
 		CloudNetworkQueryIdentity,
@@ -2777,6 +2871,7 @@ func AllIdentities() []elemental.Identity {
 		EnforcerProfileMappingPolicyIdentity,
 		EnforcerRefreshIdentity,
 		EnforcerReportIdentity,
+		EnforcerSecretIdentity,
 		EnforcerTraceReportIdentity,
 		EventLogIdentity,
 		ExportIdentity,
@@ -2948,9 +3043,13 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"autos",
 			"auto",
 		}
-	case AutomationTemplateIdentity:
+	case AutomationActionIdentity:
 		return []string{
-			"autotmpl",
+			"autoact",
+		}
+	case AutomationConditionIdentity:
+		return []string{
+			"autocon",
 		}
 	case CachedFlowReportIdentity:
 		return []string{}
@@ -2972,6 +3071,16 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{}
 	case CloudGraphIdentity:
 		return []string{}
+	case CloudLoadBalancerIdentity:
+		return []string{
+			"loadbalancer",
+			"loadbalancers",
+		}
+	case CloudLoadBalancerRouteIdentity:
+		return []string{
+			"loadbalancerroute",
+			"loadbalancerroutes",
+		}
 	case CloudManagedNetworkIdentity:
 		return []string{}
 	case CloudNetworkInterfaceIdentity:
@@ -3050,6 +3159,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case EnforcerRefreshIdentity:
 		return []string{}
 	case EnforcerReportIdentity:
+		return []string{}
+	case EnforcerSecretIdentity:
 		return []string{}
 	case EnforcerTraceReportIdentity:
 		return []string{}
