@@ -4875,7 +4875,7 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 						VPCIDs:    []string{"vpc3"},
 						ObjectIDs: []string{"object1"},
 					},
-					AddressMatchCriteria: CloudNetworkQueryAddressMatchCriteriaValue(CloudNetworkQueryAddressMatchCriteriaPartialMatch),
+					AddressMatchCriteria: CloudNetworkQueryAddressMatchCriteriaPartialMatch,
 				},
 			},
 			true,
