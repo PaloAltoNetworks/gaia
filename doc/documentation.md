@@ -14053,6 +14053,10 @@ propagates down to all the children of the current namespace.
     "@auth:role=namespace.administrator"
   ],
   "authorizedNamespace": "/namespace",
+  "authorizedNamespaces": [
+    "/namespace",
+    "/namespace/child"
+  ],
   "disabled": false,
   "fallback": false,
   "name": "the name",
@@ -14132,11 +14136,19 @@ Type: `[]string`
 
 A list of roles assigned to the user.
 
-##### `authorizedNamespace` [`required`]
+##### `authorizedNamespace`
+
+_This attribute is deprecated_.
 
 Type: `string`
 
 Defines the namespace the user is authorized to access.
+
+##### `authorizedNamespaces`
+
+Type: `[]string`
+
+Defines the namespaces this policy applies to.
 
 ##### `authorizedSubnets`
 
