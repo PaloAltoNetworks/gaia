@@ -15,6 +15,9 @@ const (
 	// CloudNetworkQueryAddressMatchCriteriaFullMatch represents the value FullMatch.
 	CloudNetworkQueryAddressMatchCriteriaFullMatch CloudNetworkQueryAddressMatchCriteriaValue = "FullMatch"
 
+	// CloudNetworkQueryAddressMatchCriteriaNotApplicable represents the value NotApplicable.
+	CloudNetworkQueryAddressMatchCriteriaNotApplicable CloudNetworkQueryAddressMatchCriteriaValue = "NotApplicable"
+
 	// CloudNetworkQueryAddressMatchCriteriaPartialMatch represents the value PartialMatch.
 	CloudNetworkQueryAddressMatchCriteriaPartialMatch CloudNetworkQueryAddressMatchCriteriaValue = "PartialMatch"
 )
@@ -240,18 +243,19 @@ type CloudNetworkQuery struct {
 func NewCloudNetworkQuery() *CloudNetworkQuery {
 
 	return &CloudNetworkQuery{
-		ModelVersion:        1,
-		AlertOn:             CloudNetworkQueryAlertOnNone,
-		Annotations:         map[string][]string{},
-		AssociatedTags:      []string{},
-		ExcludedNetworks:    []string{},
-		DestinationSelector: NewCloudNetworkQueryFilter(),
-		EffectiveAction:     CloudNetworkQueryEffectiveActionAllowed,
-		MigrationsLog:       map[string]string{},
-		NormalizedTags:      []string{},
-		ProtocolPorts:       []string{},
-		SourceSelector:      NewCloudNetworkQueryFilter(),
-		Type:                CloudNetworkQueryTypeSummary,
+		ModelVersion:         1,
+		AddressMatchCriteria: CloudNetworkQueryAddressMatchCriteriaNotApplicable,
+		AlertOn:              CloudNetworkQueryAlertOnNone,
+		Annotations:          map[string][]string{},
+		AssociatedTags:       []string{},
+		ExcludedNetworks:     []string{},
+		DestinationSelector:  NewCloudNetworkQueryFilter(),
+		EffectiveAction:      CloudNetworkQueryEffectiveActionAllowed,
+		MigrationsLog:        map[string]string{},
+		NormalizedTags:       []string{},
+		ProtocolPorts:        []string{},
+		SourceSelector:       NewCloudNetworkQueryFilter(),
+		Type:                 CloudNetworkQueryTypeSummary,
 	}
 }
 
@@ -739,7 +743,7 @@ func (o *CloudNetworkQuery) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if err := elemental.ValidateStringInList("addressMatchCriteria", string(o.AddressMatchCriteria), []string{"FullMatch", "PartialMatch"}, false); err != nil {
+	if err := elemental.ValidateStringInList("addressMatchCriteria", string(o.AddressMatchCriteria), []string{"FullMatch", "PartialMatch", "NotApplicable"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -913,9 +917,10 @@ var CloudNetworkQueryAttributesMap = map[string]elemental.AttributeSpecification
 		Type:           "string",
 	},
 	"AddressMatchCriteria": {
-		AllowedChoices: []string{"FullMatch", "PartialMatch"},
+		AllowedChoices: []string{"FullMatch", "PartialMatch", "NotApplicable"},
 		BSONFieldName:  "addressmatchcriteria",
 		ConvertedName:  "AddressMatchCriteria",
+		DefaultValue:   CloudNetworkQueryAddressMatchCriteriaNotApplicable,
 		Description: `If set to FullMatch, a policy match is true only if the given IPs are a subset
 of policy IPs. If set to PartialMatch, a policy match is true if there is an
 overlap between given IPs and policy IPs.`,
@@ -1240,9 +1245,10 @@ var CloudNetworkQueryLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 		Type:           "string",
 	},
 	"addressmatchcriteria": {
-		AllowedChoices: []string{"FullMatch", "PartialMatch"},
+		AllowedChoices: []string{"FullMatch", "PartialMatch", "NotApplicable"},
 		BSONFieldName:  "addressmatchcriteria",
 		ConvertedName:  "AddressMatchCriteria",
+		DefaultValue:   CloudNetworkQueryAddressMatchCriteriaNotApplicable,
 		Description: `If set to FullMatch, a policy match is true only if the given IPs are a subset
 of policy IPs. If set to PartialMatch, a policy match is true if there is an
 overlap between given IPs and policy IPs.`,

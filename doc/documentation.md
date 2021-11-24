@@ -11201,7 +11201,7 @@ Provides the parameters for an effective network permissions query.
 
 ```json
 {
-  "addressMatchCriteria": "PartialMatch",
+  "addressMatchCriteria": "NotApplicable",
   "alertOn": "None",
   "effectiveAction": "Allowed",
   "excludeEnterpriseIPs": false,
@@ -11263,11 +11263,17 @@ Identifier of the object.
 
 ##### `addressMatchCriteria`
 
-Type: `enum(FullMatch | PartialMatch)`
+Type: `enum(FullMatch | PartialMatch | NotApplicable)`
 
 If set to FullMatch, a policy match is true only if the given IPs are a subset
 of policy IPs. If set to PartialMatch, a policy match is true if there is an
 overlap between given IPs and policy IPs.
+
+Default value:
+
+```json
+"NotApplicable"
+```
 
 ##### `alertOn`
 

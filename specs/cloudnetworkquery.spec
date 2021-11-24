@@ -39,7 +39,8 @@ attributes:
     allowed_choices:
     - FullMatch
     - PartialMatch
-    example_value: PartialMatch
+    - NotApplicable
+    default_value: NotApplicable
 
   - name: alertOn
     description: |-
