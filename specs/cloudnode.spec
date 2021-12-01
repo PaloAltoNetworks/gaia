@@ -105,4 +105,6 @@ attributes:
     - Interface
     - RouteTable
     - NetworkRuleSet
+    - LoadBalancer
+    - LoadBalancerRoute
     example_value: Endpoint

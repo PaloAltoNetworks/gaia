@@ -4443,6 +4443,11 @@ func TestValidateNativeID(t *testing.T) {
 			"",
 			true,
 		},
+		{
+			"valid",
+			"arn:aws:elasticloadbalancing:us-east-2:345744466724:loadbalancer/app/abhi-aws-v2/eb7edb2d68b71a0f",
+			false,
+		},
 	}
 
 	for _, tt := range tests {
@@ -4861,6 +4866,25 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 			},
 			false,
 		},
+		{
+			"both source and dest IP empty but address match is set",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					Type: CloudNetworkQueryTypeNetworkPath,
+					SourceSelector: &CloudNetworkQueryFilter{
+						VPCIDs:    []string{"vpc1"},
+						ObjectIDs: []string{"object1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						VPCIDs:    []string{"vpc3"},
+						ObjectIDs: []string{"object1"},
+					},
+					AddressMatchCriteria: CloudNetworkQueryAddressMatchCriteriaPartialMatch,
+				},
+			},
+			true,
+		},
 	}
 
 	for _, tt := range tests {
@@ -5077,6 +5101,73 @@ func TestValidateAPIServerServiceName(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if err := ValidateAPIServerServiceName(tt.args.attribute, tt.args.serviceName); (err != nil) != tt.wantErr {
 				t.Errorf("ValidateAPIServerServiceName() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func TestValidateSyslogEndpoint(t *testing.T) {
+	type args struct {
+		attribute string
+		endpoint  string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{
+			name: "empty endpoint",
+			args: args{
+				"syslogEndpoint",
+				"",
+			},
+			wantErr: false,
+		},
+		{
+			name: "valid udp",
+			args: args{
+				"syslogEndpoint",
+				"udp://example.com",
+			},
+			wantErr: false,
+		},
+		{
+			name: "valid tcp",
+			args: args{
+				"syslogEndpoint",
+				"tcp://example.com",
+			},
+			wantErr: false,
+		},
+		{
+			name: "valid tls",
+			args: args{
+				"syslogEndpoint",
+				"tls://example.com",
+			},
+		},
+		{
+			name: "invalid tcp",
+			args: args{
+				"syslogEndpoint",
+				"tcp:/example.com",
+			},
+			wantErr: true,
+		},
+		{
+			name: "invalid protocol",
+			args: args{
+				"syslogEndpoint",
+				"ftp://example.com",
+			},
+			wantErr: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := ValidateSyslogEndpoint(tt.args.attribute, tt.args.endpoint); (err != nil) != tt.wantErr {
+				t.Errorf("ValidateSyslogEndpoint() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

@@ -107,6 +107,55 @@ attributes:
     default_value: Docker
     deprecated: true
 
+  - name: syslogEnabled
+    description: Enables syslog functionality of enforcers using this enforcerprofile.
+    type: boolean
+    exposed: true
+    stored: true
+
+  - name: syslogEndpoint
+    description: Contains the remote endpoint to dispatch the syslog messages.
+    type: string
+    exposed: true
+    stored: true
+    validations:
+    - $syslogendpoint
+
+  - name: syslogEndpointTLSClientCertificate
+    description: PEM-encoded certificate to expose to the clients for TLS.
+    type: string
+    exposed: true
+    stored: true
+    validations:
+    - $pem
+
+  - name: syslogEndpointTLSServerCA
+    description: PEM-encoded server CA certificate.
+    type: string
+    exposed: true
+    stored: true
+    validations:
+    - $capem
+
+  - name: syslogFacility
+    description: Contains the list of supported syslog facilities.
+    type: integer
+    exposed: true
+    stored: true
+    default_value: 1
+    max_value: 23
+
+  - name: syslogFormat
+    description: Contains the list of supported syslog message format.
+    type: enum
+    exposed: true
+    stored: true
+    allowed_choices:
+    - Auto
+    - BSD
+    - IETF
+    default_value: Auto
+
   - name: targetNetworks
     description: |-
       If empty, the enforcer auto-discovers the TCP networks. Auto-discovery
@@ -138,3 +187,9 @@ attributes:
     exposed: true
     subtype: string
     stored: true
+
+# Relations
+relations:
+- rest_name: enforcersecret
+  get:
+    description: Returns the enforcer secrets that must be used by an enforcer profile.
