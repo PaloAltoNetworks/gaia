@@ -9165,6 +9165,59 @@ compatible signing keys.
 
 ## internal/x509
 
+### EnforcerSecret
+
+Manages private keys.
+
+#### Example
+
+```json
+{
+  "syslogCertificate": "-----BEGIN CERTIFICATE-----
+MIIBKjCB0aADAgECAhEAugDV416p70g1FGz9A91H4DAKBggqhkjOPQQDAjAOMQww
+CgYDVQQDEwNjdWwwHhcNMjEwNzA2MTYzMjI4WhcNMjIwNzAxMTYzMjI4WjAOMQww
+CgYDVQQDEwNjdWwwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQHNsAal/jSVlW6
+k42JKaMpwrgFLqHGTjUsZdexNraTO2qGSb6x9X7yTDI4b17AjgYMeBP/qvBfcYQi
+52CVnp5xoxAwDjAMBgNVHRMBAf8EAjAAMAoGCCqGSM49BAMCA0gAMEUCICZcMM89
+fJz9LMdpz/A1RpBEC0Xx4I/8JWrHroVYPOG7AiEA37iWAAi1DYBboyxevbCc6kNa
+Su0pBE163iBEKUew0/s=
+-----END CERTIFICATE-----",
+  "syslogCertificateKey": "-----BEGIN EC PRIVATE KEY-----
+MHcCAQEEIHjrDddXMasytnPC2+7m2BnkgEX7a6Vk1G13dQsASpAhoAoGCCqGSM49
+AwEHoUQDQgAEBzbAGpf40lZVupONiSmjKcK4BS6hxk41LGXXsTa2kztqhkm+sfV+
+8kwyOG9ewI4GDHgT/6rwX3GEIudglZ6ecQ==
+-----END EC PRIVATE KEY-----"
+}
+```
+
+#### Relations
+
+##### `GET /enforcersecrets`
+
+Retrieves the enforcer secret.
+
+##### `GET /enforcersecrets/:id`
+
+Retrieves enforcer secrets information.
+
+##### `GET /enforcerprofiles/:id/enforcersecrets`
+
+Returns the enforcer secrets that must be used by an enforcer profile.
+
+#### Attributes
+
+##### `syslogCertificate` [`required`]
+
+Type: `string`
+
+Syslog public key in PEM format.
+
+##### `syslogCertificateKey` [`required`]
+
+Type: `string`
+
+Syslog private key in PEM format.
+
 ### PKIXName
 
 Represents a public key infrastructure X.509 (PKIX) certificate.
@@ -11162,6 +11215,7 @@ Provides the parameters for an effective network permissions query.
 
 ```json
 {
+  "addressMatchCriteria": "NotApplicable",
   "alertOn": "None",
   "effectiveAction": "Allowed",
   "excludeEnterpriseIPs": false,
@@ -11220,6 +11274,20 @@ Creates a policy associated with this query.
 Type: `string`
 
 Identifier of the object.
+
+##### `addressMatchCriteria`
+
+Type: `enum(FullMatch | PartialMatch | NotApplicable)`
+
+If set to FullMatch, a policy match is true only if the given IPs are a subset
+of policy IPs. If set to PartialMatch, a policy match is true if there is an
+overlap between given IPs and policy IPs.
+
+Default value:
+
+```json
+"NotApplicable"
+```
 
 ##### `alertOn`
 
@@ -14014,6 +14082,10 @@ propagates down to all the children of the current namespace.
     "@auth:role=namespace.administrator"
   ],
   "authorizedNamespace": "/namespace",
+  "authorizedNamespaces": [
+    "/namespace",
+    "/namespace/child"
+  ],
   "disabled": false,
   "fallback": false,
   "name": "the name",
@@ -14093,11 +14165,19 @@ Type: `[]string`
 
 A list of roles assigned to the user.
 
-##### `authorizedNamespace` [`required`]
+##### `authorizedNamespace`
+
+_This attribute is deprecated_.
 
 Type: `string`
 
 Defines the namespace the user is authorized to access.
+
+##### `authorizedNamespaces`
+
+Type: `[]string`
+
+Defines the namespaces this policy applies to.
 
 ##### `authorizedSubnets`
 
@@ -14665,7 +14745,10 @@ profile mapping.
   "metadataExtractor": "Docker",
   "name": "the name",
   "propagate": false,
-  "protected": false
+  "protected": false,
+  "syslogEnabled": false,
+  "syslogFacility": 1,
+  "syslogFormat": "Auto"
 }
 ```
 
@@ -14712,6 +14795,10 @@ matches.
 ##### `GET /enforcers/:id/enforcerprofiles`
 
 Returns the enforcer profile that must be used by a enforcer.
+
+##### `GET /enforcerprofiles/:id/enforcersecrets`
+
+Returns the enforcer secrets that must be used by an enforcer profile.
 
 #### Attributes
 
@@ -14840,6 +14927,54 @@ Propagates the policy to all of its children.
 Type: `boolean`
 
 Defines if the object is protected.
+
+##### `syslogEnabled`
+
+Type: `boolean`
+
+Enables syslog functionality of enforcers using this enforcerprofile.
+
+##### `syslogEndpoint`
+
+Type: `string`
+
+Contains the remote endpoint to dispatch the syslog messages.
+
+##### `syslogEndpointTLSClientCertificate`
+
+Type: `string`
+
+PEM-encoded certificate to expose to the clients for TLS.
+
+##### `syslogEndpointTLSServerCA`
+
+Type: `string`
+
+PEM-encoded server CA certificate.
+
+##### `syslogFacility` [`max_value=23.000000`]
+
+Type: `integer`
+
+Contains the list of supported syslog facilities.
+
+Default value:
+
+```json
+1
+```
+
+##### `syslogFormat`
+
+Type: `enum(Auto | BSD | IETF)`
+
+Contains the list of supported syslog message format.
+
+Default value:
+
+```json
+"Auto"
+```
 
 ##### `targetNetworks`
 

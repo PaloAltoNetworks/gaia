@@ -29,12 +29,15 @@ model:
   - '@disabled'
   - '@identifiable-stored'
   - '@metadatable'
+  - '@migratable'
   - '@named'
   - '@hidden'
   - '@fallback'
   - '@schedulable'
   - '@timeable'
   - '@zoned'
+  validations:
+  - $authorizedNamespaceGiven
 
 # Indexes
 indexes:
@@ -75,8 +78,18 @@ attributes:
     type: string
     exposed: true
     stored: true
-    required: true
+    deprecated: true
     example_value: /namespace
+
+  - name: authorizedNamespaces
+    description: Defines the namespaces this policy applies to.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    example_value:
+    - /namespace
+    - /namespace/child
 
   - name: authorizedSubnets
     description: |-

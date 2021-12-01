@@ -2008,6 +2008,20 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[EnforcerSecretIdentity] = &elemental.Relationship{
+		Retrieve: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"enforcerprofile": {},
+			"root":            {},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"enforcerprofile": {},
+			"root":            {},
+		},
+	}
+
 	relationshipsRegistry[EnforcerTraceReportIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},

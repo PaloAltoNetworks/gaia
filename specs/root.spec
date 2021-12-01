@@ -469,6 +469,10 @@ relations:
   create:
     description: Create an enforcer statistics report.
 
+- rest_name: enforcersecret
+  get:
+    description: Retrieves the enforcer secret.
+
 - rest_name: enforcertracereport
   create:
     description: Create an enforcer trace report.
