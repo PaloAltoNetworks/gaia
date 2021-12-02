@@ -65,8 +65,11 @@ var (
 		"cnssuggestion": CNSSuggestionIdentity,
 
 		"connectionexceptionreport": ConnectionExceptionReportIdentity,
+		"connectionsrequest":        ConnectionsRequestIdentity,
+		"connectionsresponse":       ConnectionsResponseIdentity,
 		"counterreport":             CounterReportIdentity,
 
+		"currentconnection":      CurrentConnectionIdentity,
 		"datapathcertificate":    DataPathCertificateIdentity,
 		"debugbundle":            DebugBundleIdentity,
 		"defaultenforcerversion": DefaultEnforcerVersionIdentity,
@@ -266,8 +269,11 @@ var (
 		"cnssuggestions": CNSSuggestionIdentity,
 
 		"connectionexceptionreports": ConnectionExceptionReportIdentity,
+		"connectionsrequests":        ConnectionsRequestIdentity,
+		"connectionsresponses":       ConnectionsResponseIdentity,
 		"counterreports":             CounterReportIdentity,
 
+		"currentconnections":     CurrentConnectionIdentity,
 		"datapathcertificates":   DataPathCertificateIdentity,
 		"debugbundles":           DebugBundleIdentity,
 		"defaultenforcerversion": DefaultEnforcerVersionIdentity,
@@ -859,10 +865,13 @@ var (
 			{"enforcernamespace", "timestamp"},
 			{":shard", "zone", "zHash", "_id"},
 		},
+		"connectionsrequest":  nil,
+		"connectionsresponse": nil,
 		"counterreport": {
 			{"namespace", "timestamp"},
 			{":shard", "zone", "zHash", "_id"},
 		},
+		"currentconnection":      nil,
 		"datapathcertificate":    nil,
 		"debugbundle":            nil,
 		"defaultenforcerversion": nil,
@@ -1462,8 +1471,14 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCNSSuggestion()
 	case ConnectionExceptionReportIdentity:
 		return NewConnectionExceptionReport()
+	case ConnectionsRequestIdentity:
+		return NewConnectionsRequest()
+	case ConnectionsResponseIdentity:
+		return NewConnectionsResponse()
 	case CounterReportIdentity:
 		return NewCounterReport()
+	case CurrentConnectionIdentity:
+		return NewCurrentConnection()
 	case DataPathCertificateIdentity:
 		return NewDataPathCertificate()
 	case DebugBundleIdentity:
@@ -1817,8 +1832,14 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCNSSuggestion()
 	case ConnectionExceptionReportIdentity:
 		return NewSparseConnectionExceptionReport()
+	case ConnectionsRequestIdentity:
+		return NewSparseConnectionsRequest()
+	case ConnectionsResponseIdentity:
+		return NewSparseConnectionsResponse()
 	case CounterReportIdentity:
 		return NewSparseCounterReport()
+	case CurrentConnectionIdentity:
+		return NewSparseCurrentConnection()
 	case DataPathCertificateIdentity:
 		return NewSparseDataPathCertificate()
 	case DebugBundleIdentity:
@@ -2180,8 +2201,14 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CNSSuggestionsList{}
 	case ConnectionExceptionReportIdentity:
 		return &ConnectionExceptionReportsList{}
+	case ConnectionsRequestIdentity:
+		return &ConnectionsRequestsList{}
+	case ConnectionsResponseIdentity:
+		return &ConnectionsResponsesList{}
 	case CounterReportIdentity:
 		return &CounterReportsList{}
+	case CurrentConnectionIdentity:
+		return &CurrentConnectionsList{}
 	case DataPathCertificateIdentity:
 		return &DataPathCertificatesList{}
 	case DebugBundleIdentity:
@@ -2533,8 +2560,14 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCNSSuggestionsList{}
 	case ConnectionExceptionReportIdentity:
 		return &SparseConnectionExceptionReportsList{}
+	case ConnectionsRequestIdentity:
+		return &SparseConnectionsRequestsList{}
+	case ConnectionsResponseIdentity:
+		return &SparseConnectionsResponsesList{}
 	case CounterReportIdentity:
 		return &SparseCounterReportsList{}
+	case CurrentConnectionIdentity:
+		return &SparseCurrentConnectionsList{}
 	case DataPathCertificateIdentity:
 		return &SparseDataPathCertificatesList{}
 	case DebugBundleIdentity:
@@ -2857,7 +2890,10 @@ func AllIdentities() []elemental.Identity {
 		CNSSearchIdentity,
 		CNSSuggestionIdentity,
 		ConnectionExceptionReportIdentity,
+		ConnectionsRequestIdentity,
+		ConnectionsResponseIdentity,
 		CounterReportIdentity,
+		CurrentConnectionIdentity,
 		DataPathCertificateIdentity,
 		DebugBundleIdentity,
 		DefaultEnforcerVersionIdentity,
@@ -3120,7 +3156,13 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{}
 	case ConnectionExceptionReportIdentity:
 		return []string{}
+	case ConnectionsRequestIdentity:
+		return []string{}
+	case ConnectionsResponseIdentity:
+		return []string{}
 	case CounterReportIdentity:
+		return []string{}
+	case CurrentConnectionIdentity:
 		return []string{}
 	case DataPathCertificateIdentity:
 		return []string{}
