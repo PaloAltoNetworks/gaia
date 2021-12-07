@@ -372,6 +372,19 @@ relations:
   create:
     description: Create a connection exception report.
 
+- rest_name: connectionsrequest
+  create:
+    description: Initiate a new the connections request.
+
+- rest_name: connectionsresponse
+  create:
+    description: Creates a new connections response.
+  get:
+    description: Retrieves a connections result.
+    global_parameters:
+    - $filtering
+
+
 - rest_name: counterreport
   create:
     description: Create a counter report.
@@ -1262,17 +1275,5 @@ relations:
 - rest_name: x509certificatecheck
   get:
     description: Verifies if an X.509 certificate is valid.
-    global_parameters:
-    - $filtering
-
-- rest_name: connectionsrequest
-  create:
-    description: Initiate a new the connections request.
-
-- rest_name: connectionsresponse
-  create:
-    description: Creates a new connections response.
-  get:
-    description: Retrieves a connections result.
     global_parameters:
     - $filtering
