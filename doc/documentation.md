@@ -2170,6 +2170,10 @@ Parameters:
 
 - `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
 
+##### `POST /connectionsresponses`
+
+Creates a new connections response.
+
 #### Attributes
 
 ##### `connections`

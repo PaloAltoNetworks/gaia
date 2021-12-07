@@ -1571,6 +1571,9 @@ func init() {
 	}
 
 	relationshipsRegistry[ConnectionsResponseIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
 		RetrieveMany: map[string]*elemental.RelationshipInfo{
 			"root": {
 				Parameters: []elemental.ParameterDefinition{

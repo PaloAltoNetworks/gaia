@@ -1270,6 +1270,8 @@ relations:
     description: Initiate a new the connections request.
 
 - rest_name: connectionsresponse
+  create:
+    description: Creates a new connections response.
   get:
     description: Retrieves a connections result.
     global_parameters:
