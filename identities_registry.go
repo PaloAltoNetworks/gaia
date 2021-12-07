@@ -871,7 +871,10 @@ var (
 			{"namespace", "timestamp"},
 			{":shard", "zone", "zHash", "_id"},
 		},
-		"currentconnection":      nil,
+		"currentconnection": {
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+		},
 		"datapathcertificate":    nil,
 		"debugbundle":            nil,
 		"defaultenforcerversion": nil,

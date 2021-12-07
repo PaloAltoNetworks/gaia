@@ -2128,6 +2128,12 @@ Initiates a request for a PUs current connections.
 }
 ```
 
+#### Relations
+
+##### `POST /connectionsrequests`
+
+Initiate a new the connections request.
+
 #### Attributes
 
 ##### `refreshID` [`required`]
@@ -2153,6 +2159,16 @@ A response from a connectionsrequest.
   "refreshID": "xxxx-xxxx-xxxx"
 }
 ```
+
+#### Relations
+
+##### `GET /connectionsresponses`
+
+Retrieves a connections result.
+
+Parameters:
+
+- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
 
 #### Attributes
 

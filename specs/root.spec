@@ -1264,3 +1264,13 @@ relations:
     description: Verifies if an X.509 certificate is valid.
     global_parameters:
     - $filtering
+
+- rest_name: connectionsrequest
+  create:
+    description: Initiate a new the connections request.
+
+- rest_name: connectionsresponse
+  get:
+    description: Retrieves a connections result.
+    global_parameters:
+    - $filtering
