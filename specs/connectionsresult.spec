@@ -7,8 +7,8 @@ model:
   group: core/enforcer
   description: A result from a connections request.
   extends:
-  - '@identifiable-stored'
-
+  - '@namespaced'
+  
 # Attributes
 attributes:
   v1:

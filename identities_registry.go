@@ -863,7 +863,10 @@ var (
 			{"enforcernamespace", "timestamp"},
 			{":shard", "zone", "zHash", "_id"},
 		},
-		"connectionsresult": nil,
+		"connectionsresult": {
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+		},
 		"counterreport": {
 			{"namespace", "timestamp"},
 			{":shard", "zone", "zHash", "_id"},
