@@ -121,6 +121,9 @@ func (o GraphEdgesList) Version() int {
 
 // GraphEdge represents the model of a graphedge
 type GraphEdge struct {
+	// the destination proto/port for the flow.
+	DestinationPort string `json:"DestinationPort" msgpack:"DestinationPort" bson:"destinationport" mapstructure:"DestinationPort,omitempty"`
+
 	// DB Identifier of the edge.
 	ID string `json:"-" msgpack:"-" bson:"-" mapstructure:"-,omitempty"`
 
@@ -239,6 +242,7 @@ func (o *GraphEdge) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesGraphEdge{}
 
+	s.DestinationPort = o.DestinationPort
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
@@ -284,6 +288,7 @@ func (o *GraphEdge) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	o.DestinationPort = s.DestinationPort
 	o.ID = s.ID.Hex()
 	o.AcceptedFlows = s.AcceptedFlows
 	o.BucketDay = s.BucketDay
@@ -374,6 +379,7 @@ func (o *GraphEdge) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseGraphEdge{
+			DestinationPort:       &o.DestinationPort,
 			ID:                    &o.ID,
 			AcceptedFlows:         &o.AcceptedFlows,
 			BucketDay:             &o.BucketDay,
@@ -406,6 +412,8 @@ func (o *GraphEdge) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	sp := &SparseGraphEdge{}
 	for _, f := range fields {
 		switch f {
+		case "DestinationPort":
+			sp.DestinationPort = &(o.DestinationPort)
 		case "ID":
 			sp.ID = &(o.ID)
 		case "acceptedFlows":
@@ -471,6 +479,9 @@ func (o *GraphEdge) Patch(sparse elemental.SparseIdentifiable) {
 	}
 
 	so := sparse.(*SparseGraphEdge)
+	if so.DestinationPort != nil {
+		o.DestinationPort = *so.DestinationPort
+	}
 	if so.ID != nil {
 		o.ID = *so.ID
 	}
@@ -623,6 +634,8 @@ func (*GraphEdge) AttributeSpecifications() map[string]elemental.AttributeSpecif
 func (o *GraphEdge) ValueForAttribute(name string) interface{} {
 
 	switch name {
+	case "DestinationPort":
+		return o.DestinationPort
 	case "ID":
 		return o.ID
 	case "acceptedFlows":
@@ -682,6 +695,16 @@ func (o *GraphEdge) ValueForAttribute(name string) interface{} {
 
 // GraphEdgeAttributesMap represents the map of attribute for GraphEdge.
 var GraphEdgeAttributesMap = map[string]elemental.AttributeSpecification{
+	"DestinationPort": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "destinationport",
+		ConvertedName:  "DestinationPort",
+		Description:    `the destination proto/port for the flow.`,
+		Exposed:        true,
+		Name:           "DestinationPort",
+		Stored:         true,
+		Type:           "string",
+	},
 	"ID": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "_id",
@@ -950,6 +973,16 @@ georedundancy.`,
 
 // GraphEdgeLowerCaseAttributesMap represents the map of attribute for GraphEdge.
 var GraphEdgeLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"destinationport": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "destinationport",
+		ConvertedName:  "DestinationPort",
+		Description:    `the destination proto/port for the flow.`,
+		Exposed:        true,
+		Name:           "DestinationPort",
+		Stored:         true,
+		Type:           "string",
+	},
 	"id": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "_id",
@@ -1279,6 +1312,9 @@ func (o SparseGraphEdgesList) Version() int {
 
 // SparseGraphEdge represents the sparse version of a graphedge.
 type SparseGraphEdge struct {
+	// the destination proto/port for the flow.
+	DestinationPort *string `json:"DestinationPort,omitempty" msgpack:"DestinationPort,omitempty" bson:"destinationport,omitempty" mapstructure:"DestinationPort,omitempty"`
+
 	// DB Identifier of the edge.
 	ID *string `json:"-" msgpack:"-" bson:"-" mapstructure:"-,omitempty"`
 
@@ -1401,6 +1437,9 @@ func (o *SparseGraphEdge) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesSparseGraphEdge{}
 
+	if o.DestinationPort != nil {
+		s.DestinationPort = o.DestinationPort
+	}
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
 	}
@@ -1496,6 +1535,9 @@ func (o *SparseGraphEdge) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	if s.DestinationPort != nil {
+		o.DestinationPort = s.DestinationPort
+	}
 	id := s.ID.Hex()
 	o.ID = &id
 	if s.AcceptedFlows != nil {
@@ -1587,6 +1629,9 @@ func (o *SparseGraphEdge) Version() int {
 func (o *SparseGraphEdge) ToPlain() elemental.PlainIdentifiable {
 
 	out := NewGraphEdge()
+	if o.DestinationPort != nil {
+		out.DestinationPort = *o.DestinationPort
+	}
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
@@ -1726,6 +1771,7 @@ func (o *SparseGraphEdge) DeepCopyInto(out *SparseGraphEdge) {
 }
 
 type mongoAttributesGraphEdge struct {
+	DestinationPort       string                        `bson:"destinationport"`
 	ID                    bson.ObjectId                 `bson:"_id,omitempty"`
 	AcceptedFlows         bool                          `bson:"acceptedflows"`
 	BucketDay             time.Time                     `bson:"bucketday"`
@@ -1754,6 +1800,7 @@ type mongoAttributesGraphEdge struct {
 	Zone                  int                           `bson:"zone"`
 }
 type mongoAttributesSparseGraphEdge struct {
+	DestinationPort       *string                        `bson:"destinationport,omitempty"`
 	ID                    bson.ObjectId                  `bson:"_id,omitempty"`
 	AcceptedFlows         *bool                          `bson:"acceptedflows,omitempty"`
 	BucketDay             *time.Time                     `bson:"bucketday,omitempty"`

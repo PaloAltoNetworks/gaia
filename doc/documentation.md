@@ -20338,6 +20338,7 @@ Represents an edge from the dependency map.
 
 ```json
 {
+  "DestinationPort": "tcp/443",
   "acceptedFlows": false,
   "defaultAcceptedFlows": false,
   "defaultRejectedFlows": false,
@@ -20370,6 +20371,12 @@ Mandatory Parameters
 (`endRelative`) or (`startRelative`) or (`startRelative` and `endRelative`) or (`startRelative` and `endAbsolute`) or (`startAbsolute` and `endRelative`) or (`startAbsolute` and `endAbsolute`)
 
 #### Attributes
+
+##### `DestinationPort`
+
+Type: `string`
+
+the destination proto/port for the flow.
 
 ##### `acceptedFlows`
 

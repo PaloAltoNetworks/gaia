@@ -37,6 +37,13 @@ indexes:
 # Attributes
 attributes:
   v1:
+  - name: DestinationPort
+    description: the destination proto/port for the flow.
+    type: string
+    exposed: true
+    stored: true
+    example_value: tcp/443
+
   - name: ID
     description: DB Identifier of the edge.
     type: string
