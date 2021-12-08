@@ -6,6 +6,19 @@ model:
   package: guy
   group: core/enforcer
   description: A response from a connectionsrequest.
+  extends:
+  - '@zoned'
+  - '@migratable'
+  - '@timeable'
+  - '@namespaced'
+  - '@identifiable-stored'
+
+# Indexes
+indexes:
+- - requestID
+- - namespace
+  - requestID
+
 
 # Attributes
 attributes:

@@ -7,8 +7,7 @@ model:
   group: core/enforcer
   description: A current connection.
   extends:
-  - '@namespaced'
-  - '@identifiable-not-stored'
+  - '@identifiable-stored'
 
 # Attributes
 attributes:
