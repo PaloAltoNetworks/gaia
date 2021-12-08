@@ -13,14 +13,28 @@ model:
 attributes:
   v1:
   - name: startTime
-    description: The time the enforcer started tracking a connection.
+    description: The time the enforcer started tracking the connection.
     type: time
     exposed: true
     omit_empty: true
 
+  - name: duration
+    description: The the duration of the tracked connection.
+    type: string
+    exposed: true
+    omit_empty: true
+    validations:
+    - $timeDuration
+
   - name: existing
     description: Was the connection existing when the enforcer started.
     type: boolean
+    exposed: true
+    omit_empty: true
+
+  - name: sourcePort
+    description: Port of the source.
+    type: integer
     exposed: true
     omit_empty: true
 

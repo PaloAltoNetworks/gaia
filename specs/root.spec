@@ -372,18 +372,13 @@ relations:
   create:
     description: Create a connection exception report.
 
-- rest_name: connectionsrequest
+- rest_name: connectionsresult
   create:
-    description: Initiate a new the connections request.
-
-- rest_name: connectionsresponse
-  create:
-    description: Creates a new connections response.
+    description: Creates a new connections result.
   get:
     description: Retrieves a connections result.
     global_parameters:
     - $filtering
-
 
 - rest_name: counterreport
   create:

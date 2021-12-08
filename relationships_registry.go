@@ -1564,13 +1564,7 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[ConnectionsRequestIdentity] = &elemental.Relationship{
-		Create: map[string]*elemental.RelationshipInfo{
-			"root": {},
-		},
-	}
-
-	relationshipsRegistry[ConnectionsResponseIdentity] = &elemental.Relationship{
+	relationshipsRegistry[ConnectionsResultIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
 		},

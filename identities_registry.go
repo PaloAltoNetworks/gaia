@@ -65,8 +65,7 @@ var (
 		"cnssuggestion": CNSSuggestionIdentity,
 
 		"connectionexceptionreport": ConnectionExceptionReportIdentity,
-		"connectionsrequest":        ConnectionsRequestIdentity,
-		"connectionsresponse":       ConnectionsResponseIdentity,
+		"connectionsresult":         ConnectionsResultIdentity,
 		"counterreport":             CounterReportIdentity,
 
 		"currentconnection":      CurrentConnectionIdentity,
@@ -269,8 +268,7 @@ var (
 		"cnssuggestions": CNSSuggestionIdentity,
 
 		"connectionexceptionreports": ConnectionExceptionReportIdentity,
-		"connectionsrequests":        ConnectionsRequestIdentity,
-		"connectionsresponses":       ConnectionsResponseIdentity,
+		"connectionsresults":         ConnectionsResultIdentity,
 		"counterreports":             CounterReportIdentity,
 
 		"currentconnections":     CurrentConnectionIdentity,
@@ -865,14 +863,7 @@ var (
 			{"enforcernamespace", "timestamp"},
 			{":shard", "zone", "zHash", "_id"},
 		},
-		"connectionsrequest": nil,
-		"connectionsresponse": {
-			{"requestID"},
-			{"namespace", "requestID"},
-			{"namespace"},
-			{"namespace", "normalizedTags"},
-			{":shard", ":unique", "zone", "zHash"},
-		},
+		"connectionsresult": nil,
 		"counterreport": {
 			{"namespace", "timestamp"},
 			{":shard", "zone", "zHash", "_id"},
@@ -1477,10 +1468,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCNSSuggestion()
 	case ConnectionExceptionReportIdentity:
 		return NewConnectionExceptionReport()
-	case ConnectionsRequestIdentity:
-		return NewConnectionsRequest()
-	case ConnectionsResponseIdentity:
-		return NewConnectionsResponse()
+	case ConnectionsResultIdentity:
+		return NewConnectionsResult()
 	case CounterReportIdentity:
 		return NewCounterReport()
 	case CurrentConnectionIdentity:
@@ -1838,10 +1827,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCNSSuggestion()
 	case ConnectionExceptionReportIdentity:
 		return NewSparseConnectionExceptionReport()
-	case ConnectionsRequestIdentity:
-		return NewSparseConnectionsRequest()
-	case ConnectionsResponseIdentity:
-		return NewSparseConnectionsResponse()
+	case ConnectionsResultIdentity:
+		return NewSparseConnectionsResult()
 	case CounterReportIdentity:
 		return NewSparseCounterReport()
 	case CurrentConnectionIdentity:
@@ -2207,10 +2194,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CNSSuggestionsList{}
 	case ConnectionExceptionReportIdentity:
 		return &ConnectionExceptionReportsList{}
-	case ConnectionsRequestIdentity:
-		return &ConnectionsRequestsList{}
-	case ConnectionsResponseIdentity:
-		return &ConnectionsResponsesList{}
+	case ConnectionsResultIdentity:
+		return &ConnectionsResultsList{}
 	case CounterReportIdentity:
 		return &CounterReportsList{}
 	case CurrentConnectionIdentity:
@@ -2566,10 +2551,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCNSSuggestionsList{}
 	case ConnectionExceptionReportIdentity:
 		return &SparseConnectionExceptionReportsList{}
-	case ConnectionsRequestIdentity:
-		return &SparseConnectionsRequestsList{}
-	case ConnectionsResponseIdentity:
-		return &SparseConnectionsResponsesList{}
+	case ConnectionsResultIdentity:
+		return &SparseConnectionsResultsList{}
 	case CounterReportIdentity:
 		return &SparseCounterReportsList{}
 	case CurrentConnectionIdentity:
@@ -2896,8 +2879,7 @@ func AllIdentities() []elemental.Identity {
 		CNSSearchIdentity,
 		CNSSuggestionIdentity,
 		ConnectionExceptionReportIdentity,
-		ConnectionsRequestIdentity,
-		ConnectionsResponseIdentity,
+		ConnectionsResultIdentity,
 		CounterReportIdentity,
 		CurrentConnectionIdentity,
 		DataPathCertificateIdentity,
@@ -3162,9 +3144,7 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{}
 	case ConnectionExceptionReportIdentity:
 		return []string{}
-	case ConnectionsRequestIdentity:
-		return []string{}
-	case ConnectionsResponseIdentity:
+	case ConnectionsResultIdentity:
 		return []string{}
 	case CounterReportIdentity:
 		return []string{}

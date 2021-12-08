@@ -84,13 +84,19 @@ type CurrentConnection struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
+	// The the duration of the tracked connection.
+	Duration string `json:"duration,omitempty" msgpack:"duration,omitempty" bson:"-" mapstructure:"duration,omitempty"`
+
 	// Was the connection existing when the enforcer started.
 	Existing bool `json:"existing,omitempty" msgpack:"existing,omitempty" bson:"-" mapstructure:"existing,omitempty"`
 
 	// The flow report for this connection.
 	Flow *FlowReport `json:"flow,omitempty" msgpack:"flow,omitempty" bson:"-" mapstructure:"flow,omitempty"`
 
-	// The time the enforcer started tracking a connection.
+	// Port of the source.
+	SourcePort int `json:"sourcePort,omitempty" msgpack:"sourcePort,omitempty" bson:"-" mapstructure:"sourcePort,omitempty"`
+
+	// The time the enforcer started tracking the connection.
 	StartTime time.Time `json:"startTime,omitempty" msgpack:"startTime,omitempty" bson:"-" mapstructure:"startTime,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
@@ -194,10 +200,12 @@ func (o *CurrentConnection) ToSparse(fields ...string) elemental.SparseIdentifia
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseCurrentConnection{
-			ID:        &o.ID,
-			Existing:  &o.Existing,
-			Flow:      o.Flow,
-			StartTime: &o.StartTime,
+			ID:         &o.ID,
+			Duration:   &o.Duration,
+			Existing:   &o.Existing,
+			Flow:       o.Flow,
+			SourcePort: &o.SourcePort,
+			StartTime:  &o.StartTime,
 		}
 	}
 
@@ -206,10 +214,14 @@ func (o *CurrentConnection) ToSparse(fields ...string) elemental.SparseIdentifia
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
+		case "duration":
+			sp.Duration = &(o.Duration)
 		case "existing":
 			sp.Existing = &(o.Existing)
 		case "flow":
 			sp.Flow = o.Flow
+		case "sourcePort":
+			sp.SourcePort = &(o.SourcePort)
 		case "startTime":
 			sp.StartTime = &(o.StartTime)
 		}
@@ -228,11 +240,17 @@ func (o *CurrentConnection) Patch(sparse elemental.SparseIdentifiable) {
 	if so.ID != nil {
 		o.ID = *so.ID
 	}
+	if so.Duration != nil {
+		o.Duration = *so.Duration
+	}
 	if so.Existing != nil {
 		o.Existing = *so.Existing
 	}
 	if so.Flow != nil {
 		o.Flow = so.Flow
+	}
+	if so.SourcePort != nil {
+		o.SourcePort = *so.SourcePort
 	}
 	if so.StartTime != nil {
 		o.StartTime = *so.StartTime
@@ -268,6 +286,10 @@ func (o *CurrentConnection) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
+
+	if err := ValidateTimeDuration("duration", o.Duration); err != nil {
+		errors = errors.Append(err)
+	}
 
 	if o.Flow != nil {
 		elemental.ResetDefaultForZeroValues(o.Flow)
@@ -312,10 +334,14 @@ func (o *CurrentConnection) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "ID":
 		return o.ID
+	case "duration":
+		return o.Duration
 	case "existing":
 		return o.Existing
 	case "flow":
 		return o.Flow
+	case "sourcePort":
+		return o.SourcePort
 	case "startTime":
 		return o.StartTime
 	}
@@ -340,6 +366,14 @@ var CurrentConnectionAttributesMap = map[string]elemental.AttributeSpecification
 		Stored:         true,
 		Type:           "string",
 	},
+	"Duration": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Duration",
+		Description:    `The the duration of the tracked connection.`,
+		Exposed:        true,
+		Name:           "duration",
+		Type:           "string",
+	},
 	"Existing": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Existing",
@@ -357,10 +391,18 @@ var CurrentConnectionAttributesMap = map[string]elemental.AttributeSpecification
 		SubType:        "flowreport",
 		Type:           "ref",
 	},
+	"SourcePort": {
+		AllowedChoices: []string{},
+		ConvertedName:  "SourcePort",
+		Description:    `Port of the source.`,
+		Exposed:        true,
+		Name:           "sourcePort",
+		Type:           "integer",
+	},
 	"StartTime": {
 		AllowedChoices: []string{},
 		ConvertedName:  "StartTime",
-		Description:    `The time the enforcer started tracking a connection.`,
+		Description:    `The time the enforcer started tracking the connection.`,
 		Exposed:        true,
 		Name:           "startTime",
 		Type:           "time",
@@ -384,6 +426,14 @@ var CurrentConnectionLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 		Stored:         true,
 		Type:           "string",
 	},
+	"duration": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Duration",
+		Description:    `The the duration of the tracked connection.`,
+		Exposed:        true,
+		Name:           "duration",
+		Type:           "string",
+	},
 	"existing": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Existing",
@@ -401,10 +451,18 @@ var CurrentConnectionLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 		SubType:        "flowreport",
 		Type:           "ref",
 	},
+	"sourceport": {
+		AllowedChoices: []string{},
+		ConvertedName:  "SourcePort",
+		Description:    `Port of the source.`,
+		Exposed:        true,
+		Name:           "sourcePort",
+		Type:           "integer",
+	},
 	"starttime": {
 		AllowedChoices: []string{},
 		ConvertedName:  "StartTime",
-		Description:    `The time the enforcer started tracking a connection.`,
+		Description:    `The time the enforcer started tracking the connection.`,
 		Exposed:        true,
 		Name:           "startTime",
 		Type:           "time",
@@ -477,13 +535,19 @@ type SparseCurrentConnection struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
+	// The the duration of the tracked connection.
+	Duration *string `json:"duration,omitempty" msgpack:"duration,omitempty" bson:"-" mapstructure:"duration,omitempty"`
+
 	// Was the connection existing when the enforcer started.
 	Existing *bool `json:"existing,omitempty" msgpack:"existing,omitempty" bson:"-" mapstructure:"existing,omitempty"`
 
 	// The flow report for this connection.
 	Flow *FlowReport `json:"flow,omitempty" msgpack:"flow,omitempty" bson:"-" mapstructure:"flow,omitempty"`
 
-	// The time the enforcer started tracking a connection.
+	// Port of the source.
+	SourcePort *int `json:"sourcePort,omitempty" msgpack:"sourcePort,omitempty" bson:"-" mapstructure:"sourcePort,omitempty"`
+
+	// The time the enforcer started tracking the connection.
 	StartTime *time.Time `json:"startTime,omitempty" msgpack:"startTime,omitempty" bson:"-" mapstructure:"startTime,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
@@ -568,11 +632,17 @@ func (o *SparseCurrentConnection) ToPlain() elemental.PlainIdentifiable {
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
+	if o.Duration != nil {
+		out.Duration = *o.Duration
+	}
 	if o.Existing != nil {
 		out.Existing = *o.Existing
 	}
 	if o.Flow != nil {
 		out.Flow = o.Flow
+	}
+	if o.SourcePort != nil {
+		out.SourcePort = *o.SourcePort
 	}
 	if o.StartTime != nil {
 		out.StartTime = *o.StartTime
