@@ -157,15 +157,6 @@ attributes:
     exposed: true
     stored: true
 
-  - name: protoPort
-    description: |-
-      the destination protocol for the flow. If the protocol is TCP or UDP, it will
-      also include the port.
-    type: string
-    exposed: true
-    stored: true
-    example_value: tcp/443
-
   - name: rejectedFlows
     description: Number of rejected flows in the edge.
     type: boolean

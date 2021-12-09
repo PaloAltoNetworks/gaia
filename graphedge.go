@@ -178,9 +178,6 @@ type GraphEdge struct {
 	// Number of rejected observed flows.
 	ObservedRejectedFlows bool `json:"observedRejectedFlows" msgpack:"observedRejectedFlows" bson:"observedrejectedflows" mapstructure:"observedRejectedFlows,omitempty"`
 
-	// the destination protocol for the flow. If the protocol is TCP or UDP, it will also include the port.
-	ProtoPort string `json:"protoPort" msgpack:"protoPort" bson:"protoport" mapstructure:"protoPort,omitempty"`
-
 	// Number of rejected flows in the edge.
 	RejectedFlows bool `json:"rejectedFlows" msgpack:"rejectedFlows" bson:"rejectedflows" mapstructure:"rejectedFlows,omitempty"`
 
@@ -263,7 +260,6 @@ func (o *GraphEdge) GetBSON() (interface{}, error) {
 	s.ObservedAcceptedFlows = o.ObservedAcceptedFlows
 	s.ObservedEncrypted = o.ObservedEncrypted
 	s.ObservedRejectedFlows = o.ObservedRejectedFlows
-	s.ProtoPort = o.ProtoPort
 	s.RejectedFlows = o.RejectedFlows
 	s.RemoteNamespace = o.RemoteNamespace
 	s.SourceController = o.SourceController
@@ -307,7 +303,6 @@ func (o *GraphEdge) SetBSON(raw bson.Raw) error {
 	o.ObservedAcceptedFlows = s.ObservedAcceptedFlows
 	o.ObservedEncrypted = s.ObservedEncrypted
 	o.ObservedRejectedFlows = s.ObservedRejectedFlows
-	o.ProtoPort = s.ProtoPort
 	o.RejectedFlows = s.RejectedFlows
 	o.RemoteNamespace = s.RemoteNamespace
 	o.SourceController = s.SourceController
@@ -398,7 +393,6 @@ func (o *GraphEdge) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			ObservedAcceptedFlows: &o.ObservedAcceptedFlows,
 			ObservedEncrypted:     &o.ObservedEncrypted,
 			ObservedRejectedFlows: &o.ObservedRejectedFlows,
-			ProtoPort:             &o.ProtoPort,
 			RejectedFlows:         &o.RejectedFlows,
 			RemoteNamespace:       &o.RemoteNamespace,
 			SourceController:      &o.SourceController,
@@ -450,8 +444,6 @@ func (o *GraphEdge) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.ObservedEncrypted = &(o.ObservedEncrypted)
 		case "observedRejectedFlows":
 			sp.ObservedRejectedFlows = &(o.ObservedRejectedFlows)
-		case "protoPort":
-			sp.ProtoPort = &(o.ProtoPort)
 		case "rejectedFlows":
 			sp.RejectedFlows = &(o.RejectedFlows)
 		case "remoteNamespace":
@@ -535,9 +527,6 @@ func (o *GraphEdge) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.ObservedRejectedFlows != nil {
 		o.ObservedRejectedFlows = *so.ObservedRejectedFlows
-	}
-	if so.ProtoPort != nil {
-		o.ProtoPort = *so.ProtoPort
 	}
 	if so.RejectedFlows != nil {
 		o.RejectedFlows = *so.RejectedFlows
@@ -672,8 +661,6 @@ func (o *GraphEdge) ValueForAttribute(name string) interface{} {
 		return o.ObservedEncrypted
 	case "observedRejectedFlows":
 		return o.ObservedRejectedFlows
-	case "protoPort":
-		return o.ProtoPort
 	case "rejectedFlows":
 		return o.RejectedFlows
 	case "remoteNamespace":
@@ -880,16 +867,6 @@ var GraphEdgeAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "observedRejectedFlows",
 		Stored:         true,
 		Type:           "boolean",
-	},
-	"ProtoPort": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "protoport",
-		ConvertedName:  "ProtoPort",
-		Description:    `the destination protocol for the flow. If the protocol is TCP or UDP, it will also include the port.`,
-		Exposed:        true,
-		Name:           "protoPort",
-		Stored:         true,
-		Type:           "string",
 	},
 	"RejectedFlows": {
 		AllowedChoices: []string{},
@@ -1159,16 +1136,6 @@ var GraphEdgeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Stored:         true,
 		Type:           "boolean",
 	},
-	"protoport": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "protoport",
-		ConvertedName:  "ProtoPort",
-		Description:    `the destination protocol for the flow. If the protocol is TCP or UDP, it will also include the port.`,
-		Exposed:        true,
-		Name:           "protoPort",
-		Stored:         true,
-		Type:           "string",
-	},
 	"rejectedflows": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "rejectedflows",
@@ -1369,9 +1336,6 @@ type SparseGraphEdge struct {
 	// Number of rejected observed flows.
 	ObservedRejectedFlows *bool `json:"observedRejectedFlows,omitempty" msgpack:"observedRejectedFlows,omitempty" bson:"observedrejectedflows,omitempty" mapstructure:"observedRejectedFlows,omitempty"`
 
-	// the destination protocol for the flow. If the protocol is TCP or UDP, it will also include the port.
-	ProtoPort *string `json:"protoPort,omitempty" msgpack:"protoPort,omitempty" bson:"protoport,omitempty" mapstructure:"protoPort,omitempty"`
-
 	// Number of rejected flows in the edge.
 	RejectedFlows *bool `json:"rejectedFlows,omitempty" msgpack:"rejectedFlows,omitempty" bson:"rejectedflows,omitempty" mapstructure:"rejectedFlows,omitempty"`
 
@@ -1494,9 +1458,6 @@ func (o *SparseGraphEdge) GetBSON() (interface{}, error) {
 	if o.ObservedRejectedFlows != nil {
 		s.ObservedRejectedFlows = o.ObservedRejectedFlows
 	}
-	if o.ProtoPort != nil {
-		s.ProtoPort = o.ProtoPort
-	}
 	if o.RejectedFlows != nil {
 		s.RejectedFlows = o.RejectedFlows
 	}
@@ -1591,9 +1552,6 @@ func (o *SparseGraphEdge) SetBSON(raw bson.Raw) error {
 	if s.ObservedRejectedFlows != nil {
 		o.ObservedRejectedFlows = s.ObservedRejectedFlows
 	}
-	if s.ProtoPort != nil {
-		o.ProtoPort = s.ProtoPort
-	}
 	if s.RejectedFlows != nil {
 		o.RejectedFlows = s.RejectedFlows
 	}
@@ -1685,9 +1643,6 @@ func (o *SparseGraphEdge) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.ObservedRejectedFlows != nil {
 		out.ObservedRejectedFlows = *o.ObservedRejectedFlows
-	}
-	if o.ProtoPort != nil {
-		out.ProtoPort = *o.ProtoPort
 	}
 	if o.RejectedFlows != nil {
 		out.RejectedFlows = *o.RejectedFlows
@@ -1790,7 +1745,6 @@ type mongoAttributesGraphEdge struct {
 	ObservedAcceptedFlows bool                          `bson:"observedacceptedflows"`
 	ObservedEncrypted     bool                          `bson:"observedencrypted"`
 	ObservedRejectedFlows bool                          `bson:"observedrejectedflows"`
-	ProtoPort             string                        `bson:"protoport"`
 	RejectedFlows         bool                          `bson:"rejectedflows"`
 	RemoteNamespace       string                        `bson:"remotenamespace,omitempty"`
 	SourceController      string                        `bson:"sourcecontroller,omitempty"`
@@ -1819,7 +1773,6 @@ type mongoAttributesSparseGraphEdge struct {
 	ObservedAcceptedFlows *bool                          `bson:"observedacceptedflows,omitempty"`
 	ObservedEncrypted     *bool                          `bson:"observedencrypted,omitempty"`
 	ObservedRejectedFlows *bool                          `bson:"observedrejectedflows,omitempty"`
-	ProtoPort             *string                        `bson:"protoport,omitempty"`
 	RejectedFlows         *bool                          `bson:"rejectedflows,omitempty"`
 	RemoteNamespace       *string                        `bson:"remotenamespace,omitempty"`
 	SourceController      *string                        `bson:"sourcecontroller,omitempty"`

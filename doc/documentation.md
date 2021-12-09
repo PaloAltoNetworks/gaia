@@ -20346,7 +20346,6 @@ Represents an edge from the dependency map.
   "observedAcceptedFlows": false,
   "observedEncrypted": false,
   "observedRejectedFlows": false,
-  "protoPort": "tcp/443",
   "rejectedFlows": false,
   "sourceType": "ProcessingUnit"
 }
@@ -20455,12 +20454,6 @@ Number of encrypted observed flows.
 Type: `boolean`
 
 Number of rejected observed flows.
-
-##### `protoPort`
-
-Type: `string`
-
-the destination protocol for the flow. If the protocol is TCP or UDP, it will also include the port.
 
 ##### `rejectedFlows`
 
