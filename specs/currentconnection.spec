@@ -19,7 +19,7 @@ attributes:
     omit_empty: true
 
   - name: duration
-    description: The the duration of the tracked connection.
+    description: The duration of the tracked connection.
     type: string
     exposed: true
     omit_empty: true
