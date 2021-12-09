@@ -65,6 +65,13 @@ type CloudInterfaceData struct {
 	// Availability zone of the interface.
 	AvailabilityZone string `json:"availabilityZone" msgpack:"availabilityZone" bson:"availabilityzone" mapstructure:"availabilityZone,omitempty"`
 
+	// If the interface has a public IP in one of its IP address.
+	HasPublicIP bool `json:"hasPublicIP" msgpack:"hasPublicIP" bson:"haspublicip" mapstructure:"hasPublicIP,omitempty"`
+
+	// If the interface is attached to Load Balancer, the parentID identifies the
+	// related Load Balancer.
+	ParentID string `json:"parentID" msgpack:"parentID" bson:"parentid" mapstructure:"parentID,omitempty"`
+
 	// If the interface is of type or external, the relatedObjectID identifies the
 	// related service or gateway.
 	RelatedObjectID string `json:"relatedObjectID" msgpack:"relatedObjectID" bson:"relatedobjectid" mapstructure:"relatedObjectID,omitempty"`
@@ -106,6 +113,8 @@ func (o *CloudInterfaceData) GetBSON() (interface{}, error) {
 	s.Addresses = o.Addresses
 	s.AttachmentType = o.AttachmentType
 	s.AvailabilityZone = o.AvailabilityZone
+	s.HasPublicIP = o.HasPublicIP
+	s.ParentID = o.ParentID
 	s.RelatedObjectID = o.RelatedObjectID
 	s.RouteTableID = o.RouteTableID
 	s.SecurityTags = o.SecurityTags
@@ -130,6 +139,8 @@ func (o *CloudInterfaceData) SetBSON(raw bson.Raw) error {
 	o.Addresses = s.Addresses
 	o.AttachmentType = s.AttachmentType
 	o.AvailabilityZone = s.AvailabilityZone
+	o.HasPublicIP = s.HasPublicIP
+	o.ParentID = s.ParentID
 	o.RelatedObjectID = s.RelatedObjectID
 	o.RouteTableID = s.RouteTableID
 	o.SecurityTags = s.SecurityTags
@@ -207,6 +218,8 @@ type mongoAttributesCloudInterfaceData struct {
 	Addresses        []*CloudAddress                       `bson:"addresses"`
 	AttachmentType   CloudInterfaceDataAttachmentTypeValue `bson:"attachmenttype"`
 	AvailabilityZone string                                `bson:"availabilityzone"`
+	HasPublicIP      bool                                  `bson:"haspublicip"`
+	ParentID         string                                `bson:"parentid"`
 	RelatedObjectID  string                                `bson:"relatedobjectid"`
 	RouteTableID     string                                `bson:"routetableid"`
 	SecurityTags     []string                              `bson:"securitytags"`

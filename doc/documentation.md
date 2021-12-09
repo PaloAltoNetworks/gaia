@@ -10431,6 +10431,7 @@ Parameters associated with a cloud interface.
 {
   "attachmentType": "Instance",
   "availabilityZone": "us-east-1",
+  "hasPublicIP": false,
   "routeTableID": [
     "rt1233"
   ],
@@ -10461,6 +10462,19 @@ Balancer, Gateway, etc).
 Type: `string`
 
 Availability zone of the interface.
+
+##### `hasPublicIP`
+
+Type: `boolean`
+
+If the interface has a public IP in one of its IP address.
+
+##### `parentID`
+
+Type: `string`
+
+If the interface is attached to Load Balancer, the parentID identifies the
+related Load Balancer.
 
 ##### `relatedObjectID`
 
