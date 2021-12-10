@@ -527,6 +527,11 @@ relations:
     global_parameters:
     - $timewindow
     - $filtering
+    parameters:
+      entries:
+      - name: includeDetails
+        description: If set to true, each edge will contain a field called 'Details' which provides detailed information per protocol/port.
+        type: boolean
 
 - rest_name: graphnode
   get:

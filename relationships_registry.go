@@ -2379,6 +2379,10 @@ func init() {
 				),
 				Parameters: []elemental.ParameterDefinition{
 					{
+						Name: "includeDetails",
+						Type: "boolean",
+					},
+					{
 						Name: "endAbsolute",
 						Type: "time",
 					},
@@ -2433,6 +2437,10 @@ func init() {
 					},
 				),
 				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "includeDetails",
+						Type: "boolean",
+					},
 					{
 						Name: "endAbsolute",
 						Type: "time",

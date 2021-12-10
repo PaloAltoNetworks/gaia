@@ -106,6 +106,13 @@ attributes:
     - Node
     - RemoteController
 
+  - name: details
+    description: Contains more flow details grouped by their destination protocol/ports.
+    type: external
+    exposed: true
+    subtype: map[string]graphedgeflowdetails
+    omit_empty: true
+
   - name: encrypted
     description: The number of encrypted flows in the edge.
     type: boolean

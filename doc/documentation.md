@@ -20359,6 +20359,7 @@ Retrieves the graph edges.
 
 Parameters:
 
+- `includeDetails` (`boolean`): If set to true, each edge will contain a field called 'Details' which provides detailed information per protocol/port.
 - `endAbsolute` (`time`): Set the absolute end of the time window.
 - `endRelative` (`duration`): Set the relative end of the time window.
 - `startAbsolute` (`time`): Set the absolute start of the time window.
@@ -20406,6 +20407,12 @@ ID of the destination `GraphNode` of the edge.
 Type: `enum(ProcessingUnit | ExternalNetwork | Namespace | Node | RemoteController)`
 
 Type of the destination `GraphNode` of the edge.
+
+##### `details`
+
+Type: `map[string]graphedgeflowdetails`
+
+Contains more flow details grouped by their destination protocol/ports.
 
 ##### `encrypted`
 
@@ -20484,6 +20491,33 @@ ID of the source `GraphNode` of the edge.
 Type: `enum(ProcessingUnit | ExternalNetwork | Namespace | Node | RemoteController)`
 
 Type of the source `GraphNode` of the edge.
+
+### GraphEdgeFlowDetails
+
+Contains more specific information about a particular flow between two nodes.
+
+#### Example
+
+```json
+{
+  "allowed": false,
+  "protoPort": "tcp/443"
+}
+```
+
+#### Attributes
+
+##### `allowed`
+
+Type: `boolean`
+
+Indicates whether the flow was allowed.
+
+##### `protoPort`
+
+Type: `string`
+
+The protocol for this edge. If it is tcp or udp, the port is also included.
 
 ### GraphGroup
 
