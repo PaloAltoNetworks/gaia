@@ -65,6 +65,7 @@ var (
 		"cnssuggestion": CNSSuggestionIdentity,
 
 		"connectionexceptionreport": ConnectionExceptionReportIdentity,
+		"connectionsresult":         ConnectionsResultIdentity,
 		"counterreport":             CounterReportIdentity,
 
 		"datapathcertificate":    DataPathCertificateIdentity,
@@ -266,6 +267,7 @@ var (
 		"cnssuggestions": CNSSuggestionIdentity,
 
 		"connectionexceptionreports": ConnectionExceptionReportIdentity,
+		"connectionsresults":         ConnectionsResultIdentity,
 		"counterreports":             CounterReportIdentity,
 
 		"datapathcertificates":   DataPathCertificateIdentity,
@@ -858,6 +860,10 @@ var (
 			{"namespace", "timestamp"},
 			{"enforcernamespace", "timestamp"},
 			{":shard", "zone", "zHash", "_id"},
+		},
+		"connectionsresult": {
+			{"namespace"},
+			{"namespace", "normalizedTags"},
 		},
 		"counterreport": {
 			{"namespace", "timestamp"},
@@ -1462,6 +1468,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCNSSuggestion()
 	case ConnectionExceptionReportIdentity:
 		return NewConnectionExceptionReport()
+	case ConnectionsResultIdentity:
+		return NewConnectionsResult()
 	case CounterReportIdentity:
 		return NewCounterReport()
 	case DataPathCertificateIdentity:
@@ -1817,6 +1825,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCNSSuggestion()
 	case ConnectionExceptionReportIdentity:
 		return NewSparseConnectionExceptionReport()
+	case ConnectionsResultIdentity:
+		return NewSparseConnectionsResult()
 	case CounterReportIdentity:
 		return NewSparseCounterReport()
 	case DataPathCertificateIdentity:
@@ -2180,6 +2190,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CNSSuggestionsList{}
 	case ConnectionExceptionReportIdentity:
 		return &ConnectionExceptionReportsList{}
+	case ConnectionsResultIdentity:
+		return &ConnectionsResultsList{}
 	case CounterReportIdentity:
 		return &CounterReportsList{}
 	case DataPathCertificateIdentity:
@@ -2533,6 +2545,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCNSSuggestionsList{}
 	case ConnectionExceptionReportIdentity:
 		return &SparseConnectionExceptionReportsList{}
+	case ConnectionsResultIdentity:
+		return &SparseConnectionsResultsList{}
 	case CounterReportIdentity:
 		return &SparseCounterReportsList{}
 	case DataPathCertificateIdentity:
@@ -2857,6 +2871,7 @@ func AllIdentities() []elemental.Identity {
 		CNSSearchIdentity,
 		CNSSuggestionIdentity,
 		ConnectionExceptionReportIdentity,
+		ConnectionsResultIdentity,
 		CounterReportIdentity,
 		DataPathCertificateIdentity,
 		DebugBundleIdentity,
@@ -3119,6 +3134,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case CNSSuggestionIdentity:
 		return []string{}
 	case ConnectionExceptionReportIdentity:
+		return []string{}
+	case ConnectionsResultIdentity:
 		return []string{}
 	case CounterReportIdentity:
 		return []string{}
