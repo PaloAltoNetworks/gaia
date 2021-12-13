@@ -1576,8 +1576,6 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[CurrentConnectionIdentity] = &elemental.Relationship{}
-
 	relationshipsRegistry[DNSLookupReportIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},

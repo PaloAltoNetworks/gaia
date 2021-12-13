@@ -68,7 +68,6 @@ var (
 		"connectionsresult":         ConnectionsResultIdentity,
 		"counterreport":             CounterReportIdentity,
 
-		"currentconnection":      CurrentConnectionIdentity,
 		"datapathcertificate":    DataPathCertificateIdentity,
 		"debugbundle":            DebugBundleIdentity,
 		"defaultenforcerversion": DefaultEnforcerVersionIdentity,
@@ -271,7 +270,6 @@ var (
 		"connectionsresults":         ConnectionsResultIdentity,
 		"counterreports":             CounterReportIdentity,
 
-		"currentconnections":     CurrentConnectionIdentity,
 		"datapathcertificates":   DataPathCertificateIdentity,
 		"debugbundles":           DebugBundleIdentity,
 		"defaultenforcerversion": DefaultEnforcerVersionIdentity,
@@ -871,7 +869,6 @@ var (
 			{"namespace", "timestamp"},
 			{":shard", "zone", "zHash", "_id"},
 		},
-		"currentconnection":      nil,
 		"datapathcertificate":    nil,
 		"debugbundle":            nil,
 		"defaultenforcerversion": nil,
@@ -1475,8 +1472,6 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewConnectionsResult()
 	case CounterReportIdentity:
 		return NewCounterReport()
-	case CurrentConnectionIdentity:
-		return NewCurrentConnection()
 	case DataPathCertificateIdentity:
 		return NewDataPathCertificate()
 	case DebugBundleIdentity:
@@ -1834,8 +1829,6 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseConnectionsResult()
 	case CounterReportIdentity:
 		return NewSparseCounterReport()
-	case CurrentConnectionIdentity:
-		return NewSparseCurrentConnection()
 	case DataPathCertificateIdentity:
 		return NewSparseDataPathCertificate()
 	case DebugBundleIdentity:
@@ -2201,8 +2194,6 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &ConnectionsResultsList{}
 	case CounterReportIdentity:
 		return &CounterReportsList{}
-	case CurrentConnectionIdentity:
-		return &CurrentConnectionsList{}
 	case DataPathCertificateIdentity:
 		return &DataPathCertificatesList{}
 	case DebugBundleIdentity:
@@ -2558,8 +2549,6 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseConnectionsResultsList{}
 	case CounterReportIdentity:
 		return &SparseCounterReportsList{}
-	case CurrentConnectionIdentity:
-		return &SparseCurrentConnectionsList{}
 	case DataPathCertificateIdentity:
 		return &SparseDataPathCertificatesList{}
 	case DebugBundleIdentity:
@@ -2884,7 +2873,6 @@ func AllIdentities() []elemental.Identity {
 		ConnectionExceptionReportIdentity,
 		ConnectionsResultIdentity,
 		CounterReportIdentity,
-		CurrentConnectionIdentity,
 		DataPathCertificateIdentity,
 		DebugBundleIdentity,
 		DefaultEnforcerVersionIdentity,
@@ -3150,8 +3138,6 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case ConnectionsResultIdentity:
 		return []string{}
 	case CounterReportIdentity:
-		return []string{}
-	case CurrentConnectionIdentity:
 		return []string{}
 	case DataPathCertificateIdentity:
 		return []string{}

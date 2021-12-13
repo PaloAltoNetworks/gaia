@@ -2659,7 +2659,7 @@ Type: [`flowreport`](#flowreport)
 
 The flow report for this connection.
 
-##### `sourcePort`
+##### `sourcePort` [`max_value=65536.000000`]
 
 Type: `integer`
 

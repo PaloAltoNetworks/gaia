@@ -6,7 +6,7 @@ model:
   package: guy
   group: core/enforcer
   description: A current connection.
-  detached: false
+  detached: true
   extends:
   - '@identifiable-stored'
 
@@ -38,6 +38,8 @@ attributes:
     type: integer
     exposed: true
     omit_empty: true
+    max_value: 65536
+    min_value: 0
 
   - name: flow
     description: The flow report for this connection.

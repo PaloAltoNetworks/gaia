@@ -24,6 +24,7 @@ attributes:
     type: integer
     exposed: true
     omit_empty: true
+    min_value: 0
 
   - name: connections
     description: Contains a batch of connections.
