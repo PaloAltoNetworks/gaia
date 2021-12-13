@@ -31,3 +31,5 @@ attributes:
     type: refList
     exposed: true
     subtype: currentconnection
+    extensions:
+      refMode: pointer

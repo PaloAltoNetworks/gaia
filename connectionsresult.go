@@ -81,7 +81,7 @@ func (o ConnectionsResultsList) Version() int {
 // ConnectionsResult represents the model of a connectionsresult
 type ConnectionsResult struct {
 	// Contains a batch of connections.
-	Connections []CurrentConnection `json:"connections" msgpack:"connections" bson:"-" mapstructure:"connections,omitempty"`
+	Connections []*CurrentConnection `json:"connections" msgpack:"connections" bson:"-" mapstructure:"connections,omitempty"`
 
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
@@ -100,7 +100,7 @@ func NewConnectionsResult() *ConnectionsResult {
 
 	return &ConnectionsResult{
 		ModelVersion: 1,
-		Connections:  []CurrentConnection{},
+		Connections:  []*CurrentConnection{},
 	}
 }
 
@@ -492,7 +492,7 @@ func (o SparseConnectionsResultsList) Version() int {
 // SparseConnectionsResult represents the sparse version of a connectionsresult.
 type SparseConnectionsResult struct {
 	// Contains a batch of connections.
-	Connections *[]CurrentConnection `json:"connections,omitempty" msgpack:"connections,omitempty" bson:"-" mapstructure:"connections,omitempty"`
+	Connections *[]*CurrentConnection `json:"connections,omitempty" msgpack:"connections,omitempty" bson:"-" mapstructure:"connections,omitempty"`
 
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
