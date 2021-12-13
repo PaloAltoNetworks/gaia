@@ -81,7 +81,7 @@ func (o ConnectionsResultsList) Version() int {
 // ConnectionsResult represents the model of a connectionsresult
 type ConnectionsResult struct {
 	// Contains a batch of connections.
-	Connections CurrentConnectionsList `json:"connections" msgpack:"connections" bson:"connections" mapstructure:"connections,omitempty"`
+	Connections CurrentConnectionsList `json:"connections" msgpack:"connections" bson:"-" mapstructure:"connections,omitempty"`
 
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
@@ -131,7 +131,6 @@ func (o *ConnectionsResult) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesConnectionsResult{}
 
-	s.Connections = o.Connections
 	s.Namespace = o.Namespace
 
 	return s, nil
@@ -150,7 +149,6 @@ func (o *ConnectionsResult) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
-	o.Connections = s.Connections
 	o.Namespace = s.Namespace
 
 	return nil
@@ -340,12 +338,10 @@ func (o *ConnectionsResult) ValueForAttribute(name string) interface{} {
 var ConnectionsResultAttributesMap = map[string]elemental.AttributeSpecification{
 	"Connections": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "connections",
 		ConvertedName:  "Connections",
 		Description:    `Contains a batch of connections.`,
 		Exposed:        true,
 		Name:           "connections",
-		Stored:         true,
 		SubType:        "currentconnection",
 		Type:           "refList",
 	},
@@ -389,12 +385,10 @@ var ConnectionsResultAttributesMap = map[string]elemental.AttributeSpecification
 var ConnectionsResultLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"connections": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "connections",
 		ConvertedName:  "Connections",
 		Description:    `Contains a batch of connections.`,
 		Exposed:        true,
 		Name:           "connections",
-		Stored:         true,
 		SubType:        "currentconnection",
 		Type:           "refList",
 	},
@@ -498,7 +492,7 @@ func (o SparseConnectionsResultsList) Version() int {
 // SparseConnectionsResult represents the sparse version of a connectionsresult.
 type SparseConnectionsResult struct {
 	// Contains a batch of connections.
-	Connections *CurrentConnectionsList `json:"connections,omitempty" msgpack:"connections,omitempty" bson:"connections,omitempty" mapstructure:"connections,omitempty"`
+	Connections *CurrentConnectionsList `json:"connections,omitempty" msgpack:"connections,omitempty" bson:"-" mapstructure:"connections,omitempty"`
 
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
@@ -544,9 +538,6 @@ func (o *SparseConnectionsResult) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesSparseConnectionsResult{}
 
-	if o.Connections != nil {
-		s.Connections = o.Connections
-	}
 	if o.Namespace != nil {
 		s.Namespace = o.Namespace
 	}
@@ -567,9 +558,6 @@ func (o *SparseConnectionsResult) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
-	if s.Connections != nil {
-		o.Connections = s.Connections
-	}
 	if s.Namespace != nil {
 		o.Namespace = s.Namespace
 	}
@@ -644,10 +632,8 @@ func (o *SparseConnectionsResult) DeepCopyInto(out *SparseConnectionsResult) {
 }
 
 type mongoAttributesConnectionsResult struct {
-	Connections CurrentConnectionsList `bson:"connections"`
-	Namespace   string                 `bson:"namespace"`
+	Namespace string `bson:"namespace"`
 }
 type mongoAttributesSparseConnectionsResult struct {
-	Connections *CurrentConnectionsList `bson:"connections,omitempty"`
-	Namespace   *string                 `bson:"namespace,omitempty"`
+	Namespace *string `bson:"namespace,omitempty"`
 }

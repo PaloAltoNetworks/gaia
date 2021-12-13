@@ -84,7 +84,7 @@ type CurrentConnection struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
-	// The the duration of the tracked connection.
+	// The duration of the tracked connection.
 	Duration string `json:"duration,omitempty" msgpack:"duration,omitempty" bson:"-" mapstructure:"duration,omitempty"`
 
 	// Was the connection existing when the enforcer started.
@@ -369,7 +369,7 @@ var CurrentConnectionAttributesMap = map[string]elemental.AttributeSpecification
 	"Duration": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Duration",
-		Description:    `The the duration of the tracked connection.`,
+		Description:    `The duration of the tracked connection.`,
 		Exposed:        true,
 		Name:           "duration",
 		Type:           "string",
@@ -429,7 +429,7 @@ var CurrentConnectionLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	"duration": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Duration",
-		Description:    `The the duration of the tracked connection.`,
+		Description:    `The duration of the tracked connection.`,
 		Exposed:        true,
 		Name:           "duration",
 		Type:           "string",
@@ -535,7 +535,7 @@ type SparseCurrentConnection struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
-	// The the duration of the tracked connection.
+	// The duration of the tracked connection.
 	Duration *string `json:"duration,omitempty" msgpack:"duration,omitempty" bson:"-" mapstructure:"duration,omitempty"`
 
 	// Was the connection existing when the enforcer started.

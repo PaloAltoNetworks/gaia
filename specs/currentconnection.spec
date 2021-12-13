@@ -6,6 +6,7 @@ model:
   package: guy
   group: core/enforcer
   description: A current connection.
+  detached: false
   extends:
   - '@identifiable-stored'
 

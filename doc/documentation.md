@@ -2122,14 +2122,6 @@ A result from a connections request.
 
 #### Relations
 
-##### `GET /connectionsresults`
-
-Retrieves a connections result.
-
-Parameters:
-
-- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
-
 ##### `POST /connectionsresults`
 
 Creates a new connections result.
@@ -2653,7 +2645,7 @@ Identifier of the object.
 
 Type: `string`
 
-The the duration of the tracked connection.
+The duration of the tracked connection.
 
 ##### `existing`
 

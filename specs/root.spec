@@ -375,11 +375,7 @@ relations:
 - rest_name: connectionsresult
   create:
     description: Creates a new connections result.
-  get:
-    description: Retrieves a connections result.
-    global_parameters:
-    - $filtering
-
+    
 - rest_name: counterreport
   create:
     description: Create a counter report.
