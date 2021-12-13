@@ -119,3 +119,12 @@ attributes:
     type: boolean
     exposed: true
     omit_empty: true
+
+  - name: connections
+    description: |-
+      Instructs the enforcer to send the current connections 
+      for the target processing unit.
+    type: boolean
+    exposed: true
+    omit_empty: true
+    
