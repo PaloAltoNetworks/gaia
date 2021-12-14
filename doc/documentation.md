@@ -8918,7 +8918,7 @@ Type: `string`
 
 Function contains the code.
 
-##### `key`
+##### `key` [`creation_only`]
 
 Type: `string`
 
@@ -9072,7 +9072,7 @@ Type: `string`
 
 Function contains the code.
 
-##### `key`
+##### `key` [`creation_only`]
 
 Type: `string`
 
