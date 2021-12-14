@@ -155,7 +155,7 @@ type GraphEdge struct {
 	DestinationType GraphEdgeDestinationTypeValue `json:"destinationType" msgpack:"destinationType" bson:"destinationtype" mapstructure:"destinationType,omitempty"`
 
 	// Contains more flow details grouped by their destination protocol/ports.
-	Details map[string]GraphEdgeFlowDetails `json:"details,omitempty" msgpack:"details,omitempty" bson:"-" mapstructure:"details,omitempty"`
+	Details map[string]*GraphEdgeFlowDetails `json:"details,omitempty" msgpack:"details,omitempty" bson:"-" mapstructure:"details,omitempty"`
 
 	// The number of encrypted flows in the edge.
 	Encrypted bool `json:"encrypted" msgpack:"encrypted" bson:"encrypted" mapstructure:"encrypted,omitempty"`
@@ -211,7 +211,7 @@ func NewGraphEdge() *GraphEdge {
 
 	return &GraphEdge{
 		ModelVersion: 1,
-		Details:      map[string]GraphEdgeFlowDetails{},
+		Details:      map[string]*GraphEdgeFlowDetails{},
 	}
 }
 
@@ -595,6 +595,16 @@ func (o *GraphEdge) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	for _, sub := range o.Details {
+		if sub == nil {
+			continue
+		}
+		elemental.ResetDefaultForZeroValues(sub)
+		if err := sub.Validate(); err != nil {
+			errors = errors.Append(err)
+		}
+	}
+
 	if err := elemental.ValidateStringInList("sourceType", string(o.SourceType), []string{"ProcessingUnit", "ExternalNetwork", "Namespace", "Node", "RemoteController"}, false); err != nil {
 		errors = errors.Append(err)
 	}
@@ -806,8 +816,8 @@ var GraphEdgeAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `Contains more flow details grouped by their destination protocol/ports.`,
 		Exposed:        true,
 		Name:           "details",
-		SubType:        "map[string]graphedgeflowdetails",
-		Type:           "external",
+		SubType:        "graphedgeflowdetails",
+		Type:           "refMap",
 	},
 	"Encrypted": {
 		AllowedChoices: []string{},
@@ -1083,8 +1093,8 @@ var GraphEdgeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Description:    `Contains more flow details grouped by their destination protocol/ports.`,
 		Exposed:        true,
 		Name:           "details",
-		SubType:        "map[string]graphedgeflowdetails",
-		Type:           "external",
+		SubType:        "graphedgeflowdetails",
+		Type:           "refMap",
 	},
 	"encrypted": {
 		AllowedChoices: []string{},
@@ -1343,7 +1353,7 @@ type SparseGraphEdge struct {
 	DestinationType *GraphEdgeDestinationTypeValue `json:"destinationType,omitempty" msgpack:"destinationType,omitempty" bson:"destinationtype,omitempty" mapstructure:"destinationType,omitempty"`
 
 	// Contains more flow details grouped by their destination protocol/ports.
-	Details *map[string]GraphEdgeFlowDetails `json:"details,omitempty" msgpack:"details,omitempty" bson:"-" mapstructure:"details,omitempty"`
+	Details *map[string]*GraphEdgeFlowDetails `json:"details,omitempty" msgpack:"details,omitempty" bson:"-" mapstructure:"details,omitempty"`
 
 	// The number of encrypted flows in the edge.
 	Encrypted *bool `json:"encrypted,omitempty" msgpack:"encrypted,omitempty" bson:"encrypted,omitempty" mapstructure:"encrypted,omitempty"`

@@ -604,27 +604,6 @@ map[string]bool:
         }
       }
 
-map[string]graphedgeflowdetails:
-  elemental:
-    type: map[string]GraphEdgeFlowDetails
-    init: map[string]GraphEdgeFlowDetails{}
-  jsonschema:
-    type: |-
-      {
-        "type": "object",
-        "additionalProperties": {
-          "$ref": "#/components/schemas/graphedgeflowdetails"
-        }
-      }
-  openapi3:
-    type: |-
-      {
-        "type": "object",
-        "additionalProperties": {
-          "$ref": "#/components/schemas/graphedgeflowdetails"
-        }
-      }
-
 map[string]int:
   elemental:
     type: map[string]int

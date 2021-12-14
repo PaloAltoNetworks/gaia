@@ -11,8 +11,8 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: allowed
-    description: Indicates whether the flow was allowed.
+  - name: accepted
+    description: Indicates whether the flow was accepted.
     type: boolean
     exposed: true
 

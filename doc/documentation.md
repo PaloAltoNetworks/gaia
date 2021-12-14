@@ -20410,7 +20410,7 @@ Type of the destination `GraphNode` of the edge.
 
 ##### `details`
 
-Type: `map[string]graphedgeflowdetails`
+Type: [`map[string]graphedgeflowdetails`](#graphedgeflowdetails)
 
 Contains more flow details grouped by their destination protocol/ports.
 
@@ -20500,18 +20500,18 @@ Contains more specific information about a particular flow between two nodes.
 
 ```json
 {
-  "allowed": false,
+  "accepted": false,
   "protoPort": "tcp/443"
 }
 ```
 
 #### Attributes
 
-##### `allowed`
+##### `accepted`
 
 Type: `boolean`
 
-Indicates whether the flow was allowed.
+Indicates whether the flow was accepted.
 
 ##### `protoPort`
 

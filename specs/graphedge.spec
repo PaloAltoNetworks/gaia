@@ -108,10 +108,12 @@ attributes:
 
   - name: details
     description: Contains more flow details grouped by their destination protocol/ports.
-    type: external
+    type: refMap
     exposed: true
-    subtype: map[string]graphedgeflowdetails
+    subtype: graphedgeflowdetails
     omit_empty: true
+    extensions:
+      refMode: pointer
 
   - name: encrypted
     description: The number of encrypted flows in the edge.
