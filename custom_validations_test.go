@@ -3365,6 +3365,16 @@ func TestValidateUIParameters(t *testing.T) {
 			},
 			false,
 		},
+		{
+			"Test with List and Subtype automation action",
+			args{
+				p: &UIParameter{
+					Type:    UIParameterTypeList,
+					Subtype: "AutomationAction",
+				},
+			},
+			false,
+		},
 		// Error cases
 		{
 			"Test with List and empty Subtype",
