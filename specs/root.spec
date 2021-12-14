@@ -372,6 +372,10 @@ relations:
   create:
     description: Create a connection exception report.
 
+- rest_name: connectionsresult
+  create:
+    description: Creates a new connections result.
+    
 - rest_name: counterreport
   create:
     description: Create a counter report.
