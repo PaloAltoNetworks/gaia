@@ -1317,9 +1317,10 @@ func ValidateHookPolicy(policy *HookPolicy) error {
 func supportedSubtypes() map[string]struct{} {
 
 	return map[string]struct{}{
-		"String":   {},
-		"Integer":  {},
-		"Endpoint": {},
+		"String":           {},
+		"Integer":          {},
+		"Endpoint":         {},
+		"AutomationAction": {},
 	}
 }
 

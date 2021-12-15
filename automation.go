@@ -110,8 +110,7 @@ type Automation struct {
 	Annotations map[string][]string `json:"annotations" msgpack:"annotations" bson:"annotations" mapstructure:"annotations,omitempty"`
 
 	// Contains the Microsegmentation token used by the automation's HTTP client. This
-	// token is
-	// derived from the automation's app credential attribute.
+	// token is derived from the automation's app credential attribute.
 	AporetoToken string `json:"-" msgpack:"-" bson:"aporetotoken" mapstructure:"-,omitempty"`
 
 	// Contains the app credential associated with the automation which has its roles
@@ -1018,8 +1017,7 @@ var AutomationAttributesMap = map[string]elemental.AttributeSpecification{
 		BSONFieldName:  "aporetotoken",
 		ConvertedName:  "AporetoToken",
 		Description: `Contains the Microsegmentation token used by the automation's HTTP client. This
-token is
-derived from the automation's app credential attribute.`,
+token is derived from the automation's app credential attribute.`,
 		Encrypted: true,
 		Name:      "aporetoToken",
 		Stored:    true,
@@ -1435,8 +1433,7 @@ var AutomationLowerCaseAttributesMap = map[string]elemental.AttributeSpecificati
 		BSONFieldName:  "aporetotoken",
 		ConvertedName:  "AporetoToken",
 		Description: `Contains the Microsegmentation token used by the automation's HTTP client. This
-token is
-derived from the automation's app credential attribute.`,
+token is derived from the automation's app credential attribute.`,
 		Encrypted: true,
 		Name:      "aporetoToken",
 		Stored:    true,
@@ -1880,8 +1877,7 @@ type SparseAutomation struct {
 	Annotations *map[string][]string `json:"annotations,omitempty" msgpack:"annotations,omitempty" bson:"annotations,omitempty" mapstructure:"annotations,omitempty"`
 
 	// Contains the Microsegmentation token used by the automation's HTTP client. This
-	// token is
-	// derived from the automation's app credential attribute.
+	// token is derived from the automation's app credential attribute.
 	AporetoToken *string `json:"-" msgpack:"-" bson:"aporetotoken,omitempty" mapstructure:"-,omitempty"`
 
 	// Contains the app credential associated with the automation which has its roles

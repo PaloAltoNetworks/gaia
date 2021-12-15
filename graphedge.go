@@ -154,6 +154,9 @@ type GraphEdge struct {
 	// Type of the destination `GraphNode` of the edge.
 	DestinationType GraphEdgeDestinationTypeValue `json:"destinationType" msgpack:"destinationType" bson:"destinationtype" mapstructure:"destinationType,omitempty"`
 
+	// Contains more flow details grouped by their destination protocol/ports.
+	Details map[string]*GraphEdgeFlowDetails `json:"details,omitempty" msgpack:"details,omitempty" bson:"-" mapstructure:"details,omitempty"`
+
 	// The number of encrypted flows in the edge.
 	Encrypted bool `json:"encrypted" msgpack:"encrypted" bson:"encrypted" mapstructure:"encrypted,omitempty"`
 
@@ -208,6 +211,7 @@ func NewGraphEdge() *GraphEdge {
 
 	return &GraphEdge{
 		ModelVersion: 1,
+		Details:      map[string]*GraphEdgeFlowDetails{},
 	}
 }
 
@@ -385,6 +389,7 @@ func (o *GraphEdge) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			DestinationController: &o.DestinationController,
 			DestinationID:         &o.DestinationID,
 			DestinationType:       &o.DestinationType,
+			Details:               &o.Details,
 			Encrypted:             &o.Encrypted,
 			FirstSeen:             &o.FirstSeen,
 			FlowID:                &o.FlowID,
@@ -428,6 +433,8 @@ func (o *GraphEdge) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.DestinationID = &(o.DestinationID)
 		case "destinationType":
 			sp.DestinationType = &(o.DestinationType)
+		case "details":
+			sp.Details = &(o.Details)
 		case "encrypted":
 			sp.Encrypted = &(o.Encrypted)
 		case "firstSeen":
@@ -503,6 +510,9 @@ func (o *GraphEdge) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.DestinationType != nil {
 		o.DestinationType = *so.DestinationType
+	}
+	if so.Details != nil {
+		o.Details = *so.Details
 	}
 	if so.Encrypted != nil {
 		o.Encrypted = *so.Encrypted
@@ -585,6 +595,16 @@ func (o *GraphEdge) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	for _, sub := range o.Details {
+		if sub == nil {
+			continue
+		}
+		elemental.ResetDefaultForZeroValues(sub)
+		if err := sub.Validate(); err != nil {
+			errors = errors.Append(err)
+		}
+	}
+
 	if err := elemental.ValidateStringInList("sourceType", string(o.SourceType), []string{"ProcessingUnit", "ExternalNetwork", "Namespace", "Node", "RemoteController"}, false); err != nil {
 		errors = errors.Append(err)
 	}
@@ -645,6 +665,8 @@ func (o *GraphEdge) ValueForAttribute(name string) interface{} {
 		return o.DestinationID
 	case "destinationType":
 		return o.DestinationType
+	case "details":
+		return o.Details
 	case "encrypted":
 		return o.Encrypted
 	case "firstSeen":
@@ -787,6 +809,15 @@ var GraphEdgeAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "destinationType",
 		Stored:         true,
 		Type:           "enum",
+	},
+	"Details": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Details",
+		Description:    `Contains more flow details grouped by their destination protocol/ports.`,
+		Exposed:        true,
+		Name:           "details",
+		SubType:        "graphedgeflowdetails",
+		Type:           "refMap",
 	},
 	"Encrypted": {
 		AllowedChoices: []string{},
@@ -1056,6 +1087,15 @@ var GraphEdgeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Stored:         true,
 		Type:           "enum",
 	},
+	"details": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Details",
+		Description:    `Contains more flow details grouped by their destination protocol/ports.`,
+		Exposed:        true,
+		Name:           "details",
+		SubType:        "graphedgeflowdetails",
+		Type:           "refMap",
+	},
 	"encrypted": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "encrypted",
@@ -1311,6 +1351,9 @@ type SparseGraphEdge struct {
 
 	// Type of the destination `GraphNode` of the edge.
 	DestinationType *GraphEdgeDestinationTypeValue `json:"destinationType,omitempty" msgpack:"destinationType,omitempty" bson:"destinationtype,omitempty" mapstructure:"destinationType,omitempty"`
+
+	// Contains more flow details grouped by their destination protocol/ports.
+	Details *map[string]*GraphEdgeFlowDetails `json:"details,omitempty" msgpack:"details,omitempty" bson:"-" mapstructure:"details,omitempty"`
 
 	// The number of encrypted flows in the edge.
 	Encrypted *bool `json:"encrypted,omitempty" msgpack:"encrypted,omitempty" bson:"encrypted,omitempty" mapstructure:"encrypted,omitempty"`
@@ -1619,6 +1662,9 @@ func (o *SparseGraphEdge) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.DestinationType != nil {
 		out.DestinationType = *o.DestinationType
+	}
+	if o.Details != nil {
+		out.Details = *o.Details
 	}
 	if o.Encrypted != nil {
 		out.Encrypted = *o.Encrypted
