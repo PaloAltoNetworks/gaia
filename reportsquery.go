@@ -12,6 +12,9 @@ import (
 type ReportsQueryReportValue string
 
 const (
+	// ReportsQueryReportAccesses represents the value Accesses.
+	ReportsQueryReportAccesses ReportsQueryReportValue = "Accesses"
+
 	// ReportsQueryReportConnectionExceptions represents the value ConnectionExceptions.
 	ReportsQueryReportConnectionExceptions ReportsQueryReportValue = "ConnectionExceptions"
 
@@ -109,6 +112,9 @@ type ReportsQuery struct {
 	// List of DNSLookupReports.
 	DNSLookupReports DNSLookupReportsList `json:"DNSLookupReports,omitempty" msgpack:"DNSLookupReports,omitempty" bson:"-" mapstructure:"DNSLookupReports,omitempty"`
 
+	// List of AccessReports.
+	AccessReports AccessReportsList `json:"accessReports,omitempty" msgpack:"accessReports,omitempty" bson:"-" mapstructure:"accessReports,omitempty"`
+
 	// List of ConnectionExceptionReports.
 	ConnectionExceptionReports ConnectionExceptionReportsList `json:"connectionExceptionReports,omitempty" msgpack:"connectionExceptionReports,omitempty" bson:"-" mapstructure:"connectionExceptionReports,omitempty"`
 
@@ -138,8 +144,9 @@ func NewReportsQuery() *ReportsQuery {
 
 	return &ReportsQuery{
 		ModelVersion:               1,
-		ConnectionExceptionReports: ConnectionExceptionReportsList{},
+		AccessReports:              AccessReportsList{},
 		DNSLookupReports:           DNSLookupReportsList{},
+		ConnectionExceptionReports: ConnectionExceptionReportsList{},
 		CounterReports:             CounterReportsList{},
 		EnforcerReports:            EnforcerReportsList{},
 		EventLogs:                  EventLogsList{},
@@ -233,6 +240,7 @@ func (o *ReportsQuery) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		// nolint: goimports
 		return &SparseReportsQuery{
 			DNSLookupReports:           &o.DNSLookupReports,
+			AccessReports:              &o.AccessReports,
 			ConnectionExceptionReports: &o.ConnectionExceptionReports,
 			CounterReports:             &o.CounterReports,
 			EnforcerReports:            &o.EnforcerReports,
@@ -248,6 +256,8 @@ func (o *ReportsQuery) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		switch f {
 		case "DNSLookupReports":
 			sp.DNSLookupReports = &(o.DNSLookupReports)
+		case "accessReports":
+			sp.AccessReports = &(o.AccessReports)
 		case "connectionExceptionReports":
 			sp.ConnectionExceptionReports = &(o.ConnectionExceptionReports)
 		case "counterReports":
@@ -277,6 +287,9 @@ func (o *ReportsQuery) Patch(sparse elemental.SparseIdentifiable) {
 	so := sparse.(*SparseReportsQuery)
 	if so.DNSLookupReports != nil {
 		o.DNSLookupReports = *so.DNSLookupReports
+	}
+	if so.AccessReports != nil {
+		o.AccessReports = *so.AccessReports
 	}
 	if so.ConnectionExceptionReports != nil {
 		o.ConnectionExceptionReports = *so.ConnectionExceptionReports
@@ -332,6 +345,16 @@ func (o *ReportsQuery) Validate() error {
 	requiredErrors := elemental.Errors{}
 
 	for _, sub := range o.DNSLookupReports {
+		if sub == nil {
+			continue
+		}
+		elemental.ResetDefaultForZeroValues(sub)
+		if err := sub.Validate(); err != nil {
+			errors = errors.Append(err)
+		}
+	}
+
+	for _, sub := range o.AccessReports {
 		if sub == nil {
 			continue
 		}
@@ -401,7 +424,7 @@ func (o *ReportsQuery) Validate() error {
 		}
 	}
 
-	if err := elemental.ValidateStringInList("report", string(o.Report), []string{"Flows", "Enforcers", "EventLogs", "Packets", "Counters", "DNSLookups", "ConnectionExceptions"}, false); err != nil {
+	if err := elemental.ValidateStringInList("report", string(o.Report), []string{"Accesses", "Flows", "Enforcers", "EventLogs", "Packets", "Counters", "DNSLookups", "ConnectionExceptions"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -441,6 +464,8 @@ func (o *ReportsQuery) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "DNSLookupReports":
 		return o.DNSLookupReports
+	case "accessReports":
+		return o.AccessReports
 	case "connectionExceptionReports":
 		return o.ConnectionExceptionReports
 	case "counterReports":
@@ -469,6 +494,15 @@ var ReportsQueryAttributesMap = map[string]elemental.AttributeSpecification{
 		Exposed:        true,
 		Name:           "DNSLookupReports",
 		SubType:        "dnslookupreport",
+		Type:           "refList",
+	},
+	"AccessReports": {
+		AllowedChoices: []string{},
+		ConvertedName:  "AccessReports",
+		Description:    `List of AccessReports.`,
+		Exposed:        true,
+		Name:           "accessReports",
+		SubType:        "accessreport",
 		Type:           "refList",
 	},
 	"ConnectionExceptionReports": {
@@ -526,7 +560,7 @@ var ReportsQueryAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "refList",
 	},
 	"Report": {
-		AllowedChoices: []string{"Flows", "Enforcers", "EventLogs", "Packets", "Counters", "DNSLookups", "ConnectionExceptions"},
+		AllowedChoices: []string{"Accesses", "Flows", "Enforcers", "EventLogs", "Packets", "Counters", "DNSLookups", "ConnectionExceptions"},
 		ConvertedName:  "Report",
 		DefaultValue:   ReportsQueryReportFlows,
 		Description:    `Name of the report type to query.`,
@@ -545,6 +579,15 @@ var ReportsQueryLowerCaseAttributesMap = map[string]elemental.AttributeSpecifica
 		Exposed:        true,
 		Name:           "DNSLookupReports",
 		SubType:        "dnslookupreport",
+		Type:           "refList",
+	},
+	"accessreports": {
+		AllowedChoices: []string{},
+		ConvertedName:  "AccessReports",
+		Description:    `List of AccessReports.`,
+		Exposed:        true,
+		Name:           "accessReports",
+		SubType:        "accessreport",
 		Type:           "refList",
 	},
 	"connectionexceptionreports": {
@@ -602,7 +645,7 @@ var ReportsQueryLowerCaseAttributesMap = map[string]elemental.AttributeSpecifica
 		Type:           "refList",
 	},
 	"report": {
-		AllowedChoices: []string{"Flows", "Enforcers", "EventLogs", "Packets", "Counters", "DNSLookups", "ConnectionExceptions"},
+		AllowedChoices: []string{"Accesses", "Flows", "Enforcers", "EventLogs", "Packets", "Counters", "DNSLookups", "ConnectionExceptions"},
 		ConvertedName:  "Report",
 		DefaultValue:   ReportsQueryReportFlows,
 		Description:    `Name of the report type to query.`,
@@ -677,6 +720,9 @@ func (o SparseReportsQueriesList) Version() int {
 type SparseReportsQuery struct {
 	// List of DNSLookupReports.
 	DNSLookupReports *DNSLookupReportsList `json:"DNSLookupReports,omitempty" msgpack:"DNSLookupReports,omitempty" bson:"-" mapstructure:"DNSLookupReports,omitempty"`
+
+	// List of AccessReports.
+	AccessReports *AccessReportsList `json:"accessReports,omitempty" msgpack:"accessReports,omitempty" bson:"-" mapstructure:"accessReports,omitempty"`
 
 	// List of ConnectionExceptionReports.
 	ConnectionExceptionReports *ConnectionExceptionReportsList `json:"connectionExceptionReports,omitempty" msgpack:"connectionExceptionReports,omitempty" bson:"-" mapstructure:"connectionExceptionReports,omitempty"`
@@ -765,6 +811,9 @@ func (o *SparseReportsQuery) ToPlain() elemental.PlainIdentifiable {
 	out := NewReportsQuery()
 	if o.DNSLookupReports != nil {
 		out.DNSLookupReports = *o.DNSLookupReports
+	}
+	if o.AccessReports != nil {
+		out.AccessReports = *o.AccessReports
 	}
 	if o.ConnectionExceptionReports != nil {
 		out.ConnectionExceptionReports = *o.ConnectionExceptionReports
