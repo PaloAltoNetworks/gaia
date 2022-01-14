@@ -69,6 +69,18 @@ attributes:
     extensions:
       bson_name: d
 
+  - name: namespace
+    description: |-
+      The namespace that this access report belongs to. This field is not exposed.
+      Therefore, any value set by the user will be ignored.
+    type: string
+    stored: true
+    example_value: /my/namespace
+    filterable: true
+    omit_empty: true
+    extensions:
+      bson_name: k
+
   - name: processingUnitID
     description: ID of the processing unit of the report.
     type: string
