@@ -21,6 +21,13 @@ attributes:
     subtype: dnslookupreport
     omit_empty: true
 
+  - name: accessReports
+    description: List of AccessReports.
+    type: refList
+    exposed: true
+    subtype: accessreport
+    omit_empty: true
+
   - name: connectionExceptionReports
     description: List of ConnectionExceptionReports.
     type: refList
@@ -68,6 +75,7 @@ attributes:
     type: enum
     exposed: true
     allowed_choices:
+    - Accesses
     - Flows
     - Enforcers
     - EventLogs
