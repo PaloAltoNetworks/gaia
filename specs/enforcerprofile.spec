@@ -144,6 +144,7 @@ attributes:
     stored: true
     default_value: 1
     max_value: 23
+    min_value: 1
 
   - name: syslogFormat
     description: Contains the list of supported syslog message format.
