@@ -101,68 +101,68 @@ type PacketReport struct {
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
 	// Flags are the TCP flags of the packet.
-	TCPFlags int `json:"TCPFlags,omitempty" msgpack:"TCPFlags,omitempty" bson:"a,omitempty" mapstructure:"TCPFlags,omitempty"`
+	TCPFlags int `json:"TCPFlags,omitempty" msgpack:"TCPFlags,omitempty" bson:"tcpflags" mapstructure:"TCPFlags,omitempty"`
 
 	// Claims is the list of claims detected for the packet.
-	Claims []string `json:"claims,omitempty" msgpack:"claims,omitempty" bson:"b,omitempty" mapstructure:"claims,omitempty"`
+	Claims []string `json:"claims,omitempty" msgpack:"claims,omitempty" bson:"claims" mapstructure:"claims,omitempty"`
 
 	// The destination IP address of the packet.
-	DestinationIP string `json:"destinationIP,omitempty" msgpack:"destinationIP,omitempty" bson:"c,omitempty" mapstructure:"destinationIP,omitempty"`
+	DestinationIP string `json:"destinationIP,omitempty" msgpack:"destinationIP,omitempty" bson:"destinationip" mapstructure:"destinationIP,omitempty"`
 
 	// The destination port of a TCP or UDP packet.
-	DestinationPort int `json:"destinationPort,omitempty" msgpack:"destinationPort,omitempty" bson:"d,omitempty" mapstructure:"destinationPort,omitempty"`
+	DestinationPort int `json:"destinationPort,omitempty" msgpack:"destinationPort,omitempty" bson:"destinationport" mapstructure:"destinationPort,omitempty"`
 
 	// If `event` is set to `Dropped`, contains the reason that the packet was dropped.
 	// Otherwise empty.
-	DropReason string `json:"dropReason,omitempty" msgpack:"dropReason,omitempty" bson:"e,omitempty" mapstructure:"dropReason,omitempty"`
+	DropReason string `json:"dropReason,omitempty" msgpack:"dropReason,omitempty" bson:"dropreason" mapstructure:"dropReason,omitempty"`
 
 	// Set to `true` if the packet was encrypted.
-	Encrypt bool `json:"encrypt,omitempty" msgpack:"encrypt,omitempty" bson:"f,omitempty" mapstructure:"encrypt,omitempty"`
+	Encrypt bool `json:"encrypt,omitempty" msgpack:"encrypt,omitempty" bson:"encrypt" mapstructure:"encrypt,omitempty"`
 
 	// Identifier of the enforcer sending the report.
-	EnforcerID string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"g,omitempty" mapstructure:"enforcerID,omitempty"`
+	EnforcerID string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"enforcerid" mapstructure:"enforcerID,omitempty"`
 
 	// Namespace of the enforcer sending the report.
-	EnforcerNamespace string `json:"enforcerNamespace,omitempty" msgpack:"enforcerNamespace,omitempty" bson:"h,omitempty" mapstructure:"enforcerNamespace,omitempty"`
+	EnforcerNamespace string `json:"enforcerNamespace,omitempty" msgpack:"enforcerNamespace,omitempty" bson:"enforcernamespace" mapstructure:"enforcerNamespace,omitempty"`
 
 	// The event that triggered the report.
-	Event PacketReportEventValue `json:"event,omitempty" msgpack:"event,omitempty" bson:"i,omitempty" mapstructure:"event,omitempty"`
+	Event PacketReportEventValue `json:"event,omitempty" msgpack:"event,omitempty" bson:"event" mapstructure:"event,omitempty"`
 
 	// Length is the length of the packet.
-	Length int `json:"-" msgpack:"-" bson:"j,omitempty" mapstructure:"-,omitempty"`
+	Length int `json:"-" msgpack:"-" bson:"length" mapstructure:"-,omitempty"`
 
 	// Mark is the mark value of the packet.
-	Mark int `json:"mark,omitempty" msgpack:"mark,omitempty" bson:"k,omitempty" mapstructure:"mark,omitempty"`
+	Mark int `json:"mark,omitempty" msgpack:"mark,omitempty" bson:"mark" mapstructure:"mark,omitempty"`
 
 	// Internal property maintaining migrations information.
-	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
+	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog" mapstructure:"-,omitempty"`
 
 	// Namespace of the processing unit reporting the packet.
-	Namespace string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"l,omitempty" mapstructure:"namespace,omitempty"`
+	Namespace string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace" mapstructure:"namespace,omitempty"`
 
 	// The ID of the IP header of the reported packet.
-	PacketID int `json:"packetID,omitempty" msgpack:"packetID,omitempty" bson:"m,omitempty" mapstructure:"packetID,omitempty"`
+	PacketID int `json:"packetID,omitempty" msgpack:"packetID,omitempty" bson:"packetid" mapstructure:"packetID,omitempty"`
 
 	// Protocol number.
-	Protocol int `json:"protocol,omitempty" msgpack:"protocol,omitempty" bson:"n,omitempty" mapstructure:"protocol,omitempty"`
+	Protocol int `json:"protocol,omitempty" msgpack:"protocol,omitempty" bson:"protocol" mapstructure:"protocol,omitempty"`
 
 	// The ID of the processing unit reporting the packet.
-	PuID string `json:"puID,omitempty" msgpack:"puID,omitempty" bson:"o,omitempty" mapstructure:"puID,omitempty"`
+	PuID string `json:"puID,omitempty" msgpack:"puID,omitempty" bson:"puid" mapstructure:"puID,omitempty"`
 
 	// The first 64 bytes of the packet.
-	RawPacket string `json:"rawPacket,omitempty" msgpack:"rawPacket,omitempty" bson:"p,omitempty" mapstructure:"rawPacket,omitempty"`
+	RawPacket string `json:"rawPacket,omitempty" msgpack:"rawPacket,omitempty" bson:"rawpacket" mapstructure:"rawPacket,omitempty"`
 
 	// The source IP address of the packet.
-	SourceIP string `json:"sourceIP,omitempty" msgpack:"sourceIP,omitempty" bson:"q,omitempty" mapstructure:"sourceIP,omitempty"`
+	SourceIP string `json:"sourceIP,omitempty" msgpack:"sourceIP,omitempty" bson:"sourceip" mapstructure:"sourceIP,omitempty"`
 
 	// The source port of the packet.
-	SourcePort int `json:"sourcePort,omitempty" msgpack:"sourcePort,omitempty" bson:"r,omitempty" mapstructure:"sourcePort,omitempty"`
+	SourcePort int `json:"sourcePort,omitempty" msgpack:"sourcePort,omitempty" bson:"sourceport" mapstructure:"sourcePort,omitempty"`
 
 	// The time-date stamp of the report.
-	Timestamp time.Time `json:"timestamp,omitempty" msgpack:"timestamp,omitempty" bson:"s,omitempty" mapstructure:"timestamp,omitempty"`
+	Timestamp time.Time `json:"timestamp,omitempty" msgpack:"timestamp,omitempty" bson:"timestamp" mapstructure:"timestamp,omitempty"`
 
 	// Set to `true` if the packet arrived with the Trireme options (default).
-	TriremePacket bool `json:"triremePacket,omitempty" msgpack:"triremePacket,omitempty" bson:"t,omitempty" mapstructure:"triremePacket,omitempty"`
+	TriremePacket bool `json:"triremePacket,omitempty" msgpack:"triremePacket,omitempty" bson:"triremepacket" mapstructure:"triremePacket,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -682,7 +682,6 @@ var PacketReportAttributesMap = map[string]elemental.AttributeSpecification{
 	"ID": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
-		BSONFieldName:  "_id",
 		ConvertedName:  "ID",
 		Description:    `Identifier of the object.`,
 		Exposed:        true,
@@ -696,7 +695,6 @@ var PacketReportAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"TCPFlags": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "a",
 		ConvertedName:  "TCPFlags",
 		Description:    `Flags are the TCP flags of the packet.`,
 		Exposed:        true,
@@ -706,7 +704,6 @@ var PacketReportAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Claims": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "b",
 		ConvertedName:  "Claims",
 		Description:    `Claims is the list of claims detected for the packet.`,
 		Exposed:        true,
@@ -717,7 +714,6 @@ var PacketReportAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"DestinationIP": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "c",
 		ConvertedName:  "DestinationIP",
 		Description:    `The destination IP address of the packet.`,
 		Exposed:        true,
@@ -727,7 +723,6 @@ var PacketReportAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"DestinationPort": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "d",
 		ConvertedName:  "DestinationPort",
 		Description:    `The destination port of a TCP or UDP packet.`,
 		Exposed:        true,
@@ -738,7 +733,6 @@ var PacketReportAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"DropReason": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "e",
 		ConvertedName:  "DropReason",
 		Description: `If ` + "`" + `event` + "`" + ` is set to ` + "`" + `Dropped` + "`" + `, contains the reason that the packet was dropped.
 Otherwise empty.`,
@@ -749,7 +743,6 @@ Otherwise empty.`,
 	},
 	"Encrypt": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "f",
 		ConvertedName:  "Encrypt",
 		Description:    `Set to ` + "`" + `true` + "`" + ` if the packet was encrypted.`,
 		Exposed:        true,
@@ -759,7 +752,6 @@ Otherwise empty.`,
 	},
 	"EnforcerID": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "g",
 		ConvertedName:  "EnforcerID",
 		Description:    `Identifier of the enforcer sending the report.`,
 		Exposed:        true,
@@ -770,7 +762,6 @@ Otherwise empty.`,
 	},
 	"EnforcerNamespace": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "h",
 		ConvertedName:  "EnforcerNamespace",
 		Description:    `Namespace of the enforcer sending the report.`,
 		Exposed:        true,
@@ -781,7 +772,6 @@ Otherwise empty.`,
 	},
 	"Event": {
 		AllowedChoices: []string{"Received", "Transmitted", "Dropped"},
-		BSONFieldName:  "i",
 		ConvertedName:  "Event",
 		Description:    `The event that triggered the report.`,
 		Exposed:        true,
@@ -792,7 +782,6 @@ Otherwise empty.`,
 	},
 	"Length": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "j",
 		ConvertedName:  "Length",
 		Description:    `Length is the length of the packet.`,
 		MaxValue:       65536,
@@ -802,7 +791,6 @@ Otherwise empty.`,
 	},
 	"Mark": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "k",
 		ConvertedName:  "Mark",
 		Description:    `Mark is the mark value of the packet.`,
 		Exposed:        true,
@@ -812,7 +800,6 @@ Otherwise empty.`,
 	},
 	"MigrationsLog": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "migrationslog",
 		ConvertedName:  "MigrationsLog",
 		Description:    `Internal property maintaining migrations information.`,
 		Getter:         true,
@@ -824,7 +811,6 @@ Otherwise empty.`,
 	},
 	"Namespace": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "l",
 		ConvertedName:  "Namespace",
 		Description:    `Namespace of the processing unit reporting the packet.`,
 		Exposed:        true,
@@ -836,7 +822,6 @@ Otherwise empty.`,
 	},
 	"PacketID": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "m",
 		ConvertedName:  "PacketID",
 		Description:    `The ID of the IP header of the reported packet.`,
 		Exposed:        true,
@@ -846,7 +831,6 @@ Otherwise empty.`,
 	},
 	"Protocol": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "n",
 		ConvertedName:  "Protocol",
 		Description:    `Protocol number.`,
 		Exposed:        true,
@@ -857,7 +841,6 @@ Otherwise empty.`,
 	},
 	"PuID": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "o",
 		ConvertedName:  "PuID",
 		Description:    `The ID of the processing unit reporting the packet.`,
 		Exposed:        true,
@@ -868,7 +851,6 @@ Otherwise empty.`,
 	},
 	"RawPacket": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "p",
 		ConvertedName:  "RawPacket",
 		DefaultValue:   "abcd",
 		Description:    `The first 64 bytes of the packet.`,
@@ -879,7 +861,6 @@ Otherwise empty.`,
 	},
 	"SourceIP": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "q",
 		ConvertedName:  "SourceIP",
 		Description:    `The source IP address of the packet.`,
 		Exposed:        true,
@@ -889,7 +870,6 @@ Otherwise empty.`,
 	},
 	"SourcePort": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "r",
 		ConvertedName:  "SourcePort",
 		Description:    `The source port of the packet.`,
 		Exposed:        true,
@@ -900,7 +880,6 @@ Otherwise empty.`,
 	},
 	"Timestamp": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "s",
 		ConvertedName:  "Timestamp",
 		Description:    `The time-date stamp of the report.`,
 		Exposed:        true,
@@ -912,7 +891,6 @@ Otherwise empty.`,
 	},
 	"TriremePacket": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "t",
 		ConvertedName:  "TriremePacket",
 		DefaultValue:   true,
 		Description:    `Set to ` + "`" + `true` + "`" + ` if the packet arrived with the Trireme options (default).`,
@@ -924,7 +902,6 @@ Otherwise empty.`,
 	"ZHash": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
-		BSONFieldName:  "zhash",
 		ConvertedName:  "ZHash",
 		Description: `geographical hash of the data. This is used for sharding and
 georedundancy.`,
@@ -938,7 +915,6 @@ georedundancy.`,
 	"Zone": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
-		BSONFieldName:  "zone",
 		ConvertedName:  "Zone",
 		Description:    `Logical storage zone. Used for sharding.`,
 		Getter:         true,
@@ -956,7 +932,6 @@ var PacketReportLowerCaseAttributesMap = map[string]elemental.AttributeSpecifica
 	"id": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
-		BSONFieldName:  "_id",
 		ConvertedName:  "ID",
 		Description:    `Identifier of the object.`,
 		Exposed:        true,
@@ -970,7 +945,6 @@ var PacketReportLowerCaseAttributesMap = map[string]elemental.AttributeSpecifica
 	},
 	"tcpflags": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "a",
 		ConvertedName:  "TCPFlags",
 		Description:    `Flags are the TCP flags of the packet.`,
 		Exposed:        true,
@@ -980,7 +954,6 @@ var PacketReportLowerCaseAttributesMap = map[string]elemental.AttributeSpecifica
 	},
 	"claims": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "b",
 		ConvertedName:  "Claims",
 		Description:    `Claims is the list of claims detected for the packet.`,
 		Exposed:        true,
@@ -991,7 +964,6 @@ var PacketReportLowerCaseAttributesMap = map[string]elemental.AttributeSpecifica
 	},
 	"destinationip": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "c",
 		ConvertedName:  "DestinationIP",
 		Description:    `The destination IP address of the packet.`,
 		Exposed:        true,
@@ -1001,7 +973,6 @@ var PacketReportLowerCaseAttributesMap = map[string]elemental.AttributeSpecifica
 	},
 	"destinationport": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "d",
 		ConvertedName:  "DestinationPort",
 		Description:    `The destination port of a TCP or UDP packet.`,
 		Exposed:        true,
@@ -1012,7 +983,6 @@ var PacketReportLowerCaseAttributesMap = map[string]elemental.AttributeSpecifica
 	},
 	"dropreason": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "e",
 		ConvertedName:  "DropReason",
 		Description: `If ` + "`" + `event` + "`" + ` is set to ` + "`" + `Dropped` + "`" + `, contains the reason that the packet was dropped.
 Otherwise empty.`,
@@ -1023,7 +993,6 @@ Otherwise empty.`,
 	},
 	"encrypt": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "f",
 		ConvertedName:  "Encrypt",
 		Description:    `Set to ` + "`" + `true` + "`" + ` if the packet was encrypted.`,
 		Exposed:        true,
@@ -1033,7 +1002,6 @@ Otherwise empty.`,
 	},
 	"enforcerid": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "g",
 		ConvertedName:  "EnforcerID",
 		Description:    `Identifier of the enforcer sending the report.`,
 		Exposed:        true,
@@ -1044,7 +1012,6 @@ Otherwise empty.`,
 	},
 	"enforcernamespace": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "h",
 		ConvertedName:  "EnforcerNamespace",
 		Description:    `Namespace of the enforcer sending the report.`,
 		Exposed:        true,
@@ -1055,7 +1022,6 @@ Otherwise empty.`,
 	},
 	"event": {
 		AllowedChoices: []string{"Received", "Transmitted", "Dropped"},
-		BSONFieldName:  "i",
 		ConvertedName:  "Event",
 		Description:    `The event that triggered the report.`,
 		Exposed:        true,
@@ -1066,7 +1032,6 @@ Otherwise empty.`,
 	},
 	"length": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "j",
 		ConvertedName:  "Length",
 		Description:    `Length is the length of the packet.`,
 		MaxValue:       65536,
@@ -1076,7 +1041,6 @@ Otherwise empty.`,
 	},
 	"mark": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "k",
 		ConvertedName:  "Mark",
 		Description:    `Mark is the mark value of the packet.`,
 		Exposed:        true,
@@ -1086,7 +1050,6 @@ Otherwise empty.`,
 	},
 	"migrationslog": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "migrationslog",
 		ConvertedName:  "MigrationsLog",
 		Description:    `Internal property maintaining migrations information.`,
 		Getter:         true,
@@ -1098,7 +1061,6 @@ Otherwise empty.`,
 	},
 	"namespace": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "l",
 		ConvertedName:  "Namespace",
 		Description:    `Namespace of the processing unit reporting the packet.`,
 		Exposed:        true,
@@ -1110,7 +1072,6 @@ Otherwise empty.`,
 	},
 	"packetid": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "m",
 		ConvertedName:  "PacketID",
 		Description:    `The ID of the IP header of the reported packet.`,
 		Exposed:        true,
@@ -1120,7 +1081,6 @@ Otherwise empty.`,
 	},
 	"protocol": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "n",
 		ConvertedName:  "Protocol",
 		Description:    `Protocol number.`,
 		Exposed:        true,
@@ -1131,7 +1091,6 @@ Otherwise empty.`,
 	},
 	"puid": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "o",
 		ConvertedName:  "PuID",
 		Description:    `The ID of the processing unit reporting the packet.`,
 		Exposed:        true,
@@ -1142,7 +1101,6 @@ Otherwise empty.`,
 	},
 	"rawpacket": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "p",
 		ConvertedName:  "RawPacket",
 		DefaultValue:   "abcd",
 		Description:    `The first 64 bytes of the packet.`,
@@ -1153,7 +1111,6 @@ Otherwise empty.`,
 	},
 	"sourceip": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "q",
 		ConvertedName:  "SourceIP",
 		Description:    `The source IP address of the packet.`,
 		Exposed:        true,
@@ -1163,7 +1120,6 @@ Otherwise empty.`,
 	},
 	"sourceport": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "r",
 		ConvertedName:  "SourcePort",
 		Description:    `The source port of the packet.`,
 		Exposed:        true,
@@ -1174,7 +1130,6 @@ Otherwise empty.`,
 	},
 	"timestamp": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "s",
 		ConvertedName:  "Timestamp",
 		Description:    `The time-date stamp of the report.`,
 		Exposed:        true,
@@ -1186,7 +1141,6 @@ Otherwise empty.`,
 	},
 	"triremepacket": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "t",
 		ConvertedName:  "TriremePacket",
 		DefaultValue:   true,
 		Description:    `Set to ` + "`" + `true` + "`" + ` if the packet arrived with the Trireme options (default).`,
@@ -1198,7 +1152,6 @@ Otherwise empty.`,
 	"zhash": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
-		BSONFieldName:  "zhash",
 		ConvertedName:  "ZHash",
 		Description: `geographical hash of the data. This is used for sharding and
 georedundancy.`,
@@ -1212,7 +1165,6 @@ georedundancy.`,
 	"zone": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
-		BSONFieldName:  "zone",
 		ConvertedName:  "Zone",
 		Description:    `Logical storage zone. Used for sharding.`,
 		Getter:         true,
@@ -1294,68 +1246,68 @@ type SparsePacketReport struct {
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
 	// Flags are the TCP flags of the packet.
-	TCPFlags *int `json:"TCPFlags,omitempty" msgpack:"TCPFlags,omitempty" bson:"a,omitempty" mapstructure:"TCPFlags,omitempty"`
+	TCPFlags *int `json:"TCPFlags,omitempty" msgpack:"TCPFlags,omitempty" bson:"tcpflags,omitempty" mapstructure:"TCPFlags,omitempty"`
 
 	// Claims is the list of claims detected for the packet.
-	Claims *[]string `json:"claims,omitempty" msgpack:"claims,omitempty" bson:"b,omitempty" mapstructure:"claims,omitempty"`
+	Claims *[]string `json:"claims,omitempty" msgpack:"claims,omitempty" bson:"claims,omitempty" mapstructure:"claims,omitempty"`
 
 	// The destination IP address of the packet.
-	DestinationIP *string `json:"destinationIP,omitempty" msgpack:"destinationIP,omitempty" bson:"c,omitempty" mapstructure:"destinationIP,omitempty"`
+	DestinationIP *string `json:"destinationIP,omitempty" msgpack:"destinationIP,omitempty" bson:"destinationip,omitempty" mapstructure:"destinationIP,omitempty"`
 
 	// The destination port of a TCP or UDP packet.
-	DestinationPort *int `json:"destinationPort,omitempty" msgpack:"destinationPort,omitempty" bson:"d,omitempty" mapstructure:"destinationPort,omitempty"`
+	DestinationPort *int `json:"destinationPort,omitempty" msgpack:"destinationPort,omitempty" bson:"destinationport,omitempty" mapstructure:"destinationPort,omitempty"`
 
 	// If `event` is set to `Dropped`, contains the reason that the packet was dropped.
 	// Otherwise empty.
-	DropReason *string `json:"dropReason,omitempty" msgpack:"dropReason,omitempty" bson:"e,omitempty" mapstructure:"dropReason,omitempty"`
+	DropReason *string `json:"dropReason,omitempty" msgpack:"dropReason,omitempty" bson:"dropreason,omitempty" mapstructure:"dropReason,omitempty"`
 
 	// Set to `true` if the packet was encrypted.
-	Encrypt *bool `json:"encrypt,omitempty" msgpack:"encrypt,omitempty" bson:"f,omitempty" mapstructure:"encrypt,omitempty"`
+	Encrypt *bool `json:"encrypt,omitempty" msgpack:"encrypt,omitempty" bson:"encrypt,omitempty" mapstructure:"encrypt,omitempty"`
 
 	// Identifier of the enforcer sending the report.
-	EnforcerID *string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"g,omitempty" mapstructure:"enforcerID,omitempty"`
+	EnforcerID *string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"enforcerid,omitempty" mapstructure:"enforcerID,omitempty"`
 
 	// Namespace of the enforcer sending the report.
-	EnforcerNamespace *string `json:"enforcerNamespace,omitempty" msgpack:"enforcerNamespace,omitempty" bson:"h,omitempty" mapstructure:"enforcerNamespace,omitempty"`
+	EnforcerNamespace *string `json:"enforcerNamespace,omitempty" msgpack:"enforcerNamespace,omitempty" bson:"enforcernamespace,omitempty" mapstructure:"enforcerNamespace,omitempty"`
 
 	// The event that triggered the report.
-	Event *PacketReportEventValue `json:"event,omitempty" msgpack:"event,omitempty" bson:"i,omitempty" mapstructure:"event,omitempty"`
+	Event *PacketReportEventValue `json:"event,omitempty" msgpack:"event,omitempty" bson:"event,omitempty" mapstructure:"event,omitempty"`
 
 	// Length is the length of the packet.
-	Length *int `json:"-" msgpack:"-" bson:"j,omitempty" mapstructure:"-,omitempty"`
+	Length *int `json:"-" msgpack:"-" bson:"length,omitempty" mapstructure:"-,omitempty"`
 
 	// Mark is the mark value of the packet.
-	Mark *int `json:"mark,omitempty" msgpack:"mark,omitempty" bson:"k,omitempty" mapstructure:"mark,omitempty"`
+	Mark *int `json:"mark,omitempty" msgpack:"mark,omitempty" bson:"mark,omitempty" mapstructure:"mark,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
 	// Namespace of the processing unit reporting the packet.
-	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"l,omitempty" mapstructure:"namespace,omitempty"`
+	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
 
 	// The ID of the IP header of the reported packet.
-	PacketID *int `json:"packetID,omitempty" msgpack:"packetID,omitempty" bson:"m,omitempty" mapstructure:"packetID,omitempty"`
+	PacketID *int `json:"packetID,omitempty" msgpack:"packetID,omitempty" bson:"packetid,omitempty" mapstructure:"packetID,omitempty"`
 
 	// Protocol number.
-	Protocol *int `json:"protocol,omitempty" msgpack:"protocol,omitempty" bson:"n,omitempty" mapstructure:"protocol,omitempty"`
+	Protocol *int `json:"protocol,omitempty" msgpack:"protocol,omitempty" bson:"protocol,omitempty" mapstructure:"protocol,omitempty"`
 
 	// The ID of the processing unit reporting the packet.
-	PuID *string `json:"puID,omitempty" msgpack:"puID,omitempty" bson:"o,omitempty" mapstructure:"puID,omitempty"`
+	PuID *string `json:"puID,omitempty" msgpack:"puID,omitempty" bson:"puid,omitempty" mapstructure:"puID,omitempty"`
 
 	// The first 64 bytes of the packet.
-	RawPacket *string `json:"rawPacket,omitempty" msgpack:"rawPacket,omitempty" bson:"p,omitempty" mapstructure:"rawPacket,omitempty"`
+	RawPacket *string `json:"rawPacket,omitempty" msgpack:"rawPacket,omitempty" bson:"rawpacket,omitempty" mapstructure:"rawPacket,omitempty"`
 
 	// The source IP address of the packet.
-	SourceIP *string `json:"sourceIP,omitempty" msgpack:"sourceIP,omitempty" bson:"q,omitempty" mapstructure:"sourceIP,omitempty"`
+	SourceIP *string `json:"sourceIP,omitempty" msgpack:"sourceIP,omitempty" bson:"sourceip,omitempty" mapstructure:"sourceIP,omitempty"`
 
 	// The source port of the packet.
-	SourcePort *int `json:"sourcePort,omitempty" msgpack:"sourcePort,omitempty" bson:"r,omitempty" mapstructure:"sourcePort,omitempty"`
+	SourcePort *int `json:"sourcePort,omitempty" msgpack:"sourcePort,omitempty" bson:"sourceport,omitempty" mapstructure:"sourcePort,omitempty"`
 
 	// The time-date stamp of the report.
-	Timestamp *time.Time `json:"timestamp,omitempty" msgpack:"timestamp,omitempty" bson:"s,omitempty" mapstructure:"timestamp,omitempty"`
+	Timestamp *time.Time `json:"timestamp,omitempty" msgpack:"timestamp,omitempty" bson:"timestamp,omitempty" mapstructure:"timestamp,omitempty"`
 
 	// Set to `true` if the packet arrived with the Trireme options (default).
-	TriremePacket *bool `json:"triremePacket,omitempty" msgpack:"triremePacket,omitempty" bson:"t,omitempty" mapstructure:"triremePacket,omitempty"`
+	TriremePacket *bool `json:"triremePacket,omitempty" msgpack:"triremePacket,omitempty" bson:"triremepacket,omitempty" mapstructure:"triremePacket,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -1731,53 +1683,53 @@ func (o *SparsePacketReport) DeepCopyInto(out *SparsePacketReport) {
 
 type mongoAttributesPacketReport struct {
 	ID                bson.ObjectId          `bson:"_id,omitempty"`
-	TCPFlags          int                    `bson:"a,omitempty"`
-	Claims            []string               `bson:"b,omitempty"`
-	DestinationIP     string                 `bson:"c,omitempty"`
-	DestinationPort   int                    `bson:"d,omitempty"`
-	DropReason        string                 `bson:"e,omitempty"`
-	Encrypt           bool                   `bson:"f,omitempty"`
-	EnforcerID        string                 `bson:"g,omitempty"`
-	EnforcerNamespace string                 `bson:"h,omitempty"`
-	Event             PacketReportEventValue `bson:"i,omitempty"`
-	Length            int                    `bson:"j,omitempty"`
-	Mark              int                    `bson:"k,omitempty"`
+	TCPFlags          int                    `bson:"tcpflags,omitempty"`
+	Claims            []string               `bson:"claims,omitempty"`
+	DestinationIP     string                 `bson:"destinationip,omitempty"`
+	DestinationPort   int                    `bson:"destinationport,omitempty"`
+	DropReason        string                 `bson:"dropreason,omitempty"`
+	Encrypt           bool                   `bson:"encrypt,omitempty"`
+	EnforcerID        string                 `bson:"enforcerid,omitempty"`
+	EnforcerNamespace string                 `bson:"enforcernamespace,omitempty"`
+	Event             PacketReportEventValue `bson:"event,omitempty"`
+	Length            int                    `bson:"length,omitempty"`
+	Mark              int                    `bson:"mark,omitempty"`
 	MigrationsLog     map[string]string      `bson:"migrationslog,omitempty"`
-	Namespace         string                 `bson:"l,omitempty"`
-	PacketID          int                    `bson:"m,omitempty"`
-	Protocol          int                    `bson:"n,omitempty"`
-	PuID              string                 `bson:"o,omitempty"`
-	RawPacket         string                 `bson:"p,omitempty"`
-	SourceIP          string                 `bson:"q,omitempty"`
-	SourcePort        int                    `bson:"r,omitempty"`
-	Timestamp         time.Time              `bson:"s,omitempty"`
-	TriremePacket     bool                   `bson:"t,omitempty"`
+	Namespace         string                 `bson:"namespace,omitempty"`
+	PacketID          int                    `bson:"packetid,omitempty"`
+	Protocol          int                    `bson:"protocol,omitempty"`
+	PuID              string                 `bson:"puid,omitempty"`
+	RawPacket         string                 `bson:"rawpacket,omitempty"`
+	SourceIP          string                 `bson:"sourceip,omitempty"`
+	SourcePort        int                    `bson:"sourceport,omitempty"`
+	Timestamp         time.Time              `bson:"timestamp,omitempty"`
+	TriremePacket     bool                   `bson:"triremepacket,omitempty"`
 	ZHash             int                    `bson:"zhash"`
 	Zone              int                    `bson:"zone"`
 }
 type mongoAttributesSparsePacketReport struct {
 	ID                bson.ObjectId           `bson:"_id,omitempty"`
-	TCPFlags          *int                    `bson:"a,omitempty"`
-	Claims            *[]string               `bson:"b,omitempty"`
-	DestinationIP     *string                 `bson:"c,omitempty"`
-	DestinationPort   *int                    `bson:"d,omitempty"`
-	DropReason        *string                 `bson:"e,omitempty"`
-	Encrypt           *bool                   `bson:"f,omitempty"`
-	EnforcerID        *string                 `bson:"g,omitempty"`
-	EnforcerNamespace *string                 `bson:"h,omitempty"`
-	Event             *PacketReportEventValue `bson:"i,omitempty"`
-	Length            *int                    `bson:"j,omitempty"`
-	Mark              *int                    `bson:"k,omitempty"`
+	TCPFlags          *int                    `bson:"tcpflags,omitempty"`
+	Claims            *[]string               `bson:"claims,omitempty"`
+	DestinationIP     *string                 `bson:"destinationip,omitempty"`
+	DestinationPort   *int                    `bson:"destinationport,omitempty"`
+	DropReason        *string                 `bson:"dropreason,omitempty"`
+	Encrypt           *bool                   `bson:"encrypt,omitempty"`
+	EnforcerID        *string                 `bson:"enforcerid,omitempty"`
+	EnforcerNamespace *string                 `bson:"enforcernamespace,omitempty"`
+	Event             *PacketReportEventValue `bson:"event,omitempty"`
+	Length            *int                    `bson:"length,omitempty"`
+	Mark              *int                    `bson:"mark,omitempty"`
 	MigrationsLog     *map[string]string      `bson:"migrationslog,omitempty"`
-	Namespace         *string                 `bson:"l,omitempty"`
-	PacketID          *int                    `bson:"m,omitempty"`
-	Protocol          *int                    `bson:"n,omitempty"`
-	PuID              *string                 `bson:"o,omitempty"`
-	RawPacket         *string                 `bson:"p,omitempty"`
-	SourceIP          *string                 `bson:"q,omitempty"`
-	SourcePort        *int                    `bson:"r,omitempty"`
-	Timestamp         *time.Time              `bson:"s,omitempty"`
-	TriremePacket     *bool                   `bson:"t,omitempty"`
+	Namespace         *string                 `bson:"namespace,omitempty"`
+	PacketID          *int                    `bson:"packetid,omitempty"`
+	Protocol          *int                    `bson:"protocol,omitempty"`
+	PuID              *string                 `bson:"puid,omitempty"`
+	RawPacket         *string                 `bson:"rawpacket,omitempty"`
+	SourceIP          *string                 `bson:"sourceip,omitempty"`
+	SourcePort        *int                    `bson:"sourceport,omitempty"`
+	Timestamp         *time.Time              `bson:"timestamp,omitempty"`
+	TriremePacket     *bool                   `bson:"triremepacket,omitempty"`
 	ZHash             *int                    `bson:"zhash,omitempty"`
 	Zone              *int                    `bson:"zone,omitempty"`
 }

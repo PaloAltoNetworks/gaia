@@ -326,7 +326,6 @@ var ValidateUIParameterAttributesMap = map[string]elemental.AttributeSpecificati
 	},
 	"Parameters": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
 		Description:    `List of parameters to validate.`,
 		Exposed:        true,
@@ -359,7 +358,6 @@ var ValidateUIParameterLowerCaseAttributesMap = map[string]elemental.AttributeSp
 	},
 	"parameters": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
 		Description:    `List of parameters to validate.`,
 		Exposed:        true,

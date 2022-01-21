@@ -9,7 +9,6 @@ import (
 )
 
 // TraceMode represents the model of a tracemode
-// +k8s:openapi-gen=true
 type TraceMode struct {
 	// Instructs the enforcers to provide an iptables trace for a processing unit.
 	IPTables bool `json:"IPTables" msgpack:"IPTables" bson:"iptables" mapstructure:"IPTables,omitempty"`

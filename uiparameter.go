@@ -12,6 +12,9 @@ import (
 type UIParameterTypeValue string
 
 const (
+	// UIParameterTypeAutomationAction represents the value AutomationAction.
+	UIParameterTypeAutomationAction UIParameterTypeValue = "AutomationAction"
+
 	// UIParameterTypeBoolean represents the value Boolean.
 	UIParameterTypeBoolean UIParameterTypeValue = "Boolean"
 
@@ -256,7 +259,7 @@ func (o *UIParameter) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Boolean", "Checkbox", "CVSSThreshold", "DangerMessage", "Duration", "Enum", "Endpoint", "FileDrop", "Float", "FloatSlice", "InfoMessage", "Integer", "IntegerSlice", "JSON", "List", "Message", "Namespace", "Password", "String", "StringSlice", "Switch", "TagsExpression", "Title", "WarningMessage"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Boolean", "Checkbox", "CVSSThreshold", "DangerMessage", "Duration", "Enum", "Endpoint", "FileDrop", "Float", "FloatSlice", "InfoMessage", "Integer", "IntegerSlice", "JSON", "List", "Message", "Namespace", "Password", "String", "StringSlice", "Switch", "TagsExpression", "Title", "WarningMessage", "AutomationAction"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 

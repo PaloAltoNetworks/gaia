@@ -9,7 +9,6 @@ import (
 )
 
 // NetworkRuleNet represents the model of a networkrulenet
-// +k8s:openapi-gen=true
 type NetworkRuleNet struct {
 	// The ID of the external network.
 	ID string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`

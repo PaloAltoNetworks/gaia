@@ -284,7 +284,6 @@ func (o *TagPrefix) ValueForAttribute(name string) interface{} {
 var TagPrefixAttributesMap = map[string]elemental.AttributeSpecification{
 	"Prefixes": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "prefixes",
 		ConvertedName:  "Prefixes",
 		Description: `List of tag prefixes that will be used to suggest policies. Only these tags will
 be transmitted on the wire.`,
@@ -300,7 +299,6 @@ be transmitted on the wire.`,
 var TagPrefixLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"prefixes": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "prefixes",
 		ConvertedName:  "Prefixes",
 		Description: `List of tag prefixes that will be used to suggest policies. Only these tags will
 be transmitted on the wire.`,

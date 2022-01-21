@@ -117,56 +117,56 @@ type ConnectionExceptionReport struct {
 
 	// Identifier of the destination controller. This should be set in
 	// SynAckTransmitted state.
-	DestinationController string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"a,omitempty" mapstructure:"destinationController,omitempty"`
+	DestinationController string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"destinationcontroller" mapstructure:"destinationController,omitempty"`
 
 	// Destination IP address.
-	DestinationIP string `json:"destinationIP,omitempty" msgpack:"destinationIP,omitempty" bson:"b,omitempty" mapstructure:"destinationIP,omitempty"`
+	DestinationIP string `json:"destinationIP,omitempty" msgpack:"destinationIP,omitempty" bson:"destinationip" mapstructure:"destinationIP,omitempty"`
 
 	// Port of the destination.
-	DestinationPort int `json:"destinationPort,omitempty" msgpack:"destinationPort,omitempty" bson:"c,omitempty" mapstructure:"destinationPort,omitempty"`
+	DestinationPort int `json:"destinationPort,omitempty" msgpack:"destinationPort,omitempty" bson:"destinationport" mapstructure:"destinationPort,omitempty"`
 
 	// ID of the destination processing unit. This should be set in SynAckTransmitted
 	// state.
-	DestinationProcessingUnitID string `json:"destinationProcessingUnitID,omitempty" msgpack:"destinationProcessingUnitID,omitempty" bson:"d,omitempty" mapstructure:"destinationProcessingUnitID,omitempty"`
+	DestinationProcessingUnitID string `json:"destinationProcessingUnitID,omitempty" msgpack:"destinationProcessingUnitID,omitempty" bson:"destinationprocessingunitid" mapstructure:"destinationProcessingUnitID,omitempty"`
 
 	// ID of the enforcer.
-	EnforcerID string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"e,omitempty" mapstructure:"enforcerID,omitempty"`
+	EnforcerID string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"enforcerid" mapstructure:"enforcerID,omitempty"`
 
 	// Namespace of the enforcer.
-	EnforcerNamespace string `json:"enforcerNamespace,omitempty" msgpack:"enforcerNamespace,omitempty" bson:"f,omitempty" mapstructure:"enforcerNamespace,omitempty"`
+	EnforcerNamespace string `json:"enforcerNamespace,omitempty" msgpack:"enforcerNamespace,omitempty" bson:"enforcernamespace" mapstructure:"enforcerNamespace,omitempty"`
 
 	// Internal property maintaining migrations information.
-	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
+	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog" mapstructure:"-,omitempty"`
 
 	// Namespace of the processing unit that encountered this exception.
-	Namespace string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"p,omitempty" mapstructure:"namespace,omitempty"`
+	Namespace string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace" mapstructure:"namespace,omitempty"`
 
 	// ID of the processing unit encountered this exception.
-	ProcessingUnitID string `json:"processingUnitID,omitempty" msgpack:"processingUnitID,omitempty" bson:"g,omitempty" mapstructure:"processingUnitID,omitempty"`
+	ProcessingUnitID string `json:"processingUnitID,omitempty" msgpack:"processingUnitID,omitempty" bson:"processingunitid" mapstructure:"processingUnitID,omitempty"`
 
 	// Namespace of the processing unit encountered this exception.
-	ProcessingUnitNamespace string `json:"processingUnitNamespace,omitempty" msgpack:"processingUnitNamespace,omitempty" bson:"h,omitempty" mapstructure:"processingUnitNamespace,omitempty"`
+	ProcessingUnitNamespace string `json:"processingUnitNamespace,omitempty" msgpack:"processingUnitNamespace,omitempty" bson:"processingunitnamespace" mapstructure:"processingUnitNamespace,omitempty"`
 
 	// Protocol number.
-	Protocol int `json:"protocol,omitempty" msgpack:"protocol,omitempty" bson:"i,omitempty" mapstructure:"protocol,omitempty"`
+	Protocol int `json:"protocol,omitempty" msgpack:"protocol,omitempty" bson:"protocol" mapstructure:"protocol,omitempty"`
 
 	// It specifies the reason for the exception.
-	Reason string `json:"reason,omitempty" msgpack:"reason,omitempty" bson:"j,omitempty" mapstructure:"reason,omitempty"`
+	Reason string `json:"reason,omitempty" msgpack:"reason,omitempty" bson:"reason" mapstructure:"reason,omitempty"`
 
 	// Type of the service.
-	ServiceType ConnectionExceptionReportServiceTypeValue `json:"serviceType,omitempty" msgpack:"serviceType,omitempty" bson:"o,omitempty" mapstructure:"serviceType,omitempty"`
+	ServiceType ConnectionExceptionReportServiceTypeValue `json:"serviceType,omitempty" msgpack:"serviceType,omitempty" bson:"servicetype" mapstructure:"serviceType,omitempty"`
 
 	// Source IP address.
-	SourceIP string `json:"sourceIP,omitempty" msgpack:"sourceIP,omitempty" bson:"k,omitempty" mapstructure:"sourceIP,omitempty"`
+	SourceIP string `json:"sourceIP,omitempty" msgpack:"sourceIP,omitempty" bson:"sourceip" mapstructure:"sourceIP,omitempty"`
 
 	// Represents the current state this report was generated.
-	State ConnectionExceptionReportStateValue `json:"state" msgpack:"state" bson:"l" mapstructure:"state,omitempty"`
+	State ConnectionExceptionReportStateValue `json:"state" msgpack:"state" bson:"state" mapstructure:"state,omitempty"`
 
 	// Time and date of the report.
-	Timestamp time.Time `json:"timestamp,omitempty" msgpack:"timestamp,omitempty" bson:"m,omitempty" mapstructure:"timestamp,omitempty"`
+	Timestamp time.Time `json:"timestamp,omitempty" msgpack:"timestamp,omitempty" bson:"timestamp" mapstructure:"timestamp,omitempty"`
 
 	// Number of packets hit.
-	Value int `json:"value,omitempty" msgpack:"value,omitempty" bson:"n,omitempty" mapstructure:"value,omitempty"`
+	Value int `json:"value,omitempty" msgpack:"value,omitempty" bson:"value" mapstructure:"value,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -651,7 +651,6 @@ var ConnectionExceptionReportAttributesMap = map[string]elemental.AttributeSpeci
 	"ID": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
-		BSONFieldName:  "_id",
 		ConvertedName:  "ID",
 		Description:    `Identifier of the object.`,
 		Exposed:        true,
@@ -665,7 +664,6 @@ var ConnectionExceptionReportAttributesMap = map[string]elemental.AttributeSpeci
 	},
 	"DestinationController": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "a",
 		ConvertedName:  "DestinationController",
 		Deprecated:     true,
 		Description: `Identifier of the destination controller. This should be set in
@@ -677,7 +675,6 @@ SynAckTransmitted state.`,
 	},
 	"DestinationIP": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "b",
 		ConvertedName:  "DestinationIP",
 		Description:    `Destination IP address.`,
 		Exposed:        true,
@@ -687,7 +684,6 @@ SynAckTransmitted state.`,
 	},
 	"DestinationPort": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "c",
 		ConvertedName:  "DestinationPort",
 		Description:    `Port of the destination.`,
 		Exposed:        true,
@@ -697,7 +693,6 @@ SynAckTransmitted state.`,
 	},
 	"DestinationProcessingUnitID": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "d",
 		ConvertedName:  "DestinationProcessingUnitID",
 		Description: `ID of the destination processing unit. This should be set in SynAckTransmitted
 state.`,
@@ -708,7 +703,6 @@ state.`,
 	},
 	"EnforcerID": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "e",
 		ConvertedName:  "EnforcerID",
 		Description:    `ID of the enforcer.`,
 		Exposed:        true,
@@ -719,7 +713,6 @@ state.`,
 	},
 	"EnforcerNamespace": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "f",
 		ConvertedName:  "EnforcerNamespace",
 		Deprecated:     true,
 		Description:    `Namespace of the enforcer.`,
@@ -730,7 +723,6 @@ state.`,
 	},
 	"MigrationsLog": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "migrationslog",
 		ConvertedName:  "MigrationsLog",
 		Description:    `Internal property maintaining migrations information.`,
 		Getter:         true,
@@ -742,7 +734,6 @@ state.`,
 	},
 	"Namespace": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "p",
 		ConvertedName:  "Namespace",
 		Description:    `Namespace of the processing unit that encountered this exception.`,
 		Exposed:        true,
@@ -756,7 +747,6 @@ state.`,
 	},
 	"ProcessingUnitID": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "g",
 		ConvertedName:  "ProcessingUnitID",
 		Description:    `ID of the processing unit encountered this exception.`,
 		Exposed:        true,
@@ -767,7 +757,6 @@ state.`,
 	},
 	"ProcessingUnitNamespace": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "h",
 		ConvertedName:  "ProcessingUnitNamespace",
 		Deprecated:     true,
 		Description:    `Namespace of the processing unit encountered this exception.`,
@@ -778,7 +767,6 @@ state.`,
 	},
 	"Protocol": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "i",
 		ConvertedName:  "Protocol",
 		Description:    `Protocol number.`,
 		Exposed:        true,
@@ -789,7 +777,6 @@ state.`,
 	},
 	"Reason": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "j",
 		ConvertedName:  "Reason",
 		Description:    `It specifies the reason for the exception.`,
 		Exposed:        true,
@@ -799,7 +786,6 @@ state.`,
 	},
 	"ServiceType": {
 		AllowedChoices: []string{"L3", "HTTP", "TCP"},
-		BSONFieldName:  "o",
 		ConvertedName:  "ServiceType",
 		DefaultValue:   ConnectionExceptionReportServiceTypeL3,
 		Description:    `Type of the service.`,
@@ -810,7 +796,6 @@ state.`,
 	},
 	"SourceIP": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "k",
 		ConvertedName:  "SourceIP",
 		Description:    `Source IP address.`,
 		Exposed:        true,
@@ -820,7 +805,6 @@ state.`,
 	},
 	"State": {
 		AllowedChoices: []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "Unknown"},
-		BSONFieldName:  "l",
 		ConvertedName:  "State",
 		Description:    `Represents the current state this report was generated.`,
 		Exposed:        true,
@@ -832,7 +816,6 @@ state.`,
 	},
 	"Timestamp": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "m",
 		ConvertedName:  "Timestamp",
 		Description:    `Time and date of the report.`,
 		Exposed:        true,
@@ -842,7 +825,6 @@ state.`,
 	},
 	"Value": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "n",
 		ConvertedName:  "Value",
 		Description:    `Number of packets hit.`,
 		Exposed:        true,
@@ -854,7 +836,6 @@ state.`,
 	"ZHash": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
-		BSONFieldName:  "zhash",
 		ConvertedName:  "ZHash",
 		Description: `geographical hash of the data. This is used for sharding and
 georedundancy.`,
@@ -868,7 +849,6 @@ georedundancy.`,
 	"Zone": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
-		BSONFieldName:  "zone",
 		ConvertedName:  "Zone",
 		Description:    `Logical storage zone. Used for sharding.`,
 		Getter:         true,
@@ -886,7 +866,6 @@ var ConnectionExceptionReportLowerCaseAttributesMap = map[string]elemental.Attri
 	"id": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
-		BSONFieldName:  "_id",
 		ConvertedName:  "ID",
 		Description:    `Identifier of the object.`,
 		Exposed:        true,
@@ -900,7 +879,6 @@ var ConnectionExceptionReportLowerCaseAttributesMap = map[string]elemental.Attri
 	},
 	"destinationcontroller": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "a",
 		ConvertedName:  "DestinationController",
 		Deprecated:     true,
 		Description: `Identifier of the destination controller. This should be set in
@@ -912,7 +890,6 @@ SynAckTransmitted state.`,
 	},
 	"destinationip": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "b",
 		ConvertedName:  "DestinationIP",
 		Description:    `Destination IP address.`,
 		Exposed:        true,
@@ -922,7 +899,6 @@ SynAckTransmitted state.`,
 	},
 	"destinationport": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "c",
 		ConvertedName:  "DestinationPort",
 		Description:    `Port of the destination.`,
 		Exposed:        true,
@@ -932,7 +908,6 @@ SynAckTransmitted state.`,
 	},
 	"destinationprocessingunitid": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "d",
 		ConvertedName:  "DestinationProcessingUnitID",
 		Description: `ID of the destination processing unit. This should be set in SynAckTransmitted
 state.`,
@@ -943,7 +918,6 @@ state.`,
 	},
 	"enforcerid": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "e",
 		ConvertedName:  "EnforcerID",
 		Description:    `ID of the enforcer.`,
 		Exposed:        true,
@@ -954,7 +928,6 @@ state.`,
 	},
 	"enforcernamespace": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "f",
 		ConvertedName:  "EnforcerNamespace",
 		Deprecated:     true,
 		Description:    `Namespace of the enforcer.`,
@@ -965,7 +938,6 @@ state.`,
 	},
 	"migrationslog": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "migrationslog",
 		ConvertedName:  "MigrationsLog",
 		Description:    `Internal property maintaining migrations information.`,
 		Getter:         true,
@@ -977,7 +949,6 @@ state.`,
 	},
 	"namespace": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "p",
 		ConvertedName:  "Namespace",
 		Description:    `Namespace of the processing unit that encountered this exception.`,
 		Exposed:        true,
@@ -991,7 +962,6 @@ state.`,
 	},
 	"processingunitid": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "g",
 		ConvertedName:  "ProcessingUnitID",
 		Description:    `ID of the processing unit encountered this exception.`,
 		Exposed:        true,
@@ -1002,7 +972,6 @@ state.`,
 	},
 	"processingunitnamespace": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "h",
 		ConvertedName:  "ProcessingUnitNamespace",
 		Deprecated:     true,
 		Description:    `Namespace of the processing unit encountered this exception.`,
@@ -1013,7 +982,6 @@ state.`,
 	},
 	"protocol": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "i",
 		ConvertedName:  "Protocol",
 		Description:    `Protocol number.`,
 		Exposed:        true,
@@ -1024,7 +992,6 @@ state.`,
 	},
 	"reason": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "j",
 		ConvertedName:  "Reason",
 		Description:    `It specifies the reason for the exception.`,
 		Exposed:        true,
@@ -1034,7 +1001,6 @@ state.`,
 	},
 	"servicetype": {
 		AllowedChoices: []string{"L3", "HTTP", "TCP"},
-		BSONFieldName:  "o",
 		ConvertedName:  "ServiceType",
 		DefaultValue:   ConnectionExceptionReportServiceTypeL3,
 		Description:    `Type of the service.`,
@@ -1045,7 +1011,6 @@ state.`,
 	},
 	"sourceip": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "k",
 		ConvertedName:  "SourceIP",
 		Description:    `Source IP address.`,
 		Exposed:        true,
@@ -1055,7 +1020,6 @@ state.`,
 	},
 	"state": {
 		AllowedChoices: []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "Unknown"},
-		BSONFieldName:  "l",
 		ConvertedName:  "State",
 		Description:    `Represents the current state this report was generated.`,
 		Exposed:        true,
@@ -1067,7 +1031,6 @@ state.`,
 	},
 	"timestamp": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "m",
 		ConvertedName:  "Timestamp",
 		Description:    `Time and date of the report.`,
 		Exposed:        true,
@@ -1077,7 +1040,6 @@ state.`,
 	},
 	"value": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "n",
 		ConvertedName:  "Value",
 		Description:    `Number of packets hit.`,
 		Exposed:        true,
@@ -1089,7 +1051,6 @@ state.`,
 	"zhash": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
-		BSONFieldName:  "zhash",
 		ConvertedName:  "ZHash",
 		Description: `geographical hash of the data. This is used for sharding and
 georedundancy.`,
@@ -1103,7 +1064,6 @@ georedundancy.`,
 	"zone": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
-		BSONFieldName:  "zone",
 		ConvertedName:  "Zone",
 		Description:    `Logical storage zone. Used for sharding.`,
 		Getter:         true,
@@ -1184,56 +1144,56 @@ type SparseConnectionExceptionReport struct {
 
 	// Identifier of the destination controller. This should be set in
 	// SynAckTransmitted state.
-	DestinationController *string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"a,omitempty" mapstructure:"destinationController,omitempty"`
+	DestinationController *string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"destinationcontroller,omitempty" mapstructure:"destinationController,omitempty"`
 
 	// Destination IP address.
-	DestinationIP *string `json:"destinationIP,omitempty" msgpack:"destinationIP,omitempty" bson:"b,omitempty" mapstructure:"destinationIP,omitempty"`
+	DestinationIP *string `json:"destinationIP,omitempty" msgpack:"destinationIP,omitempty" bson:"destinationip,omitempty" mapstructure:"destinationIP,omitempty"`
 
 	// Port of the destination.
-	DestinationPort *int `json:"destinationPort,omitempty" msgpack:"destinationPort,omitempty" bson:"c,omitempty" mapstructure:"destinationPort,omitempty"`
+	DestinationPort *int `json:"destinationPort,omitempty" msgpack:"destinationPort,omitempty" bson:"destinationport,omitempty" mapstructure:"destinationPort,omitempty"`
 
 	// ID of the destination processing unit. This should be set in SynAckTransmitted
 	// state.
-	DestinationProcessingUnitID *string `json:"destinationProcessingUnitID,omitempty" msgpack:"destinationProcessingUnitID,omitempty" bson:"d,omitempty" mapstructure:"destinationProcessingUnitID,omitempty"`
+	DestinationProcessingUnitID *string `json:"destinationProcessingUnitID,omitempty" msgpack:"destinationProcessingUnitID,omitempty" bson:"destinationprocessingunitid,omitempty" mapstructure:"destinationProcessingUnitID,omitempty"`
 
 	// ID of the enforcer.
-	EnforcerID *string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"e,omitempty" mapstructure:"enforcerID,omitempty"`
+	EnforcerID *string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"enforcerid,omitempty" mapstructure:"enforcerID,omitempty"`
 
 	// Namespace of the enforcer.
-	EnforcerNamespace *string `json:"enforcerNamespace,omitempty" msgpack:"enforcerNamespace,omitempty" bson:"f,omitempty" mapstructure:"enforcerNamespace,omitempty"`
+	EnforcerNamespace *string `json:"enforcerNamespace,omitempty" msgpack:"enforcerNamespace,omitempty" bson:"enforcernamespace,omitempty" mapstructure:"enforcerNamespace,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
 	// Namespace of the processing unit that encountered this exception.
-	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"p,omitempty" mapstructure:"namespace,omitempty"`
+	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
 
 	// ID of the processing unit encountered this exception.
-	ProcessingUnitID *string `json:"processingUnitID,omitempty" msgpack:"processingUnitID,omitempty" bson:"g,omitempty" mapstructure:"processingUnitID,omitempty"`
+	ProcessingUnitID *string `json:"processingUnitID,omitempty" msgpack:"processingUnitID,omitempty" bson:"processingunitid,omitempty" mapstructure:"processingUnitID,omitempty"`
 
 	// Namespace of the processing unit encountered this exception.
-	ProcessingUnitNamespace *string `json:"processingUnitNamespace,omitempty" msgpack:"processingUnitNamespace,omitempty" bson:"h,omitempty" mapstructure:"processingUnitNamespace,omitempty"`
+	ProcessingUnitNamespace *string `json:"processingUnitNamespace,omitempty" msgpack:"processingUnitNamespace,omitempty" bson:"processingunitnamespace,omitempty" mapstructure:"processingUnitNamespace,omitempty"`
 
 	// Protocol number.
-	Protocol *int `json:"protocol,omitempty" msgpack:"protocol,omitempty" bson:"i,omitempty" mapstructure:"protocol,omitempty"`
+	Protocol *int `json:"protocol,omitempty" msgpack:"protocol,omitempty" bson:"protocol,omitempty" mapstructure:"protocol,omitempty"`
 
 	// It specifies the reason for the exception.
-	Reason *string `json:"reason,omitempty" msgpack:"reason,omitempty" bson:"j,omitempty" mapstructure:"reason,omitempty"`
+	Reason *string `json:"reason,omitempty" msgpack:"reason,omitempty" bson:"reason,omitempty" mapstructure:"reason,omitempty"`
 
 	// Type of the service.
-	ServiceType *ConnectionExceptionReportServiceTypeValue `json:"serviceType,omitempty" msgpack:"serviceType,omitempty" bson:"o,omitempty" mapstructure:"serviceType,omitempty"`
+	ServiceType *ConnectionExceptionReportServiceTypeValue `json:"serviceType,omitempty" msgpack:"serviceType,omitempty" bson:"servicetype,omitempty" mapstructure:"serviceType,omitempty"`
 
 	// Source IP address.
-	SourceIP *string `json:"sourceIP,omitempty" msgpack:"sourceIP,omitempty" bson:"k,omitempty" mapstructure:"sourceIP,omitempty"`
+	SourceIP *string `json:"sourceIP,omitempty" msgpack:"sourceIP,omitempty" bson:"sourceip,omitempty" mapstructure:"sourceIP,omitempty"`
 
 	// Represents the current state this report was generated.
-	State *ConnectionExceptionReportStateValue `json:"state,omitempty" msgpack:"state,omitempty" bson:"l,omitempty" mapstructure:"state,omitempty"`
+	State *ConnectionExceptionReportStateValue `json:"state,omitempty" msgpack:"state,omitempty" bson:"state,omitempty" mapstructure:"state,omitempty"`
 
 	// Time and date of the report.
-	Timestamp *time.Time `json:"timestamp,omitempty" msgpack:"timestamp,omitempty" bson:"m,omitempty" mapstructure:"timestamp,omitempty"`
+	Timestamp *time.Time `json:"timestamp,omitempty" msgpack:"timestamp,omitempty" bson:"timestamp,omitempty" mapstructure:"timestamp,omitempty"`
 
 	// Number of packets hit.
-	Value *int `json:"value,omitempty" msgpack:"value,omitempty" bson:"n,omitempty" mapstructure:"value,omitempty"`
+	Value *int `json:"value,omitempty" msgpack:"value,omitempty" bson:"value,omitempty" mapstructure:"value,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -1589,45 +1549,45 @@ func (o *SparseConnectionExceptionReport) DeepCopyInto(out *SparseConnectionExce
 
 type mongoAttributesConnectionExceptionReport struct {
 	ID                          bson.ObjectId                             `bson:"_id,omitempty"`
-	DestinationController       string                                    `bson:"a,omitempty"`
-	DestinationIP               string                                    `bson:"b,omitempty"`
-	DestinationPort             int                                       `bson:"c,omitempty"`
-	DestinationProcessingUnitID string                                    `bson:"d,omitempty"`
-	EnforcerID                  string                                    `bson:"e,omitempty"`
-	EnforcerNamespace           string                                    `bson:"f,omitempty"`
+	DestinationController       string                                    `bson:"destinationcontroller,omitempty"`
+	DestinationIP               string                                    `bson:"destinationip,omitempty"`
+	DestinationPort             int                                       `bson:"destinationport,omitempty"`
+	DestinationProcessingUnitID string                                    `bson:"destinationprocessingunitid,omitempty"`
+	EnforcerID                  string                                    `bson:"enforcerid,omitempty"`
+	EnforcerNamespace           string                                    `bson:"enforcernamespace,omitempty"`
 	MigrationsLog               map[string]string                         `bson:"migrationslog,omitempty"`
-	Namespace                   string                                    `bson:"p,omitempty"`
-	ProcessingUnitID            string                                    `bson:"g,omitempty"`
-	ProcessingUnitNamespace     string                                    `bson:"h,omitempty"`
-	Protocol                    int                                       `bson:"i,omitempty"`
-	Reason                      string                                    `bson:"j,omitempty"`
-	ServiceType                 ConnectionExceptionReportServiceTypeValue `bson:"o,omitempty"`
-	SourceIP                    string                                    `bson:"k,omitempty"`
-	State                       ConnectionExceptionReportStateValue       `bson:"l"`
-	Timestamp                   time.Time                                 `bson:"m,omitempty"`
-	Value                       int                                       `bson:"n,omitempty"`
+	Namespace                   string                                    `bson:"namespace,omitempty"`
+	ProcessingUnitID            string                                    `bson:"processingunitid,omitempty"`
+	ProcessingUnitNamespace     string                                    `bson:"processingunitnamespace,omitempty"`
+	Protocol                    int                                       `bson:"protocol,omitempty"`
+	Reason                      string                                    `bson:"reason,omitempty"`
+	ServiceType                 ConnectionExceptionReportServiceTypeValue `bson:"servicetype,omitempty"`
+	SourceIP                    string                                    `bson:"sourceip,omitempty"`
+	State                       ConnectionExceptionReportStateValue       `bson:"state"`
+	Timestamp                   time.Time                                 `bson:"timestamp,omitempty"`
+	Value                       int                                       `bson:"value,omitempty"`
 	ZHash                       int                                       `bson:"zhash"`
 	Zone                        int                                       `bson:"zone"`
 }
 type mongoAttributesSparseConnectionExceptionReport struct {
 	ID                          bson.ObjectId                              `bson:"_id,omitempty"`
-	DestinationController       *string                                    `bson:"a,omitempty"`
-	DestinationIP               *string                                    `bson:"b,omitempty"`
-	DestinationPort             *int                                       `bson:"c,omitempty"`
-	DestinationProcessingUnitID *string                                    `bson:"d,omitempty"`
-	EnforcerID                  *string                                    `bson:"e,omitempty"`
-	EnforcerNamespace           *string                                    `bson:"f,omitempty"`
+	DestinationController       *string                                    `bson:"destinationcontroller,omitempty"`
+	DestinationIP               *string                                    `bson:"destinationip,omitempty"`
+	DestinationPort             *int                                       `bson:"destinationport,omitempty"`
+	DestinationProcessingUnitID *string                                    `bson:"destinationprocessingunitid,omitempty"`
+	EnforcerID                  *string                                    `bson:"enforcerid,omitempty"`
+	EnforcerNamespace           *string                                    `bson:"enforcernamespace,omitempty"`
 	MigrationsLog               *map[string]string                         `bson:"migrationslog,omitempty"`
-	Namespace                   *string                                    `bson:"p,omitempty"`
-	ProcessingUnitID            *string                                    `bson:"g,omitempty"`
-	ProcessingUnitNamespace     *string                                    `bson:"h,omitempty"`
-	Protocol                    *int                                       `bson:"i,omitempty"`
-	Reason                      *string                                    `bson:"j,omitempty"`
-	ServiceType                 *ConnectionExceptionReportServiceTypeValue `bson:"o,omitempty"`
-	SourceIP                    *string                                    `bson:"k,omitempty"`
-	State                       *ConnectionExceptionReportStateValue       `bson:"l,omitempty"`
-	Timestamp                   *time.Time                                 `bson:"m,omitempty"`
-	Value                       *int                                       `bson:"n,omitempty"`
+	Namespace                   *string                                    `bson:"namespace,omitempty"`
+	ProcessingUnitID            *string                                    `bson:"processingunitid,omitempty"`
+	ProcessingUnitNamespace     *string                                    `bson:"processingunitnamespace,omitempty"`
+	Protocol                    *int                                       `bson:"protocol,omitempty"`
+	Reason                      *string                                    `bson:"reason,omitempty"`
+	ServiceType                 *ConnectionExceptionReportServiceTypeValue `bson:"servicetype,omitempty"`
+	SourceIP                    *string                                    `bson:"sourceip,omitempty"`
+	State                       *ConnectionExceptionReportStateValue       `bson:"state,omitempty"`
+	Timestamp                   *time.Time                                 `bson:"timestamp,omitempty"`
+	Value                       *int                                       `bson:"value,omitempty"`
 	ZHash                       *int                                       `bson:"zhash,omitempty"`
 	Zone                        *int                                       `bson:"zone,omitempty"`
 }

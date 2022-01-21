@@ -526,7 +526,6 @@ var EnforcerRefreshAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Propagate": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "propagate",
 		ConvertedName:  "Propagate",
 		Description:    `Propagates the policy to all of its children.`,
 		Exposed:        true,
@@ -539,7 +538,6 @@ var EnforcerRefreshAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"RefreshType": {
 		AllowedChoices: []string{"Debug", "Migration"},
-		BSONFieldName:  "refreshtype",
 		ConvertedName:  "RefreshType",
 		DefaultValue:   EnforcerRefreshRefreshTypeDebug,
 		Description:    `Indicates the type of refresh.`,
@@ -626,7 +624,6 @@ var EnforcerRefreshLowerCaseAttributesMap = map[string]elemental.AttributeSpecif
 	},
 	"propagate": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "propagate",
 		ConvertedName:  "Propagate",
 		Description:    `Propagates the policy to all of its children.`,
 		Exposed:        true,
@@ -639,7 +636,6 @@ var EnforcerRefreshLowerCaseAttributesMap = map[string]elemental.AttributeSpecif
 	},
 	"refreshtype": {
 		AllowedChoices: []string{"Debug", "Migration"},
-		BSONFieldName:  "refreshtype",
 		ConvertedName:  "RefreshType",
 		DefaultValue:   EnforcerRefreshRefreshTypeDebug,
 		Description:    `Indicates the type of refresh.`,

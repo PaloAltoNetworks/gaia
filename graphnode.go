@@ -135,7 +135,7 @@ type GraphNode struct {
 	Status string `json:"status" msgpack:"status" bson:"status" mapstructure:"status,omitempty"`
 
 	// Tags of object represented by the node.
-	Tags []string `json:"tags,omitempty" msgpack:"tags,omitempty" bson:"tags,omitempty" mapstructure:"tags,omitempty"`
+	Tags []string `json:"tags,omitempty" msgpack:"tags,omitempty" bson:"tags" mapstructure:"tags,omitempty"`
 
 	// Type of object represented by the node.
 	Type GraphNodeTypeValue `json:"type" msgpack:"type" bson:"type" mapstructure:"type,omitempty"`
@@ -471,7 +471,6 @@ func (o *GraphNode) ValueForAttribute(name string) interface{} {
 var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	"ID": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "id",
 		ConvertedName:  "ID",
 		Description:    `Identifier of object represented by the node.`,
 		Exposed:        true,
@@ -481,7 +480,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"EnforcementStatus": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "enforcementstatus",
 		ConvertedName:  "EnforcementStatus",
 		Description:    `Enforcement status of processing unit represented by the node.`,
 		Exposed:        true,
@@ -491,7 +489,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"FirstSeen": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "firstseen",
 		ConvertedName:  "FirstSeen",
 		Description:    `Contains the date when the edge was first seen.`,
 		Exposed:        true,
@@ -501,7 +498,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"GroupID": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "groupid",
 		ConvertedName:  "GroupID",
 		Description:    `ID of the group the node is eventually part of.`,
 		Exposed:        true,
@@ -511,7 +507,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Images": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "images",
 		ConvertedName:  "Images",
 		Description:    `List of images.`,
 		Exposed:        true,
@@ -522,7 +517,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"LastSeen": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "lastseen",
 		ConvertedName:  "LastSeen",
 		Description:    `Contains the date when the edge was last seen.`,
 		Exposed:        true,
@@ -532,7 +526,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Name": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "name",
 		ConvertedName:  "Name",
 		Description:    `Name of object represented by the node.`,
 		Exposed:        true,
@@ -542,7 +535,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Namespace": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "namespace",
 		ConvertedName:  "Namespace",
 		Description:    `Namespace of object represented by the node.`,
 		Exposed:        true,
@@ -552,7 +544,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Status": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "status",
 		ConvertedName:  "Status",
 		Description:    `Status of object represented by the node.`,
 		Exposed:        true,
@@ -562,7 +553,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Tags": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "tags",
 		ConvertedName:  "Tags",
 		Description:    `Tags of object represented by the node.`,
 		Exposed:        true,
@@ -573,7 +563,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Type": {
 		AllowedChoices: []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController"},
-		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of object represented by the node.`,
 		Exposed:        true,
@@ -583,7 +572,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Unreachable": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "unreachable",
 		ConvertedName:  "Unreachable",
 		Description:    `If ` + "`" + `true` + "`" + ` the node is marked as unreachable.`,
 		Exposed:        true,
@@ -593,7 +581,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"VulnerabilityLevel": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "vulnerabilitylevel",
 		ConvertedName:  "VulnerabilityLevel",
 		Description:    `Tags of object represented by the node.`,
 		Exposed:        true,
@@ -607,7 +594,6 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"id": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "id",
 		ConvertedName:  "ID",
 		Description:    `Identifier of object represented by the node.`,
 		Exposed:        true,
@@ -617,7 +603,6 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"enforcementstatus": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "enforcementstatus",
 		ConvertedName:  "EnforcementStatus",
 		Description:    `Enforcement status of processing unit represented by the node.`,
 		Exposed:        true,
@@ -627,7 +612,6 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"firstseen": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "firstseen",
 		ConvertedName:  "FirstSeen",
 		Description:    `Contains the date when the edge was first seen.`,
 		Exposed:        true,
@@ -637,7 +621,6 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"groupid": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "groupid",
 		ConvertedName:  "GroupID",
 		Description:    `ID of the group the node is eventually part of.`,
 		Exposed:        true,
@@ -647,7 +630,6 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"images": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "images",
 		ConvertedName:  "Images",
 		Description:    `List of images.`,
 		Exposed:        true,
@@ -658,7 +640,6 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"lastseen": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "lastseen",
 		ConvertedName:  "LastSeen",
 		Description:    `Contains the date when the edge was last seen.`,
 		Exposed:        true,
@@ -668,7 +649,6 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"name": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "name",
 		ConvertedName:  "Name",
 		Description:    `Name of object represented by the node.`,
 		Exposed:        true,
@@ -678,7 +658,6 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"namespace": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "namespace",
 		ConvertedName:  "Namespace",
 		Description:    `Namespace of object represented by the node.`,
 		Exposed:        true,
@@ -688,7 +667,6 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"status": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "status",
 		ConvertedName:  "Status",
 		Description:    `Status of object represented by the node.`,
 		Exposed:        true,
@@ -698,7 +676,6 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"tags": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "tags",
 		ConvertedName:  "Tags",
 		Description:    `Tags of object represented by the node.`,
 		Exposed:        true,
@@ -709,7 +686,6 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"type": {
 		AllowedChoices: []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController"},
-		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of object represented by the node.`,
 		Exposed:        true,
@@ -719,7 +695,6 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"unreachable": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "unreachable",
 		ConvertedName:  "Unreachable",
 		Description:    `If ` + "`" + `true` + "`" + ` the node is marked as unreachable.`,
 		Exposed:        true,
@@ -729,7 +704,6 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"vulnerabilitylevel": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "vulnerabilitylevel",
 		ConvertedName:  "VulnerabilityLevel",
 		Description:    `Tags of object represented by the node.`,
 		Exposed:        true,

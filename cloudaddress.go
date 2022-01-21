@@ -36,7 +36,7 @@ type CloudAddress struct {
 
 	// Internal representation of the private IP to accelerate operations. Not exposed
 	// to users.
-	PrivateNetwork *net.IPNet `json:"privateNetwork,omitempty" msgpack:"privateNetwork,omitempty" bson:"privatenetwork,omitempty" mapstructure:"privateNetwork,omitempty"`
+	PrivateNetwork *net.IPNet `json:"privateNetwork,omitempty" msgpack:"privateNetwork,omitempty" bson:"privatenetwork" mapstructure:"privateNetwork,omitempty"`
 
 	// The private DNS name associated with the address.
 	PublicDNSName string `json:"publicDNSName" msgpack:"publicDNSName" bson:"publicdnsname" mapstructure:"publicDNSName,omitempty"`
@@ -46,7 +46,7 @@ type CloudAddress struct {
 
 	// Internal representation of public IP addresses to accelerate operations. Not
 	// exposed to users.
-	PublicNetwork *net.IPNet `json:"publicNetwork,omitempty" msgpack:"publicNetwork,omitempty" bson:"publicnetwork,omitempty" mapstructure:"publicNetwork,omitempty"`
+	PublicNetwork *net.IPNet `json:"publicNetwork,omitempty" msgpack:"publicNetwork,omitempty" bson:"publicnetwork" mapstructure:"publicNetwork,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }

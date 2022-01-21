@@ -29,7 +29,7 @@ type CloudNetworkRule struct {
 	Action CloudNetworkRuleActionValue `json:"action" msgpack:"action" bson:"action" mapstructure:"action,omitempty"`
 
 	// A list of IP CIDRS that identify remote endpoints.
-	Networks []string `json:"networks,omitempty" msgpack:"networks,omitempty" bson:"networks,omitempty" mapstructure:"networks,omitempty"`
+	Networks []string `json:"networks,omitempty" msgpack:"networks,omitempty" bson:"networks" mapstructure:"networks,omitempty"`
 
 	// Identifies the set of remote workloads that the rule relates to. The selector
 	// will identify both processing units as well as external networks that match the
@@ -37,7 +37,7 @@ type CloudNetworkRule struct {
 	Object [][]string `json:"object" msgpack:"object" bson:"object" mapstructure:"object,omitempty"`
 
 	// Priority of the rule. Available only for cloud ACLs.
-	Priority int `json:"priority,omitempty" msgpack:"priority,omitempty" bson:"priority,omitempty" mapstructure:"priority,omitempty"`
+	Priority int `json:"priority,omitempty" msgpack:"priority,omitempty" bson:"priority" mapstructure:"priority,omitempty"`
 
 	// Represents the ports and protocols this policy applies to. Protocol/ports are
 	// defined as tcp/80, udp/22. For protocols that do not have ports, the port
@@ -47,7 +47,7 @@ type CloudNetworkRule struct {
 
 	// An internal representation of the networks to increase performance. Not visible
 	// to end users.
-	StoredNetworks []*net.IPNet `json:"storedNetworks,omitempty" msgpack:"storedNetworks,omitempty" bson:"storednetworks,omitempty" mapstructure:"storedNetworks,omitempty"`
+	StoredNetworks []*net.IPNet `json:"storedNetworks,omitempty" msgpack:"storedNetworks,omitempty" bson:"storednetworks" mapstructure:"storedNetworks,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }

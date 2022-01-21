@@ -2810,10 +2810,6 @@ func (f modelManager) Relationships() elemental.RelationshipsRegistry {
 	return relationshipsRegistry
 }
 
-func (f modelManager) AllIdentities() []elemental.Identity {
-	return AllIdentities()
-}
-
 var manager = modelManager{}
 
 // Manager returns the model elemental.ModelManager.

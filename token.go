@@ -341,7 +341,6 @@ var TokenAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"SigningKeyID": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "signingkeyid",
 		ConvertedName:  "SigningKeyID",
 		Description:    `SigningKeyID holds the ID of the custom CA to use to sign the token.`,
 		Exposed:        true,
@@ -394,7 +393,6 @@ var TokenLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"signingkeyid": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "signingkeyid",
 		ConvertedName:  "SigningKeyID",
 		Description:    `SigningKeyID holds the ID of the custom CA to use to sign the token.`,
 		Exposed:        true,

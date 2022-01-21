@@ -11,10 +11,10 @@ import (
 // CloudEndpointDataProductInfo represents the model of a cloudendpointdataproductinfo
 type CloudEndpointDataProductInfo struct {
 	// The ID of the corresponding product.
-	ProductID string `json:"productID,omitempty" msgpack:"productID,omitempty" bson:"productid,omitempty" mapstructure:"productID,omitempty"`
+	ProductID string `json:"productID,omitempty" msgpack:"productID,omitempty" bson:"productid" mapstructure:"productID,omitempty"`
 
 	// The type of the product.
-	Type string `json:"type,omitempty" msgpack:"type,omitempty" bson:"type,omitempty" mapstructure:"type,omitempty"`
+	Type string `json:"type,omitempty" msgpack:"type,omitempty" bson:"type" mapstructure:"type,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }

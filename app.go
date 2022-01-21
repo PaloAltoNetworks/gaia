@@ -443,7 +443,6 @@ var AppAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Description": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "description",
 		ConvertedName:  "Description",
 		Description:    `Description of the object.`,
 		Exposed:        true,
@@ -482,7 +481,6 @@ var AppAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Name": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "name",
 		ConvertedName:  "Name",
 		Description:    `Name of the entity.`,
 		Exposed:        true,
@@ -498,7 +496,6 @@ var AppAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Steps": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "steps",
 		ConvertedName:  "Steps",
 		Description:    `List of steps that contain parameters.`,
 		Exposed:        true,
@@ -539,7 +536,6 @@ var AppLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"description": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "description",
 		ConvertedName:  "Description",
 		Description:    `Description of the object.`,
 		Exposed:        true,
@@ -578,7 +574,6 @@ var AppLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"name": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "name",
 		ConvertedName:  "Name",
 		Description:    `Name of the entity.`,
 		Exposed:        true,
@@ -594,7 +589,6 @@ var AppLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"steps": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "steps",
 		ConvertedName:  "Steps",
 		Description:    `List of steps that contain parameters.`,
 		Exposed:        true,
