@@ -129,6 +129,10 @@ type AccessReport struct {
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
+	// The namespace that this access report belongs to. This field is not exposed.
+	// Therefore, any value set by the user will be ignored.
+	Namespace string `json:"-" msgpack:"-" bson:"k,omitempty" mapstructure:"-,omitempty"`
+
 	// ID of the processing unit of the report.
 	ProcessingUnitID string `json:"processingUnitID,omitempty" msgpack:"processingUnitID,omitempty" bson:"e,omitempty" mapstructure:"processingUnitID,omitempty"`
 
@@ -203,6 +207,7 @@ func (o *AccessReport) GetBSON() (interface{}, error) {
 	s.EnforcerID = o.EnforcerID
 	s.EnforcerNamespace = o.EnforcerNamespace
 	s.MigrationsLog = o.MigrationsLog
+	s.Namespace = o.Namespace
 	s.ProcessingUnitID = o.ProcessingUnitID
 	s.ProcessingUnitName = o.ProcessingUnitName
 	s.ProcessingUnitNamespace = o.ProcessingUnitNamespace
@@ -234,6 +239,7 @@ func (o *AccessReport) SetBSON(raw bson.Raw) error {
 	o.EnforcerID = s.EnforcerID
 	o.EnforcerNamespace = s.EnforcerNamespace
 	o.MigrationsLog = s.MigrationsLog
+	o.Namespace = s.Namespace
 	o.ProcessingUnitID = s.ProcessingUnitID
 	o.ProcessingUnitName = s.ProcessingUnitName
 	o.ProcessingUnitNamespace = s.ProcessingUnitNamespace
@@ -326,6 +332,7 @@ func (o *AccessReport) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			EnforcerID:              &o.EnforcerID,
 			EnforcerNamespace:       &o.EnforcerNamespace,
 			MigrationsLog:           &o.MigrationsLog,
+			Namespace:               &o.Namespace,
 			ProcessingUnitID:        &o.ProcessingUnitID,
 			ProcessingUnitName:      &o.ProcessingUnitName,
 			ProcessingUnitNamespace: &o.ProcessingUnitNamespace,
@@ -352,6 +359,8 @@ func (o *AccessReport) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.EnforcerNamespace = &(o.EnforcerNamespace)
 		case "migrationsLog":
 			sp.MigrationsLog = &(o.MigrationsLog)
+		case "namespace":
+			sp.Namespace = &(o.Namespace)
 		case "processingUnitID":
 			sp.ProcessingUnitID = &(o.ProcessingUnitID)
 		case "processingUnitName":
@@ -398,6 +407,9 @@ func (o *AccessReport) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.MigrationsLog != nil {
 		o.MigrationsLog = *so.MigrationsLog
+	}
+	if so.Namespace != nil {
+		o.Namespace = *so.Namespace
 	}
 	if so.ProcessingUnitID != nil {
 		o.ProcessingUnitID = *so.ProcessingUnitID
@@ -525,6 +537,8 @@ func (o *AccessReport) ValueForAttribute(name string) interface{} {
 		return o.EnforcerNamespace
 	case "migrationsLog":
 		return o.MigrationsLog
+	case "namespace":
+		return o.Namespace
 	case "processingUnitID":
 		return o.ProcessingUnitID
 	case "processingUnitName":
@@ -617,6 +631,17 @@ var AccessReportAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		SubType:        "map[string]string",
 		Type:           "external",
+	},
+	"Namespace": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k",
+		ConvertedName:  "Namespace",
+		Description: `The namespace that this access report belongs to. This field is not exposed.
+Therefore, any value set by the user will be ignored.`,
+		Filterable: true,
+		Name:       "namespace",
+		Stored:     true,
+		Type:       "string",
 	},
 	"ProcessingUnitID": {
 		AllowedChoices: []string{},
@@ -782,6 +807,17 @@ var AccessReportLowerCaseAttributesMap = map[string]elemental.AttributeSpecifica
 		Stored:         true,
 		SubType:        "map[string]string",
 		Type:           "external",
+	},
+	"namespace": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k",
+		ConvertedName:  "Namespace",
+		Description: `The namespace that this access report belongs to. This field is not exposed.
+Therefore, any value set by the user will be ignored.`,
+		Filterable: true,
+		Name:       "namespace",
+		Stored:     true,
+		Type:       "string",
 	},
 	"processingunitid": {
 		AllowedChoices: []string{},
@@ -959,6 +995,10 @@ type SparseAccessReport struct {
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
+	// The namespace that this access report belongs to. This field is not exposed.
+	// Therefore, any value set by the user will be ignored.
+	Namespace *string `json:"-" msgpack:"-" bson:"k,omitempty" mapstructure:"-,omitempty"`
+
 	// ID of the processing unit of the report.
 	ProcessingUnitID *string `json:"processingUnitID,omitempty" msgpack:"processingUnitID,omitempty" bson:"e,omitempty" mapstructure:"processingUnitID,omitempty"`
 
@@ -1046,6 +1086,9 @@ func (o *SparseAccessReport) GetBSON() (interface{}, error) {
 	if o.MigrationsLog != nil {
 		s.MigrationsLog = o.MigrationsLog
 	}
+	if o.Namespace != nil {
+		s.Namespace = o.Namespace
+	}
 	if o.ProcessingUnitID != nil {
 		s.ProcessingUnitID = o.ProcessingUnitID
 	}
@@ -1104,6 +1147,9 @@ func (o *SparseAccessReport) SetBSON(raw bson.Raw) error {
 	if s.MigrationsLog != nil {
 		o.MigrationsLog = s.MigrationsLog
 	}
+	if s.Namespace != nil {
+		o.Namespace = s.Namespace
+	}
 	if s.ProcessingUnitID != nil {
 		o.ProcessingUnitID = s.ProcessingUnitID
 	}
@@ -1159,6 +1205,9 @@ func (o *SparseAccessReport) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.MigrationsLog != nil {
 		out.MigrationsLog = *o.MigrationsLog
+	}
+	if o.Namespace != nil {
+		out.Namespace = *o.Namespace
 	}
 	if o.ProcessingUnitID != nil {
 		out.ProcessingUnitID = *o.ProcessingUnitID
@@ -1267,6 +1316,7 @@ type mongoAttributesAccessReport struct {
 	EnforcerID              string                  `bson:"c,omitempty"`
 	EnforcerNamespace       string                  `bson:"d,omitempty"`
 	MigrationsLog           map[string]string       `bson:"migrationslog,omitempty"`
+	Namespace               string                  `bson:"k,omitempty"`
 	ProcessingUnitID        string                  `bson:"e,omitempty"`
 	ProcessingUnitName      string                  `bson:"f,omitempty"`
 	ProcessingUnitNamespace string                  `bson:"g,omitempty"`
@@ -1283,6 +1333,7 @@ type mongoAttributesSparseAccessReport struct {
 	EnforcerID              *string                  `bson:"c,omitempty"`
 	EnforcerNamespace       *string                  `bson:"d,omitempty"`
 	MigrationsLog           *map[string]string       `bson:"migrationslog,omitempty"`
+	Namespace               *string                  `bson:"k,omitempty"`
 	ProcessingUnitID        *string                  `bson:"e,omitempty"`
 	ProcessingUnitName      *string                  `bson:"f,omitempty"`
 	ProcessingUnitNamespace *string                  `bson:"g,omitempty"`

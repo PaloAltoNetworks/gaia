@@ -900,6 +900,10 @@ func (o *EnforcerProfile) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := elemental.ValidateMinimumInt("syslogFacility", o.SyslogFacility, int(1), false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if err := elemental.ValidateStringInList("syslogFormat", string(o.SyslogFormat), []string{"Auto", "BSD", "IETF"}, false); err != nil {
 		errors = errors.Append(err)
 	}
@@ -1322,6 +1326,7 @@ with the '@' prefix, and should only be used by external systems.`,
 		Description:    `Contains the list of supported syslog facilities.`,
 		Exposed:        true,
 		MaxValue:       23,
+		MinValue:       1,
 		Name:           "syslogFacility",
 		Stored:         true,
 		Type:           "integer",
@@ -1746,6 +1751,7 @@ with the '@' prefix, and should only be used by external systems.`,
 		Description:    `Contains the list of supported syslog facilities.`,
 		Exposed:        true,
 		MaxValue:       23,
+		MinValue:       1,
 		Name:           "syslogFacility",
 		Stored:         true,
 		Type:           "integer",

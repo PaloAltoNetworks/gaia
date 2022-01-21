@@ -15046,7 +15046,7 @@ Type: `string`
 
 PEM-encoded server CA certificate.
 
-##### `syslogFacility` [`max_value=23.000000`]
+##### `syslogFacility` [`min_value=1.000000`,`max_value=23.000000`]
 
 Type: `integer`
 
@@ -21065,6 +21065,12 @@ Type: [`[]dnslookupreport`](#dnslookupreport)
 
 List of DNSLookupReports.
 
+##### `accessReports`
+
+Type: [`[]accessreport`](#accessreport)
+
+List of AccessReports.
+
 ##### `connectionExceptionReports`
 
 Type: [`[]connectionexceptionreport`](#connectionexceptionreport)
@@ -21103,7 +21109,7 @@ List of PacketReports.
 
 ##### `report`
 
-Type: `enum(Flows | Enforcers | EventLogs | Packets | Counters | DNSLookups | ConnectionExceptions)`
+Type: `enum(Accesses | Flows | Enforcers | EventLogs | Packets | Counters | DNSLookups | ConnectionExceptions)`
 
 Name of the report type to query.
 
