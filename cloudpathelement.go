@@ -115,5 +115,105 @@ func (o *CloudPathElement) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*CloudPathElement) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := CloudPathElementAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return CloudPathElementLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*CloudPathElement) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return CloudPathElementAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *CloudPathElement) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "nativeID":
+		return o.NativeID
+	case "policy":
+		return o.Policy
+	case "routeTables":
+		return o.RouteTables
+	}
+
+	return nil
+}
+
+// CloudPathElementAttributesMap represents the map of attribute for CloudPathElement.
+var CloudPathElementAttributesMap = map[string]elemental.AttributeSpecification{
+	"NativeID": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NativeID",
+		Description:    `The native ID of the node.`,
+		Exposed:        true,
+		Name:           "nativeID",
+		ReadOnly:       true,
+		Type:           "string",
+	},
+	"Policy": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Policy",
+		Description:    `The policy ID used at this node of the path.`,
+		Exposed:        true,
+		Name:           "policy",
+		ReadOnly:       true,
+		SubType:        "cloudgraphnodeaction",
+		Type:           "ref",
+	},
+	"RouteTables": {
+		AllowedChoices: []string{},
+		ConvertedName:  "RouteTables",
+		Description:    `The route table ID used for the route calculation.`,
+		Exposed:        true,
+		Name:           "routeTables",
+		ReadOnly:       true,
+		SubType:        "map[string]string",
+		Type:           "external",
+	},
+}
+
+// CloudPathElementLowerCaseAttributesMap represents the map of attribute for CloudPathElement.
+var CloudPathElementLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"nativeid": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NativeID",
+		Description:    `The native ID of the node.`,
+		Exposed:        true,
+		Name:           "nativeID",
+		ReadOnly:       true,
+		Type:           "string",
+	},
+	"policy": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Policy",
+		Description:    `The policy ID used at this node of the path.`,
+		Exposed:        true,
+		Name:           "policy",
+		ReadOnly:       true,
+		SubType:        "cloudgraphnodeaction",
+		Type:           "ref",
+	},
+	"routetables": {
+		AllowedChoices: []string{},
+		ConvertedName:  "RouteTables",
+		Description:    `The route table ID used for the route calculation.`,
+		Exposed:        true,
+		Name:           "routeTables",
+		ReadOnly:       true,
+		SubType:        "map[string]string",
+		Type:           "external",
+	},
+}
+
 type mongoAttributesCloudPathElement struct {
 }

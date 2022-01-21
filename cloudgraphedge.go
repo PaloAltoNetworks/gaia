@@ -105,6 +105,66 @@ func (o *CloudGraphEdge) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*CloudGraphEdge) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := CloudGraphEdgeAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return CloudGraphEdgeLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*CloudGraphEdge) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return CloudGraphEdgeAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *CloudGraphEdge) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "level":
+		return o.Level
+	}
+
+	return nil
+}
+
+// CloudGraphEdgeAttributesMap represents the map of attribute for CloudGraphEdge.
+var CloudGraphEdgeAttributesMap = map[string]elemental.AttributeSpecification{
+	"Level": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "level",
+		ConvertedName:  "Level",
+		Description: `Provides the level of the tree that this edge belongs in order to assist with
+ordering.`,
+		Exposed: true,
+		Name:    "level",
+		Stored:  true,
+		Type:    "integer",
+	},
+}
+
+// CloudGraphEdgeLowerCaseAttributesMap represents the map of attribute for CloudGraphEdge.
+var CloudGraphEdgeLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"level": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "level",
+		ConvertedName:  "Level",
+		Description: `Provides the level of the tree that this edge belongs in order to assist with
+ordering.`,
+		Exposed: true,
+		Name:    "level",
+		Stored:  true,
+		Type:    "integer",
+	},
+}
+
 type mongoAttributesCloudGraphEdge struct {
 	Level int `bson:"level"`
 }

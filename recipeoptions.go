@@ -120,6 +120,66 @@ func (o *RecipeOptions) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*RecipeOptions) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := RecipeOptionsAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return RecipeOptionsLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*RecipeOptions) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return RecipeOptionsAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *RecipeOptions) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "appCrendentialFormat":
+		return o.AppCrendentialFormat
+	}
+
+	return nil
+}
+
+// RecipeOptionsAttributesMap represents the map of attribute for RecipeOptions.
+var RecipeOptionsAttributesMap = map[string]elemental.AttributeSpecification{
+	"AppCrendentialFormat": {
+		AllowedChoices: []string{"JSON", "YAML"},
+		BSONFieldName:  "appcrendentialformat",
+		ConvertedName:  "AppCrendentialFormat",
+		DefaultValue:   RecipeOptionsAppCrendentialFormatJSON,
+		Description:    `Indicates the format of the app credential.`,
+		Exposed:        true,
+		Name:           "appCrendentialFormat",
+		Stored:         true,
+		Type:           "enum",
+	},
+}
+
+// RecipeOptionsLowerCaseAttributesMap represents the map of attribute for RecipeOptions.
+var RecipeOptionsLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"appcrendentialformat": {
+		AllowedChoices: []string{"JSON", "YAML"},
+		BSONFieldName:  "appcrendentialformat",
+		ConvertedName:  "AppCrendentialFormat",
+		DefaultValue:   RecipeOptionsAppCrendentialFormatJSON,
+		Description:    `Indicates the format of the app credential.`,
+		Exposed:        true,
+		Name:           "appCrendentialFormat",
+		Stored:         true,
+		Type:           "enum",
+	},
+}
+
 type mongoAttributesRecipeOptions struct {
 	AppCrendentialFormat RecipeOptionsAppCrendentialFormatValue `bson:"appcrendentialformat"`
 }
