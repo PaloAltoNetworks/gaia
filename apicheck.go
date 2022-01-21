@@ -386,6 +386,7 @@ var APICheckAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Operation": {
 		AllowedChoices: []string{"Create", "Delete", "Info", "Patch", "Retrieve", "RetrieveMany", "Update"},
+		BSONFieldName:  "operation",
 		ConvertedName:  "Operation",
 		Description:    `The operation you want to check.`,
 		Exposed:        true,
@@ -434,6 +435,7 @@ var APICheckLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"operation": {
 		AllowedChoices: []string{"Create", "Delete", "Info", "Patch", "Retrieve", "RetrieveMany", "Update"},
+		BSONFieldName:  "operation",
 		ConvertedName:  "Operation",
 		Description:    `The operation you want to check.`,
 		Exposed:        true,

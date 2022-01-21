@@ -454,6 +454,7 @@ var RemoteProcessorAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"RequestID": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "requestid",
 		ConvertedName:  "RequestID",
 		Description:    `Gives the ID of the request coming from the main server.`,
 		Exposed:        true,
@@ -535,6 +536,7 @@ var RemoteProcessorLowerCaseAttributesMap = map[string]elemental.AttributeSpecif
 	},
 	"requestid": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "requestid",
 		ConvertedName:  "RequestID",
 		Description:    `Gives the ID of the request coming from the main server.`,
 		Exposed:        true,

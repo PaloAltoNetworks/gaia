@@ -22,18 +22,18 @@ const (
 // RemotePingProbe represents the model of a remotepingprobe
 type RemotePingProbe struct {
 	// The controller ID that manages the ping report.
-	ControllerID string `json:"controllerID,omitempty" msgpack:"controllerID,omitempty" bson:"controllerid" mapstructure:"controllerID,omitempty"`
+	ControllerID string `json:"controllerID,omitempty" msgpack:"controllerID,omitempty" bson:"controllerid,omitempty" mapstructure:"controllerID,omitempty"`
 
 	// The namespace where the ping report is stored. Only applicable when the remote
 	// controller is empty.
-	Namespace string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace" mapstructure:"namespace,omitempty"`
+	Namespace string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
 
 	// Type of the namespace reported. It can be hash or plain, depending on various
 	// factors.
 	NamespaceType RemotePingProbeNamespaceTypeValue `json:"namespaceType" msgpack:"namespaceType" bson:"namespacetype" mapstructure:"namespaceType,omitempty"`
 
 	// The ID of the probe. Only applicable when the remote controller is empty.
-	ProbeID string `json:"probeID,omitempty" msgpack:"probeID,omitempty" bson:"probeid" mapstructure:"probeID,omitempty"`
+	ProbeID string `json:"probeID,omitempty" msgpack:"probeID,omitempty" bson:"probeid,omitempty" mapstructure:"probeID,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }

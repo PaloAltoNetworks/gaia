@@ -59,10 +59,10 @@ type CloudRoute struct {
 	NextHopType CloudRouteNextHopTypeValue `json:"nextHopType" msgpack:"nextHopType" bson:"nexthoptype" mapstructure:"nextHopType,omitempty"`
 
 	// Internal representation of IPv4 networks.
-	StoredDestinationIPv4CIDR *net.IPNet `json:"storedDestinationIPv4CIDR,omitempty" msgpack:"storedDestinationIPv4CIDR,omitempty" bson:"storeddestinationipv4cidr" mapstructure:"storedDestinationIPv4CIDR,omitempty"`
+	StoredDestinationIPv4CIDR *net.IPNet `json:"storedDestinationIPv4CIDR,omitempty" msgpack:"storedDestinationIPv4CIDR,omitempty" bson:"storeddestinationipv4cidr,omitempty" mapstructure:"storedDestinationIPv4CIDR,omitempty"`
 
 	// Internal representation of IPv6 networks.
-	StoredDestinationIPv6CIDR *net.IPNet `json:"storedDestinationIPv6CIDR,omitempty" msgpack:"storedDestinationIPv6CIDR,omitempty" bson:"storeddestinationipv6cidr" mapstructure:"storedDestinationIPv6CIDR,omitempty"`
+	StoredDestinationIPv6CIDR *net.IPNet `json:"storedDestinationIPv6CIDR,omitempty" msgpack:"storedDestinationIPv6CIDR,omitempty" bson:"storeddestinationipv6cidr,omitempty" mapstructure:"storedDestinationIPv6CIDR,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }

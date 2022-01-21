@@ -76,16 +76,16 @@ type CloudEndpointData struct {
 	// The imageID of running in the endpoint. Available for instances and
 	// potentially other 3rd parties. This can be the AMI ID in AWS or corresponding
 	// instance imageID in other clouds.
-	ImageID string `json:"imageID,omitempty" msgpack:"imageID,omitempty" bson:"imageid" mapstructure:"imageID,omitempty"`
+	ImageID string `json:"imageID,omitempty" msgpack:"imageID,omitempty" bson:"imageid,omitempty" mapstructure:"imageID,omitempty"`
 
 	// Product related metadata associated with this endpoint.
-	ProductInfo []*CloudEndpointDataProductInfo `json:"productInfo,omitempty" msgpack:"productInfo,omitempty" bson:"productinfo" mapstructure:"productInfo,omitempty"`
+	ProductInfo []*CloudEndpointDataProductInfo `json:"productInfo,omitempty" msgpack:"productInfo,omitempty" bson:"productinfo,omitempty" mapstructure:"productInfo,omitempty"`
 
 	// if the endpoint has a public IP we store the IP address in this field.
 	PublicIPAddresses []string `json:"publicIPAddresses" msgpack:"publicIPAddresses" bson:"publicipaddresses" mapstructure:"publicIPAddresses,omitempty"`
 
 	// Identifies the name of the service for service endpoints.
-	ServiceName string `json:"serviceName,omitempty" msgpack:"serviceName,omitempty" bson:"servicename" mapstructure:"serviceName,omitempty"`
+	ServiceName string `json:"serviceName,omitempty" msgpack:"serviceName,omitempty" bson:"servicename,omitempty" mapstructure:"serviceName,omitempty"`
 
 	// Identifies the service type that this endpoint represents (example Gateway Load
 	// Balancer).

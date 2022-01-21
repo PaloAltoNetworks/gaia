@@ -28,33 +28,33 @@ const (
 // CloudNetworkQueryFilter represents the model of a cloudnetworkqueryfilter
 type CloudNetworkQueryFilter struct {
 	// The VPC ID of the target resources.
-	VPCIDs []string `json:"VPCIDs,omitempty" msgpack:"VPCIDs,omitempty" bson:"vpcids" mapstructure:"VPCIDs,omitempty"`
+	VPCIDs []string `json:"VPCIDs,omitempty" msgpack:"VPCIDs,omitempty" bson:"vpcids,omitempty" mapstructure:"VPCIDs,omitempty"`
 
 	// The accounts that the search must apply to. These are the actually IDs of the
 	// account as provided by the cloud provider. One or more IDs can be included.
-	AccountIDs []string `json:"accountIDs,omitempty" msgpack:"accountIDs,omitempty" bson:"accountids" mapstructure:"accountIDs,omitempty"`
+	AccountIDs []string `json:"accountIDs,omitempty" msgpack:"accountIDs,omitempty" bson:"accountids,omitempty" mapstructure:"accountIDs,omitempty"`
 
 	// The cloud types that the search must apply to.
-	CloudTypes []string `json:"cloudTypes,omitempty" msgpack:"cloudTypes,omitempty" bson:"cloudtypes" mapstructure:"cloudTypes,omitempty"`
+	CloudTypes []string `json:"cloudTypes,omitempty" msgpack:"cloudTypes,omitempty" bson:"cloudtypes,omitempty" mapstructure:"cloudTypes,omitempty"`
 
 	// A list of imageIDs that endpoints can be filtered with. Applies only to
 	// resourceType Endpoint.
-	ImageIDs []string `json:"imageIDs,omitempty" msgpack:"imageIDs,omitempty" bson:"imageids" mapstructure:"imageIDs,omitempty"`
+	ImageIDs []string `json:"imageIDs,omitempty" msgpack:"imageIDs,omitempty" bson:"imageids,omitempty" mapstructure:"imageIDs,omitempty"`
 
 	// The exact object that the search applies. If ObjectIDs are defined, the rest of
 	// the fields are ignored. An object ID can refer to an instance, VPC endpoint, or
 	// network interface.
-	ObjectIDs []string `json:"objectIDs,omitempty" msgpack:"objectIDs,omitempty" bson:"objectids" mapstructure:"objectIDs,omitempty"`
+	ObjectIDs []string `json:"objectIDs,omitempty" msgpack:"objectIDs,omitempty" bson:"objectids,omitempty" mapstructure:"objectIDs,omitempty"`
 
 	// Restricts the query on only endpoints with the given productInfoType.
-	ProductInfoType string `json:"productInfoType,omitempty" msgpack:"productInfoType,omitempty" bson:"productinfotype" mapstructure:"productInfoType,omitempty"`
+	ProductInfoType string `json:"productInfoType,omitempty" msgpack:"productInfoType,omitempty" bson:"productinfotype,omitempty" mapstructure:"productInfoType,omitempty"`
 
 	// Restricts the query to only endpoints with the provided productInfoValue. Does
 	// not apply to other resource types.
-	ProductInfoValue string `json:"productInfoValue,omitempty" msgpack:"productInfoValue,omitempty" bson:"productinfovalue" mapstructure:"productInfoValue,omitempty"`
+	ProductInfoValue string `json:"productInfoValue,omitempty" msgpack:"productInfoValue,omitempty" bson:"productinfovalue,omitempty" mapstructure:"productInfoValue,omitempty"`
 
 	// The region that the search must apply to.
-	Regions []string `json:"regions,omitempty" msgpack:"regions,omitempty" bson:"regions" mapstructure:"regions,omitempty"`
+	Regions []string `json:"regions,omitempty" msgpack:"regions,omitempty" bson:"regions,omitempty" mapstructure:"regions,omitempty"`
 
 	// The type of endpoint resource. The resource type is a mandatory field and a
 	// query cannot span multiple resource types.
@@ -63,28 +63,28 @@ type CloudNetworkQueryFilter struct {
 	// The list of security tags associated with the targets of the query. Security
 	// tags refer to security groups in AWS or network tags in GCP. So they can have
 	// different meaning depending on the target cloud.
-	SecurityTags []string `json:"securityTags,omitempty" msgpack:"securityTags,omitempty" bson:"securitytags" mapstructure:"securityTags,omitempty"`
+	SecurityTags []string `json:"securityTags,omitempty" msgpack:"securityTags,omitempty" bson:"securitytags,omitempty" mapstructure:"securityTags,omitempty"`
 
 	// Identifies a list of service names that should be taken into account. This is
 	// only valid with a resource type equal to Service.
-	ServiceNames []string `json:"serviceNames,omitempty" msgpack:"serviceNames,omitempty" bson:"servicenames" mapstructure:"serviceNames,omitempty"`
+	ServiceNames []string `json:"serviceNames,omitempty" msgpack:"serviceNames,omitempty" bson:"servicenames,omitempty" mapstructure:"serviceNames,omitempty"`
 
 	// Identifies the owner of the service that the resource is attached to. Field is
 	// not valid if the resource type is not an interface.
-	ServiceOwners []string `json:"serviceOwners,omitempty" msgpack:"serviceOwners,omitempty" bson:"serviceowners" mapstructure:"serviceOwners,omitempty"`
+	ServiceOwners []string `json:"serviceOwners,omitempty" msgpack:"serviceOwners,omitempty" bson:"serviceowners,omitempty" mapstructure:"serviceOwners,omitempty"`
 
 	// Identifies the type of service that the interface is attached to. Field is not
 	// valid if the resource type is not an
 	// interface.
-	ServiceTypes []string `json:"serviceTypes,omitempty" msgpack:"serviceTypes,omitempty" bson:"servicetypes" mapstructure:"serviceTypes,omitempty"`
+	ServiceTypes []string `json:"serviceTypes,omitempty" msgpack:"serviceTypes,omitempty" bson:"servicetypes,omitempty" mapstructure:"serviceTypes,omitempty"`
 
 	// The subnets where the resources must reside. A subnet parameter can only be
 	// provided for a network interface resource type.
-	Subnets []string `json:"subnets,omitempty" msgpack:"subnets,omitempty" bson:"subnets" mapstructure:"subnets,omitempty"`
+	Subnets []string `json:"subnets,omitempty" msgpack:"subnets,omitempty" bson:"subnets,omitempty" mapstructure:"subnets,omitempty"`
 
 	// A list of tags that select the same of endpoints for the query. These tags refer
 	// to the tags attached to the resources in the cloud provider definitions.
-	Tags []string `json:"tags,omitempty" msgpack:"tags,omitempty" bson:"tags" mapstructure:"tags,omitempty"`
+	Tags []string `json:"tags,omitempty" msgpack:"tags,omitempty" bson:"tags,omitempty" mapstructure:"tags,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }

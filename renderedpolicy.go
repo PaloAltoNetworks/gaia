@@ -740,6 +740,7 @@ tags.`,
 	},
 	"Scopes": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "scopes",
 		ConvertedName:  "Scopes",
 		Description: `The set of scopes granted to this processing unit that has to be
 present in HTTP requests.`,
@@ -933,6 +934,7 @@ tags.`,
 	},
 	"scopes": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "scopes",
 		ConvertedName:  "Scopes",
 		Description: `The set of scopes granted to this processing unit that has to be
 present in HTTP requests.`,

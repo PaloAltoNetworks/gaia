@@ -308,6 +308,7 @@ func (o *PolicyRefresh) ValueForAttribute(name string) interface{} {
 var PolicyRefreshAttributesMap = map[string]elemental.AttributeSpecification{
 	"SourceID": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "sourceid",
 		ConvertedName:  "SourceID",
 		Description:    `Contains the original ID of the updated object.`,
 		Exposed:        true,
@@ -319,6 +320,7 @@ var PolicyRefreshAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"SourceNamespace": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "sourcenamespace",
 		ConvertedName:  "SourceNamespace",
 		Description:    `Contains the original namespace of the updated object.`,
 		Exposed:        true,
@@ -330,6 +332,7 @@ var PolicyRefreshAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Type": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Contains the policy type that is affected.`,
 		Exposed:        true,
@@ -345,6 +348,7 @@ var PolicyRefreshAttributesMap = map[string]elemental.AttributeSpecification{
 var PolicyRefreshLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"sourceid": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "sourceid",
 		ConvertedName:  "SourceID",
 		Description:    `Contains the original ID of the updated object.`,
 		Exposed:        true,
@@ -356,6 +360,7 @@ var PolicyRefreshLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 	},
 	"sourcenamespace": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "sourcenamespace",
 		ConvertedName:  "SourceNamespace",
 		Description:    `Contains the original namespace of the updated object.`,
 		Exposed:        true,
@@ -367,6 +372,7 @@ var PolicyRefreshLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 	},
 	"type": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Contains the policy type that is affected.`,
 		Exposed:        true,

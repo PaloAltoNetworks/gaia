@@ -82,16 +82,16 @@ func (o CloudLoadBalancersList) Version() int {
 // CloudLoadBalancer represents the model of a cloudloadbalancer
 type CloudLoadBalancer struct {
 	// Prisma Cloud API ID (matches Prisma Cloud API ID).
-	APIID int `json:"APIID,omitempty" msgpack:"APIID,omitempty" bson:"apiid" mapstructure:"APIID,omitempty"`
+	APIID int `json:"APIID,omitempty" msgpack:"APIID,omitempty" bson:"apiid,omitempty" mapstructure:"APIID,omitempty"`
 
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
 	// ID of the host VPC.
-	VPCID string `json:"VPCID,omitempty" msgpack:"VPCID,omitempty" bson:"vpcid" mapstructure:"VPCID,omitempty"`
+	VPCID string `json:"VPCID,omitempty" msgpack:"VPCID,omitempty" bson:"vpcid,omitempty" mapstructure:"VPCID,omitempty"`
 
 	// Cloud account ID associated with the entity (matches Prisma Cloud accountID).
-	AccountID string `json:"accountId,omitempty" msgpack:"accountId,omitempty" bson:"accountid" mapstructure:"accountId,omitempty"`
+	AccountID string `json:"accountId,omitempty" msgpack:"accountId,omitempty" bson:"accountid,omitempty" mapstructure:"accountId,omitempty"`
 
 	// Stores additional information about an entity.
 	Annotations map[string][]string `json:"annotations" msgpack:"annotations" bson:"annotations" mapstructure:"annotations,omitempty"`
@@ -100,10 +100,10 @@ type CloudLoadBalancer struct {
 	AssociatedTags []string `json:"associatedTags" msgpack:"associatedTags" bson:"associatedtags" mapstructure:"associatedTags,omitempty"`
 
 	// Internal representation of object tags retrieved from the cloud provider.
-	CloudTags []string `json:"cloudTags,omitempty" msgpack:"cloudTags,omitempty" bson:"cloudtags" mapstructure:"cloudTags,omitempty"`
+	CloudTags []string `json:"cloudTags,omitempty" msgpack:"cloudTags,omitempty" bson:"cloudtags,omitempty" mapstructure:"cloudTags,omitempty"`
 
 	// Cloud type of the entity.
-	CloudType string `json:"cloudType,omitempty" msgpack:"cloudType,omitempty" bson:"cloudtype" mapstructure:"cloudType,omitempty"`
+	CloudType string `json:"cloudType,omitempty" msgpack:"cloudType,omitempty" bson:"cloudtype,omitempty" mapstructure:"cloudType,omitempty"`
 
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey string `json:"-" msgpack:"-" bson:"createidempotencykey" mapstructure:"-,omitempty"`
@@ -112,16 +112,16 @@ type CloudLoadBalancer struct {
 	CreateTime time.Time `json:"createTime" msgpack:"createTime" bson:"createtime" mapstructure:"createTime,omitempty"`
 
 	// Customer ID as identified by Prisma Cloud.
-	CustomerID int `json:"customerID,omitempty" msgpack:"customerID,omitempty" bson:"customerid" mapstructure:"customerID,omitempty"`
+	CustomerID int `json:"customerID,omitempty" msgpack:"customerID,omitempty" bson:"customerid,omitempty" mapstructure:"customerID,omitempty"`
 
 	// The time that the object was first ingested.
-	IngestionTime time.Time `json:"ingestionTime,omitempty" msgpack:"ingestionTime,omitempty" bson:"ingestiontime" mapstructure:"ingestionTime,omitempty"`
+	IngestionTime time.Time `json:"ingestionTime,omitempty" msgpack:"ingestionTime,omitempty" bson:"ingestiontime,omitempty" mapstructure:"ingestionTime,omitempty"`
 
 	// Internal property maintaining migrations information.
-	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog" mapstructure:"-,omitempty"`
+	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
 	// Name of the object (optional).
-	Name string `json:"name,omitempty" msgpack:"name,omitempty" bson:"name" mapstructure:"name,omitempty"`
+	Name string `json:"name,omitempty" msgpack:"name,omitempty" bson:"name,omitempty" mapstructure:"name,omitempty"`
 
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
@@ -136,16 +136,16 @@ type CloudLoadBalancer struct {
 	Parameters *CloudLoadBalancerData `json:"parameters" msgpack:"parameters" bson:"parameters" mapstructure:"parameters,omitempty"`
 
 	// A list of policy references associated with this cloud node.
-	PolicyReferences []string `json:"policyReferences,omitempty" msgpack:"policyReferences,omitempty" bson:"policyreferences" mapstructure:"policyReferences,omitempty"`
+	PolicyReferences []string `json:"policyReferences,omitempty" msgpack:"policyReferences,omitempty" bson:"policyreferences,omitempty" mapstructure:"policyReferences,omitempty"`
 
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
 	// Region name associated with the entity.
-	RegionName string `json:"regionName,omitempty" msgpack:"regionName,omitempty" bson:"regionname" mapstructure:"regionName,omitempty"`
+	RegionName string `json:"regionName,omitempty" msgpack:"regionName,omitempty" bson:"regionname,omitempty" mapstructure:"regionName,omitempty"`
 
 	// Prisma Cloud Resource ID.
-	ResourceID int `json:"resourceID,omitempty" msgpack:"resourceID,omitempty" bson:"resourceid" mapstructure:"resourceID,omitempty"`
+	ResourceID int `json:"resourceID,omitempty" msgpack:"resourceID,omitempty" bson:"resourceid,omitempty" mapstructure:"resourceID,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey string `json:"-" msgpack:"-" bson:"updateidempotencykey" mapstructure:"-,omitempty"`
@@ -937,6 +937,7 @@ func (o *CloudLoadBalancer) ValueForAttribute(name string) interface{} {
 var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification{
 	"APIID": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "apiid",
 		ConvertedName:  "APIID",
 		Description:    `Prisma Cloud API ID (matches Prisma Cloud API ID).`,
 		Exposed:        true,
@@ -949,6 +950,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	"ID": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "_id",
 		ConvertedName:  "ID",
 		Description:    `Identifier of the object.`,
 		Exposed:        true,
@@ -962,6 +964,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"VPCID": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "vpcid",
 		ConvertedName:  "VPCID",
 		Description:    `ID of the host VPC.`,
 		Exposed:        true,
@@ -974,6 +977,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"AccountID": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "accountid",
 		ConvertedName:  "AccountID",
 		Description:    `Cloud account ID associated with the entity (matches Prisma Cloud accountID).`,
 		Exposed:        true,
@@ -985,6 +989,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"Annotations": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "annotations",
 		ConvertedName:  "Annotations",
 		Description:    `Stores additional information about an entity.`,
 		Exposed:        true,
@@ -997,6 +1002,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"AssociatedTags": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "associatedtags",
 		ConvertedName:  "AssociatedTags",
 		Description:    `List of tags attached to an entity.`,
 		Exposed:        true,
@@ -1009,6 +1015,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"CloudTags": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "cloudtags",
 		ConvertedName:  "CloudTags",
 		Description:    `Internal representation of object tags retrieved from the cloud provider.`,
 		Exposed:        true,
@@ -1021,6 +1028,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"CloudType": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "cloudtype",
 		ConvertedName:  "CloudType",
 		Description:    `Cloud type of the entity.`,
 		Exposed:        true,
@@ -1034,6 +1042,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	"CreateIdempotencyKey": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "createidempotencykey",
 		ConvertedName:  "CreateIdempotencyKey",
 		Description:    `internal idempotency key for a create operation.`,
 		Getter:         true,
@@ -1046,6 +1055,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	"CreateTime": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "createtime",
 		ConvertedName:  "CreateTime",
 		Description:    `Creation date of the object.`,
 		Exposed:        true,
@@ -1059,6 +1069,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"CustomerID": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "customerid",
 		ConvertedName:  "CustomerID",
 		Description:    `Customer ID as identified by Prisma Cloud.`,
 		Exposed:        true,
@@ -1070,6 +1081,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"IngestionTime": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "ingestiontime",
 		ConvertedName:  "IngestionTime",
 		Description:    `The time that the object was first ingested.`,
 		Exposed:        true,
@@ -1082,6 +1094,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"MigrationsLog": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "migrationslog",
 		ConvertedName:  "MigrationsLog",
 		Description:    `Internal property maintaining migrations information.`,
 		Getter:         true,
@@ -1093,6 +1106,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"Name": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "name",
 		ConvertedName:  "Name",
 		Description:    `Name of the object (optional).`,
 		Exposed:        true,
@@ -1106,6 +1120,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	"Namespace": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "namespace",
 		ConvertedName:  "Namespace",
 		Description:    `Namespace tag attached to an entity.`,
 		Exposed:        true,
@@ -1120,6 +1135,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"NativeID": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "nativeid",
 		ConvertedName:  "NativeID",
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
@@ -1135,6 +1151,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	"NormalizedTags": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "normalizedtags",
 		ConvertedName:  "NormalizedTags",
 		Description:    `Contains the list of normalized tags of the entities.`,
 		Exposed:        true,
@@ -1149,6 +1166,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"Parameters": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
 		Description:    `LoadBalancer related parameters.`,
 		Exposed:        true,
@@ -1159,6 +1177,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"PolicyReferences": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "policyreferences",
 		ConvertedName:  "PolicyReferences",
 		Description:    `A list of policy references associated with this cloud node.`,
 		Exposed:        true,
@@ -1172,6 +1191,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"Protected": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "protected",
 		ConvertedName:  "Protected",
 		Description:    `Defines if the object is protected.`,
 		Exposed:        true,
@@ -1184,6 +1204,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"RegionName": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "regionname",
 		ConvertedName:  "RegionName",
 		Description:    `Region name associated with the entity.`,
 		Exposed:        true,
@@ -1197,6 +1218,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"ResourceID": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "resourceid",
 		ConvertedName:  "ResourceID",
 		Description:    `Prisma Cloud Resource ID.`,
 		Exposed:        true,
@@ -1209,6 +1231,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	"UpdateIdempotencyKey": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "updateidempotencykey",
 		ConvertedName:  "UpdateIdempotencyKey",
 		Description:    `internal idempotency key for a update operation.`,
 		Getter:         true,
@@ -1221,6 +1244,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	"UpdateTime": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "updatetime",
 		ConvertedName:  "UpdateTime",
 		Description:    `Last update date of the object.`,
 		Exposed:        true,
@@ -1235,6 +1259,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 	"ZHash": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "zhash",
 		ConvertedName:  "ZHash",
 		Description: `geographical hash of the data. This is used for sharding and
 georedundancy.`,
@@ -1248,6 +1273,7 @@ georedundancy.`,
 	"Zone": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "zone",
 		ConvertedName:  "Zone",
 		Description:    `Logical storage zone. Used for sharding.`,
 		Getter:         true,
@@ -1264,6 +1290,7 @@ georedundancy.`,
 var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"apiid": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "apiid",
 		ConvertedName:  "APIID",
 		Description:    `Prisma Cloud API ID (matches Prisma Cloud API ID).`,
 		Exposed:        true,
@@ -1276,6 +1303,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	"id": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "_id",
 		ConvertedName:  "ID",
 		Description:    `Identifier of the object.`,
 		Exposed:        true,
@@ -1289,6 +1317,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"vpcid": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "vpcid",
 		ConvertedName:  "VPCID",
 		Description:    `ID of the host VPC.`,
 		Exposed:        true,
@@ -1301,6 +1330,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"accountid": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "accountid",
 		ConvertedName:  "AccountID",
 		Description:    `Cloud account ID associated with the entity (matches Prisma Cloud accountID).`,
 		Exposed:        true,
@@ -1312,6 +1342,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"annotations": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "annotations",
 		ConvertedName:  "Annotations",
 		Description:    `Stores additional information about an entity.`,
 		Exposed:        true,
@@ -1324,6 +1355,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"associatedtags": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "associatedtags",
 		ConvertedName:  "AssociatedTags",
 		Description:    `List of tags attached to an entity.`,
 		Exposed:        true,
@@ -1336,6 +1368,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"cloudtags": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "cloudtags",
 		ConvertedName:  "CloudTags",
 		Description:    `Internal representation of object tags retrieved from the cloud provider.`,
 		Exposed:        true,
@@ -1348,6 +1381,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"cloudtype": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "cloudtype",
 		ConvertedName:  "CloudType",
 		Description:    `Cloud type of the entity.`,
 		Exposed:        true,
@@ -1361,6 +1395,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	"createidempotencykey": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "createidempotencykey",
 		ConvertedName:  "CreateIdempotencyKey",
 		Description:    `internal idempotency key for a create operation.`,
 		Getter:         true,
@@ -1373,6 +1408,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	"createtime": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "createtime",
 		ConvertedName:  "CreateTime",
 		Description:    `Creation date of the object.`,
 		Exposed:        true,
@@ -1386,6 +1422,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"customerid": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "customerid",
 		ConvertedName:  "CustomerID",
 		Description:    `Customer ID as identified by Prisma Cloud.`,
 		Exposed:        true,
@@ -1397,6 +1434,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"ingestiontime": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "ingestiontime",
 		ConvertedName:  "IngestionTime",
 		Description:    `The time that the object was first ingested.`,
 		Exposed:        true,
@@ -1409,6 +1447,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"migrationslog": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "migrationslog",
 		ConvertedName:  "MigrationsLog",
 		Description:    `Internal property maintaining migrations information.`,
 		Getter:         true,
@@ -1420,6 +1459,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"name": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "name",
 		ConvertedName:  "Name",
 		Description:    `Name of the object (optional).`,
 		Exposed:        true,
@@ -1433,6 +1473,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	"namespace": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "namespace",
 		ConvertedName:  "Namespace",
 		Description:    `Namespace tag attached to an entity.`,
 		Exposed:        true,
@@ -1447,6 +1488,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"nativeid": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "nativeid",
 		ConvertedName:  "NativeID",
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
@@ -1462,6 +1504,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	"normalizedtags": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "normalizedtags",
 		ConvertedName:  "NormalizedTags",
 		Description:    `Contains the list of normalized tags of the entities.`,
 		Exposed:        true,
@@ -1476,6 +1519,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"parameters": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
 		Description:    `LoadBalancer related parameters.`,
 		Exposed:        true,
@@ -1486,6 +1530,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"policyreferences": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "policyreferences",
 		ConvertedName:  "PolicyReferences",
 		Description:    `A list of policy references associated with this cloud node.`,
 		Exposed:        true,
@@ -1499,6 +1544,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"protected": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "protected",
 		ConvertedName:  "Protected",
 		Description:    `Defines if the object is protected.`,
 		Exposed:        true,
@@ -1511,6 +1557,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"regionname": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "regionname",
 		ConvertedName:  "RegionName",
 		Description:    `Region name associated with the entity.`,
 		Exposed:        true,
@@ -1524,6 +1571,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	},
 	"resourceid": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "resourceid",
 		ConvertedName:  "ResourceID",
 		Description:    `Prisma Cloud Resource ID.`,
 		Exposed:        true,
@@ -1536,6 +1584,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	"updateidempotencykey": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "updateidempotencykey",
 		ConvertedName:  "UpdateIdempotencyKey",
 		Description:    `internal idempotency key for a update operation.`,
 		Getter:         true,
@@ -1548,6 +1597,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	"updatetime": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "updatetime",
 		ConvertedName:  "UpdateTime",
 		Description:    `Last update date of the object.`,
 		Exposed:        true,
@@ -1562,6 +1612,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 	"zhash": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "zhash",
 		ConvertedName:  "ZHash",
 		Description: `geographical hash of the data. This is used for sharding and
 georedundancy.`,
@@ -1575,6 +1626,7 @@ georedundancy.`,
 	"zone": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
+		BSONFieldName:  "zone",
 		ConvertedName:  "Zone",
 		Description:    `Logical storage zone. Used for sharding.`,
 		Getter:         true,

@@ -309,6 +309,7 @@ func (o *SquallTag) ValueForAttribute(name string) interface{} {
 var SquallTagAttributesMap = map[string]elemental.AttributeSpecification{
 	"Count": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "count",
 		ConvertedName:  "Count",
 		Description:    `Number of time this tag is used.`,
 		Exposed:        true,
@@ -318,6 +319,7 @@ var SquallTagAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Namespace": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "namespace",
 		ConvertedName:  "Namespace",
 		Description:    `namespace containing these tags.`,
 		Exposed:        true,
@@ -327,6 +329,7 @@ var SquallTagAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Value": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "value",
 		ConvertedName:  "Value",
 		Description:    `Value of the tag.`,
 		Exposed:        true,
@@ -340,6 +343,7 @@ var SquallTagAttributesMap = map[string]elemental.AttributeSpecification{
 var SquallTagLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"count": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "count",
 		ConvertedName:  "Count",
 		Description:    `Number of time this tag is used.`,
 		Exposed:        true,
@@ -349,6 +353,7 @@ var SquallTagLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"namespace": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "namespace",
 		ConvertedName:  "Namespace",
 		Description:    `namespace containing these tags.`,
 		Exposed:        true,
@@ -358,6 +363,7 @@ var SquallTagLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	},
 	"value": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "value",
 		ConvertedName:  "Value",
 		Description:    `Value of the tag.`,
 		Exposed:        true,
