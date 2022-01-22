@@ -14,10 +14,6 @@ $audience:
   elemental:
     name: ValidateAudience
 
-$authorizedNamespaceGiven:
-  elemental:
-    name: ValidateAuthorizedNamespaceGiven
-
 $automations:
   elemental:
     name: ValidateAutomation

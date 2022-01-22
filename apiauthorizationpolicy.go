@@ -880,11 +880,6 @@ func (o *APIAuthorizationPolicy) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	// Custom object validation.
-	if err := ValidateAuthorizedNamespaceGiven(o); err != nil {
-		errors = errors.Append(err)
-	}
-
 	if len(requiredErrors) > 0 {
 		return requiredErrors
 	}
