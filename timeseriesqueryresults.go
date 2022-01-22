@@ -111,5 +111,61 @@ func (o *TimeSeriesQueryResults) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*TimeSeriesQueryResults) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := TimeSeriesQueryResultsAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return TimeSeriesQueryResultsLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*TimeSeriesQueryResults) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return TimeSeriesQueryResultsAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *TimeSeriesQueryResults) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "rows":
+		return o.Rows
+	}
+
+	return nil
+}
+
+// TimeSeriesQueryResultsAttributesMap represents the map of attribute for TimeSeriesQueryResults.
+var TimeSeriesQueryResultsAttributesMap = map[string]elemental.AttributeSpecification{
+	"Rows": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Rows",
+		Description:    `List of rows.`,
+		Exposed:        true,
+		Name:           "rows",
+		SubType:        "timeseriesrow",
+		Type:           "refList",
+	},
+}
+
+// TimeSeriesQueryResultsLowerCaseAttributesMap represents the map of attribute for TimeSeriesQueryResults.
+var TimeSeriesQueryResultsLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"rows": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Rows",
+		Description:    `List of rows.`,
+		Exposed:        true,
+		Name:           "rows",
+		SubType:        "timeseriesrow",
+		Type:           "refList",
+	},
+}
+
 type mongoAttributesTimeSeriesQueryResults struct {
 }

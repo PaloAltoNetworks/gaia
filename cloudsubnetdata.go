@@ -122,6 +122,110 @@ func (o *CloudSubnetData) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*CloudSubnetData) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := CloudSubnetDataAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return CloudSubnetDataLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*CloudSubnetData) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return CloudSubnetDataAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *CloudSubnetData) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "address":
+		return o.Address
+	case "zoneID":
+		return o.ZoneID
+	case "zoneName":
+		return o.ZoneName
+	}
+
+	return nil
+}
+
+// CloudSubnetDataAttributesMap represents the map of attribute for CloudSubnetData.
+var CloudSubnetDataAttributesMap = map[string]elemental.AttributeSpecification{
+	"Address": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "address",
+		ConvertedName:  "Address",
+		Description:    `Address CIDR of the Subnet.`,
+		Exposed:        true,
+		Name:           "address",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"ZoneID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "zoneid",
+		ConvertedName:  "ZoneID",
+		Description:    `The availability zone ID of the subnet.`,
+		Exposed:        true,
+		Name:           "zoneID",
+		Stored:         true,
+		Type:           "string",
+	},
+	"ZoneName": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "zonename",
+		ConvertedName:  "ZoneName",
+		Description:    `The availability zone of the subnet.`,
+		Exposed:        true,
+		Name:           "zoneName",
+		Stored:         true,
+		Type:           "string",
+	},
+}
+
+// CloudSubnetDataLowerCaseAttributesMap represents the map of attribute for CloudSubnetData.
+var CloudSubnetDataLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"address": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "address",
+		ConvertedName:  "Address",
+		Description:    `Address CIDR of the Subnet.`,
+		Exposed:        true,
+		Name:           "address",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"zoneid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "zoneid",
+		ConvertedName:  "ZoneID",
+		Description:    `The availability zone ID of the subnet.`,
+		Exposed:        true,
+		Name:           "zoneID",
+		Stored:         true,
+		Type:           "string",
+	},
+	"zonename": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "zonename",
+		ConvertedName:  "ZoneName",
+		Description:    `The availability zone of the subnet.`,
+		Exposed:        true,
+		Name:           "zoneName",
+		Stored:         true,
+		Type:           "string",
+	},
+}
+
 type mongoAttributesCloudSubnetData struct {
 	Address  string `bson:"address"`
 	ZoneID   string `bson:"zoneid"`
