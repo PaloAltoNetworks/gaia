@@ -116,6 +116,110 @@ func (o *Comment) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*Comment) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := CommentAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return CommentLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*Comment) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return CommentAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *Comment) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "claims":
+		return o.Claims
+	case "content":
+		return o.Content
+	case "date":
+		return o.Date
+	}
+
+	return nil
+}
+
+// CommentAttributesMap represents the map of attribute for Comment.
+var CommentAttributesMap = map[string]elemental.AttributeSpecification{
+	"Claims": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "claims",
+		ConvertedName:  "Claims",
+		Description:    `The claims of the author.`,
+		Exposed:        true,
+		Name:           "claims",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"Content": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "content",
+		ConvertedName:  "Content",
+		Description:    `The content of the comment.`,
+		Exposed:        true,
+		Name:           "content",
+		Stored:         true,
+		Type:           "string",
+	},
+	"Date": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "date",
+		ConvertedName:  "Date",
+		Description:    `The date of the comment.`,
+		Exposed:        true,
+		Name:           "date",
+		Stored:         true,
+		Type:           "time",
+	},
+}
+
+// CommentLowerCaseAttributesMap represents the map of attribute for Comment.
+var CommentLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"claims": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "claims",
+		ConvertedName:  "Claims",
+		Description:    `The claims of the author.`,
+		Exposed:        true,
+		Name:           "claims",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"content": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "content",
+		ConvertedName:  "Content",
+		Description:    `The content of the comment.`,
+		Exposed:        true,
+		Name:           "content",
+		Stored:         true,
+		Type:           "string",
+	},
+	"date": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "date",
+		ConvertedName:  "Date",
+		Description:    `The date of the comment.`,
+		Exposed:        true,
+		Name:           "date",
+		Stored:         true,
+		Type:           "time",
+	},
+}
+
 type mongoAttributesComment struct {
 	Claims  []string  `bson:"claims"`
 	Content string    `bson:"content"`

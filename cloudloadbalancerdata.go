@@ -115,6 +115,110 @@ func (o *CloudLoadBalancerData) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*CloudLoadBalancerData) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := CloudLoadBalancerDataAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return CloudLoadBalancerDataLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*CloudLoadBalancerData) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return CloudLoadBalancerDataAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *CloudLoadBalancerData) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "listenertargetmapping":
+		return o.Listenertargetmapping
+	case "name":
+		return o.Name
+	case "scheme":
+		return o.Scheme
+	}
+
+	return nil
+}
+
+// CloudLoadBalancerDataAttributesMap represents the map of attribute for CloudLoadBalancerData.
+var CloudLoadBalancerDataAttributesMap = map[string]elemental.AttributeSpecification{
+	"Listenertargetmapping": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "listenertargetmapping",
+		ConvertedName:  "Listenertargetmapping",
+		Description:    `Mapping of a listener to its associated target group ID list.`,
+		Exposed:        true,
+		Name:           "listenertargetmapping",
+		Stored:         true,
+		SubType:        "map[string][]string",
+		Type:           "external",
+	},
+	"Name": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "name",
+		ConvertedName:  "Name",
+		Description:    `The name of the load balancer.`,
+		Exposed:        true,
+		Name:           "name",
+		Stored:         true,
+		Type:           "string",
+	},
+	"Scheme": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "scheme",
+		ConvertedName:  "Scheme",
+		Description:    `The scheme tells whether the load balancer is internet facing or internal.`,
+		Exposed:        true,
+		Name:           "scheme",
+		Stored:         true,
+		Type:           "string",
+	},
+}
+
+// CloudLoadBalancerDataLowerCaseAttributesMap represents the map of attribute for CloudLoadBalancerData.
+var CloudLoadBalancerDataLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"listenertargetmapping": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "listenertargetmapping",
+		ConvertedName:  "Listenertargetmapping",
+		Description:    `Mapping of a listener to its associated target group ID list.`,
+		Exposed:        true,
+		Name:           "listenertargetmapping",
+		Stored:         true,
+		SubType:        "map[string][]string",
+		Type:           "external",
+	},
+	"name": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "name",
+		ConvertedName:  "Name",
+		Description:    `The name of the load balancer.`,
+		Exposed:        true,
+		Name:           "name",
+		Stored:         true,
+		Type:           "string",
+	},
+	"scheme": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "scheme",
+		ConvertedName:  "Scheme",
+		Description:    `The scheme tells whether the load balancer is internet facing or internal.`,
+		Exposed:        true,
+		Name:           "scheme",
+		Stored:         true,
+		Type:           "string",
+	},
+}
+
 type mongoAttributesCloudLoadBalancerData struct {
 	Listenertargetmapping map[string][]string `bson:"listenertargetmapping"`
 	Name                  string              `bson:"name"`

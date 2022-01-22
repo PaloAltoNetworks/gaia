@@ -244,6 +244,384 @@ func (o *TraceRecord) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*TraceRecord) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := TraceRecordAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return TraceRecordLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*TraceRecord) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return TraceRecordAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *TraceRecord) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "TTL":
+		return o.TTL
+	case "chain":
+		return o.Chain
+	case "destinationIP":
+		return o.DestinationIP
+	case "destinationInterface":
+		return o.DestinationInterface
+	case "destinationPort":
+		return o.DestinationPort
+	case "length":
+		return o.Length
+	case "packetID":
+		return o.PacketID
+	case "protocol":
+		return o.Protocol
+	case "ruleID":
+		return o.RuleID
+	case "sourceIP":
+		return o.SourceIP
+	case "sourceInterface":
+		return o.SourceInterface
+	case "sourcePort":
+		return o.SourcePort
+	case "tableName":
+		return o.TableName
+	case "timestamp":
+		return o.Timestamp
+	}
+
+	return nil
+}
+
+// TraceRecordAttributesMap represents the map of attribute for TraceRecord.
+var TraceRecordAttributesMap = map[string]elemental.AttributeSpecification{
+	"TTL": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ttl",
+		ConvertedName:  "TTL",
+		Description:    `The time to live (TTL) value of the packet.`,
+		Exposed:        true,
+		MaxValue:       255,
+		Name:           "TTL",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"Chain": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "chain",
+		ConvertedName:  "Chain",
+		Description:    `Chain that the trace was collected from.`,
+		Exposed:        true,
+		Name:           "chain",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"DestinationIP": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "destinationip",
+		ConvertedName:  "DestinationIP",
+		Description:    `The destination IP.`,
+		Exposed:        true,
+		Name:           "destinationIP",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"DestinationInterface": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "destinationinterface",
+		ConvertedName:  "DestinationInterface",
+		Description:    `The destination interface of the packet.`,
+		Exposed:        true,
+		Name:           "destinationInterface",
+		Stored:         true,
+		Type:           "string",
+	},
+	"DestinationPort": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "destinationport",
+		ConvertedName:  "DestinationPort",
+		Description:    `The destination UPD or TCP port of the packet.`,
+		Exposed:        true,
+		MaxValue:       65536,
+		MinValue:       1,
+		Name:           "destinationPort",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"Length": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "length",
+		ConvertedName:  "Length",
+		Description:    `Length of the observed packet.`,
+		Exposed:        true,
+		MaxValue:       65536,
+		Name:           "length",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"PacketID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "packetid",
+		ConvertedName:  "PacketID",
+		Description:    `The IP packet header ID.`,
+		Exposed:        true,
+		Name:           "packetID",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"Protocol": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "protocol",
+		ConvertedName:  "Protocol",
+		Description:    `The protocol of the packet.`,
+		Exposed:        true,
+		MaxValue:       65536,
+		Name:           "protocol",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"RuleID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ruleid",
+		ConvertedName:  "RuleID",
+		Description:    `Priority index of the iptables entry that was hit.`,
+		Exposed:        true,
+		Name:           "ruleID",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"SourceIP": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "sourceip",
+		ConvertedName:  "SourceIP",
+		Description:    `Source IP of the packet.`,
+		Exposed:        true,
+		Name:           "sourceIP",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"SourceInterface": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "sourceinterface",
+		ConvertedName:  "SourceInterface",
+		Description:    `Source interface of the packet.`,
+		Exposed:        true,
+		Name:           "sourceInterface",
+		Stored:         true,
+		Type:           "string",
+	},
+	"SourcePort": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "sourceport",
+		ConvertedName:  "SourcePort",
+		Description:    `Source TCP or UDP port of the packet.`,
+		Exposed:        true,
+		MaxValue:       65536,
+		MinValue:       1,
+		Name:           "sourcePort",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"TableName": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "tablename",
+		ConvertedName:  "TableName",
+		Description:    `The iptables name that the trace collected.`,
+		Exposed:        true,
+		Name:           "tableName",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"Timestamp": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Timestamp",
+		Description:    `The time-date stamp of the report.`,
+		Exposed:        true,
+		Name:           "timestamp",
+		Required:       true,
+		Type:           "time",
+	},
+}
+
+// TraceRecordLowerCaseAttributesMap represents the map of attribute for TraceRecord.
+var TraceRecordLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"ttl": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ttl",
+		ConvertedName:  "TTL",
+		Description:    `The time to live (TTL) value of the packet.`,
+		Exposed:        true,
+		MaxValue:       255,
+		Name:           "TTL",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"chain": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "chain",
+		ConvertedName:  "Chain",
+		Description:    `Chain that the trace was collected from.`,
+		Exposed:        true,
+		Name:           "chain",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"destinationip": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "destinationip",
+		ConvertedName:  "DestinationIP",
+		Description:    `The destination IP.`,
+		Exposed:        true,
+		Name:           "destinationIP",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"destinationinterface": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "destinationinterface",
+		ConvertedName:  "DestinationInterface",
+		Description:    `The destination interface of the packet.`,
+		Exposed:        true,
+		Name:           "destinationInterface",
+		Stored:         true,
+		Type:           "string",
+	},
+	"destinationport": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "destinationport",
+		ConvertedName:  "DestinationPort",
+		Description:    `The destination UPD or TCP port of the packet.`,
+		Exposed:        true,
+		MaxValue:       65536,
+		MinValue:       1,
+		Name:           "destinationPort",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"length": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "length",
+		ConvertedName:  "Length",
+		Description:    `Length of the observed packet.`,
+		Exposed:        true,
+		MaxValue:       65536,
+		Name:           "length",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"packetid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "packetid",
+		ConvertedName:  "PacketID",
+		Description:    `The IP packet header ID.`,
+		Exposed:        true,
+		Name:           "packetID",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"protocol": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "protocol",
+		ConvertedName:  "Protocol",
+		Description:    `The protocol of the packet.`,
+		Exposed:        true,
+		MaxValue:       65536,
+		Name:           "protocol",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"ruleid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ruleid",
+		ConvertedName:  "RuleID",
+		Description:    `Priority index of the iptables entry that was hit.`,
+		Exposed:        true,
+		Name:           "ruleID",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"sourceip": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "sourceip",
+		ConvertedName:  "SourceIP",
+		Description:    `Source IP of the packet.`,
+		Exposed:        true,
+		Name:           "sourceIP",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"sourceinterface": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "sourceinterface",
+		ConvertedName:  "SourceInterface",
+		Description:    `Source interface of the packet.`,
+		Exposed:        true,
+		Name:           "sourceInterface",
+		Stored:         true,
+		Type:           "string",
+	},
+	"sourceport": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "sourceport",
+		ConvertedName:  "SourcePort",
+		Description:    `Source TCP or UDP port of the packet.`,
+		Exposed:        true,
+		MaxValue:       65536,
+		MinValue:       1,
+		Name:           "sourcePort",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
+	"tablename": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "tablename",
+		ConvertedName:  "TableName",
+		Description:    `The iptables name that the trace collected.`,
+		Exposed:        true,
+		Name:           "tableName",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"timestamp": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Timestamp",
+		Description:    `The time-date stamp of the report.`,
+		Exposed:        true,
+		Name:           "timestamp",
+		Required:       true,
+		Type:           "time",
+	},
+}
+
 type mongoAttributesTraceRecord struct {
 	TTL                  int    `bson:"ttl"`
 	Chain                string `bson:"chain"`
