@@ -15046,7 +15046,7 @@ Type: `string`
 
 PEM-encoded server CA certificate.
 
-##### `syslogFacility` [`max_value=23.000000`]
+##### `syslogFacility` [`min_value=1.000000`,`max_value=23.000000`]
 
 Type: `integer`
 
