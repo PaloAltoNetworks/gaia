@@ -226,6 +226,428 @@ func (o *CloudNetworkQueryFilter) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*CloudNetworkQueryFilter) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := CloudNetworkQueryFilterAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return CloudNetworkQueryFilterLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*CloudNetworkQueryFilter) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return CloudNetworkQueryFilterAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *CloudNetworkQueryFilter) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "VPCIDs":
+		return o.VPCIDs
+	case "accountIDs":
+		return o.AccountIDs
+	case "cloudTypes":
+		return o.CloudTypes
+	case "imageIDs":
+		return o.ImageIDs
+	case "objectIDs":
+		return o.ObjectIDs
+	case "productInfoType":
+		return o.ProductInfoType
+	case "productInfoValue":
+		return o.ProductInfoValue
+	case "regions":
+		return o.Regions
+	case "resourceType":
+		return o.ResourceType
+	case "securityTags":
+		return o.SecurityTags
+	case "serviceNames":
+		return o.ServiceNames
+	case "serviceOwners":
+		return o.ServiceOwners
+	case "serviceTypes":
+		return o.ServiceTypes
+	case "subnets":
+		return o.Subnets
+	case "tags":
+		return o.Tags
+	}
+
+	return nil
+}
+
+// CloudNetworkQueryFilterAttributesMap represents the map of attribute for CloudNetworkQueryFilter.
+var CloudNetworkQueryFilterAttributesMap = map[string]elemental.AttributeSpecification{
+	"VPCIDs": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "vpcids",
+		ConvertedName:  "VPCIDs",
+		Description:    `The VPC ID of the target resources.`,
+		Exposed:        true,
+		Name:           "VPCIDs",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"AccountIDs": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "accountids",
+		ConvertedName:  "AccountIDs",
+		Description: `The accounts that the search must apply to. These are the actually IDs of the
+account as provided by the cloud provider. One or more IDs can be included.`,
+		Exposed: true,
+		Name:    "accountIDs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"CloudTypes": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "cloudtypes",
+		ConvertedName:  "CloudTypes",
+		Description:    `The cloud types that the search must apply to.`,
+		Exposed:        true,
+		Name:           "cloudTypes",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"ImageIDs": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "imageids",
+		ConvertedName:  "ImageIDs",
+		Description: `A list of imageIDs that endpoints can be filtered with. Applies only to
+resourceType Endpoint.`,
+		Exposed: true,
+		Name:    "imageIDs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"ObjectIDs": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "objectids",
+		ConvertedName:  "ObjectIDs",
+		Description: `The exact object that the search applies. If ObjectIDs are defined, the rest of
+the fields are ignored. An object ID can refer to an instance, VPC endpoint, or
+network interface.`,
+		Exposed: true,
+		Name:    "objectIDs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"ProductInfoType": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "productinfotype",
+		ConvertedName:  "ProductInfoType",
+		Description:    `Restricts the query on only endpoints with the given productInfoType.`,
+		Exposed:        true,
+		Name:           "productInfoType",
+		Stored:         true,
+		Type:           "string",
+	},
+	"ProductInfoValue": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "productinfovalue",
+		ConvertedName:  "ProductInfoValue",
+		Description: `Restricts the query to only endpoints with the provided productInfoValue. Does
+not apply to other resource types.`,
+		Exposed: true,
+		Name:    "productInfoValue",
+		Stored:  true,
+		Type:    "string",
+	},
+	"Regions": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "regions",
+		ConvertedName:  "Regions",
+		Description:    `The region that the search must apply to.`,
+		Exposed:        true,
+		Name:           "regions",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"ResourceType": {
+		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit"},
+		BSONFieldName:  "resourcetype",
+		ConvertedName:  "ResourceType",
+		DefaultValue:   CloudNetworkQueryFilterResourceTypeInstance,
+		Description: `The type of endpoint resource. The resource type is a mandatory field and a
+query cannot span multiple resource types.`,
+		Exposed:  true,
+		Name:     "resourceType",
+		Required: true,
+		Stored:   true,
+		Type:     "enum",
+	},
+	"SecurityTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "securitytags",
+		ConvertedName:  "SecurityTags",
+		Description: `The list of security tags associated with the targets of the query. Security
+tags refer to security groups in AWS or network tags in GCP. So they can have
+different meaning depending on the target cloud.`,
+		Exposed: true,
+		Name:    "securityTags",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"ServiceNames": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "servicenames",
+		ConvertedName:  "ServiceNames",
+		Description: `Identifies a list of service names that should be taken into account. This is
+only valid with a resource type equal to Service.`,
+		Exposed: true,
+		Name:    "serviceNames",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"ServiceOwners": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "serviceowners",
+		ConvertedName:  "ServiceOwners",
+		Description: `Identifies the owner of the service that the resource is attached to. Field is
+not valid if the resource type is not an interface.`,
+		Exposed: true,
+		Name:    "serviceOwners",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"ServiceTypes": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "servicetypes",
+		ConvertedName:  "ServiceTypes",
+		Description: `Identifies the type of service that the interface is attached to. Field is not
+valid if the resource type is not an
+interface.`,
+		Exposed: true,
+		Name:    "serviceTypes",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"Subnets": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "subnets",
+		ConvertedName:  "Subnets",
+		Description: `The subnets where the resources must reside. A subnet parameter can only be
+provided for a network interface resource type.`,
+		Exposed: true,
+		Name:    "subnets",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"Tags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "tags",
+		ConvertedName:  "Tags",
+		Description: `A list of tags that select the same of endpoints for the query. These tags refer
+to the tags attached to the resources in the cloud provider definitions.`,
+		Exposed: true,
+		Name:    "tags",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+}
+
+// CloudNetworkQueryFilterLowerCaseAttributesMap represents the map of attribute for CloudNetworkQueryFilter.
+var CloudNetworkQueryFilterLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"vpcids": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "vpcids",
+		ConvertedName:  "VPCIDs",
+		Description:    `The VPC ID of the target resources.`,
+		Exposed:        true,
+		Name:           "VPCIDs",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"accountids": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "accountids",
+		ConvertedName:  "AccountIDs",
+		Description: `The accounts that the search must apply to. These are the actually IDs of the
+account as provided by the cloud provider. One or more IDs can be included.`,
+		Exposed: true,
+		Name:    "accountIDs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"cloudtypes": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "cloudtypes",
+		ConvertedName:  "CloudTypes",
+		Description:    `The cloud types that the search must apply to.`,
+		Exposed:        true,
+		Name:           "cloudTypes",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"imageids": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "imageids",
+		ConvertedName:  "ImageIDs",
+		Description: `A list of imageIDs that endpoints can be filtered with. Applies only to
+resourceType Endpoint.`,
+		Exposed: true,
+		Name:    "imageIDs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"objectids": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "objectids",
+		ConvertedName:  "ObjectIDs",
+		Description: `The exact object that the search applies. If ObjectIDs are defined, the rest of
+the fields are ignored. An object ID can refer to an instance, VPC endpoint, or
+network interface.`,
+		Exposed: true,
+		Name:    "objectIDs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"productinfotype": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "productinfotype",
+		ConvertedName:  "ProductInfoType",
+		Description:    `Restricts the query on only endpoints with the given productInfoType.`,
+		Exposed:        true,
+		Name:           "productInfoType",
+		Stored:         true,
+		Type:           "string",
+	},
+	"productinfovalue": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "productinfovalue",
+		ConvertedName:  "ProductInfoValue",
+		Description: `Restricts the query to only endpoints with the provided productInfoValue. Does
+not apply to other resource types.`,
+		Exposed: true,
+		Name:    "productInfoValue",
+		Stored:  true,
+		Type:    "string",
+	},
+	"regions": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "regions",
+		ConvertedName:  "Regions",
+		Description:    `The region that the search must apply to.`,
+		Exposed:        true,
+		Name:           "regions",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"resourcetype": {
+		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit"},
+		BSONFieldName:  "resourcetype",
+		ConvertedName:  "ResourceType",
+		DefaultValue:   CloudNetworkQueryFilterResourceTypeInstance,
+		Description: `The type of endpoint resource. The resource type is a mandatory field and a
+query cannot span multiple resource types.`,
+		Exposed:  true,
+		Name:     "resourceType",
+		Required: true,
+		Stored:   true,
+		Type:     "enum",
+	},
+	"securitytags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "securitytags",
+		ConvertedName:  "SecurityTags",
+		Description: `The list of security tags associated with the targets of the query. Security
+tags refer to security groups in AWS or network tags in GCP. So they can have
+different meaning depending on the target cloud.`,
+		Exposed: true,
+		Name:    "securityTags",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"servicenames": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "servicenames",
+		ConvertedName:  "ServiceNames",
+		Description: `Identifies a list of service names that should be taken into account. This is
+only valid with a resource type equal to Service.`,
+		Exposed: true,
+		Name:    "serviceNames",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"serviceowners": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "serviceowners",
+		ConvertedName:  "ServiceOwners",
+		Description: `Identifies the owner of the service that the resource is attached to. Field is
+not valid if the resource type is not an interface.`,
+		Exposed: true,
+		Name:    "serviceOwners",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"servicetypes": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "servicetypes",
+		ConvertedName:  "ServiceTypes",
+		Description: `Identifies the type of service that the interface is attached to. Field is not
+valid if the resource type is not an
+interface.`,
+		Exposed: true,
+		Name:    "serviceTypes",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"subnets": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "subnets",
+		ConvertedName:  "Subnets",
+		Description: `The subnets where the resources must reside. A subnet parameter can only be
+provided for a network interface resource type.`,
+		Exposed: true,
+		Name:    "subnets",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"tags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "tags",
+		ConvertedName:  "Tags",
+		Description: `A list of tags that select the same of endpoints for the query. These tags refer
+to the tags attached to the resources in the cloud provider definitions.`,
+		Exposed: true,
+		Name:    "tags",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+}
+
 type mongoAttributesCloudNetworkQueryFilter struct {
 	VPCIDs           []string                                 `bson:"vpcids,omitempty"`
 	AccountIDs       []string                                 `bson:"accountids,omitempty"`

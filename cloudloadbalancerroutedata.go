@@ -112,6 +112,104 @@ func (o *CloudLoadBalancerRouteData) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*CloudLoadBalancerRouteData) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := CloudLoadBalancerRouteDataAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return CloudLoadBalancerRouteDataLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*CloudLoadBalancerRouteData) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return CloudLoadBalancerRouteDataAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *CloudLoadBalancerRouteData) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "port":
+		return o.Port
+	case "targetGroupID":
+		return o.TargetGroupID
+	case "targetID":
+		return o.TargetID
+	}
+
+	return nil
+}
+
+// CloudLoadBalancerRouteDataAttributesMap represents the map of attribute for CloudLoadBalancerRouteData.
+var CloudLoadBalancerRouteDataAttributesMap = map[string]elemental.AttributeSpecification{
+	"Port": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Port",
+		Description:    `The port for the target group.`,
+		Exposed:        true,
+		Name:           "port",
+		Type:           "string",
+	},
+	"TargetGroupID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "targetgroupid",
+		ConvertedName:  "TargetGroupID",
+		Description:    `The ID for the target group.`,
+		Exposed:        true,
+		Name:           "targetGroupID",
+		Stored:         true,
+		Type:           "string",
+	},
+	"TargetID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "targetid",
+		ConvertedName:  "TargetID",
+		Description:    `The ID of the target object.`,
+		Exposed:        true,
+		Name:           "targetID",
+		Stored:         true,
+		Type:           "string",
+	},
+}
+
+// CloudLoadBalancerRouteDataLowerCaseAttributesMap represents the map of attribute for CloudLoadBalancerRouteData.
+var CloudLoadBalancerRouteDataLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"port": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Port",
+		Description:    `The port for the target group.`,
+		Exposed:        true,
+		Name:           "port",
+		Type:           "string",
+	},
+	"targetgroupid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "targetgroupid",
+		ConvertedName:  "TargetGroupID",
+		Description:    `The ID for the target group.`,
+		Exposed:        true,
+		Name:           "targetGroupID",
+		Stored:         true,
+		Type:           "string",
+	},
+	"targetid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "targetid",
+		ConvertedName:  "TargetID",
+		Description:    `The ID of the target object.`,
+		Exposed:        true,
+		Name:           "targetID",
+		Stored:         true,
+		Type:           "string",
+	},
+}
+
 type mongoAttributesCloudLoadBalancerRouteData struct {
 	TargetGroupID string `bson:"targetgroupid"`
 	TargetID      string `bson:"targetid"`
