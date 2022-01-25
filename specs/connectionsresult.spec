@@ -8,10 +8,18 @@ model:
   description: A result from a connections request.
   extends:
   - '@namespaced'
-  
+
 # Attributes
 attributes:
   v1:
+  - name: connections
+    description: Contains a batch of connections.
+    type: refList
+    exposed: true
+    subtype: currentconnection
+    extensions:
+      refMode: pointer
+
   - name: requestID
     description: Unique ID generated for each request.
     type: string
@@ -24,12 +32,3 @@ attributes:
     type: integer
     exposed: true
     omit_empty: true
-    min_value: 0
-
-  - name: connections
-    description: Contains a batch of connections.
-    type: refList
-    exposed: true
-    subtype: currentconnection
-    extensions:
-      refMode: pointer
