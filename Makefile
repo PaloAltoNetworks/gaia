@@ -77,4 +77,3 @@ test:
 codecgen:
 	rm -f values_codecgen.go ; codecgen -o values_codecgen.go *.go;
 	cd types && rm -f values_codecgen.go ; codecgen -o values_codecgen.go *.go;
- 
