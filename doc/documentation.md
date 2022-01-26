@@ -8077,7 +8077,7 @@ The subtype of a list parameter.
 
 ##### `type` [`required`]
 
-Type: `enum(Boolean | Checkbox | CVSSThreshold | DangerMessage | Duration | Enum | Endpoint | FileDrop | Float | FloatSlice | InfoMessage | Integer | IntegerSlice | JSON | List | Message | Namespace | Password | String | StringSlice | Switch | TagsExpression | Title | WarningMessage)`
+Type: `enum(Boolean | Checkbox | CVSSThreshold | DangerMessage | Duration | Enum | Endpoint | FileDrop | Float | FloatSlice | InfoMessage | Integer | IntegerSlice | JSON | List | Message | Namespace | Password | String | StringSlice | Switch | TagsExpression | Title | WarningMessage | AutomationAction)`
 
 The datatype of the parameter.
 
