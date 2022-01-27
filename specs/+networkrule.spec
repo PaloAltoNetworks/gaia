@@ -87,3 +87,10 @@ attributes:
     subtype: string
     validations:
     - $serviceports
+
+  - name: appidRestrictions
+    description: |-
+      appid restrictions.
+    type: string
+    exposed: true
+    subtype: string
