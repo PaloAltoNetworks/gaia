@@ -32,9 +32,11 @@ type NetworkRule struct {
 	// Console.
 	// Under some advanced scenarios you may wish to set this to `true`, such as to
 	// save space or improve performance.
+	// +optional
 	LogsDisabled bool `json:"logsDisabled" msgpack:"logsDisabled" bson:"-" mapstructure:"logsDisabled,omitempty"`
 
 	// A user defined name to keep track of the rule in the reporting.
+	// +optional
 	Name string `json:"name,omitempty" msgpack:"name,omitempty" bson:"-" mapstructure:"name,omitempty"`
 
 	// A list of IP CIDRS or FQDNS that identify remote endpoints.
@@ -43,15 +45,18 @@ type NetworkRule struct {
 	// Identifies the set of remote workloads that the rule relates to. The selector
 	// will identify both processing units as well as external networks that match the
 	// selector.
+	// +optional
 	Object [][]string `json:"object" msgpack:"object" bson:"-" mapstructure:"object,omitempty"`
 
 	// If set to `true`, the flow will be in observation mode.
+	// +optional
 	ObservationEnabled bool `json:"observationEnabled" msgpack:"observationEnabled" bson:"-" mapstructure:"observationEnabled,omitempty"`
 
 	// Represents the ports and protocols this policy applies to. Protocol/ports are
 	// defined as tcp/80, udp/22. For protocols that do not have ports, the port
 	// designation
 	// is not allowed.
+	// +optional
 	ProtocolPorts []string `json:"protocolPorts" msgpack:"protocolPorts" bson:"-" mapstructure:"protocolPorts,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
