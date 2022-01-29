@@ -55,7 +55,7 @@ type NetworkRule struct {
 	ProtocolPorts []string `json:"protocolPorts" msgpack:"protocolPorts" bson:"-" mapstructure:"protocolPorts,omitempty"`
 
 	// appids restriction
-	AppidsRestriction string `json:"appidsRestriction" msgpack:"appidsRestriction" bson:"-" mapstructure:"appidsRestriction,omitempty"`
+	AppidRestrictions string `json:"appidRestrictions" msgpack:"appidRestrictions" bson:"-" mapstructure:"appidRestrictions,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
