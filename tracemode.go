@@ -125,6 +125,140 @@ func (o *TraceMode) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*TraceMode) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := TraceModeAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return TraceModeLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*TraceMode) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return TraceModeAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *TraceMode) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "IPTables":
+		return o.IPTables
+	case "applicationConnections":
+		return o.ApplicationConnections
+	case "interval":
+		return o.Interval
+	case "networkConnections":
+		return o.NetworkConnections
+	}
+
+	return nil
+}
+
+// TraceModeAttributesMap represents the map of attribute for TraceMode.
+var TraceModeAttributesMap = map[string]elemental.AttributeSpecification{
+	"IPTables": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "iptables",
+		ConvertedName:  "IPTables",
+		Description:    `Instructs the enforcers to provide an iptables trace for a processing unit.`,
+		Exposed:        true,
+		Name:           "IPTables",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"ApplicationConnections": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "applicationconnections",
+		ConvertedName:  "ApplicationConnections",
+		Description: `Instructs the enforcer to send records for all
+application-initiated connections.`,
+		Exposed: true,
+		Name:    "applicationConnections",
+		Stored:  true,
+		Type:    "boolean",
+	},
+	"Interval": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "interval",
+		ConvertedName:  "Interval",
+		DefaultValue:   "10s",
+		Description: `Determines the length of the time interval that the trace must be
+enabled, using [Golang duration
+syntax](https://golang.org/pkg/time/#example_Duration).`,
+		Exposed: true,
+		Name:    "interval",
+		Stored:  true,
+		Type:    "string",
+	},
+	"NetworkConnections": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "networkconnections",
+		ConvertedName:  "NetworkConnections",
+		Description: `Instructs the enforcer to send records for all
+network-initiated connections.`,
+		Exposed: true,
+		Name:    "networkConnections",
+		Stored:  true,
+		Type:    "boolean",
+	},
+}
+
+// TraceModeLowerCaseAttributesMap represents the map of attribute for TraceMode.
+var TraceModeLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"iptables": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "iptables",
+		ConvertedName:  "IPTables",
+		Description:    `Instructs the enforcers to provide an iptables trace for a processing unit.`,
+		Exposed:        true,
+		Name:           "IPTables",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"applicationconnections": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "applicationconnections",
+		ConvertedName:  "ApplicationConnections",
+		Description: `Instructs the enforcer to send records for all
+application-initiated connections.`,
+		Exposed: true,
+		Name:    "applicationConnections",
+		Stored:  true,
+		Type:    "boolean",
+	},
+	"interval": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "interval",
+		ConvertedName:  "Interval",
+		DefaultValue:   "10s",
+		Description: `Determines the length of the time interval that the trace must be
+enabled, using [Golang duration
+syntax](https://golang.org/pkg/time/#example_Duration).`,
+		Exposed: true,
+		Name:    "interval",
+		Stored:  true,
+		Type:    "string",
+	},
+	"networkconnections": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "networkconnections",
+		ConvertedName:  "NetworkConnections",
+		Description: `Instructs the enforcer to send records for all
+network-initiated connections.`,
+		Exposed: true,
+		Name:    "networkConnections",
+		Stored:  true,
+		Type:    "boolean",
+	},
+}
+
 type mongoAttributesTraceMode struct {
 	IPTables               bool   `bson:"iptables"`
 	ApplicationConnections bool   `bson:"applicationconnections"`

@@ -75,6 +75,24 @@ func ValidatePortStringList(attribute string, ports []string) error {
 	return nil
 }
 
+// ValidateSyslogEndpoint validates syslog endpoint.
+func ValidateSyslogEndpoint(attribute string, endpoint string) error {
+
+	if endpoint == "" {
+		return nil
+	}
+
+	prefixes := []string{"udp://", "tcp://", "tls://"}
+
+	for _, p := range prefixes {
+		if strings.HasPrefix(endpoint, p) {
+			return nil
+		}
+	}
+
+	return makeValidationError(attribute, fmt.Sprintf("Attribute '%s' is not a valid syslog endpoint", attribute))
+}
+
 var rxDNSName = regexp.MustCompile(`^(\*\.){0,1}([a-zA-Z0-9_]{1}[a-zA-Z0-9_-]{0,62}){1}(\.[a-zA-Z0-9_]{1}[a-zA-Z0-9_-]{0,62})*[\._]?$`)
 
 // ValidateNetworkOrHostnameList validates a list of networks.
@@ -462,9 +480,9 @@ func ValidateProcessingUnitPolicy(policy *ProcessingUnitPolicy) error {
 
 	if policy.Action == ProcessingUnitPolicyActionDefault && policy.DatapathType == ProcessingUnitPolicyDatapathTypeDefault {
 		if len(policy.IsolationProfileSelector) == 0 {
-			return makeValidationError("datapathType", fmt.Sprintf("Both datapath and action cannot be set to default"))
+			return makeValidationError("datapathType", "Both datapath and action cannot be set to default")
 		}
-		return makeValidationError("action", fmt.Sprintf("Both datapath and action cannot be set to default"))
+		return makeValidationError("action", "Both datapath and action cannot be set to default")
 	}
 
 	return nil
@@ -835,7 +853,7 @@ func ValidateICMPTypeCodeNotation(attribute string, protocol string, typeCode st
 }
 
 // isNumberBetween check if a string is a number within the min and max boundaries.
-func isNumberBetween(attribute string, protocol string, s string, min int, max int) (int, error) {
+func isNumberBetween(attribute string, protocol string, s string, min int, max int) (int, error) { // nolint:unparam
 
 	i, err := strconv.Atoi(s)
 	if err != nil {
@@ -1253,7 +1271,7 @@ func ValidateWriteOperations(attribute string, operations []string) error {
 	}
 
 	if ncreate > 1 || nupdate > 1 || ndelete > 1 {
-		return makeValidationError(attribute, fmt.Sprintf("Must not contain the same operation multiple times"))
+		return makeValidationError(attribute, "Must not contain the same operation multiple times")
 	}
 
 	return nil
@@ -1308,9 +1326,10 @@ func ValidateHookPolicy(policy *HookPolicy) error {
 func supportedSubtypes() map[string]struct{} {
 
 	return map[string]struct{}{
-		"String":   {},
-		"Integer":  {},
-		"Endpoint": {},
+		"String":           {},
+		"Integer":          {},
+		"Endpoint":         {},
+		"AutomationAction": {},
 	}
 }
 
@@ -1439,7 +1458,7 @@ func ValidateCloudTag(attribute string, tag string) error {
 }
 
 // nativeIDRegex is the regular expression to check the format of the nativeID.
-var nativeIDRegex = regexp.MustCompile(`^[a-zA-Z0-9-_#+.:@]+$`)
+var nativeIDRegex = regexp.MustCompile(`^[a-zA-Z0-9-_#+.\/:@]+$`)
 
 // ValidateNativeID validates a single tag.
 func ValidateNativeID(attribute string, tag string) error {
@@ -1595,6 +1614,10 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 		if len(q.DestinationIP) == 0 && len(q.DestinationSelector.ObjectIDs) != 1 {
 			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
 		}
+	}
+
+	if q.SourceIP == "" && q.DestinationIP == "" && (q.AddressMatchCriteria == CloudNetworkQueryAddressMatchCriteriaFullMatch || q.AddressMatchCriteria == CloudNetworkQueryAddressMatchCriteriaPartialMatch) {
+		return makeValidationError("Entity CloudNetworkQuery", "'AddressMatchCriteria' can only be set when IPs are given")
 	}
 
 	return nil

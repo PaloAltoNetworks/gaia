@@ -191,5 +191,205 @@ func (o *NetworkRule) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*NetworkRule) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := NetworkRuleAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return NetworkRuleLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*NetworkRule) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return NetworkRuleAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *NetworkRule) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "action":
+		return o.Action
+	case "logsDisabled":
+		return o.LogsDisabled
+	case "name":
+		return o.Name
+	case "networks":
+		return o.Networks
+	case "object":
+		return o.Object
+	case "observationEnabled":
+		return o.ObservationEnabled
+	case "protocolPorts":
+		return o.ProtocolPorts
+	}
+
+	return nil
+}
+
+// NetworkRuleAttributesMap represents the map of attribute for NetworkRule.
+var NetworkRuleAttributesMap = map[string]elemental.AttributeSpecification{
+	"Action": {
+		AllowedChoices: []string{"Allow", "Reject"},
+		ConvertedName:  "Action",
+		DefaultValue:   NetworkRuleActionAllow,
+		Description: `Defines the action to apply to a flow.
+- ` + "`" + `Allow` + "`" + `: allows the defined traffic.
+- ` + "`" + `Reject` + "`" + `: rejects the defined traffic; useful in conjunction with an allow all
+policy.`,
+		Exposed:  true,
+		Name:     "action",
+		Required: true,
+		Type:     "enum",
+	},
+	"LogsDisabled": {
+		AllowedChoices: []string{},
+		ConvertedName:  "LogsDisabled",
+		Description: `If ` + "`" + `true` + "`" + `, the relevant flows will not be reported to the Microsegmentation
+Console.
+Under some advanced scenarios you may wish to set this to ` + "`" + `true` + "`" + `, such as to
+save space or improve performance.`,
+		Exposed: true,
+		Name:    "logsDisabled",
+		Type:    "boolean",
+	},
+	"Name": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Name",
+		Description:    `A user defined name to keep track of the rule in the reporting.`,
+		Exposed:        true,
+		MaxLength:      16,
+		Name:           "name",
+		Type:           "string",
+	},
+	"Networks": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Networks",
+		Description:    `A list of IP CIDRS or FQDNS that identify remote endpoints.`,
+		Exposed:        true,
+		Name:           "networks",
+		ReadOnly:       true,
+		SubType:        "networkrulenet",
+		Type:           "refList",
+	},
+	"Object": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Object",
+		Description: `Identifies the set of remote workloads that the rule relates to. The selector
+will identify both processing units as well as external networks that match the
+selector.`,
+		Exposed:   true,
+		Name:      "object",
+		Orderable: true,
+		SubType:   "[][]string",
+		Type:      "external",
+	},
+	"ObservationEnabled": {
+		AllowedChoices: []string{},
+		ConvertedName:  "ObservationEnabled",
+		Description:    `If set to ` + "`" + `true` + "`" + `, the flow will be in observation mode.`,
+		Exposed:        true,
+		Name:           "observationEnabled",
+		Type:           "boolean",
+	},
+	"ProtocolPorts": {
+		AllowedChoices: []string{},
+		ConvertedName:  "ProtocolPorts",
+		Description: `Represents the ports and protocols this policy applies to. Protocol/ports are
+defined as tcp/80, udp/22. For protocols that do not have ports, the port
+designation
+is not allowed.`,
+		Exposed: true,
+		Name:    "protocolPorts",
+		SubType: "string",
+		Type:    "list",
+	},
+}
+
+// NetworkRuleLowerCaseAttributesMap represents the map of attribute for NetworkRule.
+var NetworkRuleLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"action": {
+		AllowedChoices: []string{"Allow", "Reject"},
+		ConvertedName:  "Action",
+		DefaultValue:   NetworkRuleActionAllow,
+		Description: `Defines the action to apply to a flow.
+- ` + "`" + `Allow` + "`" + `: allows the defined traffic.
+- ` + "`" + `Reject` + "`" + `: rejects the defined traffic; useful in conjunction with an allow all
+policy.`,
+		Exposed:  true,
+		Name:     "action",
+		Required: true,
+		Type:     "enum",
+	},
+	"logsdisabled": {
+		AllowedChoices: []string{},
+		ConvertedName:  "LogsDisabled",
+		Description: `If ` + "`" + `true` + "`" + `, the relevant flows will not be reported to the Microsegmentation
+Console.
+Under some advanced scenarios you may wish to set this to ` + "`" + `true` + "`" + `, such as to
+save space or improve performance.`,
+		Exposed: true,
+		Name:    "logsDisabled",
+		Type:    "boolean",
+	},
+	"name": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Name",
+		Description:    `A user defined name to keep track of the rule in the reporting.`,
+		Exposed:        true,
+		MaxLength:      16,
+		Name:           "name",
+		Type:           "string",
+	},
+	"networks": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Networks",
+		Description:    `A list of IP CIDRS or FQDNS that identify remote endpoints.`,
+		Exposed:        true,
+		Name:           "networks",
+		ReadOnly:       true,
+		SubType:        "networkrulenet",
+		Type:           "refList",
+	},
+	"object": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Object",
+		Description: `Identifies the set of remote workloads that the rule relates to. The selector
+will identify both processing units as well as external networks that match the
+selector.`,
+		Exposed:   true,
+		Name:      "object",
+		Orderable: true,
+		SubType:   "[][]string",
+		Type:      "external",
+	},
+	"observationenabled": {
+		AllowedChoices: []string{},
+		ConvertedName:  "ObservationEnabled",
+		Description:    `If set to ` + "`" + `true` + "`" + `, the flow will be in observation mode.`,
+		Exposed:        true,
+		Name:           "observationEnabled",
+		Type:           "boolean",
+	},
+	"protocolports": {
+		AllowedChoices: []string{},
+		ConvertedName:  "ProtocolPorts",
+		Description: `Represents the ports and protocols this policy applies to. Protocol/ports are
+defined as tcp/80, udp/22. For protocols that do not have ports, the port
+designation
+is not allowed.`,
+		Exposed: true,
+		Name:    "protocolPorts",
+		SubType: "string",
+		Type:    "list",
+	},
+}
+
 type mongoAttributesNetworkRule struct {
 }

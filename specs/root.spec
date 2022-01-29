@@ -169,9 +169,23 @@ relations:
   create:
     description: Creates a new Automation.
 
-- rest_name: automationtemplate
+- rest_name: automationaction
   get:
-    description: Retrieves the list of automation templates.
+    description: Retrieves the list of automation actions.
+    global_parameters:
+    - $filtering
+    - $propagatable
+  create:
+    description: Creates a new automation action.
+
+- rest_name: automationcondition
+  get:
+    description: Retrieves the list of automation conditions.
+    global_parameters:
+    - $filtering
+    - $propagatable
+  create:
+    description: Creates a new automation condition.
 
 - rest_name: cachedflowreport
   create:
@@ -226,6 +240,22 @@ relations:
     description: |-
       Creates a cloud dependency graph based on ingested data and the required
       parameters.
+
+- rest_name: cloudloadbalancer
+  get:
+    description: Retrieves the list of cloud load balancers.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a cloud Load Balancer.
+
+- rest_name: cloudloadbalancerroute
+  get:
+    description: Retrieves the list of cloud load balancers route.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a cloud Load Balancer Route.
 
 - rest_name: cloudmanagednetwork
   get:
@@ -340,6 +370,10 @@ relations:
   create:
     description: Create a connection exception report.
 
+- rest_name: connectionsresult
+  create:
+    description: Creates a new connections result.
+
 - rest_name: counterreport
   create:
     description: Create a counter report.
@@ -436,6 +470,10 @@ relations:
   create:
     description: Create an enforcer statistics report.
 
+- rest_name: enforcersecret
+  get:
+    description: Retrieves the enforcer secret.
+
 - rest_name: enforcertracereport
   create:
     description: Create an enforcer trace report.
@@ -493,6 +531,11 @@ relations:
     global_parameters:
     - $timewindow
     - $filtering
+    parameters:
+      entries:
+      - name: includeDetails
+        description: If set to true, each edge will contain a field called 'Details' which provides detailed information per protocol/port.
+        type: boolean
 
 - rest_name: graphnode
   get:

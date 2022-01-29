@@ -19,6 +19,12 @@ const (
 	// CloudNodeTypeInterface represents the value Interface.
 	CloudNodeTypeInterface CloudNodeTypeValue = "Interface"
 
+	// CloudNodeTypeLoadBalancer represents the value LoadBalancer.
+	CloudNodeTypeLoadBalancer CloudNodeTypeValue = "LoadBalancer"
+
+	// CloudNodeTypeLoadBalancerRoute represents the value LoadBalancerRoute.
+	CloudNodeTypeLoadBalancerRoute CloudNodeTypeValue = "LoadBalancerRoute"
+
 	// CloudNodeTypeNetworkRuleSet represents the value NetworkRuleSet.
 	CloudNodeTypeNetworkRuleSet CloudNodeTypeValue = "NetworkRuleSet"
 
@@ -951,7 +957,7 @@ func (o *CloudNode) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1409,7 +1415,7 @@ var CloudNodeAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "string",
 	},
 	"Type": {
-		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet"},
+		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
@@ -1828,7 +1834,7 @@ var CloudNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Type:           "string",
 	},
 	"type": {
-		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet"},
+		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,

@@ -108,6 +108,7 @@ attributes:
     - TagsExpression
     - Title
     - WarningMessage
+    - AutomationAction
     example_value: String
 
   - name: validationFunction

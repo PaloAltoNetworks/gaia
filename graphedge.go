@@ -139,6 +139,12 @@ type GraphEdge struct {
 	// The date for the month bucket.
 	BucketMonth time.Time `json:"-" msgpack:"-" bson:"bucketmonth" mapstructure:"-,omitempty"`
 
+	// The truth value that indicates if there are accepted default flows.
+	DefaultAcceptedFlows bool `json:"defaultAcceptedFlows" msgpack:"defaultAcceptedFlows" bson:"defaultacceptedflows" mapstructure:"defaultAcceptedFlows,omitempty"`
+
+	// The truth value that indicates if there are rejected default flows.
+	DefaultRejectedFlows bool `json:"defaultRejectedFlows" msgpack:"defaultRejectedFlows" bson:"defaultrejectedflows" mapstructure:"defaultRejectedFlows,omitempty"`
+
 	// Name of the remote destination controller if different than the current one.
 	DestinationController string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"destinationcontroller,omitempty" mapstructure:"destinationController,omitempty"`
 
@@ -147,6 +153,9 @@ type GraphEdge struct {
 
 	// Type of the destination `GraphNode` of the edge.
 	DestinationType GraphEdgeDestinationTypeValue `json:"destinationType" msgpack:"destinationType" bson:"destinationtype" mapstructure:"destinationType,omitempty"`
+
+	// Contains more flow details grouped by their destination protocol/ports.
+	Details map[string]*GraphEdgeFlowDetails `json:"details,omitempty" msgpack:"details,omitempty" bson:"-" mapstructure:"details,omitempty"`
 
 	// The number of encrypted flows in the edge.
 	Encrypted bool `json:"encrypted" msgpack:"encrypted" bson:"encrypted" mapstructure:"encrypted,omitempty"`
@@ -202,6 +211,7 @@ func NewGraphEdge() *GraphEdge {
 
 	return &GraphEdge{
 		ModelVersion: 1,
+		Details:      map[string]*GraphEdgeFlowDetails{},
 	}
 }
 
@@ -241,6 +251,8 @@ func (o *GraphEdge) GetBSON() (interface{}, error) {
 	s.BucketHour = o.BucketHour
 	s.BucketMinute = o.BucketMinute
 	s.BucketMonth = o.BucketMonth
+	s.DefaultAcceptedFlows = o.DefaultAcceptedFlows
+	s.DefaultRejectedFlows = o.DefaultRejectedFlows
 	s.DestinationController = o.DestinationController
 	s.DestinationID = o.DestinationID
 	s.DestinationType = o.DestinationType
@@ -282,6 +294,8 @@ func (o *GraphEdge) SetBSON(raw bson.Raw) error {
 	o.BucketHour = s.BucketHour
 	o.BucketMinute = s.BucketMinute
 	o.BucketMonth = s.BucketMonth
+	o.DefaultAcceptedFlows = s.DefaultAcceptedFlows
+	o.DefaultRejectedFlows = s.DefaultRejectedFlows
 	o.DestinationController = s.DestinationController
 	o.DestinationID = s.DestinationID
 	o.DestinationType = s.DestinationType
@@ -370,9 +384,12 @@ func (o *GraphEdge) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			BucketHour:            &o.BucketHour,
 			BucketMinute:          &o.BucketMinute,
 			BucketMonth:           &o.BucketMonth,
+			DefaultAcceptedFlows:  &o.DefaultAcceptedFlows,
+			DefaultRejectedFlows:  &o.DefaultRejectedFlows,
 			DestinationController: &o.DestinationController,
 			DestinationID:         &o.DestinationID,
 			DestinationType:       &o.DestinationType,
+			Details:               &o.Details,
 			Encrypted:             &o.Encrypted,
 			FirstSeen:             &o.FirstSeen,
 			FlowID:                &o.FlowID,
@@ -406,12 +423,18 @@ func (o *GraphEdge) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.BucketMinute = &(o.BucketMinute)
 		case "bucketMonth":
 			sp.BucketMonth = &(o.BucketMonth)
+		case "defaultAcceptedFlows":
+			sp.DefaultAcceptedFlows = &(o.DefaultAcceptedFlows)
+		case "defaultRejectedFlows":
+			sp.DefaultRejectedFlows = &(o.DefaultRejectedFlows)
 		case "destinationController":
 			sp.DestinationController = &(o.DestinationController)
 		case "destinationID":
 			sp.DestinationID = &(o.DestinationID)
 		case "destinationType":
 			sp.DestinationType = &(o.DestinationType)
+		case "details":
+			sp.Details = &(o.Details)
 		case "encrypted":
 			sp.Encrypted = &(o.Encrypted)
 		case "firstSeen":
@@ -473,6 +496,12 @@ func (o *GraphEdge) Patch(sparse elemental.SparseIdentifiable) {
 	if so.BucketMonth != nil {
 		o.BucketMonth = *so.BucketMonth
 	}
+	if so.DefaultAcceptedFlows != nil {
+		o.DefaultAcceptedFlows = *so.DefaultAcceptedFlows
+	}
+	if so.DefaultRejectedFlows != nil {
+		o.DefaultRejectedFlows = *so.DefaultRejectedFlows
+	}
 	if so.DestinationController != nil {
 		o.DestinationController = *so.DestinationController
 	}
@@ -481,6 +510,9 @@ func (o *GraphEdge) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.DestinationType != nil {
 		o.DestinationType = *so.DestinationType
+	}
+	if so.Details != nil {
+		o.Details = *so.Details
 	}
 	if so.Encrypted != nil {
 		o.Encrypted = *so.Encrypted
@@ -563,6 +595,16 @@ func (o *GraphEdge) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	for _, sub := range o.Details {
+		if sub == nil {
+			continue
+		}
+		elemental.ResetDefaultForZeroValues(sub)
+		if err := sub.Validate(); err != nil {
+			errors = errors.Append(err)
+		}
+	}
+
 	if err := elemental.ValidateStringInList("sourceType", string(o.SourceType), []string{"ProcessingUnit", "ExternalNetwork", "Namespace", "Node", "RemoteController"}, false); err != nil {
 		errors = errors.Append(err)
 	}
@@ -613,12 +655,18 @@ func (o *GraphEdge) ValueForAttribute(name string) interface{} {
 		return o.BucketMinute
 	case "bucketMonth":
 		return o.BucketMonth
+	case "defaultAcceptedFlows":
+		return o.DefaultAcceptedFlows
+	case "defaultRejectedFlows":
+		return o.DefaultRejectedFlows
 	case "destinationController":
 		return o.DestinationController
 	case "destinationID":
 		return o.DestinationID
 	case "destinationType":
 		return o.DestinationType
+	case "details":
+		return o.Details
 	case "encrypted":
 		return o.Encrypted
 	case "firstSeen":
@@ -712,6 +760,26 @@ var GraphEdgeAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		Type:           "time",
 	},
+	"DefaultAcceptedFlows": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "defaultacceptedflows",
+		ConvertedName:  "DefaultAcceptedFlows",
+		Description:    `The truth value that indicates if there are accepted default flows.`,
+		Exposed:        true,
+		Name:           "defaultAcceptedFlows",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"DefaultRejectedFlows": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "defaultrejectedflows",
+		ConvertedName:  "DefaultRejectedFlows",
+		Description:    `The truth value that indicates if there are rejected default flows.`,
+		Exposed:        true,
+		Name:           "defaultRejectedFlows",
+		Stored:         true,
+		Type:           "boolean",
+	},
 	"DestinationController": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "destinationcontroller",
@@ -741,6 +809,15 @@ var GraphEdgeAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "destinationType",
 		Stored:         true,
 		Type:           "enum",
+	},
+	"Details": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Details",
+		Description:    `Contains more flow details grouped by their destination protocol/ports.`,
+		Exposed:        true,
+		Name:           "details",
+		SubType:        "graphedgeflowdetails",
+		Type:           "refMap",
 	},
 	"Encrypted": {
 		AllowedChoices: []string{},
@@ -960,6 +1037,26 @@ var GraphEdgeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Stored:         true,
 		Type:           "time",
 	},
+	"defaultacceptedflows": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "defaultacceptedflows",
+		ConvertedName:  "DefaultAcceptedFlows",
+		Description:    `The truth value that indicates if there are accepted default flows.`,
+		Exposed:        true,
+		Name:           "defaultAcceptedFlows",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"defaultrejectedflows": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "defaultrejectedflows",
+		ConvertedName:  "DefaultRejectedFlows",
+		Description:    `The truth value that indicates if there are rejected default flows.`,
+		Exposed:        true,
+		Name:           "defaultRejectedFlows",
+		Stored:         true,
+		Type:           "boolean",
+	},
 	"destinationcontroller": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "destinationcontroller",
@@ -989,6 +1086,15 @@ var GraphEdgeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Name:           "destinationType",
 		Stored:         true,
 		Type:           "enum",
+	},
+	"details": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Details",
+		Description:    `Contains more flow details grouped by their destination protocol/ports.`,
+		Exposed:        true,
+		Name:           "details",
+		SubType:        "graphedgeflowdetails",
+		Type:           "refMap",
 	},
 	"encrypted": {
 		AllowedChoices: []string{},
@@ -1231,6 +1337,12 @@ type SparseGraphEdge struct {
 	// The date for the month bucket.
 	BucketMonth *time.Time `json:"-" msgpack:"-" bson:"bucketmonth,omitempty" mapstructure:"-,omitempty"`
 
+	// The truth value that indicates if there are accepted default flows.
+	DefaultAcceptedFlows *bool `json:"defaultAcceptedFlows,omitempty" msgpack:"defaultAcceptedFlows,omitempty" bson:"defaultacceptedflows,omitempty" mapstructure:"defaultAcceptedFlows,omitempty"`
+
+	// The truth value that indicates if there are rejected default flows.
+	DefaultRejectedFlows *bool `json:"defaultRejectedFlows,omitempty" msgpack:"defaultRejectedFlows,omitempty" bson:"defaultrejectedflows,omitempty" mapstructure:"defaultRejectedFlows,omitempty"`
+
 	// Name of the remote destination controller if different than the current one.
 	DestinationController *string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"destinationcontroller,omitempty" mapstructure:"destinationController,omitempty"`
 
@@ -1239,6 +1351,9 @@ type SparseGraphEdge struct {
 
 	// Type of the destination `GraphNode` of the edge.
 	DestinationType *GraphEdgeDestinationTypeValue `json:"destinationType,omitempty" msgpack:"destinationType,omitempty" bson:"destinationtype,omitempty" mapstructure:"destinationType,omitempty"`
+
+	// Contains more flow details grouped by their destination protocol/ports.
+	Details *map[string]*GraphEdgeFlowDetails `json:"details,omitempty" msgpack:"details,omitempty" bson:"-" mapstructure:"details,omitempty"`
 
 	// The number of encrypted flows in the edge.
 	Encrypted *bool `json:"encrypted,omitempty" msgpack:"encrypted,omitempty" bson:"encrypted,omitempty" mapstructure:"encrypted,omitempty"`
@@ -1347,6 +1462,12 @@ func (o *SparseGraphEdge) GetBSON() (interface{}, error) {
 	if o.BucketMonth != nil {
 		s.BucketMonth = o.BucketMonth
 	}
+	if o.DefaultAcceptedFlows != nil {
+		s.DefaultAcceptedFlows = o.DefaultAcceptedFlows
+	}
+	if o.DefaultRejectedFlows != nil {
+		s.DefaultRejectedFlows = o.DefaultRejectedFlows
+	}
 	if o.DestinationController != nil {
 		s.DestinationController = o.DestinationController
 	}
@@ -1435,6 +1556,12 @@ func (o *SparseGraphEdge) SetBSON(raw bson.Raw) error {
 	if s.BucketMonth != nil {
 		o.BucketMonth = s.BucketMonth
 	}
+	if s.DefaultAcceptedFlows != nil {
+		o.DefaultAcceptedFlows = s.DefaultAcceptedFlows
+	}
+	if s.DefaultRejectedFlows != nil {
+		o.DefaultRejectedFlows = s.DefaultRejectedFlows
+	}
 	if s.DestinationController != nil {
 		o.DestinationController = s.DestinationController
 	}
@@ -1521,6 +1648,12 @@ func (o *SparseGraphEdge) ToPlain() elemental.PlainIdentifiable {
 	if o.BucketMonth != nil {
 		out.BucketMonth = *o.BucketMonth
 	}
+	if o.DefaultAcceptedFlows != nil {
+		out.DefaultAcceptedFlows = *o.DefaultAcceptedFlows
+	}
+	if o.DefaultRejectedFlows != nil {
+		out.DefaultRejectedFlows = *o.DefaultRejectedFlows
+	}
 	if o.DestinationController != nil {
 		out.DestinationController = *o.DestinationController
 	}
@@ -1529,6 +1662,9 @@ func (o *SparseGraphEdge) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.DestinationType != nil {
 		out.DestinationType = *o.DestinationType
+	}
+	if o.Details != nil {
+		out.Details = *o.Details
 	}
 	if o.Encrypted != nil {
 		out.Encrypted = *o.Encrypted
@@ -1642,6 +1778,8 @@ type mongoAttributesGraphEdge struct {
 	BucketHour            time.Time                     `bson:"buckethour"`
 	BucketMinute          time.Time                     `bson:"bucketminute"`
 	BucketMonth           time.Time                     `bson:"bucketmonth"`
+	DefaultAcceptedFlows  bool                          `bson:"defaultacceptedflows"`
+	DefaultRejectedFlows  bool                          `bson:"defaultrejectedflows"`
 	DestinationController string                        `bson:"destinationcontroller,omitempty"`
 	DestinationID         string                        `bson:"destinationid"`
 	DestinationType       GraphEdgeDestinationTypeValue `bson:"destinationtype"`
@@ -1668,6 +1806,8 @@ type mongoAttributesSparseGraphEdge struct {
 	BucketHour            *time.Time                     `bson:"buckethour,omitempty"`
 	BucketMinute          *time.Time                     `bson:"bucketminute,omitempty"`
 	BucketMonth           *time.Time                     `bson:"bucketmonth,omitempty"`
+	DefaultAcceptedFlows  *bool                          `bson:"defaultacceptedflows,omitempty"`
+	DefaultRejectedFlows  *bool                          `bson:"defaultrejectedflows,omitempty"`
 	DestinationController *string                        `bson:"destinationcontroller,omitempty"`
 	DestinationID         *string                        `bson:"destinationid,omitempty"`
 	DestinationType       *GraphEdgeDestinationTypeValue `bson:"destinationtype,omitempty"`

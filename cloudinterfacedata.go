@@ -65,6 +65,13 @@ type CloudInterfaceData struct {
 	// Availability zone of the interface.
 	AvailabilityZone string `json:"availabilityZone" msgpack:"availabilityZone" bson:"availabilityzone" mapstructure:"availabilityZone,omitempty"`
 
+	// If the interface has a public IP in one of its IP address.
+	HasPublicIP bool `json:"hasPublicIP" msgpack:"hasPublicIP" bson:"haspublicip" mapstructure:"hasPublicIP,omitempty"`
+
+	// If the interface is attached to Load Balancer, the parentID identifies the
+	// related Load Balancer.
+	ParentID string `json:"parentID" msgpack:"parentID" bson:"parentid" mapstructure:"parentID,omitempty"`
+
 	// If the interface is of type or external, the relatedObjectID identifies the
 	// related service or gateway.
 	RelatedObjectID string `json:"relatedObjectID" msgpack:"relatedObjectID" bson:"relatedobjectid" mapstructure:"relatedObjectID,omitempty"`
@@ -106,6 +113,8 @@ func (o *CloudInterfaceData) GetBSON() (interface{}, error) {
 	s.Addresses = o.Addresses
 	s.AttachmentType = o.AttachmentType
 	s.AvailabilityZone = o.AvailabilityZone
+	s.HasPublicIP = o.HasPublicIP
+	s.ParentID = o.ParentID
 	s.RelatedObjectID = o.RelatedObjectID
 	s.RouteTableID = o.RouteTableID
 	s.SecurityTags = o.SecurityTags
@@ -130,6 +139,8 @@ func (o *CloudInterfaceData) SetBSON(raw bson.Raw) error {
 	o.Addresses = s.Addresses
 	o.AttachmentType = s.AttachmentType
 	o.AvailabilityZone = s.AvailabilityZone
+	o.HasPublicIP = s.HasPublicIP
+	o.ParentID = s.ParentID
 	o.RelatedObjectID = s.RelatedObjectID
 	o.RouteTableID = s.RouteTableID
 	o.SecurityTags = s.SecurityTags
@@ -203,10 +214,264 @@ func (o *CloudInterfaceData) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*CloudInterfaceData) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := CloudInterfaceDataAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return CloudInterfaceDataLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*CloudInterfaceData) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return CloudInterfaceDataAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *CloudInterfaceData) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "addresses":
+		return o.Addresses
+	case "attachmentType":
+		return o.AttachmentType
+	case "availabilityZone":
+		return o.AvailabilityZone
+	case "hasPublicIP":
+		return o.HasPublicIP
+	case "parentID":
+		return o.ParentID
+	case "relatedObjectID":
+		return o.RelatedObjectID
+	case "routeTableID":
+		return o.RouteTableID
+	case "securityTags":
+		return o.SecurityTags
+	case "subnets":
+		return o.Subnets
+	}
+
+	return nil
+}
+
+// CloudInterfaceDataAttributesMap represents the map of attribute for CloudInterfaceData.
+var CloudInterfaceDataAttributesMap = map[string]elemental.AttributeSpecification{
+	"Addresses": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "addresses",
+		ConvertedName:  "Addresses",
+		Description: `List of IP addresses/subnets (IPv4 or IPv6) associated with the
+interface.`,
+		Exposed: true,
+		Name:    "addresses",
+		Stored:  true,
+		SubType: "cloudaddress",
+		Type:    "refList",
+	},
+	"AttachmentType": {
+		AllowedChoices: []string{"Instance", "LoadBalancer", "Gateway", "Service", "TransitGatewayVPCAttachment", "NetworkLoadBalancer", "Lambda", "GatewayLoadBalancer", "GatewayLoadBalancerEndpoint", "VPCEndpoint", "APIGatewayManaged", "EFA", "UnsupportedService"},
+		BSONFieldName:  "attachmenttype",
+		ConvertedName:  "AttachmentType",
+		Description: `Attachment type describes where this interface is attached to (Instance, Load
+Balancer, Gateway, etc).`,
+		Exposed:  true,
+		Name:     "attachmentType",
+		Required: true,
+		Stored:   true,
+		Type:     "enum",
+	},
+	"AvailabilityZone": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "availabilityzone",
+		ConvertedName:  "AvailabilityZone",
+		Description:    `Availability zone of the interface.`,
+		Exposed:        true,
+		Name:           "availabilityZone",
+		Stored:         true,
+		Type:           "string",
+	},
+	"HasPublicIP": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "haspublicip",
+		ConvertedName:  "HasPublicIP",
+		Description:    `If the interface has a public IP in one of its IP address.`,
+		Exposed:        true,
+		Name:           "hasPublicIP",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"ParentID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "parentid",
+		ConvertedName:  "ParentID",
+		Description: `If the interface is attached to Load Balancer, the parentID identifies the
+related Load Balancer.`,
+		Exposed: true,
+		Name:    "parentID",
+		Stored:  true,
+		Type:    "string",
+	},
+	"RelatedObjectID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "relatedobjectid",
+		ConvertedName:  "RelatedObjectID",
+		Description: `If the interface is of type or external, the relatedObjectID identifies the
+related service or gateway.`,
+		Exposed: true,
+		Name:    "relatedObjectID",
+		Stored:  true,
+		Type:    "string",
+	},
+	"RouteTableID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "routetableid",
+		ConvertedName:  "RouteTableID",
+		Description: `The route table that must be used for this interface. Applies to Transit
+Gateways and other special types.`,
+		Exposed: true,
+		Name:    "routeTableID",
+		Stored:  true,
+		Type:    "string",
+	},
+	"SecurityTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "securitytags",
+		ConvertedName:  "SecurityTags",
+		Description:    `Security tags associated with the instance.`,
+		Exposed:        true,
+		Name:           "securityTags",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"Subnets": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "subnets",
+		ConvertedName:  "Subnets",
+		Description:    `ID of subnet associated with this interface.`,
+		Exposed:        true,
+		Name:           "subnets",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+}
+
+// CloudInterfaceDataLowerCaseAttributesMap represents the map of attribute for CloudInterfaceData.
+var CloudInterfaceDataLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"addresses": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "addresses",
+		ConvertedName:  "Addresses",
+		Description: `List of IP addresses/subnets (IPv4 or IPv6) associated with the
+interface.`,
+		Exposed: true,
+		Name:    "addresses",
+		Stored:  true,
+		SubType: "cloudaddress",
+		Type:    "refList",
+	},
+	"attachmenttype": {
+		AllowedChoices: []string{"Instance", "LoadBalancer", "Gateway", "Service", "TransitGatewayVPCAttachment", "NetworkLoadBalancer", "Lambda", "GatewayLoadBalancer", "GatewayLoadBalancerEndpoint", "VPCEndpoint", "APIGatewayManaged", "EFA", "UnsupportedService"},
+		BSONFieldName:  "attachmenttype",
+		ConvertedName:  "AttachmentType",
+		Description: `Attachment type describes where this interface is attached to (Instance, Load
+Balancer, Gateway, etc).`,
+		Exposed:  true,
+		Name:     "attachmentType",
+		Required: true,
+		Stored:   true,
+		Type:     "enum",
+	},
+	"availabilityzone": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "availabilityzone",
+		ConvertedName:  "AvailabilityZone",
+		Description:    `Availability zone of the interface.`,
+		Exposed:        true,
+		Name:           "availabilityZone",
+		Stored:         true,
+		Type:           "string",
+	},
+	"haspublicip": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "haspublicip",
+		ConvertedName:  "HasPublicIP",
+		Description:    `If the interface has a public IP in one of its IP address.`,
+		Exposed:        true,
+		Name:           "hasPublicIP",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"parentid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "parentid",
+		ConvertedName:  "ParentID",
+		Description: `If the interface is attached to Load Balancer, the parentID identifies the
+related Load Balancer.`,
+		Exposed: true,
+		Name:    "parentID",
+		Stored:  true,
+		Type:    "string",
+	},
+	"relatedobjectid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "relatedobjectid",
+		ConvertedName:  "RelatedObjectID",
+		Description: `If the interface is of type or external, the relatedObjectID identifies the
+related service or gateway.`,
+		Exposed: true,
+		Name:    "relatedObjectID",
+		Stored:  true,
+		Type:    "string",
+	},
+	"routetableid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "routetableid",
+		ConvertedName:  "RouteTableID",
+		Description: `The route table that must be used for this interface. Applies to Transit
+Gateways and other special types.`,
+		Exposed: true,
+		Name:    "routeTableID",
+		Stored:  true,
+		Type:    "string",
+	},
+	"securitytags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "securitytags",
+		ConvertedName:  "SecurityTags",
+		Description:    `Security tags associated with the instance.`,
+		Exposed:        true,
+		Name:           "securityTags",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"subnets": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "subnets",
+		ConvertedName:  "Subnets",
+		Description:    `ID of subnet associated with this interface.`,
+		Exposed:        true,
+		Name:           "subnets",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+}
+
 type mongoAttributesCloudInterfaceData struct {
 	Addresses        []*CloudAddress                       `bson:"addresses"`
 	AttachmentType   CloudInterfaceDataAttachmentTypeValue `bson:"attachmenttype"`
 	AvailabilityZone string                                `bson:"availabilityzone"`
+	HasPublicIP      bool                                  `bson:"haspublicip"`
+	ParentID         string                                `bson:"parentid"`
 	RelatedObjectID  string                                `bson:"relatedobjectid"`
 	RouteTableID     string                                `bson:"routetableid"`
 	SecurityTags     []string                              `bson:"securitytags"`

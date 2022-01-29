@@ -53,6 +53,20 @@ attributes:
     stored: true
     example_value: us-east-1
 
+  - name: hasPublicIP
+    description: If the interface has a public IP in one of its IP address.
+    type: boolean
+    exposed: true
+    stored: true
+
+  - name: parentID
+    description: |-
+      If the interface is attached to Load Balancer, the parentID identifies the
+      related Load Balancer.
+    type: string
+    exposed: true
+    stored: true
+
   - name: relatedObjectID
     description: |-
       If the interface is of type or external, the relatedObjectID identifies the

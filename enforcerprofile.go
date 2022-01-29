@@ -37,6 +37,20 @@ const (
 	EnforcerProfileMetadataExtractorKubernetes EnforcerProfileMetadataExtractorValue = "Kubernetes"
 )
 
+// EnforcerProfileSyslogFormatValue represents the possible values for attribute "syslogFormat".
+type EnforcerProfileSyslogFormatValue string
+
+const (
+	// EnforcerProfileSyslogFormatAuto represents the value Auto.
+	EnforcerProfileSyslogFormatAuto EnforcerProfileSyslogFormatValue = "Auto"
+
+	// EnforcerProfileSyslogFormatBSD represents the value BSD.
+	EnforcerProfileSyslogFormatBSD EnforcerProfileSyslogFormatValue = "BSD"
+
+	// EnforcerProfileSyslogFormatIETF represents the value IETF.
+	EnforcerProfileSyslogFormatIETF EnforcerProfileSyslogFormatValue = "IETF"
+)
+
 // EnforcerProfileIdentity represents the Identity of the object.
 var EnforcerProfileIdentity = elemental.Identity{
 	Name:     "enforcerprofile",
@@ -175,6 +189,24 @@ type EnforcerProfile struct {
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
+	// Enables syslog functionality of enforcers using this enforcerprofile.
+	SyslogEnabled bool `json:"syslogEnabled" msgpack:"syslogEnabled" bson:"syslogenabled" mapstructure:"syslogEnabled,omitempty"`
+
+	// Contains the remote endpoint to dispatch the syslog messages.
+	SyslogEndpoint string `json:"syslogEndpoint" msgpack:"syslogEndpoint" bson:"syslogendpoint" mapstructure:"syslogEndpoint,omitempty"`
+
+	// PEM-encoded certificate to expose to the clients for TLS.
+	SyslogEndpointTLSClientCertificate string `json:"syslogEndpointTLSClientCertificate" msgpack:"syslogEndpointTLSClientCertificate" bson:"syslogendpointtlsclientcertificate" mapstructure:"syslogEndpointTLSClientCertificate,omitempty"`
+
+	// PEM-encoded server CA certificate.
+	SyslogEndpointTLSServerCA string `json:"syslogEndpointTLSServerCA" msgpack:"syslogEndpointTLSServerCA" bson:"syslogendpointtlsserverca" mapstructure:"syslogEndpointTLSServerCA,omitempty"`
+
+	// Contains the list of supported syslog facilities.
+	SyslogFacility int `json:"syslogFacility" msgpack:"syslogFacility" bson:"syslogfacility" mapstructure:"syslogFacility,omitempty"`
+
+	// Contains the list of supported syslog message format.
+	SyslogFormat EnforcerProfileSyslogFormatValue `json:"syslogFormat" msgpack:"syslogFormat" bson:"syslogformat" mapstructure:"syslogFormat,omitempty"`
+
 	// If empty, the enforcer auto-discovers the TCP networks. Auto-discovery
 	// works best in Kubernetes and OpenShift deployments. You may need to manually
 	// specify the TCP networks if middle boxes exist that do not comply with
@@ -215,15 +247,17 @@ func NewEnforcerProfile() *EnforcerProfile {
 		ExcludedInterfaces:          []string{},
 		AssociatedTags:              []string{},
 		ExcludedNetworks:            []string{},
-		MigrationsLog:               map[string]string{},
-		IgnoreExpression:            [][]string{},
-		TargetNetworks:              []string{},
-		MetadataExtractor:           EnforcerProfileMetadataExtractorDocker,
 		NormalizedTags:              []string{},
+		IgnoreExpression:            [][]string{},
+		MetadataExtractor:           EnforcerProfileMetadataExtractorDocker,
+		SyslogFacility:              1,
+		SyslogFormat:                EnforcerProfileSyslogFormatAuto,
+		TargetNetworks:              []string{},
+		TrustedCAs:                  []string{},
+		TargetUDPNetworks:           []string{},
+		MigrationsLog:               map[string]string{},
 		KubernetesMetadataExtractor: EnforcerProfileKubernetesMetadataExtractorPodAtomic,
 		Metadata:                    []string{},
-		TargetUDPNetworks:           []string{},
-		TrustedCAs:                  []string{},
 	}
 }
 
@@ -276,6 +310,12 @@ func (o *EnforcerProfile) GetBSON() (interface{}, error) {
 	s.NormalizedTags = o.NormalizedTags
 	s.Propagate = o.Propagate
 	s.Protected = o.Protected
+	s.SyslogEnabled = o.SyslogEnabled
+	s.SyslogEndpoint = o.SyslogEndpoint
+	s.SyslogEndpointTLSClientCertificate = o.SyslogEndpointTLSClientCertificate
+	s.SyslogEndpointTLSServerCA = o.SyslogEndpointTLSServerCA
+	s.SyslogFacility = o.SyslogFacility
+	s.SyslogFormat = o.SyslogFormat
 	s.TargetNetworks = o.TargetNetworks
 	s.TargetUDPNetworks = o.TargetUDPNetworks
 	s.TrustedCAs = o.TrustedCAs
@@ -319,6 +359,12 @@ func (o *EnforcerProfile) SetBSON(raw bson.Raw) error {
 	o.NormalizedTags = s.NormalizedTags
 	o.Propagate = s.Propagate
 	o.Protected = s.Protected
+	o.SyslogEnabled = s.SyslogEnabled
+	o.SyslogEndpoint = s.SyslogEndpoint
+	o.SyslogEndpointTLSClientCertificate = s.SyslogEndpointTLSClientCertificate
+	o.SyslogEndpointTLSServerCA = s.SyslogEndpointTLSServerCA
+	o.SyslogFacility = s.SyslogFacility
+	o.SyslogFormat = s.SyslogFormat
 	o.TargetNetworks = s.TargetNetworks
 	o.TargetUDPNetworks = s.TargetUDPNetworks
 	o.TrustedCAs = s.TrustedCAs
@@ -563,32 +609,38 @@ func (o *EnforcerProfile) ToSparse(fields ...string) elemental.SparseIdentifiabl
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseEnforcerProfile{
-			ID:                          &o.ID,
-			Annotations:                 &o.Annotations,
-			AssociatedTags:              &o.AssociatedTags,
-			CreateIdempotencyKey:        &o.CreateIdempotencyKey,
-			CreateTime:                  &o.CreateTime,
-			Description:                 &o.Description,
-			ExcludedInterfaces:          &o.ExcludedInterfaces,
-			ExcludedNetworks:            &o.ExcludedNetworks,
-			IgnoreExpression:            &o.IgnoreExpression,
-			KubernetesMetadataExtractor: &o.KubernetesMetadataExtractor,
-			KubernetesSupportEnabled:    &o.KubernetesSupportEnabled,
-			Metadata:                    &o.Metadata,
-			MetadataExtractor:           &o.MetadataExtractor,
-			MigrationsLog:               &o.MigrationsLog,
-			Name:                        &o.Name,
-			Namespace:                   &o.Namespace,
-			NormalizedTags:              &o.NormalizedTags,
-			Propagate:                   &o.Propagate,
-			Protected:                   &o.Protected,
-			TargetNetworks:              &o.TargetNetworks,
-			TargetUDPNetworks:           &o.TargetUDPNetworks,
-			TrustedCAs:                  &o.TrustedCAs,
-			UpdateIdempotencyKey:        &o.UpdateIdempotencyKey,
-			UpdateTime:                  &o.UpdateTime,
-			ZHash:                       &o.ZHash,
-			Zone:                        &o.Zone,
+			ID:                                 &o.ID,
+			Annotations:                        &o.Annotations,
+			AssociatedTags:                     &o.AssociatedTags,
+			CreateIdempotencyKey:               &o.CreateIdempotencyKey,
+			CreateTime:                         &o.CreateTime,
+			Description:                        &o.Description,
+			ExcludedInterfaces:                 &o.ExcludedInterfaces,
+			ExcludedNetworks:                   &o.ExcludedNetworks,
+			IgnoreExpression:                   &o.IgnoreExpression,
+			KubernetesMetadataExtractor:        &o.KubernetesMetadataExtractor,
+			KubernetesSupportEnabled:           &o.KubernetesSupportEnabled,
+			Metadata:                           &o.Metadata,
+			MetadataExtractor:                  &o.MetadataExtractor,
+			MigrationsLog:                      &o.MigrationsLog,
+			Name:                               &o.Name,
+			Namespace:                          &o.Namespace,
+			NormalizedTags:                     &o.NormalizedTags,
+			Propagate:                          &o.Propagate,
+			Protected:                          &o.Protected,
+			SyslogEnabled:                      &o.SyslogEnabled,
+			SyslogEndpoint:                     &o.SyslogEndpoint,
+			SyslogEndpointTLSClientCertificate: &o.SyslogEndpointTLSClientCertificate,
+			SyslogEndpointTLSServerCA:          &o.SyslogEndpointTLSServerCA,
+			SyslogFacility:                     &o.SyslogFacility,
+			SyslogFormat:                       &o.SyslogFormat,
+			TargetNetworks:                     &o.TargetNetworks,
+			TargetUDPNetworks:                  &o.TargetUDPNetworks,
+			TrustedCAs:                         &o.TrustedCAs,
+			UpdateIdempotencyKey:               &o.UpdateIdempotencyKey,
+			UpdateTime:                         &o.UpdateTime,
+			ZHash:                              &o.ZHash,
+			Zone:                               &o.Zone,
 		}
 	}
 
@@ -633,6 +685,18 @@ func (o *EnforcerProfile) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			sp.Propagate = &(o.Propagate)
 		case "protected":
 			sp.Protected = &(o.Protected)
+		case "syslogEnabled":
+			sp.SyslogEnabled = &(o.SyslogEnabled)
+		case "syslogEndpoint":
+			sp.SyslogEndpoint = &(o.SyslogEndpoint)
+		case "syslogEndpointTLSClientCertificate":
+			sp.SyslogEndpointTLSClientCertificate = &(o.SyslogEndpointTLSClientCertificate)
+		case "syslogEndpointTLSServerCA":
+			sp.SyslogEndpointTLSServerCA = &(o.SyslogEndpointTLSServerCA)
+		case "syslogFacility":
+			sp.SyslogFacility = &(o.SyslogFacility)
+		case "syslogFormat":
+			sp.SyslogFormat = &(o.SyslogFormat)
 		case "targetNetworks":
 			sp.TargetNetworks = &(o.TargetNetworks)
 		case "targetUDPNetworks":
@@ -716,6 +780,24 @@ func (o *EnforcerProfile) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Protected != nil {
 		o.Protected = *so.Protected
+	}
+	if so.SyslogEnabled != nil {
+		o.SyslogEnabled = *so.SyslogEnabled
+	}
+	if so.SyslogEndpoint != nil {
+		o.SyslogEndpoint = *so.SyslogEndpoint
+	}
+	if so.SyslogEndpointTLSClientCertificate != nil {
+		o.SyslogEndpointTLSClientCertificate = *so.SyslogEndpointTLSClientCertificate
+	}
+	if so.SyslogEndpointTLSServerCA != nil {
+		o.SyslogEndpointTLSServerCA = *so.SyslogEndpointTLSServerCA
+	}
+	if so.SyslogFacility != nil {
+		o.SyslogFacility = *so.SyslogFacility
+	}
+	if so.SyslogFormat != nil {
+		o.SyslogFormat = *so.SyslogFormat
 	}
 	if so.TargetNetworks != nil {
 		o.TargetNetworks = *so.TargetNetworks
@@ -802,6 +884,30 @@ func (o *EnforcerProfile) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := ValidateSyslogEndpoint("syslogEndpoint", o.SyslogEndpoint); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := ValidatePEM("syslogEndpointTLSClientCertificate", o.SyslogEndpointTLSClientCertificate); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := ValidateCA("syslogEndpointTLSServerCA", o.SyslogEndpointTLSServerCA); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := elemental.ValidateMaximumInt("syslogFacility", o.SyslogFacility, int(23), false); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := elemental.ValidateMinimumInt("syslogFacility", o.SyslogFacility, int(1), false); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := elemental.ValidateStringInList("syslogFormat", string(o.SyslogFormat), []string{"Auto", "BSD", "IETF"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	// Custom object validation.
 	if err := ValidateEnforcerProfile(o); err != nil {
 		errors = errors.Append(err)
@@ -879,6 +985,18 @@ func (o *EnforcerProfile) ValueForAttribute(name string) interface{} {
 		return o.Propagate
 	case "protected":
 		return o.Protected
+	case "syslogEnabled":
+		return o.SyslogEnabled
+	case "syslogEndpoint":
+		return o.SyslogEndpoint
+	case "syslogEndpointTLSClientCertificate":
+		return o.SyslogEndpointTLSClientCertificate
+	case "syslogEndpointTLSServerCA":
+		return o.SyslogEndpointTLSServerCA
+	case "syslogFacility":
+		return o.SyslogFacility
+	case "syslogFormat":
+		return o.SyslogFormat
 	case "targetNetworks":
 		return o.TargetNetworks
 	case "targetUDPNetworks":
@@ -1159,6 +1277,70 @@ with the '@' prefix, and should only be used by external systems.`,
 		Setter:         true,
 		Stored:         true,
 		Type:           "boolean",
+	},
+	"SyslogEnabled": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogenabled",
+		ConvertedName:  "SyslogEnabled",
+		Description:    `Enables syslog functionality of enforcers using this enforcerprofile.`,
+		Exposed:        true,
+		Name:           "syslogEnabled",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"SyslogEndpoint": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogendpoint",
+		ConvertedName:  "SyslogEndpoint",
+		Description:    `Contains the remote endpoint to dispatch the syslog messages.`,
+		Exposed:        true,
+		Name:           "syslogEndpoint",
+		Stored:         true,
+		Type:           "string",
+	},
+	"SyslogEndpointTLSClientCertificate": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogendpointtlsclientcertificate",
+		ConvertedName:  "SyslogEndpointTLSClientCertificate",
+		Description:    `PEM-encoded certificate to expose to the clients for TLS.`,
+		Exposed:        true,
+		Name:           "syslogEndpointTLSClientCertificate",
+		Stored:         true,
+		Type:           "string",
+	},
+	"SyslogEndpointTLSServerCA": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogendpointtlsserverca",
+		ConvertedName:  "SyslogEndpointTLSServerCA",
+		Description:    `PEM-encoded server CA certificate.`,
+		Exposed:        true,
+		Name:           "syslogEndpointTLSServerCA",
+		Stored:         true,
+		Type:           "string",
+	},
+	"SyslogFacility": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogfacility",
+		ConvertedName:  "SyslogFacility",
+		DefaultValue:   1,
+		Description:    `Contains the list of supported syslog facilities.`,
+		Exposed:        true,
+		MaxValue:       23,
+		MinValue:       1,
+		Name:           "syslogFacility",
+		Stored:         true,
+		Type:           "integer",
+	},
+	"SyslogFormat": {
+		AllowedChoices: []string{"Auto", "BSD", "IETF"},
+		BSONFieldName:  "syslogformat",
+		ConvertedName:  "SyslogFormat",
+		DefaultValue:   EnforcerProfileSyslogFormatAuto,
+		Description:    `Contains the list of supported syslog message format.`,
+		Exposed:        true,
+		Name:           "syslogFormat",
+		Stored:         true,
+		Type:           "enum",
 	},
 	"TargetNetworks": {
 		AllowedChoices: []string{},
@@ -1521,6 +1703,70 @@ with the '@' prefix, and should only be used by external systems.`,
 		Stored:         true,
 		Type:           "boolean",
 	},
+	"syslogenabled": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogenabled",
+		ConvertedName:  "SyslogEnabled",
+		Description:    `Enables syslog functionality of enforcers using this enforcerprofile.`,
+		Exposed:        true,
+		Name:           "syslogEnabled",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"syslogendpoint": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogendpoint",
+		ConvertedName:  "SyslogEndpoint",
+		Description:    `Contains the remote endpoint to dispatch the syslog messages.`,
+		Exposed:        true,
+		Name:           "syslogEndpoint",
+		Stored:         true,
+		Type:           "string",
+	},
+	"syslogendpointtlsclientcertificate": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogendpointtlsclientcertificate",
+		ConvertedName:  "SyslogEndpointTLSClientCertificate",
+		Description:    `PEM-encoded certificate to expose to the clients for TLS.`,
+		Exposed:        true,
+		Name:           "syslogEndpointTLSClientCertificate",
+		Stored:         true,
+		Type:           "string",
+	},
+	"syslogendpointtlsserverca": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogendpointtlsserverca",
+		ConvertedName:  "SyslogEndpointTLSServerCA",
+		Description:    `PEM-encoded server CA certificate.`,
+		Exposed:        true,
+		Name:           "syslogEndpointTLSServerCA",
+		Stored:         true,
+		Type:           "string",
+	},
+	"syslogfacility": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "syslogfacility",
+		ConvertedName:  "SyslogFacility",
+		DefaultValue:   1,
+		Description:    `Contains the list of supported syslog facilities.`,
+		Exposed:        true,
+		MaxValue:       23,
+		MinValue:       1,
+		Name:           "syslogFacility",
+		Stored:         true,
+		Type:           "integer",
+	},
+	"syslogformat": {
+		AllowedChoices: []string{"Auto", "BSD", "IETF"},
+		BSONFieldName:  "syslogformat",
+		ConvertedName:  "SyslogFormat",
+		DefaultValue:   EnforcerProfileSyslogFormatAuto,
+		Description:    `Contains the list of supported syslog message format.`,
+		Exposed:        true,
+		Name:           "syslogFormat",
+		Stored:         true,
+		Type:           "enum",
+	},
 	"targetnetworks": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "targetnetworks",
@@ -1749,6 +1995,24 @@ type SparseEnforcerProfile struct {
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
+	// Enables syslog functionality of enforcers using this enforcerprofile.
+	SyslogEnabled *bool `json:"syslogEnabled,omitempty" msgpack:"syslogEnabled,omitempty" bson:"syslogenabled,omitempty" mapstructure:"syslogEnabled,omitempty"`
+
+	// Contains the remote endpoint to dispatch the syslog messages.
+	SyslogEndpoint *string `json:"syslogEndpoint,omitempty" msgpack:"syslogEndpoint,omitempty" bson:"syslogendpoint,omitempty" mapstructure:"syslogEndpoint,omitempty"`
+
+	// PEM-encoded certificate to expose to the clients for TLS.
+	SyslogEndpointTLSClientCertificate *string `json:"syslogEndpointTLSClientCertificate,omitempty" msgpack:"syslogEndpointTLSClientCertificate,omitempty" bson:"syslogendpointtlsclientcertificate,omitempty" mapstructure:"syslogEndpointTLSClientCertificate,omitempty"`
+
+	// PEM-encoded server CA certificate.
+	SyslogEndpointTLSServerCA *string `json:"syslogEndpointTLSServerCA,omitempty" msgpack:"syslogEndpointTLSServerCA,omitempty" bson:"syslogendpointtlsserverca,omitempty" mapstructure:"syslogEndpointTLSServerCA,omitempty"`
+
+	// Contains the list of supported syslog facilities.
+	SyslogFacility *int `json:"syslogFacility,omitempty" msgpack:"syslogFacility,omitempty" bson:"syslogfacility,omitempty" mapstructure:"syslogFacility,omitempty"`
+
+	// Contains the list of supported syslog message format.
+	SyslogFormat *EnforcerProfileSyslogFormatValue `json:"syslogFormat,omitempty" msgpack:"syslogFormat,omitempty" bson:"syslogformat,omitempty" mapstructure:"syslogFormat,omitempty"`
+
 	// If empty, the enforcer auto-discovers the TCP networks. Auto-discovery
 	// works best in Kubernetes and OpenShift deployments. You may need to manually
 	// specify the TCP networks if middle boxes exist that do not comply with
@@ -1877,6 +2141,24 @@ func (o *SparseEnforcerProfile) GetBSON() (interface{}, error) {
 	if o.Protected != nil {
 		s.Protected = o.Protected
 	}
+	if o.SyslogEnabled != nil {
+		s.SyslogEnabled = o.SyslogEnabled
+	}
+	if o.SyslogEndpoint != nil {
+		s.SyslogEndpoint = o.SyslogEndpoint
+	}
+	if o.SyslogEndpointTLSClientCertificate != nil {
+		s.SyslogEndpointTLSClientCertificate = o.SyslogEndpointTLSClientCertificate
+	}
+	if o.SyslogEndpointTLSServerCA != nil {
+		s.SyslogEndpointTLSServerCA = o.SyslogEndpointTLSServerCA
+	}
+	if o.SyslogFacility != nil {
+		s.SyslogFacility = o.SyslogFacility
+	}
+	if o.SyslogFormat != nil {
+		s.SyslogFormat = o.SyslogFormat
+	}
 	if o.TargetNetworks != nil {
 		s.TargetNetworks = o.TargetNetworks
 	}
@@ -1971,6 +2253,24 @@ func (o *SparseEnforcerProfile) SetBSON(raw bson.Raw) error {
 	if s.Protected != nil {
 		o.Protected = s.Protected
 	}
+	if s.SyslogEnabled != nil {
+		o.SyslogEnabled = s.SyslogEnabled
+	}
+	if s.SyslogEndpoint != nil {
+		o.SyslogEndpoint = s.SyslogEndpoint
+	}
+	if s.SyslogEndpointTLSClientCertificate != nil {
+		o.SyslogEndpointTLSClientCertificate = s.SyslogEndpointTLSClientCertificate
+	}
+	if s.SyslogEndpointTLSServerCA != nil {
+		o.SyslogEndpointTLSServerCA = s.SyslogEndpointTLSServerCA
+	}
+	if s.SyslogFacility != nil {
+		o.SyslogFacility = s.SyslogFacility
+	}
+	if s.SyslogFormat != nil {
+		o.SyslogFormat = s.SyslogFormat
+	}
 	if s.TargetNetworks != nil {
 		o.TargetNetworks = s.TargetNetworks
 	}
@@ -2062,6 +2362,24 @@ func (o *SparseEnforcerProfile) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Protected != nil {
 		out.Protected = *o.Protected
+	}
+	if o.SyslogEnabled != nil {
+		out.SyslogEnabled = *o.SyslogEnabled
+	}
+	if o.SyslogEndpoint != nil {
+		out.SyslogEndpoint = *o.SyslogEndpoint
+	}
+	if o.SyslogEndpointTLSClientCertificate != nil {
+		out.SyslogEndpointTLSClientCertificate = *o.SyslogEndpointTLSClientCertificate
+	}
+	if o.SyslogEndpointTLSServerCA != nil {
+		out.SyslogEndpointTLSServerCA = *o.SyslogEndpointTLSServerCA
+	}
+	if o.SyslogFacility != nil {
+		out.SyslogFacility = *o.SyslogFacility
+	}
+	if o.SyslogFormat != nil {
+		out.SyslogFormat = *o.SyslogFormat
 	}
 	if o.TargetNetworks != nil {
 		out.TargetNetworks = *o.TargetNetworks
@@ -2369,58 +2687,70 @@ func (o *SparseEnforcerProfile) DeepCopyInto(out *SparseEnforcerProfile) {
 }
 
 type mongoAttributesEnforcerProfile struct {
-	ID                          bson.ObjectId                                   `bson:"_id,omitempty"`
-	Annotations                 map[string][]string                             `bson:"annotations"`
-	AssociatedTags              []string                                        `bson:"associatedtags"`
-	CreateIdempotencyKey        string                                          `bson:"createidempotencykey"`
-	CreateTime                  time.Time                                       `bson:"createtime"`
-	Description                 string                                          `bson:"description"`
-	ExcludedInterfaces          []string                                        `bson:"excludedinterfaces"`
-	ExcludedNetworks            []string                                        `bson:"excludednetworks"`
-	IgnoreExpression            [][]string                                      `bson:"ignoreexpression"`
-	KubernetesMetadataExtractor EnforcerProfileKubernetesMetadataExtractorValue `bson:"kubernetesmetadataextractor"`
-	KubernetesSupportEnabled    bool                                            `bson:"kubernetessupportenabled"`
-	Metadata                    []string                                        `bson:"metadata"`
-	MetadataExtractor           EnforcerProfileMetadataExtractorValue           `bson:"metadataextractor"`
-	MigrationsLog               map[string]string                               `bson:"migrationslog,omitempty"`
-	Name                        string                                          `bson:"name"`
-	Namespace                   string                                          `bson:"namespace"`
-	NormalizedTags              []string                                        `bson:"normalizedtags"`
-	Propagate                   bool                                            `bson:"propagate"`
-	Protected                   bool                                            `bson:"protected"`
-	TargetNetworks              []string                                        `bson:"targetnetworks"`
-	TargetUDPNetworks           []string                                        `bson:"targetudpnetworks"`
-	TrustedCAs                  []string                                        `bson:"trustedcas"`
-	UpdateIdempotencyKey        string                                          `bson:"updateidempotencykey"`
-	UpdateTime                  time.Time                                       `bson:"updatetime"`
-	ZHash                       int                                             `bson:"zhash"`
-	Zone                        int                                             `bson:"zone"`
+	ID                                 bson.ObjectId                                   `bson:"_id,omitempty"`
+	Annotations                        map[string][]string                             `bson:"annotations"`
+	AssociatedTags                     []string                                        `bson:"associatedtags"`
+	CreateIdempotencyKey               string                                          `bson:"createidempotencykey"`
+	CreateTime                         time.Time                                       `bson:"createtime"`
+	Description                        string                                          `bson:"description"`
+	ExcludedInterfaces                 []string                                        `bson:"excludedinterfaces"`
+	ExcludedNetworks                   []string                                        `bson:"excludednetworks"`
+	IgnoreExpression                   [][]string                                      `bson:"ignoreexpression"`
+	KubernetesMetadataExtractor        EnforcerProfileKubernetesMetadataExtractorValue `bson:"kubernetesmetadataextractor"`
+	KubernetesSupportEnabled           bool                                            `bson:"kubernetessupportenabled"`
+	Metadata                           []string                                        `bson:"metadata"`
+	MetadataExtractor                  EnforcerProfileMetadataExtractorValue           `bson:"metadataextractor"`
+	MigrationsLog                      map[string]string                               `bson:"migrationslog,omitempty"`
+	Name                               string                                          `bson:"name"`
+	Namespace                          string                                          `bson:"namespace"`
+	NormalizedTags                     []string                                        `bson:"normalizedtags"`
+	Propagate                          bool                                            `bson:"propagate"`
+	Protected                          bool                                            `bson:"protected"`
+	SyslogEnabled                      bool                                            `bson:"syslogenabled"`
+	SyslogEndpoint                     string                                          `bson:"syslogendpoint"`
+	SyslogEndpointTLSClientCertificate string                                          `bson:"syslogendpointtlsclientcertificate"`
+	SyslogEndpointTLSServerCA          string                                          `bson:"syslogendpointtlsserverca"`
+	SyslogFacility                     int                                             `bson:"syslogfacility"`
+	SyslogFormat                       EnforcerProfileSyslogFormatValue                `bson:"syslogformat"`
+	TargetNetworks                     []string                                        `bson:"targetnetworks"`
+	TargetUDPNetworks                  []string                                        `bson:"targetudpnetworks"`
+	TrustedCAs                         []string                                        `bson:"trustedcas"`
+	UpdateIdempotencyKey               string                                          `bson:"updateidempotencykey"`
+	UpdateTime                         time.Time                                       `bson:"updatetime"`
+	ZHash                              int                                             `bson:"zhash"`
+	Zone                               int                                             `bson:"zone"`
 }
 type mongoAttributesSparseEnforcerProfile struct {
-	ID                          bson.ObjectId                                    `bson:"_id,omitempty"`
-	Annotations                 *map[string][]string                             `bson:"annotations,omitempty"`
-	AssociatedTags              *[]string                                        `bson:"associatedtags,omitempty"`
-	CreateIdempotencyKey        *string                                          `bson:"createidempotencykey,omitempty"`
-	CreateTime                  *time.Time                                       `bson:"createtime,omitempty"`
-	Description                 *string                                          `bson:"description,omitempty"`
-	ExcludedInterfaces          *[]string                                        `bson:"excludedinterfaces,omitempty"`
-	ExcludedNetworks            *[]string                                        `bson:"excludednetworks,omitempty"`
-	IgnoreExpression            *[][]string                                      `bson:"ignoreexpression,omitempty"`
-	KubernetesMetadataExtractor *EnforcerProfileKubernetesMetadataExtractorValue `bson:"kubernetesmetadataextractor,omitempty"`
-	KubernetesSupportEnabled    *bool                                            `bson:"kubernetessupportenabled,omitempty"`
-	Metadata                    *[]string                                        `bson:"metadata,omitempty"`
-	MetadataExtractor           *EnforcerProfileMetadataExtractorValue           `bson:"metadataextractor,omitempty"`
-	MigrationsLog               *map[string]string                               `bson:"migrationslog,omitempty"`
-	Name                        *string                                          `bson:"name,omitempty"`
-	Namespace                   *string                                          `bson:"namespace,omitempty"`
-	NormalizedTags              *[]string                                        `bson:"normalizedtags,omitempty"`
-	Propagate                   *bool                                            `bson:"propagate,omitempty"`
-	Protected                   *bool                                            `bson:"protected,omitempty"`
-	TargetNetworks              *[]string                                        `bson:"targetnetworks,omitempty"`
-	TargetUDPNetworks           *[]string                                        `bson:"targetudpnetworks,omitempty"`
-	TrustedCAs                  *[]string                                        `bson:"trustedcas,omitempty"`
-	UpdateIdempotencyKey        *string                                          `bson:"updateidempotencykey,omitempty"`
-	UpdateTime                  *time.Time                                       `bson:"updatetime,omitempty"`
-	ZHash                       *int                                             `bson:"zhash,omitempty"`
-	Zone                        *int                                             `bson:"zone,omitempty"`
+	ID                                 bson.ObjectId                                    `bson:"_id,omitempty"`
+	Annotations                        *map[string][]string                             `bson:"annotations,omitempty"`
+	AssociatedTags                     *[]string                                        `bson:"associatedtags,omitempty"`
+	CreateIdempotencyKey               *string                                          `bson:"createidempotencykey,omitempty"`
+	CreateTime                         *time.Time                                       `bson:"createtime,omitempty"`
+	Description                        *string                                          `bson:"description,omitempty"`
+	ExcludedInterfaces                 *[]string                                        `bson:"excludedinterfaces,omitempty"`
+	ExcludedNetworks                   *[]string                                        `bson:"excludednetworks,omitempty"`
+	IgnoreExpression                   *[][]string                                      `bson:"ignoreexpression,omitempty"`
+	KubernetesMetadataExtractor        *EnforcerProfileKubernetesMetadataExtractorValue `bson:"kubernetesmetadataextractor,omitempty"`
+	KubernetesSupportEnabled           *bool                                            `bson:"kubernetessupportenabled,omitempty"`
+	Metadata                           *[]string                                        `bson:"metadata,omitempty"`
+	MetadataExtractor                  *EnforcerProfileMetadataExtractorValue           `bson:"metadataextractor,omitempty"`
+	MigrationsLog                      *map[string]string                               `bson:"migrationslog,omitempty"`
+	Name                               *string                                          `bson:"name,omitempty"`
+	Namespace                          *string                                          `bson:"namespace,omitempty"`
+	NormalizedTags                     *[]string                                        `bson:"normalizedtags,omitempty"`
+	Propagate                          *bool                                            `bson:"propagate,omitempty"`
+	Protected                          *bool                                            `bson:"protected,omitempty"`
+	SyslogEnabled                      *bool                                            `bson:"syslogenabled,omitempty"`
+	SyslogEndpoint                     *string                                          `bson:"syslogendpoint,omitempty"`
+	SyslogEndpointTLSClientCertificate *string                                          `bson:"syslogendpointtlsclientcertificate,omitempty"`
+	SyslogEndpointTLSServerCA          *string                                          `bson:"syslogendpointtlsserverca,omitempty"`
+	SyslogFacility                     *int                                             `bson:"syslogfacility,omitempty"`
+	SyslogFormat                       *EnforcerProfileSyslogFormatValue                `bson:"syslogformat,omitempty"`
+	TargetNetworks                     *[]string                                        `bson:"targetnetworks,omitempty"`
+	TargetUDPNetworks                  *[]string                                        `bson:"targetudpnetworks,omitempty"`
+	TrustedCAs                         *[]string                                        `bson:"trustedcas,omitempty"`
+	UpdateIdempotencyKey               *string                                          `bson:"updateidempotencykey,omitempty"`
+	UpdateTime                         *time.Time                                       `bson:"updatetime,omitempty"`
+	ZHash                              *int                                             `bson:"zhash,omitempty"`
+	Zone                               *int                                             `bson:"zone,omitempty"`
 }

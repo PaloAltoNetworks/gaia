@@ -12,6 +12,14 @@ model:
 # Attributes
 attributes:
   v1:
+  - name: archived
+    description: |-
+      if set to true, archived objects will also be included in in the matched
+      objects.
+    type: boolean
+    exposed: true
+    default_value: false
+
   - name: clauses
     description: The tag clause to resolve.
     type: external

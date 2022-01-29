@@ -100,6 +100,10 @@ type ProcessingUnitRefresh struct {
 	// Contains the ID of the target processing unit.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Instructs the enforcer to send the current connections
+	// for the target processing unit.
+	Connections bool `json:"connections,omitempty" msgpack:"connections,omitempty" bson:"-" mapstructure:"connections,omitempty"`
+
 	// If set to true, start reporting debug information for the target processing
 	// unit.
 	Debug bool `json:"debug,omitempty" msgpack:"debug,omitempty" bson:"-" mapstructure:"debug,omitempty"`
@@ -153,8 +157,8 @@ func NewProcessingUnitRefresh() *ProcessingUnitRefresh {
 
 	return &ProcessingUnitRefresh{
 		ModelVersion:   1,
-		PingIterations: 1,
 		PingMode:       ProcessingUnitRefreshPingModeAuto,
+		PingIterations: 1,
 		TraceDuration:  "10s",
 	}
 }
@@ -257,6 +261,7 @@ func (o *ProcessingUnitRefresh) ToSparse(fields ...string) elemental.SparseIdent
 		// nolint: goimports
 		return &SparseProcessingUnitRefresh{
 			ID:                          &o.ID,
+			Connections:                 &o.Connections,
 			Debug:                       &o.Debug,
 			Namespace:                   &o.Namespace,
 			PingAddress:                 &o.PingAddress,
@@ -278,6 +283,8 @@ func (o *ProcessingUnitRefresh) ToSparse(fields ...string) elemental.SparseIdent
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
+		case "connections":
+			sp.Connections = &(o.Connections)
 		case "debug":
 			sp.Debug = &(o.Debug)
 		case "namespace":
@@ -319,6 +326,9 @@ func (o *ProcessingUnitRefresh) Patch(sparse elemental.SparseIdentifiable) {
 	so := sparse.(*SparseProcessingUnitRefresh)
 	if so.ID != nil {
 		o.ID = *so.ID
+	}
+	if so.Connections != nil {
+		o.Connections = *so.Connections
 	}
 	if so.Debug != nil {
 		o.Debug = *so.Debug
@@ -435,6 +445,8 @@ func (o *ProcessingUnitRefresh) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "ID":
 		return o.ID
+	case "connections":
+		return o.Connections
 	case "debug":
 		return o.Debug
 	case "namespace":
@@ -479,6 +491,15 @@ var ProcessingUnitRefreshAttributesMap = map[string]elemental.AttributeSpecifica
 		ReadOnly:       true,
 		Setter:         true,
 		Type:           "string",
+	},
+	"Connections": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Connections",
+		Description: `Instructs the enforcer to send the current connections 
+for the target processing unit.`,
+		Exposed: true,
+		Name:    "connections",
+		Type:    "boolean",
 	},
 	"Debug": {
 		AllowedChoices: []string{},
@@ -612,6 +633,15 @@ var ProcessingUnitRefreshLowerCaseAttributesMap = map[string]elemental.Attribute
 		ReadOnly:       true,
 		Setter:         true,
 		Type:           "string",
+	},
+	"connections": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Connections",
+		Description: `Instructs the enforcer to send the current connections 
+for the target processing unit.`,
+		Exposed: true,
+		Name:    "connections",
+		Type:    "boolean",
 	},
 	"debug": {
 		AllowedChoices: []string{},
@@ -798,6 +828,10 @@ type SparseProcessingUnitRefresh struct {
 	// Contains the ID of the target processing unit.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Instructs the enforcer to send the current connections
+	// for the target processing unit.
+	Connections *bool `json:"connections,omitempty" msgpack:"connections,omitempty" bson:"-" mapstructure:"connections,omitempty"`
+
 	// If set to true, start reporting debug information for the target processing
 	// unit.
 	Debug *bool `json:"debug,omitempty" msgpack:"debug,omitempty" bson:"-" mapstructure:"debug,omitempty"`
@@ -917,6 +951,9 @@ func (o *SparseProcessingUnitRefresh) ToPlain() elemental.PlainIdentifiable {
 	out := NewProcessingUnitRefresh()
 	if o.ID != nil {
 		out.ID = *o.ID
+	}
+	if o.Connections != nil {
+		out.Connections = *o.Connections
 	}
 	if o.Debug != nil {
 		out.Debug = *o.Debug

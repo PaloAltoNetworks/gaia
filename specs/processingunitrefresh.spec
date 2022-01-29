@@ -22,6 +22,12 @@ attributes:
     setter: true
     identifier: true
 
+  - name: connections
+    description: "Instructs the enforcer to send the current connections \nfor the target processing unit."
+    type: boolean
+    exposed: true
+    omit_empty: true
+
   - name: debug
     description: |-
       If set to true, start reporting debug information for the target processing

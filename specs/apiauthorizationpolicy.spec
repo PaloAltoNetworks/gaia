@@ -3,7 +3,7 @@ model:
   rest_name: apiauthorizationpolicy
   resource_name: apiauthorizationpolicies
   entity_name: APIAuthorizationPolicy
-  package: squall
+  package: cid
   group: policy/authorization
   description: |-
     An API authorization defines the operations a user can perform in a
@@ -29,10 +29,10 @@ model:
   - '@disabled'
   - '@identifiable-stored'
   - '@metadatable'
+  - '@migratable'
   - '@named'
   - '@hidden'
   - '@fallback'
-  - '@propagated'
   - '@schedulable'
   - '@timeable'
   - '@zoned'
@@ -76,8 +76,18 @@ attributes:
     type: string
     exposed: true
     stored: true
-    required: true
+    deprecated: true
     example_value: /namespace
+
+  - name: authorizedNamespaces
+    description: Defines the namespaces this policy applies to.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    example_value:
+    - /namespace
+    - /namespace/child
 
   - name: authorizedSubnets
     description: |-
