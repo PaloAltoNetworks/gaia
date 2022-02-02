@@ -16713,6 +16713,12 @@ Type: `string`
 
 Identifier of the destination controller.
 
+##### `destinationFQDN`
+
+Type: `string`
+
+Destination fully qualified domain name (FQDN), if known.
+
 ##### `destinationID` [`required`]
 
 Type: `string`
@@ -16912,6 +16918,12 @@ Service URL accessed.
 Type: `string`
 
 Identifier of the source controller.
+
+##### `sourceFQDN`
+
+Type: `string`
+
+Source fully qualified domain name (FQDN), if known.
 
 ##### `sourceID` [`required`]
 
@@ -17419,6 +17431,12 @@ Type: `string`
 
 Identifier of the destination controller.
 
+##### `destinationFQDN`
+
+Type: `string`
+
+Destination fully qualified domain name (FQDN), if known.
+
 ##### `destinationID` [`required`]
 
 Type: `string`
@@ -17606,6 +17624,12 @@ Service URL accessed.
 Type: `string`
 
 Identifier of the source controller.
+
+##### `sourceFQDN`
+
+Type: `string`
+
+Source fully qualified domain name (FQDN), if known.
 
 ##### `sourceID` [`required`]
 

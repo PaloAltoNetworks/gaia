@@ -30,6 +30,15 @@ attributes:
     extensions:
       bson_name: b
 
+  - name: destinationFQDN
+    description:  Destination fully qualified domain name (FQDN), if known.
+    type: string
+    exposed: true
+    stored: true
+    omit_empty: true
+    extensions:
+      bson_name: am
+
   - name: destinationID
     description: ID of the destination.
     type: string
@@ -323,6 +332,15 @@ attributes:
     omit_empty: true
     extensions:
       bson_name: aa
+
+  - name: sourceFQDN
+    description:  Source fully qualified domain name (FQDN), if known.
+    type: string
+    exposed: true
+    stored: true
+    omit_empty: true
+    extensions:
+      bson_name: an
 
   - name: sourceID
     description: ID of the source.
