@@ -160,6 +160,9 @@ type CachedFlowReport struct {
 	// Identifier of the destination controller.
 	DestinationController string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"b,omitempty" mapstructure:"destinationController,omitempty"`
 
+	// Destination fully qualified domain name (FQDN), if known.
+	DestinationFQDN string `json:"destinationFQDN,omitempty" msgpack:"destinationFQDN,omitempty" bson:"am,omitempty" mapstructure:"destinationFQDN,omitempty"`
+
 	// ID of the destination.
 	DestinationID string `json:"destinationID,omitempty" msgpack:"destinationID,omitempty" bson:"c,omitempty" mapstructure:"destinationID,omitempty"`
 
@@ -257,6 +260,9 @@ type CachedFlowReport struct {
 	// Identifier of the source controller.
 	SourceController string `json:"sourceController,omitempty" msgpack:"sourceController,omitempty" bson:"aa,omitempty" mapstructure:"sourceController,omitempty"`
 
+	// Source fully qualified domain name (FQDN), if known.
+	SourceFQDN string `json:"sourceFQDN,omitempty" msgpack:"sourceFQDN,omitempty" bson:"an,omitempty" mapstructure:"sourceFQDN,omitempty"`
+
 	// ID of the source.
 	SourceID string `json:"sourceID,omitempty" msgpack:"sourceID,omitempty" bson:"ab,omitempty" mapstructure:"sourceID,omitempty"`
 
@@ -294,9 +300,9 @@ func NewCachedFlowReport() *CachedFlowReport {
 
 	return &CachedFlowReport{
 		ModelVersion:   1,
-		ObservedAction: CachedFlowReportObservedActionNotApplicable,
-		ServiceType:    CachedFlowReportServiceTypeNotApplicable,
 		MigrationsLog:  map[string]string{},
+		ServiceType:    CachedFlowReportServiceTypeNotApplicable,
+		ObservedAction: CachedFlowReportObservedActionNotApplicable,
 	}
 }
 
@@ -333,6 +339,7 @@ func (o *CachedFlowReport) GetBSON() (interface{}, error) {
 	}
 	s.Action = o.Action
 	s.DestinationController = o.DestinationController
+	s.DestinationFQDN = o.DestinationFQDN
 	s.DestinationID = o.DestinationID
 	s.DestinationIP = o.DestinationIP
 	s.DestinationNamespace = o.DestinationNamespace
@@ -364,6 +371,7 @@ func (o *CachedFlowReport) GetBSON() (interface{}, error) {
 	s.ServiceType = o.ServiceType
 	s.ServiceURL = o.ServiceURL
 	s.SourceController = o.SourceController
+	s.SourceFQDN = o.SourceFQDN
 	s.SourceID = o.SourceID
 	s.SourceIP = o.SourceIP
 	s.SourceNamespace = o.SourceNamespace
@@ -393,6 +401,7 @@ func (o *CachedFlowReport) SetBSON(raw bson.Raw) error {
 	o.ID = s.ID.Hex()
 	o.Action = s.Action
 	o.DestinationController = s.DestinationController
+	o.DestinationFQDN = s.DestinationFQDN
 	o.DestinationID = s.DestinationID
 	o.DestinationIP = s.DestinationIP
 	o.DestinationNamespace = s.DestinationNamespace
@@ -424,6 +433,7 @@ func (o *CachedFlowReport) SetBSON(raw bson.Raw) error {
 	o.ServiceType = s.ServiceType
 	o.ServiceURL = s.ServiceURL
 	o.SourceController = s.SourceController
+	o.SourceFQDN = s.SourceFQDN
 	o.SourceID = s.SourceID
 	o.SourceIP = s.SourceIP
 	o.SourceNamespace = s.SourceNamespace
@@ -512,6 +522,7 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			ID:                      &o.ID,
 			Action:                  &o.Action,
 			DestinationController:   &o.DestinationController,
+			DestinationFQDN:         &o.DestinationFQDN,
 			DestinationID:           &o.DestinationID,
 			DestinationIP:           &o.DestinationIP,
 			DestinationNamespace:    &o.DestinationNamespace,
@@ -543,6 +554,7 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			ServiceType:             &o.ServiceType,
 			ServiceURL:              &o.ServiceURL,
 			SourceController:        &o.SourceController,
+			SourceFQDN:              &o.SourceFQDN,
 			SourceID:                &o.SourceID,
 			SourceIP:                &o.SourceIP,
 			SourceNamespace:         &o.SourceNamespace,
@@ -564,6 +576,8 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.Action = &(o.Action)
 		case "destinationController":
 			sp.DestinationController = &(o.DestinationController)
+		case "destinationFQDN":
+			sp.DestinationFQDN = &(o.DestinationFQDN)
 		case "destinationID":
 			sp.DestinationID = &(o.DestinationID)
 		case "destinationIP":
@@ -626,6 +640,8 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.ServiceURL = &(o.ServiceURL)
 		case "sourceController":
 			sp.SourceController = &(o.SourceController)
+		case "sourceFQDN":
+			sp.SourceFQDN = &(o.SourceFQDN)
 		case "sourceID":
 			sp.SourceID = &(o.SourceID)
 		case "sourceIP":
@@ -665,6 +681,9 @@ func (o *CachedFlowReport) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.DestinationController != nil {
 		o.DestinationController = *so.DestinationController
+	}
+	if so.DestinationFQDN != nil {
+		o.DestinationFQDN = *so.DestinationFQDN
 	}
 	if so.DestinationID != nil {
 		o.DestinationID = *so.DestinationID
@@ -758,6 +777,9 @@ func (o *CachedFlowReport) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.SourceController != nil {
 		o.SourceController = *so.SourceController
+	}
+	if so.SourceFQDN != nil {
+		o.SourceFQDN = *so.SourceFQDN
 	}
 	if so.SourceID != nil {
 		o.SourceID = *so.SourceID
@@ -919,6 +941,8 @@ func (o *CachedFlowReport) ValueForAttribute(name string) interface{} {
 		return o.Action
 	case "destinationController":
 		return o.DestinationController
+	case "destinationFQDN":
+		return o.DestinationFQDN
 	case "destinationID":
 		return o.DestinationID
 	case "destinationIP":
@@ -981,6 +1005,8 @@ func (o *CachedFlowReport) ValueForAttribute(name string) interface{} {
 		return o.ServiceURL
 	case "sourceController":
 		return o.SourceController
+	case "sourceFQDN":
+		return o.SourceFQDN
 	case "sourceID":
 		return o.SourceID
 	case "sourceIP":
@@ -1039,6 +1065,16 @@ var CachedFlowReportAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `Identifier of the destination controller.`,
 		Exposed:        true,
 		Name:           "destinationController",
+		Stored:         true,
+		Type:           "string",
+	},
+	"DestinationFQDN": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "am",
+		ConvertedName:  "DestinationFQDN",
+		Description:    `Destination fully qualified domain name (FQDN), if known.`,
+		Exposed:        true,
+		Name:           "destinationFQDN",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1367,6 +1403,16 @@ NetworkRuleSetPolicy that acted on the flow.`,
 		Stored:         true,
 		Type:           "string",
 	},
+	"SourceFQDN": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "an",
+		ConvertedName:  "SourceFQDN",
+		Description:    `Source fully qualified domain name (FQDN), if known.`,
+		Exposed:        true,
+		Name:           "sourceFQDN",
+		Stored:         true,
+		Type:           "string",
+	},
 	"SourceID": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "ab",
@@ -1508,6 +1554,16 @@ var CachedFlowReportLowerCaseAttributesMap = map[string]elemental.AttributeSpeci
 		Description:    `Identifier of the destination controller.`,
 		Exposed:        true,
 		Name:           "destinationController",
+		Stored:         true,
+		Type:           "string",
+	},
+	"destinationfqdn": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "am",
+		ConvertedName:  "DestinationFQDN",
+		Description:    `Destination fully qualified domain name (FQDN), if known.`,
+		Exposed:        true,
+		Name:           "destinationFQDN",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1836,6 +1892,16 @@ NetworkRuleSetPolicy that acted on the flow.`,
 		Stored:         true,
 		Type:           "string",
 	},
+	"sourcefqdn": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "an",
+		ConvertedName:  "SourceFQDN",
+		Description:    `Source fully qualified domain name (FQDN), if known.`,
+		Exposed:        true,
+		Name:           "sourceFQDN",
+		Stored:         true,
+		Type:           "string",
+	},
 	"sourceid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "ab",
@@ -2014,6 +2080,9 @@ type SparseCachedFlowReport struct {
 	// Identifier of the destination controller.
 	DestinationController *string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"b,omitempty" mapstructure:"destinationController,omitempty"`
 
+	// Destination fully qualified domain name (FQDN), if known.
+	DestinationFQDN *string `json:"destinationFQDN,omitempty" msgpack:"destinationFQDN,omitempty" bson:"am,omitempty" mapstructure:"destinationFQDN,omitempty"`
+
 	// ID of the destination.
 	DestinationID *string `json:"destinationID,omitempty" msgpack:"destinationID,omitempty" bson:"c,omitempty" mapstructure:"destinationID,omitempty"`
 
@@ -2111,6 +2180,9 @@ type SparseCachedFlowReport struct {
 	// Identifier of the source controller.
 	SourceController *string `json:"sourceController,omitempty" msgpack:"sourceController,omitempty" bson:"aa,omitempty" mapstructure:"sourceController,omitempty"`
 
+	// Source fully qualified domain name (FQDN), if known.
+	SourceFQDN *string `json:"sourceFQDN,omitempty" msgpack:"sourceFQDN,omitempty" bson:"an,omitempty" mapstructure:"sourceFQDN,omitempty"`
+
 	// ID of the source.
 	SourceID *string `json:"sourceID,omitempty" msgpack:"sourceID,omitempty" bson:"ab,omitempty" mapstructure:"sourceID,omitempty"`
 
@@ -2191,6 +2263,9 @@ func (o *SparseCachedFlowReport) GetBSON() (interface{}, error) {
 	}
 	if o.DestinationController != nil {
 		s.DestinationController = o.DestinationController
+	}
+	if o.DestinationFQDN != nil {
+		s.DestinationFQDN = o.DestinationFQDN
 	}
 	if o.DestinationID != nil {
 		s.DestinationID = o.DestinationID
@@ -2285,6 +2360,9 @@ func (o *SparseCachedFlowReport) GetBSON() (interface{}, error) {
 	if o.SourceController != nil {
 		s.SourceController = o.SourceController
 	}
+	if o.SourceFQDN != nil {
+		s.SourceFQDN = o.SourceFQDN
+	}
 	if o.SourceID != nil {
 		s.SourceID = o.SourceID
 	}
@@ -2336,6 +2414,9 @@ func (o *SparseCachedFlowReport) SetBSON(raw bson.Raw) error {
 	}
 	if s.DestinationController != nil {
 		o.DestinationController = s.DestinationController
+	}
+	if s.DestinationFQDN != nil {
+		o.DestinationFQDN = s.DestinationFQDN
 	}
 	if s.DestinationID != nil {
 		o.DestinationID = s.DestinationID
@@ -2430,6 +2511,9 @@ func (o *SparseCachedFlowReport) SetBSON(raw bson.Raw) error {
 	if s.SourceController != nil {
 		o.SourceController = s.SourceController
 	}
+	if s.SourceFQDN != nil {
+		o.SourceFQDN = s.SourceFQDN
+	}
 	if s.SourceID != nil {
 		o.SourceID = s.SourceID
 	}
@@ -2479,6 +2563,9 @@ func (o *SparseCachedFlowReport) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.DestinationController != nil {
 		out.DestinationController = *o.DestinationController
+	}
+	if o.DestinationFQDN != nil {
+		out.DestinationFQDN = *o.DestinationFQDN
 	}
 	if o.DestinationID != nil {
 		out.DestinationID = *o.DestinationID
@@ -2572,6 +2659,9 @@ func (o *SparseCachedFlowReport) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.SourceController != nil {
 		out.SourceController = *o.SourceController
+	}
+	if o.SourceFQDN != nil {
+		out.SourceFQDN = *o.SourceFQDN
 	}
 	if o.SourceID != nil {
 		out.SourceID = *o.SourceID
@@ -2680,6 +2770,7 @@ type mongoAttributesCachedFlowReport struct {
 	ID                      bson.ObjectId                        `bson:"_id,omitempty"`
 	Action                  CachedFlowReportActionValue          `bson:"a,omitempty"`
 	DestinationController   string                               `bson:"b,omitempty"`
+	DestinationFQDN         string                               `bson:"am,omitempty"`
 	DestinationID           string                               `bson:"c,omitempty"`
 	DestinationIP           string                               `bson:"d,omitempty"`
 	DestinationNamespace    string                               `bson:"e,omitempty"`
@@ -2711,6 +2802,7 @@ type mongoAttributesCachedFlowReport struct {
 	ServiceType             CachedFlowReportServiceTypeValue     `bson:"y,omitempty"`
 	ServiceURL              string                               `bson:"z,omitempty"`
 	SourceController        string                               `bson:"aa,omitempty"`
+	SourceFQDN              string                               `bson:"an,omitempty"`
 	SourceID                string                               `bson:"ab,omitempty"`
 	SourceIP                string                               `bson:"ac,omitempty"`
 	SourceNamespace         string                               `bson:"ad,omitempty"`
@@ -2725,6 +2817,7 @@ type mongoAttributesSparseCachedFlowReport struct {
 	ID                      bson.ObjectId                         `bson:"_id,omitempty"`
 	Action                  *CachedFlowReportActionValue          `bson:"a,omitempty"`
 	DestinationController   *string                               `bson:"b,omitempty"`
+	DestinationFQDN         *string                               `bson:"am,omitempty"`
 	DestinationID           *string                               `bson:"c,omitempty"`
 	DestinationIP           *string                               `bson:"d,omitempty"`
 	DestinationNamespace    *string                               `bson:"e,omitempty"`
@@ -2756,6 +2849,7 @@ type mongoAttributesSparseCachedFlowReport struct {
 	ServiceType             *CachedFlowReportServiceTypeValue     `bson:"y,omitempty"`
 	ServiceURL              *string                               `bson:"z,omitempty"`
 	SourceController        *string                               `bson:"aa,omitempty"`
+	SourceFQDN              *string                               `bson:"an,omitempty"`
 	SourceID                *string                               `bson:"ab,omitempty"`
 	SourceIP                *string                               `bson:"ac,omitempty"`
 	SourceNamespace         *string                               `bson:"ad,omitempty"`
