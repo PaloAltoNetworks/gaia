@@ -8077,7 +8077,7 @@ The subtype of a list parameter.
 
 ##### `type` [`required`]
 
-Type: `enum(Boolean | Checkbox | CVSSThreshold | DangerMessage | Duration | Enum | Endpoint | FileDrop | Float | FloatSlice | InfoMessage | Integer | IntegerSlice | JSON | List | Message | Namespace | Password | String | StringSlice | Switch | TagsExpression | Title | WarningMessage)`
+Type: `enum(Boolean | Checkbox | CVSSThreshold | DangerMessage | Duration | Enum | Endpoint | FileDrop | Float | FloatSlice | InfoMessage | Integer | IntegerSlice | JSON | List | Message | Namespace | Password | String | StringSlice | Switch | TagsExpression | Title | WarningMessage | AutomationAction)`
 
 The datatype of the parameter.
 
@@ -15046,7 +15046,7 @@ Type: `string`
 
 PEM-encoded server CA certificate.
 
-##### `syslogFacility` [`max_value=23.000000`]
+##### `syslogFacility` [`min_value=1.000000`,`max_value=23.000000`]
 
 Type: `integer`
 
@@ -20745,7 +20745,7 @@ Tags of object represented by the node.
 
 ##### `type`
 
-Type: `enum(Docker | ExternalNetwork | Volume | Claim | Node | Namespace | RemoteController)`
+Type: `enum(Docker | ExternalNetwork | Volume | Claim | Node | Namespace | RemoteController | APIGateway | Host | HostService | LinuxService | WindowsService | RKT | User | SSHSession)`
 
 Type of object represented by the node.
 

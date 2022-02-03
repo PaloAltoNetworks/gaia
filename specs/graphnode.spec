@@ -89,6 +89,14 @@ attributes:
     - Node
     - Namespace
     - RemoteController
+    - APIGateway
+    - Host
+    - HostService
+    - LinuxService
+    - WindowsService
+    - RKT
+    - User
+    - SSHSession
 
   - name: unreachable
     description: If `true` the node is marked as unreachable.

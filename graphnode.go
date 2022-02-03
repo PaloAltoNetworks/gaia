@@ -13,6 +13,9 @@ import (
 type GraphNodeTypeValue string
 
 const (
+	// GraphNodeTypeAPIGateway represents the value APIGateway.
+	GraphNodeTypeAPIGateway GraphNodeTypeValue = "APIGateway"
+
 	// GraphNodeTypeClaim represents the value Claim.
 	GraphNodeTypeClaim GraphNodeTypeValue = "Claim"
 
@@ -22,17 +25,38 @@ const (
 	// GraphNodeTypeExternalNetwork represents the value ExternalNetwork.
 	GraphNodeTypeExternalNetwork GraphNodeTypeValue = "ExternalNetwork"
 
+	// GraphNodeTypeHost represents the value Host.
+	GraphNodeTypeHost GraphNodeTypeValue = "Host"
+
+	// GraphNodeTypeHostService represents the value HostService.
+	GraphNodeTypeHostService GraphNodeTypeValue = "HostService"
+
+	// GraphNodeTypeLinuxService represents the value LinuxService.
+	GraphNodeTypeLinuxService GraphNodeTypeValue = "LinuxService"
+
 	// GraphNodeTypeNamespace represents the value Namespace.
 	GraphNodeTypeNamespace GraphNodeTypeValue = "Namespace"
 
 	// GraphNodeTypeNode represents the value Node.
 	GraphNodeTypeNode GraphNodeTypeValue = "Node"
 
+	// GraphNodeTypeRKT represents the value RKT.
+	GraphNodeTypeRKT GraphNodeTypeValue = "RKT"
+
 	// GraphNodeTypeRemoteController represents the value RemoteController.
 	GraphNodeTypeRemoteController GraphNodeTypeValue = "RemoteController"
 
+	// GraphNodeTypeSSHSession represents the value SSHSession.
+	GraphNodeTypeSSHSession GraphNodeTypeValue = "SSHSession"
+
+	// GraphNodeTypeUser represents the value User.
+	GraphNodeTypeUser GraphNodeTypeValue = "User"
+
 	// GraphNodeTypeVolume represents the value Volume.
 	GraphNodeTypeVolume GraphNodeTypeValue = "Volume"
+
+	// GraphNodeTypeWindowsService represents the value WindowsService.
+	GraphNodeTypeWindowsService GraphNodeTypeValue = "WindowsService"
 )
 
 // GraphNodeIdentity represents the Identity of the object.
@@ -398,7 +422,7 @@ func (o *GraphNode) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController", "APIGateway", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -572,7 +596,7 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "list",
 	},
 	"Type": {
-		AllowedChoices: []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController"},
+		AllowedChoices: []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController", "APIGateway", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of object represented by the node.`,
@@ -708,7 +732,7 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Type:           "list",
 	},
 	"type": {
-		AllowedChoices: []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController"},
+		AllowedChoices: []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController", "APIGateway", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of object represented by the node.`,

@@ -112,6 +112,66 @@ func (o *CloudVPCData) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*CloudVPCData) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := CloudVPCDataAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return CloudVPCDataLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*CloudVPCData) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return CloudVPCDataAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *CloudVPCData) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "address":
+		return o.Address
+	}
+
+	return nil
+}
+
+// CloudVPCDataAttributesMap represents the map of attribute for CloudVPCData.
+var CloudVPCDataAttributesMap = map[string]elemental.AttributeSpecification{
+	"Address": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "address",
+		ConvertedName:  "Address",
+		Description:    `Address CIDR of the VPC.`,
+		Exposed:        true,
+		Name:           "address",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+}
+
+// CloudVPCDataLowerCaseAttributesMap represents the map of attribute for CloudVPCData.
+var CloudVPCDataLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"address": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "address",
+		ConvertedName:  "Address",
+		Description:    `Address CIDR of the VPC.`,
+		Exposed:        true,
+		Name:           "address",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+}
+
 type mongoAttributesCloudVPCData struct {
 	Address string `bson:"address"`
 }

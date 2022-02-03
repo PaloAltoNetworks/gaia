@@ -131,6 +131,134 @@ func (o *CloudRouteData) Validate() error {
 	return nil
 }
 
+// SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
+func (*CloudRouteData) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+
+	if v, ok := CloudRouteDataAttributesMap[name]; ok {
+		return v
+	}
+
+	// We could not find it, so let's check on the lower case indexed spec map
+	return CloudRouteDataLowerCaseAttributesMap[name]
+}
+
+// AttributeSpecifications returns the full attribute specifications map.
+func (*CloudRouteData) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+
+	return CloudRouteDataAttributesMap
+}
+
+// ValueForAttribute returns the value for the given attribute.
+// This is a very advanced function that you should not need but in some
+// very specific use cases.
+func (o *CloudRouteData) ValueForAttribute(name string) interface{} {
+
+	switch name {
+	case "gatewayID":
+		return o.GatewayID
+	case "mainTable":
+		return o.MainTable
+	case "routelist":
+		return o.Routelist
+	case "subnetAssociations":
+		return o.SubnetAssociations
+	}
+
+	return nil
+}
+
+// CloudRouteDataAttributesMap represents the map of attribute for CloudRouteData.
+var CloudRouteDataAttributesMap = map[string]elemental.AttributeSpecification{
+	"GatewayID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "gatewayid",
+		ConvertedName:  "GatewayID",
+		Description:    `The gateway that this route table is associated with.`,
+		Exposed:        true,
+		Name:           "gatewayID",
+		Stored:         true,
+		Type:           "string",
+	},
+	"MainTable": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "maintable",
+		ConvertedName:  "MainTable",
+		Description:    `Indicates that this is the default route table for the VPC.`,
+		Exposed:        true,
+		Name:           "mainTable",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"Routelist": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "routelist",
+		ConvertedName:  "Routelist",
+		Description:    `Routes associated with this route table.`,
+		Exposed:        true,
+		Name:           "routelist",
+		Stored:         true,
+		SubType:        "cloudroute",
+		Type:           "refList",
+	},
+	"SubnetAssociations": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "subnetassociations",
+		ConvertedName:  "SubnetAssociations",
+		Description:    `The list of subnets that this route table is associated with.`,
+		Exposed:        true,
+		Name:           "subnetAssociations",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+}
+
+// CloudRouteDataLowerCaseAttributesMap represents the map of attribute for CloudRouteData.
+var CloudRouteDataLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"gatewayid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "gatewayid",
+		ConvertedName:  "GatewayID",
+		Description:    `The gateway that this route table is associated with.`,
+		Exposed:        true,
+		Name:           "gatewayID",
+		Stored:         true,
+		Type:           "string",
+	},
+	"maintable": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "maintable",
+		ConvertedName:  "MainTable",
+		Description:    `Indicates that this is the default route table for the VPC.`,
+		Exposed:        true,
+		Name:           "mainTable",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"routelist": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "routelist",
+		ConvertedName:  "Routelist",
+		Description:    `Routes associated with this route table.`,
+		Exposed:        true,
+		Name:           "routelist",
+		Stored:         true,
+		SubType:        "cloudroute",
+		Type:           "refList",
+	},
+	"subnetassociations": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "subnetassociations",
+		ConvertedName:  "SubnetAssociations",
+		Description:    `The list of subnets that this route table is associated with.`,
+		Exposed:        true,
+		Name:           "subnetAssociations",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+}
+
 type mongoAttributesCloudRouteData struct {
 	GatewayID          string        `bson:"gatewayid"`
 	MainTable          bool          `bson:"maintable"`
