@@ -9,43 +9,43 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// CloudPublicIpAddressIdentity represents the Identity of the object.
-var CloudPublicIpAddressIdentity = elemental.Identity{
+// CloudPublicIPAddressIdentity represents the Identity of the object.
+var CloudPublicIPAddressIdentity = elemental.Identity{
 	Name:     "cloudpublicipaddress",
 	Category: "cloudpublicipaddresses",
 	Package:  "yeul",
 	Private:  false,
 }
 
-// CloudPublicIpAddressList represents a list of CloudPublicIpAddress
-type CloudPublicIpAddressList []*CloudPublicIpAddress
+// CloudPublicIPAddressList represents a list of CloudPublicIPAddress
+type CloudPublicIPAddressList []*CloudPublicIPAddress
 
 // Identity returns the identity of the objects in the list.
-func (o CloudPublicIpAddressList) Identity() elemental.Identity {
+func (o CloudPublicIPAddressList) Identity() elemental.Identity {
 
-	return CloudPublicIpAddressIdentity
+	return CloudPublicIPAddressIdentity
 }
 
-// Copy returns a pointer to a copy the CloudPublicIpAddressList.
-func (o CloudPublicIpAddressList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the CloudPublicIPAddressList.
+func (o CloudPublicIPAddressList) Copy() elemental.Identifiables {
 
-	copy := append(CloudPublicIpAddressList{}, o...)
+	copy := append(CloudPublicIPAddressList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the CloudPublicIpAddressList.
-func (o CloudPublicIpAddressList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the CloudPublicIPAddressList.
+func (o CloudPublicIPAddressList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(CloudPublicIpAddressList{}, o...)
+	out := append(CloudPublicIPAddressList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*CloudPublicIpAddress))
+		out = append(out, obj.(*CloudPublicIPAddress))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o CloudPublicIpAddressList) List() elemental.IdentifiablesList {
+func (o CloudPublicIPAddressList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -56,31 +56,31 @@ func (o CloudPublicIpAddressList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o CloudPublicIpAddressList) DefaultOrder() []string {
+func (o CloudPublicIPAddressList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToSparse returns the CloudPublicIpAddressList converted to SparseCloudPublicIpAddressList.
+// ToSparse returns the CloudPublicIPAddressList converted to SparseCloudPublicIPAddressList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o CloudPublicIpAddressList) ToSparse(fields ...string) elemental.Identifiables {
+func (o CloudPublicIPAddressList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseCloudPublicIpAddressList, len(o))
+	out := make(SparseCloudPublicIPAddressList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseCloudPublicIpAddress)
+		out[i] = o[i].ToSparse(fields...).(*SparseCloudPublicIPAddress)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o CloudPublicIpAddressList) Version() int {
+func (o CloudPublicIPAddressList) Version() int {
 
 	return 1
 }
 
-// CloudPublicIpAddress represents the model of a cloudpublicipaddress
-type CloudPublicIpAddress struct {
+// CloudPublicIPAddress represents the model of a cloudpublicipaddress
+type CloudPublicIPAddress struct {
 	// Prisma Cloud API ID (matches Prisma Cloud API ID).
 	APIID int `json:"APIID,omitempty" msgpack:"APIID,omitempty" bson:"apiid,omitempty" mapstructure:"APIID,omitempty"`
 
@@ -132,7 +132,7 @@ type CloudPublicIpAddress struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags []string `json:"normalizedTags" msgpack:"normalizedTags" bson:"normalizedtags" mapstructure:"normalizedTags,omitempty"`
 
-	// PublicIpAddress related parameters.
+	// PublicIPAddress related parameters.
 	Parameters *CloudAddress `json:"parameters" msgpack:"parameters" bson:"parameters" mapstructure:"parameters,omitempty"`
 
 	// A list of policy references associated with this cloud node.
@@ -163,10 +163,10 @@ type CloudPublicIpAddress struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewCloudPublicIpAddress returns a new *CloudPublicIpAddress
-func NewCloudPublicIpAddress() *CloudPublicIpAddress {
+// NewCloudPublicIPAddress returns a new *CloudPublicIPAddress
+func NewCloudPublicIPAddress() *CloudPublicIPAddress {
 
-	return &CloudPublicIpAddress{
+	return &CloudPublicIPAddress{
 		ModelVersion:     1,
 		Annotations:      map[string][]string{},
 		AssociatedTags:   []string{},
@@ -179,32 +179,32 @@ func NewCloudPublicIpAddress() *CloudPublicIpAddress {
 }
 
 // Identity returns the Identity of the object.
-func (o *CloudPublicIpAddress) Identity() elemental.Identity {
+func (o *CloudPublicIPAddress) Identity() elemental.Identity {
 
-	return CloudPublicIpAddressIdentity
+	return CloudPublicIPAddressIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *CloudPublicIpAddress) Identifier() string {
+func (o *CloudPublicIPAddress) Identifier() string {
 
 	return o.ID
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *CloudPublicIpAddress) SetIdentifier(id string) {
+func (o *CloudPublicIPAddress) SetIdentifier(id string) {
 
 	o.ID = id
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudPublicIpAddress) GetBSON() (interface{}, error) {
+func (o *CloudPublicIPAddress) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesCloudPublicIpAddress{}
+	s := &mongoAttributesCloudPublicIPAddress{}
 
 	s.APIID = o.APIID
 	if o.ID != "" {
@@ -240,13 +240,13 @@ func (o *CloudPublicIpAddress) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudPublicIpAddress) SetBSON(raw bson.Raw) error {
+func (o *CloudPublicIPAddress) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesCloudPublicIpAddress{}
+	s := &mongoAttributesCloudPublicIPAddress{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -282,330 +282,330 @@ func (o *CloudPublicIpAddress) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *CloudPublicIpAddress) Version() int {
+func (o *CloudPublicIPAddress) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *CloudPublicIpAddress) BleveType() string {
+func (o *CloudPublicIPAddress) BleveType() string {
 
 	return "cloudpublicipaddress"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *CloudPublicIpAddress) DefaultOrder() []string {
+func (o *CloudPublicIPAddress) DefaultOrder() []string {
 
 	return []string{}
 }
 
 // Doc returns the documentation for the object
-func (o *CloudPublicIpAddress) Doc() string {
+func (o *CloudPublicIPAddress) Doc() string {
 
-	return `A CloudPublicIpAddress represents a PublicIpAdress as defined in an Azure cloud
+	return `A CloudPublicIPAddress represents a PublicIPAdress as defined in an Azure cloud
 provider.`
 }
 
-func (o *CloudPublicIpAddress) String() string {
+func (o *CloudPublicIPAddress) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // GetAPIID returns the APIID of the receiver.
-func (o *CloudPublicIpAddress) GetAPIID() int {
+func (o *CloudPublicIPAddress) GetAPIID() int {
 
 	return o.APIID
 }
 
 // SetAPIID sets the property APIID of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetAPIID(APIID int) {
+func (o *CloudPublicIPAddress) SetAPIID(APIID int) {
 
 	o.APIID = APIID
 }
 
 // GetVPCID returns the VPCID of the receiver.
-func (o *CloudPublicIpAddress) GetVPCID() string {
+func (o *CloudPublicIPAddress) GetVPCID() string {
 
 	return o.VPCID
 }
 
 // SetVPCID sets the property VPCID of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetVPCID(VPCID string) {
+func (o *CloudPublicIPAddress) SetVPCID(VPCID string) {
 
 	o.VPCID = VPCID
 }
 
 // GetAccountID returns the AccountID of the receiver.
-func (o *CloudPublicIpAddress) GetAccountID() string {
+func (o *CloudPublicIPAddress) GetAccountID() string {
 
 	return o.AccountID
 }
 
 // SetAccountID sets the property AccountID of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetAccountID(accountID string) {
+func (o *CloudPublicIPAddress) SetAccountID(accountID string) {
 
 	o.AccountID = accountID
 }
 
 // GetAnnotations returns the Annotations of the receiver.
-func (o *CloudPublicIpAddress) GetAnnotations() map[string][]string {
+func (o *CloudPublicIPAddress) GetAnnotations() map[string][]string {
 
 	return o.Annotations
 }
 
 // SetAnnotations sets the property Annotations of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetAnnotations(annotations map[string][]string) {
+func (o *CloudPublicIPAddress) SetAnnotations(annotations map[string][]string) {
 
 	o.Annotations = annotations
 }
 
 // GetAssociatedTags returns the AssociatedTags of the receiver.
-func (o *CloudPublicIpAddress) GetAssociatedTags() []string {
+func (o *CloudPublicIPAddress) GetAssociatedTags() []string {
 
 	return o.AssociatedTags
 }
 
 // SetAssociatedTags sets the property AssociatedTags of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetAssociatedTags(associatedTags []string) {
+func (o *CloudPublicIPAddress) SetAssociatedTags(associatedTags []string) {
 
 	o.AssociatedTags = associatedTags
 }
 
 // GetCloudTags returns the CloudTags of the receiver.
-func (o *CloudPublicIpAddress) GetCloudTags() []string {
+func (o *CloudPublicIPAddress) GetCloudTags() []string {
 
 	return o.CloudTags
 }
 
 // SetCloudTags sets the property CloudTags of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetCloudTags(cloudTags []string) {
+func (o *CloudPublicIPAddress) SetCloudTags(cloudTags []string) {
 
 	o.CloudTags = cloudTags
 }
 
 // GetCloudType returns the CloudType of the receiver.
-func (o *CloudPublicIpAddress) GetCloudType() string {
+func (o *CloudPublicIPAddress) GetCloudType() string {
 
 	return o.CloudType
 }
 
 // SetCloudType sets the property CloudType of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetCloudType(cloudType string) {
+func (o *CloudPublicIPAddress) SetCloudType(cloudType string) {
 
 	o.CloudType = cloudType
 }
 
 // GetCreateIdempotencyKey returns the CreateIdempotencyKey of the receiver.
-func (o *CloudPublicIpAddress) GetCreateIdempotencyKey() string {
+func (o *CloudPublicIPAddress) GetCreateIdempotencyKey() string {
 
 	return o.CreateIdempotencyKey
 }
 
 // SetCreateIdempotencyKey sets the property CreateIdempotencyKey of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetCreateIdempotencyKey(createIdempotencyKey string) {
+func (o *CloudPublicIPAddress) SetCreateIdempotencyKey(createIdempotencyKey string) {
 
 	o.CreateIdempotencyKey = createIdempotencyKey
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *CloudPublicIpAddress) GetCreateTime() time.Time {
+func (o *CloudPublicIPAddress) GetCreateTime() time.Time {
 
 	return o.CreateTime
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetCreateTime(createTime time.Time) {
+func (o *CloudPublicIPAddress) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = createTime
 }
 
 // GetCustomerID returns the CustomerID of the receiver.
-func (o *CloudPublicIpAddress) GetCustomerID() int {
+func (o *CloudPublicIPAddress) GetCustomerID() int {
 
 	return o.CustomerID
 }
 
 // SetCustomerID sets the property CustomerID of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetCustomerID(customerID int) {
+func (o *CloudPublicIPAddress) SetCustomerID(customerID int) {
 
 	o.CustomerID = customerID
 }
 
 // GetIngestionTime returns the IngestionTime of the receiver.
-func (o *CloudPublicIpAddress) GetIngestionTime() time.Time {
+func (o *CloudPublicIPAddress) GetIngestionTime() time.Time {
 
 	return o.IngestionTime
 }
 
 // SetIngestionTime sets the property IngestionTime of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetIngestionTime(ingestionTime time.Time) {
+func (o *CloudPublicIPAddress) SetIngestionTime(ingestionTime time.Time) {
 
 	o.IngestionTime = ingestionTime
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *CloudPublicIpAddress) GetMigrationsLog() map[string]string {
+func (o *CloudPublicIPAddress) GetMigrationsLog() map[string]string {
 
 	return o.MigrationsLog
 }
 
 // SetMigrationsLog sets the property MigrationsLog of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetMigrationsLog(migrationsLog map[string]string) {
+func (o *CloudPublicIPAddress) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = migrationsLog
 }
 
 // GetName returns the Name of the receiver.
-func (o *CloudPublicIpAddress) GetName() string {
+func (o *CloudPublicIPAddress) GetName() string {
 
 	return o.Name
 }
 
 // SetName sets the property Name of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetName(name string) {
+func (o *CloudPublicIPAddress) SetName(name string) {
 
 	o.Name = name
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *CloudPublicIpAddress) GetNamespace() string {
+func (o *CloudPublicIPAddress) GetNamespace() string {
 
 	return o.Namespace
 }
 
 // SetNamespace sets the property Namespace of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetNamespace(namespace string) {
+func (o *CloudPublicIPAddress) SetNamespace(namespace string) {
 
 	o.Namespace = namespace
 }
 
 // GetNativeID returns the NativeID of the receiver.
-func (o *CloudPublicIpAddress) GetNativeID() string {
+func (o *CloudPublicIPAddress) GetNativeID() string {
 
 	return o.NativeID
 }
 
 // SetNativeID sets the property NativeID of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetNativeID(nativeID string) {
+func (o *CloudPublicIPAddress) SetNativeID(nativeID string) {
 
 	o.NativeID = nativeID
 }
 
 // GetNormalizedTags returns the NormalizedTags of the receiver.
-func (o *CloudPublicIpAddress) GetNormalizedTags() []string {
+func (o *CloudPublicIPAddress) GetNormalizedTags() []string {
 
 	return o.NormalizedTags
 }
 
 // SetNormalizedTags sets the property NormalizedTags of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetNormalizedTags(normalizedTags []string) {
+func (o *CloudPublicIPAddress) SetNormalizedTags(normalizedTags []string) {
 
 	o.NormalizedTags = normalizedTags
 }
 
 // GetPolicyReferences returns the PolicyReferences of the receiver.
-func (o *CloudPublicIpAddress) GetPolicyReferences() []string {
+func (o *CloudPublicIPAddress) GetPolicyReferences() []string {
 
 	return o.PolicyReferences
 }
 
 // SetPolicyReferences sets the property PolicyReferences of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetPolicyReferences(policyReferences []string) {
+func (o *CloudPublicIPAddress) SetPolicyReferences(policyReferences []string) {
 
 	o.PolicyReferences = policyReferences
 }
 
 // GetProtected returns the Protected of the receiver.
-func (o *CloudPublicIpAddress) GetProtected() bool {
+func (o *CloudPublicIPAddress) GetProtected() bool {
 
 	return o.Protected
 }
 
 // SetProtected sets the property Protected of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetProtected(protected bool) {
+func (o *CloudPublicIPAddress) SetProtected(protected bool) {
 
 	o.Protected = protected
 }
 
 // GetRegionName returns the RegionName of the receiver.
-func (o *CloudPublicIpAddress) GetRegionName() string {
+func (o *CloudPublicIPAddress) GetRegionName() string {
 
 	return o.RegionName
 }
 
 // SetRegionName sets the property RegionName of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetRegionName(regionName string) {
+func (o *CloudPublicIPAddress) SetRegionName(regionName string) {
 
 	o.RegionName = regionName
 }
 
 // GetResourceID returns the ResourceID of the receiver.
-func (o *CloudPublicIpAddress) GetResourceID() int {
+func (o *CloudPublicIPAddress) GetResourceID() int {
 
 	return o.ResourceID
 }
 
 // SetResourceID sets the property ResourceID of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetResourceID(resourceID int) {
+func (o *CloudPublicIPAddress) SetResourceID(resourceID int) {
 
 	o.ResourceID = resourceID
 }
 
 // GetUpdateIdempotencyKey returns the UpdateIdempotencyKey of the receiver.
-func (o *CloudPublicIpAddress) GetUpdateIdempotencyKey() string {
+func (o *CloudPublicIPAddress) GetUpdateIdempotencyKey() string {
 
 	return o.UpdateIdempotencyKey
 }
 
 // SetUpdateIdempotencyKey sets the property UpdateIdempotencyKey of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
+func (o *CloudPublicIPAddress) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
 
 	o.UpdateIdempotencyKey = updateIdempotencyKey
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *CloudPublicIpAddress) GetUpdateTime() time.Time {
+func (o *CloudPublicIPAddress) GetUpdateTime() time.Time {
 
 	return o.UpdateTime
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetUpdateTime(updateTime time.Time) {
+func (o *CloudPublicIPAddress) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *CloudPublicIpAddress) GetZHash() int {
+func (o *CloudPublicIPAddress) GetZHash() int {
 
 	return o.ZHash
 }
 
 // SetZHash sets the property ZHash of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetZHash(zHash int) {
+func (o *CloudPublicIPAddress) SetZHash(zHash int) {
 
 	o.ZHash = zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *CloudPublicIpAddress) GetZone() int {
+func (o *CloudPublicIPAddress) GetZone() int {
 
 	return o.Zone
 }
 
 // SetZone sets the property Zone of the receiver using the given value.
-func (o *CloudPublicIpAddress) SetZone(zone int) {
+func (o *CloudPublicIPAddress) SetZone(zone int) {
 
 	o.Zone = zone
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *CloudPublicIpAddress) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *CloudPublicIPAddress) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseCloudPublicIpAddress{
+		return &SparseCloudPublicIPAddress{
 			APIID:                &o.APIID,
 			ID:                   &o.ID,
 			VPCID:                &o.VPCID,
@@ -635,7 +635,7 @@ func (o *CloudPublicIpAddress) ToSparse(fields ...string) elemental.SparseIdenti
 		}
 	}
 
-	sp := &SparseCloudPublicIpAddress{}
+	sp := &SparseCloudPublicIPAddress{}
 	for _, f := range fields {
 		switch f {
 		case "APIID":
@@ -696,13 +696,13 @@ func (o *CloudPublicIpAddress) ToSparse(fields ...string) elemental.SparseIdenti
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseCloudPublicIpAddress to the object.
-func (o *CloudPublicIpAddress) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseCloudPublicIPAddress to the object.
+func (o *CloudPublicIPAddress) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseCloudPublicIpAddress)
+	so := sparse.(*SparseCloudPublicIPAddress)
 	if so.APIID != nil {
 		o.APIID = *so.APIID
 	}
@@ -783,32 +783,32 @@ func (o *CloudPublicIpAddress) Patch(sparse elemental.SparseIdentifiable) {
 	}
 }
 
-// DeepCopy returns a deep copy if the CloudPublicIpAddress.
-func (o *CloudPublicIpAddress) DeepCopy() *CloudPublicIpAddress {
+// DeepCopy returns a deep copy if the CloudPublicIPAddress.
+func (o *CloudPublicIPAddress) DeepCopy() *CloudPublicIPAddress {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &CloudPublicIpAddress{}
+	out := &CloudPublicIPAddress{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *CloudPublicIpAddress.
-func (o *CloudPublicIpAddress) DeepCopyInto(out *CloudPublicIpAddress) {
+// DeepCopyInto copies the receiver into the given *CloudPublicIPAddress.
+func (o *CloudPublicIPAddress) DeepCopyInto(out *CloudPublicIPAddress) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy CloudPublicIpAddress: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy CloudPublicIPAddress: %s", err))
 	}
 
-	*out = *target.(*CloudPublicIpAddress)
+	*out = *target.(*CloudPublicIPAddress)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *CloudPublicIpAddress) Validate() error {
+func (o *CloudPublicIPAddress) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -852,26 +852,26 @@ func (o *CloudPublicIpAddress) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*CloudPublicIpAddress) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*CloudPublicIPAddress) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := CloudPublicIpAddressAttributesMap[name]; ok {
+	if v, ok := CloudPublicIPAddressAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return CloudPublicIpAddressLowerCaseAttributesMap[name]
+	return CloudPublicIPAddressLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*CloudPublicIpAddress) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*CloudPublicIPAddress) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return CloudPublicIpAddressAttributesMap
+	return CloudPublicIPAddressAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudPublicIpAddress) ValueForAttribute(name string) interface{} {
+func (o *CloudPublicIPAddress) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "APIID":
@@ -931,8 +931,8 @@ func (o *CloudPublicIpAddress) ValueForAttribute(name string) interface{} {
 	return nil
 }
 
-// CloudPublicIpAddressAttributesMap represents the map of attribute for CloudPublicIpAddress.
-var CloudPublicIpAddressAttributesMap = map[string]elemental.AttributeSpecification{
+// CloudPublicIPAddressAttributesMap represents the map of attribute for CloudPublicIPAddress.
+var CloudPublicIPAddressAttributesMap = map[string]elemental.AttributeSpecification{
 	"APIID": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiid",
@@ -1166,7 +1166,7 @@ var CloudPublicIpAddressAttributesMap = map[string]elemental.AttributeSpecificat
 		AllowedChoices: []string{},
 		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
-		Description:    `PublicIpAddress related parameters.`,
+		Description:    `PublicIPAddress related parameters.`,
 		Exposed:        true,
 		Name:           "parameters",
 		Stored:         true,
@@ -1284,8 +1284,8 @@ georedundancy.`,
 	},
 }
 
-// CloudPublicIpAddressLowerCaseAttributesMap represents the map of attribute for CloudPublicIpAddress.
-var CloudPublicIpAddressLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// CloudPublicIPAddressLowerCaseAttributesMap represents the map of attribute for CloudPublicIPAddress.
+var CloudPublicIPAddressLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"apiid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "apiid",
@@ -1519,7 +1519,7 @@ var CloudPublicIpAddressLowerCaseAttributesMap = map[string]elemental.AttributeS
 		AllowedChoices: []string{},
 		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
-		Description:    `PublicIpAddress related parameters.`,
+		Description:    `PublicIPAddress related parameters.`,
 		Exposed:        true,
 		Name:           "parameters",
 		Stored:         true,
@@ -1637,35 +1637,35 @@ georedundancy.`,
 	},
 }
 
-// SparseCloudPublicIpAddressList represents a list of SparseCloudPublicIpAddress
-type SparseCloudPublicIpAddressList []*SparseCloudPublicIpAddress
+// SparseCloudPublicIPAddressList represents a list of SparseCloudPublicIPAddress
+type SparseCloudPublicIPAddressList []*SparseCloudPublicIPAddress
 
 // Identity returns the identity of the objects in the list.
-func (o SparseCloudPublicIpAddressList) Identity() elemental.Identity {
+func (o SparseCloudPublicIPAddressList) Identity() elemental.Identity {
 
-	return CloudPublicIpAddressIdentity
+	return CloudPublicIPAddressIdentity
 }
 
-// Copy returns a pointer to a copy the SparseCloudPublicIpAddressList.
-func (o SparseCloudPublicIpAddressList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseCloudPublicIPAddressList.
+func (o SparseCloudPublicIPAddressList) Copy() elemental.Identifiables {
 
-	copy := append(SparseCloudPublicIpAddressList{}, o...)
+	copy := append(SparseCloudPublicIPAddressList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseCloudPublicIpAddressList.
-func (o SparseCloudPublicIpAddressList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseCloudPublicIPAddressList.
+func (o SparseCloudPublicIPAddressList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseCloudPublicIpAddressList{}, o...)
+	out := append(SparseCloudPublicIPAddressList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseCloudPublicIpAddress))
+		out = append(out, obj.(*SparseCloudPublicIPAddress))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseCloudPublicIpAddressList) List() elemental.IdentifiablesList {
+func (o SparseCloudPublicIPAddressList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -1676,13 +1676,13 @@ func (o SparseCloudPublicIpAddressList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseCloudPublicIpAddressList) DefaultOrder() []string {
+func (o SparseCloudPublicIPAddressList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToPlain returns the SparseCloudPublicIpAddressList converted to CloudPublicIpAddressList.
-func (o SparseCloudPublicIpAddressList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseCloudPublicIPAddressList converted to CloudPublicIPAddressList.
+func (o SparseCloudPublicIPAddressList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -1693,13 +1693,13 @@ func (o SparseCloudPublicIpAddressList) ToPlain() elemental.IdentifiablesList {
 }
 
 // Version returns the version of the content.
-func (o SparseCloudPublicIpAddressList) Version() int {
+func (o SparseCloudPublicIPAddressList) Version() int {
 
 	return 1
 }
 
-// SparseCloudPublicIpAddress represents the sparse version of a cloudpublicipaddress.
-type SparseCloudPublicIpAddress struct {
+// SparseCloudPublicIPAddress represents the sparse version of a cloudpublicipaddress.
+type SparseCloudPublicIPAddress struct {
 	// Prisma Cloud API ID (matches Prisma Cloud API ID).
 	APIID *int `json:"APIID,omitempty" msgpack:"APIID,omitempty" bson:"apiid,omitempty" mapstructure:"APIID,omitempty"`
 
@@ -1751,7 +1751,7 @@ type SparseCloudPublicIpAddress struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags *[]string `json:"normalizedTags,omitempty" msgpack:"normalizedTags,omitempty" bson:"normalizedtags,omitempty" mapstructure:"normalizedTags,omitempty"`
 
-	// PublicIpAddress related parameters.
+	// PublicIPAddress related parameters.
 	Parameters *CloudAddress `json:"parameters,omitempty" msgpack:"parameters,omitempty" bson:"parameters,omitempty" mapstructure:"parameters,omitempty"`
 
 	// A list of policy references associated with this cloud node.
@@ -1782,19 +1782,19 @@ type SparseCloudPublicIpAddress struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseCloudPublicIpAddress returns a new  SparseCloudPublicIpAddress.
-func NewSparseCloudPublicIpAddress() *SparseCloudPublicIpAddress {
-	return &SparseCloudPublicIpAddress{}
+// NewSparseCloudPublicIPAddress returns a new  SparseCloudPublicIPAddress.
+func NewSparseCloudPublicIPAddress() *SparseCloudPublicIPAddress {
+	return &SparseCloudPublicIPAddress{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseCloudPublicIpAddress) Identity() elemental.Identity {
+func (o *SparseCloudPublicIPAddress) Identity() elemental.Identity {
 
-	return CloudPublicIpAddressIdentity
+	return CloudPublicIPAddressIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseCloudPublicIpAddress) Identifier() string {
+func (o *SparseCloudPublicIPAddress) Identifier() string {
 
 	if o.ID == nil {
 		return ""
@@ -1803,7 +1803,7 @@ func (o *SparseCloudPublicIpAddress) Identifier() string {
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseCloudPublicIpAddress) SetIdentifier(id string) {
+func (o *SparseCloudPublicIPAddress) SetIdentifier(id string) {
 
 	if id != "" {
 		o.ID = &id
@@ -1814,13 +1814,13 @@ func (o *SparseCloudPublicIpAddress) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudPublicIpAddress) GetBSON() (interface{}, error) {
+func (o *SparseCloudPublicIPAddress) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseCloudPublicIpAddress{}
+	s := &mongoAttributesSparseCloudPublicIPAddress{}
 
 	if o.APIID != nil {
 		s.APIID = o.APIID
@@ -1906,13 +1906,13 @@ func (o *SparseCloudPublicIpAddress) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudPublicIpAddress) SetBSON(raw bson.Raw) error {
+func (o *SparseCloudPublicIPAddress) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseCloudPublicIpAddress{}
+	s := &mongoAttributesSparseCloudPublicIPAddress{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -1999,15 +1999,15 @@ func (o *SparseCloudPublicIpAddress) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseCloudPublicIpAddress) Version() int {
+func (o *SparseCloudPublicIPAddress) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseCloudPublicIpAddress) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseCloudPublicIPAddress) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewCloudPublicIpAddress()
+	out := NewCloudPublicIPAddress()
 	if o.APIID != nil {
 		out.APIID = *o.APIID
 	}
@@ -2091,7 +2091,7 @@ func (o *SparseCloudPublicIpAddress) ToPlain() elemental.PlainIdentifiable {
 }
 
 // GetAPIID returns the APIID of the receiver.
-func (o *SparseCloudPublicIpAddress) GetAPIID() (out int) {
+func (o *SparseCloudPublicIPAddress) GetAPIID() (out int) {
 
 	if o.APIID == nil {
 		return
@@ -2101,13 +2101,13 @@ func (o *SparseCloudPublicIpAddress) GetAPIID() (out int) {
 }
 
 // SetAPIID sets the property APIID of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetAPIID(APIID int) {
+func (o *SparseCloudPublicIPAddress) SetAPIID(APIID int) {
 
 	o.APIID = &APIID
 }
 
 // GetVPCID returns the VPCID of the receiver.
-func (o *SparseCloudPublicIpAddress) GetVPCID() (out string) {
+func (o *SparseCloudPublicIPAddress) GetVPCID() (out string) {
 
 	if o.VPCID == nil {
 		return
@@ -2117,13 +2117,13 @@ func (o *SparseCloudPublicIpAddress) GetVPCID() (out string) {
 }
 
 // SetVPCID sets the property VPCID of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetVPCID(VPCID string) {
+func (o *SparseCloudPublicIPAddress) SetVPCID(VPCID string) {
 
 	o.VPCID = &VPCID
 }
 
 // GetAccountID returns the AccountID of the receiver.
-func (o *SparseCloudPublicIpAddress) GetAccountID() (out string) {
+func (o *SparseCloudPublicIPAddress) GetAccountID() (out string) {
 
 	if o.AccountID == nil {
 		return
@@ -2133,13 +2133,13 @@ func (o *SparseCloudPublicIpAddress) GetAccountID() (out string) {
 }
 
 // SetAccountID sets the property AccountID of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetAccountID(accountID string) {
+func (o *SparseCloudPublicIPAddress) SetAccountID(accountID string) {
 
 	o.AccountID = &accountID
 }
 
 // GetAnnotations returns the Annotations of the receiver.
-func (o *SparseCloudPublicIpAddress) GetAnnotations() (out map[string][]string) {
+func (o *SparseCloudPublicIPAddress) GetAnnotations() (out map[string][]string) {
 
 	if o.Annotations == nil {
 		return
@@ -2149,13 +2149,13 @@ func (o *SparseCloudPublicIpAddress) GetAnnotations() (out map[string][]string) 
 }
 
 // SetAnnotations sets the property Annotations of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetAnnotations(annotations map[string][]string) {
+func (o *SparseCloudPublicIPAddress) SetAnnotations(annotations map[string][]string) {
 
 	o.Annotations = &annotations
 }
 
 // GetAssociatedTags returns the AssociatedTags of the receiver.
-func (o *SparseCloudPublicIpAddress) GetAssociatedTags() (out []string) {
+func (o *SparseCloudPublicIPAddress) GetAssociatedTags() (out []string) {
 
 	if o.AssociatedTags == nil {
 		return
@@ -2165,13 +2165,13 @@ func (o *SparseCloudPublicIpAddress) GetAssociatedTags() (out []string) {
 }
 
 // SetAssociatedTags sets the property AssociatedTags of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetAssociatedTags(associatedTags []string) {
+func (o *SparseCloudPublicIPAddress) SetAssociatedTags(associatedTags []string) {
 
 	o.AssociatedTags = &associatedTags
 }
 
 // GetCloudTags returns the CloudTags of the receiver.
-func (o *SparseCloudPublicIpAddress) GetCloudTags() (out []string) {
+func (o *SparseCloudPublicIPAddress) GetCloudTags() (out []string) {
 
 	if o.CloudTags == nil {
 		return
@@ -2181,13 +2181,13 @@ func (o *SparseCloudPublicIpAddress) GetCloudTags() (out []string) {
 }
 
 // SetCloudTags sets the property CloudTags of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetCloudTags(cloudTags []string) {
+func (o *SparseCloudPublicIPAddress) SetCloudTags(cloudTags []string) {
 
 	o.CloudTags = &cloudTags
 }
 
 // GetCloudType returns the CloudType of the receiver.
-func (o *SparseCloudPublicIpAddress) GetCloudType() (out string) {
+func (o *SparseCloudPublicIPAddress) GetCloudType() (out string) {
 
 	if o.CloudType == nil {
 		return
@@ -2197,13 +2197,13 @@ func (o *SparseCloudPublicIpAddress) GetCloudType() (out string) {
 }
 
 // SetCloudType sets the property CloudType of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetCloudType(cloudType string) {
+func (o *SparseCloudPublicIPAddress) SetCloudType(cloudType string) {
 
 	o.CloudType = &cloudType
 }
 
 // GetCreateIdempotencyKey returns the CreateIdempotencyKey of the receiver.
-func (o *SparseCloudPublicIpAddress) GetCreateIdempotencyKey() (out string) {
+func (o *SparseCloudPublicIPAddress) GetCreateIdempotencyKey() (out string) {
 
 	if o.CreateIdempotencyKey == nil {
 		return
@@ -2213,13 +2213,13 @@ func (o *SparseCloudPublicIpAddress) GetCreateIdempotencyKey() (out string) {
 }
 
 // SetCreateIdempotencyKey sets the property CreateIdempotencyKey of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetCreateIdempotencyKey(createIdempotencyKey string) {
+func (o *SparseCloudPublicIPAddress) SetCreateIdempotencyKey(createIdempotencyKey string) {
 
 	o.CreateIdempotencyKey = &createIdempotencyKey
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *SparseCloudPublicIpAddress) GetCreateTime() (out time.Time) {
+func (o *SparseCloudPublicIPAddress) GetCreateTime() (out time.Time) {
 
 	if o.CreateTime == nil {
 		return
@@ -2229,13 +2229,13 @@ func (o *SparseCloudPublicIpAddress) GetCreateTime() (out time.Time) {
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetCreateTime(createTime time.Time) {
+func (o *SparseCloudPublicIPAddress) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = &createTime
 }
 
 // GetCustomerID returns the CustomerID of the receiver.
-func (o *SparseCloudPublicIpAddress) GetCustomerID() (out int) {
+func (o *SparseCloudPublicIPAddress) GetCustomerID() (out int) {
 
 	if o.CustomerID == nil {
 		return
@@ -2245,13 +2245,13 @@ func (o *SparseCloudPublicIpAddress) GetCustomerID() (out int) {
 }
 
 // SetCustomerID sets the property CustomerID of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetCustomerID(customerID int) {
+func (o *SparseCloudPublicIPAddress) SetCustomerID(customerID int) {
 
 	o.CustomerID = &customerID
 }
 
 // GetIngestionTime returns the IngestionTime of the receiver.
-func (o *SparseCloudPublicIpAddress) GetIngestionTime() (out time.Time) {
+func (o *SparseCloudPublicIPAddress) GetIngestionTime() (out time.Time) {
 
 	if o.IngestionTime == nil {
 		return
@@ -2261,13 +2261,13 @@ func (o *SparseCloudPublicIpAddress) GetIngestionTime() (out time.Time) {
 }
 
 // SetIngestionTime sets the property IngestionTime of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetIngestionTime(ingestionTime time.Time) {
+func (o *SparseCloudPublicIPAddress) SetIngestionTime(ingestionTime time.Time) {
 
 	o.IngestionTime = &ingestionTime
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *SparseCloudPublicIpAddress) GetMigrationsLog() (out map[string]string) {
+func (o *SparseCloudPublicIPAddress) GetMigrationsLog() (out map[string]string) {
 
 	if o.MigrationsLog == nil {
 		return
@@ -2277,13 +2277,13 @@ func (o *SparseCloudPublicIpAddress) GetMigrationsLog() (out map[string]string) 
 }
 
 // SetMigrationsLog sets the property MigrationsLog of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetMigrationsLog(migrationsLog map[string]string) {
+func (o *SparseCloudPublicIPAddress) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = &migrationsLog
 }
 
 // GetName returns the Name of the receiver.
-func (o *SparseCloudPublicIpAddress) GetName() (out string) {
+func (o *SparseCloudPublicIPAddress) GetName() (out string) {
 
 	if o.Name == nil {
 		return
@@ -2293,13 +2293,13 @@ func (o *SparseCloudPublicIpAddress) GetName() (out string) {
 }
 
 // SetName sets the property Name of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetName(name string) {
+func (o *SparseCloudPublicIPAddress) SetName(name string) {
 
 	o.Name = &name
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *SparseCloudPublicIpAddress) GetNamespace() (out string) {
+func (o *SparseCloudPublicIPAddress) GetNamespace() (out string) {
 
 	if o.Namespace == nil {
 		return
@@ -2309,13 +2309,13 @@ func (o *SparseCloudPublicIpAddress) GetNamespace() (out string) {
 }
 
 // SetNamespace sets the property Namespace of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetNamespace(namespace string) {
+func (o *SparseCloudPublicIPAddress) SetNamespace(namespace string) {
 
 	o.Namespace = &namespace
 }
 
 // GetNativeID returns the NativeID of the receiver.
-func (o *SparseCloudPublicIpAddress) GetNativeID() (out string) {
+func (o *SparseCloudPublicIPAddress) GetNativeID() (out string) {
 
 	if o.NativeID == nil {
 		return
@@ -2325,13 +2325,13 @@ func (o *SparseCloudPublicIpAddress) GetNativeID() (out string) {
 }
 
 // SetNativeID sets the property NativeID of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetNativeID(nativeID string) {
+func (o *SparseCloudPublicIPAddress) SetNativeID(nativeID string) {
 
 	o.NativeID = &nativeID
 }
 
 // GetNormalizedTags returns the NormalizedTags of the receiver.
-func (o *SparseCloudPublicIpAddress) GetNormalizedTags() (out []string) {
+func (o *SparseCloudPublicIPAddress) GetNormalizedTags() (out []string) {
 
 	if o.NormalizedTags == nil {
 		return
@@ -2341,13 +2341,13 @@ func (o *SparseCloudPublicIpAddress) GetNormalizedTags() (out []string) {
 }
 
 // SetNormalizedTags sets the property NormalizedTags of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetNormalizedTags(normalizedTags []string) {
+func (o *SparseCloudPublicIPAddress) SetNormalizedTags(normalizedTags []string) {
 
 	o.NormalizedTags = &normalizedTags
 }
 
 // GetPolicyReferences returns the PolicyReferences of the receiver.
-func (o *SparseCloudPublicIpAddress) GetPolicyReferences() (out []string) {
+func (o *SparseCloudPublicIPAddress) GetPolicyReferences() (out []string) {
 
 	if o.PolicyReferences == nil {
 		return
@@ -2357,13 +2357,13 @@ func (o *SparseCloudPublicIpAddress) GetPolicyReferences() (out []string) {
 }
 
 // SetPolicyReferences sets the property PolicyReferences of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetPolicyReferences(policyReferences []string) {
+func (o *SparseCloudPublicIPAddress) SetPolicyReferences(policyReferences []string) {
 
 	o.PolicyReferences = &policyReferences
 }
 
 // GetProtected returns the Protected of the receiver.
-func (o *SparseCloudPublicIpAddress) GetProtected() (out bool) {
+func (o *SparseCloudPublicIPAddress) GetProtected() (out bool) {
 
 	if o.Protected == nil {
 		return
@@ -2373,13 +2373,13 @@ func (o *SparseCloudPublicIpAddress) GetProtected() (out bool) {
 }
 
 // SetProtected sets the property Protected of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetProtected(protected bool) {
+func (o *SparseCloudPublicIPAddress) SetProtected(protected bool) {
 
 	o.Protected = &protected
 }
 
 // GetRegionName returns the RegionName of the receiver.
-func (o *SparseCloudPublicIpAddress) GetRegionName() (out string) {
+func (o *SparseCloudPublicIPAddress) GetRegionName() (out string) {
 
 	if o.RegionName == nil {
 		return
@@ -2389,13 +2389,13 @@ func (o *SparseCloudPublicIpAddress) GetRegionName() (out string) {
 }
 
 // SetRegionName sets the property RegionName of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetRegionName(regionName string) {
+func (o *SparseCloudPublicIPAddress) SetRegionName(regionName string) {
 
 	o.RegionName = &regionName
 }
 
 // GetResourceID returns the ResourceID of the receiver.
-func (o *SparseCloudPublicIpAddress) GetResourceID() (out int) {
+func (o *SparseCloudPublicIPAddress) GetResourceID() (out int) {
 
 	if o.ResourceID == nil {
 		return
@@ -2405,13 +2405,13 @@ func (o *SparseCloudPublicIpAddress) GetResourceID() (out int) {
 }
 
 // SetResourceID sets the property ResourceID of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetResourceID(resourceID int) {
+func (o *SparseCloudPublicIPAddress) SetResourceID(resourceID int) {
 
 	o.ResourceID = &resourceID
 }
 
 // GetUpdateIdempotencyKey returns the UpdateIdempotencyKey of the receiver.
-func (o *SparseCloudPublicIpAddress) GetUpdateIdempotencyKey() (out string) {
+func (o *SparseCloudPublicIPAddress) GetUpdateIdempotencyKey() (out string) {
 
 	if o.UpdateIdempotencyKey == nil {
 		return
@@ -2421,13 +2421,13 @@ func (o *SparseCloudPublicIpAddress) GetUpdateIdempotencyKey() (out string) {
 }
 
 // SetUpdateIdempotencyKey sets the property UpdateIdempotencyKey of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
+func (o *SparseCloudPublicIPAddress) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
 
 	o.UpdateIdempotencyKey = &updateIdempotencyKey
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *SparseCloudPublicIpAddress) GetUpdateTime() (out time.Time) {
+func (o *SparseCloudPublicIPAddress) GetUpdateTime() (out time.Time) {
 
 	if o.UpdateTime == nil {
 		return
@@ -2437,13 +2437,13 @@ func (o *SparseCloudPublicIpAddress) GetUpdateTime() (out time.Time) {
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetUpdateTime(updateTime time.Time) {
+func (o *SparseCloudPublicIPAddress) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = &updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *SparseCloudPublicIpAddress) GetZHash() (out int) {
+func (o *SparseCloudPublicIPAddress) GetZHash() (out int) {
 
 	if o.ZHash == nil {
 		return
@@ -2453,13 +2453,13 @@ func (o *SparseCloudPublicIpAddress) GetZHash() (out int) {
 }
 
 // SetZHash sets the property ZHash of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetZHash(zHash int) {
+func (o *SparseCloudPublicIPAddress) SetZHash(zHash int) {
 
 	o.ZHash = &zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *SparseCloudPublicIpAddress) GetZone() (out int) {
+func (o *SparseCloudPublicIPAddress) GetZone() (out int) {
 
 	if o.Zone == nil {
 		return
@@ -2469,36 +2469,36 @@ func (o *SparseCloudPublicIpAddress) GetZone() (out int) {
 }
 
 // SetZone sets the property Zone of the receiver using the address of the given value.
-func (o *SparseCloudPublicIpAddress) SetZone(zone int) {
+func (o *SparseCloudPublicIPAddress) SetZone(zone int) {
 
 	o.Zone = &zone
 }
 
-// DeepCopy returns a deep copy if the SparseCloudPublicIpAddress.
-func (o *SparseCloudPublicIpAddress) DeepCopy() *SparseCloudPublicIpAddress {
+// DeepCopy returns a deep copy if the SparseCloudPublicIPAddress.
+func (o *SparseCloudPublicIPAddress) DeepCopy() *SparseCloudPublicIPAddress {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseCloudPublicIpAddress{}
+	out := &SparseCloudPublicIPAddress{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseCloudPublicIpAddress.
-func (o *SparseCloudPublicIpAddress) DeepCopyInto(out *SparseCloudPublicIpAddress) {
+// DeepCopyInto copies the receiver into the given *SparseCloudPublicIPAddress.
+func (o *SparseCloudPublicIPAddress) DeepCopyInto(out *SparseCloudPublicIPAddress) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseCloudPublicIpAddress: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseCloudPublicIPAddress: %s", err))
 	}
 
-	*out = *target.(*SparseCloudPublicIpAddress)
+	*out = *target.(*SparseCloudPublicIPAddress)
 }
 
-type mongoAttributesCloudPublicIpAddress struct {
+type mongoAttributesCloudPublicIPAddress struct {
 	APIID                int                 `bson:"apiid,omitempty"`
 	ID                   bson.ObjectId       `bson:"_id,omitempty"`
 	VPCID                string              `bson:"vpcid,omitempty"`
@@ -2526,7 +2526,7 @@ type mongoAttributesCloudPublicIpAddress struct {
 	ZHash                int                 `bson:"zhash"`
 	Zone                 int                 `bson:"zone"`
 }
-type mongoAttributesSparseCloudPublicIpAddress struct {
+type mongoAttributesSparseCloudPublicIPAddress struct {
 	APIID                *int                 `bson:"apiid,omitempty"`
 	ID                   bson.ObjectId        `bson:"_id,omitempty"`
 	VPCID                *string              `bson:"vpcid,omitempty"`

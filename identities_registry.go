@@ -51,7 +51,7 @@ var (
 		"cloudnode": CloudNodeIdentity,
 
 		"cloudpolicy":          CloudPolicyIdentity,
-		"cloudpublicipaddress": CloudPublicIpAddressIdentity,
+		"cloudpublicipaddress": CloudPublicIPAddressIdentity,
 
 		"cloudroutetable":            CloudRouteTableIdentity,
 		"cloudschedulednetworkquery": CloudScheduledNetworkQueryIdentity,
@@ -254,7 +254,7 @@ var (
 		"cloudnodes": CloudNodeIdentity,
 
 		"cloudpolicies":          CloudPolicyIdentity,
-		"cloudpublicipaddresses": CloudPublicIpAddressIdentity,
+		"cloudpublicipaddresses": CloudPublicIPAddressIdentity,
 
 		"cloudroutetables":             CloudRouteTableIdentity,
 		"cloudschedulednetworkqueries": CloudScheduledNetworkQueryIdentity,
@@ -428,8 +428,8 @@ var (
 		"loadbalancerroute":      CloudLoadBalancerRouteIdentity,
 		"loadbalancerroutes":     CloudLoadBalancerRouteIdentity,
 		"crules":                 CloudNetworkRuleSetIdentity,
-		"cloudpublicipaddress":   CloudPublicIpAddressIdentity,
-		"cloudpublicipaddresses": CloudPublicIpAddressIdentity,
+		"cloudpublicipaddress":   CloudPublicIPAddressIdentity,
+		"cloudpublicipaddresses": CloudPublicIPAddressIdentity,
 		"vpc":                    CloudVPCIdentity,
 		"vpcs":                   CloudVPCIdentity,
 		"pcc":                    CNSConfigIdentity,
@@ -1462,8 +1462,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudNode()
 	case CloudPolicyIdentity:
 		return NewCloudPolicy()
-	case CloudPublicIpAddressIdentity:
-		return NewCloudPublicIpAddress()
+	case CloudPublicIPAddressIdentity:
+		return NewCloudPublicIPAddress()
 	case CloudRouteTableIdentity:
 		return NewCloudRouteTable()
 	case CloudScheduledNetworkQueryIdentity:
@@ -1821,8 +1821,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudNode()
 	case CloudPolicyIdentity:
 		return NewSparseCloudPolicy()
-	case CloudPublicIpAddressIdentity:
-		return NewSparseCloudPublicIpAddress()
+	case CloudPublicIPAddressIdentity:
+		return NewSparseCloudPublicIPAddress()
 	case CloudRouteTableIdentity:
 		return NewSparseCloudRouteTable()
 	case CloudScheduledNetworkQueryIdentity:
@@ -2188,8 +2188,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudNodesList{}
 	case CloudPolicyIdentity:
 		return &CloudPoliciesList{}
-	case CloudPublicIpAddressIdentity:
-		return &CloudPublicIpAddressList{}
+	case CloudPublicIPAddressIdentity:
+		return &CloudPublicIPAddressList{}
 	case CloudRouteTableIdentity:
 		return &CloudRouteTablesList{}
 	case CloudScheduledNetworkQueryIdentity:
@@ -2545,8 +2545,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudNodesList{}
 	case CloudPolicyIdentity:
 		return &SparseCloudPoliciesList{}
-	case CloudPublicIpAddressIdentity:
-		return &SparseCloudPublicIpAddressList{}
+	case CloudPublicIPAddressIdentity:
+		return &SparseCloudPublicIPAddressList{}
 	case CloudRouteTableIdentity:
 		return &SparseCloudRouteTablesList{}
 	case CloudScheduledNetworkQueryIdentity:
@@ -2883,7 +2883,7 @@ func AllIdentities() []elemental.Identity {
 		CloudNetworkRuleSetIdentity,
 		CloudNodeIdentity,
 		CloudPolicyIdentity,
-		CloudPublicIpAddressIdentity,
+		CloudPublicIPAddressIdentity,
 		CloudRouteTableIdentity,
 		CloudScheduledNetworkQueryIdentity,
 		CloudSnapshotAccountIdentity,
@@ -3133,7 +3133,7 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{}
 	case CloudPolicyIdentity:
 		return []string{}
-	case CloudPublicIpAddressIdentity:
+	case CloudPublicIPAddressIdentity:
 		return []string{
 			"cloudpublicipaddress",
 			"cloudpublicipaddresses",

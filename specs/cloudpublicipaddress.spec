@@ -2,11 +2,11 @@
 model:
   rest_name: cloudpublicipaddress
   resource_name: cloudpublicipaddresses
-  entity_name: CloudPublicIpAddress
+  entity_name: CloudPublicIPAddress
   package: yeul
   group: pcn/infrastructure
   description: |-
-    A CloudPublicIpAddress represents a PublicIpAdress as defined in an Azure cloud
+    A CloudPublicIPAddress represents a PublicIPAdress as defined in an Azure cloud
     provider.
   aliases:
   - cloudpublicipaddress
@@ -30,7 +30,7 @@ model:
 attributes:
   v1:
   - name: parameters
-    description: PublicIpAddress related parameters.
+    description: PublicIPAddress related parameters.
     type: ref
     exposed: true
     subtype: cloudaddress

@@ -12330,9 +12330,9 @@ Type: `time`
 
 Last update date of the object.
 
-### CloudPublicIpAddress
+### CloudPublicIPAddress
 
-A CloudPublicIpAddress represents a PublicIpAdress as defined in an Azure cloud
+A CloudPublicIPAddress represents a PublicIPAdress as defined in an Azure cloud
 provider.
 
 #### Example
@@ -12465,7 +12465,7 @@ Contains the list of normalized tags of the entities.
 
 Type: [`cloudaddress`](#cloudaddress)
 
-PublicIpAddress related parameters.
+PublicIPAddress related parameters.
 
 ##### `policyReferences`
 

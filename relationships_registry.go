@@ -1388,7 +1388,7 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[CloudPublicIpAddressIdentity] = &elemental.Relationship{
+	relationshipsRegistry[CloudPublicIPAddressIdentity] = &elemental.Relationship{
 		Update: map[string]*elemental.RelationshipInfo{
 			"root": {},
 		},
