@@ -47,6 +47,16 @@ attributes:
     extensions:
       bson_name: a
 
+  - name: clientLocalID
+    description: |-
+      The local ID set by enforcer TODO.
+    type: string
+    exposed: true
+    stored: true
+    omit_empty: true
+    extensions:
+      bson_name: m
+
   - name: enforcerID
     description: ID of the enforcer.
     type: string

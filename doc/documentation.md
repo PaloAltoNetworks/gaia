@@ -14746,6 +14746,12 @@ Type: `enum(Accept | Fail | Reject | Resolve)`
 
 Action of the DNS request.
 
+##### `clientLocalID`
+
+Type: `string`
+
+The local ID set by enforcer TODO.
+
 ##### `enforcerID`
 
 Type: `string`
@@ -16758,6 +16764,12 @@ Type: `enum(ProcessingUnit | ExternalNetwork | Claims)`
 
 Destination type.
 
+##### `dnsClientLocalID`
+
+Type: `string`
+
+ClientLocalID of the DNSLookupReport that has provided the DestinationFQDN.
+
 ##### `dropReason`
 
 Type: `string`
@@ -16918,12 +16930,6 @@ Service URL accessed.
 Type: `string`
 
 Identifier of the source controller.
-
-##### `sourceFQDN`
-
-Type: `string`
-
-Source fully qualified domain name (FQDN), if known.
 
 ##### `sourceID` [`required`]
 
@@ -17476,6 +17482,12 @@ Type: `enum(ProcessingUnit | ExternalNetwork | Claims)`
 
 Destination type.
 
+##### `dnsClientLocalID`
+
+Type: `string`
+
+ClientLocalID of the DNSLookupReport that has provided the DestinationFQDN.
+
 ##### `dropReason`
 
 Type: `string`
@@ -17624,12 +17636,6 @@ Service URL accessed.
 Type: `string`
 
 Identifier of the source controller.
-
-##### `sourceFQDN`
-
-Type: `string`
-
-Source fully qualified domain name (FQDN), if known.
 
 ##### `sourceID` [`required`]
 

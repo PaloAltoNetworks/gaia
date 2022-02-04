@@ -20,6 +20,15 @@ attributes:
     extensions:
       bson_name: a
 
+  - name: dnsClientLocalID
+    description:  ClientLocalID of the DNSLookupReport that has provided the DestinationFQDN.
+    type: string
+    exposed: true
+    stored: true
+    omit_empty: true
+    extensions:
+      bson_name: an
+
   - name: destinationController
     description: Identifier of the destination controller.
     type: string
@@ -332,15 +341,6 @@ attributes:
     omit_empty: true
     extensions:
       bson_name: aa
-
-  - name: sourceFQDN
-    description:  Source fully qualified domain name (FQDN), if known.
-    type: string
-    exposed: true
-    stored: true
-    omit_empty: true
-    extensions:
-      bson_name: an
 
   - name: sourceID
     description: ID of the source.
