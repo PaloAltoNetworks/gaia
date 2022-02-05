@@ -20,8 +20,8 @@ attributes:
     extensions:
       bson_name: a
 
-  - name: dnsClientLocalID
-    description:  ClientLocalID of the DNSLookupReport that has provided the DestinationFQDN.
+  - name: enforcerDNSReportID
+    description:  The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
     type: string
     exposed: true
     stored: true

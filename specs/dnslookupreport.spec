@@ -47,9 +47,9 @@ attributes:
     extensions:
       bson_name: a
 
-  - name: clientLocalID
+  - name: enforcerDNSReportID
     description: |-
-      The local ID set by enforcer TODO.
+      The local ID set by enforcer, used to correllate with flow reports.
     type: string
     exposed: true
     stored: true

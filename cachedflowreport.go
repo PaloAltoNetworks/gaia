@@ -182,15 +182,15 @@ type CachedFlowReport struct {
 	// Destination type.
 	DestinationType CachedFlowReportDestinationTypeValue `json:"destinationType,omitempty" msgpack:"destinationType,omitempty" bson:"h,omitempty" mapstructure:"destinationType,omitempty"`
 
-	// ClientLocalID of the DNSLookupReport that has provided the DestinationFQDN.
-	DnsClientLocalID string `json:"dnsClientLocalID,omitempty" msgpack:"dnsClientLocalID,omitempty" bson:"an,omitempty" mapstructure:"dnsClientLocalID,omitempty"`
-
 	// This field is only set if `action` is set to `Reject`. It specifies the reason
 	// for the rejection.
 	DropReason string `json:"dropReason,omitempty" msgpack:"dropReason,omitempty" bson:"i,omitempty" mapstructure:"dropReason,omitempty"`
 
 	// If `true`, the flow was encrypted.
 	Encrypted bool `json:"encrypted,omitempty" msgpack:"encrypted,omitempty" bson:"j,omitempty" mapstructure:"encrypted,omitempty"`
+
+	// The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
+	EnforcerDNSReportID string `json:"enforcerDNSReportID,omitempty" msgpack:"enforcerDNSReportID,omitempty" bson:"an,omitempty" mapstructure:"enforcerDNSReportID,omitempty"`
 
 	// ID of the enforcer where the report was collected.
 	EnforcerID string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"ak,omitempty" mapstructure:"enforcerID,omitempty"`
@@ -346,9 +346,9 @@ func (o *CachedFlowReport) GetBSON() (interface{}, error) {
 	s.DestinationPlatform = o.DestinationPlatform
 	s.DestinationPort = o.DestinationPort
 	s.DestinationType = o.DestinationType
-	s.DnsClientLocalID = o.DnsClientLocalID
 	s.DropReason = o.DropReason
 	s.Encrypted = o.Encrypted
+	s.EnforcerDNSReportID = o.EnforcerDNSReportID
 	s.EnforcerID = o.EnforcerID
 	s.IsLocalDestinationID = o.IsLocalDestinationID
 	s.IsLocalSourceID = o.IsLocalSourceID
@@ -408,9 +408,9 @@ func (o *CachedFlowReport) SetBSON(raw bson.Raw) error {
 	o.DestinationPlatform = s.DestinationPlatform
 	o.DestinationPort = s.DestinationPort
 	o.DestinationType = s.DestinationType
-	o.DnsClientLocalID = s.DnsClientLocalID
 	o.DropReason = s.DropReason
 	o.Encrypted = s.Encrypted
+	o.EnforcerDNSReportID = s.EnforcerDNSReportID
 	o.EnforcerID = s.EnforcerID
 	o.IsLocalDestinationID = s.IsLocalDestinationID
 	o.IsLocalSourceID = s.IsLocalSourceID
@@ -529,9 +529,9 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			DestinationPlatform:     &o.DestinationPlatform,
 			DestinationPort:         &o.DestinationPort,
 			DestinationType:         &o.DestinationType,
-			DnsClientLocalID:        &o.DnsClientLocalID,
 			DropReason:              &o.DropReason,
 			Encrypted:               &o.Encrypted,
+			EnforcerDNSReportID:     &o.EnforcerDNSReportID,
 			EnforcerID:              &o.EnforcerID,
 			IsLocalDestinationID:    &o.IsLocalDestinationID,
 			IsLocalSourceID:         &o.IsLocalSourceID,
@@ -590,12 +590,12 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.DestinationPort = &(o.DestinationPort)
 		case "destinationType":
 			sp.DestinationType = &(o.DestinationType)
-		case "dnsClientLocalID":
-			sp.DnsClientLocalID = &(o.DnsClientLocalID)
 		case "dropReason":
 			sp.DropReason = &(o.DropReason)
 		case "encrypted":
 			sp.Encrypted = &(o.Encrypted)
+		case "enforcerDNSReportID":
+			sp.EnforcerDNSReportID = &(o.EnforcerDNSReportID)
 		case "enforcerID":
 			sp.EnforcerID = &(o.EnforcerID)
 		case "isLocalDestinationID":
@@ -703,14 +703,14 @@ func (o *CachedFlowReport) Patch(sparse elemental.SparseIdentifiable) {
 	if so.DestinationType != nil {
 		o.DestinationType = *so.DestinationType
 	}
-	if so.DnsClientLocalID != nil {
-		o.DnsClientLocalID = *so.DnsClientLocalID
-	}
 	if so.DropReason != nil {
 		o.DropReason = *so.DropReason
 	}
 	if so.Encrypted != nil {
 		o.Encrypted = *so.Encrypted
+	}
+	if so.EnforcerDNSReportID != nil {
+		o.EnforcerDNSReportID = *so.EnforcerDNSReportID
 	}
 	if so.EnforcerID != nil {
 		o.EnforcerID = *so.EnforcerID
@@ -955,12 +955,12 @@ func (o *CachedFlowReport) ValueForAttribute(name string) interface{} {
 		return o.DestinationPort
 	case "destinationType":
 		return o.DestinationType
-	case "dnsClientLocalID":
-		return o.DnsClientLocalID
 	case "dropReason":
 		return o.DropReason
 	case "encrypted":
 		return o.Encrypted
+	case "enforcerDNSReportID":
+		return o.EnforcerDNSReportID
 	case "enforcerID":
 		return o.EnforcerID
 	case "isLocalDestinationID":
@@ -1142,16 +1142,6 @@ property does nothing.`,
 		Stored:         true,
 		Type:           "enum",
 	},
-	"DnsClientLocalID": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "an",
-		ConvertedName:  "DnsClientLocalID",
-		Description:    `ClientLocalID of the DNSLookupReport that has provided the DestinationFQDN.`,
-		Exposed:        true,
-		Name:           "dnsClientLocalID",
-		Stored:         true,
-		Type:           "string",
-	},
 	"DropReason": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "i",
@@ -1172,6 +1162,16 @@ for the rejection.`,
 		Name:           "encrypted",
 		Stored:         true,
 		Type:           "boolean",
+	},
+	"EnforcerDNSReportID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "an",
+		ConvertedName:  "EnforcerDNSReportID",
+		Description:    `The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.`,
+		Exposed:        true,
+		Name:           "enforcerDNSReportID",
+		Stored:         true,
+		Type:           "string",
 	},
 	"EnforcerID": {
 		AllowedChoices: []string{},
@@ -1631,16 +1631,6 @@ property does nothing.`,
 		Stored:         true,
 		Type:           "enum",
 	},
-	"dnsclientlocalid": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "an",
-		ConvertedName:  "DnsClientLocalID",
-		Description:    `ClientLocalID of the DNSLookupReport that has provided the DestinationFQDN.`,
-		Exposed:        true,
-		Name:           "dnsClientLocalID",
-		Stored:         true,
-		Type:           "string",
-	},
 	"dropreason": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "i",
@@ -1661,6 +1651,16 @@ for the rejection.`,
 		Name:           "encrypted",
 		Stored:         true,
 		Type:           "boolean",
+	},
+	"enforcerdnsreportid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "an",
+		ConvertedName:  "EnforcerDNSReportID",
+		Description:    `The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.`,
+		Exposed:        true,
+		Name:           "enforcerDNSReportID",
+		Stored:         true,
+		Type:           "string",
 	},
 	"enforcerid": {
 		AllowedChoices: []string{},
@@ -2102,15 +2102,15 @@ type SparseCachedFlowReport struct {
 	// Destination type.
 	DestinationType *CachedFlowReportDestinationTypeValue `json:"destinationType,omitempty" msgpack:"destinationType,omitempty" bson:"h,omitempty" mapstructure:"destinationType,omitempty"`
 
-	// ClientLocalID of the DNSLookupReport that has provided the DestinationFQDN.
-	DnsClientLocalID *string `json:"dnsClientLocalID,omitempty" msgpack:"dnsClientLocalID,omitempty" bson:"an,omitempty" mapstructure:"dnsClientLocalID,omitempty"`
-
 	// This field is only set if `action` is set to `Reject`. It specifies the reason
 	// for the rejection.
 	DropReason *string `json:"dropReason,omitempty" msgpack:"dropReason,omitempty" bson:"i,omitempty" mapstructure:"dropReason,omitempty"`
 
 	// If `true`, the flow was encrypted.
 	Encrypted *bool `json:"encrypted,omitempty" msgpack:"encrypted,omitempty" bson:"j,omitempty" mapstructure:"encrypted,omitempty"`
+
+	// The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
+	EnforcerDNSReportID *string `json:"enforcerDNSReportID,omitempty" msgpack:"enforcerDNSReportID,omitempty" bson:"an,omitempty" mapstructure:"enforcerDNSReportID,omitempty"`
 
 	// ID of the enforcer where the report was collected.
 	EnforcerID *string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"ak,omitempty" mapstructure:"enforcerID,omitempty"`
@@ -2285,14 +2285,14 @@ func (o *SparseCachedFlowReport) GetBSON() (interface{}, error) {
 	if o.DestinationType != nil {
 		s.DestinationType = o.DestinationType
 	}
-	if o.DnsClientLocalID != nil {
-		s.DnsClientLocalID = o.DnsClientLocalID
-	}
 	if o.DropReason != nil {
 		s.DropReason = o.DropReason
 	}
 	if o.Encrypted != nil {
 		s.Encrypted = o.Encrypted
+	}
+	if o.EnforcerDNSReportID != nil {
+		s.EnforcerDNSReportID = o.EnforcerDNSReportID
 	}
 	if o.EnforcerID != nil {
 		s.EnforcerID = o.EnforcerID
@@ -2436,14 +2436,14 @@ func (o *SparseCachedFlowReport) SetBSON(raw bson.Raw) error {
 	if s.DestinationType != nil {
 		o.DestinationType = s.DestinationType
 	}
-	if s.DnsClientLocalID != nil {
-		o.DnsClientLocalID = s.DnsClientLocalID
-	}
 	if s.DropReason != nil {
 		o.DropReason = s.DropReason
 	}
 	if s.Encrypted != nil {
 		o.Encrypted = s.Encrypted
+	}
+	if s.EnforcerDNSReportID != nil {
+		o.EnforcerDNSReportID = s.EnforcerDNSReportID
 	}
 	if s.EnforcerID != nil {
 		o.EnforcerID = s.EnforcerID
@@ -2585,14 +2585,14 @@ func (o *SparseCachedFlowReport) ToPlain() elemental.PlainIdentifiable {
 	if o.DestinationType != nil {
 		out.DestinationType = *o.DestinationType
 	}
-	if o.DnsClientLocalID != nil {
-		out.DnsClientLocalID = *o.DnsClientLocalID
-	}
 	if o.DropReason != nil {
 		out.DropReason = *o.DropReason
 	}
 	if o.Encrypted != nil {
 		out.Encrypted = *o.Encrypted
+	}
+	if o.EnforcerDNSReportID != nil {
+		out.EnforcerDNSReportID = *o.EnforcerDNSReportID
 	}
 	if o.EnforcerID != nil {
 		out.EnforcerID = *o.EnforcerID
@@ -2777,9 +2777,9 @@ type mongoAttributesCachedFlowReport struct {
 	DestinationPlatform     string                               `bson:"f,omitempty"`
 	DestinationPort         int                                  `bson:"g,omitempty"`
 	DestinationType         CachedFlowReportDestinationTypeValue `bson:"h,omitempty"`
-	DnsClientLocalID        string                               `bson:"an,omitempty"`
 	DropReason              string                               `bson:"i,omitempty"`
 	Encrypted               bool                                 `bson:"j,omitempty"`
+	EnforcerDNSReportID     string                               `bson:"an,omitempty"`
 	EnforcerID              string                               `bson:"ak,omitempty"`
 	IsLocalDestinationID    bool                                 `bson:"ai,omitempty"`
 	IsLocalSourceID         bool                                 `bson:"aj,omitempty"`
@@ -2824,9 +2824,9 @@ type mongoAttributesSparseCachedFlowReport struct {
 	DestinationPlatform     *string                               `bson:"f,omitempty"`
 	DestinationPort         *int                                  `bson:"g,omitempty"`
 	DestinationType         *CachedFlowReportDestinationTypeValue `bson:"h,omitempty"`
-	DnsClientLocalID        *string                               `bson:"an,omitempty"`
 	DropReason              *string                               `bson:"i,omitempty"`
 	Encrypted               *bool                                 `bson:"j,omitempty"`
+	EnforcerDNSReportID     *string                               `bson:"an,omitempty"`
 	EnforcerID              *string                               `bson:"ak,omitempty"`
 	IsLocalDestinationID    *bool                                 `bson:"ai,omitempty"`
 	IsLocalSourceID         *bool                                 `bson:"aj,omitempty"`
