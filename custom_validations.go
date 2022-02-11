@@ -1521,51 +1521,51 @@ func ValidateAPIServerServiceName(attribute string, serviceName string) error {
 func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 
 	if q.SourceIP != "" && q.DestinationIP != "" {
-		return makeValidationError("Entity CloudNetworkQuery", fmt.Sprintf("'sourceIP:' %s and 'destinationIP:' %s cannot be set at the same time", q.SourceIP, q.DestinationIP))
+		return makeValidationError("sourceIP", fmt.Sprintf("'sourceIP:' %s and 'destinationIP:' %s cannot be set at the same time", q.SourceIP, q.DestinationIP))
 	}
 
 	emptySourceSelector := IsCloudNetworkQueryFilterEmpty(q.SourceSelector)
 
 	if q.SourceIP != "" && !emptySourceSelector {
-		return makeValidationError("Entity CloudNetworkQuery", "'sourceIP' and 'sourceSelector' cannot be set at the same time")
+		return makeValidationError("sourceIP", "'sourceIP' and 'sourceSelector' cannot be set at the same time")
 	}
 
 	if q.SourceIP == "" && emptySourceSelector {
-		return makeValidationError("Entity CloudNetworkQuery", "'sourceIP' and 'sourceSelector' cannot be empty at the same time")
+		return makeValidationError("sourceIP", "'sourceIP' and 'sourceSelector' cannot be empty at the same time")
 	}
 
 	if q.SourceIP != "" {
 		isPrivate, err := IsAddressPrivate(q.SourceIP)
 		if err != nil {
-			return makeValidationError("Entity CloudNetworkQuery", "'sourceIP' must be a valid IP address")
+			return makeValidationError("sourceIP", "'sourceIP' must be a valid IP address")
 		}
 		if isPrivate {
-			return makeValidationError("Entity CloudNetworkQuery", "'sourceIP' must be a public IP address")
+			return makeValidationError("sourceIP", "'sourceIP' must be a public IP address")
 		}
 	}
 
 	if q.DestinationIP != "" {
 		isPrivate, err := IsAddressPrivate(q.DestinationIP)
 		if err != nil {
-			return makeValidationError("Entity CloudNetworkQuery", "'destinationIP' must be a valid IP address")
+			return makeValidationError("destinationIP", "'destinationIP' must be a valid IP address")
 		}
 		if isPrivate {
-			return makeValidationError("Entity CloudNetworkQuery", "'destinationIP' must be a public IP address")
+			return makeValidationError("destinationIP", "'destinationIP' must be a public IP address")
 		}
 	}
 
 	if q.SourceIP == "" && q.DestinationIP == "" && len(q.ExcludedNetworks) != 0 {
-		return makeValidationError("Entity CloudNetworkQuery", "'excludedNetworks' is only valid when source or destination IP are defined")
+		return makeValidationError("excludedNetworks", "'excludedNetworks' is only valid when source or destination IP are defined")
 	}
 
 	emptyDestinationSelector := IsCloudNetworkQueryFilterEmpty(q.DestinationSelector)
 
 	if q.DestinationIP != "" && !emptyDestinationSelector {
-		return makeValidationError("Entity CloudNetworkQuery", "'destinationIP' and 'destinationSelector' cannot be set at the same time")
+		return makeValidationError("destinationIP", "'destinationIP' and 'destinationSelector' cannot be set at the same time")
 	}
 
 	if q.DestinationIP == "" && emptyDestinationSelector {
-		return makeValidationError("Entity CloudNetworkQuery", "'destinationIP' and 'destinationSelector' cannot be empty at the same time")
+		return makeValidationError("destinationIP", "'destinationIP' and 'destinationSelector' cannot be empty at the same time")
 	}
 
 	if q.SourceSelector != nil {
@@ -1582,7 +1582,7 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 
 	if q.SourceSelector != nil && q.DestinationSelector != nil && len(q.SourceSelector.CloudTypes) > 0 && len(q.DestinationSelector.CloudTypes) > 0 {
 		if len(q.SourceSelector.CloudTypes) != len(q.DestinationSelector.CloudTypes) {
-			return makeValidationError("Entity CloudNetworkQuery", "source cloud types and destination cloud types have to be the same")
+			return makeValidationError("cloudTypes", "source cloud types and destination cloud types have to be the same")
 		}
 
 		sort.Strings(q.SourceSelector.CloudTypes)
@@ -1590,40 +1590,40 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 
 		for i := 0; i < len(q.SourceSelector.CloudTypes); i++ {
 			if q.SourceSelector.CloudTypes[i] != q.DestinationSelector.CloudTypes[i] {
-				return makeValidationError("Entity CloudNetworkQuery", "source cloud types and destination cloud types have to be the same")
+				return makeValidationError("cloudTypes", "source cloud types and destination cloud types have to be the same")
 			}
 		}
 	}
 
 	if q.SourceIP == "" && q.DestinationIP == "" {
 		if q.SourceSelector != nil && len(q.SourceSelector.VPCIDs) != 1 {
-			return makeValidationError("Entity CloudNetworkQuery", "a single source VPC must be provided for all East/West queries")
+			return makeValidationError("VPCIDs", "a single source VPC must be provided for all East/West queries")
 		}
 		if q.DestinationSelector != nil && len(q.DestinationSelector.VPCIDs) != 1 {
-			return makeValidationError("Entity CloudNetworkQuery", "a single destination VPC must be provided for all East/West queries")
+			return makeValidationError("VPCIDs", "a single destination VPC must be provided for all East/West queries")
 		}
 	}
 
 	if q.Type == CloudNetworkQueryTypeNetworkPath {
 		if len(q.SourceIP) != 0 && len(q.DestinationSelector.ObjectIDs) != 1 {
-			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the destination selector for network path queries")
+			return makeValidationError("objectIDs", "Only one entity (interface/instance) must be selected for the destination selector for network path queries")
 		}
 
 		if len(q.DestinationIP) != 0 && len(q.SourceSelector.ObjectIDs) != 1 {
-			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
+			return makeValidationError("objectIDs", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
 		}
 
 		if len(q.SourceIP) == 0 && len(q.SourceSelector.ObjectIDs) != 1 {
-			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
+			return makeValidationError("objectIDs", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
 		}
 
 		if len(q.DestinationIP) == 0 && len(q.DestinationSelector.ObjectIDs) != 1 {
-			return makeValidationError("Entity CloudNetworkQuery", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
+			return makeValidationError("objectIDs", "Only one entity (interface/instance) must be selected for the source selector for network path queries")
 		}
 	}
 
 	if q.SourceIP == "" && q.DestinationIP == "" && (q.AddressMatchCriteria == CloudNetworkQueryAddressMatchCriteriaFullMatch || q.AddressMatchCriteria == CloudNetworkQueryAddressMatchCriteriaPartialMatch) {
-		return makeValidationError("Entity CloudNetworkQuery", "'AddressMatchCriteria' can only be set when IPs are given")
+		return makeValidationError("addressMatchCriteria", "'AddressMatchCriteria' can only be set when IPs are given")
 	}
 
 	return nil
