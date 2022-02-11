@@ -12167,7 +12167,7 @@ The sub-type of the object as found in the parameters. Used for indexing.
 
 ##### `type` [`required`]
 
-Type: `enum(Endpoint | Subnet | VPC | Interface | RouteTable | NetworkRuleSet | LoadBalancer | LoadBalancerRoute)`
+Type: `enum(Endpoint | Subnet | VPC | Interface | RouteTable | NetworkRuleSet | LoadBalancer | LoadBalancerRoute | PublicIPAdress)`
 
 Type of the endpoint.
 

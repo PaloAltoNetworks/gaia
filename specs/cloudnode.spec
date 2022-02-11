@@ -107,4 +107,5 @@ attributes:
     - NetworkRuleSet
     - LoadBalancer
     - LoadBalancerRoute
+    - PublicIPAdress
     example_value: Endpoint

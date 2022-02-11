@@ -9,8 +9,8 @@ model:
     A CloudPublicIPAddress represents a PublicIPAdress as defined in an Azure cloud
     provider.
   aliases:
-  - cloudpublicipaddress
-  - cloudpublicipaddresses
+  - publicipaddress
+  - publicipaddresses
   get:
     description: Retrieves the object with the given ID.
   update:
