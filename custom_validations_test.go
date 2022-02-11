@@ -4881,7 +4881,6 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 			args{
 				"invalid",
 				&CloudNetworkQuery{
-					Type: CloudNetworkQueryTypeNetworkPath,
 					SourceSelector: &CloudNetworkQueryFilter{
 						VPCIDs:    []string{"vpc1"},
 						ObjectIDs: []string{"object1"},
@@ -4891,6 +4890,63 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 						ObjectIDs: []string{"object1"},
 					},
 					AddressMatchCriteria: CloudNetworkQueryAddressMatchCriteriaPartialMatch,
+				},
+			},
+			true,
+		},
+		{
+			"source and dest have same cloud types",
+			args{
+				"valid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"AWS"},
+						VPCIDs:       []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"AWS"},
+						VPCIDs:       []string{"vpc1"},
+					},
+				},
+			},
+			false,
+		},
+		{
+			"source and dest have different cloud types",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"GCP"},
+						VPCIDs:       []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"AWS"},
+						VPCIDs:       []string{"vpc1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"source and dest have different cloud types",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"GCP", "AWS"},
+						VPCIDs:       []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"AWS"},
+						VPCIDs:       []string{"vpc1"},
+					},
 				},
 			},
 			true,

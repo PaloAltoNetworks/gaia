@@ -1580,6 +1580,21 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 		}
 	}
 
+	if q.SourceSelector != nil && q.DestinationSelector != nil && len(q.SourceSelector.CloudTypes) > 0 && len(q.DestinationSelector.CloudTypes) > 0 {
+		if len(q.SourceSelector.CloudTypes) != len(q.DestinationSelector.CloudTypes) {
+			return makeValidationError("Entity CloudNetworkQuery", "source cloud types and destination cloud types have to be the same")
+		}
+
+		sort.Strings(q.SourceSelector.CloudTypes)
+		sort.Strings(q.DestinationSelector.CloudTypes)
+
+		for i := 0; i < len(q.SourceSelector.CloudTypes); i++ {
+			if q.SourceSelector.CloudTypes[i] != q.DestinationSelector.CloudTypes[i] {
+				return makeValidationError("Entity CloudNetworkQuery", "source cloud types and destination cloud types have to be the same")
+			}
+		}
+	}
+
 	if q.SourceIP == "" && q.DestinationIP == "" {
 		if q.SourceSelector != nil && len(q.SourceSelector.VPCIDs) != 1 {
 			return makeValidationError("Entity CloudNetworkQuery", "a single source VPC must be provided for all East/West queries")
