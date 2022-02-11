@@ -14746,6 +14746,12 @@ Type: `enum(Accept | Fail | Reject | Resolve)`
 
 Action of the DNS request.
 
+##### `enforcerDNSReportID`
+
+Type: `string`
+
+The local ID set by enforcer, used to correllate with flow reports.
+
 ##### `enforcerID`
 
 Type: `string`
@@ -16726,6 +16732,12 @@ Type: `string`
 
 Identifier of the destination controller.
 
+##### `destinationFQDN`
+
+Type: `string`
+
+Destination fully qualified domain name (FQDN), if known.
+
 ##### `destinationID` [`required`]
 
 Type: `string`
@@ -16777,6 +16789,12 @@ for the rejection.
 Type: `boolean`
 
 If `true`, the flow was encrypted.
+
+##### `enforcerDNSReportID`
+
+Type: `string`
+
+The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
 
 ##### `enforcerID`
 
@@ -17432,6 +17450,12 @@ Type: `string`
 
 Identifier of the destination controller.
 
+##### `destinationFQDN`
+
+Type: `string`
+
+Destination fully qualified domain name (FQDN), if known.
+
 ##### `destinationID` [`required`]
 
 Type: `string`
@@ -17483,6 +17507,12 @@ for the rejection.
 Type: `boolean`
 
 If `true`, the flow was encrypted.
+
+##### `enforcerDNSReportID`
+
+Type: `string`
+
+The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
 
 ##### `enforcerID`
 

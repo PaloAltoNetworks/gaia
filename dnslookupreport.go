@@ -106,6 +106,9 @@ type DNSLookupReport struct {
 	// Action of the DNS request.
 	Action DNSLookupReportActionValue `json:"action,omitempty" msgpack:"action,omitempty" bson:"a,omitempty" mapstructure:"action,omitempty"`
 
+	// The local ID set by enforcer, used to correllate with flow reports.
+	EnforcerDNSReportID string `json:"enforcerDNSReportID,omitempty" msgpack:"enforcerDNSReportID,omitempty" bson:"m,omitempty" mapstructure:"enforcerDNSReportID,omitempty"`
+
 	// ID of the enforcer.
 	EnforcerID string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"b,omitempty" mapstructure:"enforcerID,omitempty"`
 
@@ -199,6 +202,7 @@ func (o *DNSLookupReport) GetBSON() (interface{}, error) {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
 	s.Action = o.Action
+	s.EnforcerDNSReportID = o.EnforcerDNSReportID
 	s.EnforcerID = o.EnforcerID
 	s.EnforcerNamespace = o.EnforcerNamespace
 	s.MigrationsLog = o.MigrationsLog
@@ -233,6 +237,7 @@ func (o *DNSLookupReport) SetBSON(raw bson.Raw) error {
 
 	o.ID = s.ID.Hex()
 	o.Action = s.Action
+	o.EnforcerDNSReportID = s.EnforcerDNSReportID
 	o.EnforcerID = s.EnforcerID
 	o.EnforcerNamespace = s.EnforcerNamespace
 	o.MigrationsLog = s.MigrationsLog
@@ -343,6 +348,7 @@ func (o *DNSLookupReport) ToSparse(fields ...string) elemental.SparseIdentifiabl
 		return &SparseDNSLookupReport{
 			ID:                      &o.ID,
 			Action:                  &o.Action,
+			EnforcerDNSReportID:     &o.EnforcerDNSReportID,
 			EnforcerID:              &o.EnforcerID,
 			EnforcerNamespace:       &o.EnforcerNamespace,
 			MigrationsLog:           &o.MigrationsLog,
@@ -368,6 +374,8 @@ func (o *DNSLookupReport) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			sp.ID = &(o.ID)
 		case "action":
 			sp.Action = &(o.Action)
+		case "enforcerDNSReportID":
+			sp.EnforcerDNSReportID = &(o.EnforcerDNSReportID)
 		case "enforcerID":
 			sp.EnforcerID = &(o.EnforcerID)
 		case "enforcerNamespace":
@@ -416,6 +424,9 @@ func (o *DNSLookupReport) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Action != nil {
 		o.Action = *so.Action
+	}
+	if so.EnforcerDNSReportID != nil {
+		o.EnforcerDNSReportID = *so.EnforcerDNSReportID
 	}
 	if so.EnforcerID != nil {
 		o.EnforcerID = *so.EnforcerID
@@ -569,6 +580,8 @@ func (o *DNSLookupReport) ValueForAttribute(name string) interface{} {
 		return o.ID
 	case "action":
 		return o.Action
+	case "enforcerDNSReportID":
+		return o.EnforcerDNSReportID
 	case "enforcerID":
 		return o.EnforcerID
 	case "enforcerNamespace":
@@ -631,6 +644,16 @@ var DNSLookupReportAttributesMap = map[string]elemental.AttributeSpecification{
 		Required:       true,
 		Stored:         true,
 		Type:           "enum",
+	},
+	"EnforcerDNSReportID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "m",
+		ConvertedName:  "EnforcerDNSReportID",
+		Description:    `The local ID set by enforcer, used to correllate with flow reports.`,
+		Exposed:        true,
+		Name:           "enforcerDNSReportID",
+		Stored:         true,
+		Type:           "string",
 	},
 	"EnforcerID": {
 		AllowedChoices: []string{},
@@ -837,6 +860,16 @@ var DNSLookupReportLowerCaseAttributesMap = map[string]elemental.AttributeSpecif
 		Required:       true,
 		Stored:         true,
 		Type:           "enum",
+	},
+	"enforcerdnsreportid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "m",
+		ConvertedName:  "EnforcerDNSReportID",
+		Description:    `The local ID set by enforcer, used to correllate with flow reports.`,
+		Exposed:        true,
+		Name:           "enforcerDNSReportID",
+		Stored:         true,
+		Type:           "string",
 	},
 	"enforcerid": {
 		AllowedChoices: []string{},
@@ -1087,6 +1120,9 @@ type SparseDNSLookupReport struct {
 	// Action of the DNS request.
 	Action *DNSLookupReportActionValue `json:"action,omitempty" msgpack:"action,omitempty" bson:"a,omitempty" mapstructure:"action,omitempty"`
 
+	// The local ID set by enforcer, used to correllate with flow reports.
+	EnforcerDNSReportID *string `json:"enforcerDNSReportID,omitempty" msgpack:"enforcerDNSReportID,omitempty" bson:"m,omitempty" mapstructure:"enforcerDNSReportID,omitempty"`
+
 	// ID of the enforcer.
 	EnforcerID *string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"b,omitempty" mapstructure:"enforcerID,omitempty"`
 
@@ -1183,6 +1219,9 @@ func (o *SparseDNSLookupReport) GetBSON() (interface{}, error) {
 	if o.Action != nil {
 		s.Action = o.Action
 	}
+	if o.EnforcerDNSReportID != nil {
+		s.EnforcerDNSReportID = o.EnforcerDNSReportID
+	}
 	if o.EnforcerID != nil {
 		s.EnforcerID = o.EnforcerID
 	}
@@ -1250,6 +1289,9 @@ func (o *SparseDNSLookupReport) SetBSON(raw bson.Raw) error {
 	if s.Action != nil {
 		o.Action = s.Action
 	}
+	if s.EnforcerDNSReportID != nil {
+		o.EnforcerDNSReportID = s.EnforcerDNSReportID
+	}
 	if s.EnforcerID != nil {
 		o.EnforcerID = s.EnforcerID
 	}
@@ -1314,6 +1356,9 @@ func (o *SparseDNSLookupReport) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Action != nil {
 		out.Action = *o.Action
+	}
+	if o.EnforcerDNSReportID != nil {
+		out.EnforcerDNSReportID = *o.EnforcerDNSReportID
 	}
 	if o.EnforcerID != nil {
 		out.EnforcerID = *o.EnforcerID
@@ -1455,6 +1500,7 @@ func (o *SparseDNSLookupReport) DeepCopyInto(out *SparseDNSLookupReport) {
 type mongoAttributesDNSLookupReport struct {
 	ID                      bson.ObjectId              `bson:"_id,omitempty"`
 	Action                  DNSLookupReportActionValue `bson:"a,omitempty"`
+	EnforcerDNSReportID     string                     `bson:"m,omitempty"`
 	EnforcerID              string                     `bson:"b,omitempty"`
 	EnforcerNamespace       string                     `bson:"c,omitempty"`
 	MigrationsLog           map[string]string          `bson:"migrationslog,omitempty"`
@@ -1474,6 +1520,7 @@ type mongoAttributesDNSLookupReport struct {
 type mongoAttributesSparseDNSLookupReport struct {
 	ID                      bson.ObjectId               `bson:"_id,omitempty"`
 	Action                  *DNSLookupReportActionValue `bson:"a,omitempty"`
+	EnforcerDNSReportID     *string                     `bson:"m,omitempty"`
 	EnforcerID              *string                     `bson:"b,omitempty"`
 	EnforcerNamespace       *string                     `bson:"c,omitempty"`
 	MigrationsLog           *map[string]string          `bson:"migrationslog,omitempty"`
