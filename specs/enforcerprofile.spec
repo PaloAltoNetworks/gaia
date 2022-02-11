@@ -64,6 +64,15 @@ attributes:
     stored: true
     orderable: true
 
+  - name: flowReportInterval
+    description: Frequency that flow report counts are upated.
+    type: string
+    exposed: true
+    stored: true
+    default_value: 30m
+    validations:
+    - $timeDuration
+
   - name: ignoreExpression
     description: |-
       A tag expression that identifies processing units to ignore. This can be

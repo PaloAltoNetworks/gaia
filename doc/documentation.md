@@ -14746,6 +14746,12 @@ Type: `enum(Accept | Fail | Reject | Resolve)`
 
 Action of the DNS request.
 
+##### `enforcerDNSReportID`
+
+Type: `string`
+
+The local ID set by enforcer, used to correllate with flow reports.
+
 ##### `enforcerID`
 
 Type: `string`
@@ -14834,6 +14840,7 @@ profile mapping.
 
 ```json
 {
+  "flowReportInterval": "30m",
   "kubernetesMetadataExtractor": "PodAtomic",
   "kubernetesSupportEnabled": false,
   "metadataExtractor": "Docker",
@@ -14940,6 +14947,18 @@ Type: `[]string`
 Ignore any networks specified here and do not even report any flows.
 This can be useful for excluding localhost loopback traffic, ignoring
 traffic to the Kubernetes API, and using Microsegmentation for SSH only.
+
+##### `flowReportInterval`
+
+Type: `string`
+
+Frequency that flow report counts are upated.
+
+Default value:
+
+```json
+"30m"
+```
 
 ##### `ignoreExpression`
 
@@ -16713,6 +16732,12 @@ Type: `string`
 
 Identifier of the destination controller.
 
+##### `destinationFQDN`
+
+Type: `string`
+
+Destination fully qualified domain name (FQDN), if known.
+
 ##### `destinationID` [`required`]
 
 Type: `string`
@@ -16764,6 +16789,12 @@ for the rejection.
 Type: `boolean`
 
 If `true`, the flow was encrypted.
+
+##### `enforcerDNSReportID`
+
+Type: `string`
+
+The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
 
 ##### `enforcerID`
 
@@ -17419,6 +17450,12 @@ Type: `string`
 
 Identifier of the destination controller.
 
+##### `destinationFQDN`
+
+Type: `string`
+
+Destination fully qualified domain name (FQDN), if known.
+
 ##### `destinationID` [`required`]
 
 Type: `string`
@@ -17470,6 +17507,12 @@ for the rejection.
 Type: `boolean`
 
 If `true`, the flow was encrypted.
+
+##### `enforcerDNSReportID`
+
+Type: `string`
+
+The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
 
 ##### `enforcerID`
 
