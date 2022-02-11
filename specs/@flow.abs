@@ -20,6 +20,15 @@ attributes:
     extensions:
       bson_name: a
 
+  - name: enforcerDNSReportID
+    description:  The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
+    type: string
+    exposed: true
+    stored: true
+    omit_empty: true
+    extensions:
+      bson_name: an
+
   - name: destinationController
     description: Identifier of the destination controller.
     type: string
@@ -29,6 +38,15 @@ attributes:
     omit_empty: true
     extensions:
       bson_name: b
+
+  - name: destinationFQDN
+    description:  Destination fully qualified domain name (FQDN), if known.
+    type: string
+    exposed: true
+    stored: true
+    omit_empty: true
+    extensions:
+      bson_name: am
 
   - name: destinationID
     description: ID of the destination.
