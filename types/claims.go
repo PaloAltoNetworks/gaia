@@ -18,14 +18,14 @@ type MidgardClaims struct {
 	Opaque       map[string]string          `msgpack:"opaque,omitempty" json:"opaque,omitempty"`
 	Restrictions *MidgardClaimsRestrictions `msgpack:"restrictions,omitempty" json:"restrictions,omitempty"`
 
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }
 
 // NewMidgardClaims returns a new Claims.
 func NewMidgardClaims() *MidgardClaims {
 	return &MidgardClaims{
-		Data:           map[string]string{},
-		StandardClaims: jwt.StandardClaims{},
+		Data:             map[string]string{},
+		RegisteredClaims: jwt.RegisteredClaims{},
 	}
 }
 
@@ -34,5 +34,5 @@ type ServiceToken struct {
 	User    map[string]interface{} `json:"user,omitempty"`
 	Service map[string]interface{} `json:"service,omitempty"`
 
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }
