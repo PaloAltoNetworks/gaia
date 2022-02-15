@@ -1,6 +1,6 @@
 package types
 
-import jwt "github.com/dgrijalva/jwt-go"
+import jwt "github.com/golang-jwt/jwt/v4"
 
 // MidgardClaimsRestrictions represents permissions restrictions
 // declared in the token.
