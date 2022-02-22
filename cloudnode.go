@@ -28,6 +28,9 @@ const (
 	// CloudNodeTypeNetworkRuleSet represents the value NetworkRuleSet.
 	CloudNodeTypeNetworkRuleSet CloudNodeTypeValue = "NetworkRuleSet"
 
+	// CloudNodeTypePublicIPAddress represents the value PublicIPAddress.
+	CloudNodeTypePublicIPAddress CloudNodeTypeValue = "PublicIPAddress"
+
 	// CloudNodeTypeRouteTable represents the value RouteTable.
 	CloudNodeTypeRouteTable CloudNodeTypeValue = "RouteTable"
 
@@ -957,7 +960,7 @@ func (o *CloudNode) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1415,7 +1418,7 @@ var CloudNodeAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "string",
 	},
 	"Type": {
-		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute"},
+		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
@@ -1834,7 +1837,7 @@ var CloudNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Type:           "string",
 	},
 	"type": {
-		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute"},
+		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
