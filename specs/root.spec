@@ -306,6 +306,14 @@ relations:
   delete:
     description: Deletes a Cloud policy.
 
+- rest_name: cloudpublicipaddress
+  get:
+    description: Retrieve the list of public IP addresses.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a Public IP address.
+
 - rest_name: cloudroutetable
   get:
     description: Retrieves the list of routing tables.

@@ -12357,6 +12357,18 @@ provider.
 
 #### Relations
 
+##### `GET /cloudpublicipaddresses`
+
+Retrieve the list of public IP addresses.
+
+Parameters:
+
+- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
+
+##### `POST /cloudpublicipaddresses`
+
+Creates a Public IP address.
+
 ##### `DELETE /cloudpublicipaddresses/:id`
 
 Deletes the object with the given ID.
