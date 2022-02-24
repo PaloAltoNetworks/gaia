@@ -13,6 +13,9 @@ import (
 type CloudRouteNextHopTypeValue string
 
 const (
+	// CloudRouteNextHopTypeDrop represents the value Drop.
+	CloudRouteNextHopTypeDrop CloudRouteNextHopTypeValue = "Drop"
+
 	// CloudRouteNextHopTypeEgressOnlyGateway represents the value EgressOnlyGateway.
 	CloudRouteNextHopTypeEgressOnlyGateway CloudRouteNextHopTypeValue = "EgressOnlyGateway"
 
@@ -170,7 +173,7 @@ func (o *CloudRoute) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("nextHopType", string(o.NextHopType), []string{"EgressOnlyGateway", "Gateway", "Instance", "LocalGateway", "NATGateway", "NetworkInterface", "TransitGateway", "VPCPeeringConnection", "TransitGatewayAttachment"}, false); err != nil {
+	if err := elemental.ValidateStringInList("nextHopType", string(o.NextHopType), []string{"EgressOnlyGateway", "Gateway", "Instance", "LocalGateway", "NATGateway", "NetworkInterface", "TransitGateway", "VPCPeeringConnection", "TransitGatewayAttachment", "Drop"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -270,7 +273,7 @@ var CloudRouteAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "string",
 	},
 	"NextHopType": {
-		AllowedChoices: []string{"EgressOnlyGateway", "Gateway", "Instance", "LocalGateway", "NATGateway", "NetworkInterface", "TransitGateway", "VPCPeeringConnection", "TransitGatewayAttachment"},
+		AllowedChoices: []string{"EgressOnlyGateway", "Gateway", "Instance", "LocalGateway", "NATGateway", "NetworkInterface", "TransitGateway", "VPCPeeringConnection", "TransitGatewayAttachment", "Drop"},
 		BSONFieldName:  "nexthoptype",
 		ConvertedName:  "NextHopType",
 		Description:    `The type of the next hop.`,
@@ -351,7 +354,7 @@ var CloudRouteLowerCaseAttributesMap = map[string]elemental.AttributeSpecificati
 		Type:           "string",
 	},
 	"nexthoptype": {
-		AllowedChoices: []string{"EgressOnlyGateway", "Gateway", "Instance", "LocalGateway", "NATGateway", "NetworkInterface", "TransitGateway", "VPCPeeringConnection", "TransitGatewayAttachment"},
+		AllowedChoices: []string{"EgressOnlyGateway", "Gateway", "Instance", "LocalGateway", "NATGateway", "NetworkInterface", "TransitGateway", "VPCPeeringConnection", "TransitGatewayAttachment", "Drop"},
 		BSONFieldName:  "nexthoptype",
 		ConvertedName:  "NextHopType",
 		Description:    `The type of the next hop.`,

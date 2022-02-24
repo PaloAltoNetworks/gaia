@@ -15,6 +15,9 @@ const (
 	// CloudSnapshotAccountCloudTypeAWS represents the value AWS.
 	CloudSnapshotAccountCloudTypeAWS CloudSnapshotAccountCloudTypeValue = "AWS"
 
+	// CloudSnapshotAccountCloudTypeAzure represents the value Azure.
+	CloudSnapshotAccountCloudTypeAzure CloudSnapshotAccountCloudTypeValue = "Azure"
+
 	// CloudSnapshotAccountCloudTypeGCP represents the value GCP.
 	CloudSnapshotAccountCloudTypeGCP CloudSnapshotAccountCloudTypeValue = "GCP"
 )
@@ -425,7 +428,7 @@ func (o *CloudSnapshotAccount) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("cloudType", string(o.CloudType), []string{"AWS", "GCP"}, false); err != nil {
+	if err := elemental.ValidateStringInList("cloudType", string(o.CloudType), []string{"AWS", "GCP", "Azure"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -515,7 +518,7 @@ var CloudSnapshotAccountAttributesMap = map[string]elemental.AttributeSpecificat
 		Type:           "list",
 	},
 	"CloudType": {
-		AllowedChoices: []string{"AWS", "GCP"},
+		AllowedChoices: []string{"AWS", "GCP", "Azure"},
 		ConvertedName:  "CloudType",
 		DefaultValue:   CloudSnapshotAccountCloudTypeAWS,
 		Description:    `The cloud type for the account.`,
@@ -633,7 +636,7 @@ var CloudSnapshotAccountLowerCaseAttributesMap = map[string]elemental.AttributeS
 		Type:           "list",
 	},
 	"cloudtype": {
-		AllowedChoices: []string{"AWS", "GCP"},
+		AllowedChoices: []string{"AWS", "GCP", "Azure"},
 		ConvertedName:  "CloudType",
 		DefaultValue:   CloudSnapshotAccountCloudTypeAWS,
 		Description:    `The cloud type for the account.`,

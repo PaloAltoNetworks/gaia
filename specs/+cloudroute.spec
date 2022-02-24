@@ -59,6 +59,7 @@ attributes:
     - TransitGateway
     - VPCPeeringConnection
     - TransitGatewayAttachment
+    - Drop
     example_value: LocalGateway
 
   - name: storedDestinationIPv4CIDR
