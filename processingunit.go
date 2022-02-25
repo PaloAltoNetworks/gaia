@@ -267,6 +267,9 @@ type ProcessingUnit struct {
 	// `Stopped`, or `Terminated`.
 	OperationalStatus ProcessingUnitOperationalStatusValue `json:"operationalStatus" msgpack:"operationalStatus" bson:"operationalstatus" mapstructure:"operationalStatus,omitempty"`
 
+	// Holds the previous operational status if it has changed.
+	PreviousOperationalStatus string `json:"previousOperationalStatus,omitempty" msgpack:"previousOperationalStatus,omitempty" bson:"-" mapstructure:"previousOperationalStatus,omitempty"`
+
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
@@ -311,11 +314,11 @@ func NewProcessingUnit() *ProcessingUnit {
 		DatapathType:      ProcessingUnitDatapathTypeAporeto,
 		NormalizedTags:    []string{},
 		OperationalStatus: ProcessingUnitOperationalStatusInitialized,
+		Images:            []string{},
+		Metadata:          []string{},
 		Tracing:           NewTraceMode(),
 		MigrationsLog:     map[string]string{},
 		NetworkServices:   []*ProcessingUnitService{},
-		Images:            []string{},
-		Metadata:          []string{},
 		Vulnerabilities:   []string{},
 	}
 }
@@ -687,43 +690,44 @@ func (o *ProcessingUnit) ToSparse(fields ...string) elemental.SparseIdentifiable
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseProcessingUnit{
-			ID:                   &o.ID,
-			Annotations:          &o.Annotations,
-			Archived:             &o.Archived,
-			AssociatedTags:       &o.AssociatedTags,
-			ClientLocalID:        &o.ClientLocalID,
-			CollectInfo:          &o.CollectInfo,
-			CollectedInfo:        &o.CollectedInfo,
-			Controller:           &o.Controller,
-			CreateIdempotencyKey: &o.CreateIdempotencyKey,
-			CreateTime:           &o.CreateTime,
-			DatapathType:         &o.DatapathType,
-			Description:          &o.Description,
-			EnforcementStatus:    &o.EnforcementStatus,
-			EnforcerID:           &o.EnforcerID,
-			EnforcerNamespace:    &o.EnforcerNamespace,
-			Image:                &o.Image,
-			Images:               &o.Images,
-			LastCollectionTime:   &o.LastCollectionTime,
-			LastLocalTimestamp:   &o.LastLocalTimestamp,
-			LastSyncTime:         &o.LastSyncTime,
-			Metadata:             &o.Metadata,
-			MigrationsLog:        &o.MigrationsLog,
-			Name:                 &o.Name,
-			Namespace:            &o.Namespace,
-			NativeContextID:      &o.NativeContextID,
-			NetworkServices:      &o.NetworkServices,
-			NormalizedTags:       &o.NormalizedTags,
-			OperationalStatus:    &o.OperationalStatus,
-			Protected:            &o.Protected,
-			Tracing:              o.Tracing,
-			Type:                 &o.Type,
-			UpdateIdempotencyKey: &o.UpdateIdempotencyKey,
-			UpdateTime:           &o.UpdateTime,
-			Vulnerabilities:      &o.Vulnerabilities,
-			VulnerabilityLevel:   &o.VulnerabilityLevel,
-			ZHash:                &o.ZHash,
-			Zone:                 &o.Zone,
+			ID:                        &o.ID,
+			Annotations:               &o.Annotations,
+			Archived:                  &o.Archived,
+			AssociatedTags:            &o.AssociatedTags,
+			ClientLocalID:             &o.ClientLocalID,
+			CollectInfo:               &o.CollectInfo,
+			CollectedInfo:             &o.CollectedInfo,
+			Controller:                &o.Controller,
+			CreateIdempotencyKey:      &o.CreateIdempotencyKey,
+			CreateTime:                &o.CreateTime,
+			DatapathType:              &o.DatapathType,
+			Description:               &o.Description,
+			EnforcementStatus:         &o.EnforcementStatus,
+			EnforcerID:                &o.EnforcerID,
+			EnforcerNamespace:         &o.EnforcerNamespace,
+			Image:                     &o.Image,
+			Images:                    &o.Images,
+			LastCollectionTime:        &o.LastCollectionTime,
+			LastLocalTimestamp:        &o.LastLocalTimestamp,
+			LastSyncTime:              &o.LastSyncTime,
+			Metadata:                  &o.Metadata,
+			MigrationsLog:             &o.MigrationsLog,
+			Name:                      &o.Name,
+			Namespace:                 &o.Namespace,
+			NativeContextID:           &o.NativeContextID,
+			NetworkServices:           &o.NetworkServices,
+			NormalizedTags:            &o.NormalizedTags,
+			OperationalStatus:         &o.OperationalStatus,
+			PreviousOperationalStatus: &o.PreviousOperationalStatus,
+			Protected:                 &o.Protected,
+			Tracing:                   o.Tracing,
+			Type:                      &o.Type,
+			UpdateIdempotencyKey:      &o.UpdateIdempotencyKey,
+			UpdateTime:                &o.UpdateTime,
+			Vulnerabilities:           &o.Vulnerabilities,
+			VulnerabilityLevel:        &o.VulnerabilityLevel,
+			ZHash:                     &o.ZHash,
+			Zone:                      &o.Zone,
 		}
 	}
 
@@ -786,6 +790,8 @@ func (o *ProcessingUnit) ToSparse(fields ...string) elemental.SparseIdentifiable
 			sp.NormalizedTags = &(o.NormalizedTags)
 		case "operationalStatus":
 			sp.OperationalStatus = &(o.OperationalStatus)
+		case "previousOperationalStatus":
+			sp.PreviousOperationalStatus = &(o.PreviousOperationalStatus)
 		case "protected":
 			sp.Protected = &(o.Protected)
 		case "tracing":
@@ -900,6 +906,9 @@ func (o *ProcessingUnit) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.OperationalStatus != nil {
 		o.OperationalStatus = *so.OperationalStatus
+	}
+	if so.PreviousOperationalStatus != nil {
+		o.PreviousOperationalStatus = *so.PreviousOperationalStatus
 	}
 	if so.Protected != nil {
 		o.Protected = *so.Protected
@@ -1107,6 +1116,8 @@ func (o *ProcessingUnit) ValueForAttribute(name string) interface{} {
 		return o.NormalizedTags
 	case "operationalStatus":
 		return o.OperationalStatus
+	case "previousOperationalStatus":
+		return o.PreviousOperationalStatus
 	case "protected":
 		return o.Protected
 	case "tracing":
@@ -1502,6 +1513,17 @@ manifest.`,
 		Name:       "operationalStatus",
 		Stored:     true,
 		Type:       "enum",
+	},
+	"PreviousOperationalStatus": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		ConvertedName:  "PreviousOperationalStatus",
+		Description:    `Holds the previous operational status if it has changed.`,
+		Exposed:        true,
+		Name:           "previousOperationalStatus",
+		ReadOnly:       true,
+		Transient:      true,
+		Type:           "string",
 	},
 	"Protected": {
 		AllowedChoices: []string{},
@@ -1996,6 +2018,17 @@ manifest.`,
 		Stored:     true,
 		Type:       "enum",
 	},
+	"previousoperationalstatus": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		ConvertedName:  "PreviousOperationalStatus",
+		Description:    `Holds the previous operational status if it has changed.`,
+		Exposed:        true,
+		Name:           "previousOperationalStatus",
+		ReadOnly:       true,
+		Transient:      true,
+		Type:           "string",
+	},
 	"protected": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "protected",
@@ -2287,6 +2320,9 @@ type SparseProcessingUnit struct {
 	// `Running`,
 	// `Stopped`, or `Terminated`.
 	OperationalStatus *ProcessingUnitOperationalStatusValue `json:"operationalStatus,omitempty" msgpack:"operationalStatus,omitempty" bson:"operationalstatus,omitempty" mapstructure:"operationalStatus,omitempty"`
+
+	// Holds the previous operational status if it has changed.
+	PreviousOperationalStatus *string `json:"previousOperationalStatus,omitempty" msgpack:"previousOperationalStatus,omitempty" bson:"-" mapstructure:"previousOperationalStatus,omitempty"`
 
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
@@ -2677,6 +2713,9 @@ func (o *SparseProcessingUnit) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.OperationalStatus != nil {
 		out.OperationalStatus = *o.OperationalStatus
+	}
+	if o.PreviousOperationalStatus != nil {
+		out.PreviousOperationalStatus = *o.PreviousOperationalStatus
 	}
 	if o.Protected != nil {
 		out.Protected = *o.Protected
