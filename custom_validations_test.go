@@ -4458,6 +4458,16 @@ func TestValidateNativeID(t *testing.T) {
 			"arn:aws:elasticloadbalancing:us-east-2:345744466724:loadbalancer/app/abhi-aws-v2/eb7edb2d68b71a0f",
 			false,
 		},
+		{
+			"valid",
+			"/subscriptions/e3e57e4f-0ceb-449c-a8b4-23d61bd60554/resourceGroups/someaccount/providers/Microsoft.Network/virtualNetworks/somevnet/subnets/default",
+			false,
+		},
+		{
+			"valid",
+			"{version:\"2020.2\",id:\"/subscriptions/e3e57e4f-0ceb-449c-a8b4-23d61bd60554/resourceGroups/someaccount/providers/Microsoft.Network/virtualNetworks/somevnet/subnets/default\"}",
+			false,
+		},
 	}
 
 	for _, tt := range tests {
