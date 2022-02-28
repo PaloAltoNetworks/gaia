@@ -16911,6 +16911,12 @@ Type: `string`
 
 Identifier of the destination controller.
 
+##### `destinationExternalNetworkID`
+
+Type: `string`
+
+Closest external network that matches destination IP.
+
 ##### `destinationFQDN`
 
 Type: `string`
@@ -16973,8 +16979,7 @@ If `true`, the flow was encrypted.
 
 Type: `string`
 
-The enforcer-generated local ID of the DNSLookupReport that has provided the
-DestinationFQDN.
+The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
 
 ##### `enforcerID`
 
@@ -17123,6 +17128,12 @@ Service URL accessed.
 Type: `string`
 
 Identifier of the source controller.
+
+##### `sourceExternalNetworkID`
+
+Type: `string`
+
+Closest external network that matches source IP.
 
 ##### `sourceID` [`required`]
 
@@ -17630,6 +17641,12 @@ Type: `string`
 
 Identifier of the destination controller.
 
+##### `destinationExternalNetworkID`
+
+Type: `string`
+
+Closest external network that matches destination IP.
+
 ##### `destinationFQDN`
 
 Type: `string`
@@ -17692,8 +17709,7 @@ If `true`, the flow was encrypted.
 
 Type: `string`
 
-The enforcer-generated local ID of the DNSLookupReport that has provided the
-DestinationFQDN.
+The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
 
 ##### `enforcerID`
 
@@ -17830,6 +17846,12 @@ Service URL accessed.
 Type: `string`
 
 Identifier of the source controller.
+
+##### `sourceExternalNetworkID`
+
+Type: `string`
+
+Closest external network that matches source IP.
 
 ##### `sourceID` [`required`]
 
