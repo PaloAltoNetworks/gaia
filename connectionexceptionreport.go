@@ -36,6 +36,9 @@ const (
 	// ConnectionExceptionReportStateSynTransmitted represents the value SynTransmitted.
 	ConnectionExceptionReportStateSynTransmitted ConnectionExceptionReportStateValue = "SynTransmitted"
 
+	// ConnectionExceptionReportStateTFOProbe represents the value TFOProbe.
+	ConnectionExceptionReportStateTFOProbe ConnectionExceptionReportStateValue = "TFOProbe"
+
 	// ConnectionExceptionReportStateUnknown represents the value Unknown.
 	ConnectionExceptionReportStateUnknown ConnectionExceptionReportStateValue = "Unknown"
 )
@@ -554,7 +557,7 @@ func (o *ConnectionExceptionReport) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("state", string(o.State), []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "Unknown"}, false); err != nil {
+	if err := elemental.ValidateStringInList("state", string(o.State), []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "Unknown", "TFOProbe"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -819,7 +822,7 @@ state.`,
 		Type:           "string",
 	},
 	"State": {
-		AllowedChoices: []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "Unknown"},
+		AllowedChoices: []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "Unknown", "TFOProbe"},
 		BSONFieldName:  "l",
 		ConvertedName:  "State",
 		Description:    `Represents the current state this report was generated.`,
@@ -1054,7 +1057,7 @@ state.`,
 		Type:           "string",
 	},
 	"state": {
-		AllowedChoices: []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "Unknown"},
+		AllowedChoices: []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "Unknown", "TFOProbe"},
 		BSONFieldName:  "l",
 		ConvertedName:  "State",
 		Description:    `Represents the current state this report was generated.`,
