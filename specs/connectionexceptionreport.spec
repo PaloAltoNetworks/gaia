@@ -181,6 +181,7 @@ attributes:
     - SynAckTransmitted
     - AckTransmitted
     - Unknown
+    - TFOProbe
     example_value:
     - Unknown
     extensions:
