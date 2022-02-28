@@ -16973,8 +16973,7 @@ If `true`, the flow was encrypted.
 
 Type: `string`
 
-The enforcer-generated local ID of the DNSLookupReport that has provided the
-DestinationFQDN.
+The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
 
 ##### `enforcerID`
 
@@ -17367,7 +17366,7 @@ Source IP address.
 
 ##### `state` [`required`]
 
-Type: `enum(SynTransmitted | SynAckTransmitted | AckTransmitted | Unknown)`
+Type: `enum(SynTransmitted | SynAckTransmitted | AckTransmitted | Unknown | TFOProbe)`
 
 Represents the current state this report was generated.
 
@@ -17692,8 +17691,7 @@ If `true`, the flow was encrypted.
 
 Type: `string`
 
-The enforcer-generated local ID of the DNSLookupReport that has provided the
-DestinationFQDN.
+The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
 
 ##### `enforcerID`
 
