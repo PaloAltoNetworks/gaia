@@ -20,7 +20,7 @@ codegen:
 		echo -e "$${data}" > doc/documentation.md
 
 diff-check:
-	git diff-index HEAD --
+	git diff-index --exit-code HEAD --
 
 format: format-specs format-type format-validation format-parameter
 format-specs:
