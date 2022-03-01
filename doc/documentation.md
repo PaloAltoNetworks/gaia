@@ -16985,7 +16985,8 @@ If `true`, the flow was encrypted.
 
 Type: `string`
 
-The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
+The enforcer-generated local ID of the DNSLookupReport that has provided the
+DestinationFQDN.
 
 ##### `enforcerID`
 
@@ -17703,7 +17704,8 @@ If `true`, the flow was encrypted.
 
 Type: `string`
 
-The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
+The enforcer-generated local ID of the DNSLookupReport that has provided the
+DestinationFQDN.
 
 ##### `enforcerID`
 
