@@ -50,10 +50,9 @@ jobs:
           #go get golang.org/x/tools/cmd/cover
           go get github.com/axw/gocov/gocov
           go get github.com/AlekSi/gocov-xml
-          cd /tmp
           go get go.aporeto.io/elemental/cmd/elegen
           go get go.aporeto.io/regolithe/cmd/rego
-          cd -
+          git checkout go.mod go.sum
 
       - name: build
         run: |
