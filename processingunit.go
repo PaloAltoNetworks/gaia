@@ -268,7 +268,7 @@ type ProcessingUnit struct {
 	OperationalStatus ProcessingUnitOperationalStatusValue `json:"operationalStatus" msgpack:"operationalStatus" bson:"operationalstatus" mapstructure:"operationalStatus,omitempty"`
 
 	// Holds the previous operational status if it has changed.
-	PreviousOperationalStatus string `json:"previousOperationalStatus,omitempty" msgpack:"previousOperationalStatus,omitempty" bson:"-" mapstructure:"previousOperationalStatus,omitempty"`
+	PreviousOperationalStatus ProcessingUnitOperationalStatusValue `json:"previousOperationalStatus,omitempty" msgpack:"previousOperationalStatus,omitempty" bson:"-" mapstructure:"previousOperationalStatus,omitempty"`
 
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
@@ -1522,8 +1522,9 @@ manifest.`,
 		Exposed:        true,
 		Name:           "previousOperationalStatus",
 		ReadOnly:       true,
+		SubType:        "_pu_operational_status",
 		Transient:      true,
-		Type:           "string",
+		Type:           "external",
 	},
 	"Protected": {
 		AllowedChoices: []string{},
@@ -2026,8 +2027,9 @@ manifest.`,
 		Exposed:        true,
 		Name:           "previousOperationalStatus",
 		ReadOnly:       true,
+		SubType:        "_pu_operational_status",
 		Transient:      true,
-		Type:           "string",
+		Type:           "external",
 	},
 	"protected": {
 		AllowedChoices: []string{},
@@ -2322,7 +2324,7 @@ type SparseProcessingUnit struct {
 	OperationalStatus *ProcessingUnitOperationalStatusValue `json:"operationalStatus,omitempty" msgpack:"operationalStatus,omitempty" bson:"operationalstatus,omitempty" mapstructure:"operationalStatus,omitempty"`
 
 	// Holds the previous operational status if it has changed.
-	PreviousOperationalStatus *string `json:"previousOperationalStatus,omitempty" msgpack:"previousOperationalStatus,omitempty" bson:"-" mapstructure:"previousOperationalStatus,omitempty"`
+	PreviousOperationalStatus *ProcessingUnitOperationalStatusValue `json:"previousOperationalStatus,omitempty" msgpack:"previousOperationalStatus,omitempty" bson:"-" mapstructure:"previousOperationalStatus,omitempty"`
 
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
