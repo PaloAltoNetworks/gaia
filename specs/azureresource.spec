@@ -1,7 +1,7 @@
 # Model
 model:
   rest_name: azureresource
-  resource_name: azureresource
+  resource_name: azureresources
   entity_name: AzureResource
   package: pandemona
   group: pcn/infrastructure
@@ -38,10 +38,15 @@ attributes:
 
   - name: kind
     description: The specific kind of the resource.
-    type: string
+    type: enum
     exposed: true
     stored: true
-    example_value: virtualMachines
+    allowed_choices:
+    - VirtualMachine
+    - NetworkInterface
+    - Subnet
+    - IpConfiguration
+    example_value: virtualMachine
 
   - name: name
     description: The name of this resource.
@@ -52,9 +57,12 @@ attributes:
 
   - name: provider
     description: The major type of the resource.
-    type: string
+    type: enum
     exposed: true
     stored: true
+    allowed_choices:
+    - MicrosoftCompute
+    - MicrosoftNetwork
     example_value: Microsoft.Compute
 
   - name: resourceGroup
