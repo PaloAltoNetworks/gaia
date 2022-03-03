@@ -79,7 +79,10 @@ attributes:
       }
 
   - name: tags
-    description: A contextual key-value field that can be used to narrow searching of resources if the resourceID is not known.
+    description: |-
+      A contextual key-value field that can be used to narrow searching of resources if the
+      resourceID is not known. For instance, it could be used to store resource location or
+      public IP addresses to support cross-cloud analysis.
     exposed: true
     stored: true
     type: external
