@@ -79,9 +79,8 @@ attributes:
       }
 
   - name: tags
-    description: a contextual key-value field that can be used to narrow searching of resources if the resourceID is not known.
+    description: A contextual key-value field that can be used to narrow searching of resources if the resourceID is not known.
     exposed: true
     stored: true
     type: external
     subtype: map[string][]string
-    example_value: virtualMachines
