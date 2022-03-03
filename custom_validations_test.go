@@ -3375,6 +3375,16 @@ func TestValidateUIParameters(t *testing.T) {
 			},
 			false,
 		},
+		{
+			"Test with List and Subtype enum",
+			args{
+				p: &UIParameter{
+					Type:    UIParameterTypeList,
+					Subtype: "Enum",
+				},
+			},
+			false,
+		},
 		// Error cases
 		{
 			"Test with List and empty Subtype",
