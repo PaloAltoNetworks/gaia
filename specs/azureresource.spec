@@ -8,6 +8,7 @@ model:
   description: Represents an Azure cloud resource such as virtualMachines and subnets.
   private: true
   extends:
+  - '@identifiable-stored'
   - '@migratable'
   - '@namespaced'
   - '@zoned'
@@ -28,6 +29,7 @@ attributes:
     type: string
     exposed: true
     stored: true
+    required: true
     example_value: |-
       {
         "id": "/subscriptions/.../subnets/default",
@@ -41,18 +43,20 @@ attributes:
     type: enum
     exposed: true
     stored: true
+    required: true
     allowed_choices:
     - VirtualMachine
     - NetworkInterface
     - Subnet
-    - IpConfiguration
-    example_value: virtualMachine
+    - IPConfiguration
+    example_value: VirtualMachine
 
   - name: name
     description: The name of this resource.
     type: string
     exposed: true
     stored: true
+    required: true
     example_value: vm-name
 
   - name: provider
@@ -60,16 +64,18 @@ attributes:
     type: enum
     exposed: true
     stored: true
+    required: true
     allowed_choices:
     - MicrosoftCompute
     - MicrosoftNetwork
-    example_value: Microsoft.Compute
+    example_value: MicrosoftCompute
 
   - name: resourceGroup
     description: The name of the logical subcontainer of cloud resources.
     type: string
     exposed: true
     stored: true
+    required: true
     example_value: my-deployment
 
   - name: resourceID
@@ -77,6 +83,7 @@ attributes:
     type: string
     exposed: true
     stored: true
+    required: true
     example_value: /subscriptions/a0a00a0a-0aaa-000a-a0a0-00a00aa00000/resourceGroups/my-deployment/providers/Microsoft.Compute/virtualMachines/vm-name
 
   - name: subscriptionID
@@ -84,16 +91,15 @@ attributes:
     type: string
     exposed: true
     stored: true
+    required: true
     example_value: a0a00a0a-0aaa-000a-a0a0-00a00aa00000
 
   - name: tags
     description: |-
-      A contextual key-value field that can be used to narrow searching of resources
-      if the
-      resourceID is not known. For instance, it could be used to store resource
-      location or
-      public IP addresses to support cross-cloud analysis.
-    type: external
+      Contextual values that can be used to narrow searching of resources if the
+      resourceID is not known. For instance, it could be used to store a resource's
+      location or public IP addresses to support cross-cloud analysis.
+    type: list
     exposed: true
-    subtype: map[string][]string
+    subtype: string
     stored: true
