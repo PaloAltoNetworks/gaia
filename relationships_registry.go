@@ -751,6 +751,8 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[AzureResourceIdentity] = &elemental.Relationship{}
+
 	relationshipsRegistry[CNSConfigIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
