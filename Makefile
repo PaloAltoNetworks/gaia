@@ -3,7 +3,7 @@ SHELL := /bin/bash -o pipefail
 
 export GO111MODULE = on
 
-default: lint test diff-check codegen diff-check format diff-check
+default: lint test codegen diff-check format diff-check
 all: format codegen lint test
 
 .PHONY:codegen
@@ -19,7 +19,7 @@ codegen:
 	data=$$(rego doc -d specs || exit 1) && \
 		echo -e "$${data}" > doc/documentation.md
 
-.PHONY:diff-check
+.PHONY: diff-check
 diff-check:
 	git diff-index --quiet HEAD -- || (git diff && false);
 
