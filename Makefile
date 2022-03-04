@@ -19,6 +19,7 @@ codegen:
 	data=$$(rego doc -d specs || exit 1) && \
 		echo -e "$${data}" > doc/documentation.md
 
+.PHONY:diff-check
 diff-check:
 	git diff-index --quiet HEAD -- || (git diff && false);
 
