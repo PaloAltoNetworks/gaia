@@ -30,7 +30,7 @@ format-specs:
 		mv $$f.formatted $$f; \
 	done
 	for f in specs/*.spec; do \
-		if [ "$$f" == "specs/+cloudloadbalancerdata.spec" ]; then rego format < $$f; fi && \
+		if [ "$$f" == "specs/+claimmapping.spec" ]; then rego format < $$f; fi && \
 		rego format < $$f > $$f.formatted && \
 		mv $$f.formatted $$f; \
 	done
