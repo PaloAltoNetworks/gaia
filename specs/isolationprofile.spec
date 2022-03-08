@@ -34,7 +34,8 @@ model:
 attributes:
   v1:
   - name: capabilitiesActions
-    description: The capabilities that should be added to or removed from the processing unit.
+    description: The capabilities that should be added to or removed from the processing
+      unit.
     type: external
     exposed: true
     subtype: _cap_map

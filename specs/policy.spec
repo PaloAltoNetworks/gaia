@@ -59,7 +59,8 @@ indexes:
 attributes:
   v1:
   - name: action
-    description: Defines a set of actions that must be enforced when a dependency is met.
+    description: Defines a set of actions that must be enforced when a dependency
+      is met.
     type: external
     exposed: true
     subtype: map[string]map[string]interface{}

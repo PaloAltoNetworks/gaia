@@ -192,7 +192,8 @@ type CachedFlowReport struct {
 	// If `true`, the flow was encrypted.
 	Encrypted bool `json:"encrypted,omitempty" msgpack:"encrypted,omitempty" bson:"j,omitempty" mapstructure:"encrypted,omitempty"`
 
-	// The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
+	// The enforcer-generated local ID of the DNSLookupReport that has provided the
+	// DestinationFQDN.
 	EnforcerDNSReportID string `json:"enforcerDNSReportID,omitempty" msgpack:"enforcerDNSReportID,omitempty" bson:"an,omitempty" mapstructure:"enforcerDNSReportID,omitempty"`
 
 	// ID of the enforcer where the report was collected.
@@ -1203,11 +1204,12 @@ for the rejection.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "an",
 		ConvertedName:  "EnforcerDNSReportID",
-		Description:    `The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.`,
-		Exposed:        true,
-		Name:           "enforcerDNSReportID",
-		Stored:         true,
-		Type:           "string",
+		Description: `The enforcer-generated local ID of the DNSLookupReport that has provided the
+DestinationFQDN.`,
+		Exposed: true,
+		Name:    "enforcerDNSReportID",
+		Stored:  true,
+		Type:    "string",
 	},
 	"EnforcerID": {
 		AllowedChoices: []string{},
@@ -1712,11 +1714,12 @@ for the rejection.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "an",
 		ConvertedName:  "EnforcerDNSReportID",
-		Description:    `The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.`,
-		Exposed:        true,
-		Name:           "enforcerDNSReportID",
-		Stored:         true,
-		Type:           "string",
+		Description: `The enforcer-generated local ID of the DNSLookupReport that has provided the
+DestinationFQDN.`,
+		Exposed: true,
+		Name:    "enforcerDNSReportID",
+		Stored:  true,
+		Type:    "string",
 	},
 	"enforcerid": {
 		AllowedChoices: []string{},
@@ -2178,7 +2181,8 @@ type SparseCachedFlowReport struct {
 	// If `true`, the flow was encrypted.
 	Encrypted *bool `json:"encrypted,omitempty" msgpack:"encrypted,omitempty" bson:"j,omitempty" mapstructure:"encrypted,omitempty"`
 
-	// The enforcer-generated local ID of the DNSLookupReport that has provided the DestinationFQDN.
+	// The enforcer-generated local ID of the DNSLookupReport that has provided the
+	// DestinationFQDN.
 	EnforcerDNSReportID *string `json:"enforcerDNSReportID,omitempty" msgpack:"enforcerDNSReportID,omitempty" bson:"an,omitempty" mapstructure:"enforcerDNSReportID,omitempty"`
 
 	// ID of the enforcer where the report was collected.
