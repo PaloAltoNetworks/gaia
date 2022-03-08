@@ -2,7 +2,8 @@
 attributes:
   v1:
   - name: negateSubject
-    description: Setting this to `true` will invert the subject to find what is not matching.
+    description: Setting this to `true` will invert the subject to find what is not
+      matching.
     type: boolean
     exposed: true
     stored: true

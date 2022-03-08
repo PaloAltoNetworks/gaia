@@ -50,7 +50,8 @@ attributes:
     example_value: ec2-read
 
   - name: targetRegions
-    description: Limit polling to these regions only. If empty, all regions will be polled.
+    description: Limit polling to these regions only. If empty, all regions will be
+      polled.
     type: list
     exposed: true
     subtype: string

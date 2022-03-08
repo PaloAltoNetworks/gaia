@@ -5,7 +5,8 @@ model:
   entity_name: PolicyRefresh
   package: squall
   group: core/policy
-  description: Sent to a client as a push event when a policy refresh is needed on their side.
+  description: Sent to a client as a push event when a policy refresh is needed on
+    their side.
 
 # Attributes
 attributes:

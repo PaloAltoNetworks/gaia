@@ -23,7 +23,8 @@ attributes:
     - $audience
 
   - name: claims
-    description: The claims in the token. It is only set is the parameter `asCookie` is given.
+    description: The claims in the token. It is only set is the parameter `asCookie`
+      is given.
     type: external
     exposed: true
     subtype: _claims

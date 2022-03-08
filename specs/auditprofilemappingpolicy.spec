@@ -42,7 +42,8 @@ indexes:
 attributes:
   v1:
   - name: object
-    description: The tag or tag expression that identifies the audit profile to be mapped.
+    description: The tag or tag expression that identifies the audit profile to be
+      mapped.
     type: external
     exposed: true
     subtype: '[][]string'
