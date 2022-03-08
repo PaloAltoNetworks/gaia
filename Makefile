@@ -3,7 +3,7 @@ SHELL := /bin/bash -o pipefail
 
 export GO111MODULE = on
 
-default: lint test codegen format diff-check
+default: format codegen lint test diff-check
 all: format codegen lint test
 
 .PHONY:codegen
@@ -21,7 +21,8 @@ codegen:
 
 .PHONY: diff-check
 diff-check:
-	git diff-index --quiet HEAD -- || (git diff && false);
+	git update-index -q --really-refresh
+	git diff-index --quiet HEAD -- || (git diff && false)
 
 format: format-specs format-type format-validation format-parameter
 format-specs:
