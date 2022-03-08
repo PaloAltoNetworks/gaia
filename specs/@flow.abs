@@ -31,7 +31,7 @@ attributes:
       bson_name: b
 
   - name: destinationExternalNetworkID
-    description:  Closest external network that matches destination IP.
+    description: Closest external network that matches destination IP.
     type: string
     exposed: true
     stored: true
@@ -354,7 +354,7 @@ attributes:
       bson_name: aa
 
   - name: sourceExternalNetworkID
-    description:  Closest external network that matches source IP.
+    description: Closest external network that matches source IP.
     type: string
     exposed: true
     stored: true
