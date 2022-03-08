@@ -54,7 +54,8 @@ attributes:
     example_value: 5c83035648675400019ab901
 
   - name: sessionID
-    description: Provides the session ID of the enforcer when retrieving a datapath certificate.
+    description: Provides the session ID of the enforcer when retrieving a datapath
+      certificate.
     type: string
     exposed: true
     example_value: 5c83035648675400019ab901
