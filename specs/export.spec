@@ -14,7 +14,8 @@ model:
 attributes:
   v1:
   - name: APIVersion
-    description: Version of the Microsegmentation Console API used for the exported data.
+    description: Version of the Microsegmentation Console API used for the exported
+      data.
     type: integer
     exposed: true
     stored: true
