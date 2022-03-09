@@ -21,6 +21,20 @@ attributes:
     validations:
     - $cidr
 
+  - name: nsgID
+    description: Network Security Group associated with the subnet.
+    type: string
+    exposed: true
+    stored: true
+    example_value: sg-abcdefg
+
+  - name: routeTableID
+    description: Route Table associated with the subnet.
+    type: string
+    exposed: true
+    stored: true
+    example_value: rtb-1234567
+
   - name: zoneID
     description: The availability zone ID of the subnet.
     type: string
