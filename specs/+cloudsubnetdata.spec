@@ -21,19 +21,19 @@ attributes:
     validations:
     - $cidr
 
-  - name: nsgID
-    description: Network Security Group associated with the subnet.
-    type: string
-    exposed: true
-    stored: true
-    example_value: sg-abcdefg
-
   - name: routeTableID
     description: Route Table associated with the subnet.
     type: string
     exposed: true
     stored: true
     example_value: rtb-1234567
+
+  - name: securityTags
+    description: Security tags associated with the instance.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
 
   - name: zoneID
     description: The availability zone ID of the subnet.

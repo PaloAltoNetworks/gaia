@@ -13177,7 +13177,6 @@ Parameters associated with a subnet.
 ```json
 {
   "address": "10.0.0.0/8",
-  "nsgID": "sg-abcdefg",
   "routeTableID": "rtb-1234567",
   "zoneID": "aws-east",
   "zoneName": "aws-east"
@@ -13192,17 +13191,17 @@ Type: `string`
 
 Address CIDR of the Subnet.
 
-##### `nsgID`
-
-Type: `string`
-
-Network Security Group associated with the subnet.
-
 ##### `routeTableID`
 
 Type: `string`
 
 Route Table associated with the subnet.
+
+##### `securityTags`
+
+Type: `[]string`
+
+Security tags associated with the instance.
 
 ##### `zoneID`
 
