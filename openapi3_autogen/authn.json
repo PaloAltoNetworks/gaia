@@ -1,0 +1,170 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "authn": {
+        "description": "Verifies if the given token is valid or not. If it is valid it will\nreturn the claims of the token.",
+        "properties": {
+          "claims": {
+            "description": "The claims in the token.",
+            "properties": {
+              "aud": {
+                "type": "string"
+              },
+              "data": {
+                "type": "object"
+              },
+              "exp": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "iat": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "iss": {
+                "type": "string"
+              },
+              "jti": {
+                "type": "string"
+              },
+              "nbf": {
+                "format": "int64",
+                "type": "integer"
+              },
+              "opaque": {
+                "type": "object"
+              },
+              "quota": {
+                "type": "integer"
+              },
+              "realm": {
+                "type": "string"
+              },
+              "restrictions": {
+                "properties": {
+                  "namespace": {
+                    "type": "string"
+                  },
+                  "networks": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  },
+                  "perms": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "type": "array"
+                  }
+                },
+                "type": "object"
+              },
+              "sub": {
+                "type": "string"
+              }
+            },
+            "readOnly": true,
+            "type": "object"
+          },
+          "token": {
+            "description": "The token to verify. This is only used if a POST request is used.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "authn",
+    "version": "1.0"
+  },
+  "paths": {
+    "/authn": {
+      "get": {
+        "description": "Verify the validity of a token. This is deprecated. You should use Create.",
+        "operationId": "get-all-authn",
+        "parameters": [
+          {
+            "description": "token to validate.",
+            "example": "abc.def.ghi",
+            "in": "query",
+            "name": "token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/authn"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "midgard"
+        ]
+      },
+      "post": {
+        "description": "Verify the validity of a token.",
+        "operationId": "create-a-new-authn",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/authn"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authn"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "midgard"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/authentication'",
+      "name": "core/authentication"
+    },
+    {
+      "description": "This tag is for package 'midgard'",
+      "name": "midgard"
+    }
+  ]
+}

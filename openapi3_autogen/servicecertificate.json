@@ -1,0 +1,286 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "servicecertificate": {
+        "description": "Manages private keys.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "fingerprint": {
+            "description": "The fingerprint of the public key.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "private": {
+            "description": "Private key in PEM format.",
+            "example": "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIHjrDddXMasytnPC2+7m2BnkgEX7a6Vk1G13dQsASpAhoAoGCCqGSM49\nAwEHoUQDQgAEBzbAGpf40lZVupONiSmjKcK4BS6hxk41LGXXsTa2kztqhkm+sfV+\n8kwyOG9ewI4GDHgT/6rwX3GEIudglZ6ecQ==\n-----END EC PRIVATE KEY-----",
+            "type": "string"
+          },
+          "propagate": {
+            "description": "Propagates the policy to all of its children.",
+            "type": "boolean"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "public": {
+            "description": "Public key in PEM format.",
+            "example": "-----BEGIN CERTIFICATE-----\nMIIBKjCB0aADAgECAhEAugDV416p70g1FGz9A91H4DAKBggqhkjOPQQDAjAOMQww\nCgYDVQQDEwNjdWwwHhcNMjEwNzA2MTYzMjI4WhcNMjIwNzAxMTYzMjI4WjAOMQww\nCgYDVQQDEwNjdWwwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAAQHNsAal/jSVlW6\nk42JKaMpwrgFLqHGTjUsZdexNraTO2qGSb6x9X7yTDI4b17AjgYMeBP/qvBfcYQi\n52CVnp5xoxAwDjAMBgNVHRMBAf8EAjAAMAoGCCqGSM49BAMCA0gAMEUCICZcMM89\nfJz9LMdpz/A1RpBEC0Xx4I/8JWrHroVYPOG7AiEA37iWAAi1DYBboyxevbCc6kNa\nSu0pBE163iBEKUew0/s=\n-----END CERTIFICATE-----",
+            "type": "string"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "private",
+          "public"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "servicecertificate",
+    "version": "1.0"
+  },
+  "paths": {
+    "/servicecertificates": {
+      "get": {
+        "description": "Retrieves the list of service certificates.",
+        "operationId": "get-all-servicecertificates",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/servicecertificate"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/x509",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new service certificate.",
+        "operationId": "create-a-new-servicecertificate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/servicecertificate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/servicecertificate"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/x509",
+          "squall"
+        ]
+      }
+    },
+    "/servicecertificates/{id}": {
+      "delete": {
+        "description": "Deletes a service certificate.",
+        "operationId": "delete-servicecertificate-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/servicecertificate"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/x509",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves a service certificate's information.",
+        "operationId": "get-servicecertificate-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/servicecertificate"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/x509",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates a service certificate.",
+        "operationId": "update-servicecertificate-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/servicecertificate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/servicecertificate"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/x509",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'internal/x509'",
+      "name": "internal/x509"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

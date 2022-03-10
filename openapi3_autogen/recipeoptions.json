@@ -1,0 +1,45 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "recipeoptions": {
+        "description": "Represents recipe options.",
+        "properties": {
+          "appCrendentialFormat": {
+            "default": "JSON",
+            "description": "Indicates the format of the app credential.",
+            "enum": [
+              "JSON",
+              "YAML"
+            ]
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "recipeoptions",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/workflow'",
+      "name": "core/workflow"
+    },
+    {
+      "description": "This tag is for package 'ignis'",
+      "name": "ignis"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "processingunitservice": {
+        "description": "Represents a service attached to a processing unit.",
+        "properties": {
+          "ports": {
+            "deprecated": true,
+            "description": "Contains the list of allowed ports and ranges.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "protocol": {
+            "description": "Protocol used by the service.",
+            "type": "integer"
+          },
+          "targetPorts": {
+            "description": "List of single ports or range (xx:yy).",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "processingunitservice",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/processingunits'",
+      "name": "policy/processingunits"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

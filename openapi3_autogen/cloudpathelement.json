@@ -1,0 +1,53 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudpathelement": {
+        "description": "Represents a node in a network path from source to destination. Captures the\nnode and related policy information.",
+        "properties": {
+          "nativeID": {
+            "description": "The native ID of the node.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "policy": {
+            "$ref": "./cloudgraphnodeaction#/components/schemas/cloudgraphnodeaction"
+          },
+          "routeTables": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "The route table ID used for the route calculation.",
+            "readOnly": true,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudpathelement",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

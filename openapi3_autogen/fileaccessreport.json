@@ -1,0 +1,123 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "fileaccessreport": {
+        "description": "Post a new file access report.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "action": {
+            "description": "Action taken.",
+            "enum": [
+              "Accept",
+              "Reject",
+              "Limit"
+            ],
+            "example": "Accepted"
+          },
+          "host": {
+            "default": "localhost",
+            "description": "Host storing the file.",
+            "type": "string"
+          },
+          "mode": {
+            "default": "rxw",
+            "description": "Mode of file access.",
+            "type": "string"
+          },
+          "path": {
+            "default": "/etc/passwd",
+            "description": "Path of the file.",
+            "type": "string"
+          },
+          "processingUnitID": {
+            "description": "ID of the processing unit.",
+            "example": "xxx-xxx-xxx-xxx",
+            "type": "string"
+          },
+          "processingUnitNamespace": {
+            "description": "Namespace of the processing unit.",
+            "example": "/my/ns",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "Date of the report.",
+            "example": "2018-06-14T23:10:46.420397985Z",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action",
+          "host",
+          "mode",
+          "path",
+          "processingUnitID",
+          "processingUnitNamespace",
+          "timestamp"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "fileaccessreport",
+    "version": "1.0"
+  },
+  "paths": {
+    "/fileaccessreports": {
+      "post": {
+        "description": "Create a file access statistics report.",
+        "operationId": "create-a-new-fileaccessreport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/fileaccessreport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fileaccessreport"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/files",
+          "zack"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/files'",
+      "name": "policy/files"
+    },
+    {
+      "description": "This tag is for package 'zack'",
+      "name": "zack"
+    }
+  ]
+}

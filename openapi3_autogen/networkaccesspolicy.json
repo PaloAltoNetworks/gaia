@@ -1,0 +1,529 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "networkaccesspolicy": {
+        "description": "Allows you to define network policies to allow or prevent processing units\nidentified by their tags to talk to other processing units or external networks\n(also identified by their tags).",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "action": {
+            "default": "Allow",
+            "description": "Defines the action to apply to a flow.\n\n- `Allow`: allows the defined traffic.\n- `Reject`: rejects the defined traffic; useful in conjunction with an allow all\npolicy.\n- `Continue`: neither allows or rejects the traffic; useful for applying another\nproperty to the traffic.",
+            "enum": [
+              "Allow",
+              "Reject",
+              "Continue"
+            ]
+          },
+          "activeDuration": {
+            "description": "Defines for how long the policy will be active according to the\n`activeSchedule`.",
+            "type": "string"
+          },
+          "activeSchedule": {
+            "description": "Defines when the policy should be active using the cron notation.\nThe policy will be active for the given `activeDuration`.",
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "applyPolicyMode": {
+            "default": "Bidirectional",
+            "description": "Sets three different types of policies. `IncomingTraffic`: applies the policy to\nall\nprocessing units that match the `object` and allows them to *accept* connections\nfrom\nprocessing units or external networks that match the `subject`.\n`OutgoingTraffic`: applies\nthe policy to all processing units that match the `subject` and allows them to\n*initiate*\nconnections with processing units or external networks that match the `object`.\n`Bidirectional` (default): applies the policy to all processing units that match\nthe `object`\nand allows them to *accept* connections from processing units that match the\n`subject`.\nAlso applies the policy to all processing units that match the `subject` and\nallows them\nto *initiate* connections with processing units that match the `object`.",
+            "enum": [
+              "OutgoingTraffic",
+              "IncomingTraffic",
+              "Bidirectional"
+            ]
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Defines if the property is disabled.",
+            "type": "boolean"
+          },
+          "encryptionEnabled": {
+            "deprecated": true,
+            "description": "Defines if the flow has to be encrypted. This property is deprecated and have no\nincidence.",
+            "type": "boolean"
+          },
+          "expirationTime": {
+            "description": "If set the policy will be automatically deleted after the given time.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "fallback": {
+            "description": "Indicates that this is fallback policy. It will only be\napplied if no other policies have been resolved. If the policy is also\npropagated it will become a fallback for children namespaces.",
+            "type": "boolean"
+          },
+          "logsEnabled": {
+            "description": "If `true`, the relevant flows are logged and available from Microsegmentation\nConsole.\nUnder some advanced scenarios you may wish to set this to `false`, such as to\nsave space or\nimprove performance.",
+            "type": "boolean"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "negateObject": {
+            "description": "Setting this to `true` will invert the object to find what is not matching.",
+            "type": "boolean"
+          },
+          "negateSubject": {
+            "description": "Setting this to `true` will invert the subject to find what is not matching.",
+            "type": "boolean"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "object": {
+            "description": "A tag or tag expression identifying the object of the policy.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "observationEnabled": {
+            "description": "If set to `true`, the flow will be in observation mode.",
+            "type": "boolean"
+          },
+          "observedTrafficAction": {
+            "default": "Continue",
+            "description": "If `observationEnabled` is set to `true`, this defines the final action taken\non the packets: `Apply` or `Continue` (default).",
+            "enum": [
+              "Apply",
+              "Continue"
+            ]
+          },
+          "ports": {
+            "description": "Represents the ports and protocols this policy applies to.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "propagate": {
+            "description": "Propagates the policy to all of its children.",
+            "type": "boolean"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "subject": {
+            "description": "A tag or tag expression identifying the subject of the policy.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "networkaccesspolicy",
+    "version": "1.0"
+  },
+  "paths": {
+    "/networkaccesspolicies": {
+      "get": {
+        "description": "Retrieves the list of network policies.",
+        "operationId": "get-all-networkaccesspolicies",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/networkaccesspolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new network policy. This is deprecated. in favor of\nNetworkRuleSetPolicy.",
+        "operationId": "create-a-new-networkaccesspolicy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/networkaccesspolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/networkaccesspolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      }
+    },
+    "/networkaccesspolicies/{id}": {
+      "delete": {
+        "description": "Deletes the policy with the given ID.",
+        "operationId": "delete-networkaccesspolicy-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/networkaccesspolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the policy with the given ID.",
+        "operationId": "get-networkaccesspolicy-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/networkaccesspolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the policy with the given ID.",
+        "operationId": "update-networkaccesspolicy-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/networkaccesspolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/networkaccesspolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      }
+    },
+    "/networkaccesspolicies/{id}/externalnetworks": {
+      "get": {
+        "description": "Returns the list of external networks affected by a network policy.",
+        "operationId": "get-all-externalnetworks-for-a-given-networkaccesspolicy",
+        "parameters": [
+          {
+            "description": "Matching mode.",
+            "example": "object",
+            "in": "query",
+            "name": "mode",
+            "schema": {
+              "enum": [
+                "subject",
+                "object"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./externalnetwork#/components/schemas/externalnetwork"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/networkaccesspolicies/{id}/processingunits": {
+      "get": {
+        "description": "Returns the list of processing units affected by a network policy.",
+        "operationId": "get-all-processingunits-for-a-given-networkaccesspolicy",
+        "parameters": [
+          {
+            "description": "Matching mode.",
+            "example": "object",
+            "in": "query",
+            "name": "mode",
+            "schema": {
+              "enum": [
+                "subject",
+                "object"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./processingunit#/components/schemas/processingunit"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/networkaccesspolicies/{id}/services": {
+      "get": {
+        "description": "Returns the list of services affected by a network policy.",
+        "operationId": "get-all-services-for-a-given-networkaccesspolicy",
+        "parameters": [
+          {
+            "description": "Matching mode.",
+            "example": "object",
+            "in": "query",
+            "name": "mode",
+            "schema": {
+              "enum": [
+                "subject",
+                "object"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./service#/components/schemas/service"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/services",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/networking'",
+      "name": "policy/networking"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cnssuggestion": {
+        "description": "Provides query suggestions for Prisma Cloud's investigate page.",
+        "properties": {
+          "needsOffsetUpdate": {
+            "default": true,
+            "description": "Required by Prisma Cloud. Always set to true.",
+            "type": "boolean"
+          },
+          "offset": {
+            "default": 0,
+            "description": "The length of the RQL query part that is valid.",
+            "type": "integer"
+          },
+          "query": {
+            "description": "Prisma Cloud's RQL query.",
+            "example": "network from DNS where id == 1",
+            "readOnly": true,
+            "type": "string"
+          },
+          "suggestions": {
+            "description": "List of query suggestions.",
+            "example": [
+              "id",
+              "action"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "translate": {
+            "default": false,
+            "description": "Required by Prisma Cloud. Always set to false.",
+            "type": "boolean"
+          },
+          "valid": {
+            "default": false,
+            "description": "The validity of the RQL query.",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cnssuggestion",
+    "version": "1.0"
+  },
+  "paths": {
+    "/cnssuggestions": {
+      "post": {
+        "description": "Retrieves RQL suggestions from Microsegmentation.",
+        "operationId": "create-a-new-cnssuggestion",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cnssuggestion"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cnssuggestion"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/rql",
+          "karl"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/rql'",
+      "name": "core/rql"
+    },
+    {
+      "description": "This tag is for package 'karl'",
+      "name": "karl"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "defaultenforcerversion": {
+        "description": "Returns the default enforcer version of the specified namespace.",
+        "properties": {
+          "defaultVersion": {
+            "description": "The default enforcer version for the namespace.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "defaultenforcerversion",
+    "version": "1.0"
+  },
+  "paths": {
+    "/defaultenforcerversion": {
+      "get": {
+        "description": "Returns the default enforcer version of the specified namespace.",
+        "operationId": "get-all-defaultenforcerversion",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/defaultenforcerversion"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Modify the default enforcer version of the specified namespace.",
+        "operationId": "create-a-new-defaultenforcerversion",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/defaultenforcerversion"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/defaultenforcerversion"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/namespace'",
+      "name": "core/namespace"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "validateuiparameter": {
+        "description": "Validates a list of [UIParameter](#uiparameter) parameters.",
+        "properties": {
+          "errors": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Contains the list of errors.",
+            "type": "object"
+          },
+          "parameters": {
+            "description": "List of parameters to validate.",
+            "items": {
+              "$ref": "./uiparameter#/components/schemas/uiparameter"
+            },
+            "type": "array"
+          },
+          "values": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Contains the computed values.",
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "validateuiparameter",
+    "version": "1.0"
+  },
+  "paths": {
+    "/validateuiparameters": {
+      "post": {
+        "description": "Validates some UI parameters.",
+        "operationId": "create-a-new-validateuiparameter",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/validateuiparameter"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/validateuiparameter"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/workflow",
+          "ignis"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/workflow'",
+      "name": "core/workflow"
+    },
+    {
+      "description": "This tag is for package 'ignis'",
+      "name": "ignis"
+    }
+  ]
+}

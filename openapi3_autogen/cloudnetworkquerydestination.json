@@ -1,0 +1,67 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudnetworkquerydestination": {
+        "description": "Returns the set of discovered destinations and the associated verdicts.",
+        "properties": {
+          "indirectNodeID": {
+            "description": "Returns the native ID of the indirect node.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "isIndirect": {
+            "description": "Returns true if this is an indirect path through an forwarding entities.",
+            "readOnly": true,
+            "type": "boolean"
+          },
+          "reachable": {
+            "description": "Returns true if the destination is reachable through routing.",
+            "readOnly": true,
+            "type": "boolean"
+          },
+          "type": {
+            "description": "Returns the type of the destination.",
+            "enum": [
+              "Interface",
+              "Instance",
+              "LoadBalancer",
+              "PublicIP"
+            ],
+            "readOnly": true
+          },
+          "verdict": {
+            "description": "Returns the network security verdict for the destination.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudnetworkquerydestination",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

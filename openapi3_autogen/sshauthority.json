@@ -1,0 +1,139 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "sshauthority": {
+        "description": "Internal api to deliver SSH CA.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "alg": {
+            "default": "ECDSA",
+            "description": "Algorithm to use for the CA.",
+            "enum": [
+              "RSA",
+              "ECDSA"
+            ]
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "publicKey": {
+            "description": "Contains the public key of the CA.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "sshauthority",
+    "version": "1.0"
+  },
+  "paths": {
+    "/sshauthorities": {
+      "post": {
+        "description": "Creates a new SSH certificate authority.",
+        "operationId": "create-a-new-sshauthority",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/sshauthority"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sshauthority"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/ssh",
+          "barret"
+        ]
+      }
+    },
+    "/sshauthorities/{id}": {
+      "delete": {
+        "description": "Deletes the SSH CA with the given ID.",
+        "operationId": "delete-sshauthority-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sshauthority"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/ssh",
+          "barret"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'internal/ssh'",
+      "name": "internal/ssh"
+    },
+    {
+      "description": "This tag is for package 'barret'",
+      "name": "barret"
+    }
+  ]
+}

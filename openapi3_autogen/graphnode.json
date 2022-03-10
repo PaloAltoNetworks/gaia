@@ -1,0 +1,196 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "graphnode": {
+        "description": "Represents an node from the dependency map.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of object represented by the node.",
+            "type": "string"
+          },
+          "enforcementStatus": {
+            "description": "Enforcement status of processing unit represented by the node.",
+            "type": "string"
+          },
+          "firstSeen": {
+            "description": "Contains the date when the edge was first seen.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "groupID": {
+            "description": "ID of the group the node is eventually part of.",
+            "type": "string"
+          },
+          "images": {
+            "description": "List of images.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "lastSeen": {
+            "description": "Contains the date when the edge was last seen.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of object represented by the node.",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace of object represented by the node.",
+            "type": "string"
+          },
+          "status": {
+            "description": "Status of object represented by the node.",
+            "type": "string"
+          },
+          "tags": {
+            "description": "Tags of object represented by the node.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "Type of object represented by the node.",
+            "enum": [
+              "Docker",
+              "ExternalNetwork",
+              "Volume",
+              "Claim",
+              "Node",
+              "Namespace",
+              "RemoteController",
+              "APIGateway",
+              "Host",
+              "HostService",
+              "LinuxService",
+              "WindowsService",
+              "RKT",
+              "User",
+              "SSHSession"
+            ]
+          },
+          "unreachable": {
+            "description": "If `true` the node is marked as unreachable.",
+            "type": "boolean"
+          },
+          "vulnerabilityLevel": {
+            "description": "Tags of object represented by the node.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "graphnode",
+    "version": "1.0"
+  },
+  "paths": {
+    "/graphnodes": {
+      "get": {
+        "description": "Retrieves the pu nodes.",
+        "operationId": "get-all-graphnodes",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that have been archived.",
+            "in": "query",
+            "name": "archived",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Set the absolute end of the time window.",
+            "example": "2018/04/08 10:42",
+            "in": "query",
+            "name": "endAbsolute",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the relative end of the time window.",
+            "example": "-1h",
+            "in": "query",
+            "name": "endRelative",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the absolute start of the time window.",
+            "example": "2018/03/08 10:42",
+            "in": "query",
+            "name": "startAbsolute",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the relative start of the time window.",
+            "example": "-1h",
+            "in": "query",
+            "name": "startRelative",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/graphnode"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/depmaps",
+          "meteor"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/depmaps'",
+      "name": "visualization/depmaps"
+    },
+    {
+      "description": "This tag is for package 'meteor'",
+      "name": "meteor"
+    }
+  ]
+}

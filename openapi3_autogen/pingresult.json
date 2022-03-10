@@ -1,0 +1,128 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "pingresult": {
+        "description": "Represents the results of a ping request.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "errors": {
+            "description": "May contain a list of errors that have happened during the collection.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "pingID": {
+            "description": "Contains the Ping ID.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "pingPairs": {
+            "description": "Contains the result of aggregated ping pairs.",
+            "items": {
+              "$ref": "./pingpair#/components/schemas/pingpair"
+            },
+            "type": "array"
+          },
+          "refreshID": {
+            "description": "Contains the refresh ID set by processing unit refresh event.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "remoteProbes": {
+            "description": "Contains information about missing probes in the result. This field will be\npopulated in the ping probe is managed by a remote controller (federation) or is\nstored in a namespace you don't have any permissions on.",
+            "items": {
+              "$ref": "./remotepingprobe#/components/schemas/remotepingprobe"
+            },
+            "type": "array"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "pingresult",
+    "version": "1.0"
+  },
+  "paths": {
+    "/pingresults": {
+      "get": {
+        "description": "Retrieves a ping result.",
+        "operationId": "get-all-pingresults",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/pingresult"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "guy"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'guy'",
+      "name": "guy"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "x509certificatecheck": {
+        "description": "Verifies a certificate has not been revoked.",
+        "properties": {
+          "ID": {
+            "description": "ID contains the certificate serialNumber.",
+            "example": "c155b59c-c04b-430f-b11f-8355a6b7dc48",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ID"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "x509certificatecheck",
+    "version": "1.0"
+  },
+  "paths": {
+    "/x509certificatechecks": {
+      "get": {
+        "description": "Verifies if an X.509 certificate is valid.",
+        "operationId": "get-all-x509certificatechecks",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/x509certificatecheck"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/x509",
+          "barret"
+        ]
+      }
+    },
+    "/x509certificatechecks/{id}": {
+      "get": {
+        "description": "Retrieves the object with the given ID.",
+        "operationId": "get-x509certificatecheck-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/x509certificatecheck"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/x509",
+          "barret"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'internal/x509'",
+      "name": "internal/x509"
+    },
+    {
+      "description": "This tag is for package 'barret'",
+      "name": "barret"
+    }
+  ]
+}

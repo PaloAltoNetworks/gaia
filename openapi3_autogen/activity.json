@@ -1,0 +1,168 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "activity": {
+        "description": "Contains logs of all the activity that happened in a namespace. All successful\nor\nfailed actions will be available, errors, as well as the claims of\nthe user who triggered the actions. This log is capped and only keeps the last\n50,000 entries by default.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "claims": {
+            "description": "Claims of the user who performed the operation.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "data": {
+            "deprecated": true,
+            "description": "This is deprecated in favor of `diff`.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "date": {
+            "description": "Time-date stamp of the notification.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "diff": {
+            "description": "Contains the diff of the change.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "error": {
+            "description": "Contains the error.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "message": {
+            "description": "Message of the notification.",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "operation": {
+            "description": "Describes what kind of operation the notification represents.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "originalData": {
+            "deprecated": true,
+            "description": "This is deprecated in favor of `diff`.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "source": {
+            "description": "Contains meta information about the source.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "targetIdentity": {
+            "description": "The identity of the related object.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "activity",
+    "version": "1.0"
+  },
+  "paths": {
+    "/activities": {
+      "get": {
+        "description": "Retrieves the list of activity logs.",
+        "operationId": "get-all-activities",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/activity"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/monitoring",
+          "hojo"
+        ]
+      }
+    },
+    "/activities/{id}": {
+      "get": {
+        "description": "Retrieves the object with the given ID.",
+        "operationId": "get-activity-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/activity"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/monitoring",
+          "hojo"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/monitoring'",
+      "name": "core/monitoring"
+    },
+    {
+      "description": "This tag is for package 'hojo'",
+      "name": "hojo"
+    }
+  ]
+}

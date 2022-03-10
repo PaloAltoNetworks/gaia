@@ -1,0 +1,92 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "ipinfo": {
+        "description": "Provides information about IP address resolution.",
+        "properties": {
+          "IP": {
+            "description": "The IP address.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "error": {
+            "description": "Error that occurred during resolution.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "records": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "List of DNS records associated with the IP address.",
+            "readOnly": true,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "ipinfo",
+    "version": "1.0"
+  },
+  "paths": {
+    "/ipinfos": {
+      "get": {
+        "description": "Returns information about an IP address given as parameters.",
+        "operationId": "get-all-ipinfos",
+        "parameters": [
+          {
+            "description": "List of IPs to resolve.",
+            "example": "1.2.3.4",
+            "in": "query",
+            "name": "ip",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ipinfo"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/depmaps",
+          "canyon"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/depmaps'",
+      "name": "visualization/depmaps"
+    },
+    {
+      "description": "This tag is for package 'canyon'",
+      "name": "canyon"
+    }
+  ]
+}

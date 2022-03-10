@@ -1,0 +1,188 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "reportsquery": {
+        "description": "Supports querying Aporeto reports. All queries are protected within the\nnamespace of the user.",
+        "properties": {
+          "DNSLookupReports": {
+            "description": "List of DNSLookupReports.",
+            "items": {
+              "$ref": "./dnslookupreport#/components/schemas/dnslookupreport"
+            },
+            "type": "array"
+          },
+          "accessReports": {
+            "description": "List of AccessReports.",
+            "items": {
+              "$ref": "./accessreport#/components/schemas/accessreport"
+            },
+            "type": "array"
+          },
+          "connectionExceptionReports": {
+            "description": "List of ConnectionExceptionReports.",
+            "items": {
+              "$ref": "./connectionexceptionreport#/components/schemas/connectionexceptionreport"
+            },
+            "type": "array"
+          },
+          "counterReports": {
+            "description": "List of CounterReports.",
+            "items": {
+              "$ref": "./counterreport#/components/schemas/counterreport"
+            },
+            "type": "array"
+          },
+          "enforcerReports": {
+            "description": "List of EnforcerReports.",
+            "items": {
+              "$ref": "./enforcerreport#/components/schemas/enforcerreport"
+            },
+            "type": "array"
+          },
+          "eventLogs": {
+            "description": "List of EventLogs.",
+            "items": {
+              "$ref": "./eventlog#/components/schemas/eventlog"
+            },
+            "type": "array"
+          },
+          "flowReports": {
+            "description": "List of FlowReports.",
+            "items": {
+              "$ref": "./flowreport#/components/schemas/flowreport"
+            },
+            "type": "array"
+          },
+          "packetReports": {
+            "description": "List of PacketReports.",
+            "items": {
+              "$ref": "./packetreport#/components/schemas/packetreport"
+            },
+            "type": "array"
+          },
+          "report": {
+            "default": "Flows",
+            "description": "Name of the report type to query.",
+            "enum": [
+              "Accesses",
+              "Flows",
+              "Enforcers",
+              "EventLogs",
+              "Packets",
+              "Counters",
+              "DNSLookups",
+              "ConnectionExceptions"
+            ]
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "reportsquery",
+    "version": "1.0"
+  },
+  "paths": {
+    "/reportsqueries": {
+      "post": {
+        "description": "Sends a query on report data.",
+        "operationId": "create-a-new-reportsquery",
+        "parameters": [
+          {
+            "description": "Set the absolute end of the time window.",
+            "example": "2018/04/08 10:42",
+            "in": "query",
+            "name": "endAbsolute",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the relative end of the time window.",
+            "example": "-1h",
+            "in": "query",
+            "name": "endRelative",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the absolute start of the time window.",
+            "example": "2018/03/08 10:42",
+            "in": "query",
+            "name": "startAbsolute",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the relative start of the time window.",
+            "example": "-1h",
+            "in": "query",
+            "name": "startRelative",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/reportsquery"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/reportsquery"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/reportsquery",
+          "jenova"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/reportsquery'",
+      "name": "visualization/reportsquery"
+    },
+    {
+      "description": "This tag is for package 'jenova'",
+      "name": "jenova"
+    }
+  ]
+}

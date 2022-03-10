@@ -1,0 +1,143 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "uiparameter": {
+        "description": "Represents a parameter that will be shown in the web interface.",
+        "properties": {
+          "advanced": {
+            "description": "A value of `true` designates the parameter as advanced.",
+            "type": "boolean"
+          },
+          "allowedChoices": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Lists all the choices in case of an enum.",
+            "type": "object"
+          },
+          "allowedValues": {
+            "description": "List of values that can be used.",
+            "items": {
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "defaultValue": {
+            "description": "Default value of the parameter.",
+            "type": "object"
+          },
+          "description": {
+            "description": "Description of the parameter.",
+            "type": "string"
+          },
+          "key": {
+            "description": "Key identifying the parameter.",
+            "example": "unique_key",
+            "type": "string"
+          },
+          "longDescription": {
+            "description": "Long explanation of the parameter.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the parameter.",
+            "type": "string"
+          },
+          "optional": {
+            "description": "A value of `true` designates the parameter as optional.",
+            "type": "boolean"
+          },
+          "subtype": {
+            "description": "The subtype of a list parameter.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The datatype of the parameter.",
+            "enum": [
+              "Boolean",
+              "Checkbox",
+              "CVSSThreshold",
+              "DangerMessage",
+              "Duration",
+              "Enum",
+              "Endpoint",
+              "FileDrop",
+              "Float",
+              "FloatSlice",
+              "InfoMessage",
+              "Integer",
+              "IntegerSlice",
+              "JSON",
+              "List",
+              "Message",
+              "Namespace",
+              "Password",
+              "String",
+              "StringSlice",
+              "Switch",
+              "TagsExpression",
+              "Title",
+              "WarningMessage",
+              "AutomationAction"
+            ],
+            "example": "String"
+          },
+          "validationFunction": {
+            "description": "A function that validates the parameter.",
+            "type": "string"
+          },
+          "value": {
+            "deprecated": true,
+            "description": "Value of the parameter.",
+            "type": "object"
+          },
+          "visibilityCondition": {
+            "description": "A logical expression consisting of one or more\n[UIParameterVisibility](#uiparametervisibility)\nconditions linked together using AND or OR operators. If the expression\nevaluates to true\nthe parameter is displayed to the user.",
+            "items": {
+              "items": {
+                "$ref": "#/components/schemas/uiparameter"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "width": {
+            "default": "100%",
+            "description": "Width of the parameter.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "type"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "uiparameter",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/workflow'",
+      "name": "core/workflow"
+    },
+    {
+      "description": "This tag is for package 'ignis'",
+      "name": "ignis"
+    }
+  ]
+}
