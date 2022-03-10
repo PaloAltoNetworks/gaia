@@ -1,0 +1,64 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudroutedata": {
+        "description": "Parameters associated with a cloud route table.",
+        "properties": {
+          "gatewayID": {
+            "description": "The gateway that this route table is associated with.",
+            "example": "tgw-009251c49cf46d940",
+            "type": "string"
+          },
+          "mainTable": {
+            "description": "Indicates that this is the default route table for the VPC.",
+            "example": true,
+            "type": "boolean"
+          },
+          "routelist": {
+            "description": "Routes associated with this route table.",
+            "items": {
+              "$ref": "./cloudroute#/components/schemas/cloudroute"
+            },
+            "type": "array"
+          },
+          "subnetAssociations": {
+            "description": "The list of subnets that this route table is associated with.",
+            "example": [
+              "subnet-096bb677ed112475d"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudroutedata",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

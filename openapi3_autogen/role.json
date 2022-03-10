@@ -1,0 +1,94 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "role": {
+        "description": "Returns the available roles that can be used with API authorizations.",
+        "properties": {
+          "authorizations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Authorizations of the role.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "description": {
+            "description": "Description of the role.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "key": {
+            "description": "Key of the role.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the role.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "private": {
+            "description": "Set to `true` to make the role private and hidden from the UI.",
+            "readOnly": true,
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "role",
+    "version": "1.0"
+  },
+  "paths": {
+    "/roles": {
+      "get": {
+        "description": "Retrieves the list of existing roles.",
+        "operationId": "get-all-roles",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/role"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/authorization",
+          "cid"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/authorization'",
+      "name": "policy/authorization"
+    },
+    {
+      "description": "This tag is for package 'cid'",
+      "name": "cid"
+    }
+  ]
+}

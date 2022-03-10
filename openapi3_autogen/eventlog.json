@@ -1,0 +1,137 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "eventlog": {
+        "description": "Allows you to report various events on any object.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "category": {
+            "description": "Category of the event log.",
+            "example": "enforcerd:policy",
+            "type": "string"
+          },
+          "content": {
+            "description": "Content of the event log.",
+            "example": "Unable to activate docker container xyz because abc.",
+            "type": "string"
+          },
+          "date": {
+            "deprecated": true,
+            "description": "Creation date of the event log.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "level": {
+            "default": "Info",
+            "description": "Sets the log level.",
+            "enum": [
+              "Debug",
+              "Info",
+              "Warning",
+              "Error",
+              "Critical"
+            ]
+          },
+          "namespace": {
+            "description": "Namespace tag attached to the event log.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "opaque": {
+            "description": "Opaque data that can be attached to the event log, for further machine\nprocessing.",
+            "type": "string"
+          },
+          "targetID": {
+            "description": "ID of the object this event log is attached to. The object must be in the same\nnamespace than the event log.",
+            "example": "xxx-xxx-xxx-xxx",
+            "type": "string"
+          },
+          "targetIdentity": {
+            "description": "Identity of the object this event log is attached to.",
+            "example": "processingunit",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "Creation date of the event log.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "title": {
+            "description": "Title of the event log.",
+            "example": "Error while activating processing unit.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "category",
+          "content",
+          "targetID",
+          "targetIdentity",
+          "title"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "eventlog",
+    "version": "1.0"
+  },
+  "paths": {
+    "/eventlogs": {
+      "post": {
+        "description": "Creates a new event log for a particular entity.",
+        "operationId": "create-a-new-eventlog",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/eventlog"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/eventlog"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/monitoring",
+          "leon"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/monitoring'",
+      "name": "core/monitoring"
+    },
+    {
+      "description": "This tag is for package 'leon'",
+      "name": "leon"
+    }
+  ]
+}

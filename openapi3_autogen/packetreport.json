@@ -1,0 +1,178 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "packetreport": {
+        "description": "Post a new packet tracing report.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "TCPFlags": {
+            "description": "Flags are the TCP flags of the packet.",
+            "type": "integer"
+          },
+          "claims": {
+            "description": "Claims is the list of claims detected for the packet.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "destinationIP": {
+            "description": "The destination IP address of the packet.",
+            "type": "string"
+          },
+          "destinationPort": {
+            "description": "The destination port of a TCP or UDP packet.",
+            "example": 11000,
+            "type": "integer"
+          },
+          "dropReason": {
+            "description": "If `event` is set to `Dropped`, contains the reason that the packet was dropped.\nOtherwise empty.",
+            "type": "string"
+          },
+          "encrypt": {
+            "description": "Set to `true` if the packet was encrypted.",
+            "type": "boolean"
+          },
+          "enforcerID": {
+            "description": "Identifier of the enforcer sending the report.",
+            "example": "xxxx-xxx-xxxx",
+            "type": "string"
+          },
+          "enforcerNamespace": {
+            "description": "Namespace of the enforcer sending the report.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "event": {
+            "description": "The event that triggered the report.",
+            "enum": [
+              "Received",
+              "Transmitted",
+              "Dropped"
+            ],
+            "example": "Rcv"
+          },
+          "mark": {
+            "description": "Mark is the mark value of the packet.",
+            "example": 123123,
+            "type": "integer"
+          },
+          "namespace": {
+            "description": "Namespace of the processing unit reporting the packet.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "packetID": {
+            "description": "The ID of the IP header of the reported packet.",
+            "example": 12333,
+            "type": "integer"
+          },
+          "protocol": {
+            "description": "Protocol number.",
+            "example": 6,
+            "type": "integer"
+          },
+          "puID": {
+            "description": "The ID of the processing unit reporting the packet.",
+            "example": "xxx-xxx-xxx",
+            "type": "string"
+          },
+          "rawPacket": {
+            "default": "abcd",
+            "description": "The first 64 bytes of the packet.",
+            "type": "string"
+          },
+          "sourceIP": {
+            "description": "The source IP address of the packet.",
+            "type": "string"
+          },
+          "sourcePort": {
+            "description": "The source port of the packet.",
+            "example": 80,
+            "type": "integer"
+          },
+          "timestamp": {
+            "description": "The time-date stamp of the report.",
+            "example": "2018-06-14T23:10:46.420397985Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "triremePacket": {
+            "default": true,
+            "description": "Set to `true` if the packet arrived with the Trireme options (default).",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "enforcerID",
+          "enforcerNamespace",
+          "event",
+          "namespace",
+          "timestamp"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "packetreport",
+    "version": "1.0"
+  },
+  "paths": {
+    "/packetreports": {
+      "post": {
+        "description": "Create a packet trace report.",
+        "operationId": "create-a-new-packetreport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/packetreport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/packetreport"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "zack"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'zack'",
+      "name": "zack"
+    }
+  ]
+}

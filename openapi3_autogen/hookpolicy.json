@@ -1,0 +1,372 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "hookpolicy": {
+        "description": "Allows you to define hooks to the write operations in squall. Hooks are sent\nto an external Rufus server that will do the processing and eventually return a\nmodified version of the object before we save it.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "certificateAuthority": {
+            "description": "Contains the PEM block of the certificate authority used by the remote endpoint.",
+            "example": "-----BEGIN CERTIFICATE-----\nMIIBbjCCARSgAwIBAgIRANRbvVzTzBZOvMCb8BiKCLowCgYIKoZIzj0EAwIwJjEN\nMAsGA1UEChMEQWNtZTEVMBMGA1UEAxMMQWNtZSBSb290IENBMB4XDTE4MDExNTE4\nNDgwN1oXDTI3MTEyNDE4NDgwN1owJjENMAsGA1UEChMEQWNtZTEVMBMGA1UEAxMM\nQWNtZSBSb290IENBMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEJ/80HR51+vau\n7XH7zS7b8ABA0e/TdBOg1NznbnXdXil1tDvWloWuH5+/bbaiEg54wksJHFXaukw8\njhTLU7zT56MjMCEwDgYDVR0PAQH/BAQDAgEGMA8GA1UdEwEB/wQFMAMBAf8wCgYI\nKoZIzj0EAwIDSAAwRQIhALwAZh2KLFFC1qfb5CqFHExlXS0PUltax9PvQCN9P0vl\nAiBl7/st9u/JpERjJgirxJxOgKNlV6pq9ti75EfQtZZcQA==\n-----END CERTIFICATE-----",
+            "type": "string"
+          },
+          "clientCertificate": {
+            "description": "Contains the client certificate that will be used to connect\nto the remote endpoint. If provided, the private key associated with this\ncertificate must also be configured.",
+            "example": "-----BEGIN CERTIFICATE-----\nMIIBczCCARigAwIBAgIRALD3Vz81Pq10g7n4eAkOsCYwCgYIKoZIzj0EAwIwJjEN\nMAsGA1UEChMEQWNtZTEVMBMGA1UEAxMMQWNtZSBSb290IENBMB4XDTE4MDExNzA2\nNTM1MloXDTI3MTEyNjA2NTM1MlowGDEWMBQGA1UEAxMNY2xhaXJlLWNsaWVudDBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABOmzPJj+t25T148eQH5gVrZ7nHwckF5O\nevJQ3CjSEMesjZ/u7cW8IBfXlxZKHxl91IEbbB3svci4c8pycUNZ2kujNTAzMA4G\nA1UdDwEB/wQEAwIHgDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAA\nMAoGCCqGSM49BAMCA0kAMEYCIQCjAAmkQpTua0HR4q6jnePaFBp/JMXwTXTxzbV6\npeGbBQIhAP+1OR8GFnn2PlacwHqWXHwkvy6CLPVikvgtwEdB6jH8\n-----END CERTIFICATE-----",
+            "type": "string"
+          },
+          "clientCertificateKey": {
+            "description": "Contains the key associated with the `clientCertificate`. It must be provided\nonly\nwhen `clientCertificate` has been configured.",
+            "example": "-----BEGIN EC PRIVATE KEY-----\nMHcCAQEEIGOXJI/123456789oamOu4tQAIKFdbyvkIJg9GME0mHzoAoGCCqGSM49\nAwEHoUQDQgAE6bM8mP123456789AfmBWtnucfByQXk568lDcKNIQx6yNn+7txbwg\nF9eXFkofGX3UgRtsHe123456789xQ1naSw==\n-----END EC PRIVATE KEY-----",
+            "type": "string"
+          },
+          "continueOnError": {
+            "description": "If set to `true` and `mode` is in `Pre`, the request will be honored even if\ncalling the hook fails.",
+            "type": "boolean"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Defines if the property is disabled.",
+            "type": "boolean"
+          },
+          "endpoint": {
+            "description": "Contains the full address of the remote processor endpoint.",
+            "example": "https://hooks.hookserver.com/remoteprocessors",
+            "type": "string"
+          },
+          "endpointType": {
+            "default": "URL",
+            "description": "Defines the type of endpoint for the hook.",
+            "enum": [
+              "URL",
+              "Automation"
+            ]
+          },
+          "expirationTime": {
+            "description": "If set the hook will be automatically deleted after the given time.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "fallback": {
+            "description": "Indicates that this is fallback policy. It will only be\napplied if no other policies have been resolved. If the policy is also\npropagated it will become a fallback for children namespaces.",
+            "type": "boolean"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "mode": {
+            "default": "Pre",
+            "description": "Defines the type of hook.",
+            "enum": [
+              "Both",
+              "Post",
+              "Pre"
+            ]
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "propagate": {
+            "description": "Propagates the policy to all of its children.",
+            "type": "boolean"
+          },
+          "propagationHidden": {
+            "description": "If set to `true` while the policy is propagating, it won't be visible to\nchildren\nnamespace, but still used for policy resolution.",
+            "type": "boolean"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "selectors": {
+            "description": "A tag or tag expression that identifies the automation that must be run in\ncase no endpoint is provided.",
+            "example": [
+              [
+                "automation:name=myautomation"
+              ]
+            ],
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "subject": {
+            "description": "Contains the tag expression that an object must match in order to trigger the\nhook.",
+            "example": [
+              [
+                "$identity=processingunit"
+              ]
+            ],
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "triggerOperations": {
+            "description": "Select on which operation(s) you want to the hook to trigger. An empty list.\nOnly\nmeans all operations. You can only set any combination of `create`, `update` or\n`delete`. Any other value will trigger a validation error.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "hookpolicy",
+    "version": "1.0"
+  },
+  "paths": {
+    "/hookpolicies": {
+      "get": {
+        "description": "Retrieves the list of hooks.",
+        "operationId": "get-all-hookpolicies",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/hookpolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/hooks",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new hook.",
+        "operationId": "create-a-new-hookpolicy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/hookpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hookpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/hooks",
+          "squall"
+        ]
+      }
+    },
+    "/hookpolicies/{id}": {
+      "delete": {
+        "description": "Deletes the hook with the given ID.",
+        "operationId": "delete-hookpolicy-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hookpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/hooks",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the hook with the given ID.",
+        "operationId": "get-hookpolicy-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hookpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/hooks",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the hook with the given ID.",
+        "operationId": "update-hookpolicy-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/hookpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hookpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/hooks",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/hooks'",
+      "name": "policy/hooks"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

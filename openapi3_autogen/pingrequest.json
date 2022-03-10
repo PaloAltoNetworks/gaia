@@ -1,0 +1,87 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "pingrequest": {
+        "description": "Initiates a ping request for enforcer debugging.",
+        "properties": {
+          "iterations": {
+            "default": 1,
+            "description": "Number of probes that will be triggered.",
+            "type": "integer"
+          },
+          "pingID": {
+            "description": "Unique ID generated for each ping request.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "refreshID": {
+            "description": "Contains the refresh ID set by processing unit refresh event.",
+            "example": "xxxx-xxxx-xxxx",
+            "type": "string"
+          }
+        },
+        "required": [
+          "refreshID"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "pingrequest",
+    "version": "1.0"
+  },
+  "paths": {
+    "/pingrequests": {
+      "post": {
+        "description": "Initiate a new the ping request.",
+        "operationId": "create-a-new-pingrequest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/pingrequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/pingrequest"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "guy"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'guy'",
+      "name": "guy"
+    }
+  ]
+}

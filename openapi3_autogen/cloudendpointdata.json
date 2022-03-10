@@ -1,0 +1,118 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudendpointdata": {
+        "description": "Parameters associated with a cloud endpoint.",
+        "properties": {
+          "VPCAttached": {
+            "description": "Indicates that the endpoint is directly attached to the VPC. In this case the\nattachedInterfaces is empty. In general this is only valid for endpoint type\nGateway and Peering Connection.",
+            "type": "boolean"
+          },
+          "VPCAttachments": {
+            "description": "The list of VPCs that this endpoint is directly attached to.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "associatedRouteTables": {
+            "description": "List of route tables associated with this endpoint. Depending on cloud provider\nit can apply in some gateways.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "attachedInterfaces": {
+            "description": "A list of interfaces attached with the endpoint. In some cases endpoints can\nhave more than one interface.",
+            "example": [
+              "eni-12344",
+              "eni-33333"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "forwardingEnabled": {
+            "description": "If the endpoint has multiple connections and forwarding can be enabled between\nthem.",
+            "type": "boolean"
+          },
+          "imageID": {
+            "description": "The imageID of running in the endpoint. Available for instances and\npotentially other 3rd parties. This can be the AMI ID in AWS or corresponding\ninstance imageID in other clouds.",
+            "type": "string"
+          },
+          "productInfo": {
+            "description": "Product related metadata associated with this endpoint.",
+            "items": {
+              "$ref": "./cloudendpointdataproductinfo#/components/schemas/cloudendpointdataproductinfo"
+            },
+            "type": "array"
+          },
+          "publicIPAddresses": {
+            "description": "if the endpoint has a public IP we store the IP address in this field.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "serviceName": {
+            "description": "Identifies the name of the service for service endpoints.",
+            "type": "string"
+          },
+          "serviceType": {
+            "default": "NotApplicable",
+            "description": "Identifies the service type that this endpoint represents (example Gateway Load\nBalancer).",
+            "enum": [
+              "Interface",
+              "Gateway",
+              "GatewayLoadBalancer",
+              "NotApplicable"
+            ]
+          },
+          "type": {
+            "description": "Type of the endpoint.",
+            "enum": [
+              "Instance",
+              "LoadBalancer",
+              "PeeringConnection",
+              "Service",
+              "Gateway",
+              "TransitGateway",
+              "NATGateway"
+            ],
+            "example": "Instance"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudendpointdata",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

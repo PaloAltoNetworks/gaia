@@ -1,0 +1,414 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "recipe": {
+        "description": "Defines a list of steps that make up a workflow.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "deploymentMode": {
+            "default": "Unrestricted",
+            "description": "Defines the deployment mode of the recipe. If `Unrestricted`, the recipe can be\ndeployed multiple times in the current namespace and below. If `Unique`,only one\ndeployment is allowed in the current namespace and its child namespaces. If\n`NamespaceUnique`, only one deployment is allowed in the current namespace.",
+            "enum": [
+              "Unrestricted",
+              "Unique",
+              "NamespaceUnique"
+            ]
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "icon": {
+            "description": "Contains a base64-encoded image for the recipe.",
+            "type": "string"
+          },
+          "key": {
+            "description": "The unique key of the recipe.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "label": {
+            "default": "magicpanda",
+            "description": "Defines the recipe.",
+            "type": "string"
+          },
+          "longDescription": {
+            "description": "Provides a long description of the recipe.",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "options": {
+            "$ref": "./recipeoptions#/components/schemas/recipeoptions"
+          },
+          "propagate": {
+            "description": "Propagates the policy to all of its children.",
+            "type": "boolean"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "steps": {
+            "description": "Contains all the steps with parameters to follow for the recipe.",
+            "items": {
+              "$ref": "./uistep#/components/schemas/uistep"
+            },
+            "type": "array"
+          },
+          "successfullMessage": {
+            "description": "A string message presented upon success (optional).",
+            "type": "string"
+          },
+          "targetIdentities": {
+            "description": "Contains the list of identities the recipes will try to create.",
+            "example": [
+              "processingunit",
+              "enforcer"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "template": {
+            "description": "Template of the recipe to import.",
+            "type": "string"
+          },
+          "templateHash": {
+            "description": "A hash of the template.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "name",
+          "targetIdentities"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "recipe",
+    "version": "1.0"
+  },
+  "paths": {
+    "/recipes": {
+      "get": {
+        "description": "Retrieves the list of recipes.",
+        "operationId": "get-all-recipes",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/recipe"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/workflow",
+          "ignis"
+        ]
+      },
+      "post": {
+        "description": "Creates a new recipe.",
+        "operationId": "create-a-new-recipe",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/recipe"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/recipe"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/workflow",
+          "ignis"
+        ]
+      }
+    },
+    "/recipes/{id}": {
+      "delete": {
+        "description": "Deletes the recipe with the given ID.",
+        "operationId": "delete-recipe-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/recipe"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/workflow",
+          "ignis"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the recipe with the given ID.",
+        "operationId": "get-recipe-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/recipe"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/workflow",
+          "ignis"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the recipe with the given ID.",
+        "operationId": "update-recipe-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/recipe"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/recipe"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/workflow",
+          "ignis"
+        ]
+      }
+    },
+    "/recipes/{id}/importreferences": {
+      "get": {
+        "description": "Returns the list of import references that depend on a recipe.",
+        "operationId": "get-all-importreferences-for-a-given-recipe",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./importreference#/components/schemas/importreference"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "yuna"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "description": "Create an import request for the given recipe.",
+        "operationId": "create-a-new-importreference-for-a-given-recipe",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./importreference#/components/schemas/importreference"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./importreference#/components/schemas/importreference"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "yuna"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/workflow'",
+      "name": "core/workflow"
+    },
+    {
+      "description": "This tag is for package 'ignis'",
+      "name": "ignis"
+    }
+  ]
+}

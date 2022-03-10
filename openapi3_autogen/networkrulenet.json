@@ -1,0 +1,55 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "networkrulenet": {
+        "description": "Represents an network contained in a NetworkRule.",
+        "properties": {
+          "ID": {
+            "description": "The ID of the external network.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "entries": {
+            "description": "List of CIDRs or domain name.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "namespace": {
+            "description": "The namespace of the external network.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "networkrulenet",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/policy'",
+      "name": "core/policy"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

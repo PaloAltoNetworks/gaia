@@ -1,0 +1,43 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "pingpair": {
+        "description": "Represents a pair of ping probes.",
+        "properties": {
+          "request": {
+            "$ref": "./pingprobe#/components/schemas/pingprobe"
+          },
+          "response": {
+            "$ref": "./pingprobe#/components/schemas/pingprobe"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "pingpair",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'guy'",
+      "name": "guy"
+    }
+  ]
+}
