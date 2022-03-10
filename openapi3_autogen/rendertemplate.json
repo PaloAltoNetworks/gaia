@@ -1,0 +1,84 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "rendertemplate": {
+        "description": "Cooks a template based on some parameters.",
+        "properties": {
+          "output": {
+            "description": "Holds the rendered template.",
+            "type": "string"
+          },
+          "parameters": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Contains the computed parameters.",
+            "type": "object"
+          },
+          "template": {
+            "description": "Template of the recipe.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "rendertemplate",
+    "version": "1.0"
+  },
+  "paths": {
+    "/rendertemplates": {
+      "post": {
+        "description": "Renders a new template.",
+        "operationId": "create-a-new-rendertemplate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/rendertemplate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/rendertemplate"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/workflow",
+          "ignis"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/workflow'",
+      "name": "core/workflow"
+    },
+    {
+      "description": "This tag is for package 'ignis'",
+      "name": "ignis"
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "uiparametervisibility": {
+        "description": "Represents a visibility condition for a [UIParameter](#uiparameter).",
+        "properties": {
+          "key": {
+            "description": "Key holding the value to compare.",
+            "example": "enableThing",
+            "type": "string"
+          },
+          "operator": {
+            "description": "Operator to apply.",
+            "enum": [
+              "Equal",
+              "NotEqual",
+              "GreaterThan",
+              "LesserThan",
+              "Defined",
+              "Undefined",
+              "Match",
+              "NotMatch"
+            ]
+          },
+          "value": {
+            "description": "Values that must match the key.",
+            "example": true,
+            "type": "object"
+          }
+        },
+        "required": [
+          "key",
+          "value"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "uiparametervisibility",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/workflow'",
+      "name": "core/workflow"
+    },
+    {
+      "description": "This tag is for package 'ignis'",
+      "name": "ignis"
+    }
+  ]
+}

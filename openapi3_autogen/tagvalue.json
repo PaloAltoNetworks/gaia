@@ -1,0 +1,87 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "tagvalue": {
+        "description": "Represents all values associated to a tag key.",
+        "properties": {
+          "key": {
+            "description": "The requested key.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "values": {
+            "description": "List of all values.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "tagvalue",
+    "version": "1.0"
+  },
+  "paths": {
+    "/tagvalues": {
+      "get": {
+        "description": "Retrieves the list of existing values for the given tag keys.",
+        "operationId": "get-all-tagvalues",
+        "parameters": [
+          {
+            "description": "Keys of the tag you want to get the values of.",
+            "example": "$name",
+            "in": "query",
+            "name": "key",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/tagvalue"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/tag",
+          "tagle"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/tag'",
+      "name": "core/tag"
+    },
+    {
+      "description": "This tag is for package 'tagle'",
+      "name": "tagle"
+    }
+  ]
+}

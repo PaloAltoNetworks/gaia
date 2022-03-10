@@ -1,0 +1,317 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "oidcprovider": {
+        "description": "Allows you to declare a generic OpenID Connect (OIDC) provider that can be used\nin exchange for a Midgard token.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "certificateAuthority": {
+            "description": "Set the CA to use to contact the OIDC server. This is useful when you are using\na custom OIDC provider that doesn't use a trusted CA. Most of the\ntime, you can leave this property empty.",
+            "example": "-----BEGIN CERTIFICATE-----\nMIIBczCCARigAwIBAgIRALD3Vz81Pq10g7n4eAkOsCYwCgYIKoZIzj0EAwIwJjEN\nMAsGA1UEChMEQWNtZTEVMBMGA1UEAxMMQWNtZSBSb290IENBMB4XDTE4MDExNzA2\nNTM1MloXDTI3MTEyNjA2NTM1MlowGDEWMBQGA1UEAxMNY2xhaXJlLWNsaWVudDBZ\nMBMGByqGSM49AgEGCCqGSM49AwEHA0IABOmzPJj+t25T148eQH5gVrZ7nHwckF5O\nevJQ3CjSEMesjZ/u7cW8IBfXlxZKHxl91IEbbB3svci4c8pycUNZ2kujNTAzMA4G\nA1UdDwEB/wQEAwIHgDATBgNVHSUEDDAKBggrBgEFBQcDAjAMBgNVHRMBAf8EAjAA\nMAoGCCqGSM49BAMCA0kAMEYCIQCjAAmkQpTua0HR4q6jnePaFBp/JMXwTXTxzbV6\npeGbBQIhAP+1OR8GFnn2PlacwHqWXHwkvy6CLPVikvgtwEdB6jH8\n-----END CERTIFICATE-----",
+            "type": "string"
+          },
+          "clientID": {
+            "description": "Unique client ID.",
+            "example": "6195189841830-0644ee9d89ef0644ee9d89examle.apps.googleusercontent.com",
+            "type": "string"
+          },
+          "clientSecret": {
+            "description": "Client secret associated with the client ID.",
+            "example": "Ytgbfjtj4652jHDFGls99jF",
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "default": {
+            "description": "If set, this will be the default OIDC provider. There can be only one default\nprovider in your account. When logging in with OIDC, if no provider name is\ngiven, the default will be used.",
+            "type": "boolean"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "endpoint": {
+            "description": "OIDC [discovery\nendpoint](https://openid.net/specs/openid-connect-discovery-1_0.html#IssuerDiscovery).",
+            "example": "https://accounts.google.com",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "parentID": {
+            "description": "Contains the parent Microsegmentation account ID.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "parentName": {
+            "description": "Contains the name of the parent Microsegmentation account.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "scopes": {
+            "description": "List of scopes to allow.",
+            "example": [
+              "email",
+              "profile"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "subjects": {
+            "description": "List of claims that will provide the subject.",
+            "example": [
+              "email",
+              "profile"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "clientID",
+          "clientSecret",
+          "endpoint",
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "oidcprovider",
+    "version": "1.0"
+  },
+  "paths": {
+    "/oidcproviders": {
+      "get": {
+        "description": "Retrieves the list of OIDC providers.",
+        "operationId": "get-all-oidcproviders",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/oidcprovider"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "cactuar"
+        ]
+      },
+      "post": {
+        "description": "Creates a new OIDC provider.",
+        "operationId": "create-a-new-oidcprovider",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/oidcprovider"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/oidcprovider"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "cactuar"
+        ]
+      }
+    },
+    "/oidcproviders/{id}": {
+      "delete": {
+        "description": "Deletes the provider with the given ID.",
+        "operationId": "delete-oidcprovider-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/oidcprovider"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "cactuar"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the provider with the given ID.",
+        "operationId": "get-oidcprovider-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/oidcprovider"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "cactuar"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the provider with the given ID.",
+        "operationId": "update-oidcprovider-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/oidcprovider"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/oidcprovider"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "cactuar"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/authentication'",
+      "name": "core/authentication"
+    },
+    {
+      "description": "This tag is for package 'cactuar'",
+      "name": "cactuar"
+    }
+  ]
+}

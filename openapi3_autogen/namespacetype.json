@@ -1,0 +1,68 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "namespacetype": {
+        "description": "Returns the type of the specified namespace.",
+        "properties": {
+          "type": {
+            "description": "the namespace type for the current namespace.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "namespacetype",
+    "version": "1.0"
+  },
+  "paths": {
+    "/namespacetypes": {
+      "get": {
+        "description": "Returns the type of the specified namespace.",
+        "operationId": "get-all-namespacetypes",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/namespacetype"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/namespace'",
+      "name": "core/namespace"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

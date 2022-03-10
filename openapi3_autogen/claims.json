@@ -1,0 +1,166 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "claims": {
+        "description": "Represents the claims in the token used to access a service.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "content": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Contains the raw JSON web token (JWT) claims.",
+            "example": {
+              "exp": 1553899021,
+              "iat": 1553888221,
+              "iss": "https://accounts.acme.com",
+              "sub": "alice@acme.com"
+            },
+            "type": "object"
+          },
+          "hash": {
+            "description": "XXH64 hash of the claims content. It will be used as ID. To compute a correct\nhash,\nyou must first clob `content` as an string array in the form `key=value`, sort\nit\nthen apply the XXH64 function.",
+            "example": "1134423925458173049",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "hash"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "claims",
+    "version": "1.0"
+  },
+  "paths": {
+    "/claims": {
+      "get": {
+        "description": "Retrieves the list of claims.",
+        "operationId": "get-all-claims",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/claims"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "guy"
+        ]
+      },
+      "post": {
+        "description": "Creates a new claims record.",
+        "operationId": "create-a-new-claims",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/claims"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/claims"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "guy"
+        ]
+      }
+    },
+    "/claims/{id}": {
+      "get": {
+        "description": "Retrieves the object with the given ID.",
+        "operationId": "get-claims-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/claims"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "guy"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/networking'",
+      "name": "policy/networking"
+    },
+    {
+      "description": "This tag is for package 'guy'",
+      "name": "guy"
+    }
+  ]
+}

@@ -1,0 +1,449 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "automation": {
+        "description": "Allows you to define some JavaScript code and specify the conditions under which\nit should\nbe executed.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "actions": {
+            "description": "Contains the code that will be executed if the condition is met.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "condition": {
+            "description": "Condition contains the code that will be executed to decide if any action(s)\nshould be executed. Providing a condition for an automation with a\n\"Webhook\" trigger type will have no impact as the condition will not be\nevaluated. If no condition is defined, then the automation action(s) will be\nexecuted; this behaves akin to a condition that always succeeds.",
+            "example": "function when(m, params) { return { continue: true }}",
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Defines if the property is disabled.",
+            "type": "boolean"
+          },
+          "entitlements": {
+            "additionalProperties": {
+              "items": {
+                "enum": [
+                  "",
+                  "retrieve-many",
+                  "retrieve",
+                  "create",
+                  "update",
+                  "delete",
+                  "patch",
+                  "info"
+                ]
+              },
+              "type": "array"
+            },
+            "description": "Declares which operations are allowed on which identities.",
+            "type": "object"
+          },
+          "errors": {
+            "description": "Contains the error of the last run.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "events": {
+            "additionalProperties": {
+              "items": {
+                "properties": {
+                  "encoding": {
+                    "enum": [
+                      "application/json",
+                      "application/msgpack"
+                    ]
+                  },
+                  "entity": {
+                    "type": "string"
+                  },
+                  "identity": {
+                    "type": "string"
+                  },
+                  "timestamp": {
+                    "format": "date-time",
+                    "type": "string"
+                  },
+                  "type": {
+                    "enum": [
+                      "create",
+                      "update",
+                      "delete",
+                      "error"
+                    ]
+                  }
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "description": "Contains the identity and operation an event must have to trigger the\nautomation.",
+            "type": "object"
+          },
+          "immediateExecution": {
+            "description": "If set and the trigger is of type Time, the automation will be run at create or\nupdate before being scheduled.",
+            "type": "boolean"
+          },
+          "lastExecTime": {
+            "description": "The last successful execution tine.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "parameters": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Contains the computed parameters.",
+            "type": "object"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "schedule": {
+            "description": "Specifies when to run the automation. Must be in valid CRON format. This\nonly applies if the trigger is set to `Time`.",
+            "type": "string"
+          },
+          "signature": {
+            "description": "Signature to validate the authenticity of the object.",
+            "type": "string"
+          },
+          "stdout": {
+            "description": "Contains the standard output of the last run.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "token": {
+            "description": "Holds the unique access token used as a password to trigger the\nauthentication. It will be visible only after creation.",
+            "type": "string"
+          },
+          "tokenRenew": {
+            "description": "If set to `true` a new token will be issued and the previous one invalidated.",
+            "type": "boolean"
+          },
+          "trigger": {
+            "default": "Time",
+            "description": "Controls when the automation should be triggered.",
+            "enum": [
+              "Event",
+              "RemoteCall",
+              "Webhook",
+              "Time"
+            ]
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "automation",
+    "version": "1.0"
+  },
+  "paths": {
+    "/automations": {
+      "get": {
+        "description": "Retrieves the list of automations.",
+        "operationId": "get-all-automations",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/automation"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "integration/automation",
+          "sephiroth"
+        ]
+      },
+      "post": {
+        "description": "Creates a new Automation.",
+        "operationId": "create-a-new-automation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/automation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/automation"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "integration/automation",
+          "sephiroth"
+        ]
+      }
+    },
+    "/automations/{id}": {
+      "delete": {
+        "description": "Deletes the automation with the given ID.",
+        "operationId": "delete-automation-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/automation"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "integration/automation",
+          "sephiroth"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the automation with the given ID.",
+        "operationId": "get-automation-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/automation"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "integration/automation",
+          "sephiroth"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the automation with the given ID.",
+        "operationId": "update-automation-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/automation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/automation"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "integration/automation",
+          "sephiroth"
+        ]
+      }
+    },
+    "/automations/{id}/triggers": {
+      "get": {
+        "description": "Allows a system to trigger the automation if its `trigger` property is set\nto `RemoteCall`.",
+        "operationId": "get-all-triggers-for-a-given-automation",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./trigger#/components/schemas/trigger"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "integration/automation",
+          "sephiroth"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "description": "Allows a system to trigger the automation if its `trigger` property is set\nto `RemoteCall`.",
+        "operationId": "create-a-new-trigger-for-a-given-automation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./trigger#/components/schemas/trigger"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./trigger#/components/schemas/trigger"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "integration/automation",
+          "sephiroth"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'integration/automation'",
+      "name": "integration/automation"
+    },
+    {
+      "description": "This tag is for package 'sephiroth'",
+      "name": "sephiroth"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "pkixname": {
+        "description": "Represents a public key infrastructure X.509 (PKIX) certificate.",
+        "properties": {
+          "commonName": {
+            "description": "Represents the Common Name field.",
+            "type": "string"
+          },
+          "country": {
+            "description": "Represents the Country field.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "locality": {
+            "description": "Represents the Locality field.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "organization": {
+            "description": "Represents the Organization field.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "organizationalUnit": {
+            "description": "Represents the Organizational Unit field.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "postalCode": {
+            "description": "Represents the Postal Code field.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "province": {
+            "description": "Represents the Province field.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "streetAddress": {
+            "description": "Represents the Street Address field.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "pkixname",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'internal/x509'",
+      "name": "internal/x509"
+    },
+    {
+      "description": "This tag is for package 'barret'",
+      "name": "barret"
+    }
+  ]
+}

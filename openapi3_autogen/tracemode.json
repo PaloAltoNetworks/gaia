@@ -1,0 +1,54 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "tracemode": {
+        "description": "Represents the tracing mode to apply to a processing unit.",
+        "properties": {
+          "IPTables": {
+            "description": "Instructs the enforcers to provide an iptables trace for a processing unit.",
+            "type": "boolean"
+          },
+          "applicationConnections": {
+            "description": "Instructs the enforcer to send records for all\napplication-initiated connections.",
+            "type": "boolean"
+          },
+          "interval": {
+            "default": "10s",
+            "description": "Determines the length of the time interval that the trace must be\nenabled, using [Golang duration\nsyntax](https://golang.org/pkg/time/#example_Duration).",
+            "type": "string"
+          },
+          "networkConnections": {
+            "description": "Instructs the enforcer to send records for all\nnetwork-initiated connections.",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "tracemode",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

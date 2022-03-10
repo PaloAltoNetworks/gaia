@@ -1,0 +1,57 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudloadbalancerdata": {
+        "description": "Parameters associated with a cloud load balancer.",
+        "properties": {
+          "listenertargetmapping": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Mapping of a listener to its associated target group ID list.",
+            "type": "object"
+          },
+          "name": {
+            "description": "The name of the load balancer.",
+            "example": "lb-009251c49cf46d940",
+            "type": "string"
+          },
+          "scheme": {
+            "description": "The scheme tells whether the load balancer is internet facing or internal.",
+            "example": "internet-facing",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudloadbalancerdata",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

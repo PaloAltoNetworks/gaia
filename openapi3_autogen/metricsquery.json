@@ -1,0 +1,125 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "metricsquery": {
+        "description": "Prometheus compatible endpoint to evaluate a Prometheus query expression at a\nsingle instant or over a range of time. This can be used to retrieve back\nAporeto specific metrics for a given namespace. All queries are protected within\nthe namespace of the caller.",
+        "properties": {
+          "query": {
+            "description": "Prometheus expression query string.",
+            "example": "flows{namespace=~\"/mycompany.*\"}",
+            "type": "string"
+          },
+          "time": {
+            "description": "Evaluation timestamp \u003crfc3339 | unix_timestamp\u003e.",
+            "example": "2015-07-01T20:11:00.781Z",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "metricsquery",
+    "version": "1.0"
+  },
+  "paths": {
+    "/metricsquery": {
+      "get": {
+        "description": "Prometheus compatible endpoint to evaluate a Prometheus query expression at a\nsingle instant or over a range of time.",
+        "operationId": "get-all-metricsquery",
+        "parameters": [
+          {
+            "description": "Prometheus expression query string.",
+            "example": "flows{namespace=~\"/mycompany.*\"}",
+            "in": "query",
+            "name": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Evaluation timestamp \u003crfc3339 | unix_timestamp\u003e.",
+            "example": "2015-07-01T20:10:30.781Z",
+            "in": "query",
+            "name": "time",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/metricsquery"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/metrics",
+          "jenova"
+        ]
+      },
+      "post": {
+        "description": "Prometheus compatible endpoint to evaluate a Prometheus query expression at a\nsingle instant or over a range of time.\nThis has the same behavior as the GET request, however it is useful when\nspecifying a large query that may breach server-side URL character limits. In\nsuch a case, you can URL-encode the parameters that would be used for a GET\nrequest directly in the request body by using the POST method and Content-Type:\napplication/x-www-form-urlencoded header.",
+        "operationId": "create-a-new-metricsquery",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/metricsquery"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/metricsquery"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/metrics",
+          "jenova"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/metrics'",
+      "name": "visualization/metrics"
+    },
+    {
+      "description": "This tag is for package 'jenova'",
+      "name": "jenova"
+    }
+  ]
+}

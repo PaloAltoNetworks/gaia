@@ -1,0 +1,111 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "apicheck": {
+        "description": "Allows you to verify if a client identified by his token is allowed to do\nsome operations on some APIs.",
+        "properties": {
+          "authorized": {
+            "additionalProperties": {
+              "type": "boolean"
+            },
+            "description": "Contains the results of the check.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "namespace": {
+            "description": "The namespace to use to check the API authorization.",
+            "example": "/namespace",
+            "type": "string"
+          },
+          "operation": {
+            "description": "The operation you want to check.",
+            "enum": [
+              "Create",
+              "Delete",
+              "Info",
+              "Patch",
+              "Retrieve",
+              "RetrieveMany",
+              "Update"
+            ],
+            "example": "Create"
+          },
+          "targetIdentities": {
+            "description": "Contains the list of identities you want to check the\nauthorization of.",
+            "example": [
+              "processingunit",
+              "enforcer"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "namespace",
+          "operation",
+          "targetIdentities"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "apicheck",
+    "version": "1.0"
+  },
+  "paths": {
+    "/apichecks": {
+      "post": {
+        "description": "Verifies the authorizations on various identities for a given token.",
+        "operationId": "create-a-new-apicheck",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/apicheck"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/apicheck"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/authorization",
+          "cid"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/authorization'",
+      "name": "policy/authorization"
+    },
+    {
+      "description": "This tag is for package 'cid'",
+      "name": "cid"
+    }
+  ]
+}

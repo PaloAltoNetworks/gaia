@@ -1,0 +1,108 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "putrafficaction": {
+        "description": "Returns the processing unit traffic actions for the specified namespace.",
+        "properties": {
+          "Incoming": {
+            "description": "The processing unit action for incoming traffic for the namespace.",
+            "enum": [
+              "Allow",
+              "Reject",
+              "Inherit"
+            ]
+          },
+          "Outgoing": {
+            "description": "The processing unit action for outgoing traffic for the namespace.",
+            "enum": [
+              "Allow",
+              "Reject",
+              "Inherit"
+            ]
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "putrafficaction",
+    "version": "1.0"
+  },
+  "paths": {
+    "/putrafficactions": {
+      "get": {
+        "description": "Returns the processing unit traffic actions of the specified namespace.",
+        "operationId": "get-all-putrafficactions",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/putrafficaction"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Modifies the processing unit traffic actions of the specified namespace.",
+        "operationId": "create-a-new-putrafficaction",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/putrafficaction"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/putrafficaction"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/namespace'",
+      "name": "core/namespace"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}
