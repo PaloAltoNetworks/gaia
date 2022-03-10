@@ -136,7 +136,8 @@ relations:
 
 - rest_name: authn
   get:
-    description: Verify the validity of a token. This is deprecated. You should use Create.
+    description: Verify the validity of a token. This is deprecated. You should use
+      Create.
     parameters:
       entries:
       - name: token
@@ -215,7 +216,8 @@ relations:
   create:
     description: Updates the last execution time of alert record.
   delete:
-    description: Deletes a cloud alert record and resolves the alert associated with it.
+    description: Deletes a cloud alert record and resolves the alert associated with
+      it.
 
 - rest_name: cloudalertrule
   get:
@@ -425,7 +427,8 @@ relations:
     description: (Deprecated) Returns the list of discovery modes.
     deprecated: true
   create:
-    description: (Deprecated) Deploy the discovery mode assets onto the specified namespace.
+    description: (Deprecated) Deploy the discovery mode assets onto the specified
+      namespace.
     deprecated: true
 
 - rest_name: dnslookupreport
@@ -542,7 +545,8 @@ relations:
     parameters:
       entries:
       - name: includeDetails
-        description: If set to true, each edge will contain a field called 'Details' which provides detailed information per protocol/port.
+        description: If set to true, each edge will contain a field called 'Details'
+          which provides detailed information per protocol/port.
         type: boolean
 
 - rest_name: graphnode
@@ -559,7 +563,10 @@ relations:
     parameters:
       entries:
       - name: quiet
-        description: If set to true, the health check endpoint will not return data but will return 200 OK if everything is fine or 218 if the controller is not operational. This is useful when you want to use the health check endpoint as a load balancer health check.
+        description: If set to true, the health check endpoint will not return data
+          but will return 200 OK if everything is fine or 218 if the controller is
+          not operational. This is useful when you want to use the health check endpoint
+          as a load balancer health check.
         type: boolean
 
 - rest_name: hit
@@ -704,7 +711,8 @@ relations:
     parameters:
       entries:
       - name: asCookie
-        description: If set to true, the token will be delivered in a secure cookie, and not in the response body.
+        description: If set to true, the token will be delivered in a secure cookie,
+          and not in the response body.
         type: boolean
 
       - name: token
@@ -805,7 +813,8 @@ relations:
         example_value: "2015-07-01T20:10:30.781Z"
 
       - name: step
-        description: Query resolution step width in duration format or float number of seconds.
+        description: Query resolution step width in duration format or float number
+          of seconds.
         type: string
         example_value: 15s
   create:
@@ -979,7 +988,8 @@ relations:
     parameters:
       entries:
       - name: remaining
-        description: Makes the system count how many object are left available in the quota.
+        description: Makes the system count how many object are left available in
+          the quota.
         type: boolean
 
 - rest_name: quotapolicy
@@ -1177,7 +1187,8 @@ relations:
     parameters:
       entries:
       - name: force
-        description: if set to true, it will update a namespace's tag prefixes even if the namespace is protected.
+        description: if set to true, it will update a namespace's tag prefixes even
+          if the namespace is protected.
         type: boolean
 
 - rest_name: tagvalue
