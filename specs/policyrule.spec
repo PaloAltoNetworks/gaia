@@ -20,7 +20,8 @@ indexes:
 attributes:
   v1:
   - name: action
-    description: Defines set of actions that must be enforced when a dependency is met.
+    description: Defines set of actions that must be enforced when a dependency is
+      met.
     type: external
     exposed: true
     subtype: map[string]map[string]interface{}
@@ -107,7 +108,8 @@ attributes:
     exposed: true
 
   - name: relation
-    description: Describes the required operation to be performed between subjects and objects.
+    description: Describes the required operation to be performed between subjects
+      and objects.
     type: list
     exposed: true
     subtype: string

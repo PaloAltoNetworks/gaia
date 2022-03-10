@@ -90,6 +90,17 @@ attributes:
     - us-west-1
     omit_empty: true
 
+  - name: resourceStatus
+    description: The status of the resource.
+    type: enum
+    exposed: true
+    stored: true
+    allowed_choices:
+    - All
+    - Active
+    - Inactive
+    default_value: All
+
   - name: resourceType
     description: |-
       The type of endpoint resource. The resource type is a mandatory field and a
