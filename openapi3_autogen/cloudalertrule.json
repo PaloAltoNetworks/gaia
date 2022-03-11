@@ -1,0 +1,291 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudalertrule": {
+        "description": "Represents an Alert rule along with policies and accounts associated\nwith the Alert rule.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "enabled": {
+            "description": "Defines whether the Alert rule is enabled.",
+            "type": "boolean"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "prismaCloudAlertRuleID": {
+            "description": "Prisma Cloud Alert Rule id.",
+            "type": "string"
+          },
+          "prismaCloudPolicyIDs": {
+            "description": "List of Policy IDs associated to an Alert rule.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "regions": {
+            "description": "List of regions where the Alert rule is enforced.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "targetAccountIDs": {
+            "description": "List of accounts associated to an Alert rule.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "tenantPrismaID": {
+            "description": "Prisma ID of the tenant in which the Alert Rule is created.",
+            "type": "string"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudalertrule",
+    "version": "1.0"
+  },
+  "paths": {
+    "/cloudalertsrule": {
+      "get": {
+        "description": "Retrieves the list of cloud alert rules.",
+        "operationId": "get-all-cloudalertsrule",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/cloudalertrule"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      },
+      "post": {
+        "description": "Creates a cloud alert rule.",
+        "operationId": "create-a-new-cloudalertrule",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudalertrule"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudalertrule"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      }
+    },
+    "/cloudalertsrule/{id}": {
+      "delete": {
+        "description": "Deletes the Alert Rule with a given id.",
+        "operationId": "delete-cloudalertrule-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudalertrule"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the Alert Rule with a given id.",
+        "operationId": "get-cloudalertrule-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudalertrule"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the Alert Rule with a given id.",
+        "operationId": "update-cloudalertrule-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudalertrule"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudalertrule"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'vargid'",
+      "name": "vargid"
+    }
+  ]
+}

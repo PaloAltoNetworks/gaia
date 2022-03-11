@@ -1,0 +1,56 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "debugbundle": {
+        "description": "Represents a file that can be uploaded.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "debugID": {
+            "description": "Can be used to correlate with an EnforcerRefresh.",
+            "type": "string"
+          },
+          "enforcerID": {
+            "description": "The ID of the enforcer.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "debugbundle",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'debug'",
+      "name": "debug"
+    },
+    {
+      "description": "This tag is for package 'guy'",
+      "name": "guy"
+    }
+  ]
+}

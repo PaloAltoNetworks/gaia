@@ -1,0 +1,46 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "graphedgeflowdetails": {
+        "description": "Contains more specific information about a particular flow between two nodes.",
+        "properties": {
+          "accepted": {
+            "description": "Indicates whether the flow was accepted.",
+            "type": "boolean"
+          },
+          "protoPort": {
+            "description": "The protocol for this edge. If it is tcp or udp, the port is also included.",
+            "example": "tcp/443",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "graphedgeflowdetails",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/depmaps'",
+      "name": "visualization/depmaps"
+    },
+    {
+      "description": "This tag is for package 'meteor'",
+      "name": "meteor"
+    }
+  ]
+}

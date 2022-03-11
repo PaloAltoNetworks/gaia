@@ -1,0 +1,101 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "servicetoken": {
+        "description": "This API issues a new service token using the namespace certificate that can be\nused by third-party applications.",
+        "properties": {
+          "audience": {
+            "description": "If given, the issued token will only be valid for the audience provided. If\nempty, the audience will be resolved from the policies. If no audience can be\nresolved, the request will be rejected with an error.",
+            "type": "string"
+          },
+          "objectID": {
+            "description": "ID of the object you want to issue a token for.",
+            "example": "5c83035648675400019ab901",
+            "type": "string"
+          },
+          "sessionID": {
+            "description": "Provides the session ID of the enforcer when retrieving a datapath certificate.",
+            "example": "5c83035648675400019ab901",
+            "type": "string"
+          },
+          "token": {
+            "description": "Token is the signed JWT service token.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "type": {
+            "default": "Service",
+            "description": "Type of token request.",
+            "enum": [
+              "ProcessingUnit",
+              "Service"
+            ]
+          },
+          "validity": {
+            "default": "15m",
+            "description": "Validity configures the max validity time for a token. If it is bigger than the\nconfigured max validity, it will be capped.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "servicetoken",
+    "version": "1.0"
+  },
+  "paths": {
+    "/servicetoken": {
+      "post": {
+        "description": "Creates an OAUTH compatible service token.",
+        "operationId": "create-a-new-servicetoken",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/servicetoken"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/servicetoken"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/token",
+          "cactuar"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/token'",
+      "name": "policy/token"
+    },
+    {
+      "description": "This tag is for package 'cactuar'",
+      "name": "cactuar"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "policygraph": {
+        "description": "Returns a data structure representing the policy graph of all selected\nprocessing units and their possible connectivity based on the current policies\nassociated with the namespace. Users can define a selector of processing units\nin which they are interested or define the identity tags of a virtual processing\nunit that is not yet activated.",
+        "properties": {
+          "PUIdentity": {
+            "description": "The set of tags that a future-activated processing unit will have for which\nthe user wants to evaluate policies and understand its connectivity options.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "dependencyMap": {
+            "$ref": "./dependencymap#/components/schemas/dependencymap"
+          },
+          "policyType": {
+            "default": "Authorization",
+            "description": "Identifies the type of policy that should be analyzed: `Authorization`(default),\n`Infrastructure`, or `Combined`.",
+            "enum": [
+              "Authorization",
+              "Infrastructure",
+              "Combined"
+            ]
+          },
+          "selectors": {
+            "description": "Contains the tag expression that a processing unit must match in order\nto evaluate policy for it.",
+            "example": [
+              [
+                "$identity=processingunit"
+              ]
+            ],
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "policygraph",
+    "version": "1.0"
+  },
+  "paths": {
+    "/policygraphs": {
+      "post": {
+        "description": "Retrieve a policy graph.",
+        "operationId": "create-a-new-policygraph",
+        "parameters": [
+          {
+            "description": "Set the view query for grouping the dependency map.",
+            "example": "$namespace then app",
+            "in": "query",
+            "name": "view",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/policygraph"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/policygraph"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/depmaps",
+          "yeul"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/depmaps'",
+      "name": "visualization/depmaps"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

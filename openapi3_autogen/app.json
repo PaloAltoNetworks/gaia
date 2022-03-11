@@ -1,0 +1,129 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "app": {
+        "description": "Represents an application that can be installed.",
+        "properties": {
+          "beta": {
+            "description": "Set to `true` to indicate that the app is in a beta version.",
+            "readOnly": true,
+            "type": "boolean"
+          },
+          "categoryID": {
+            "description": "Category ID of the app.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "icon": {
+            "description": "Contains a base64-encoded image for the app.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "latestVersion": {
+            "description": "Represents the latest version available of the app.",
+            "type": "string"
+          },
+          "longDescription": {
+            "description": "Contains a more detailed description of the app.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "steps": {
+            "description": "List of steps that contain parameters.",
+            "items": {
+              "$ref": "./uistep#/components/schemas/uistep"
+            },
+            "type": "array"
+          },
+          "title": {
+            "description": "Represents the title of the app.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "app",
+    "version": "1.0"
+  },
+  "paths": {
+    "/apps": {
+      "get": {
+        "description": "Retrieves the list of apps.",
+        "operationId": "get-all-apps",
+        "parameters": [
+          {
+            "description": "internal parameter.",
+            "example": "claire",
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/app"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "integration/app",
+          "highwind"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'integration/app'",
+      "name": "integration/app"
+    },
+    {
+      "description": "This tag is for package 'highwind'",
+      "name": "highwind"
+    }
+  ]
+}

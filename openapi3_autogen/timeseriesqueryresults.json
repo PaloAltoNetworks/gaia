@@ -1,0 +1,44 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "timeseriesqueryresults": {
+        "description": "Represent the results of a stats query.",
+        "properties": {
+          "rows": {
+            "description": "List of rows.",
+            "items": {
+              "$ref": "./timeseriesrow#/components/schemas/timeseriesrow"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "timeseriesqueryresults",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/statsquery'",
+      "name": "visualization/statsquery"
+    },
+    {
+      "description": "This tag is for package 'jenova'",
+      "name": "jenova"
+    }
+  ]
+}

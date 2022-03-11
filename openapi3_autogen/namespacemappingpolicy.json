@@ -1,0 +1,290 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "namespacemappingpolicy": {
+        "description": "A namespace mapping defines the namespace a processing unit should\nbe placed when it is created, based on its tags.  When an enforcer creates\na new processing unit, the system will place it in its own namespace if no\nmatching namespace mapping can be found. If one match is found, then the\nprocessing unit will be bumped down to the namespace declared in the namespace\nmapping. If it\nfinds in that child namespace another matching namespace mapping, then\nthe processing unit will be bumped down again, until it reaches a namespace with\nno matching namespace mappings.  This is very useful to dispatch processes and\ncontainers\ninto a particular namespace, based on a lot of factors. For example, you can put\nin place a\nquarantine namespace mapping that will grab all processing units with excessive\nvulnerabilities.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Defines if the property is disabled.",
+            "type": "boolean"
+          },
+          "mappedNamespace": {
+            "description": "The namespace to map the `subject` to.",
+            "example": "/blue/namespace",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "subject": {
+            "description": "A tag or tag expression identifying the entity to be mapped.",
+            "example": [
+              [
+                "color=blue"
+              ]
+            ],
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "mappedNamespace",
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "namespacemappingpolicy",
+    "version": "1.0"
+  },
+  "paths": {
+    "/namespacemappingpolicies": {
+      "get": {
+        "description": "Retrieves the list namespace mappings.",
+        "operationId": "get-all-namespacemappingpolicies",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/namespacemappingpolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new namespace mapping.",
+        "operationId": "create-a-new-namespacemappingpolicy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/namespacemappingpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/namespacemappingpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    },
+    "/namespacemappingpolicies/{id}": {
+      "delete": {
+        "description": "Deletes the mapping with the given ID.",
+        "operationId": "delete-namespacemappingpolicy-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/namespacemappingpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the mapping with the given ID.",
+        "operationId": "get-namespacemappingpolicy-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/namespacemappingpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the mapping with the given ID.",
+        "operationId": "update-namespacemappingpolicy-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/namespacemappingpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/namespacemappingpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/namespace'",
+      "name": "core/namespace"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

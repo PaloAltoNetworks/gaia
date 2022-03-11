@@ -1,0 +1,295 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "kubernetescluster": {
+        "description": "Used to represent an instance of a Kubernetes API server.",
+        "properties": {
+          "APIServerServiceFQDNs": {
+            "description": "Contains the FQDNs used by the API server. They will be used to populate the\nCertificate DNS SANs field.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "APIServerServiceIPs": {
+            "description": "Contains the IPs used by the API server. They will be used to populate the\nCertificate IP SANs field.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "APIServerServiceName": {
+            "description": "Kubernetes service name in the format \u003cservice name\u003e.\u003cservice name\nnamespace\u003e.svc will be set in the certificate CommonName field.",
+            "type": "string"
+          },
+          "APIServerVersions": {
+            "description": "API versions supported by the API server.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "externalIP": {
+            "description": "Cluster external IP address.",
+            "type": "string"
+          },
+          "internalIP": {
+            "description": "Cluster internal IP address.",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "kubernetescluster",
+    "version": "1.0"
+  },
+  "paths": {
+    "/kubernetesclusters": {
+      "get": {
+        "description": "Retrieves the list of Kubernetes clusters.",
+        "operationId": "get-all-kubernetesclusters",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that have been archived.",
+            "in": "query",
+            "name": "archived",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/kubernetescluster"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new processing unit.",
+        "operationId": "create-a-new-kubernetescluster",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/kubernetescluster"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/kubernetescluster"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      }
+    },
+    "/kubernetesclusters/{id}": {
+      "delete": {
+        "description": "Delete the Kubernetes cluster with the given ID.",
+        "operationId": "delete-kubernetescluster-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/kubernetescluster"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieve the Kubernetes cluster with the given ID.",
+        "operationId": "get-kubernetescluster-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/kubernetescluster"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Update the Kubernetes cluster with the given ID.",
+        "operationId": "update-kubernetescluster-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/kubernetescluster"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/kubernetescluster"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/processingunit'",
+      "name": "core/processingunit"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

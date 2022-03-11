@@ -1,0 +1,91 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "taginject": {
+        "description": "This internal API is used to inject a new tag in the database.",
+        "properties": {
+          "addedTags": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "List of tags to be added.",
+            "type": "object"
+          },
+          "removedTags": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "List of tags to be removed.",
+            "type": "object"
+          },
+          "targetNamespace": {
+            "description": "List of tags to inject.",
+            "example": "/my/namespace",
+            "type": "string"
+          }
+        },
+        "required": [
+          "targetNamespace"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "taginject",
+    "version": "1.0"
+  },
+  "paths": {
+    "/taginjects": {
+      "post": {
+        "description": "Internal API to inject tags.",
+        "operationId": "create-a-new-taginject",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/taginject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/taginject"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/internal",
+          "tagle"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/internal'",
+      "name": "core/internal"
+    },
+    {
+      "description": "This tag is for package 'tagle'",
+      "name": "tagle"
+    }
+  ]
+}

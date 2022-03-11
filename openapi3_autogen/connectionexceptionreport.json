@@ -1,0 +1,173 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "connectionexceptionreport": {
+        "description": "Post a new flow log.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "destinationController": {
+            "deprecated": true,
+            "description": "Identifier of the destination controller. This should be set in\nSynAckTransmitted state.",
+            "example": "api.west.acme.com",
+            "type": "string"
+          },
+          "destinationIP": {
+            "description": "Destination IP address.",
+            "type": "string"
+          },
+          "destinationPort": {
+            "description": "Port of the destination.",
+            "type": "integer"
+          },
+          "destinationProcessingUnitID": {
+            "description": "ID of the destination processing unit. This should be set in SynAckTransmitted\nstate.",
+            "example": "xxx-xxx-xxx",
+            "type": "string"
+          },
+          "enforcerID": {
+            "description": "ID of the enforcer.",
+            "example": "xxx-xxx-xxx",
+            "type": "string"
+          },
+          "enforcerNamespace": {
+            "deprecated": true,
+            "description": "Namespace of the enforcer.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace of the processing unit that encountered this exception.",
+            "example": "/my/namespace",
+            "readOnly": true,
+            "type": "string"
+          },
+          "processingUnitID": {
+            "description": "ID of the processing unit encountered this exception.",
+            "example": "xxx-xxx-xxx",
+            "type": "string"
+          },
+          "processingUnitNamespace": {
+            "deprecated": true,
+            "description": "Namespace of the processing unit encountered this exception.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "protocol": {
+            "description": "Protocol number.",
+            "example": 6,
+            "type": "integer"
+          },
+          "reason": {
+            "description": "It specifies the reason for the exception.",
+            "type": "string"
+          },
+          "serviceType": {
+            "default": "L3",
+            "description": "Type of the service.",
+            "enum": [
+              "L3",
+              "HTTP",
+              "TCP"
+            ]
+          },
+          "sourceIP": {
+            "description": "Source IP address.",
+            "type": "string"
+          },
+          "state": {
+            "description": "Represents the current state this report was generated.",
+            "enum": [
+              "SynTransmitted",
+              "SynAckTransmitted",
+              "AckTransmitted",
+              "Unknown",
+              "TFOProbe"
+            ],
+            "example": [
+              "Unknown"
+            ]
+          },
+          "timestamp": {
+            "description": "Time and date of the report.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "value": {
+            "description": "Number of packets hit.",
+            "example": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "enforcerID",
+          "processingUnitID",
+          "protocol",
+          "state",
+          "value"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "connectionexceptionreport",
+    "version": "1.0"
+  },
+  "paths": {
+    "/connectionexceptionreports": {
+      "post": {
+        "description": "Create a connection exception report.",
+        "operationId": "create-a-new-connectionexceptionreport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/connectionexceptionreport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connectionexceptionreport"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "zack"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/networking'",
+      "name": "policy/networking"
+    },
+    {
+      "description": "This tag is for package 'zack'",
+      "name": "zack"
+    }
+  ]
+}

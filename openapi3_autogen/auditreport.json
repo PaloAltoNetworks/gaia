@@ -1,0 +1,242 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "auditreport": {
+        "description": "Post a new audit report.",
+        "properties": {
+          "AUID": {
+            "description": "The login ID of the user who started the audited process.",
+            "example": "xxx-xxx",
+            "type": "string"
+          },
+          "CWD": {
+            "description": "Command working directory.",
+            "example": "/etc",
+            "type": "string"
+          },
+          "EGID": {
+            "description": "Effective group ID of the user who started the audited process.",
+            "type": "integer"
+          },
+          "EUID": {
+            "description": "Effective user ID of the user who started the audited process.",
+            "type": "integer"
+          },
+          "EXE": {
+            "description": "Path to the executable.",
+            "example": "/bin/ls",
+            "type": "string"
+          },
+          "FSGID": {
+            "description": "File system group ID of the user who started the audited process.",
+            "type": "integer"
+          },
+          "FSUID": {
+            "description": "File system user ID of the user who started the audited process.",
+            "type": "integer"
+          },
+          "FilePath": {
+            "description": "Full path of the file that was passed to the system call.",
+            "type": "string"
+          },
+          "GID": {
+            "description": "Group ID of the user who started the analyzed process.",
+            "type": "integer"
+          },
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "PER": {
+            "description": "File or directory permissions.",
+            "type": "integer"
+          },
+          "PID": {
+            "description": "Process ID of the executable.",
+            "type": "integer"
+          },
+          "PPID": {
+            "description": "Process ID of the parent executable.",
+            "type": "integer"
+          },
+          "SGID": {
+            "description": "Set group ID of the user who started the audited process.",
+            "type": "integer"
+          },
+          "SUID": {
+            "description": "Set user ID of the user who started the audited process.",
+            "type": "integer"
+          },
+          "UID": {
+            "description": "User ID.",
+            "type": "integer"
+          },
+          "a0": {
+            "description": "First argument of the executed system call.",
+            "example": "xxx-xxx",
+            "type": "string"
+          },
+          "a1": {
+            "description": "Second argument of the executed system call.",
+            "example": "xxx-xxx",
+            "type": "string"
+          },
+          "a2": {
+            "description": "Third argument of the executed system call.",
+            "example": "xxx-xxx",
+            "type": "string"
+          },
+          "a3": {
+            "description": "Fourth argument of the executed system call.",
+            "example": "xxx-xxx",
+            "type": "string"
+          },
+          "arch": {
+            "description": "Architecture of the system of the monitored process.",
+            "example": "x86_64",
+            "type": "string"
+          },
+          "arguments": {
+            "description": "Arguments passed to the command.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "auditProfileID": {
+            "description": "ID of the audit profile that triggered the report.",
+            "example": "xxx-xxx-xxx-xxx",
+            "type": "string"
+          },
+          "auditProfileNamespace": {
+            "description": "Namespace of the audit profile that triggered the report.",
+            "example": "/my/ns",
+            "type": "string"
+          },
+          "command": {
+            "description": "Command issued.",
+            "example": "ls",
+            "type": "string"
+          },
+          "enforcerID": {
+            "description": "ID of the enforcer reporting.",
+            "example": "xxx-xxx-xxx-xxx",
+            "type": "string"
+          },
+          "enforcerNamespace": {
+            "description": "Namespace of the enforcer reporting.",
+            "example": "/my/ns",
+            "type": "string"
+          },
+          "exit": {
+            "description": "Exit code of the executed system call.",
+            "type": "integer"
+          },
+          "processingUnitID": {
+            "description": "ID of the processing unit originating the report.",
+            "example": "xxx-xxx-xxx-xxx",
+            "type": "string"
+          },
+          "processingUnitNamespace": {
+            "description": "Namespace of the processing unit originating the report.",
+            "example": "/my/ns",
+            "type": "string"
+          },
+          "recordType": {
+            "description": "Type of audit record.",
+            "example": "Syscall",
+            "type": "string"
+          },
+          "sequence": {
+            "description": "Needs documentation.",
+            "type": "integer"
+          },
+          "success": {
+            "description": "Tells if the operation has been a success or a failure.",
+            "type": "boolean"
+          },
+          "syscall": {
+            "description": "System call executed.",
+            "example": "execve",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "Date of the report.",
+            "example": "2018-06-14T23:10:46.420397985Z",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "auditProfileID",
+          "auditProfileNamespace",
+          "enforcerID",
+          "enforcerNamespace",
+          "processingUnitID",
+          "processingUnitNamespace",
+          "recordType",
+          "timestamp"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "auditreport",
+    "version": "1.0"
+  },
+  "paths": {
+    "/auditreports": {
+      "post": {
+        "description": "Create a audit statistics report.",
+        "operationId": "create-a-new-auditreport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/auditreport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/auditreport"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/audit",
+          "zack"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/audit'",
+      "name": "policy/audit"
+    },
+    {
+      "description": "This tag is for package 'zack'",
+      "name": "zack"
+    }
+  ]
+}

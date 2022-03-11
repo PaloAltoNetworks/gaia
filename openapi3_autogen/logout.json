@@ -1,0 +1,61 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "logout": {
+        "description": "Perform logout operations. This is only used to unset the secure cookie token\nfor now.",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "logout",
+    "version": "1.0"
+  },
+  "paths": {
+    "/logout": {
+      "get": {
+        "description": "Performs a logout operation.",
+        "operationId": "get-all-logout",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/logout"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "midgard"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/authentication'",
+      "name": "core/authentication"
+    },
+    {
+      "description": "This tag is for package 'midgard'",
+      "name": "midgard"
+    }
+  ]
+}

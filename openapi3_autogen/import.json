@@ -1,0 +1,84 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "import": {
+        "description": "Imports an export of policies and related objects into the namespace.",
+        "properties": {
+          "data": {
+            "$ref": "./export#/components/schemas/export"
+          },
+          "mode": {
+            "default": "Import",
+            "description": "How to import the data: `ReplacePartial`, `Import` (default), or `Remove`.\n`ReplacePartial`\nis deprecated. Use `Import` instead. While you can use `ReplacePartial` it will\nbe interpreted\nas `Import`.",
+            "enum": [
+              "ReplacePartial",
+              "Import",
+              "Remove"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "import",
+    "version": "1.0"
+  },
+  "paths": {
+    "/import": {
+      "post": {
+        "description": "Imports data from a previous export.",
+        "operationId": "create-a-new-import",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/import"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/import"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core'",
+      "name": "core"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

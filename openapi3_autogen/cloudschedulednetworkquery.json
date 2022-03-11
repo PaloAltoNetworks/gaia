@@ -1,0 +1,166 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudschedulednetworkquery": {
+        "description": "CloudScheduledNetworkQuery represents a CloudNetworkQuery that will be\nscheduled periodically.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "cloudGraphResultID": {
+            "description": "The cloud graph result ID which is stored in MongoDB GridFS.",
+            "type": "string"
+          },
+          "cloudNetworkQuery": {
+            "$ref": "./cloudnetworkquery#/components/schemas/cloudnetworkquery"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Represents whether the associated policy was disabled.",
+            "type": "boolean"
+          },
+          "lastExecutionTimestamp": {
+            "description": "Timestamp of the last time the query was scheduled.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "prismaCloudAlertRuleID": {
+            "description": "Prisma Cloud Alert Rule ID.",
+            "type": "string"
+          },
+          "prismaCloudPolicyID": {
+            "description": "Prisma Cloud Policy ID.",
+            "type": "string"
+          },
+          "successfulExecutionTimestamp": {
+            "description": "Timestamp of the last time the query was successfully executed and results were\nobtained.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "tenantPrismaID": {
+            "description": "Prisma ID of the tenant in which the Alert Rule is created.",
+            "type": "string"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudschedulednetworkquery",
+    "version": "1.0"
+  },
+  "paths": {
+    "/cloudschedulednetworkqueries": {
+      "get": {
+        "description": "Retrieves Cloud Scheduled Network Query job.",
+        "operationId": "get-all-cloudschedulednetworkqueries",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/cloudschedulednetworkquery"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      },
+      "post": {
+        "description": "Updates the last execution time of scheduled network query which are run to\nevaluate alert rules.",
+        "operationId": "create-a-new-cloudschedulednetworkquery",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudschedulednetworkquery"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudschedulednetworkquery"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'vargid'",
+      "name": "vargid"
+    }
+  ]
+}

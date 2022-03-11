@@ -1,0 +1,63 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "graphgroup": {
+        "description": "Represents an group of nodes from the dependency map.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the group.",
+            "type": "string"
+          },
+          "color": {
+            "description": "Color to use for the group.",
+            "type": "string"
+          },
+          "match": {
+            "description": "List of tags that were used to create this group.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the group.",
+            "type": "string"
+          },
+          "parentID": {
+            "description": "ID of the parent group, if any.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "graphgroup",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/depmaps'",
+      "name": "visualization/depmaps"
+    },
+    {
+      "description": "This tag is for package 'jenova'",
+      "name": "jenova"
+    }
+  ]
+}
