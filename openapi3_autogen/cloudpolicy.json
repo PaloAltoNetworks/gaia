@@ -1,0 +1,289 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudpolicy": {
+        "description": "Creates a Prisma Cloud policy and corresponding alert rules.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "RQLQuery": {
+            "description": "The actual RQL query that is associated to the policy.",
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "enabled": {
+            "description": "Defines whether the Policy is enabled.",
+            "type": "boolean"
+          },
+          "key": {
+            "description": "Unique key which is a combination of tenant id and policy id to identify the\npolicy.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "prismaCloudPolicyID": {
+            "description": "Reference to the corresponding Prisma Cloud Policy ID.",
+            "type": "string"
+          },
+          "prismaCloudQueryID": {
+            "description": "The query ID that this policy refers to. This is auto-calculated since it is\nderived from the parent.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "severity": {
+            "description": "The severity of a policy violation.",
+            "enum": [
+              "Low",
+              "Medium",
+              "High"
+            ],
+            "example": "Low"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "severity"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudpolicy",
+    "version": "1.0"
+  },
+  "paths": {
+    "/cloudpolicies": {
+      "get": {
+        "description": "Retrieves the list of cloud policies.",
+        "operationId": "get-all-cloudpolicies",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/cloudpolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      },
+      "post": {
+        "description": "Creates a Cloud policy.",
+        "operationId": "create-a-new-cloudpolicy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      }
+    },
+    "/cloudpolicies/{id}": {
+      "delete": {
+        "description": "Deletes the the Prisma Cloud policy with the given ID.",
+        "operationId": "delete-cloudpolicy-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the Prisma Cloud policy with the given ID.",
+        "operationId": "get-cloudpolicy-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the Prisma Cloud policy with the given ID.",
+        "operationId": "update-cloudpolicy-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'vargid'",
+      "name": "vargid"
+    }
+  ]
+}

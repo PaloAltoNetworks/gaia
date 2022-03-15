@@ -1,0 +1,332 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "externalnetwork": {
+        "description": "An external network represents a random network or IP address that is not\nmanaged by Microsegmentation. External networks can be used in network policies\nto\nallow traffic from or to the declared network or IP, using the provided\nprotocol and port (or range of ports). If you want to describe the internet\n(i.e., anywhere), use `0.0.0.0/0` as the address and `1-65000` for the ports.\nYou must assign the external network one or more tags. These allow you to\nreference the external network from your network policies.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "entries": {
+            "description": "List of CIDRs or domain name.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "propagate": {
+            "description": "Propagates the policy to all of its children.",
+            "type": "boolean"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "servicePorts": {
+            "description": "List of protocol/ports `(tcp/80)` or `(udp/80:100)`.",
+            "example": [
+              "tcp/80",
+              "udp/80:100"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": {
+            "default": "Subnet",
+            "description": "The type of external network (default `Subnet`).",
+            "enum": [
+              "ENI",
+              "RDSCluster",
+              "RDSInstance",
+              "SecurityGroup",
+              "Subnet"
+            ]
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "externalnetwork",
+    "version": "1.0"
+  },
+  "paths": {
+    "/externalnetworks": {
+      "get": {
+        "description": "Retrieves the list of external networks.",
+        "operationId": "get-all-externalnetworks",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that have been archived.",
+            "in": "query",
+            "name": "archived",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/externalnetwork"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new external network.",
+        "operationId": "create-a-new-externalnetwork",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/externalnetwork"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/externalnetwork"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      }
+    },
+    "/externalnetworks/{id}": {
+      "delete": {
+        "description": "Deletes the object with the given ID.",
+        "operationId": "delete-externalnetwork-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/externalnetwork"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the object with the given ID.",
+        "operationId": "get-externalnetwork-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that have been archived.",
+            "in": "query",
+            "name": "archived",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/externalnetwork"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the object with the given ID.",
+        "operationId": "update-externalnetwork-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/externalnetwork"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/externalnetwork"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/networking'",
+      "name": "policy/networking"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

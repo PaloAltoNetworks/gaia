@@ -1,0 +1,114 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "export": {
+        "description": "Allows you to obtain a JSON object containing policies and other objects from a\ngiven namespace. You can then import this JSON object into a different\nnamespace.",
+        "properties": {
+          "APIVersion": {
+            "description": "Version of the Microsegmentation Console API used for the exported data.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "data": {
+            "additionalProperties": {
+              "items": {
+                "additionalProperties": {
+                  "type": "object"
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "description": "List of all exported data.",
+            "type": "object"
+          },
+          "identities": {
+            "description": "The list of identities to export.",
+            "example": [
+              "externalnetworks",
+              "networkaccesspolicies"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "label": {
+            "description": "Allows you to define a unique label for this export. When importing the\ncontent of the export, this label will be added as a tag that will be used to\nrecognize imported object in a later import.",
+            "example": "my-import-name",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "export",
+    "version": "1.0"
+  },
+  "paths": {
+    "/export": {
+      "post": {
+        "description": "Exports all policies and related objects of a namespace.",
+        "operationId": "create-a-new-export",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/export"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/export"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "yuna"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core'",
+      "name": "core"
+    },
+    {
+      "description": "This tag is for package 'yuna'",
+      "name": "yuna"
+    }
+  ]
+}

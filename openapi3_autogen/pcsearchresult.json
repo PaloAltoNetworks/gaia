@@ -1,0 +1,94 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "pcsearchresult": {
+        "description": "Represents the result data of RQL search.",
+        "properties": {
+          "internalEdges": {
+            "additionalProperties": {
+              "$ref": "./cloudgraphedge#/components/schemas/cloudgraphedge"
+            },
+            "description": "The edges of the map connecting internal endpoints.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "items": {
+            "$ref": "./reportsquery#/components/schemas/reportsquery"
+          },
+          "nextPageToken": {
+            "description": "The pagination token for next page.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "nodes": {
+            "additionalProperties": {
+              "$ref": "./cloudgraphnode#/components/schemas/cloudgraphnode"
+            },
+            "description": "Refers to the nodes of the map.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "paths": {
+            "description": "The set of paths from the given source to the given destination. Only provided\nwhen the query type is NetworkPath.",
+            "items": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "publicEdges": {
+            "additionalProperties": {
+              "$ref": "./cloudgraphedge#/components/schemas/cloudgraphedge"
+            },
+            "description": "The edges of the map connecting public endpoints.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "sourceDestinationMap": {
+            "additionalProperties": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "description": "The set of destinations that have been discovered based on the query and their\nassociated verdicts.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "totalRows": {
+            "description": "The total number of result items.",
+            "readOnly": true,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "pcsearchresult",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/rql'",
+      "name": "core/rql"
+    },
+    {
+      "description": "This tag is for package 'karl'",
+      "name": "karl"
+    }
+  ]
+}

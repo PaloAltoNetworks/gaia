@@ -1,0 +1,75 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "organizationalmetadata": {
+        "description": "Can be used to retrieve the organizational metadata of the namespace.",
+        "properties": {
+          "metadata": {
+            "description": "List of organizational metadata for the namespace.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "organizationalmetadata",
+    "version": "1.0"
+  },
+  "paths": {
+    "/organizationalmetadata": {
+      "get": {
+        "description": "Retrieves the list of organizational metadata for the namespace and its\nnamespace hierarchy.",
+        "operationId": "get-all-organizationalmetadata",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/organizationalmetadata"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/namespace'",
+      "name": "core/namespace"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

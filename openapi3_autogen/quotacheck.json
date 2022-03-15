@@ -1,0 +1,103 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "quotacheck": {
+        "description": "Allows you to verify the quota for a given identity in a given namespace\nwith the given tags.",
+        "properties": {
+          "quota": {
+            "description": "Contains the maximum number of matching entities that can be created.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "remaining": {
+            "default": -1,
+            "description": "If the parameter `remaining=true` is passed, this value will be populated with\nthe number of remaining objects in the quota.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "targetIdentity": {
+            "description": "The identity name of the object you want to check the quota on.",
+            "example": "processingunit",
+            "type": "string"
+          },
+          "targetNamespace": {
+            "description": "The namespace from which you want to check the quota on.",
+            "example": "/my/namespace",
+            "type": "string"
+          }
+        },
+        "required": [
+          "targetIdentity"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "quotacheck",
+    "version": "1.0"
+  },
+  "paths": {
+    "/quotacheck": {
+      "post": {
+        "description": "Verifies if the quota is exceeded for a particular object.",
+        "operationId": "create-a-new-quotacheck",
+        "parameters": [
+          {
+            "description": "Makes the system count how many object are left available in the quota.",
+            "in": "query",
+            "name": "remaining",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/quotacheck"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/quotacheck"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/quota",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/quota'",
+      "name": "policy/quota"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

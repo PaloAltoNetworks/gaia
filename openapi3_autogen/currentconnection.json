@@ -1,0 +1,62 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "currentconnection": {
+        "description": "A current connection.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "duration": {
+            "description": "The duration of the tracked connection.",
+            "type": "string"
+          },
+          "existing": {
+            "description": "Was the connection existing when the enforcer started.",
+            "type": "boolean"
+          },
+          "flow": {
+            "$ref": "./flowreport#/components/schemas/flowreport"
+          },
+          "sourcePort": {
+            "description": "Port of the source.",
+            "type": "integer"
+          },
+          "startTime": {
+            "description": "The time the enforcer started tracking the connection.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "currentconnection",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'guy'",
+      "name": "guy"
+    }
+  ]
+}

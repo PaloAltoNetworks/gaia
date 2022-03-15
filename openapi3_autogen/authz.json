@@ -1,0 +1,155 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "authz": {
+        "description": "This is an internal API that is used to resolve to API authorization.",
+        "properties": {
+          "APIAuthorizationPolicies": {
+            "description": "Contains the API Authorization policies if\nthe query parameter `forwardpolicyrules=true` is set.",
+            "items": {
+              "$ref": "./apiauthorizationpolicy#/components/schemas/apiauthorizationpolicy"
+            },
+            "type": "array"
+          },
+          "claims": {
+            "description": "The list of verified claims.",
+            "example": [
+              "@auth:account=acme",
+              "@auth:realm=vince"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "clientIP": {
+            "description": "IP of the client.",
+            "type": "string"
+          },
+          "error": {
+            "description": "Return an eventual error.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "permissions": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "boolean"
+              },
+              "type": "object"
+            },
+            "description": "If the parameter permissions=1 is set, targetIdentity and targetOperation are\nignored and this attribute will contain all the permission for the given claims.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "restrictedNamespace": {
+            "description": "Sets the namespace restrictions that should apply.",
+            "example": "/namespace",
+            "type": "string"
+          },
+          "restrictedNetworks": {
+            "description": "Sets the networks restrictions that should apply.",
+            "example": [
+              "10.0.0.0/8"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "restrictedPermissions": {
+            "description": "Sets the permissions restrictions that should apply.",
+            "example": [
+              "@auth:role=enforcer"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "targetID": {
+            "description": "The ID of the object to check permission for.",
+            "type": "string"
+          },
+          "targetNamespace": {
+            "description": "The namespace where to check permission from.",
+            "example": "/acme",
+            "type": "string"
+          }
+        },
+        "required": [
+          "claims",
+          "targetNamespace"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "authz",
+    "version": "1.0"
+  },
+  "paths": {
+    "/authz": {
+      "post": {
+        "description": "Verifies if a request should be accepted.",
+        "operationId": "create-a-new-authz",
+        "parameters": [
+          {
+            "description": "If set, return the raw resolved PolicyRulesList.",
+            "in": "query",
+            "name": "forwardpolicyrules",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/authz"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/authz"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authorization",
+          "cid"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/authorization'",
+      "name": "core/authorization"
+    },
+    {
+      "description": "This tag is for package 'cid'",
+      "name": "cid"
+    }
+  ]
+}

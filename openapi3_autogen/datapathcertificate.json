@@ -1,0 +1,113 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "datapathcertificate": {
+        "description": "Used by enforcer instances to retrieve various certificates used\nfor the datapath.",
+        "properties": {
+          "CSR": {
+            "description": "Contains a certificate signing request (CSR) from the enforcer. Depending on the\ncertificate there will be various requirements for the Microsegmentation Console\nto accept the CSR.",
+            "example": "-----BEGIN CERTIFICATE REQUEST-----\nMIICvDCCAaQCAQAwdzELMAkGA1UEBhMCVVMxDTALBgNVBAgMBFV0YWgxDzANBgNV\nBAcMBkxpbmRvbjEWMBQGA1UECgwNRGlnaUNlcnQgSW5jLjERMA8GA1UECwwIRGln\naUNlcnQxHTAbBgNVBAMMFGV4YW1wbGUuZGlnaWNlcnQuY29tMIIBIjANBgkqhkiG\n9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8+To7d+2kPWeBv/orU3LVbJwDrSQbeKamCmo\nwp5bqDxIwV20zqRb7APUOKYoVEFFOEQs6T6gImnIolhbiH6m4zgZ/CPvWBOkZc+c\n1Po2EmvBz+AD5sBdT5kzGQA6NbWyZGldxRthNLOs1efOhdnWFuhI162qmcflgpiI\nWDuwq4C9f+YkeJhNn9dF5+owm8cOQmDrV8NNdiTqin8q3qYAHHJRW28glJUCZkTZ\nwIaSR6crBQ8TbYNE0dc+Caa3DOIkz1EOsHWzTx+n0zKfqcbgXi4DJx+C1bjptYPR\nBPZL8DAeWuA8ebudVT44yEp82G96/Ggcf7F33xMxe0yc+Xa6owIDAQABoAAwDQYJ\nKoZIhvcNAQEFBQADggEBAB0kcrFccSmFDmxox0Ne01UIqSsDqHgL+XmHTXJwre6D\nhJSZwbvEtOK0G3+dr4Fs11WuUNt5qcLsx5a8uk4G6AKHMzuhLsJ7XZjgmQXGECpY\nQ4mC3yT3ZoCGpIXbw+iP3lmEEXgaQL0Tx5LFl/okKbKYwIqNiyKWOMj7ZR/wxWg/\nZDGRs55xuoeLDJ/ZRFf9bI+IaCUd1YrfYcHIl3G87Av+r49YVwqRDT0VDV7uLgqn\n29XI1PpVUNCPQGn9p/eX6Qo7vpDaPybRtA2R7XLKjQaF9oXWeCUqy1hvJac9QFO2\n97Ob1alpHPoZ7mWiEuJwjBPii6a9M9G30nUo39lBi1w=\n-----END CERTIFICATE REQUEST-----",
+            "type": "string"
+          },
+          "certificate": {
+            "description": "The certificate.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "objectID": {
+            "description": "ID of the object you want to issue a certificate for.",
+            "example": "5c83035648675400019ab901",
+            "type": "string"
+          },
+          "sessionID": {
+            "description": "Provides the session ID of the enforcer when retrieving a datapath certificate.",
+            "example": "5c83035648675400019ab901",
+            "type": "string"
+          },
+          "signer": {
+            "description": "Contains the CA that signed the delivered certificate.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "token": {
+            "description": "Contains a cryptographic token.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "type": {
+            "description": "Type of certificate.",
+            "enum": [
+              "Enforcer",
+              "Service",
+              "ServicePing",
+              "K8SAPIServer"
+            ],
+            "example": "Service"
+          }
+        },
+        "required": [
+          "CSR",
+          "objectID"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "datapathcertificate",
+    "version": "1.0"
+  },
+  "paths": {
+    "/datapathcertificates": {
+      "post": {
+        "description": "Creates a new certificate for datapath.",
+        "operationId": "create-a-new-datapathcertificate",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/datapathcertificate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/datapathcertificate"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/processingunit'",
+      "name": "core/processingunit"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

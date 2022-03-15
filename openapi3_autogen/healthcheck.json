@@ -1,0 +1,112 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "healthcheck": {
+        "description": "This API allows to retrieve a generic health state of the platform.\nA return code different from 200 OK means the platform is not operational.\nThe health check contains the list of observed sub system.",
+        "properties": {
+          "alerts": {
+            "description": "A human readable alert list describing the current state of the sub system if\navailable.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "name": {
+            "description": "The name of the observed sub system if applicable.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "responseTime": {
+            "description": "The response time of the observed sub system if applicable.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "status": {
+            "description": "The current health of the observed sub system.",
+            "enum": [
+              "Degraded",
+              "Offline",
+              "Operational"
+            ],
+            "readOnly": true
+          },
+          "type": {
+            "description": "The type of the observed sub system.",
+            "enum": [
+              "Cache",
+              "Database",
+              "General",
+              "MessagingSystem",
+              "Service",
+              "TSDB"
+            ],
+            "readOnly": true
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "healthcheck",
+    "version": "1.0"
+  },
+  "paths": {
+    "/healthchecks": {
+      "get": {
+        "description": "Retrieve the health of the platform.",
+        "operationId": "get-all-healthchecks",
+        "parameters": [
+          {
+            "description": "If set to true, the health check endpoint will not return data but will return 200 OK if everything is fine or 218 if the controller is not operational. This is useful when you want to use the health check endpoint as a load balancer health check.",
+            "in": "query",
+            "name": "quiet",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/healthcheck"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/monitoring",
+          "ultros"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/monitoring'",
+      "name": "core/monitoring"
+    },
+    {
+      "description": "This tag is for package 'ultros'",
+      "name": "ultros"
+    }
+  ]
+}

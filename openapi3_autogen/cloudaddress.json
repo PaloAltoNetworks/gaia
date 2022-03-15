@@ -1,0 +1,83 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudaddress": {
+        "description": "Managed the list of IP addresses associated with an interface.",
+        "properties": {
+          "IPVersion": {
+            "description": "Designates IPv4 or IPv6.",
+            "enum": [
+              "IPv4",
+              "IPv6"
+            ],
+            "example": "IPv4"
+          },
+          "primary": {
+            "description": "Designates the IP address as the primary IP address.",
+            "example": true,
+            "type": "boolean"
+          },
+          "privateDNSName": {
+            "description": "The private DNS name associated with the address.",
+            "example": "ip-172-20-53-29.us-west-2.compute.internal",
+            "type": "string"
+          },
+          "privateIP": {
+            "description": "The private IP address value.",
+            "example": "10.1.1.2",
+            "type": "string"
+          },
+          "privateNetwork": {
+            "description": "Internal representation of the private IP to accelerate operations. Not exposed\nto users.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "publicDNSName": {
+            "description": "The private DNS name associated with the address.",
+            "example": "ip-172-20-53-29.us-west-2.compute.internal",
+            "type": "string"
+          },
+          "publicIP": {
+            "description": "The private IP address value.",
+            "example": "10.1.1.2",
+            "type": "string"
+          },
+          "publicNetwork": {
+            "description": "Internal representation of public IP addresses to accelerate operations. Not\nexposed to users.",
+            "readOnly": true,
+            "type": "object"
+          }
+        },
+        "required": [
+          "IPVersion"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudaddress",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

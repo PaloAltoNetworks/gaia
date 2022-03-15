@@ -1,0 +1,71 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "endpoint": {
+        "description": "Represents an HTTP endpoint.",
+        "properties": {
+          "URI": {
+            "description": "URI of the exposed API.",
+            "type": "string"
+          },
+          "allowedScopes": {
+            "description": "The scopes authorized to access the API.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "methods": {
+            "description": "Methods exposed to access the API.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "public": {
+            "description": "If `true`, the API is public.",
+            "type": "boolean"
+          },
+          "scopes": {
+            "deprecated": true,
+            "description": "Use `allowedScopes`.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "endpoint",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/services'",
+      "name": "policy/services"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

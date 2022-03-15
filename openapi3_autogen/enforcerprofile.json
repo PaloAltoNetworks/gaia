@@ -1,0 +1,427 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "enforcerprofile": {
+        "description": "Allows you to create reusable configuration profiles for your enforcers.\nEnforcer profiles contain various startup information that can (for some) be\nupdated live. Enforcer profiles are assigned to enforcers using a enforcer\nprofile mapping.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "excludedInterfaces": {
+            "description": "Ignore traffic with a source or destination matching the specified\ninterfaces.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "excludedNetworks": {
+            "description": "Ignore any networks specified here and do not even report any flows.\nThis can be useful for excluding localhost loopback traffic, ignoring\ntraffic to the Kubernetes API, and using Microsegmentation for SSH only.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "flowReportInterval": {
+            "default": "30m",
+            "description": "Frequency that flow report counts are upated.",
+            "type": "string"
+          },
+          "ignoreExpression": {
+            "description": "A tag expression that identifies processing units to ignore. This can be\nuseful to exclude `kube-system` pods, AWS EC2 agent pods, and third-party\nagents.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "kubernetesMetadataExtractor": {
+            "default": "PodAtomic",
+            "deprecated": true,
+            "description": "This field is kept for backward compatibility for enforcers \u003c= 3.5.",
+            "enum": [
+              "KubeSquall",
+              "PodAtomic",
+              "PodContainers"
+            ]
+          },
+          "kubernetesSupportEnabled": {
+            "deprecated": true,
+            "description": "This field is kept for backward compatibility for enforcers \u003c= 3.5.",
+            "type": "boolean"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "metadataExtractor": {
+            "default": "Docker",
+            "deprecated": true,
+            "description": "This field is kept for backward compatibility for enforcers \u003c= 3.5.",
+            "enum": [
+              "Docker",
+              "ECS",
+              "Kubernetes"
+            ]
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "propagate": {
+            "description": "Propagates the policy to all of its children.",
+            "type": "boolean"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "syslogEnabled": {
+            "description": "Enables syslog functionality of enforcers using this enforcerprofile.",
+            "type": "boolean"
+          },
+          "syslogEndpoint": {
+            "description": "Contains the remote endpoint to dispatch the syslog messages.",
+            "type": "string"
+          },
+          "syslogEndpointTLSClientCertificate": {
+            "description": "PEM-encoded certificate to expose to the clients for TLS.",
+            "type": "string"
+          },
+          "syslogEndpointTLSServerCA": {
+            "description": "PEM-encoded server CA certificate.",
+            "type": "string"
+          },
+          "syslogFacility": {
+            "default": 1,
+            "description": "Contains the list of supported syslog facilities.",
+            "type": "integer"
+          },
+          "syslogFormat": {
+            "default": "Auto",
+            "description": "Contains the list of supported syslog message format.",
+            "enum": [
+              "Auto",
+              "BSD",
+              "IETF"
+            ]
+          },
+          "targetNetworks": {
+            "description": "If empty, the enforcer auto-discovers the TCP networks. Auto-discovery\nworks best in Kubernetes and OpenShift deployments. You may need to manually\nspecify the TCP networks if middle boxes exist that do not comply with\n[TCP Fast Open RFC 7413](https://tools.ietf.org/html/rfc7413).",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "targetUDPNetworks": {
+            "description": "If empty, the enforcer enforces all UDP networks. This works best when all UDP\nnetworks have enforcers. If some UDP networks do not have enforcers, you\nmay need to manually specify the UDP networks that should be enforced.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "trustedCAs": {
+            "description": "List of trusted certificate authorities. If empty, the main chain of trust\nwill be used.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "enforcerprofile",
+    "version": "1.0"
+  },
+  "paths": {
+    "/enforcerprofiles": {
+      "get": {
+        "description": "Retrieves the list of enforcer profiles.",
+        "operationId": "get-all-enforcerprofiles",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/enforcerprofile"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/enforcerconfig",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new enforcer profile.",
+        "operationId": "create-a-new-enforcerprofile",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/enforcerprofile"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcerprofile"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/enforcerconfig",
+          "squall"
+        ]
+      }
+    },
+    "/enforcerprofiles/{id}": {
+      "delete": {
+        "description": "Deletes the enforcer profile with the given ID.",
+        "operationId": "delete-enforcerprofile-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcerprofile"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/enforcerconfig",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the enforcer profile with the given ID.",
+        "operationId": "get-enforcerprofile-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcerprofile"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/enforcerconfig",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the enforcer profile with the given ID.",
+        "operationId": "update-enforcerprofile-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/enforcerprofile"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcerprofile"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/enforcerconfig",
+          "squall"
+        ]
+      }
+    },
+    "/enforcerprofiles/{id}/enforcersecrets": {
+      "get": {
+        "description": "Returns the enforcer secrets that must be used by an enforcer profile.",
+        "operationId": "get-all-enforcersecrets-for-a-given-enforcerprofile",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./enforcersecret#/components/schemas/enforcersecret"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/x509",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/enforcerconfig'",
+      "name": "policy/enforcerconfig"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "revocation": {
+        "description": "Used to revoke a certificate.",
+        "properties": {
+          "expirationDate": {
+            "description": "Contains the certificate expiration date. This will be used to clean up revoked\ncertificates that have expired.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "revokeDate": {
+            "description": "Set time from when the certificate will be revoked.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "serialNumber": {
+            "description": "SerialNumber of the revoked certificate.",
+            "type": "string"
+          },
+          "subject": {
+            "description": "Subject of the certificate related to the revocation.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "revocation",
+    "version": "1.0"
+  },
+  "paths": {
+    "/revocations": {
+      "get": {
+        "description": "Verify the revocation of a certificate according to parameters.",
+        "operationId": "get-all-revocations",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/revocation"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/x509",
+          "barret"
+        ]
+      }
+    },
+    "/revocations/{id}": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the object with the given ID.",
+        "operationId": "update-revocation-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/revocation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/revocation"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/x509",
+          "barret"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'internal/x509'",
+      "name": "internal/x509"
+    },
+    {
+      "description": "This tag is for package 'barret'",
+      "name": "barret"
+    }
+  ]
+}

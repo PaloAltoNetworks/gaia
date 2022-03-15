@@ -1,0 +1,302 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudalertrecord": {
+        "description": "Represents an Alert that is raised against a resource based on a RQL (policy)\nassociated to an alert rule.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "accountID": {
+            "description": "Account ID of the resource for which the Alert Record is\nraised.",
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "lastExecutionTimestamp": {
+            "description": "Result of the last execution timestamp.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "metadataHash": {
+            "description": "Sum of FNV-32a hashes of all the instances or interfaces grouped under the\nresource.",
+            "type": "integer"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "prismaCloudAlertRuleID": {
+            "description": "Prisma Cloud Alert Rule which generated the Alert Record.",
+            "type": "string"
+          },
+          "prismaCloudPolicyID": {
+            "description": "Policy ID which generated the Alert Record.",
+            "type": "string"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "published": {
+            "default": false,
+            "description": "Indicates if the alert is published to PC.",
+            "type": "boolean"
+          },
+          "region": {
+            "description": "Region of the resource for which the Alert Record is\nraised.",
+            "type": "string"
+          },
+          "resourceCount": {
+            "description": "Number of interfaces/instances for which the alert is raised.",
+            "type": "integer"
+          },
+          "resourceID": {
+            "description": "Resource ID of the resource for which the Alert Record is raised.",
+            "type": "string"
+          },
+          "resourceType": {
+            "description": "Returns the type of the resource on which alert was raised.",
+            "enum": [
+              "Interface",
+              "Instance",
+              "VPC",
+              "Subnet"
+            ],
+            "readOnly": true
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudalertrecord",
+    "version": "1.0"
+  },
+  "paths": {
+    "/cloudalertrecords": {
+      "get": {
+        "description": "Retrieves alert raised in Prisma Cloud.",
+        "operationId": "get-all-cloudalertrecords",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/cloudalertrecord"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      },
+      "post": {
+        "description": "Updates the last execution time of alert record.",
+        "operationId": "create-a-new-cloudalertrecord",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudalertrecord"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudalertrecord"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      }
+    },
+    "/cloudalertrecords/{id}": {
+      "delete": {
+        "description": "Deletes the Alert Record with a given id.",
+        "operationId": "delete-cloudalertrecord-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudalertrecord"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the Alert Record with a given id.",
+        "operationId": "get-cloudalertrecord-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudalertrecord"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the Alert Record with a given id.",
+        "operationId": "update-cloudalertrecord-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudalertrecord"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudalertrecord"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'vargid'",
+      "name": "vargid"
+    }
+  ]
+}

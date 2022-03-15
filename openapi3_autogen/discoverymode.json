@@ -1,0 +1,158 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "discoverymode": {
+        "description": "(Deprecated) When discovery mode is enabled, all flows are accepted. Flows which\ndo not match an existing network policy will be represented by a dotted line in\nyour Platform view.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "propagate": {
+            "description": "Propagates the policy to all of its children.",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "discoverymode",
+    "version": "1.0"
+  },
+  "paths": {
+    "/discoverymode": {
+      "get": {
+        "description": "(Deprecated) Returns the list of discovery modes.",
+        "operationId": "get-all-discoverymode",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/discoverymode"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "yuna"
+        ]
+      },
+      "post": {
+        "description": "(Deprecated) Deploy the discovery mode assets onto the specified namespace.",
+        "operationId": "create-a-new-discoverymode",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/discoverymode"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/discoverymode"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "yuna"
+        ]
+      }
+    },
+    "/discoverymode/{id}": {
+      "delete": {
+        "description": "(Deprecated) Remove the discovery mode assets with the given import reference ID.",
+        "operationId": "delete-discoverymode-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/discoverymode"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "yuna"
+        ]
+      },
+      "get": {
+        "description": "(Deprecated) Retrieve the discovery mode with the given import reference ID.",
+        "operationId": "get-discoverymode-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/discoverymode"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "yuna"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core'",
+      "name": "core"
+    },
+    {
+      "description": "This tag is for package 'yuna'",
+      "name": "yuna"
+    }
+  ]
+}
