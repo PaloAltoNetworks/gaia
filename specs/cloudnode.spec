@@ -24,6 +24,7 @@ indexes:
 - - namespace
   - type
   - subtype
+  - vpcid
 - - namespace
   - relatedObjectID
 - - namespace

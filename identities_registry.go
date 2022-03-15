@@ -786,7 +786,7 @@ var (
 			{"namespace", "vpcid"},
 			{"namespace"},
 			{"namespace", "accountid"},
-			{"namespace", "type", "subtype"},
+			{"namespace", "type", "subtype", "vpcid"},
 			{"namespace", "normalizedTags"},
 			{"key"},
 			{"createTime"},
