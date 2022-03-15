@@ -18,9 +18,6 @@ const (
 	// CloudNetworkQueryFilterResourceStatusActive represents the value Active.
 	CloudNetworkQueryFilterResourceStatusActive CloudNetworkQueryFilterResourceStatusValue = "Active"
 
-	// CloudNetworkQueryFilterResourceStatusAll represents the value All.
-	CloudNetworkQueryFilterResourceStatusAll CloudNetworkQueryFilterResourceStatusValue = "All"
-
 	// CloudNetworkQueryFilterResourceStatusInactive represents the value Inactive.
 	CloudNetworkQueryFilterResourceStatusInactive CloudNetworkQueryFilterResourceStatusValue = "Inactive"
 )
@@ -113,21 +110,20 @@ type CloudNetworkQueryFilter struct {
 func NewCloudNetworkQueryFilter() *CloudNetworkQueryFilter {
 
 	return &CloudNetworkQueryFilter{
-		ModelVersion:   1,
-		AccountIDs:     []string{},
-		CloudTypes:     []string{},
-		ImageIDs:       []string{},
-		ObjectIDs:      []string{},
-		ServiceOwners:  []string{},
-		Regions:        []string{},
-		ResourceStatus: CloudNetworkQueryFilterResourceStatusAll,
-		ResourceType:   CloudNetworkQueryFilterResourceTypeInstance,
-		SecurityTags:   []string{},
-		ServiceNames:   []string{},
-		ServiceTypes:   []string{},
-		Subnets:        []string{},
-		Tags:           []string{},
-		VPCIDs:         []string{},
+		ModelVersion:  1,
+		AccountIDs:    []string{},
+		CloudTypes:    []string{},
+		ImageIDs:      []string{},
+		ObjectIDs:     []string{},
+		ServiceOwners: []string{},
+		Regions:       []string{},
+		ResourceType:  CloudNetworkQueryFilterResourceTypeInstance,
+		SecurityTags:  []string{},
+		ServiceNames:  []string{},
+		ServiceTypes:  []string{},
+		Subnets:       []string{},
+		Tags:          []string{},
+		VPCIDs:        []string{},
 	}
 }
 
@@ -230,7 +226,7 @@ func (o *CloudNetworkQueryFilter) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if err := elemental.ValidateStringInList("resourceStatus", string(o.ResourceStatus), []string{"All", "Active", "Inactive"}, false); err != nil {
+	if err := elemental.ValidateStringInList("resourceStatus", string(o.ResourceStatus), []string{"Active", "Inactive"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -407,10 +403,9 @@ not apply to other resource types.`,
 		Type:           "list",
 	},
 	"ResourceStatus": {
-		AllowedChoices: []string{"All", "Active", "Inactive"},
+		AllowedChoices: []string{"Active", "Inactive"},
 		BSONFieldName:  "resourcestatus",
 		ConvertedName:  "ResourceStatus",
-		DefaultValue:   CloudNetworkQueryFilterResourceStatusAll,
 		Description:    `The status of the resource.`,
 		Exposed:        true,
 		Name:           "resourceStatus",
@@ -600,10 +595,9 @@ not apply to other resource types.`,
 		Type:           "list",
 	},
 	"resourcestatus": {
-		AllowedChoices: []string{"All", "Active", "Inactive"},
+		AllowedChoices: []string{"Active", "Inactive"},
 		BSONFieldName:  "resourcestatus",
 		ConvertedName:  "ResourceStatus",
-		DefaultValue:   CloudNetworkQueryFilterResourceStatusAll,
 		Description:    `The status of the resource.`,
 		Exposed:        true,
 		Name:           "resourceStatus",

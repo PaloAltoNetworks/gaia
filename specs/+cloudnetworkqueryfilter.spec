@@ -96,10 +96,9 @@ attributes:
     exposed: true
     stored: true
     allowed_choices:
-    - All
     - Active
     - Inactive
-    default_value: All
+    example_value: Active
 
   - name: resourceType
     description: |-

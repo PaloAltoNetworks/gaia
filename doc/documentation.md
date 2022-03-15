@@ -11612,7 +11612,7 @@ permissions request.
   "regions": [
     "us-west-1"
   ],
-  "resourceStatus": "All",
+  "resourceStatus": "Active",
   "resourceType": "Instance"
 }
 ```
@@ -11674,15 +11674,9 @@ The region that the search must apply to.
 
 ##### `resourceStatus`
 
-Type: `enum(All | Active | Inactive)`
+Type: `enum(Active | Inactive)`
 
 The status of the resource.
-
-Default value:
-
-```json
-"All"
-```
 
 ##### `resourceType` [`required`]
 
