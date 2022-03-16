@@ -163,9 +163,6 @@ type CachedFlowReport struct {
 	// Identifier of the destination controller.
 	DestinationController string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"b,omitempty" mapstructure:"destinationController,omitempty"`
 
-	// Closest external network that matches destination IP.
-	DestinationExternalNetworkID string `json:"destinationExternalNetworkID,omitempty" msgpack:"destinationExternalNetworkID,omitempty" bson:"ao,omitempty" mapstructure:"destinationExternalNetworkID,omitempty"`
-
 	// Destination fully qualified domain name (FQDN), if known.
 	DestinationFQDN string `json:"destinationFQDN,omitempty" msgpack:"destinationFQDN,omitempty" bson:"am,omitempty" mapstructure:"destinationFQDN,omitempty"`
 
@@ -270,9 +267,6 @@ type CachedFlowReport struct {
 	// Identifier of the source controller.
 	SourceController string `json:"sourceController,omitempty" msgpack:"sourceController,omitempty" bson:"aa,omitempty" mapstructure:"sourceController,omitempty"`
 
-	// Closest external network that matches source IP.
-	SourceExternalNetworkID string `json:"sourceExternalNetworkID,omitempty" msgpack:"sourceExternalNetworkID,omitempty" bson:"ap,omitempty" mapstructure:"sourceExternalNetworkID,omitempty"`
-
 	// ID of the source.
 	SourceID string `json:"sourceID,omitempty" msgpack:"sourceID,omitempty" bson:"ab,omitempty" mapstructure:"sourceID,omitempty"`
 
@@ -310,9 +304,9 @@ func NewCachedFlowReport() *CachedFlowReport {
 
 	return &CachedFlowReport{
 		ModelVersion:   1,
-		MigrationsLog:  map[string]string{},
-		ServiceType:    CachedFlowReportServiceTypeNotApplicable,
 		ObservedAction: CachedFlowReportObservedActionNotApplicable,
+		ServiceType:    CachedFlowReportServiceTypeNotApplicable,
+		MigrationsLog:  map[string]string{},
 	}
 }
 
@@ -349,7 +343,6 @@ func (o *CachedFlowReport) GetBSON() (interface{}, error) {
 	}
 	s.Action = o.Action
 	s.DestinationController = o.DestinationController
-	s.DestinationExternalNetworkID = o.DestinationExternalNetworkID
 	s.DestinationFQDN = o.DestinationFQDN
 	s.DestinationID = o.DestinationID
 	s.DestinationIP = o.DestinationIP
@@ -383,7 +376,6 @@ func (o *CachedFlowReport) GetBSON() (interface{}, error) {
 	s.ServiceType = o.ServiceType
 	s.ServiceURL = o.ServiceURL
 	s.SourceController = o.SourceController
-	s.SourceExternalNetworkID = o.SourceExternalNetworkID
 	s.SourceID = o.SourceID
 	s.SourceIP = o.SourceIP
 	s.SourceNamespace = o.SourceNamespace
@@ -413,7 +405,6 @@ func (o *CachedFlowReport) SetBSON(raw bson.Raw) error {
 	o.ID = s.ID.Hex()
 	o.Action = s.Action
 	o.DestinationController = s.DestinationController
-	o.DestinationExternalNetworkID = s.DestinationExternalNetworkID
 	o.DestinationFQDN = s.DestinationFQDN
 	o.DestinationID = s.DestinationID
 	o.DestinationIP = s.DestinationIP
@@ -447,7 +438,6 @@ func (o *CachedFlowReport) SetBSON(raw bson.Raw) error {
 	o.ServiceType = s.ServiceType
 	o.ServiceURL = s.ServiceURL
 	o.SourceController = s.SourceController
-	o.SourceExternalNetworkID = s.SourceExternalNetworkID
 	o.SourceID = s.SourceID
 	o.SourceIP = s.SourceIP
 	o.SourceNamespace = s.SourceNamespace
@@ -533,53 +523,51 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseCachedFlowReport{
-			ID:                           &o.ID,
-			Action:                       &o.Action,
-			DestinationController:        &o.DestinationController,
-			DestinationExternalNetworkID: &o.DestinationExternalNetworkID,
-			DestinationFQDN:              &o.DestinationFQDN,
-			DestinationID:                &o.DestinationID,
-			DestinationIP:                &o.DestinationIP,
-			DestinationNamespace:         &o.DestinationNamespace,
-			DestinationPlatform:          &o.DestinationPlatform,
-			DestinationPort:              &o.DestinationPort,
-			DestinationType:              &o.DestinationType,
-			DropReason:                   &o.DropReason,
-			Encrypted:                    &o.Encrypted,
-			EnforcerDNSReportID:          &o.EnforcerDNSReportID,
-			EnforcerID:                   &o.EnforcerID,
-			IsLocalDestinationID:         &o.IsLocalDestinationID,
-			IsLocalSourceID:              &o.IsLocalSourceID,
-			MigrationsLog:                &o.MigrationsLog,
-			Namespace:                    &o.Namespace,
-			Observed:                     &o.Observed,
-			ObservedAction:               &o.ObservedAction,
-			ObservedDropReason:           &o.ObservedDropReason,
-			ObservedEncrypted:            &o.ObservedEncrypted,
-			ObservedPolicyID:             &o.ObservedPolicyID,
-			ObservedPolicyNamespace:      &o.ObservedPolicyNamespace,
-			PolicyID:                     &o.PolicyID,
-			PolicyNamespace:              &o.PolicyNamespace,
-			Protocol:                     &o.Protocol,
-			RemoteNamespace:              &o.RemoteNamespace,
-			RemotePolicyID:               &o.RemotePolicyID,
-			RuleName:                     &o.RuleName,
-			ServiceClaimHash:             &o.ServiceClaimHash,
-			ServiceID:                    &o.ServiceID,
-			ServiceNamespace:             &o.ServiceNamespace,
-			ServiceType:                  &o.ServiceType,
-			ServiceURL:                   &o.ServiceURL,
-			SourceController:             &o.SourceController,
-			SourceExternalNetworkID:      &o.SourceExternalNetworkID,
-			SourceID:                     &o.SourceID,
-			SourceIP:                     &o.SourceIP,
-			SourceNamespace:              &o.SourceNamespace,
-			SourcePlatform:               &o.SourcePlatform,
-			SourceType:                   &o.SourceType,
-			Timestamp:                    &o.Timestamp,
-			Value:                        &o.Value,
-			ZHash:                        &o.ZHash,
-			Zone:                         &o.Zone,
+			ID:                      &o.ID,
+			Action:                  &o.Action,
+			DestinationController:   &o.DestinationController,
+			DestinationFQDN:         &o.DestinationFQDN,
+			DestinationID:           &o.DestinationID,
+			DestinationIP:           &o.DestinationIP,
+			DestinationNamespace:    &o.DestinationNamespace,
+			DestinationPlatform:     &o.DestinationPlatform,
+			DestinationPort:         &o.DestinationPort,
+			DestinationType:         &o.DestinationType,
+			DropReason:              &o.DropReason,
+			Encrypted:               &o.Encrypted,
+			EnforcerDNSReportID:     &o.EnforcerDNSReportID,
+			EnforcerID:              &o.EnforcerID,
+			IsLocalDestinationID:    &o.IsLocalDestinationID,
+			IsLocalSourceID:         &o.IsLocalSourceID,
+			MigrationsLog:           &o.MigrationsLog,
+			Namespace:               &o.Namespace,
+			Observed:                &o.Observed,
+			ObservedAction:          &o.ObservedAction,
+			ObservedDropReason:      &o.ObservedDropReason,
+			ObservedEncrypted:       &o.ObservedEncrypted,
+			ObservedPolicyID:        &o.ObservedPolicyID,
+			ObservedPolicyNamespace: &o.ObservedPolicyNamespace,
+			PolicyID:                &o.PolicyID,
+			PolicyNamespace:         &o.PolicyNamespace,
+			Protocol:                &o.Protocol,
+			RemoteNamespace:         &o.RemoteNamespace,
+			RemotePolicyID:          &o.RemotePolicyID,
+			RuleName:                &o.RuleName,
+			ServiceClaimHash:        &o.ServiceClaimHash,
+			ServiceID:               &o.ServiceID,
+			ServiceNamespace:        &o.ServiceNamespace,
+			ServiceType:             &o.ServiceType,
+			ServiceURL:              &o.ServiceURL,
+			SourceController:        &o.SourceController,
+			SourceID:                &o.SourceID,
+			SourceIP:                &o.SourceIP,
+			SourceNamespace:         &o.SourceNamespace,
+			SourcePlatform:          &o.SourcePlatform,
+			SourceType:              &o.SourceType,
+			Timestamp:               &o.Timestamp,
+			Value:                   &o.Value,
+			ZHash:                   &o.ZHash,
+			Zone:                    &o.Zone,
 		}
 	}
 
@@ -592,8 +580,6 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.Action = &(o.Action)
 		case "destinationController":
 			sp.DestinationController = &(o.DestinationController)
-		case "destinationExternalNetworkID":
-			sp.DestinationExternalNetworkID = &(o.DestinationExternalNetworkID)
 		case "destinationFQDN":
 			sp.DestinationFQDN = &(o.DestinationFQDN)
 		case "destinationID":
@@ -660,8 +646,6 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.ServiceURL = &(o.ServiceURL)
 		case "sourceController":
 			sp.SourceController = &(o.SourceController)
-		case "sourceExternalNetworkID":
-			sp.SourceExternalNetworkID = &(o.SourceExternalNetworkID)
 		case "sourceID":
 			sp.SourceID = &(o.SourceID)
 		case "sourceIP":
@@ -701,9 +685,6 @@ func (o *CachedFlowReport) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.DestinationController != nil {
 		o.DestinationController = *so.DestinationController
-	}
-	if so.DestinationExternalNetworkID != nil {
-		o.DestinationExternalNetworkID = *so.DestinationExternalNetworkID
 	}
 	if so.DestinationFQDN != nil {
 		o.DestinationFQDN = *so.DestinationFQDN
@@ -803,9 +784,6 @@ func (o *CachedFlowReport) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.SourceController != nil {
 		o.SourceController = *so.SourceController
-	}
-	if so.SourceExternalNetworkID != nil {
-		o.SourceExternalNetworkID = *so.SourceExternalNetworkID
 	}
 	if so.SourceID != nil {
 		o.SourceID = *so.SourceID
@@ -967,8 +945,6 @@ func (o *CachedFlowReport) ValueForAttribute(name string) interface{} {
 		return o.Action
 	case "destinationController":
 		return o.DestinationController
-	case "destinationExternalNetworkID":
-		return o.DestinationExternalNetworkID
 	case "destinationFQDN":
 		return o.DestinationFQDN
 	case "destinationID":
@@ -1035,8 +1011,6 @@ func (o *CachedFlowReport) ValueForAttribute(name string) interface{} {
 		return o.ServiceURL
 	case "sourceController":
 		return o.SourceController
-	case "sourceExternalNetworkID":
-		return o.SourceExternalNetworkID
 	case "sourceID":
 		return o.SourceID
 	case "sourceIP":
@@ -1095,16 +1069,6 @@ var CachedFlowReportAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `Identifier of the destination controller.`,
 		Exposed:        true,
 		Name:           "destinationController",
-		Stored:         true,
-		Type:           "string",
-	},
-	"DestinationExternalNetworkID": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "ao",
-		ConvertedName:  "DestinationExternalNetworkID",
-		Description:    `Closest external network that matches destination IP.`,
-		Exposed:        true,
-		Name:           "destinationExternalNetworkID",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1454,16 +1418,6 @@ NetworkRuleSetPolicy that acted on the flow.`,
 		Stored:         true,
 		Type:           "string",
 	},
-	"SourceExternalNetworkID": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "ap",
-		ConvertedName:  "SourceExternalNetworkID",
-		Description:    `Closest external network that matches source IP.`,
-		Exposed:        true,
-		Name:           "sourceExternalNetworkID",
-		Stored:         true,
-		Type:           "string",
-	},
 	"SourceID": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "ab",
@@ -1605,16 +1559,6 @@ var CachedFlowReportLowerCaseAttributesMap = map[string]elemental.AttributeSpeci
 		Description:    `Identifier of the destination controller.`,
 		Exposed:        true,
 		Name:           "destinationController",
-		Stored:         true,
-		Type:           "string",
-	},
-	"destinationexternalnetworkid": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "ao",
-		ConvertedName:  "DestinationExternalNetworkID",
-		Description:    `Closest external network that matches destination IP.`,
-		Exposed:        true,
-		Name:           "destinationExternalNetworkID",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1964,16 +1908,6 @@ NetworkRuleSetPolicy that acted on the flow.`,
 		Stored:         true,
 		Type:           "string",
 	},
-	"sourceexternalnetworkid": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "ap",
-		ConvertedName:  "SourceExternalNetworkID",
-		Description:    `Closest external network that matches source IP.`,
-		Exposed:        true,
-		Name:           "sourceExternalNetworkID",
-		Stored:         true,
-		Type:           "string",
-	},
 	"sourceid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "ab",
@@ -2152,9 +2086,6 @@ type SparseCachedFlowReport struct {
 	// Identifier of the destination controller.
 	DestinationController *string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"b,omitempty" mapstructure:"destinationController,omitempty"`
 
-	// Closest external network that matches destination IP.
-	DestinationExternalNetworkID *string `json:"destinationExternalNetworkID,omitempty" msgpack:"destinationExternalNetworkID,omitempty" bson:"ao,omitempty" mapstructure:"destinationExternalNetworkID,omitempty"`
-
 	// Destination fully qualified domain name (FQDN), if known.
 	DestinationFQDN *string `json:"destinationFQDN,omitempty" msgpack:"destinationFQDN,omitempty" bson:"am,omitempty" mapstructure:"destinationFQDN,omitempty"`
 
@@ -2259,9 +2190,6 @@ type SparseCachedFlowReport struct {
 	// Identifier of the source controller.
 	SourceController *string `json:"sourceController,omitempty" msgpack:"sourceController,omitempty" bson:"aa,omitempty" mapstructure:"sourceController,omitempty"`
 
-	// Closest external network that matches source IP.
-	SourceExternalNetworkID *string `json:"sourceExternalNetworkID,omitempty" msgpack:"sourceExternalNetworkID,omitempty" bson:"ap,omitempty" mapstructure:"sourceExternalNetworkID,omitempty"`
-
 	// ID of the source.
 	SourceID *string `json:"sourceID,omitempty" msgpack:"sourceID,omitempty" bson:"ab,omitempty" mapstructure:"sourceID,omitempty"`
 
@@ -2342,9 +2270,6 @@ func (o *SparseCachedFlowReport) GetBSON() (interface{}, error) {
 	}
 	if o.DestinationController != nil {
 		s.DestinationController = o.DestinationController
-	}
-	if o.DestinationExternalNetworkID != nil {
-		s.DestinationExternalNetworkID = o.DestinationExternalNetworkID
 	}
 	if o.DestinationFQDN != nil {
 		s.DestinationFQDN = o.DestinationFQDN
@@ -2445,9 +2370,6 @@ func (o *SparseCachedFlowReport) GetBSON() (interface{}, error) {
 	if o.SourceController != nil {
 		s.SourceController = o.SourceController
 	}
-	if o.SourceExternalNetworkID != nil {
-		s.SourceExternalNetworkID = o.SourceExternalNetworkID
-	}
 	if o.SourceID != nil {
 		s.SourceID = o.SourceID
 	}
@@ -2499,9 +2421,6 @@ func (o *SparseCachedFlowReport) SetBSON(raw bson.Raw) error {
 	}
 	if s.DestinationController != nil {
 		o.DestinationController = s.DestinationController
-	}
-	if s.DestinationExternalNetworkID != nil {
-		o.DestinationExternalNetworkID = s.DestinationExternalNetworkID
 	}
 	if s.DestinationFQDN != nil {
 		o.DestinationFQDN = s.DestinationFQDN
@@ -2602,9 +2521,6 @@ func (o *SparseCachedFlowReport) SetBSON(raw bson.Raw) error {
 	if s.SourceController != nil {
 		o.SourceController = s.SourceController
 	}
-	if s.SourceExternalNetworkID != nil {
-		o.SourceExternalNetworkID = s.SourceExternalNetworkID
-	}
 	if s.SourceID != nil {
 		o.SourceID = s.SourceID
 	}
@@ -2654,9 +2570,6 @@ func (o *SparseCachedFlowReport) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.DestinationController != nil {
 		out.DestinationController = *o.DestinationController
-	}
-	if o.DestinationExternalNetworkID != nil {
-		out.DestinationExternalNetworkID = *o.DestinationExternalNetworkID
 	}
 	if o.DestinationFQDN != nil {
 		out.DestinationFQDN = *o.DestinationFQDN
@@ -2756,9 +2669,6 @@ func (o *SparseCachedFlowReport) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.SourceController != nil {
 		out.SourceController = *o.SourceController
-	}
-	if o.SourceExternalNetworkID != nil {
-		out.SourceExternalNetworkID = *o.SourceExternalNetworkID
 	}
 	if o.SourceID != nil {
 		out.SourceID = *o.SourceID
@@ -2864,100 +2774,96 @@ func (o *SparseCachedFlowReport) DeepCopyInto(out *SparseCachedFlowReport) {
 }
 
 type mongoAttributesCachedFlowReport struct {
-	ID                           bson.ObjectId                        `bson:"_id,omitempty"`
-	Action                       CachedFlowReportActionValue          `bson:"a,omitempty"`
-	DestinationController        string                               `bson:"b,omitempty"`
-	DestinationExternalNetworkID string                               `bson:"ao,omitempty"`
-	DestinationFQDN              string                               `bson:"am,omitempty"`
-	DestinationID                string                               `bson:"c,omitempty"`
-	DestinationIP                string                               `bson:"d,omitempty"`
-	DestinationNamespace         string                               `bson:"e,omitempty"`
-	DestinationPlatform          string                               `bson:"f,omitempty"`
-	DestinationPort              int                                  `bson:"g,omitempty"`
-	DestinationType              CachedFlowReportDestinationTypeValue `bson:"h,omitempty"`
-	DropReason                   string                               `bson:"i,omitempty"`
-	Encrypted                    bool                                 `bson:"j,omitempty"`
-	EnforcerDNSReportID          string                               `bson:"an,omitempty"`
-	EnforcerID                   string                               `bson:"ak,omitempty"`
-	IsLocalDestinationID         bool                                 `bson:"ai,omitempty"`
-	IsLocalSourceID              bool                                 `bson:"aj,omitempty"`
-	MigrationsLog                map[string]string                    `bson:"migrationslog,omitempty"`
-	Namespace                    string                               `bson:"k,omitempty"`
-	Observed                     bool                                 `bson:"l,omitempty"`
-	ObservedAction               CachedFlowReportObservedActionValue  `bson:"m,omitempty"`
-	ObservedDropReason           string                               `bson:"n,omitempty"`
-	ObservedEncrypted            bool                                 `bson:"o,omitempty"`
-	ObservedPolicyID             string                               `bson:"p,omitempty"`
-	ObservedPolicyNamespace      string                               `bson:"q,omitempty"`
-	PolicyID                     string                               `bson:"r,omitempty"`
-	PolicyNamespace              string                               `bson:"s,omitempty"`
-	Protocol                     int                                  `bson:"t,omitempty"`
-	RemoteNamespace              string                               `bson:"u,omitempty"`
-	RemotePolicyID               string                               `bson:"al,omitempty"`
-	RuleName                     string                               `bson:"ba,omitempty"`
-	ServiceClaimHash             string                               `bson:"v,omitempty"`
-	ServiceID                    string                               `bson:"w,omitempty"`
-	ServiceNamespace             string                               `bson:"x,omitempty"`
-	ServiceType                  CachedFlowReportServiceTypeValue     `bson:"y,omitempty"`
-	ServiceURL                   string                               `bson:"z,omitempty"`
-	SourceController             string                               `bson:"aa,omitempty"`
-	SourceExternalNetworkID      string                               `bson:"ap,omitempty"`
-	SourceID                     string                               `bson:"ab,omitempty"`
-	SourceIP                     string                               `bson:"ac,omitempty"`
-	SourceNamespace              string                               `bson:"ad,omitempty"`
-	SourcePlatform               string                               `bson:"ae,omitempty"`
-	SourceType                   CachedFlowReportSourceTypeValue      `bson:"af,omitempty"`
-	Timestamp                    time.Time                            `bson:"ag,omitempty"`
-	Value                        int                                  `bson:"ah,omitempty"`
-	ZHash                        int                                  `bson:"zhash"`
-	Zone                         int                                  `bson:"zone"`
+	ID                      bson.ObjectId                        `bson:"_id,omitempty"`
+	Action                  CachedFlowReportActionValue          `bson:"a,omitempty"`
+	DestinationController   string                               `bson:"b,omitempty"`
+	DestinationFQDN         string                               `bson:"am,omitempty"`
+	DestinationID           string                               `bson:"c,omitempty"`
+	DestinationIP           string                               `bson:"d,omitempty"`
+	DestinationNamespace    string                               `bson:"e,omitempty"`
+	DestinationPlatform     string                               `bson:"f,omitempty"`
+	DestinationPort         int                                  `bson:"g,omitempty"`
+	DestinationType         CachedFlowReportDestinationTypeValue `bson:"h,omitempty"`
+	DropReason              string                               `bson:"i,omitempty"`
+	Encrypted               bool                                 `bson:"j,omitempty"`
+	EnforcerDNSReportID     string                               `bson:"an,omitempty"`
+	EnforcerID              string                               `bson:"ak,omitempty"`
+	IsLocalDestinationID    bool                                 `bson:"ai,omitempty"`
+	IsLocalSourceID         bool                                 `bson:"aj,omitempty"`
+	MigrationsLog           map[string]string                    `bson:"migrationslog,omitempty"`
+	Namespace               string                               `bson:"k,omitempty"`
+	Observed                bool                                 `bson:"l,omitempty"`
+	ObservedAction          CachedFlowReportObservedActionValue  `bson:"m,omitempty"`
+	ObservedDropReason      string                               `bson:"n,omitempty"`
+	ObservedEncrypted       bool                                 `bson:"o,omitempty"`
+	ObservedPolicyID        string                               `bson:"p,omitempty"`
+	ObservedPolicyNamespace string                               `bson:"q,omitempty"`
+	PolicyID                string                               `bson:"r,omitempty"`
+	PolicyNamespace         string                               `bson:"s,omitempty"`
+	Protocol                int                                  `bson:"t,omitempty"`
+	RemoteNamespace         string                               `bson:"u,omitempty"`
+	RemotePolicyID          string                               `bson:"al,omitempty"`
+	RuleName                string                               `bson:"ba,omitempty"`
+	ServiceClaimHash        string                               `bson:"v,omitempty"`
+	ServiceID               string                               `bson:"w,omitempty"`
+	ServiceNamespace        string                               `bson:"x,omitempty"`
+	ServiceType             CachedFlowReportServiceTypeValue     `bson:"y,omitempty"`
+	ServiceURL              string                               `bson:"z,omitempty"`
+	SourceController        string                               `bson:"aa,omitempty"`
+	SourceID                string                               `bson:"ab,omitempty"`
+	SourceIP                string                               `bson:"ac,omitempty"`
+	SourceNamespace         string                               `bson:"ad,omitempty"`
+	SourcePlatform          string                               `bson:"ae,omitempty"`
+	SourceType              CachedFlowReportSourceTypeValue      `bson:"af,omitempty"`
+	Timestamp               time.Time                            `bson:"ag,omitempty"`
+	Value                   int                                  `bson:"ah,omitempty"`
+	ZHash                   int                                  `bson:"zhash"`
+	Zone                    int                                  `bson:"zone"`
 }
 type mongoAttributesSparseCachedFlowReport struct {
-	ID                           bson.ObjectId                         `bson:"_id,omitempty"`
-	Action                       *CachedFlowReportActionValue          `bson:"a,omitempty"`
-	DestinationController        *string                               `bson:"b,omitempty"`
-	DestinationExternalNetworkID *string                               `bson:"ao,omitempty"`
-	DestinationFQDN              *string                               `bson:"am,omitempty"`
-	DestinationID                *string                               `bson:"c,omitempty"`
-	DestinationIP                *string                               `bson:"d,omitempty"`
-	DestinationNamespace         *string                               `bson:"e,omitempty"`
-	DestinationPlatform          *string                               `bson:"f,omitempty"`
-	DestinationPort              *int                                  `bson:"g,omitempty"`
-	DestinationType              *CachedFlowReportDestinationTypeValue `bson:"h,omitempty"`
-	DropReason                   *string                               `bson:"i,omitempty"`
-	Encrypted                    *bool                                 `bson:"j,omitempty"`
-	EnforcerDNSReportID          *string                               `bson:"an,omitempty"`
-	EnforcerID                   *string                               `bson:"ak,omitempty"`
-	IsLocalDestinationID         *bool                                 `bson:"ai,omitempty"`
-	IsLocalSourceID              *bool                                 `bson:"aj,omitempty"`
-	MigrationsLog                *map[string]string                    `bson:"migrationslog,omitempty"`
-	Namespace                    *string                               `bson:"k,omitempty"`
-	Observed                     *bool                                 `bson:"l,omitempty"`
-	ObservedAction               *CachedFlowReportObservedActionValue  `bson:"m,omitempty"`
-	ObservedDropReason           *string                               `bson:"n,omitempty"`
-	ObservedEncrypted            *bool                                 `bson:"o,omitempty"`
-	ObservedPolicyID             *string                               `bson:"p,omitempty"`
-	ObservedPolicyNamespace      *string                               `bson:"q,omitempty"`
-	PolicyID                     *string                               `bson:"r,omitempty"`
-	PolicyNamespace              *string                               `bson:"s,omitempty"`
-	Protocol                     *int                                  `bson:"t,omitempty"`
-	RemoteNamespace              *string                               `bson:"u,omitempty"`
-	RemotePolicyID               *string                               `bson:"al,omitempty"`
-	RuleName                     *string                               `bson:"ba,omitempty"`
-	ServiceClaimHash             *string                               `bson:"v,omitempty"`
-	ServiceID                    *string                               `bson:"w,omitempty"`
-	ServiceNamespace             *string                               `bson:"x,omitempty"`
-	ServiceType                  *CachedFlowReportServiceTypeValue     `bson:"y,omitempty"`
-	ServiceURL                   *string                               `bson:"z,omitempty"`
-	SourceController             *string                               `bson:"aa,omitempty"`
-	SourceExternalNetworkID      *string                               `bson:"ap,omitempty"`
-	SourceID                     *string                               `bson:"ab,omitempty"`
-	SourceIP                     *string                               `bson:"ac,omitempty"`
-	SourceNamespace              *string                               `bson:"ad,omitempty"`
-	SourcePlatform               *string                               `bson:"ae,omitempty"`
-	SourceType                   *CachedFlowReportSourceTypeValue      `bson:"af,omitempty"`
-	Timestamp                    *time.Time                            `bson:"ag,omitempty"`
-	Value                        *int                                  `bson:"ah,omitempty"`
-	ZHash                        *int                                  `bson:"zhash,omitempty"`
-	Zone                         *int                                  `bson:"zone,omitempty"`
+	ID                      bson.ObjectId                         `bson:"_id,omitempty"`
+	Action                  *CachedFlowReportActionValue          `bson:"a,omitempty"`
+	DestinationController   *string                               `bson:"b,omitempty"`
+	DestinationFQDN         *string                               `bson:"am,omitempty"`
+	DestinationID           *string                               `bson:"c,omitempty"`
+	DestinationIP           *string                               `bson:"d,omitempty"`
+	DestinationNamespace    *string                               `bson:"e,omitempty"`
+	DestinationPlatform     *string                               `bson:"f,omitempty"`
+	DestinationPort         *int                                  `bson:"g,omitempty"`
+	DestinationType         *CachedFlowReportDestinationTypeValue `bson:"h,omitempty"`
+	DropReason              *string                               `bson:"i,omitempty"`
+	Encrypted               *bool                                 `bson:"j,omitempty"`
+	EnforcerDNSReportID     *string                               `bson:"an,omitempty"`
+	EnforcerID              *string                               `bson:"ak,omitempty"`
+	IsLocalDestinationID    *bool                                 `bson:"ai,omitempty"`
+	IsLocalSourceID         *bool                                 `bson:"aj,omitempty"`
+	MigrationsLog           *map[string]string                    `bson:"migrationslog,omitempty"`
+	Namespace               *string                               `bson:"k,omitempty"`
+	Observed                *bool                                 `bson:"l,omitempty"`
+	ObservedAction          *CachedFlowReportObservedActionValue  `bson:"m,omitempty"`
+	ObservedDropReason      *string                               `bson:"n,omitempty"`
+	ObservedEncrypted       *bool                                 `bson:"o,omitempty"`
+	ObservedPolicyID        *string                               `bson:"p,omitempty"`
+	ObservedPolicyNamespace *string                               `bson:"q,omitempty"`
+	PolicyID                *string                               `bson:"r,omitempty"`
+	PolicyNamespace         *string                               `bson:"s,omitempty"`
+	Protocol                *int                                  `bson:"t,omitempty"`
+	RemoteNamespace         *string                               `bson:"u,omitempty"`
+	RemotePolicyID          *string                               `bson:"al,omitempty"`
+	RuleName                *string                               `bson:"ba,omitempty"`
+	ServiceClaimHash        *string                               `bson:"v,omitempty"`
+	ServiceID               *string                               `bson:"w,omitempty"`
+	ServiceNamespace        *string                               `bson:"x,omitempty"`
+	ServiceType             *CachedFlowReportServiceTypeValue     `bson:"y,omitempty"`
+	ServiceURL              *string                               `bson:"z,omitempty"`
+	SourceController        *string                               `bson:"aa,omitempty"`
+	SourceID                *string                               `bson:"ab,omitempty"`
+	SourceIP                *string                               `bson:"ac,omitempty"`
+	SourceNamespace         *string                               `bson:"ad,omitempty"`
+	SourcePlatform          *string                               `bson:"ae,omitempty"`
+	SourceType              *CachedFlowReportSourceTypeValue      `bson:"af,omitempty"`
+	Timestamp               *time.Time                            `bson:"ag,omitempty"`
+	Value                   *int                                  `bson:"ah,omitempty"`
+	ZHash                   *int                                  `bson:"zhash,omitempty"`
+	Zone                    *int                                  `bson:"zone,omitempty"`
 }
