@@ -47,6 +47,9 @@ const (
 	// CloudEndpointDataTypePeeringConnection represents the value PeeringConnection.
 	CloudEndpointDataTypePeeringConnection CloudEndpointDataTypeValue = "PeeringConnection"
 
+	// CloudEndpointDataTypePublicIPAddress represents the value PublicIPAddress.
+	CloudEndpointDataTypePublicIPAddress CloudEndpointDataTypeValue = "PublicIPAddress"
+
 	// CloudEndpointDataTypeService represents the value Service.
 	CloudEndpointDataTypeService CloudEndpointDataTypeValue = "Service"
 
@@ -221,7 +224,7 @@ func (o *CloudEndpointData) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Instance", "LoadBalancer", "PeeringConnection", "Service", "Gateway", "TransitGateway", "NATGateway"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Instance", "LoadBalancer", "PeeringConnection", "Service", "Gateway", "TransitGateway", "NATGateway", "PublicIPAddress"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -403,7 +406,7 @@ Balancer).`,
 		Type:    "enum",
 	},
 	"Type": {
-		AllowedChoices: []string{"Instance", "LoadBalancer", "PeeringConnection", "Service", "Gateway", "TransitGateway", "NATGateway"},
+		AllowedChoices: []string{"Instance", "LoadBalancer", "PeeringConnection", "Service", "Gateway", "TransitGateway", "NATGateway", "PublicIPAddress"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
@@ -532,7 +535,7 @@ Balancer).`,
 		Type:    "enum",
 	},
 	"type": {
-		AllowedChoices: []string{"Instance", "LoadBalancer", "PeeringConnection", "Service", "Gateway", "TransitGateway", "NATGateway"},
+		AllowedChoices: []string{"Instance", "LoadBalancer", "PeeringConnection", "Service", "Gateway", "TransitGateway", "NATGateway", "PublicIPAddress"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,

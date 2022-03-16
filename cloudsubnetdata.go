@@ -16,6 +16,12 @@ type CloudSubnetData struct {
 	// Address CIDR of the Subnet.
 	Address string `json:"address" msgpack:"address" bson:"address" mapstructure:"address,omitempty"`
 
+	// Route Table associated with the subnet.
+	RouteTableID string `json:"routeTableID" msgpack:"routeTableID" bson:"routetableid" mapstructure:"routeTableID,omitempty"`
+
+	// Security tags associated with the instance.
+	SecurityTags []string `json:"securityTags" msgpack:"securityTags" bson:"securitytags" mapstructure:"securityTags,omitempty"`
+
 	// The availability zone ID of the subnet.
 	ZoneID string `json:"zoneID" msgpack:"zoneID" bson:"zoneid" mapstructure:"zoneID,omitempty"`
 
@@ -30,6 +36,7 @@ func NewCloudSubnetData() *CloudSubnetData {
 
 	return &CloudSubnetData{
 		ModelVersion: 1,
+		SecurityTags: []string{},
 	}
 }
 
@@ -44,6 +51,8 @@ func (o *CloudSubnetData) GetBSON() (interface{}, error) {
 	s := &mongoAttributesCloudSubnetData{}
 
 	s.Address = o.Address
+	s.RouteTableID = o.RouteTableID
+	s.SecurityTags = o.SecurityTags
 	s.ZoneID = o.ZoneID
 	s.ZoneName = o.ZoneName
 
@@ -64,6 +73,8 @@ func (o *CloudSubnetData) SetBSON(raw bson.Raw) error {
 	}
 
 	o.Address = s.Address
+	o.RouteTableID = s.RouteTableID
+	o.SecurityTags = s.SecurityTags
 	o.ZoneID = s.ZoneID
 	o.ZoneName = s.ZoneName
 
@@ -150,6 +161,10 @@ func (o *CloudSubnetData) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "address":
 		return o.Address
+	case "routeTableID":
+		return o.RouteTableID
+	case "securityTags":
+		return o.SecurityTags
 	case "zoneID":
 		return o.ZoneID
 	case "zoneName":
@@ -171,6 +186,27 @@ var CloudSubnetDataAttributesMap = map[string]elemental.AttributeSpecification{
 		Required:       true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"RouteTableID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "routetableid",
+		ConvertedName:  "RouteTableID",
+		Description:    `Route Table associated with the subnet.`,
+		Exposed:        true,
+		Name:           "routeTableID",
+		Stored:         true,
+		Type:           "string",
+	},
+	"SecurityTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "securitytags",
+		ConvertedName:  "SecurityTags",
+		Description:    `Security tags associated with the instance.`,
+		Exposed:        true,
+		Name:           "securityTags",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
 	},
 	"ZoneID": {
 		AllowedChoices: []string{},
@@ -207,6 +243,27 @@ var CloudSubnetDataLowerCaseAttributesMap = map[string]elemental.AttributeSpecif
 		Stored:         true,
 		Type:           "string",
 	},
+	"routetableid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "routetableid",
+		ConvertedName:  "RouteTableID",
+		Description:    `Route Table associated with the subnet.`,
+		Exposed:        true,
+		Name:           "routeTableID",
+		Stored:         true,
+		Type:           "string",
+	},
+	"securitytags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "securitytags",
+		ConvertedName:  "SecurityTags",
+		Description:    `Security tags associated with the instance.`,
+		Exposed:        true,
+		Name:           "securityTags",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"zoneid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "zoneid",
@@ -230,7 +287,9 @@ var CloudSubnetDataLowerCaseAttributesMap = map[string]elemental.AttributeSpecif
 }
 
 type mongoAttributesCloudSubnetData struct {
-	Address  string `bson:"address"`
-	ZoneID   string `bson:"zoneid"`
-	ZoneName string `bson:"zonename"`
+	Address      string   `bson:"address"`
+	RouteTableID string   `bson:"routetableid"`
+	SecurityTags []string `bson:"securitytags"`
+	ZoneID       string   `bson:"zoneid"`
+	ZoneName     string   `bson:"zonename"`
 }

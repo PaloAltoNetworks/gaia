@@ -10309,7 +10309,7 @@ Default value:
 
 ##### `type` [`required`]
 
-Type: `enum(Instance | LoadBalancer | PeeringConnection | Service | Gateway | TransitGateway | NATGateway)`
+Type: `enum(Instance | LoadBalancer | PeeringConnection | Service | Gateway | TransitGateway | NATGateway | PublicIPAddress)`
 
 Type of the endpoint.
 
@@ -13177,6 +13177,7 @@ Parameters associated with a subnet.
 ```json
 {
   "address": "10.0.0.0/8",
+  "routeTableID": "rtb-1234567",
   "zoneID": "aws-east",
   "zoneName": "aws-east"
 }
@@ -13189,6 +13190,18 @@ Parameters associated with a subnet.
 Type: `string`
 
 Address CIDR of the Subnet.
+
+##### `routeTableID`
+
+Type: `string`
+
+Route Table associated with the subnet.
+
+##### `securityTags`
+
+Type: `[]string`
+
+Security tags associated with the instance.
 
 ##### `zoneID`
 
