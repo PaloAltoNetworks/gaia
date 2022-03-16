@@ -118,4 +118,5 @@ attributes:
     - Gateway
     - TransitGateway
     - NATGateway
+    - PublicIPAddress
     example_value: Instance
