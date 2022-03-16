@@ -47,6 +47,17 @@ attributes:
     subtype: string
     stored: true
 
+  - name: cloudType
+    description: Cloud type of the entity.
+    type: string
+    exposed: true
+    stored: true
+    example_value: AWS
+    getter: true
+    setter: true
+    orderable: true
+    omit_empty: true
+
   - name: lastExecutionTimestamp
     description: Result of the last execution timestamp.
     type: time
