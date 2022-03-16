@@ -22,8 +22,8 @@ model:
 # Indexes
 indexes:
 - - namespace
-  - type
   - subtype
+  - type
   - vpcid
 - - namespace
   - relatedObjectID
@@ -31,9 +31,6 @@ indexes:
   - securitytags
   - type
   - vpcid
-- - namespace
-  - vpcid
-  - type
 - - namespace
   - vpcid
   - parameters
