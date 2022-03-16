@@ -11,17 +11,6 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// CloudNetworkQueryFilterResourceStatusValue represents the possible values for attribute "resourceStatus".
-type CloudNetworkQueryFilterResourceStatusValue string
-
-const (
-	// CloudNetworkQueryFilterResourceStatusActive represents the value Active.
-	CloudNetworkQueryFilterResourceStatusActive CloudNetworkQueryFilterResourceStatusValue = "Active"
-
-	// CloudNetworkQueryFilterResourceStatusInactive represents the value Inactive.
-	CloudNetworkQueryFilterResourceStatusInactive CloudNetworkQueryFilterResourceStatusValue = "Inactive"
-)
-
 // CloudNetworkQueryFilterResourceTypeValue represents the possible values for attribute "resourceType".
 type CloudNetworkQueryFilterResourceTypeValue string
 
@@ -71,7 +60,7 @@ type CloudNetworkQueryFilter struct {
 	Regions []string `json:"regions,omitempty" msgpack:"regions,omitempty" bson:"regions,omitempty" mapstructure:"regions,omitempty"`
 
 	// The status of the resource.
-	ResourceStatus CloudNetworkQueryFilterResourceStatusValue `json:"resourceStatus" msgpack:"resourceStatus" bson:"resourcestatus" mapstructure:"resourceStatus,omitempty"`
+	ResourceStatus string `json:"resourceStatus" msgpack:"resourceStatus" bson:"resourcestatus" mapstructure:"resourceStatus,omitempty"`
 
 	// The type of endpoint resource. The resource type is a mandatory field and a
 	// query cannot span multiple resource types.
@@ -225,10 +214,6 @@ func (o *CloudNetworkQueryFilter) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
-
-	if err := elemental.ValidateStringInList("resourceStatus", string(o.ResourceStatus), []string{"Active", "Inactive"}, false); err != nil {
-		errors = errors.Append(err)
-	}
 
 	if err := elemental.ValidateRequiredString("resourceType", string(o.ResourceType)); err != nil {
 		requiredErrors = requiredErrors.Append(err)
@@ -403,14 +388,14 @@ not apply to other resource types.`,
 		Type:           "list",
 	},
 	"ResourceStatus": {
-		AllowedChoices: []string{"Active", "Inactive"},
+		AllowedChoices: []string{},
 		BSONFieldName:  "resourcestatus",
 		ConvertedName:  "ResourceStatus",
 		Description:    `The status of the resource.`,
 		Exposed:        true,
 		Name:           "resourceStatus",
 		Stored:         true,
-		Type:           "enum",
+		Type:           "string",
 	},
 	"ResourceType": {
 		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit"},
@@ -595,14 +580,14 @@ not apply to other resource types.`,
 		Type:           "list",
 	},
 	"resourcestatus": {
-		AllowedChoices: []string{"Active", "Inactive"},
+		AllowedChoices: []string{},
 		BSONFieldName:  "resourcestatus",
 		ConvertedName:  "ResourceStatus",
 		Description:    `The status of the resource.`,
 		Exposed:        true,
 		Name:           "resourceStatus",
 		Stored:         true,
-		Type:           "enum",
+		Type:           "string",
 	},
 	"resourcetype": {
 		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit"},
@@ -694,20 +679,20 @@ to the tags attached to the resources in the cloud provider definitions.`,
 }
 
 type mongoAttributesCloudNetworkQueryFilter struct {
-	VPCIDs           []string                                   `bson:"vpcids,omitempty"`
-	AccountIDs       []string                                   `bson:"accountids,omitempty"`
-	CloudTypes       []string                                   `bson:"cloudtypes,omitempty"`
-	ImageIDs         []string                                   `bson:"imageids,omitempty"`
-	ObjectIDs        []string                                   `bson:"objectids,omitempty"`
-	ProductInfoType  string                                     `bson:"productinfotype,omitempty"`
-	ProductInfoValue string                                     `bson:"productinfovalue,omitempty"`
-	Regions          []string                                   `bson:"regions,omitempty"`
-	ResourceStatus   CloudNetworkQueryFilterResourceStatusValue `bson:"resourcestatus"`
-	ResourceType     CloudNetworkQueryFilterResourceTypeValue   `bson:"resourcetype"`
-	SecurityTags     []string                                   `bson:"securitytags,omitempty"`
-	ServiceNames     []string                                   `bson:"servicenames,omitempty"`
-	ServiceOwners    []string                                   `bson:"serviceowners,omitempty"`
-	ServiceTypes     []string                                   `bson:"servicetypes,omitempty"`
-	Subnets          []string                                   `bson:"subnets,omitempty"`
-	Tags             []string                                   `bson:"tags,omitempty"`
+	VPCIDs           []string                                 `bson:"vpcids,omitempty"`
+	AccountIDs       []string                                 `bson:"accountids,omitempty"`
+	CloudTypes       []string                                 `bson:"cloudtypes,omitempty"`
+	ImageIDs         []string                                 `bson:"imageids,omitempty"`
+	ObjectIDs        []string                                 `bson:"objectids,omitempty"`
+	ProductInfoType  string                                   `bson:"productinfotype,omitempty"`
+	ProductInfoValue string                                   `bson:"productinfovalue,omitempty"`
+	Regions          []string                                 `bson:"regions,omitempty"`
+	ResourceStatus   string                                   `bson:"resourcestatus"`
+	ResourceType     CloudNetworkQueryFilterResourceTypeValue `bson:"resourcetype"`
+	SecurityTags     []string                                 `bson:"securitytags,omitempty"`
+	ServiceNames     []string                                 `bson:"servicenames,omitempty"`
+	ServiceOwners    []string                                 `bson:"serviceowners,omitempty"`
+	ServiceTypes     []string                                 `bson:"servicetypes,omitempty"`
+	Subnets          []string                                 `bson:"subnets,omitempty"`
+	Tags             []string                                 `bson:"tags,omitempty"`
 }

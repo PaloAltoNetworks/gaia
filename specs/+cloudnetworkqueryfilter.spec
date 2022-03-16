@@ -92,12 +92,9 @@ attributes:
 
   - name: resourceStatus
     description: The status of the resource.
-    type: enum
+    type: string
     exposed: true
     stored: true
-    allowed_choices:
-    - Active
-    - Inactive
     example_value: Active
 
   - name: resourceType

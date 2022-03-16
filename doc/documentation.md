@@ -11674,7 +11674,7 @@ The region that the search must apply to.
 
 ##### `resourceStatus`
 
-Type: `enum(Active | Inactive)`
+Type: `string`
 
 The status of the resource.
 
