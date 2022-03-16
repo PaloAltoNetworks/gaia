@@ -1,0 +1,90 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cnsrqlquery": {
+        "description": "A CNS endpoint which will generate the RQL query for the given alert-id.",
+        "properties": {
+          "alertID": {
+            "description": "ID of the query request.",
+            "example": "xxxx",
+            "type": "string"
+          },
+          "policyID": {
+            "description": "The policy for which the alert was generated.",
+            "type": "string"
+          },
+          "query": {
+            "description": "The RQL query for the alert.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "valid": {
+            "description": "Whether the response to request is valid.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "alertID"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cnsrqlquery",
+    "version": "1.0"
+  },
+  "paths": {
+    "/cnsrqlquery": {
+      "post": {
+        "description": "Retrieves RQL results for the specified alert.",
+        "operationId": "create-a-new-cnsrqlquery",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cnsrqlquery"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cnsrqlquery"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'vargid'",
+      "name": "vargid"
+    }
+  ]
+}

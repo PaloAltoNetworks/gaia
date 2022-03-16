@@ -1,0 +1,466 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "networkrulesetpolicy": {
+        "description": "Allows you to define network rule sets to allow or prevent processing units\nidentified by their tags to talk to other processing units or external networks\n(also identified by their tags).",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Defines if the property is disabled.",
+            "type": "boolean"
+          },
+          "fallback": {
+            "description": "Indicates that this is fallback policy. It will only be\napplied if no other policies have been resolved. If the policy is also\npropagated it will become a fallback for children namespaces.",
+            "type": "boolean"
+          },
+          "incomingRules": {
+            "description": "The set of rules to apply to incoming traffic (traffic coming to the Processing\nUnit matching the subject).",
+            "items": {
+              "$ref": "./networkrule#/components/schemas/networkrule"
+            },
+            "type": "array"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "outgoingRules": {
+            "description": "The set of rules to apply to outgoing traffic (traffic coming from the\nProcessing Unit matching the subject).",
+            "items": {
+              "$ref": "./networkrule#/components/schemas/networkrule"
+            },
+            "type": "array"
+          },
+          "propagate": {
+            "description": "Propagates the policy to all of its children.",
+            "type": "boolean"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "subject": {
+            "description": "A tag expression identifying used to match processing units to which this policy\napplies to.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "networkrulesetpolicy",
+    "version": "1.0"
+  },
+  "paths": {
+    "/networkrulesetpolicies": {
+      "get": {
+        "description": "Retrieves the list of network rule set policies.",
+        "operationId": "get-all-networkrulesetpolicies",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/networkrulesetpolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new network rule set policy policy.",
+        "operationId": "create-a-new-networkrulesetpolicy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/networkrulesetpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/networkrulesetpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      }
+    },
+    "/networkrulesetpolicies/{id}": {
+      "delete": {
+        "description": "Deletes the policy with the given ID.",
+        "operationId": "delete-networkrulesetpolicy-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/networkrulesetpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the policy with the given ID.",
+        "operationId": "get-networkrulesetpolicy-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/networkrulesetpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the policy with the given ID.",
+        "operationId": "update-networkrulesetpolicy-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/networkrulesetpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/networkrulesetpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      }
+    },
+    "/networkrulesetpolicies/{id}/externalnetworks": {
+      "get": {
+        "description": "Returns the list of external networks affected by a network rule set policy.",
+        "operationId": "get-all-externalnetworks-for-a-given-networkrulesetpolicy",
+        "parameters": [
+          {
+            "description": "Matching mode.",
+            "example": "object",
+            "in": "query",
+            "name": "mode",
+            "schema": {
+              "enum": [
+                "subject",
+                "object"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./externalnetwork#/components/schemas/externalnetwork"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/networkrulesetpolicies/{id}/processingunits": {
+      "get": {
+        "description": "Returns the list of processing units affected by a network rule set policy.",
+        "operationId": "get-all-processingunits-for-a-given-networkrulesetpolicy",
+        "parameters": [
+          {
+            "description": "Matching mode.",
+            "example": "object",
+            "in": "query",
+            "name": "mode",
+            "schema": {
+              "enum": [
+                "subject",
+                "object"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./processingunit#/components/schemas/processingunit"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/networkrulesetpolicies/{id}/services": {
+      "get": {
+        "description": "Returns the list of services affected by a network rule set policy.",
+        "operationId": "get-all-services-for-a-given-networkrulesetpolicy",
+        "parameters": [
+          {
+            "description": "Matching mode.",
+            "example": "object",
+            "in": "query",
+            "name": "mode",
+            "schema": {
+              "enum": [
+                "subject",
+                "object"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./service#/components/schemas/service"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/services",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/networking'",
+      "name": "policy/networking"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

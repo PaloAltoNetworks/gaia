@@ -1,0 +1,182 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "policyrule": {
+        "description": "Allows services to retrieve a policy resolution (internal).",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "action": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "object"
+              },
+              "type": "object"
+            },
+            "description": "Defines set of actions that must be enforced when a dependency is met.",
+            "type": "object"
+          },
+          "auditProfiles": {
+            "deprecated": true,
+            "description": "Provides the audit profiles that must be applied.",
+            "items": {
+              "$ref": "./auditprofile#/components/schemas/auditprofile"
+            },
+            "type": "array"
+          },
+          "enforcerProfiles": {
+            "description": "Provides information about the enforcer profile.",
+            "items": {
+              "$ref": "./enforcerprofile#/components/schemas/enforcerprofile"
+            },
+            "type": "array"
+          },
+          "externalNetworks": {
+            "description": "Provides the external network that the policy targets.",
+            "items": {
+              "$ref": "./externalnetwork#/components/schemas/externalnetwork"
+            },
+            "type": "array"
+          },
+          "filePaths": {
+            "deprecated": true,
+            "description": "Provides the file paths that the policy targets.",
+            "items": {
+              "$ref": "./filepath#/components/schemas/filepath"
+            },
+            "type": "array"
+          },
+          "hostServices": {
+            "description": "Provides the list of host services that must be instantiated.",
+            "items": {
+              "$ref": "./hostservice#/components/schemas/hostservice"
+            },
+            "type": "array"
+          },
+          "isolationProfiles": {
+            "deprecated": true,
+            "description": "Provides the isolation profiles of the rule.",
+            "items": {
+              "$ref": "./isolationprofile#/components/schemas/isolationprofile"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespaces": {
+            "description": "The namespace that the policy targets.",
+            "items": {
+              "$ref": "./namespace#/components/schemas/namespace"
+            },
+            "type": "array"
+          },
+          "policyNamespace": {
+            "description": "The namespace of the policy that created this rule.",
+            "type": "string"
+          },
+          "policyUpdateTime": {
+            "description": "Last time the policy was updated.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "propagated": {
+            "description": "Indicates if the policy is propagated.",
+            "type": "boolean"
+          },
+          "relation": {
+            "description": "Describes the required operation to be performed between subjects and objects.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "services": {
+            "description": "Provides the services of this policy rule.",
+            "items": {
+              "$ref": "./service#/components/schemas/service"
+            },
+            "type": "array"
+          },
+          "tagClauses": {
+            "description": "Policy target tags.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "policyrule",
+    "version": "1.0"
+  },
+  "paths": {
+    "/policyrules/{id}": {
+      "get": {
+        "description": "Retrieves the object with the given ID.",
+        "operationId": "get-policyrule-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/policyrule"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/policy",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/policy'",
+      "name": "core/policy"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

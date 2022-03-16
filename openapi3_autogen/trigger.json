@@ -1,0 +1,35 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "trigger": {
+        "description": "Can be used to remotely trigger an automation.",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "trigger",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'integration/automation'",
+      "name": "integration/automation"
+    },
+    {
+      "description": "This tag is for package 'sephiroth'",
+      "name": "sephiroth"
+    }
+  ]
+}

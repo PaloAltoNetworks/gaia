@@ -1,0 +1,86 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "squalltag": {
+        "description": "Internal api that retrieve all tags from squall and their count for given\n`?identity=\u003cidentity\u003e` parameter with their counts.",
+        "properties": {
+          "count": {
+            "description": "Number of time this tag is used.",
+            "type": "integer"
+          },
+          "namespace": {
+            "description": "namespace containing these tags.",
+            "type": "string"
+          },
+          "value": {
+            "description": "Value of the tag.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "squalltag",
+    "version": "1.0"
+  },
+  "paths": {
+    "/squalltags": {
+      "get": {
+        "description": "Retrieves a computed list of tags from squall for caching.",
+        "operationId": "get-all-squalltags",
+        "parameters": [
+          {
+            "description": "Search for all the tags used for the this identity.",
+            "example": "processingunit",
+            "in": "query",
+            "name": "identity",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/squalltag"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/internal",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/internal'",
+      "name": "core/internal"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

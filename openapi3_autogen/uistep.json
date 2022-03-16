@@ -1,0 +1,60 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "uistep": {
+        "description": "Represents a step that will be shown in the web interface.",
+        "properties": {
+          "advanced": {
+            "description": "Defines if the step is an advanced one.",
+            "type": "boolean"
+          },
+          "description": {
+            "description": "Description of the step.",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the step.",
+            "example": "General configuration",
+            "type": "string"
+          },
+          "parameters": {
+            "description": "List of parameters for this step.",
+            "items": {
+              "$ref": "./uiparameter#/components/schemas/uiparameter"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "uistep",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/workflow'",
+      "name": "core/workflow"
+    },
+    {
+      "description": "This tag is for package 'ignis'",
+      "name": "ignis"
+    }
+  ]
+}

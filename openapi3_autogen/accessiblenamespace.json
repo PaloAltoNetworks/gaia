@@ -1,0 +1,79 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "accessiblenamespace": {
+        "description": "An Accessible Namespace represents a namespace that can be accessed by a given\nuser.",
+        "properties": {
+          "name": {
+            "description": "Name of the namespace that is accessible.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "accessiblenamespace",
+    "version": "1.0"
+  },
+  "paths": {
+    "/accessiblenamespaces": {
+      "get": {
+        "description": "Retrieves the list of accessible namespaces.",
+        "operationId": "get-all-accessiblenamespaces",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/accessiblenamespace"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/accessiblenamespace",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/accessiblenamespace'",
+      "name": "core/accessiblenamespace"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

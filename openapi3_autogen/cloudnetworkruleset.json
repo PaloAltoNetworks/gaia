@@ -1,0 +1,316 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudnetworkruleset": {
+        "description": "A CloudNetworkRuleSet represents a set of cloud network security groups or\nfirewall rules as they apply to the infrastructure.",
+        "properties": {
+          "APIID": {
+            "description": "Prisma Cloud API ID (matches Prisma Cloud API ID).",
+            "example": 12344555,
+            "type": "integer"
+          },
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "VPCID": {
+            "description": "ID of the host VPC.",
+            "example": "vpc-023419c5952374917",
+            "type": "string"
+          },
+          "accountID": {
+            "description": "Cloud account ID associated with the entity (matches Prisma Cloud accountID).",
+            "example": 9123450055,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cloudTags": {
+            "description": "Internal representation of object tags retrieved from the cloud provider.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cloudType": {
+            "description": "Cloud type of the entity.",
+            "example": "AWS",
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "customerID": {
+            "description": "Customer ID as identified by Prisma Cloud.",
+            "example": 1234455,
+            "type": "integer"
+          },
+          "ingestionTime": {
+            "description": "The time that the object was first ingested.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the object (optional).",
+            "example": "myobject",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "nativeID": {
+            "description": "ID of the cloud provider object.",
+            "example": "subnet-0ae4a90153dfb642c",
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "parameters": {
+            "$ref": "./cloudnetworkrulesetdata#/components/schemas/cloudnetworkrulesetdata"
+          },
+          "policyReferences": {
+            "description": "A list of policy references associated with this cloud node.",
+            "example": [
+              "sg-123"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "regionName": {
+            "description": "Region name associated with the entity.",
+            "example": "AWS Tokyo",
+            "type": "string"
+          },
+          "resourceID": {
+            "description": "Prisma Cloud Resource ID.",
+            "example": 12344555,
+            "type": "integer"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "nativeID"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudnetworkruleset",
+    "version": "1.0"
+  },
+  "paths": {
+    "/cloudnetworkrulesets": {
+      "get": {
+        "description": "Retrieves the list of cloud network rule set policies.",
+        "operationId": "get-all-cloudnetworkrulesets",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/cloudnetworkruleset"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      },
+      "post": {
+        "description": "Creates a cloud network ruleset.",
+        "operationId": "create-a-new-cloudnetworkruleset",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudnetworkruleset"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudnetworkruleset"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      }
+    },
+    "/cloudnetworkrulesets/{id}": {
+      "delete": {
+        "description": "Deletes the object with the given ID.",
+        "operationId": "delete-cloudnetworkruleset-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudnetworkruleset"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the object with the given ID.",
+        "operationId": "get-cloudnetworkruleset-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudnetworkruleset"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the object with the given ID.",
+        "operationId": "update-cloudnetworkruleset-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudnetworkruleset"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudnetworkruleset"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

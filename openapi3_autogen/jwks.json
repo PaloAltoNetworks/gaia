@@ -1,0 +1,90 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "jwks": {
+        "description": "The JWKS object contains the set of parameters that are read by an OIDC\ncompliant server to validate a JWT issued by an OIDC provider.",
+        "properties": {
+          "alg": {
+            "description": "Alg defines the algorithm used for signing as per the JWKS specification (RFC\n7518 section 7).",
+            "enum": [
+              "RS256",
+              "ES256"
+            ],
+            "readOnly": true
+          },
+          "curve": {
+            "description": "Curve is the curve type used for signing. Valid only when signing method is EC\n(RFC 7518 section 6).",
+            "enum": [
+              "P256"
+            ],
+            "readOnly": true
+          },
+          "e": {
+            "description": "E is the exponent value of an RSA public key. Valid only when the signing\nmethod is RSA (RFC 7518 section 6).",
+            "readOnly": true,
+            "type": "string"
+          },
+          "kid": {
+            "description": "kid is the key ID as per the JWKS specification.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "kty": {
+            "description": "kty defines the key type as per the JWKS specification.",
+            "enum": [
+              "RSA",
+              "EC"
+            ],
+            "readOnly": true
+          },
+          "n": {
+            "description": "N is the modulos value of an RSA public key. Valid only when the signing\nmethod is RSA (RFC 7518 section 6).",
+            "readOnly": true,
+            "type": "string"
+          },
+          "use": {
+            "description": "Use defines the use of the signing key as per the JWKS specification.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "x": {
+            "description": "X is the X value of the public key. Valid only when signing method is EC (RFC\n7518 section 6).",
+            "readOnly": true,
+            "type": "string"
+          },
+          "y": {
+            "description": "Y is the Y value of the public key. Valid only when signing method is EC (RFC\n7518 section 6).",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "jwks",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'internal/token'",
+      "name": "internal/token"
+    },
+    {
+      "description": "This tag is for package 'cactuar'",
+      "name": "cactuar"
+    }
+  ]
+}

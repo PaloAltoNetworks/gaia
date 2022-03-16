@@ -1,0 +1,718 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "processingunit": {
+        "description": "A processing unit represents anything that can compute. It can be a Docker\ncontainer or a simple UNIX process. Processing units are created, updated, and\ndeleted by\nthe system as they come and go. You can only modify their tags. Processing units\nuse network policies to define which other processing units or external\nnetworks they can communicate with and file access policies to define what file\npaths they can use.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "clientLocalID": {
+            "description": "The local PUID set by enforcer. Enforcer may create a local PU if it cannot\ncommunicate with the Microsegmentation Console. When eventually the\nMicrosegmentation Console is able to create the PU, the `clientLocalID` will be\nused to convert a CachedFlowReport containing a local PUID to a real FlowReport.",
+            "type": "string"
+          },
+          "collectInfo": {
+            "description": "A value of `true` indicates to the enforcer that it needs to collect information\nfor this processing unit.",
+            "type": "boolean"
+          },
+          "collectedInfo": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Represents the latest information collected by the enforcer for this processing\nunit.",
+            "type": "object"
+          },
+          "controller": {
+            "description": "The Microsegmentation Console identifier managing this object. This property is\nmostly\nuseful when federating multiple Microsegmentation Consoles.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "datapathType": {
+            "default": "Aporeto",
+            "description": "The datapath type that processing units are implementing:\n- `Aporeto`: The enforcer is managing and handling the datapath.\n- `EnvoyAuthorizer`: The enforcer is serving Envoy-compatible gRPC APIs\nthat for example can be used by an Envoy proxy to use the Microsegmentation PKI\nand implement Microsegmentation network policies. NOTE: The enforcer is not\nowning the datapath in this case. It is merely providing an authorizer API.",
+            "enum": [
+              "Aporeto",
+              "EnvoyAuthorizer"
+            ]
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "enforcementStatus": {
+            "default": "Inactive",
+            "description": "Contains the state of the enforcer for the processing unit. `Inactive`\n(default): the enforcer is not enforcing any host service. `Active`: the\nenforcer is enforcing a host service. `Failed`: an error occurred during the\nenforcement attempt.",
+            "enum": [
+              "Active",
+              "Failed",
+              "Inactive"
+            ]
+          },
+          "enforcerID": {
+            "description": "The ID of the enforcer associated with the processing unit.",
+            "type": "string"
+          },
+          "enforcerNamespace": {
+            "description": "The namespace of the enforcer associated with the processing unit.",
+            "type": "string"
+          },
+          "image": {
+            "deprecated": true,
+            "description": "This field is deprecated and it is there for backward compatibility. Use\n`images` instead.",
+            "type": "string"
+          },
+          "images": {
+            "description": "List of images or executable paths used by the processing unit.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "lastCollectionTime": {
+            "description": "The date and time when the information was collected.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "lastLocalTimestamp": {
+            "description": "Time and date of the processing unit set by the enforcer.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "lastSyncTime": {
+            "description": "The date and time of the last policy resolution.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "nativeContextID": {
+            "description": "The Docker UUID or service PID.",
+            "type": "string"
+          },
+          "networkServices": {
+            "description": "The list of services that this processing unit has declared that it will be\nlistening to,\neither in its activation command or by exposing the ports in a container\nmanifest.",
+            "items": {
+              "$ref": "./processingunitservice#/components/schemas/processingunitservice"
+            },
+            "type": "array"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "operationalStatus": {
+            "default": "Initialized",
+            "description": "Operational status of the processing unit: `Initialized` (default), `Paused`,\n`Running`,\n`Stopped`, or `Terminated`.",
+            "enum": [
+              "Initialized",
+              "Paused",
+              "Running",
+              "Stopped",
+              "Terminated"
+            ]
+          },
+          "previousOperationalStatus": {
+            "description": "Holds the previous operational status if it has changed.",
+            "enum": [
+              "Initialized",
+              "Paused",
+              "Running",
+              "Stopped",
+              "Terminated"
+            ],
+            "readOnly": true
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "tracing": {
+            "$ref": "./tracemode#/components/schemas/tracemode"
+          },
+          "type": {
+            "description": "Type of processing unit: `APIGateway`, `Docker`, `Host`, `HostService`,\n`LinuxService`, `WindowsService`, `RKT`, `User`, or `SSHSession`.",
+            "enum": [
+              "APIGateway",
+              "Docker",
+              "Host",
+              "HostService",
+              "LinuxService",
+              "WindowsService",
+              "RKT",
+              "User",
+              "SSHSession"
+            ],
+            "example": "Docker"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "vulnerabilityLevel": {
+            "deprecated": true,
+            "description": "List of vulnerabilities affecting this processing unit.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "processingunit",
+    "version": "1.0"
+  },
+  "paths": {
+    "/processingunits": {
+      "get": {
+        "description": "Retrieves the list of processing units.",
+        "operationId": "get-all-processingunits",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that have been archived.",
+            "in": "query",
+            "name": "archived",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/processingunit"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new processing unit.",
+        "operationId": "create-a-new-processingunit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/processingunit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/processingunit"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      }
+    },
+    "/processingunits/{id}": {
+      "delete": {
+        "description": "Deletes the processing unit with the given ID.",
+        "operationId": "delete-processingunit-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/processingunit"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the processing unit with the given ID.",
+        "operationId": "get-processingunit-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that have been archived.",
+            "in": "query",
+            "name": "archived",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/processingunit"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the processing unit with the given ID.",
+        "operationId": "update-processingunit-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/processingunit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/processingunit"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      }
+    },
+    "/processingunits/{id}/pingprobes": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "description": "Create a ping probe.",
+        "operationId": "create-a-new-pingprobe-for-a-given-processingunit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./pingprobe#/components/schemas/pingprobe"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./pingprobe#/components/schemas/pingprobe"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "guy"
+        ]
+      }
+    },
+    "/processingunits/{id}/poke": {
+      "get": {
+        "description": "Sends a poke empty object. This will send a snapshot of the processing unit to\nthe time series database.",
+        "operationId": "get-all-poke-for-a-given-processingunit",
+        "parameters": [
+          {
+            "description": "If set, changes the enforcement status of the processing unit alongside with the poke.",
+            "in": "query",
+            "name": "enforcementStatus",
+            "schema": {
+              "enum": [
+                "Failed",
+                "Inactive",
+                "Active"
+              ]
+            }
+          },
+          {
+            "description": "If set, it will trigger a full poke (slower).",
+            "in": "query",
+            "name": "forceFullPoke",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Can be sent to trigger a `ProcessingUnitRefresh` event that will be handled by the enforcer. If this is set, all other additional parameters will be ignored.",
+            "in": "query",
+            "name": "notify",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "If set, changes the status of the processing unit alongside with the poke.",
+            "example": "Running",
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "enum": [
+                "Initialized",
+                "Paused",
+                "Running",
+                "Stopped"
+              ]
+            }
+          },
+          {
+            "description": "time of report. If not set, local server time will be used.",
+            "in": "query",
+            "name": "ts",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be set to help backend target the correct shard where the processing unit is stored.",
+            "in": "query",
+            "name": "zhash",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./poke#/components/schemas/poke"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/processingunits/{id}/processingunitrefreshes": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "description": "Sends a Processing Unit Refresh command.",
+        "operationId": "create-a-new-processingunitrefresh-for-a-given-processingunit",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./processingunitrefresh#/components/schemas/processingunitrefresh"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./processingunitrefresh#/components/schemas/processingunitrefresh"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/policy",
+          "gaga"
+        ]
+      }
+    },
+    "/processingunits/{id}/renderedpolicies": {
+      "get": {
+        "description": "Retrieves the policies for the processing unit.",
+        "operationId": "get-all-renderedpolicies-for-a-given-processingunit",
+        "parameters": [
+          {
+            "description": "Select the network policy renderer to use.",
+            "in": "query",
+            "name": "renderer",
+            "schema": {
+              "enum": [
+                "v1",
+                "v2"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./renderedpolicy#/components/schemas/renderedpolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/policy",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/processingunits/{id}/services": {
+      "get": {
+        "description": "Retrieves the services used by a processing unit.",
+        "operationId": "get-all-services-for-a-given-processingunit",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./service#/components/schemas/service"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/services",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/processingunits/{id}/vulnerabilities": {
+      "get": {
+        "description": "Retrieves the vulnerabilities affecting the processing unit.",
+        "operationId": "get-all-vulnerabilities-for-a-given-processingunit",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./vulnerability#/components/schemas/vulnerability"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/processingunit'",
+      "name": "core/processingunit"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "servicepublication": {
+        "description": "Encapsulates a service object that is ought to be published so it can be used\nin a sibling namespace.",
+        "properties": {
+          "service": {
+            "$ref": "./service#/components/schemas/service"
+          }
+        },
+        "required": [
+          "service"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "servicepublication",
+    "version": "1.0"
+  },
+  "paths": {
+    "/servicepublications": {
+      "post": {
+        "description": "Creates a service publication for a given service object.",
+        "operationId": "create-a-new-servicepublication",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/servicepublication"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/servicepublication"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/service",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/service'",
+      "name": "core/service"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

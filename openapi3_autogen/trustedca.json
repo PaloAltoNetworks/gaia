@@ -1,0 +1,113 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "trustedca": {
+        "description": "Represents a trusted certificate authority (CA).",
+        "properties": {
+          "certificate": {
+            "description": "The private certificate of the corresponding type associated with this\nnamespace.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "controller": {
+            "description": "The controller that this certificate or CA was issued from.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "namespace": {
+            "description": "The namespace that this certificate or CA was defined at.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "namespaceID": {
+            "description": "The ID of namespace that this certificate or CA was defined at.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "serialnumber": {
+            "description": "SerialNumber is the serial number of the certificate.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "type": {
+            "description": "Type of the certificate.",
+            "enum": [
+              "X509",
+              "SSH",
+              "JWT"
+            ],
+            "readOnly": true
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "trustedca",
+    "version": "1.0"
+  },
+  "paths": {
+    "/trustedcas": {
+      "get": {
+        "description": "Retrieves the trusted CAs of a namespace.",
+        "operationId": "get-all-trustedcas",
+        "parameters": [
+          {
+            "description": "The type of certificates that it should return.",
+            "example": "Any",
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "enum": [
+                "Any",
+                "X509",
+                "SSH",
+                "JWT"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/trustedca"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/enforcerconfig",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/enforcerconfig'",
+      "name": "policy/enforcerconfig"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "accountcheck": {
+        "description": "Validates the password for an account.",
+        "properties": {
+          "ID": {
+            "description": "ID of the account if validated.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "OTP": {
+            "description": "eventual otp.",
+            "type": "string"
+          },
+          "email": {
+            "description": "email of the account if validated.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "handle": {
+            "description": "Account name of email.",
+            "example": "acme",
+            "type": "string"
+          },
+          "name": {
+            "description": "name of the account.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "password": {
+            "description": "provided password.",
+            "example": "S3cr3t#",
+            "type": "string"
+          }
+        },
+        "required": [
+          "handle",
+          "password"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "accountcheck",
+    "version": "1.0"
+  },
+  "paths": {
+    "/accountchecks": {
+      "post": {
+        "description": "Verifies account credentials.",
+        "operationId": "create-a-new-accountcheck",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/accountcheck"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/accountcheck"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/account",
+          "vince"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/account'",
+      "name": "core/account"
+    },
+    {
+      "description": "This tag is for package 'vince'",
+      "name": "vince"
+    }
+  ]
+}

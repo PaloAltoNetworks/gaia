@@ -1,0 +1,87 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "activate": {
+        "description": "Used to activate a pending account.",
+        "properties": {
+          "token": {
+            "description": "Contains the activation token.",
+            "example": "2BB3D52C-DE26-406A-8821-613F102282B0",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "activate",
+    "version": "1.0"
+  },
+  "paths": {
+    "/activate": {
+      "get": {
+        "description": "Activates a pending account.",
+        "operationId": "get-all-activate",
+        "parameters": [
+          {
+            "description": "If set, do not redirect the request to the web interface.",
+            "in": "query",
+            "name": "noRedirect",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Activation token.",
+            "example": "xxx-xxx-xxx-xxx",
+            "in": "query",
+            "name": "token",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/activate"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/account",
+          "vince"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/account'",
+      "name": "core/account"
+    },
+    {
+      "description": "This tag is for package 'vince'",
+      "name": "vince"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "remotepingprobe": {
+        "description": "Represents information about a remote ping probe that is governed by a different\nset of permissions.",
+        "properties": {
+          "controllerID": {
+            "description": "The controller ID that manages the ping report.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "namespace": {
+            "description": "The namespace where the ping report is stored. Only applicable when the remote\ncontroller is empty.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "namespaceType": {
+            "description": "Type of the namespace reported. It can be hash or plain, depending on various\nfactors.",
+            "enum": [
+              "Plain",
+              "Hash"
+            ],
+            "readOnly": true
+          },
+          "probeID": {
+            "description": "The ID of the probe. Only applicable when the remote controller is empty.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "remotepingprobe",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'guy'",
+      "name": "guy"
+    }
+  ]
+}

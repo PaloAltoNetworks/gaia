@@ -1,0 +1,52 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "pctimerange": {
+        "description": "Represents the time range parameter of PC.",
+        "properties": {
+          "relativeTimeType": {
+            "description": "The type of relative time.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of time range.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "value": {
+            "description": "The value of time range.",
+            "readOnly": true,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "pctimerange",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/rql'",
+      "name": "core/rql"
+    },
+    {
+      "description": "This tag is for package 'karl'",
+      "name": "karl"
+    }
+  ]
+}

@@ -16936,6 +16936,12 @@ Type: `string`
 
 Identifier of the destination controller.
 
+##### `destinationExternalNetworkID`
+
+Type: `string`
+
+Closest external network that matches destination IP.
+
 ##### `destinationFQDN`
 
 Type: `string`
@@ -17148,6 +17154,12 @@ Service URL accessed.
 Type: `string`
 
 Identifier of the source controller.
+
+##### `sourceExternalNetworkID`
+
+Type: `string`
+
+Closest external network that matches source IP.
 
 ##### `sourceID` [`required`]
 
@@ -17655,6 +17667,12 @@ Type: `string`
 
 Identifier of the destination controller.
 
+##### `destinationExternalNetworkID`
+
+Type: `string`
+
+Closest external network that matches destination IP.
+
 ##### `destinationFQDN`
 
 Type: `string`
@@ -17855,6 +17873,12 @@ Service URL accessed.
 Type: `string`
 
 Identifier of the source controller.
+
+##### `sourceExternalNetworkID`
+
+Type: `string`
+
+Closest external network that matches source IP.
 
 ##### `sourceID` [`required`]
 

@@ -1,0 +1,143 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "remoteprocessor": {
+        "description": "Hook to integrate a Microsegmentation service.",
+        "properties": {
+          "claims": {
+            "description": "Represents the claims of the currently managed object.",
+            "example": [
+              "@auth:realm=certificate",
+              "@auth:commonname=john"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "input": {
+            "description": "Represents data received from the service.",
+            "example": "{\n  \"name\": \"hello\",\n  \"description\": \"hello\",\n}",
+            "type": "string"
+          },
+          "mode": {
+            "description": "Defines the hook's type.",
+            "enum": [
+              "Post",
+              "Pre"
+            ],
+            "example": "Pre"
+          },
+          "namespace": {
+            "description": "Represents the current namespace.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "operation": {
+            "description": "Defines the operation that is currently handled by the service.",
+            "enum": [
+              "retrieve-many",
+              "retrieve",
+              "create",
+              "update",
+              "delete",
+              "patch",
+              "info"
+            ],
+            "example": "create"
+          },
+          "output": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "Returns `OutputData` filled with the processor information.",
+            "properties": {
+              "ID": {
+                "type": "string"
+              }
+            },
+            "readOnly": true,
+            "required": [
+              "ID"
+            ],
+            "type": "object"
+          },
+          "requestID": {
+            "description": "Gives the ID of the request coming from the main server.",
+            "type": "string"
+          },
+          "targetIdentity": {
+            "description": "Represents the identity name of the managed object.",
+            "example": "processingunit",
+            "type": "string"
+          }
+        },
+        "required": [
+          "claims",
+          "input",
+          "namespace",
+          "operation",
+          "targetIdentity"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "remoteprocessor",
+    "version": "1.0"
+  },
+  "paths": {
+    "/remoteprocessors": {
+      "post": {
+        "description": "This should be be here.",
+        "operationId": "create-a-new-remoteprocessor",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/remoteprocessor"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/remoteprocessor"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/hooks",
+          "rufus"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/hooks'",
+      "name": "policy/hooks"
+    },
+    {
+      "description": "This tag is for package 'rufus'",
+      "name": "rufus"
+    }
+  ]
+}

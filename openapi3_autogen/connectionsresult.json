@@ -1,0 +1,90 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "connectionsresult": {
+        "description": "A result from a connections request.",
+        "properties": {
+          "connections": {
+            "description": "Contains a batch of connections.",
+            "items": {
+              "$ref": "./currentconnection#/components/schemas/currentconnection"
+            },
+            "type": "array"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "requestID": {
+            "description": "Unique ID generated for each request.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "totalConnections": {
+            "description": "Contains the total number of connections for the connection request.",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "connectionsresult",
+    "version": "1.0"
+  },
+  "paths": {
+    "/connectionsresults": {
+      "post": {
+        "description": "Creates a new connections result.",
+        "operationId": "create-a-new-connectionsresult",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/connectionsresult"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/connectionsresult"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "guy"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'guy'",
+      "name": "guy"
+    }
+  ]
+}

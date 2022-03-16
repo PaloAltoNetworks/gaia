@@ -1,0 +1,362 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "sshauthorizationpolicy": {
+        "description": "An SSH authorization allows you to define the permissions for the owner\nof a OpenSSH certificate issued by a Microsegmentation certificate authority.\nYou can\ndefine if a user with some claims can connect to an `sshd` server managed by\nan instance of `enforcerd` according to its tags, what permissions he has and\nfor how long delivered certificates are valid.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "activeDuration": {
+            "description": "Defines for how long the policy will be active according to the\n`activeSchedule`.",
+            "type": "string"
+          },
+          "activeSchedule": {
+            "description": "Defines when the policy should be active using the cron notation.\nThe policy will be active for the given `activeDuration`.",
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "authorizedSubnets": {
+            "description": "If set, the SSH authorization will only be valid if the request comes from one\nthe declared subnets.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Defines if the property is disabled.",
+            "type": "boolean"
+          },
+          "expirationTime": {
+            "description": "If set the SSH authorization will be automatically deleted after the given time.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "extensions": {
+            "description": "The list of permissions to apply to the OpenSSH certificate. You can check the\nlist of\nstandard extensions at\n\u003chttps://github.com/openssh/openssh-portable/blob/38e83e4f219c752ebb1560633b73f06f0392018b/PROTOCOL.certkeys#L281\u003e.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "fallback": {
+            "description": "Indicates that this is fallback policy. It will only be\napplied if no other policies have been resolved. If the policy is also\npropagated it will become a fallback for children namespaces.",
+            "type": "boolean"
+          },
+          "forceCommand": {
+            "description": "Specify a single command that the user can issue on the remote host. This can be\nuseful\nfor issuing single-purpose certificates; ensuring that users stay in their home\ndirectories\n(`internal-sftp`); and restricting users to a bash shell (`/bin/bash`),\npreventing them\nfrom running arbitrary and unlogged commands such as `scp`, `rsync`, `-essh`,\nand `sftp`.\nRefer to the [FreeBSD\ndocumentation](https://www.freebsd.org/cgi/man.cgi?sshd_config(5))\nfor more information.",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "object": {
+            "description": "Contains the tag expression identifying the enforcers on the hosts the `subject`\nis allowed to access.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "principals": {
+            "description": "On systems without an enforcer, you must provide the name of the Linux user.\nOtherwise, Microsegmentation will automatically populate this field and adding a\nvalue here is optional and not used during the authorization. However, the value\nbecomes a tag associated with the SSH processing unit, which could be useful.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "propagate": {
+            "description": "Propagates the policy to all of its children.",
+            "type": "boolean"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "requireSystemAccountMatching": {
+            "description": "If selected, the system account will be used to log into the resource.",
+            "type": "boolean"
+          },
+          "subject": {
+            "description": "Contains the tag expression that identifies the user or group of users that\nshould be\nallowed to access the remote hosts. If the user authenticates against an OIDC\nprovider,\nthese tags correspond to claims in the ID token.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "validity": {
+            "default": "1h",
+            "description": "Set the validity of the delivered SSH certificate.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "sshauthorizationpolicy",
+    "version": "1.0"
+  },
+  "paths": {
+    "/sshauthorizationpolicies": {
+      "get": {
+        "description": "Retrieves the list of SSH authorizations.",
+        "operationId": "get-all-sshauthorizationpolicies",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/sshauthorizationpolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/ssh",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new SSH authorizations.",
+        "operationId": "create-a-new-sshauthorizationpolicy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/sshauthorizationpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sshauthorizationpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/ssh",
+          "squall"
+        ]
+      }
+    },
+    "/sshauthorizationpolicies/{id}": {
+      "delete": {
+        "description": "Deletes the SSH authorization with the given ID.",
+        "operationId": "delete-sshauthorizationpolicy-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sshauthorizationpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/ssh",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the SSH authorization with the given ID.",
+        "operationId": "get-sshauthorizationpolicy-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sshauthorizationpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/ssh",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the SSH authorization with the given ID.",
+        "operationId": "update-sshauthorizationpolicy-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/sshauthorizationpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sshauthorizationpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/ssh",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/ssh'",
+      "name": "policy/ssh"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

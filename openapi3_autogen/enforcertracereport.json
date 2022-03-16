@@ -1,0 +1,95 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "enforcertracereport": {
+        "description": "Post a new enforcer trace that determines how packets are.",
+        "properties": {
+          "enforcerID": {
+            "description": "ID of the enforcer where the trace was collected.",
+            "example": "5c6cce207ddf1fc159a104bf",
+            "type": "string"
+          },
+          "enforcerNamespace": {
+            "description": "Namespace of the enforcer where the trace was collected.",
+            "example": "/acme/prod",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace of the processing unit where the trace was collected.",
+            "example": "/acme/prod/database",
+            "type": "string"
+          },
+          "puID": {
+            "description": "ID of the processing unit where the trace was collected.",
+            "example": "5c6ccd947ddf1fc159a104b7",
+            "type": "string"
+          }
+        },
+        "required": [
+          "enforcerID",
+          "enforcerNamespace",
+          "namespace",
+          "puID"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "enforcertracereport",
+    "version": "1.0"
+  },
+  "paths": {
+    "/enforcertracereports": {
+      "post": {
+        "description": "Create an enforcer trace report.",
+        "operationId": "create-a-new-enforcertracereport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/enforcertracereport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcertracereport"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "zack"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'zack'",
+      "name": "zack"
+    }
+  ]
+}

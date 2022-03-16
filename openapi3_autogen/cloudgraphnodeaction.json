@@ -1,0 +1,45 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudgraphnodeaction": {
+        "description": "Describes the action and corresponding policy that resulted in this decision.",
+        "properties": {
+          "action": {
+            "description": "The action that is been applied for the particular destination.",
+            "type": "string"
+          },
+          "policyID": {
+            "description": "The ID of the policies that were used in the path.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudgraphnodeaction",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

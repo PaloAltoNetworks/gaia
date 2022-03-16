@@ -1,0 +1,176 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "statsquery": {
+        "description": "Retrieves time-series data stored by the Microsegmentation Console.\nAllows different types of queries that are all protected within\nthe namespace of the user.",
+        "properties": {
+          "descending": {
+            "description": "If set, the results will be order by time from the most recent to the oldest.",
+            "type": "boolean"
+          },
+          "fields": {
+            "description": "List of fields to extract. If you don't pass anything, all available fields will\nbe returned. It is also possible to use a function like `sum(value)`.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "filter": {
+            "description": "Apply a filter to the query.",
+            "type": "string"
+          },
+          "groups": {
+            "description": "Group results by the provided values. Note that not all fields can be used to\ngroup the results.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "limit": {
+            "default": -1,
+            "description": "Limits the number of results. `-1` means no limit.",
+            "type": "integer"
+          },
+          "measurement": {
+            "default": "Flows",
+            "description": "Name of the measurement.",
+            "enum": [
+              "Flows",
+              "Audit",
+              "Enforcers",
+              "Files",
+              "EventLogs",
+              "Packets",
+              "EnforcerTraces",
+              "Counters",
+              "Accesses",
+              "DNSLookups",
+              "PingReports",
+              "ConnectionExceptions"
+            ]
+          },
+          "offset": {
+            "default": -1,
+            "description": "Offsets the results. -1 means no offset.",
+            "type": "integer"
+          },
+          "results": {
+            "description": "Contains the result of the query.",
+            "items": {
+              "$ref": "./timeseriesqueryresults#/components/schemas/timeseriesqueryresults"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "statsquery",
+    "version": "1.0"
+  },
+  "paths": {
+    "/statsqueries": {
+      "post": {
+        "description": "Sends a query on statistical data.",
+        "operationId": "create-a-new-statsquery",
+        "parameters": [
+          {
+            "description": "Set the absolute end of the time window.",
+            "example": "2018/04/08 10:42",
+            "in": "query",
+            "name": "endAbsolute",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the relative end of the time window.",
+            "example": "-1h",
+            "in": "query",
+            "name": "endRelative",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the absolute start of the time window.",
+            "example": "2018/03/08 10:42",
+            "in": "query",
+            "name": "startAbsolute",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the relative start of the time window.",
+            "example": "-1h",
+            "in": "query",
+            "name": "startRelative",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/statsquery"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/statsquery"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/statsquery",
+          "jenova"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/statsquery'",
+      "name": "visualization/statsquery"
+    },
+    {
+      "description": "This tag is for package 'jenova'",
+      "name": "jenova"
+    }
+  ]
+}

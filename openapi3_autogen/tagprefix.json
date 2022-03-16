@@ -1,0 +1,109 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "tagprefix": {
+        "description": "Returns the tag prefixes of the specified namespace.",
+        "properties": {
+          "prefixes": {
+            "description": "List of tag prefixes that will be used to suggest policies. Only these tags will\nbe transmitted on the wire.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "tagprefix",
+    "version": "1.0"
+  },
+  "paths": {
+    "/tagprefixes": {
+      "get": {
+        "description": "Returns the tag prefixes of the specified namespace.",
+        "operationId": "get-all-tagprefixes",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/tagprefix"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Modify the tag prefixes of the specified namespace.",
+        "operationId": "create-a-new-tagprefix",
+        "parameters": [
+          {
+            "description": "if set to true, it will update a namespace's tag prefixes even if the namespace is protected.",
+            "in": "query",
+            "name": "force",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tagprefix"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tagprefix"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/namespace'",
+      "name": "core/namespace"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

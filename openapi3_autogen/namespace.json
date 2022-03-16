@@ -1,0 +1,510 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "namespace": {
+        "description": "A namespace represents the core organizational unit of the system. All objects\nalways exist in a single namespace. A namespace can also have child namespaces.\nThey can be used to split the system into organizations, business units,\napplications, services or any combination you like.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "JWTCertificateType": {
+            "default": "None",
+            "description": "JWTCertificateType defines the JWT signing certificate that must be created\nfor this namespace. If the type is none no certificate will be created.",
+            "enum": [
+              "RSA",
+              "EC",
+              "None"
+            ]
+          },
+          "JWTCertificates": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "JWTCertificates hold the certificates used to sign tokens for this namespace.\nThis is map indexed by the ID of the certificate.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "SSHCAEnabled": {
+            "deprecated": true,
+            "description": "If `true`, an SSH certificate authority (CA) will be generated for the\nnamespace. This CA can be deployed in SSH server to validate SSH certificates\nissued by the controller.",
+            "type": "boolean"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedSSHCAID": {
+            "description": "The remote ID of the SSH certificate authority to use.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "customZoning": {
+            "description": "Defines if the namespace should inherit its parent zone. If this property is set\nto `false`,  the `zoning` property will be ignored and the namespace will have\nthe same zone as its parent.",
+            "type": "boolean"
+          },
+          "defaultEnforcerVersion": {
+            "description": "Indicates the default enforcer version for this namespace.",
+            "type": "string"
+          },
+          "defaultPUIncomingTrafficAction": {
+            "default": "Inherit",
+            "description": "Describes the default action a processing unit will take for incoming traffic\nfor this namespace.",
+            "enum": [
+              "Allow",
+              "Reject",
+              "Inherit"
+            ]
+          },
+          "defaultPUOutgoingTrafficAction": {
+            "default": "Inherit",
+            "description": "Describes the default action a processing unit will take for outgoing traffic\nfor this namespace.",
+            "enum": [
+              "Allow",
+              "Reject",
+              "Inherit"
+            ]
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "localCAEnabled": {
+            "description": "Defines if the namespace should use a local certificate\nauthority (CA). Switching it off and on again will regenerate a new CA.",
+            "type": "boolean"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "The name of the namespace.",
+            "example": "mynamespace",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "networkAccessPolicyTags": {
+            "deprecated": true,
+            "description": "List of tags that will be added to every `or` clause of all network access\npolicies in the namespace and its children.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "organizationalMetadata": {
+            "description": "List of tags that describe this namespace. All organizational tags are\nautomatically passed to policeable objects (e.g., processing units, external\nnetworks, enforcers) during their creation.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "serviceCertificateValidity": {
+            "default": "168h",
+            "deprecated": true,
+            "description": "This flag is deprecated and has no incidence.",
+            "type": "string"
+          },
+          "tagPrefixes": {
+            "description": "List of tag prefixes that will be used to suggest policies. Only these tags will\nbe transmitted on the wire.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": {
+            "default": "Default",
+            "description": "The type defines the purpose of the namespace:\n- `Default`: A universal namespace that is capable of all actions and views.\n- `Tenant`: A namespace that houses a tenant (e.g. ACME).\n- `CloudAccount`: A child namespace of a tenant that houses a cloud provider\naccount.\n- `Group`: A child namespace of a cloud account that houses a managed group.\n- `Kubernetes`: A child namespace of a group that houses a\nKubernetes cluster (automatically created by the enforcer).",
+            "enum": [
+              "Default",
+              "Tenant",
+              "CloudAccount",
+              "Group",
+              "Kubernetes"
+            ]
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "zoning": {
+            "description": "Defines what zone the namespace should live in.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "namespace",
+    "version": "1.0"
+  },
+  "paths": {
+    "/namespaces": {
+      "get": {
+        "description": "Retrieves the list of namespaces.",
+        "operationId": "get-all-namespaces",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/namespace"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new namespace.",
+        "operationId": "create-a-new-namespace",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/namespace"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/namespace"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    },
+    "/namespaces/{id}": {
+      "delete": {
+        "description": "Deletes the namespace with the given ID.",
+        "operationId": "delete-namespace-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/namespace"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the namespace with the given ID.",
+        "operationId": "get-namespace-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/namespace"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the namespace with the given ID.",
+        "operationId": "update-namespace-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/namespace"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/namespace"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    },
+    "/namespaces/{id}/oauthinfo": {
+      "get": {
+        "description": "Retrieves the OAUTH info for this namespace.",
+        "operationId": "get-all-oauthinfo-for-a-given-namespace",
+        "parameters": [
+          {
+            "description": "When set to type `OIDC` it will return the data as a raw JSON object and not a Microsegmentation Console-compatible API.",
+            "in": "query",
+            "name": "mode",
+            "schema": {
+              "enum": [
+                "oidc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./oauthinfo#/components/schemas/oauthinfo"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/token",
+          "cactuar"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/namespaces/{id}/oauthkeys": {
+      "get": {
+        "description": "Retrieves the OAUTH info for this namespace.",
+        "operationId": "get-all-oauthkeys-for-a-given-namespace",
+        "parameters": [
+          {
+            "description": "When set to `OIDC` it will return the data as a raw JSON object and not a Microsegmentation Console-compatible API.",
+            "in": "query",
+            "name": "mode",
+            "schema": {
+              "enum": [
+                "oidc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./oauthkey#/components/schemas/oauthkey"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/token",
+          "cactuar"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/namespaces/{id}/trustedcas": {
+      "get": {
+        "description": "Returns the list of trusted CAs for this namespace.",
+        "operationId": "get-all-trustedcas-for-a-given-namespace",
+        "parameters": [
+          {
+            "description": "Type of certificate to get.",
+            "example": "Any",
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "enum": [
+                "Any",
+                "X509",
+                "SSH",
+                "JWT"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./trustedca#/components/schemas/trustedca"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/enforcerconfig",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/namespace'",
+      "name": "core/namespace"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

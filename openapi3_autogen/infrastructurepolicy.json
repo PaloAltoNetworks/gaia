@@ -1,0 +1,465 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "infrastructurepolicy": {
+        "description": "Infrastructure policies represent the network access rules of the\nunderlying infrastructure. They can assist you in analyzing how AWS security\ngroups,firewalls, and other access control list (ACL) mechanisms may affect\nMicrosegmentation network policies. Microsegmentation's AWS integration app\nautomatically populates AWS security groups.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "action": {
+            "default": "Allow",
+            "description": "Defines the action to apply to a flow.",
+            "enum": [
+              "Allow",
+              "Reject"
+            ]
+          },
+          "activeDuration": {
+            "description": "Defines for how long the policy will be active according to the\n`activeSchedule`.",
+            "type": "string"
+          },
+          "activeSchedule": {
+            "description": "Defines when the policy should be active using the cron notation.\nThe policy will be active for the given `activeDuration`.",
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "applyPolicyMode": {
+            "default": "OutgoingTraffic",
+            "description": "Determines if the policy applies to the outgoing traffic of the `subject` or the\nincoming traffic of the `subject`. `OutgoingTraffic` (default) or\n`IncomingTraffic`.",
+            "enum": [
+              "OutgoingTraffic",
+              "IncomingTraffic"
+            ]
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Defines if the property is disabled.",
+            "type": "boolean"
+          },
+          "expirationTime": {
+            "description": "If set the policy will be automatically deleted after the given time.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "object": {
+            "description": "Object of the policy.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "subject": {
+            "description": "Subject of the policy.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "infrastructurepolicy",
+    "version": "1.0"
+  },
+  "paths": {
+    "/infrastructurepolicies": {
+      "get": {
+        "description": "Retrieves the list of infrastructure policies.",
+        "operationId": "get-all-infrastructurepolicies",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/infrastructurepolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new infrastructure policy.",
+        "operationId": "create-a-new-infrastructurepolicy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/infrastructurepolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/infrastructurepolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      }
+    },
+    "/infrastructurepolicies/{id}": {
+      "delete": {
+        "description": "Deletes the infrastructure policy with the given ID.",
+        "operationId": "delete-infrastructurepolicy-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/infrastructurepolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the infrastructure policy with the given ID.",
+        "operationId": "get-infrastructurepolicy-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/infrastructurepolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the infrastructure policy with the given ID.",
+        "operationId": "update-infrastructurepolicy-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/infrastructurepolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/infrastructurepolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      }
+    },
+    "/infrastructurepolicies/{id}/externalnetworks": {
+      "get": {
+        "description": "Returns the list of external networks affected by an infrastructure policy.",
+        "operationId": "get-all-externalnetworks-for-a-given-infrastructurepolicy",
+        "parameters": [
+          {
+            "description": "Matching mode.",
+            "example": "object",
+            "in": "query",
+            "name": "mode",
+            "schema": {
+              "enum": [
+                "subject",
+                "object"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./externalnetwork#/components/schemas/externalnetwork"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/infrastructurepolicies/{id}/processingunits": {
+      "get": {
+        "description": "Returns the list of processing units affected by an infrastructure policy.",
+        "operationId": "get-all-processingunits-for-a-given-infrastructurepolicy",
+        "parameters": [
+          {
+            "description": "Matching mode.",
+            "example": "object",
+            "in": "query",
+            "name": "mode",
+            "schema": {
+              "enum": [
+                "subject",
+                "object"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./processingunit#/components/schemas/processingunit"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/infrastructurepolicies/{id}/services": {
+      "get": {
+        "description": "Returns the list of services affected by an infrastructure policy.",
+        "operationId": "get-all-services-for-a-given-infrastructurepolicy",
+        "parameters": [
+          {
+            "description": "Matching mode.",
+            "example": "object",
+            "in": "query",
+            "name": "mode",
+            "schema": {
+              "enum": [
+                "subject",
+                "object"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./service#/components/schemas/service"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/services",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/networking'",
+      "name": "policy/networking"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

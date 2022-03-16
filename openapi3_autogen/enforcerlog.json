@@ -1,0 +1,212 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "enforcerlog": {
+        "description": "An enforcer log represents the log collected by an enforcer. Each enforcer log\ncan have partial or complete data. The `collectionID` is used to aggregate the\nmultipart data into one.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "collectionID": {
+            "description": "Contains the ID of the enforcer log. `CollectionID` is used to\naggregate the multipart data.",
+            "example": "xxx-xxx-xxx-xxx",
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "data": {
+            "description": "Represents the data collected by the enforcer.",
+            "type": "string"
+          },
+          "enforcerID": {
+            "description": "ID of the enforcer.",
+            "example": "xxx-xxx-xxx-xxx",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "page": {
+            "description": "Number assigned to each log in the increasing order.",
+            "type": "integer"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "title": {
+            "description": "Title of the log.",
+            "type": "string"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "collectionID",
+          "enforcerID"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "enforcerlog",
+    "version": "1.0"
+  },
+  "paths": {
+    "/enforcerlog": {
+      "get": {
+        "description": "Retrieves the list of enforcerlogs.",
+        "operationId": "get-all-enforcerlog",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/enforcerlog"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "ifrit"
+        ]
+      },
+      "post": {
+        "description": "Creates a new enforcerlog.",
+        "operationId": "create-a-new-enforcerlog",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/enforcerlog"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcerlog"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "ifrit"
+        ]
+      }
+    },
+    "/enforcerlog/{id}": {
+      "get": {
+        "description": "Retrieves the `enforcerlog` with the given ID.",
+        "operationId": "get-enforcerlog-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcerlog"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "ifrit"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'ifrit'",
+      "name": "ifrit"
+    }
+  ]
+}

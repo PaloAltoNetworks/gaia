@@ -1,0 +1,321 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "account": {
+        "description": "Allows you to view and manage basic information about your account like\nyour name, password, and whether or not two-factor authentication is enabled.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "OTPEnabled": {
+            "description": "Enable or disable two-factor authentication.",
+            "type": "boolean"
+          },
+          "OTPQRCode": {
+            "description": "Returns the base64-encoded QR code for setting up two-factor authentication.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "SSHCA": {
+            "description": "Holds the SSH certificate authority used by the account namespace.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "SSHCARenew": {
+            "description": "Set to `true` to renew the SSH certificate authority of the account namespace.",
+            "type": "boolean"
+          },
+          "accessEnabled": {
+            "description": "Defines if the account holder should have access to the system.",
+            "type": "boolean"
+          },
+          "activationToken": {
+            "description": "Contains the activation token.",
+            "type": "string"
+          },
+          "associatedPlanKey": {
+            "description": "Contains the plan key associated with this account.",
+            "type": "string"
+          },
+          "company": {
+            "description": "Company of the account user.",
+            "example": "Acme",
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "email": {
+            "description": "Email of the account holder.",
+            "example": "user@acme.com",
+            "type": "string"
+          },
+          "firstName": {
+            "description": "First name of the account user.",
+            "example": "John",
+            "type": "string"
+          },
+          "lastName": {
+            "description": "Last name of the account user.",
+            "example": "Doe",
+            "type": "string"
+          },
+          "localCA": {
+            "description": "The certificate authority used by this namespace.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "localCARenew": {
+            "description": "Set to `true` to renew the local certificate authority of the account namespace.",
+            "type": "boolean"
+          },
+          "name": {
+            "description": "Name of the account.",
+            "example": "acme",
+            "type": "string"
+          },
+          "newPassword": {
+            "description": "New password for the account. If set the previous password must be given through\nthe property `password`.",
+            "type": "string"
+          },
+          "password": {
+            "description": "Password for the account.",
+            "type": "string"
+          },
+          "reCAPTCHAKey": {
+            "description": "Contains the completely automated public Turing test (CAPTCHA)\nvalidation if reCAPTCHA is enabled.",
+            "type": "string"
+          },
+          "status": {
+            "default": "Pending",
+            "description": "Status of the account.",
+            "enum": [
+              "Active",
+              "Disabled",
+              "Invited",
+              "Pending"
+            ],
+            "readOnly": true
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "account",
+    "version": "1.0"
+  },
+  "paths": {
+    "/accounts": {
+      "get": {
+        "description": "Retrieves all accounts. This is a private API that can only be done by the\nsystem.",
+        "operationId": "get-all-accounts",
+        "parameters": [
+          {
+            "description": "internal parameters.",
+            "example": "account",
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "internal parameters.",
+            "example": "status",
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/account"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/account",
+          "vince"
+        ]
+      },
+      "post": {
+        "description": "Creates a new account.",
+        "operationId": "create-a-new-account",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/account"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/account"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/account",
+          "vince"
+        ]
+      }
+    },
+    "/accounts/{id}": {
+      "delete": {
+        "description": "Deletes the object with the given ID.",
+        "operationId": "delete-account-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/account"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/account",
+          "vince"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the object with the given ID.",
+        "operationId": "get-account-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/account"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/account",
+          "vince"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the object with the given ID.",
+        "operationId": "update-account-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/account"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/account"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/account",
+          "vince"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/account'",
+      "name": "core/account"
+    },
+    {
+      "description": "This tag is for package 'vince'",
+      "name": "vince"
+    }
+  ]
+}

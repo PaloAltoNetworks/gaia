@@ -1,0 +1,113 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "clausesmatch": {
+        "description": "This API allows to pass a set of tags and find the objects that would match the\nclause in a policy resolution.",
+        "properties": {
+          "archived": {
+            "default": false,
+            "description": "if set to true, archived objects will also be included in in the matched\nobjects.",
+            "type": "boolean"
+          },
+          "clauses": {
+            "description": "The tag clause to resolve.",
+            "example": [
+              [
+                "color=blue",
+                "size=big"
+              ],
+              [
+                "color=red"
+              ]
+            ],
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "match": {
+            "description": "Contains the matched objects.",
+            "items": {
+              "additionalProperties": {
+                "type": "object"
+              },
+              "type": "object"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "targetIdentity": {
+            "description": "The identity to render the clauses from.",
+            "example": "processingunit",
+            "type": "string"
+          }
+        },
+        "required": [
+          "clauses",
+          "targetIdentity"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "clausesmatch",
+    "version": "1.0"
+  },
+  "paths": {
+    "/clausesmatches": {
+      "post": {
+        "description": "Performs a clause matching.",
+        "operationId": "create-a-new-clausesmatch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/clausesmatch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/clausesmatch"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/policy",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/policy'",
+      "name": "core/policy"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}
