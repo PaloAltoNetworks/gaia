@@ -22,9 +22,9 @@ model:
 # Indexes
 indexes:
 - - namespace
-  - subtype
-  - type
   - vpcid
+  - type
+  - subtype
 - - namespace
   - relatedObjectID
 - - namespace

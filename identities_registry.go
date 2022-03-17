@@ -782,7 +782,7 @@ var (
 			{"namespace", "vpcid", "parameters"},
 			{"namespace", "type", "parameters"},
 			{"namespace", "nativeID"},
-			{"namespace", "subtype", "type", "vpcid"},
+			{"namespace", "vpcid", "type", "subtype"},
 			{"namespace", "vpcid"},
 			{"namespace"},
 			{"namespace", "accountid"},
