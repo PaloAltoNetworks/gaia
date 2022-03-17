@@ -279,6 +279,41 @@
           "zack"
         ]
       }
+    },
+    "/flowreports/{id}/suggestedpolicies": {
+      "get": {
+        "description": "Provides network ruleset policy suggestions for the given flow ID.",
+        "operationId": "get-all-suggestedpolicies-for-a-given-flowreport",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./suggestedpolicy#/components/schemas/suggestedpolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/depmaps",
+          "jenova"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
     }
   },
   "tags": [
