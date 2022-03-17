@@ -52,6 +52,7 @@ attributes:
     type: string
     exposed: true
     stored: true
+    default_value: AWS
     example_value: AWS
     getter: true
     setter: true

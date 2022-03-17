@@ -10,6 +10,18 @@
             "example": "10.0.0.0/8",
             "type": "string"
           },
+          "routeTableID": {
+            "description": "Route Table associated with the subnet.",
+            "example": "rtb-1234567",
+            "type": "string"
+          },
+          "securityTags": {
+            "description": "Security tags associated with the instance.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "zoneID": {
             "description": "The availability zone ID of the subnet.",
             "example": "aws-east",

@@ -79,7 +79,8 @@
               "Service",
               "Gateway",
               "TransitGateway",
-              "NATGateway"
+              "NATGateway",
+              "PublicIPAddress"
             ],
             "example": "Instance"
           }
