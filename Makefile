@@ -22,7 +22,7 @@ codegen:
 .PHONY:openapi3gen
 openapi3gen:
 	rm -rf openapi3_autogen && \
-		elegen folder -g openapi3 --split-output -d specs -o . && \
+		elegen folder -g openapi3 --split-output --public -d specs -o . && \
 		mv ./openapi3 ./openapi3_autogen && \
 		find ./openapi3_autogen -type f -exec mv {} {}.json \;
 
