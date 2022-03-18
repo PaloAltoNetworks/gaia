@@ -12,6 +12,17 @@ import (
 	"go.aporeto.io/elemental"
 )
 
+// CloudAlertRecordCloudTypeValue represents the possible values for attribute "cloudType".
+type CloudAlertRecordCloudTypeValue string
+
+const (
+	// CloudAlertRecordCloudTypeAWS represents the value AWS.
+	CloudAlertRecordCloudTypeAWS CloudAlertRecordCloudTypeValue = "AWS"
+
+	// CloudAlertRecordCloudTypeAZURE represents the value AZURE.
+	CloudAlertRecordCloudTypeAZURE CloudAlertRecordCloudTypeValue = "AZURE"
+)
+
 // CloudAlertRecordResourceTypeValue represents the possible values for attribute "resourceType".
 type CloudAlertRecordResourceTypeValue string
 
@@ -117,7 +128,7 @@ type CloudAlertRecord struct {
 	AssociatedTags []string `json:"associatedTags" msgpack:"associatedTags" bson:"associatedtags" mapstructure:"associatedTags,omitempty"`
 
 	// Cloud type of the entity.
-	CloudType string `json:"cloudType,omitempty" msgpack:"cloudType,omitempty" bson:"cloudtype,omitempty" mapstructure:"cloudType,omitempty"`
+	CloudType CloudAlertRecordCloudTypeValue `json:"cloudType" msgpack:"cloudType" bson:"cloudtype" mapstructure:"cloudType,omitempty"`
 
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey string `json:"-" msgpack:"-" bson:"createidempotencykey" mapstructure:"-,omitempty"`
@@ -189,7 +200,7 @@ func NewCloudAlertRecord() *CloudAlertRecord {
 		ModelVersion:   1,
 		Annotations:    map[string][]string{},
 		AssociatedTags: []string{},
-		CloudType:      "AWS",
+		CloudType:      CloudAlertRecordCloudTypeAWS,
 		Published:      false,
 		NormalizedTags: []string{},
 	}
@@ -676,6 +687,10 @@ func (o *CloudAlertRecord) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := elemental.ValidateStringInList("cloudType", string(o.CloudType), []string{"AWS", "AZURE"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if err := elemental.ValidateRequiredString("name", o.Name); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
@@ -831,15 +846,15 @@ raised.`,
 		Type:           "list",
 	},
 	"CloudType": {
-		AllowedChoices: []string{},
+		AllowedChoices: []string{"AWS", "AZURE"},
 		BSONFieldName:  "cloudtype",
 		ConvertedName:  "CloudType",
-		DefaultValue:   "AWS",
+		DefaultValue:   CloudAlertRecordCloudTypeAWS,
 		Description:    `Cloud type of the entity.`,
 		Exposed:        true,
 		Name:           "cloudType",
 		Stored:         true,
-		Type:           "string",
+		Type:           "enum",
 	},
 	"CreateIdempotencyKey": {
 		AllowedChoices: []string{},
@@ -1145,15 +1160,15 @@ raised.`,
 		Type:           "list",
 	},
 	"cloudtype": {
-		AllowedChoices: []string{},
+		AllowedChoices: []string{"AWS", "AZURE"},
 		BSONFieldName:  "cloudtype",
 		ConvertedName:  "CloudType",
-		DefaultValue:   "AWS",
+		DefaultValue:   CloudAlertRecordCloudTypeAWS,
 		Description:    `Cloud type of the entity.`,
 		Exposed:        true,
 		Name:           "cloudType",
 		Stored:         true,
-		Type:           "string",
+		Type:           "enum",
 	},
 	"createidempotencykey": {
 		AllowedChoices: []string{},
@@ -1482,7 +1497,7 @@ type SparseCloudAlertRecord struct {
 	AssociatedTags *[]string `json:"associatedTags,omitempty" msgpack:"associatedTags,omitempty" bson:"associatedtags,omitempty" mapstructure:"associatedTags,omitempty"`
 
 	// Cloud type of the entity.
-	CloudType *string `json:"cloudType,omitempty" msgpack:"cloudType,omitempty" bson:"cloudtype,omitempty" mapstructure:"cloudType,omitempty"`
+	CloudType *CloudAlertRecordCloudTypeValue `json:"cloudType,omitempty" msgpack:"cloudType,omitempty" bson:"cloudtype,omitempty" mapstructure:"cloudType,omitempty"`
 
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey *string `json:"-" msgpack:"-" bson:"createidempotencykey,omitempty" mapstructure:"-,omitempty"`
@@ -2058,7 +2073,7 @@ type mongoAttributesCloudAlertRecord struct {
 	AccountID              string                            `bson:"accountid"`
 	Annotations            map[string][]string               `bson:"annotations"`
 	AssociatedTags         []string                          `bson:"associatedtags"`
-	CloudType              string                            `bson:"cloudtype,omitempty"`
+	CloudType              CloudAlertRecordCloudTypeValue    `bson:"cloudtype"`
 	CreateIdempotencyKey   string                            `bson:"createidempotencykey"`
 	CreateTime             time.Time                         `bson:"createtime"`
 	LastExecutionTimestamp time.Time                         `bson:"lastexecutiontimestamp"`
@@ -2084,7 +2099,7 @@ type mongoAttributesSparseCloudAlertRecord struct {
 	AccountID              *string                            `bson:"accountid,omitempty"`
 	Annotations            *map[string][]string               `bson:"annotations,omitempty"`
 	AssociatedTags         *[]string                          `bson:"associatedtags,omitempty"`
-	CloudType              *string                            `bson:"cloudtype,omitempty"`
+	CloudType              *CloudAlertRecordCloudTypeValue    `bson:"cloudtype,omitempty"`
 	CreateIdempotencyKey   *string                            `bson:"createidempotencykey,omitempty"`
 	CreateTime             *time.Time                         `bson:"createtime,omitempty"`
 	LastExecutionTimestamp *time.Time                         `bson:"lastexecutiontimestamp,omitempty"`

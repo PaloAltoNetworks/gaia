@@ -49,12 +49,14 @@ attributes:
 
   - name: cloudType
     description: Cloud type of the entity.
-    type: string
+    type: enum
     exposed: true
     stored: true
+    allowed_choices:
+    - AWS
+    - AZURE
     default_value: AWS
     example_value: AWS
-    omit_empty: true
 
   - name: lastExecutionTimestamp
     description: Result of the last execution timestamp.
