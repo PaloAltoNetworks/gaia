@@ -350,18 +350,6 @@ func (o *CloudAlertRecord) SetAssociatedTags(associatedTags []string) {
 	o.AssociatedTags = associatedTags
 }
 
-// GetCloudType returns the CloudType of the receiver.
-func (o *CloudAlertRecord) GetCloudType() string {
-
-	return o.CloudType
-}
-
-// SetCloudType sets the property CloudType of the receiver using the given value.
-func (o *CloudAlertRecord) SetCloudType(cloudType string) {
-
-	o.CloudType = cloudType
-}
-
 // GetCreateIdempotencyKey returns the CreateIdempotencyKey of the receiver.
 func (o *CloudAlertRecord) GetCreateIdempotencyKey() string {
 
@@ -849,10 +837,7 @@ raised.`,
 		DefaultValue:   "AWS",
 		Description:    `Cloud type of the entity.`,
 		Exposed:        true,
-		Getter:         true,
 		Name:           "cloudType",
-		Orderable:      true,
-		Setter:         true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1166,10 +1151,7 @@ raised.`,
 		DefaultValue:   "AWS",
 		Description:    `Cloud type of the entity.`,
 		Exposed:        true,
-		Getter:         true,
 		Name:           "cloudType",
-		Orderable:      true,
-		Setter:         true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1885,22 +1867,6 @@ func (o *SparseCloudAlertRecord) GetAssociatedTags() (out []string) {
 func (o *SparseCloudAlertRecord) SetAssociatedTags(associatedTags []string) {
 
 	o.AssociatedTags = &associatedTags
-}
-
-// GetCloudType returns the CloudType of the receiver.
-func (o *SparseCloudAlertRecord) GetCloudType() (out string) {
-
-	if o.CloudType == nil {
-		return
-	}
-
-	return *o.CloudType
-}
-
-// SetCloudType sets the property CloudType of the receiver using the address of the given value.
-func (o *SparseCloudAlertRecord) SetCloudType(cloudType string) {
-
-	o.CloudType = &cloudType
 }
 
 // GetCreateIdempotencyKey returns the CreateIdempotencyKey of the receiver.

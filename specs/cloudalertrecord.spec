@@ -54,9 +54,6 @@ attributes:
     stored: true
     default_value: AWS
     example_value: AWS
-    getter: true
-    setter: true
-    orderable: true
     omit_empty: true
 
   - name: lastExecutionTimestamp
