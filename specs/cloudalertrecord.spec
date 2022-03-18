@@ -56,7 +56,6 @@ attributes:
     - AWS
     - AZURE
     default_value: AWS
-    example_value: AWS
 
   - name: lastExecutionTimestamp
     description: Result of the last execution timestamp.
