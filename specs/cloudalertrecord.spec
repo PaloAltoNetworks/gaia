@@ -47,6 +47,16 @@ attributes:
     subtype: string
     stored: true
 
+  - name: cloudType
+    description: Cloud type of the entity.
+    type: enum
+    exposed: true
+    stored: true
+    allowed_choices:
+    - AWS
+    - AZURE
+    default_value: AWS
+
   - name: lastExecutionTimestamp
     description: Result of the last execution timestamp.
     type: time
