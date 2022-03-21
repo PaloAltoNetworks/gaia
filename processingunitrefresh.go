@@ -103,6 +103,10 @@ type ProcessingUnitRefresh struct {
 	// Contains the ID of the target processing unit.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Instructs the enforcer to preform the specified command
+	// for the target processing unit.
+	Command string `json:"command,omitempty" msgpack:"command,omitempty" bson:"-" mapstructure:"command,omitempty"`
+
 	// Instructs the enforcer to send the current connections
 	// for the target processing unit.
 	Connections bool `json:"connections,omitempty" msgpack:"connections,omitempty" bson:"-" mapstructure:"connections,omitempty"`
@@ -264,6 +268,7 @@ func (o *ProcessingUnitRefresh) ToSparse(fields ...string) elemental.SparseIdent
 		// nolint: goimports
 		return &SparseProcessingUnitRefresh{
 			ID:                          &o.ID,
+			Command:                     &o.Command,
 			Connections:                 &o.Connections,
 			Debug:                       &o.Debug,
 			Namespace:                   &o.Namespace,
@@ -286,6 +291,8 @@ func (o *ProcessingUnitRefresh) ToSparse(fields ...string) elemental.SparseIdent
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
+		case "command":
+			sp.Command = &(o.Command)
 		case "connections":
 			sp.Connections = &(o.Connections)
 		case "debug":
@@ -329,6 +336,9 @@ func (o *ProcessingUnitRefresh) Patch(sparse elemental.SparseIdentifiable) {
 	so := sparse.(*SparseProcessingUnitRefresh)
 	if so.ID != nil {
 		o.ID = *so.ID
+	}
+	if so.Command != nil {
+		o.Command = *so.Command
 	}
 	if so.Connections != nil {
 		o.Connections = *so.Connections
@@ -448,6 +458,8 @@ func (o *ProcessingUnitRefresh) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "ID":
 		return o.ID
+	case "command":
+		return o.Command
 	case "connections":
 		return o.Connections
 	case "debug":
@@ -494,6 +506,15 @@ var ProcessingUnitRefreshAttributesMap = map[string]elemental.AttributeSpecifica
 		ReadOnly:       true,
 		Setter:         true,
 		Type:           "string",
+	},
+	"Command": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Command",
+		Description: `Instructs the enforcer to preform the specified command 
+for the target processing unit.`,
+		Exposed: true,
+		Name:    "command",
+		Type:    "string",
 	},
 	"Connections": {
 		AllowedChoices: []string{},
@@ -636,6 +657,15 @@ var ProcessingUnitRefreshLowerCaseAttributesMap = map[string]elemental.Attribute
 		ReadOnly:       true,
 		Setter:         true,
 		Type:           "string",
+	},
+	"command": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Command",
+		Description: `Instructs the enforcer to preform the specified command 
+for the target processing unit.`,
+		Exposed: true,
+		Name:    "command",
+		Type:    "string",
 	},
 	"connections": {
 		AllowedChoices: []string{},
@@ -831,6 +861,10 @@ type SparseProcessingUnitRefresh struct {
 	// Contains the ID of the target processing unit.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Instructs the enforcer to preform the specified command
+	// for the target processing unit.
+	Command *string `json:"command,omitempty" msgpack:"command,omitempty" bson:"-" mapstructure:"command,omitempty"`
+
 	// Instructs the enforcer to send the current connections
 	// for the target processing unit.
 	Connections *bool `json:"connections,omitempty" msgpack:"connections,omitempty" bson:"-" mapstructure:"connections,omitempty"`
@@ -954,6 +988,9 @@ func (o *SparseProcessingUnitRefresh) ToPlain() elemental.PlainIdentifiable {
 	out := NewProcessingUnitRefresh()
 	if o.ID != nil {
 		out.ID = *o.ID
+	}
+	if o.Command != nil {
+		out.Command = *o.Command
 	}
 	if o.Connections != nil {
 		out.Connections = *o.Connections
