@@ -1,0 +1,116 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudgraph": {
+        "description": "Returns a data structure representing the graph of all cloud nodes and their\nconnections in a particular namespace.",
+        "properties": {
+          "internalEdges": {
+            "additionalProperties": {
+              "$ref": "./cloudgraphedge#/components/schemas/cloudgraphedge"
+            },
+            "description": "The edges of the map.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "nodes": {
+            "additionalProperties": {
+              "$ref": "./cloudgraphnode#/components/schemas/cloudgraphnode"
+            },
+            "description": "Refers to the nodes of the map.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "paths": {
+            "description": "The set of paths from the given source to the given destination. Only provided\nwhen the query type is NetworkPath.",
+            "items": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "publicEdges": {
+            "additionalProperties": {
+              "$ref": "./cloudgraphedge#/components/schemas/cloudgraphedge"
+            },
+            "description": "The edges of the map.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "query": {
+            "$ref": "./cloudnetworkquery#/components/schemas/cloudnetworkquery"
+          },
+          "sourceDestinationMap": {
+            "additionalProperties": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "description": "The set of destinations that have been discovered based on the query and their\nassociated verdicts.",
+            "readOnly": true,
+            "type": "object"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudgraph",
+    "version": "1.0"
+  },
+  "paths": {
+    "/cloudgraphs": {
+      "post": {
+        "description": "Creates a cloud dependency graph based on ingested data and the required\nparameters.",
+        "operationId": "create-a-new-cloudgraph",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudgraph"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudgraph"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

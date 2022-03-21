@@ -1,0 +1,49 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "policyrefresh": {
+        "description": "Sent to a client as a push event when a policy refresh is needed on their side.",
+        "properties": {
+          "sourceID": {
+            "description": "Contains the original ID of the updated object.",
+            "type": "string"
+          },
+          "sourceNamespace": {
+            "description": "Contains the original namespace of the updated object.",
+            "type": "string"
+          },
+          "type": {
+            "description": "Contains the policy type that is affected.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "policyrefresh",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/policy'",
+      "name": "core/policy"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

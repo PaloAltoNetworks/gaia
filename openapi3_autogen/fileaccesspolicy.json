@@ -1,0 +1,408 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "fileaccesspolicy": {
+        "description": "A file access policy allows processing units to access various folder and files.\nIt will use the tags of a file path to know what is the path of the file or\nfolder to allow access to. You can allow the processing unit to have any\ncombination of read, write, or execute.\n\nWhen a processing unit is a Docker container, then it will police the volumes.\nMount and execute won't have any effect.\n\nFile paths are not supported yet for standard Linux processes.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "activeDuration": {
+            "description": "Defines for how long the policy will be active according to the\n`activeSchedule`.",
+            "type": "string"
+          },
+          "activeSchedule": {
+            "description": "Defines when the policy should be active using the cron notation.\nThe policy will be active for the given `activeDuration`.",
+            "type": "string"
+          },
+          "allowsExecute": {
+            "description": "Allows files to be executed.",
+            "type": "boolean"
+          },
+          "allowsRead": {
+            "description": "Allows files to be read.",
+            "type": "boolean"
+          },
+          "allowsWrite": {
+            "description": "Allows files to be written.",
+            "type": "boolean"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Defines if the property is disabled.",
+            "type": "boolean"
+          },
+          "encryptionEnabled": {
+            "description": "Set to `true` to enable automatic encryption.",
+            "type": "boolean"
+          },
+          "expirationTime": {
+            "description": "If set the policy will be automatically deleted after the given time.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "fallback": {
+            "description": "Indicates that this is fallback policy. It will only be\napplied if no other policies have been resolved. If the policy is also\npropagated it will become a fallback for children namespaces.",
+            "type": "boolean"
+          },
+          "logsEnabled": {
+            "description": "A value of `true` enables logging.",
+            "type": "boolean"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "object": {
+            "description": "The object of the policy.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "propagate": {
+            "description": "Propagates the policy to all of its children.",
+            "type": "boolean"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "subject": {
+            "description": "The subject of the policy.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "fileaccesspolicy",
+    "version": "1.0"
+  },
+  "paths": {
+    "/fileaccesspolicies": {
+      "get": {
+        "description": "Retrieves the list of file access policies.",
+        "operationId": "get-all-fileaccesspolicies",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/fileaccesspolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/files",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new file access policies.",
+        "operationId": "create-a-new-fileaccesspolicy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/fileaccesspolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fileaccesspolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/files",
+          "squall"
+        ]
+      }
+    },
+    "/fileaccesspolicies/{id}": {
+      "delete": {
+        "description": "Deletes the policy with the given ID.",
+        "operationId": "delete-fileaccesspolicy-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fileaccesspolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/files",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the policy with the given ID.",
+        "operationId": "get-fileaccesspolicy-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fileaccesspolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/files",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the policy with the given ID.",
+        "operationId": "update-fileaccesspolicy-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/fileaccesspolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/fileaccesspolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/files",
+          "squall"
+        ]
+      }
+    },
+    "/fileaccesspolicies/{id}/filepaths": {
+      "get": {
+        "description": "Returns the list of file paths that match the policy.",
+        "operationId": "get-all-filepaths-for-a-given-fileaccesspolicy",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./filepath#/components/schemas/filepath"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/files",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/fileaccesspolicies/{id}/processingunits": {
+      "get": {
+        "description": "Returns the list of processing units that match the policy.",
+        "operationId": "get-all-processingunits-for-a-given-fileaccesspolicy",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./processingunit#/components/schemas/processingunit"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/files'",
+      "name": "policy/files"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

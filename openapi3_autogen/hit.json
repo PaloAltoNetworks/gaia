@@ -1,0 +1,154 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "hit": {
+        "description": "This API allows to retrieve a generic hit counter for a given object.",
+        "properties": {
+          "name": {
+            "default": "counter",
+            "description": "name of the counter.",
+            "type": "string"
+          },
+          "targetID": {
+            "description": "The ID of the referenced object..",
+            "type": "string"
+          },
+          "targetIdentity": {
+            "description": "The identity of the referenced object.",
+            "example": "networkaccesspolicy",
+            "type": "string"
+          },
+          "value": {
+            "description": "The value of the hit.",
+            "readOnly": true,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "name",
+          "targetIdentity"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "hit",
+    "version": "1.0"
+  },
+  "paths": {
+    "/hits": {
+      "get": {
+        "description": "Retrieve a matching hit.",
+        "operationId": "get-all-hits",
+        "parameters": [
+          {
+            "description": "The name of the counter.",
+            "example": "counter",
+            "in": "query",
+            "name": "name",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The ID of the object associated to the counter.",
+            "example": "xyz",
+            "in": "query",
+            "name": "targetID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "The identity of the object associated to the counter.",
+            "example": "processingunit",
+            "in": "query",
+            "name": "targetIdentity",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/hit"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "minwu"
+        ]
+      },
+      "post": {
+        "description": "Manage hits.",
+        "operationId": "create-a-new-hit",
+        "parameters": [
+          {
+            "description": "If set the hit will reset to 0.",
+            "in": "query",
+            "name": "reset",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/hit"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/hit"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "minwu"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core'",
+      "name": "core"
+    },
+    {
+      "description": "This tag is for package 'minwu'",
+      "name": "minwu"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudaccountcleaner": {
+        "description": "Used for garbage collection of all objects in an account that have not been\nupdated since the provided time.",
+        "properties": {
+          "date": {
+            "description": "The date after which objects must be cleaned.",
+            "example": "2021-03-16 09:30:04 -0700 PDT",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "date"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudaccountcleaner",
+    "version": "1.0"
+  },
+  "paths": {
+    "/cloudaccountcleaner": {
+      "post": {
+        "description": "Initiates a cloud account clean up process for all stale objects.",
+        "operationId": "create-a-new-cloudaccountcleaner",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudaccountcleaner"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudaccountcleaner"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

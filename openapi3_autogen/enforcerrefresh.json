@@ -1,0 +1,134 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "enforcerrefresh": {
+        "description": "Sent to enforcers when a poke has been triggered using the\nparameter `?notify=true`. This is used to notify an enforcer of an\nexternal change on the processing unit that must be processed.",
+        "properties": {
+          "ID": {
+            "description": "Contains the ID of the target enforcer.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "debug": {
+            "default": "Counters",
+            "description": "Set the debug information collected by the enforcer.",
+            "enum": [
+              "Counters",
+              "Logs",
+              "Packets",
+              "PUState",
+              "Pcap",
+              "CoreDump"
+            ]
+          },
+          "debugID": {
+            "description": "Can be used to correlate with a DebugBundle.",
+            "type": "string"
+          },
+          "debugPcapFilter": {
+            "description": "Packet capture filter, syntax varying by platform.",
+            "type": "string"
+          },
+          "debugProcessingUnitID": {
+            "description": "Isolates debug information to a given processing unit, where possible.",
+            "type": "string"
+          },
+          "migrationVersion": {
+            "description": "Defines the version to migrate enforcers.",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Contains the original namespace of the enforcer.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "propagate": {
+            "description": "Propagates the policy to all of its children.",
+            "type": "boolean"
+          },
+          "refreshType": {
+            "default": "Debug",
+            "description": "Indicates the type of refresh.",
+            "enum": [
+              "Debug",
+              "Migration"
+            ]
+          },
+          "selector": {
+            "description": "Request a command for the enforcers matching the following tag expression.",
+            "example": [
+              [
+                "$namespace=/a/b"
+              ]
+            ],
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "enforcerrefresh",
+    "version": "1.0"
+  },
+  "paths": {
+    "/enforcerrefreshes": {
+      "post": {
+        "description": "Create an enforcer refresh report.",
+        "operationId": "create-a-new-enforcerrefresh",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/enforcerrefresh"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcerrefresh"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/policy",
+          "gaga"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/policy'",
+      "name": "core/policy"
+    },
+    {
+      "description": "This tag is for package 'gaga'",
+      "name": "gaga"
+    }
+  ]
+}

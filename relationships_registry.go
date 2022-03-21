@@ -5566,6 +5566,7 @@ func init() {
 
 	relationshipsRegistry[SuggestedPolicyIdentity] = &elemental.Relationship{
 		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"flowreport": {},
 			"root": {
 				RequiredParameters: elemental.NewParametersRequirement(
 					[][][]string{
@@ -5620,6 +5621,7 @@ func init() {
 			},
 		},
 		Info: map[string]*elemental.RelationshipInfo{
+			"flowreport": {},
 			"root": {
 				RequiredParameters: elemental.NewParametersRequirement(
 					[][][]string{

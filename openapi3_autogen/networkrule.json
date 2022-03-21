@@ -1,0 +1,86 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "networkrule": {
+        "description": "Represents an ingress or egress network rule.",
+        "properties": {
+          "action": {
+            "default": "Allow",
+            "description": "Defines the action to apply to a flow.\n- `Allow`: allows the defined traffic.\n- `Reject`: rejects the defined traffic; useful in conjunction with an allow all\npolicy.",
+            "enum": [
+              "Allow",
+              "Reject"
+            ]
+          },
+          "logsDisabled": {
+            "description": "If `true`, the relevant flows will not be reported to the Microsegmentation\nConsole.\nUnder some advanced scenarios you may wish to set this to `true`, such as to\nsave space or improve performance.",
+            "type": "boolean"
+          },
+          "name": {
+            "description": "A user defined name to keep track of the rule in the reporting.",
+            "type": "string"
+          },
+          "networks": {
+            "description": "A list of IP CIDRS or FQDNS that identify remote endpoints.",
+            "items": {
+              "$ref": "./networkrulenet#/components/schemas/networkrulenet"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "object": {
+            "description": "Identifies the set of remote workloads that the rule relates to. The selector\nwill identify both processing units as well as external networks that match the\nselector.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "observationEnabled": {
+            "default": false,
+            "description": "If set to `true`, the flow will be in observation mode.",
+            "type": "boolean"
+          },
+          "protocolPorts": {
+            "description": "Represents the ports and protocols this policy applies to. Protocol/ports are\ndefined as tcp/80, udp/22. For protocols that do not have ports, the port\ndesignation\nis not allowed.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "networkrule",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/policy'",
+      "name": "core/policy"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

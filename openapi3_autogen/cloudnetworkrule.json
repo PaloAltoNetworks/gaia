@@ -1,0 +1,88 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudnetworkrule": {
+        "description": "Represents an ingress or egress network rule.",
+        "properties": {
+          "action": {
+            "default": "Allow",
+            "description": "Defines the action to apply to a flow.\n- `Allow`: allows the defined traffic.\n- `Reject`: rejects the defined traffic; useful in conjunction with an allow all\npolicy.",
+            "enum": [
+              "Allow",
+              "Reject"
+            ]
+          },
+          "networks": {
+            "description": "A list of IP CIDRS that identify remote endpoints.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "object": {
+            "description": "Identifies the set of remote workloads that the rule relates to. The selector\nwill identify both processing units as well as external networks that match the\nselector.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "priority": {
+            "description": "Priority of the rule. Available only for cloud ACLs.",
+            "type": "integer"
+          },
+          "protocolPorts": {
+            "description": "Represents the ports and protocols this policy applies to. Protocol/ports are\ndefined as tcp/80, udp/22. For protocols that do not have ports, the port\ndesignation\nis not allowed.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "storedNetworks": {
+            "description": "An internal representation of the networks to increase performance. Not visible\nto end users.",
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudnetworkrule",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

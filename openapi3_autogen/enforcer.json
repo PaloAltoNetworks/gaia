@@ -1,0 +1,832 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "enforcer": {
+        "description": "Contains all parameters associated with a registered enforcer. The\nobject is mainly maintained by the enforcers themselves. Users can read the\nobject in order to understand the current status of the enforcers.",
+        "properties": {
+          "FQDN": {
+            "description": "Contains the fully qualified domain name (FQDN) of the server where the\nenforcer is running.",
+            "example": "server1.domain.com",
+            "type": "string"
+          },
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "certificate": {
+            "description": "The certificate of the enforcer.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "certificateRequest": {
+            "description": "If not empty during a create or update operation, the provided certificate\nsigning request (CSR) will be validated and signed by the Microsegmentation\nConsole, providing a renewed certificate.",
+            "example": "-----BEGIN CERTIFICATE REQUEST-----\nMIICvDCCAaQCAQAwdzELMAkGA1UEBhMCVVMxDTALBgNVBAgMBFV0YWgxDzANBgNV\nBAcMBkxpbmRvbjEWMBQGA1UECgwNRGlnaUNlcnQgSW5jLjERMA8GA1UECwwIRGln\naUNlcnQxHTAbBgNVBAMMFGV4YW1wbGUuZGlnaWNlcnQuY29tMIIBIjANBgkqhkiG\n9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8+To7d+2kPWeBv/orU3LVbJwDrSQbeKamCmo\nwp5bqDxIwV20zqRb7APUOKYoVEFFOEQs6T6gImnIolhbiH6m4zgZ/CPvWBOkZc+c\n1Po2EmvBz+AD5sBdT5kzGQA6NbWyZGldxRthNLOs1efOhdnWFuhI162qmcflgpiI\nWDuwq4C9f+YkeJhNn9dF5+owm8cOQmDrV8NNdiTqin8q3qYAHHJRW28glJUCZkTZ\nwIaSR6crBQ8TbYNE0dc+Caa3DOIkz1EOsHWzTx+n0zKfqcbgXi4DJx+C1bjptYPR\nBPZL8DAeWuA8ebudVT44yEp82G96/Ggcf7F33xMxe0yc+Xa6owIDAQABoAAwDQYJ\nKoZIhvcNAQEFBQADggEBAB0kcrFccSmFDmxox0Ne01UIqSsDqHgL+XmHTXJwre6D\nhJSZwbvEtOK0G3+dr4Fs11WuUNt5qcLsx5a8uk4G6AKHMzuhLsJ7XZjgmQXGECpY\nQ4mC3yT3ZoCGpIXbw+iP3lmEEXgaQL0Tx5LFl/okKbKYwIqNiyKWOMj7ZR/wxWg/\nZDGRs55xuoeLDJ/ZRFf9bI+IaCUd1YrfYcHIl3G87Av+r49YVwqRDT0VDV7uLgqn\n29XI1PpVUNCPQGn9p/eX6Qo7vpDaPybRtA2R7XLKjQaF9oXWeCUqy1hvJac9QFO2\n97Ob1alpHPoZ7mWiEuJwjBPii6a9M9G30nUo39lBi1w=\n-----END CERTIFICATE REQUEST-----",
+            "type": "string"
+          },
+          "collectInfo": {
+            "description": "Indicates to the enforcer whether or not it needs to collect information.",
+            "type": "boolean"
+          },
+          "collectedInfo": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "deprecated": true,
+            "description": "Represents the latest information collected by the enforcer.",
+            "type": "object"
+          },
+          "controller": {
+            "description": "The Microsegmentation Console identifier managing this object. This property is\nmostly\nuseful when federating multiple Microsegmentation Consoles.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "currentVersion": {
+            "description": "The version number of the installed enforcer binary.",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "detectedHostModeContainers": {
+            "description": "This field indicates whether the enforcer has detected host mode containers.",
+            "type": "boolean"
+          },
+          "enforcementStatus": {
+            "default": "Inactive",
+            "description": "Status of the enforcement for host services.",
+            "enum": [
+              "Inactive",
+              "Active",
+              "Failed"
+            ]
+          },
+          "lastCollectionID": {
+            "description": "Identifies the last collection.",
+            "example": "xxx-xxx-xxx-xxx -",
+            "type": "string"
+          },
+          "lastCollectionTime": {
+            "description": "Identifies when the information was collected.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "lastMigrationTime": {
+            "description": "Last migration date of the enforcer.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "lastSyncTime": {
+            "description": "The time and date of the last heartbeat.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "localCA": {
+            "description": "Contains the initial chain of trust for the enforcer. This value is only\ngiven when you retrieve a single enforcer.",
+            "type": "string"
+          },
+          "logLevel": {
+            "default": "Info",
+            "description": "Log level of the enforcer.",
+            "enum": [
+              "Info",
+              "Debug",
+              "Warn",
+              "Error",
+              "Trace"
+            ]
+          },
+          "logLevelDuration": {
+            "default": "10s",
+            "description": "Determines the duration of which the log level will be active, using [Golang\nduration syntax](https://golang.org/pkg/time/#example_Duration).",
+            "type": "string"
+          },
+          "machineID": {
+            "description": "A unique identifier for every machine as detected by the enforcer. It is\nbased on hardware information such as the SMBIOS UUID, MAC addresses of\ninterfaces, or cloud provider IDs.",
+            "example": "3F23E8DF-C56D-45CF-89B8-A867F3956409",
+            "type": "string"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "migrationStatus": {
+            "default": "None",
+            "description": "Defines the migration status.",
+            "enum": [
+              "None",
+              "Running",
+              "Failed"
+            ]
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "nextAvailableVersion": {
+            "description": "Defines the next version the enforcer will be migrated to.",
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "operationalStatus": {
+            "default": "Registered",
+            "description": "The status of the enforcer.",
+            "enum": [
+              "Registered",
+              "Connected",
+              "Disconnected",
+              "Initialized"
+            ]
+          },
+          "previousOperationalStatus": {
+            "description": "Holds the previous operational status if it has changed.",
+            "enum": [
+              "Connected",
+              "Disconnected",
+              "Initialized",
+              "Registered"
+            ],
+            "readOnly": true
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "publicToken": {
+            "description": "The public token of the server that will be included in the datapath and\nis signed by the private certificate authority.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "startTime": {
+            "description": "The time and date on which this enforcer was started. The enforcer reports\nthis and the value is preserved across disconnects.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "subnets": {
+            "description": "Local subnets of this enforcer.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "unreachable": {
+            "description": "The Microsegmentation Console sets this value to `true` if it hasn't heard from\nthe enforcer in the last five minutes.",
+            "readOnly": true,
+            "type": "boolean"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "FQDN",
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "enforcer",
+    "version": "1.0"
+  },
+  "paths": {
+    "/enforcers": {
+      "get": {
+        "description": "Retrieves the list of enforcers.",
+        "operationId": "get-all-enforcers",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/enforcer"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new enforcer.",
+        "operationId": "create-a-new-enforcer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/enforcer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcer"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "squall"
+        ]
+      }
+    },
+    "/enforcers/{id}": {
+      "delete": {
+        "description": "Deletes the enforcer with the given ID.",
+        "operationId": "delete-enforcer-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcer"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the enforcer with the given ID.",
+        "operationId": "get-enforcer-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcer"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the enforcer with the given ID.",
+        "operationId": "update-enforcer-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/enforcer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcer"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "squall"
+        ]
+      }
+    },
+    "/enforcers/{id}/auditprofiles": {
+      "get": {
+        "description": "Returns a list of the audit profiles that must be applied to this enforcer.",
+        "operationId": "get-all-auditprofiles-for-a-given-enforcer",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./auditprofile#/components/schemas/auditprofile"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/audit",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/enforcers/{id}/debugbundles": {
+      "get": {
+        "description": "Retrieves the list of debug bundles.",
+        "operationId": "get-all-debugbundles-for-a-given-enforcer",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./debugbundle#/components/schemas/debugbundle"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "debug",
+          "guy"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "description": "Uploads a debug bundle.",
+        "operationId": "create-a-new-debugbundle-for-a-given-enforcer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./debugbundle#/components/schemas/debugbundle"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./debugbundle#/components/schemas/debugbundle"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "debug",
+          "guy"
+        ]
+      }
+    },
+    "/enforcers/{id}/enforcerprofiles": {
+      "get": {
+        "description": "Returns the enforcer profile that must be used by a enforcer.",
+        "operationId": "get-all-enforcerprofiles-for-a-given-enforcer",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./enforcerprofile#/components/schemas/enforcerprofile"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/enforcerconfig",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/enforcers/{id}/enforcerrefreshes": {
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "post": {
+        "description": "Sends a enforcer refresh command.",
+        "operationId": "create-a-new-enforcerrefresh-for-a-given-enforcer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "./enforcerrefresh#/components/schemas/enforcerrefresh"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./enforcerrefresh#/components/schemas/enforcerrefresh"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/policy",
+          "gaga"
+        ]
+      }
+    },
+    "/enforcers/{id}/hostservices": {
+      "get": {
+        "description": "Returns a list of the host services policies that apply to this enforcer.",
+        "operationId": "get-all-hostservices-for-a-given-enforcer",
+        "parameters": [
+          {
+            "description": "Valid when retrieved for a given enforcer and returns the applied services.",
+            "in": "query",
+            "name": "appliedServices",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Instructs Microsegmentation Console to cache the services that were resolved.",
+            "in": "query",
+            "name": "setServices",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./hostservice#/components/schemas/hostservice"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/hosts",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/enforcers/{id}/poke": {
+      "get": {
+        "description": "Sends a poke empty object. This is used to ensure a enforcer is up and running.",
+        "operationId": "get-all-poke-for-a-given-enforcer",
+        "parameters": [
+          {
+            "description": "Deprecated.",
+            "example": 1000,
+            "in": "query",
+            "name": "cpuload",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "description": "If set, changes the enforcement status of the enforcer along with the poke.",
+            "in": "query",
+            "name": "enforcementStatus",
+            "schema": {
+              "enum": [
+                "Failed",
+                "Inactive",
+                "Active"
+              ]
+            }
+          },
+          {
+            "description": "If set, it will trigger a full poke (slower).",
+            "in": "query",
+            "name": "forceFullPoke",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Deprecated.",
+            "example": 1000,
+            "in": "query",
+            "name": "memory",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Deprecated.",
+            "example": 10,
+            "in": "query",
+            "name": "processes",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "If set, terminates a session for a enforcer.",
+            "in": "query",
+            "name": "sessionClose",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "If set, sends the current session ID of a enforcer.",
+            "example": "1233",
+            "in": "query",
+            "name": "sessionID",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "If set, changes the status of the enforcer along with the poke.",
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "enum": [
+                "Registered",
+                "Connected",
+                "Disconnected"
+              ]
+            }
+          },
+          {
+            "description": "time of report. If not set, local server time will be used.",
+            "in": "query",
+            "name": "ts",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "If set, version of the current running enforcer.",
+            "example": "v1.10",
+            "in": "query",
+            "name": "version",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Can be set to help Microsegmentation Console target the correct shard where the enforcer is stored.",
+            "in": "query",
+            "name": "zhash",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./poke#/components/schemas/poke"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/enforcers/{id}/trustedcas": {
+      "get": {
+        "description": "Returns the list of certificate authorities that should be trusted by this\nenforcer.",
+        "operationId": "get-all-trustedcas-for-a-given-enforcer",
+        "parameters": [
+          {
+            "description": "Type of certificate to get.",
+            "example": "Any",
+            "in": "query",
+            "name": "type",
+            "schema": {
+              "enum": [
+                "Any",
+                "X509",
+                "SSH"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./trustedca#/components/schemas/trustedca"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/enforcerconfig",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

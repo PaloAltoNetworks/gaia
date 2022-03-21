@@ -1,0 +1,86 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudroute": {
+        "description": "Describes a route in a route table.",
+        "properties": {
+          "destinationIPv4CIDR": {
+            "description": "The Destination CIDR for the route.",
+            "example": "10.1.1.32/24",
+            "type": "string"
+          },
+          "destinationIPv6CIDR": {
+            "description": "The destination IPV6 CIDR for the route.",
+            "example": "2001:db8::/32",
+            "type": "string"
+          },
+          "destinationPrefixListID": {
+            "description": "The destination is identified as a prefix list ID.",
+            "example": "pl-1234",
+            "type": "string"
+          },
+          "nextHopID": {
+            "description": "The ID of the next hop object.",
+            "example": "gw_123444444",
+            "type": "string"
+          },
+          "nextHopType": {
+            "description": "The type of the next hop.",
+            "enum": [
+              "EgressOnlyGateway",
+              "Gateway",
+              "Instance",
+              "LocalGateway",
+              "NATGateway",
+              "NetworkInterface",
+              "TransitGateway",
+              "VPCPeeringConnection",
+              "TransitGatewayAttachment",
+              "Drop"
+            ],
+            "example": "LocalGateway"
+          },
+          "storedDestinationIPv4CIDR": {
+            "description": "Internal representation of IPv4 networks.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "storedDestinationIPv6CIDR": {
+            "description": "Internal representation of IPv6 networks.",
+            "readOnly": true,
+            "type": "object"
+          }
+        },
+        "required": [
+          "nextHopType"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudroute",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

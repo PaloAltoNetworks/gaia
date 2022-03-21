@@ -1,0 +1,313 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "alarm": {
+        "description": "Represents an event requiring attention.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "content": {
+            "description": "Content of the alarm.",
+            "example": "This is an alarm",
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "data": {
+            "description": "Data represent user data related to the alarms.",
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "emails": {
+            "description": "A list of recipients that should be emailed when this alarm is\ncreated.",
+            "example": [
+              "amir@aporeto.com",
+              "john@aporeto.com"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "kind": {
+            "description": "Identifies the kind of alarm. If two alarms are created with the same\nidentifier, then only the occurrence will be incremented.",
+            "example": "aporeto.alarm.kind",
+            "type": "string"
+          },
+          "lastLocalTimestamp": {
+            "description": "Time and date of the alarm set by the enforcer.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "occurrences": {
+            "description": "Number of times this alarm has been seen.",
+            "items": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "status": {
+            "default": "Open",
+            "description": "Status of the alarm.",
+            "enum": [
+              "Acknowledged",
+              "Open",
+              "Resolved"
+            ]
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "content",
+          "kind",
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "alarm",
+    "version": "1.0"
+  },
+  "paths": {
+    "/alarms": {
+      "get": {
+        "description": "Retrieves all the alarms.",
+        "operationId": "get-all-alarms",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/alarm"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/monitoring",
+          "sephiroth"
+        ]
+      },
+      "post": {
+        "description": "Creates a new alarm.",
+        "operationId": "create-a-new-alarm",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/alarm"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/alarm"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/monitoring",
+          "sephiroth"
+        ]
+      }
+    },
+    "/alarms/{id}": {
+      "delete": {
+        "description": "Deletes the object with the given ID.",
+        "operationId": "delete-alarm-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/alarm"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/monitoring",
+          "sephiroth"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the object with the given ID.",
+        "operationId": "get-alarm-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/alarm"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/monitoring",
+          "sephiroth"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the object with the given ID.",
+        "operationId": "update-alarm-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/alarm"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/alarm"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/monitoring",
+          "sephiroth"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/monitoring'",
+      "name": "core/monitoring"
+    },
+    {
+      "description": "This tag is for package 'sephiroth'",
+      "name": "sephiroth"
+    }
+  ]
+}

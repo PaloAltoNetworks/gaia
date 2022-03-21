@@ -1,0 +1,343 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "apiauthorizationpolicy": {
+        "description": "An API authorization defines the operations a user can perform in a\nnamespace: `GET`, `POST`, `PUT`, `DELETE`, `PATCH`, and/or `HEAD`.\nIt is also possible to restrict the user to a subset of the APIs in the\nnamespace by setting `authorizedIdentities`. An API authorization always\npropagates down to all the children of the current namespace.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "activeDuration": {
+            "description": "Defines for how long the policy will be active according to the\n`activeSchedule`.",
+            "type": "string"
+          },
+          "activeSchedule": {
+            "description": "Defines when the policy should be active using the cron notation.\nThe policy will be active for the given `activeDuration`.",
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "authorizedIdentities": {
+            "description": "A list of roles assigned to the user.",
+            "example": [
+              "@auth:role=namespace.administrator"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "authorizedNamespace": {
+            "deprecated": true,
+            "description": "Defines the namespace the user is authorized to access.",
+            "example": "/namespace",
+            "type": "string"
+          },
+          "authorizedNamespaces": {
+            "description": "Defines the namespaces this policy applies to.",
+            "example": [
+              "/namespace",
+              "/namespace/child"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "authorizedSubnets": {
+            "description": "If set, the API authorization will only be valid if the request comes from one\nthe declared subnets.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Defines if the property is disabled.",
+            "type": "boolean"
+          },
+          "expirationTime": {
+            "description": "If set, the policy will be automatically deleted after the given time.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "fallback": {
+            "description": "Indicates that this is fallback policy. It will only be\napplied if no other policies have been resolved. If the policy is also\npropagated it will become a fallback for children namespaces.",
+            "type": "boolean"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "propagationHidden": {
+            "description": "If set to `true` while the policy is propagating, it won't be visible to\nchildren\nnamespace, but still used for policy resolution.",
+            "type": "boolean"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "subject": {
+            "description": "A tag or tag expression that identifies the authorized user(s).",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "authorizedIdentities",
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "apiauthorizationpolicy",
+    "version": "1.0"
+  },
+  "paths": {
+    "/apiauthorizationpolicies": {
+      "get": {
+        "description": "Retrieves the list of API authorizations.",
+        "operationId": "get-all-apiauthorizationpolicies",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/apiauthorizationpolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/authorization",
+          "cid"
+        ]
+      },
+      "post": {
+        "description": "Creates a new API authorization.",
+        "operationId": "create-a-new-apiauthorizationpolicy",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/apiauthorizationpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/apiauthorizationpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/authorization",
+          "cid"
+        ]
+      }
+    },
+    "/apiauthorizationpolicies/{id}": {
+      "delete": {
+        "description": "Deletes the authorization with the given ID.",
+        "operationId": "delete-apiauthorizationpolicy-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/apiauthorizationpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/authorization",
+          "cid"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the authorization with the given ID.",
+        "operationId": "get-apiauthorizationpolicy-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/apiauthorizationpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/authorization",
+          "cid"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the authorization with the given ID.",
+        "operationId": "update-apiauthorizationpolicy-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/apiauthorizationpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/apiauthorizationpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/authorization",
+          "cid"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/authorization'",
+      "name": "policy/authorization"
+    },
+    {
+      "description": "This tag is for package 'cid'",
+      "name": "cid"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "tracerecord": {
+        "description": "Represents a single trace record from the enforcer.",
+        "properties": {
+          "TTL": {
+            "description": "The time to live (TTL) value of the packet.",
+            "example": 64,
+            "type": "integer"
+          },
+          "chain": {
+            "description": "Chain that the trace was collected from.",
+            "example": "PREROUTING",
+            "type": "string"
+          },
+          "destinationIP": {
+            "description": "The destination IP.",
+            "example": "10.1.1.30",
+            "type": "string"
+          },
+          "destinationInterface": {
+            "description": "The destination interface of the packet.",
+            "example": "en0",
+            "type": "string"
+          },
+          "destinationPort": {
+            "description": "The destination UPD or TCP port of the packet.",
+            "example": 80,
+            "type": "integer"
+          },
+          "length": {
+            "description": "Length of the observed packet.",
+            "example": 98,
+            "type": "integer"
+          },
+          "packetID": {
+            "description": "The IP packet header ID.",
+            "example": 10,
+            "type": "integer"
+          },
+          "protocol": {
+            "description": "The protocol of the packet.",
+            "example": 80,
+            "type": "integer"
+          },
+          "ruleID": {
+            "description": "Priority index of the iptables entry that was hit.",
+            "example": 10,
+            "type": "integer"
+          },
+          "sourceIP": {
+            "description": "Source IP of the packet.",
+            "example": "10.1.1.30",
+            "type": "string"
+          },
+          "sourceInterface": {
+            "description": "Source interface of the packet.",
+            "example": "en0",
+            "type": "string"
+          },
+          "sourcePort": {
+            "description": "Source TCP or UDP port of the packet.",
+            "example": 80,
+            "type": "integer"
+          },
+          "tableName": {
+            "description": "The iptables name that the trace collected.",
+            "example": "raw",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "The time-date stamp of the report.",
+            "example": "2018-06-14T23:10:46.420397985Z",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "TTL",
+          "chain",
+          "destinationIP",
+          "destinationPort",
+          "length",
+          "packetID",
+          "protocol",
+          "ruleID",
+          "sourceIP",
+          "sourcePort",
+          "tableName",
+          "timestamp"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "tracerecord",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'zack'",
+      "name": "zack"
+    }
+  ]
+}

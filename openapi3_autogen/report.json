@@ -1,0 +1,104 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "report": {
+        "description": "Post a new statistics report.",
+        "properties": {
+          "fields": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "TSDB Fields to set for the report.",
+            "type": "object"
+          },
+          "kind": {
+            "description": "Kind contains the kind of report.",
+            "enum": [
+              "Audit",
+              "Enforcer",
+              "FileAccess",
+              "Flow",
+              "ProcessingUnit",
+              "Syscall",
+              "Claims"
+            ]
+          },
+          "tags": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Tags contains the tags associated to the data point.",
+            "type": "object"
+          },
+          "timestamp": {
+            "description": "Timestamp contains the time for the report.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "value": {
+            "description": "Value contains the value for the report.",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "report",
+    "version": "1.0"
+  },
+  "paths": {
+    "/reports": {
+      "post": {
+        "description": "Create a statistics report.",
+        "operationId": "create-a-new-report",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/report"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/report"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "none",
+          "zack"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'none'",
+      "name": "none"
+    },
+    {
+      "description": "This tag is for package 'zack'",
+      "name": "zack"
+    }
+  ]
+}

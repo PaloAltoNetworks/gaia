@@ -30,15 +30,6 @@ attributes:
     extensions:
       bson_name: b
 
-  - name: destinationExternalNetworkID
-    description: Closest external network that matches destination IP.
-    type: string
-    exposed: true
-    stored: true
-    omit_empty: true
-    extensions:
-      bson_name: ao
-
   - name: destinationFQDN
     description: Destination fully qualified domain name (FQDN), if known.
     type: string
@@ -352,15 +343,6 @@ attributes:
     omit_empty: true
     extensions:
       bson_name: aa
-
-  - name: sourceExternalNetworkID
-    description: Closest external network that matches source IP.
-    type: string
-    exposed: true
-    stored: true
-    omit_empty: true
-    extensions:
-      bson_name: ap
 
   - name: sourceID
     description: ID of the source.
