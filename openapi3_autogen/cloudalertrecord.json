@@ -31,6 +31,12 @@
             },
             "type": "array"
           },
+          "cloudType": {
+            "default": "AWS",
+            "description": "Cloud type of the entity.",
+            "example": "AWS",
+            "type": "string"
+          },
           "createTime": {
             "description": "Creation date of the object.",
             "format": "date-time",
