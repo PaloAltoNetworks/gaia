@@ -60,7 +60,7 @@ type CloudNetworkQueryFilter struct {
 	Regions []string `json:"regions,omitempty" msgpack:"regions,omitempty" bson:"regions,omitempty" mapstructure:"regions,omitempty"`
 
 	// The status of the resource.
-	ResourceStatus string `json:"resourceStatus" msgpack:"resourceStatus" bson:"resourcestatus" mapstructure:"resourceStatus,omitempty"`
+	ResourceStatus string `json:"resourceStatus,omitempty" msgpack:"resourceStatus,omitempty" bson:"resourcestatus,omitempty" mapstructure:"resourceStatus,omitempty"`
 
 	// The type of endpoint resource. The resource type is a mandatory field and a
 	// query cannot span multiple resource types.
@@ -687,7 +687,7 @@ type mongoAttributesCloudNetworkQueryFilter struct {
 	ProductInfoType  string                                   `bson:"productinfotype,omitempty"`
 	ProductInfoValue string                                   `bson:"productinfovalue,omitempty"`
 	Regions          []string                                 `bson:"regions,omitempty"`
-	ResourceStatus   string                                   `bson:"resourcestatus"`
+	ResourceStatus   string                                   `bson:"resourcestatus,omitempty"`
 	ResourceType     CloudNetworkQueryFilterResourceTypeValue `bson:"resourcetype"`
 	SecurityTags     []string                                 `bson:"securitytags,omitempty"`
 	ServiceNames     []string                                 `bson:"servicenames,omitempty"`

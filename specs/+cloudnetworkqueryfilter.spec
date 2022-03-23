@@ -96,6 +96,7 @@ attributes:
     exposed: true
     stored: true
     example_value: Active
+    omit_empty: true
 
   - name: resourceType
     description: |-
