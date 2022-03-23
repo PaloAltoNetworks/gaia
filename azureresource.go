@@ -115,7 +115,7 @@ type AzureResource struct {
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
 	// The json-encoded data that represents the resource.
-	Data string `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
+	Data []byte `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
 
 	// The specific kind of the resource.
 	Kind AzureResourceKindValue `json:"kind" msgpack:"kind" bson:"kind" mapstructure:"kind,omitempty"`
@@ -161,6 +161,7 @@ func NewAzureResource() *AzureResource {
 
 	return &AzureResource{
 		ModelVersion:  1,
+		Data:          []byte{},
 		MigrationsLog: map[string]string{},
 		Tags:          []string{},
 	}
@@ -456,7 +457,7 @@ func (o *AzureResource) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if err := elemental.ValidateRequiredString("data", o.Data); err != nil {
+	if err := elemental.ValidateRequiredExternal("data", o.Data); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
@@ -583,7 +584,8 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "data",
 		Required:       true,
 		Stored:         true,
-		Type:           "string",
+		SubType:        "[]byte",
+		Type:           "external",
 	},
 	"Kind": {
 		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration"},
@@ -748,7 +750,8 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Name:           "data",
 		Required:       true,
 		Stored:         true,
-		Type:           "string",
+		SubType:        "[]byte",
+		Type:           "external",
 	},
 	"kind": {
 		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration"},
@@ -954,7 +957,7 @@ type SparseAzureResource struct {
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
 	// The json-encoded data that represents the resource.
-	Data *string `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
+	Data *[]byte `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
 
 	// The specific kind of the resource.
 	Kind *AzureResourceKindValue `json:"kind,omitempty" msgpack:"kind,omitempty" bson:"kind,omitempty" mapstructure:"kind,omitempty"`
@@ -1276,7 +1279,7 @@ func (o *SparseAzureResource) DeepCopyInto(out *SparseAzureResource) {
 
 type mongoAttributesAzureResource struct {
 	ID             bson.ObjectId              `bson:"_id,omitempty"`
-	Data           string                     `bson:"data"`
+	Data           []byte                     `bson:"data"`
 	Kind           AzureResourceKindValue     `bson:"kind"`
 	MigrationsLog  map[string]string          `bson:"migrationslog,omitempty"`
 	Name           string                     `bson:"name"`
@@ -1291,7 +1294,7 @@ type mongoAttributesAzureResource struct {
 }
 type mongoAttributesSparseAzureResource struct {
 	ID             bson.ObjectId               `bson:"_id,omitempty"`
-	Data           *string                     `bson:"data,omitempty"`
+	Data           *[]byte                     `bson:"data,omitempty"`
 	Kind           *AzureResourceKindValue     `bson:"kind,omitempty"`
 	MigrationsLog  *map[string]string          `bson:"migrationslog,omitempty"`
 	Name           *string                     `bson:"name,omitempty"`
