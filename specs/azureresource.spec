@@ -26,8 +26,9 @@ attributes:
   v1:
   - name: data
     description: The json-encoded data that represents the resource.
-    type: string
+    type: external
     exposed: true
+    subtype: '[]byte'
     stored: true
     required: true
     example_value: |-
