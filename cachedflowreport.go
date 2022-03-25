@@ -172,6 +172,9 @@ type CachedFlowReport struct {
 	// Destination IP address.
 	DestinationIP string `json:"destinationIP,omitempty" msgpack:"destinationIP,omitempty" bson:"d,omitempty" mapstructure:"destinationIP,omitempty"`
 
+	// Name of the destination.
+	DestinationName string `json:"destinationName,omitempty" msgpack:"destinationName,omitempty" bson:"ao,omitempty" mapstructure:"destinationName,omitempty"`
+
 	// Namespace of the destination. This is deprecated. Use `remoteNamespace`. This
 	// property does nothing.
 	DestinationNamespace string `json:"destinationNamespace,omitempty" msgpack:"destinationNamespace,omitempty" bson:"e,omitempty" mapstructure:"destinationNamespace,omitempty"`
@@ -273,6 +276,9 @@ type CachedFlowReport struct {
 	// Type of the source.
 	SourceIP string `json:"sourceIP,omitempty" msgpack:"sourceIP,omitempty" bson:"ac,omitempty" mapstructure:"sourceIP,omitempty"`
 
+	// Name of the source.
+	SourceName string `json:"sourceName,omitempty" msgpack:"sourceName,omitempty" bson:"ap,omitempty" mapstructure:"sourceName,omitempty"`
+
 	// Namespace of the source. This is deprecated. Use `remoteNamespace`. This
 	// property does nothing.
 	SourceNamespace string `json:"sourceNamespace,omitempty" msgpack:"sourceNamespace,omitempty" bson:"ad,omitempty" mapstructure:"sourceNamespace,omitempty"`
@@ -304,9 +310,9 @@ func NewCachedFlowReport() *CachedFlowReport {
 
 	return &CachedFlowReport{
 		ModelVersion:   1,
-		ObservedAction: CachedFlowReportObservedActionNotApplicable,
-		ServiceType:    CachedFlowReportServiceTypeNotApplicable,
 		MigrationsLog:  map[string]string{},
+		ServiceType:    CachedFlowReportServiceTypeNotApplicable,
+		ObservedAction: CachedFlowReportObservedActionNotApplicable,
 	}
 }
 
@@ -346,6 +352,7 @@ func (o *CachedFlowReport) GetBSON() (interface{}, error) {
 	s.DestinationFQDN = o.DestinationFQDN
 	s.DestinationID = o.DestinationID
 	s.DestinationIP = o.DestinationIP
+	s.DestinationName = o.DestinationName
 	s.DestinationNamespace = o.DestinationNamespace
 	s.DestinationPlatform = o.DestinationPlatform
 	s.DestinationPort = o.DestinationPort
@@ -378,6 +385,7 @@ func (o *CachedFlowReport) GetBSON() (interface{}, error) {
 	s.SourceController = o.SourceController
 	s.SourceID = o.SourceID
 	s.SourceIP = o.SourceIP
+	s.SourceName = o.SourceName
 	s.SourceNamespace = o.SourceNamespace
 	s.SourcePlatform = o.SourcePlatform
 	s.SourceType = o.SourceType
@@ -408,6 +416,7 @@ func (o *CachedFlowReport) SetBSON(raw bson.Raw) error {
 	o.DestinationFQDN = s.DestinationFQDN
 	o.DestinationID = s.DestinationID
 	o.DestinationIP = s.DestinationIP
+	o.DestinationName = s.DestinationName
 	o.DestinationNamespace = s.DestinationNamespace
 	o.DestinationPlatform = s.DestinationPlatform
 	o.DestinationPort = s.DestinationPort
@@ -440,6 +449,7 @@ func (o *CachedFlowReport) SetBSON(raw bson.Raw) error {
 	o.SourceController = s.SourceController
 	o.SourceID = s.SourceID
 	o.SourceIP = s.SourceIP
+	o.SourceName = s.SourceName
 	o.SourceNamespace = s.SourceNamespace
 	o.SourcePlatform = s.SourcePlatform
 	o.SourceType = s.SourceType
@@ -529,6 +539,7 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			DestinationFQDN:         &o.DestinationFQDN,
 			DestinationID:           &o.DestinationID,
 			DestinationIP:           &o.DestinationIP,
+			DestinationName:         &o.DestinationName,
 			DestinationNamespace:    &o.DestinationNamespace,
 			DestinationPlatform:     &o.DestinationPlatform,
 			DestinationPort:         &o.DestinationPort,
@@ -561,6 +572,7 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			SourceController:        &o.SourceController,
 			SourceID:                &o.SourceID,
 			SourceIP:                &o.SourceIP,
+			SourceName:              &o.SourceName,
 			SourceNamespace:         &o.SourceNamespace,
 			SourcePlatform:          &o.SourcePlatform,
 			SourceType:              &o.SourceType,
@@ -586,6 +598,8 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.DestinationID = &(o.DestinationID)
 		case "destinationIP":
 			sp.DestinationIP = &(o.DestinationIP)
+		case "destinationName":
+			sp.DestinationName = &(o.DestinationName)
 		case "destinationNamespace":
 			sp.DestinationNamespace = &(o.DestinationNamespace)
 		case "destinationPlatform":
@@ -650,6 +664,8 @@ func (o *CachedFlowReport) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.SourceID = &(o.SourceID)
 		case "sourceIP":
 			sp.SourceIP = &(o.SourceIP)
+		case "sourceName":
+			sp.SourceName = &(o.SourceName)
 		case "sourceNamespace":
 			sp.SourceNamespace = &(o.SourceNamespace)
 		case "sourcePlatform":
@@ -694,6 +710,9 @@ func (o *CachedFlowReport) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.DestinationIP != nil {
 		o.DestinationIP = *so.DestinationIP
+	}
+	if so.DestinationName != nil {
+		o.DestinationName = *so.DestinationName
 	}
 	if so.DestinationNamespace != nil {
 		o.DestinationNamespace = *so.DestinationNamespace
@@ -790,6 +809,9 @@ func (o *CachedFlowReport) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.SourceIP != nil {
 		o.SourceIP = *so.SourceIP
+	}
+	if so.SourceName != nil {
+		o.SourceName = *so.SourceName
 	}
 	if so.SourceNamespace != nil {
 		o.SourceNamespace = *so.SourceNamespace
@@ -951,6 +973,8 @@ func (o *CachedFlowReport) ValueForAttribute(name string) interface{} {
 		return o.DestinationID
 	case "destinationIP":
 		return o.DestinationIP
+	case "destinationName":
+		return o.DestinationName
 	case "destinationNamespace":
 		return o.DestinationNamespace
 	case "destinationPlatform":
@@ -1015,6 +1039,8 @@ func (o *CachedFlowReport) ValueForAttribute(name string) interface{} {
 		return o.SourceID
 	case "sourceIP":
 		return o.SourceIP
+	case "sourceName":
+		return o.SourceName
 	case "sourceNamespace":
 		return o.SourceNamespace
 	case "sourcePlatform":
@@ -1100,6 +1126,16 @@ var CachedFlowReportAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `Destination IP address.`,
 		Exposed:        true,
 		Name:           "destinationIP",
+		Stored:         true,
+		Type:           "string",
+	},
+	"DestinationName": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ao",
+		ConvertedName:  "DestinationName",
+		Description:    `Name of the destination.`,
+		Exposed:        true,
+		Name:           "destinationName",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1439,6 +1475,16 @@ NetworkRuleSetPolicy that acted on the flow.`,
 		Stored:         true,
 		Type:           "string",
 	},
+	"SourceName": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ap",
+		ConvertedName:  "SourceName",
+		Description:    `Name of the source.`,
+		Exposed:        true,
+		Name:           "sourceName",
+		Stored:         true,
+		Type:           "string",
+	},
 	"SourceNamespace": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "ad",
@@ -1590,6 +1636,16 @@ var CachedFlowReportLowerCaseAttributesMap = map[string]elemental.AttributeSpeci
 		Description:    `Destination IP address.`,
 		Exposed:        true,
 		Name:           "destinationIP",
+		Stored:         true,
+		Type:           "string",
+	},
+	"destinationname": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ao",
+		ConvertedName:  "DestinationName",
+		Description:    `Name of the destination.`,
+		Exposed:        true,
+		Name:           "destinationName",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1929,6 +1985,16 @@ NetworkRuleSetPolicy that acted on the flow.`,
 		Stored:         true,
 		Type:           "string",
 	},
+	"sourcename": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ap",
+		ConvertedName:  "SourceName",
+		Description:    `Name of the source.`,
+		Exposed:        true,
+		Name:           "sourceName",
+		Stored:         true,
+		Type:           "string",
+	},
 	"sourcenamespace": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "ad",
@@ -2095,6 +2161,9 @@ type SparseCachedFlowReport struct {
 	// Destination IP address.
 	DestinationIP *string `json:"destinationIP,omitempty" msgpack:"destinationIP,omitempty" bson:"d,omitempty" mapstructure:"destinationIP,omitempty"`
 
+	// Name of the destination.
+	DestinationName *string `json:"destinationName,omitempty" msgpack:"destinationName,omitempty" bson:"ao,omitempty" mapstructure:"destinationName,omitempty"`
+
 	// Namespace of the destination. This is deprecated. Use `remoteNamespace`. This
 	// property does nothing.
 	DestinationNamespace *string `json:"destinationNamespace,omitempty" msgpack:"destinationNamespace,omitempty" bson:"e,omitempty" mapstructure:"destinationNamespace,omitempty"`
@@ -2196,6 +2265,9 @@ type SparseCachedFlowReport struct {
 	// Type of the source.
 	SourceIP *string `json:"sourceIP,omitempty" msgpack:"sourceIP,omitempty" bson:"ac,omitempty" mapstructure:"sourceIP,omitempty"`
 
+	// Name of the source.
+	SourceName *string `json:"sourceName,omitempty" msgpack:"sourceName,omitempty" bson:"ap,omitempty" mapstructure:"sourceName,omitempty"`
+
 	// Namespace of the source. This is deprecated. Use `remoteNamespace`. This
 	// property does nothing.
 	SourceNamespace *string `json:"sourceNamespace,omitempty" msgpack:"sourceNamespace,omitempty" bson:"ad,omitempty" mapstructure:"sourceNamespace,omitempty"`
@@ -2279,6 +2351,9 @@ func (o *SparseCachedFlowReport) GetBSON() (interface{}, error) {
 	}
 	if o.DestinationIP != nil {
 		s.DestinationIP = o.DestinationIP
+	}
+	if o.DestinationName != nil {
+		s.DestinationName = o.DestinationName
 	}
 	if o.DestinationNamespace != nil {
 		s.DestinationNamespace = o.DestinationNamespace
@@ -2376,6 +2451,9 @@ func (o *SparseCachedFlowReport) GetBSON() (interface{}, error) {
 	if o.SourceIP != nil {
 		s.SourceIP = o.SourceIP
 	}
+	if o.SourceName != nil {
+		s.SourceName = o.SourceName
+	}
 	if o.SourceNamespace != nil {
 		s.SourceNamespace = o.SourceNamespace
 	}
@@ -2430,6 +2508,9 @@ func (o *SparseCachedFlowReport) SetBSON(raw bson.Raw) error {
 	}
 	if s.DestinationIP != nil {
 		o.DestinationIP = s.DestinationIP
+	}
+	if s.DestinationName != nil {
+		o.DestinationName = s.DestinationName
 	}
 	if s.DestinationNamespace != nil {
 		o.DestinationNamespace = s.DestinationNamespace
@@ -2527,6 +2608,9 @@ func (o *SparseCachedFlowReport) SetBSON(raw bson.Raw) error {
 	if s.SourceIP != nil {
 		o.SourceIP = s.SourceIP
 	}
+	if s.SourceName != nil {
+		o.SourceName = s.SourceName
+	}
 	if s.SourceNamespace != nil {
 		o.SourceNamespace = s.SourceNamespace
 	}
@@ -2579,6 +2663,9 @@ func (o *SparseCachedFlowReport) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.DestinationIP != nil {
 		out.DestinationIP = *o.DestinationIP
+	}
+	if o.DestinationName != nil {
+		out.DestinationName = *o.DestinationName
 	}
 	if o.DestinationNamespace != nil {
 		out.DestinationNamespace = *o.DestinationNamespace
@@ -2675,6 +2762,9 @@ func (o *SparseCachedFlowReport) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.SourceIP != nil {
 		out.SourceIP = *o.SourceIP
+	}
+	if o.SourceName != nil {
+		out.SourceName = *o.SourceName
 	}
 	if o.SourceNamespace != nil {
 		out.SourceNamespace = *o.SourceNamespace
@@ -2780,6 +2870,7 @@ type mongoAttributesCachedFlowReport struct {
 	DestinationFQDN         string                               `bson:"am,omitempty"`
 	DestinationID           string                               `bson:"c,omitempty"`
 	DestinationIP           string                               `bson:"d,omitempty"`
+	DestinationName         string                               `bson:"ao,omitempty"`
 	DestinationNamespace    string                               `bson:"e,omitempty"`
 	DestinationPlatform     string                               `bson:"f,omitempty"`
 	DestinationPort         int                                  `bson:"g,omitempty"`
@@ -2812,6 +2903,7 @@ type mongoAttributesCachedFlowReport struct {
 	SourceController        string                               `bson:"aa,omitempty"`
 	SourceID                string                               `bson:"ab,omitempty"`
 	SourceIP                string                               `bson:"ac,omitempty"`
+	SourceName              string                               `bson:"ap,omitempty"`
 	SourceNamespace         string                               `bson:"ad,omitempty"`
 	SourcePlatform          string                               `bson:"ae,omitempty"`
 	SourceType              CachedFlowReportSourceTypeValue      `bson:"af,omitempty"`
@@ -2827,6 +2919,7 @@ type mongoAttributesSparseCachedFlowReport struct {
 	DestinationFQDN         *string                               `bson:"am,omitempty"`
 	DestinationID           *string                               `bson:"c,omitempty"`
 	DestinationIP           *string                               `bson:"d,omitempty"`
+	DestinationName         *string                               `bson:"ao,omitempty"`
 	DestinationNamespace    *string                               `bson:"e,omitempty"`
 	DestinationPlatform     *string                               `bson:"f,omitempty"`
 	DestinationPort         *int                                  `bson:"g,omitempty"`
@@ -2859,6 +2952,7 @@ type mongoAttributesSparseCachedFlowReport struct {
 	SourceController        *string                               `bson:"aa,omitempty"`
 	SourceID                *string                               `bson:"ab,omitempty"`
 	SourceIP                *string                               `bson:"ac,omitempty"`
+	SourceName              *string                               `bson:"ap,omitempty"`
 	SourceNamespace         *string                               `bson:"ad,omitempty"`
 	SourcePlatform          *string                               `bson:"ae,omitempty"`
 	SourceType              *CachedFlowReportSourceTypeValue      `bson:"af,omitempty"`
