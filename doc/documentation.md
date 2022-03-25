@@ -10239,6 +10239,7 @@ Parameters associated with a cloud endpoint.
     "eni-33333"
   ],
   "forwardingEnabled": false,
+  "resourceStatus": "Active",
   "serviceType": "NotApplicable",
   "type": "Instance"
 }
@@ -10300,6 +10301,18 @@ Product related metadata associated with this endpoint.
 Type: `[]string`
 
 if the endpoint has a public IP we store the IP address in this field.
+
+##### `resourceStatus`
+
+Type: `enum(Active | Inactive)`
+
+The status of the resource.
+
+Default value:
+
+```json
+"Active"
+```
 
 ##### `serviceName`
 
@@ -10449,6 +10462,7 @@ Parameters associated with a cloud interface.
   "attachmentType": "Instance",
   "availabilityZone": "us-east-1",
   "hasPublicIP": false,
+  "resourceStatus": "Active",
   "routeTableID": [
     "rt1233"
   ],
@@ -10499,6 +10513,18 @@ Type: `string`
 
 If the interface is of type or external, the relatedObjectID identifies the
 related service or gateway.
+
+##### `resourceStatus`
+
+Type: `enum(Active | Inactive)`
+
+The status of the resource.
+
+Default value:
+
+```json
+"Active"
+```
 
 ##### `routeTableID`
 
@@ -11599,6 +11625,7 @@ permissions request.
   "regions": [
     "us-west-1"
   ],
+  "resourceStatus": "Active",
   "resourceType": "Instance"
 }
 ```
@@ -11657,6 +11684,12 @@ not apply to other resource types.
 Type: `[]string`
 
 The region that the search must apply to.
+
+##### `resourceStatus`
+
+Type: `string`
+
+The status of the resource.
 
 ##### `resourceType` [`required`]
 
