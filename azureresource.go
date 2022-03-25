@@ -26,6 +26,9 @@ const (
 
 	// AzureResourceKindVirtualMachine represents the value VirtualMachine.
 	AzureResourceKindVirtualMachine AzureResourceKindValue = "VirtualMachine"
+
+	// AzureResourceKindVirtualNetwork represents the value VirtualNetwork.
+	AzureResourceKindVirtualNetwork AzureResourceKindValue = "VirtualNetwork"
 )
 
 // AzureResourceProviderValue represents the possible values for attribute "provider".
@@ -465,7 +468,7 @@ func (o *AzureResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -588,7 +591,7 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "external",
 	},
 	"Kind": {
-		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration"},
+		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,
@@ -754,7 +757,7 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Type:           "external",
 	},
 	"kind": {
-		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration"},
+		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,
