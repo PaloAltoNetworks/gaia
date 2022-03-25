@@ -16897,6 +16897,7 @@ Post a new cached flow report.
   "action": "Accept",
   "destinationController": "api.east.acme.com",
   "destinationID": "xxx-xxx-xxx",
+  "destinationName": "processing-unit-1",
   "destinationNamespace": "/my/namespace",
   "destinationPlatform": "api.east.acme.com",
   "destinationType": "ProcessingUnit",
@@ -16916,6 +16917,7 @@ Post a new cached flow report.
   "serviceType": "NotApplicable",
   "sourceController": "api.west.acme.com",
   "sourceID": "xxx-xxx-xxx",
+  "sourceName": "processing-unit-2",
   "sourceNamespace": "/my/namespace",
   "sourcePlatform": "api.west.acme.com",
   "sourceType": "ProcessingUnit",
@@ -16966,6 +16968,12 @@ ID of the destination.
 Type: `string`
 
 Destination IP address.
+
+##### `destinationName`
+
+Type: `string`
+
+Name of the destination.
 
 ##### `destinationNamespace`
 
@@ -17173,6 +17181,12 @@ ID of the source.
 Type: `string`
 
 Type of the source.
+
+##### `sourceName`
+
+Type: `string`
+
+Name of the source.
 
 ##### `sourceNamespace`
 
@@ -17618,6 +17632,7 @@ Post a new flow log.
   "action": "Accept",
   "destinationController": "api.east.acme.com",
   "destinationID": "xxx-xxx-xxx",
+  "destinationName": "processing-unit-1",
   "destinationNamespace": "/my/namespace",
   "destinationPlatform": "api.east.acme.com",
   "destinationType": "ProcessingUnit",
@@ -17635,6 +17650,7 @@ Post a new flow log.
   "serviceType": "NotApplicable",
   "sourceController": "api.west.acme.com",
   "sourceID": "xxx-xxx-xxx",
+  "sourceName": "processing-unit-2",
   "sourceNamespace": "/my/namespace",
   "sourcePlatform": "api.west.acme.com",
   "sourceType": "ProcessingUnit",
@@ -17689,6 +17705,12 @@ ID of the destination.
 Type: `string`
 
 Destination IP address.
+
+##### `destinationName`
+
+Type: `string`
+
+Name of the destination.
 
 ##### `destinationNamespace`
 
@@ -17884,6 +17906,12 @@ ID of the source.
 Type: `string`
 
 Type of the source.
+
+##### `sourceName`
+
+Type: `string`
+
+Name of the source.
 
 ##### `sourceNamespace`
 
