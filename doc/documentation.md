@@ -7584,6 +7584,7 @@ Holds the CNS configuration for a namespace.
 
 ```json
 {
+  "enableAzurev1": false,
   "enableNetEffectivePermissions": false,
   "enableNetworkSecurity": false,
   "protected": false
@@ -7641,6 +7642,12 @@ List of tags attached to an entity.
 Type: `time`
 
 Creation date of the object.
+
+##### `enableAzurev1`
+
+Type: `boolean`
+
+If `true` net effective permissions Azure v1 is enabled.
 
 ##### `enableNetEffectivePermissions`
 
