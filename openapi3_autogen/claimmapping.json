@@ -1,0 +1,51 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "claimmapping": {
+        "description": "Allows you to map a claim in a token to an HTTP header. This can be useful when\noffloading authentication and authorization to Microsegmentation.\nSome applications may expect to receive information in the HTTP header.",
+        "properties": {
+          "claimName": {
+            "description": "The name of the claim to map to the HTTP header. header.",
+            "example": "email",
+            "type": "string"
+          },
+          "targetHTTPHeader": {
+            "description": "The HTTP header that will be the destination of the mapped claim.",
+            "example": "X-Username",
+            "type": "string"
+          }
+        },
+        "required": [
+          "claimName",
+          "targetHTTPHeader"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "claimmapping",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/services'",
+      "name": "policy/services"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

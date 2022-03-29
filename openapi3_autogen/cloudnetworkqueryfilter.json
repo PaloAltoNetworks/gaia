@@ -1,0 +1,151 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudnetworkqueryfilter": {
+        "description": "Captures the parameters allowed in a query filter for a net effective\npermissions request.",
+        "properties": {
+          "VPCIDs": {
+            "description": "The VPC ID of the target resources.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "accountIDs": {
+            "description": "The accounts that the search must apply to. These are the actually IDs of the\naccount as provided by the cloud provider. One or more IDs can be included.",
+            "example": [
+              "account1"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "cloudTypes": {
+            "description": "The cloud types that the search must apply to.",
+            "example": [
+              "AWS"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "imageIDs": {
+            "description": "A list of imageIDs that endpoints can be filtered with. Applies only to\nresourceType Endpoint.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "objectIDs": {
+            "description": "The exact object that the search applies. If ObjectIDs are defined, the rest of\nthe fields are ignored. An object ID can refer to an instance, VPC endpoint, or\nnetwork interface.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "productInfoType": {
+            "description": "Restricts the query on only endpoints with the given productInfoType.",
+            "type": "string"
+          },
+          "productInfoValue": {
+            "description": "Restricts the query to only endpoints with the provided productInfoValue. Does\nnot apply to other resource types.",
+            "type": "string"
+          },
+          "regions": {
+            "description": "The region that the search must apply to.",
+            "example": [
+              "us-west-1"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "resourceType": {
+            "default": "Instance",
+            "description": "The type of endpoint resource. The resource type is a mandatory field and a\nquery cannot span multiple resource types.",
+            "enum": [
+              "Instance",
+              "Interface",
+              "Service",
+              "ProcessingUnit"
+            ]
+          },
+          "securityTags": {
+            "description": "The list of security tags associated with the targets of the query. Security\ntags refer to security groups in AWS or network tags in GCP. So they can have\ndifferent meaning depending on the target cloud.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "serviceNames": {
+            "description": "Identifies a list of service names that should be taken into account. This is\nonly valid with a resource type equal to Service.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "serviceOwners": {
+            "description": "Identifies the owner of the service that the resource is attached to. Field is\nnot valid if the resource type is not an interface.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "serviceTypes": {
+            "description": "Identifies the type of service that the interface is attached to. Field is not\nvalid if the resource type is not an\ninterface.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "subnets": {
+            "description": "The subnets where the resources must reside. A subnet parameter can only be\nprovided for a network interface resource type.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "tags": {
+            "description": "A list of tags that select the same of endpoints for the query. These tags refer\nto the tags attached to the resources in the cloud provider definitions.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "resourceType"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudnetworkqueryfilter",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

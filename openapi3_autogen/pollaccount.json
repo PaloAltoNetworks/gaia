@@ -1,0 +1,114 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "pollaccount": {
+        "description": "Initiates a poll for a particular account. Data are stored in the current\nnamespace.",
+        "properties": {
+          "accountID": {
+            "description": "The ID of the account.",
+            "example": 912303033,
+            "type": "string"
+          },
+          "authorizationRegion": {
+            "description": "The region to use for authorization.",
+            "example": "us-east-1",
+            "type": "string"
+          },
+          "cloudType": {
+            "default": "AWS",
+            "description": "The cloud type for the account.",
+            "enum": [
+              "AWS",
+              "GCP"
+            ]
+          },
+          "name": {
+            "description": "The name of the account.",
+            "example": "account-foo",
+            "type": "string"
+          },
+          "role": {
+            "description": "The role that it should use to poll the account.",
+            "example": "ec2-read",
+            "type": "string"
+          },
+          "targetRegions": {
+            "description": "Limit polling to these regions only. If empty, all regions will be polled.",
+            "example": [
+              "us-east-1",
+              "us-east-2"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "accountID",
+          "authorizationRegion",
+          "name",
+          "role"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "pollaccount",
+    "version": "1.0"
+  },
+  "paths": {
+    "/pollaccounts": {
+      "post": {
+        "description": "Initiates a poll to a new account.",
+        "operationId": "create-a-new-pollaccount",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/pollaccount"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/pollaccount"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "pandemona"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'pandemona'",
+      "name": "pandemona"
+    }
+  ]
+}

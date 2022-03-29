@@ -1,0 +1,323 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "importrequest": {
+        "description": "Allows you to send an import request to create objects to a namespace where\nthe requester doesn't normally have the permission to do so (other than creating\nimport requests).\n\nThe requester must have the permission to create the request in their namespace\nand the target namespace.\n\nWhen the request is created, the status is set to `Draft`. The requester can\nedit the content as much as desired.\nWhen ready to send the request, update the status to `Submitted`.\nThe request will then be moved to the target namespace.\nAt that point nobody can edit the content of the requests other than adding\ncomments.\n\nThe requestee will now see the request, and will either\n\n- Set the status as `Approved`. This will create the objects in the target\n  namespace.\n\n- Set the status as `Rejected`. The request cannot be edited anymore and can be\n  deleted.\n\n- Set the status back as `Draft`. The request will go back to the requester\n  namespace so that the requester can make changes. Once the change are ready,\nthe requester\n  will set back the status as `Submitted`.\n\nThe `data` format is the same as `Export`.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "comment": {
+            "description": "A new comment that will be added to `commentFeed`.",
+            "type": "string"
+          },
+          "commentFeed": {
+            "description": "List of comments that have been added to that request.",
+            "items": {
+              "$ref": "./comment#/components/schemas/comment"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "data": {
+            "additionalProperties": {
+              "items": {
+                "additionalProperties": {
+                  "type": "object"
+                },
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "description": "Data to import.",
+            "example": {
+              "networkaccesspolicies": [
+                {
+                  "action": "Allow",
+                  "description": "Allows Acme to access service A",
+                  "logsEnabled": true,
+                  "name": "allow-acme",
+                  "object": [
+                    [
+                      "$identity=processingunit",
+                      "$namespace=/acme/prod",
+                      "app=query"
+                    ]
+                  ],
+                  "subject": [
+                    [
+                      "$identity=processingunit",
+                      "app=partner-data"
+                    ]
+                  ]
+                }
+              ]
+            },
+            "type": "object"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "requesterClaims": {
+            "description": "The identity claims of the requester; populated by the Microsegmentation\nConsole.",
+            "example": [
+              "@auth:realm=vince",
+              "@auth:account=acme"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "requesterNamespace": {
+            "description": "The namespace from which the request originated; populated by the\nMicrosegmentation Console.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "status": {
+            "default": "Draft",
+            "description": "Allows the content to be changed. `Submitted`: the request moves to the target\nnamespace\nfor approval. `Approved`: the data will be created immediately. `Rejected`: the\nrequest\ncannot be changed anymore and can be deleted.",
+            "enum": [
+              "Draft",
+              "Submitted",
+              "Approved",
+              "Rejected"
+            ]
+          },
+          "targetNamespace": {
+            "description": "The namespace where the request will be sent. The requester can set any\nnamespace but\nneeds to have an authorization to post the request in that namespace.",
+            "example": "/acme/prod",
+            "type": "string"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "data",
+          "targetNamespace"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "importrequest",
+    "version": "1.0"
+  },
+  "paths": {
+    "/importrequests": {
+      "get": {
+        "description": "Retrieves the list of import requests.",
+        "operationId": "get-all-importrequests",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/importrequest"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "vivi"
+        ]
+      },
+      "post": {
+        "description": "Creates a new import request.",
+        "operationId": "create-a-new-importrequest",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/importrequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/importrequest"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "vivi"
+        ]
+      }
+    },
+    "/importrequests/{id}": {
+      "delete": {
+        "description": "Delete an existing import request.",
+        "operationId": "delete-importrequest-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/importrequest"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "vivi"
+        ]
+      },
+      "get": {
+        "description": "Retrieve a single existing import request.",
+        "operationId": "get-importrequest-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/importrequest"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "vivi"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Update an existing import request.",
+        "operationId": "update-importrequest-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/importrequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/importrequest"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "vivi"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core'",
+      "name": "core"
+    },
+    {
+      "description": "This tag is for package 'vivi'",
+      "name": "vivi"
+    }
+  ]
+}

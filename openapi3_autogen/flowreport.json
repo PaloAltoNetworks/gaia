@@ -1,0 +1,329 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "flowreport": {
+        "description": "Post a new flow log.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "action": {
+            "description": "Action applied to the flow.",
+            "enum": [
+              "Accept",
+              "Reject"
+            ],
+            "example": "Accept"
+          },
+          "destinationController": {
+            "description": "Identifier of the destination controller.",
+            "example": "api.east.acme.com",
+            "type": "string"
+          },
+          "destinationExternalNetworkID": {
+            "description": "Closest external network that matches destination IP.",
+            "type": "string"
+          },
+          "destinationFQDN": {
+            "description": "Destination fully qualified domain name (FQDN), if known.",
+            "type": "string"
+          },
+          "destinationID": {
+            "description": "ID of the destination.",
+            "example": "xxx-xxx-xxx",
+            "type": "string"
+          },
+          "destinationIP": {
+            "description": "Destination IP address.",
+            "type": "string"
+          },
+          "destinationNamespace": {
+            "deprecated": true,
+            "description": "Namespace of the destination. This is deprecated. Use `remoteNamespace`. This\nproperty does nothing.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "destinationPlatform": {
+            "description": "Identifier of the destination platform.",
+            "example": "api.east.acme.com",
+            "type": "string"
+          },
+          "destinationPort": {
+            "description": "Port of the destination.",
+            "type": "integer"
+          },
+          "destinationType": {
+            "description": "Destination type.",
+            "enum": [
+              "ProcessingUnit",
+              "ExternalNetwork",
+              "Claims"
+            ],
+            "example": "ProcessingUnit"
+          },
+          "dropReason": {
+            "description": "This field is only set if `action` is set to `Reject`. It specifies the reason\nfor the rejection.",
+            "type": "string"
+          },
+          "encrypted": {
+            "description": "If `true`, the flow was encrypted.",
+            "type": "boolean"
+          },
+          "enforcerDNSReportID": {
+            "description": "The enforcer-generated local ID of the DNSLookupReport that has provided the\nDestinationFQDN.",
+            "type": "string"
+          },
+          "enforcerID": {
+            "description": "ID of the enforcer where the report was collected.",
+            "example": "5c6cce207ddf1fc159a104bf",
+            "type": "string"
+          },
+          "namespace": {
+            "deprecated": true,
+            "description": "This is here for backward compatibility.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "observed": {
+            "description": "If `true`, design mode is on.",
+            "type": "boolean"
+          },
+          "observedAction": {
+            "default": "NotApplicable",
+            "description": "Action observed on the flow.",
+            "enum": [
+              "Accept",
+              "Reject",
+              "NotApplicable"
+            ]
+          },
+          "observedDropReason": {
+            "description": "Specifies the reason for a rejection. Only set if `observedAction` is set\nto `Reject`.",
+            "type": "string"
+          },
+          "observedEncrypted": {
+            "description": "Value of the encryption of the network policy that observed the flow.",
+            "type": "boolean"
+          },
+          "observedPolicyID": {
+            "description": "ID of the network policy that observed the flow.",
+            "example": "xxx-xxx-xxx",
+            "type": "string"
+          },
+          "observedPolicyNamespace": {
+            "description": "Namespace of the network policy that observed the flow.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "policyID": {
+            "description": "ID of the network policy that accepted the flow.",
+            "example": "xxx-xxx-xxx",
+            "type": "string"
+          },
+          "policyNamespace": {
+            "description": "Namespace of the network policy that accepted the flow.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "protocol": {
+            "description": "Protocol number.",
+            "example": 6,
+            "type": "integer"
+          },
+          "remoteNamespace": {
+            "description": "Namespace of the object at the other end of the flow.",
+            "type": "string"
+          },
+          "remotePolicyID": {
+            "description": "ID of the network policy that accepted the flow at the remote endpoint.",
+            "type": "string"
+          },
+          "ruleName": {
+            "description": "Contains the eventual name assigned to the particular rule in the\nNetworkRuleSetPolicy that acted on the flow.",
+            "type": "string"
+          },
+          "serviceClaimHash": {
+            "description": "Hash of the claims used to communicate.",
+            "type": "string"
+          },
+          "serviceID": {
+            "description": "ID of the service.",
+            "type": "string"
+          },
+          "serviceNamespace": {
+            "description": "Namespace of Service accessed.",
+            "type": "string"
+          },
+          "serviceType": {
+            "default": "NotApplicable",
+            "description": "ID of the service.",
+            "enum": [
+              "L3",
+              "HTTP",
+              "TCP",
+              "NotApplicable"
+            ]
+          },
+          "serviceURL": {
+            "description": "Service URL accessed.",
+            "type": "string"
+          },
+          "sourceController": {
+            "description": "Identifier of the source controller.",
+            "example": "api.west.acme.com",
+            "type": "string"
+          },
+          "sourceExternalNetworkID": {
+            "description": "Closest external network that matches source IP.",
+            "type": "string"
+          },
+          "sourceID": {
+            "description": "ID of the source.",
+            "example": "xxx-xxx-xxx",
+            "type": "string"
+          },
+          "sourceIP": {
+            "description": "Type of the source.",
+            "type": "string"
+          },
+          "sourceNamespace": {
+            "deprecated": true,
+            "description": "Namespace of the source. This is deprecated. Use `remoteNamespace`. This\nproperty does nothing.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "sourcePlatform": {
+            "description": "Identifier of the source platform.",
+            "example": "api.west.acme.com",
+            "type": "string"
+          },
+          "sourceType": {
+            "description": "Type of the source.",
+            "enum": [
+              "ProcessingUnit",
+              "ExternalNetwork",
+              "Claims"
+            ],
+            "example": "ProcessingUnit"
+          },
+          "timestamp": {
+            "description": "Time and date of the log.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "value": {
+            "description": "Number of flows in the log.",
+            "example": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "action",
+          "destinationID",
+          "destinationType",
+          "namespace",
+          "policyID",
+          "policyNamespace",
+          "sourceID",
+          "sourceType",
+          "value"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "flowreport",
+    "version": "1.0"
+  },
+  "paths": {
+    "/flowreports": {
+      "post": {
+        "description": "Create a flow statistics report.",
+        "operationId": "create-a-new-flowreport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/flowreport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/flowreport"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/networking",
+          "zack"
+        ]
+      }
+    },
+    "/flowreports/{id}/suggestedpolicies": {
+      "get": {
+        "description": "Provides network ruleset policy suggestions for the given flow ID.",
+        "operationId": "get-all-suggestedpolicies-for-a-given-flowreport",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./suggestedpolicy#/components/schemas/suggestedpolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/depmaps",
+          "jenova"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/networking'",
+      "name": "policy/networking"
+    },
+    {
+      "description": "This tag is for package 'zack'",
+      "name": "zack"
+    }
+  ]
+}

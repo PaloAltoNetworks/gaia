@@ -1,0 +1,124 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "enforcerreport": {
+        "description": "Post a new enforcer statistics report.",
+        "properties": {
+          "CPULoad": {
+            "description": "Total CPU utilization of the enforcer as a percentage of vCPUs.",
+            "example": 10,
+            "type": "number"
+          },
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "enforcerID": {
+            "description": "ID of the enforcer.",
+            "example": "xxx-xxx-xxx-xxx",
+            "type": "string"
+          },
+          "licenseType": {
+            "default": "Host",
+            "description": "Type of license for this enforcer.",
+            "enum": [
+              "Host",
+              "Container"
+            ]
+          },
+          "memory": {
+            "description": "Total resident memory used by the enforcer in bytes.",
+            "example": 10000,
+            "type": "integer"
+          },
+          "name": {
+            "description": "Name of the enforcer.",
+            "example": "aporeto-enforcerd-xxx",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace of the enforcer.",
+            "example": "/my/ns",
+            "type": "string"
+          },
+          "processes": {
+            "description": "Number of active processes of the enforcer.",
+            "example": 10,
+            "type": "integer"
+          },
+          "timestamp": {
+            "description": "Date of the report.",
+            "example": "2018-06-14T23:10:46.420397985Z",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "licenseType",
+          "name",
+          "namespace",
+          "timestamp"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "enforcerreport",
+    "version": "1.0"
+  },
+  "paths": {
+    "/enforcerreports": {
+      "post": {
+        "description": "Create an enforcer statistics report.",
+        "operationId": "create-a-new-enforcerreport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/enforcerreport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/enforcerreport"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "zack"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'zack'",
+      "name": "zack"
+    }
+  ]
+}

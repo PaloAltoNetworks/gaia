@@ -1,0 +1,133 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "oauthinfo": {
+        "description": "OAUTHInfo provides the information for an OAUTH server to retrieve the secrets\nthat can validate a JWT token issued by us.",
+        "properties": {
+          "IDTokenSigningAlgValuesSupported": {
+            "description": "IDTokenSigningAlgValuesSupported is corresponding attribute of the OIDC\nspec.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "JWKSURI": {
+            "description": "JWKSURI is the URI that can be used to retrieve the public keys that will\nverify a JWT.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "auhorizationEndpoint": {
+            "description": "AuhorizationEndpoint is the authorization endpoint.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "claimsSupported": {
+            "description": "ClaimsSupported is corresponding attribute of the OIDC spec.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "issuer": {
+            "description": "Issuer is the the URL pointing to the issuer of the token.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "responseTypesSupported": {
+            "description": "ResponseTypesSupported is corresponding attribute of the OIDC spec.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "scopesSupported": {
+            "description": "ScopesSupported is corresponding attribute of the OIDC spec.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "subjectTypesSupported": {
+            "description": "SubjectTypesSupported is corresponding attribute of the OIDC spec.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "tokenEndpointAuthMethodsSupported": {
+            "description": "TokenEndpointAuthMethodsSupported is corresponding attribute of the OIDC\nspec.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "oauthinfo",
+    "version": "1.0"
+  },
+  "paths": {
+    "/oauthinfo/{id}": {
+      "get": {
+        "description": "Retrieves the OAUTH info.",
+        "operationId": "get-oauthinfo-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/oauthinfo"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/token",
+          "cactuar"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'internal/token'",
+      "name": "internal/token"
+    },
+    {
+      "description": "This tag is for package 'cactuar'",
+      "name": "cactuar"
+    }
+  ]
+}

@@ -55,6 +55,17 @@ const (
 	CloudInterfaceDataAttachmentTypeVPCEndpoint CloudInterfaceDataAttachmentTypeValue = "VPCEndpoint"
 )
 
+// CloudInterfaceDataResourceStatusValue represents the possible values for attribute "resourceStatus".
+type CloudInterfaceDataResourceStatusValue string
+
+const (
+	// CloudInterfaceDataResourceStatusActive represents the value Active.
+	CloudInterfaceDataResourceStatusActive CloudInterfaceDataResourceStatusValue = "Active"
+
+	// CloudInterfaceDataResourceStatusInactive represents the value Inactive.
+	CloudInterfaceDataResourceStatusInactive CloudInterfaceDataResourceStatusValue = "Inactive"
+)
+
 // CloudInterfaceData represents the model of a cloudinterfacedata
 type CloudInterfaceData struct {
 	// List of IP addresses/subnets (IPv4 or IPv6) associated with the
@@ -79,6 +90,9 @@ type CloudInterfaceData struct {
 	// related service or gateway.
 	RelatedObjectID string `json:"relatedObjectID" msgpack:"relatedObjectID" bson:"relatedobjectid" mapstructure:"relatedObjectID,omitempty"`
 
+	// The status of the resource.
+	ResourceStatus CloudInterfaceDataResourceStatusValue `json:"resourceStatus" msgpack:"resourceStatus" bson:"resourcestatus" mapstructure:"resourceStatus,omitempty"`
+
 	// The route table that must be used for this interface. Applies to Transit
 	// Gateways and other special types.
 	RouteTableID string `json:"routeTableID" msgpack:"routeTableID" bson:"routetableid" mapstructure:"routeTableID,omitempty"`
@@ -96,10 +110,11 @@ type CloudInterfaceData struct {
 func NewCloudInterfaceData() *CloudInterfaceData {
 
 	return &CloudInterfaceData{
-		ModelVersion: 1,
-		Addresses:    []*CloudAddress{},
-		SecurityTags: []string{},
-		Subnets:      []string{},
+		ModelVersion:   1,
+		Addresses:      []*CloudAddress{},
+		ResourceStatus: CloudInterfaceDataResourceStatusActive,
+		SecurityTags:   []string{},
+		Subnets:        []string{},
 	}
 }
 
@@ -119,6 +134,7 @@ func (o *CloudInterfaceData) GetBSON() (interface{}, error) {
 	s.HasPublicIP = o.HasPublicIP
 	s.ParentID = o.ParentID
 	s.RelatedObjectID = o.RelatedObjectID
+	s.ResourceStatus = o.ResourceStatus
 	s.RouteTableID = o.RouteTableID
 	s.SecurityTags = o.SecurityTags
 	s.Subnets = o.Subnets
@@ -145,6 +161,7 @@ func (o *CloudInterfaceData) SetBSON(raw bson.Raw) error {
 	o.HasPublicIP = s.HasPublicIP
 	o.ParentID = s.ParentID
 	o.RelatedObjectID = s.RelatedObjectID
+	o.ResourceStatus = s.ResourceStatus
 	o.RouteTableID = s.RouteTableID
 	o.SecurityTags = s.SecurityTags
 	o.Subnets = s.Subnets
@@ -206,6 +223,10 @@ func (o *CloudInterfaceData) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := elemental.ValidateStringInList("resourceStatus", string(o.ResourceStatus), []string{"Active", "Inactive"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if len(requiredErrors) > 0 {
 		return requiredErrors
 	}
@@ -252,6 +273,8 @@ func (o *CloudInterfaceData) ValueForAttribute(name string) interface{} {
 		return o.ParentID
 	case "relatedObjectID":
 		return o.RelatedObjectID
+	case "resourceStatus":
+		return o.ResourceStatus
 	case "routeTableID":
 		return o.RouteTableID
 	case "securityTags":
@@ -330,6 +353,17 @@ related service or gateway.`,
 		Name:    "relatedObjectID",
 		Stored:  true,
 		Type:    "string",
+	},
+	"ResourceStatus": {
+		AllowedChoices: []string{"Active", "Inactive"},
+		BSONFieldName:  "resourcestatus",
+		ConvertedName:  "ResourceStatus",
+		DefaultValue:   CloudInterfaceDataResourceStatusActive,
+		Description:    `The status of the resource.`,
+		Exposed:        true,
+		Name:           "resourceStatus",
+		Stored:         true,
+		Type:           "enum",
 	},
 	"RouteTableID": {
 		AllowedChoices: []string{},
@@ -434,6 +468,17 @@ related service or gateway.`,
 		Stored:  true,
 		Type:    "string",
 	},
+	"resourcestatus": {
+		AllowedChoices: []string{"Active", "Inactive"},
+		BSONFieldName:  "resourcestatus",
+		ConvertedName:  "ResourceStatus",
+		DefaultValue:   CloudInterfaceDataResourceStatusActive,
+		Description:    `The status of the resource.`,
+		Exposed:        true,
+		Name:           "resourceStatus",
+		Stored:         true,
+		Type:           "enum",
+	},
 	"routetableid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "routetableid",
@@ -476,6 +521,7 @@ type mongoAttributesCloudInterfaceData struct {
 	HasPublicIP      bool                                  `bson:"haspublicip"`
 	ParentID         string                                `bson:"parentid"`
 	RelatedObjectID  string                                `bson:"relatedobjectid"`
+	ResourceStatus   CloudInterfaceDataResourceStatusValue `bson:"resourcestatus"`
 	RouteTableID     string                                `bson:"routetableid"`
 	SecurityTags     []string                              `bson:"securitytags"`
 	Subnets          []string                              `bson:"subnets"`

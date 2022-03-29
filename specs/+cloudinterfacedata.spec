@@ -75,6 +75,16 @@ attributes:
     exposed: true
     stored: true
 
+  - name: resourceStatus
+    description: The status of the resource.
+    type: enum
+    exposed: true
+    stored: true
+    allowed_choices:
+    - Active
+    - Inactive
+    default_value: Active
+
   - name: routeTableID
     description: |-
       The route table that must be used for this interface. Applies to Transit

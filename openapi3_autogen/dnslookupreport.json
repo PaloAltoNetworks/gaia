@@ -1,0 +1,159 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "dnslookupreport": {
+        "description": "A DNS lookup report is used to report a DNS lookup that is happening on\nbehalf of a processing unit. If the DNS server is on the standard UDP port 53\nthen the enforcer can proxy the DNS traffic and make a report. The report\nindicate whether or not the lookup was successful.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "action": {
+            "description": "Action of the DNS request.",
+            "enum": [
+              "Accept",
+              "Fail",
+              "Reject",
+              "Resolve"
+            ],
+            "example": "Accept"
+          },
+          "enforcerDNSReportID": {
+            "description": "The local ID set by enforcer, used to correllate with flow reports.",
+            "type": "string"
+          },
+          "enforcerID": {
+            "description": "ID of the enforcer.",
+            "type": "string"
+          },
+          "enforcerNamespace": {
+            "description": "Namespace of the enforcer.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "processingUnitID": {
+            "description": "ID of the PU.",
+            "example": "xxx-xxx-xxx",
+            "type": "string"
+          },
+          "processingUnitNamespace": {
+            "deprecated": true,
+            "description": "Namespace of the PU. This is deprecated. Use `namespace` instead.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "reason": {
+            "description": "This field is only set when the lookup fails. It specifies the reason for the\nfailure.",
+            "type": "string"
+          },
+          "resolvedCNAMEs": {
+            "description": "CNAME aliases.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "resolvedIPs": {
+            "description": "resolved IP addresses.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "resolvedName": {
+            "description": "name used for DNS resolution.",
+            "example": "www.google.com",
+            "type": "string"
+          },
+          "sourceIP": {
+            "description": "Type of the source.",
+            "example": "10.0.0.1",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "Time and date of the log.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "value": {
+            "description": "Number of times the client saw this activity.",
+            "example": 1,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "action",
+          "enforcerNamespace",
+          "processingUnitID",
+          "resolvedName",
+          "sourceIP",
+          "value"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "dnslookupreport",
+    "version": "1.0"
+  },
+  "paths": {
+    "/dnslookupreports": {
+      "post": {
+        "description": "Create a DNS Lookup report.",
+        "operationId": "create-a-new-dnslookupreport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/dnslookupreport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/dnslookupreport"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/dns",
+          "zack"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/dns'",
+      "name": "policy/dns"
+    },
+    {
+      "description": "This tag is for package 'zack'",
+      "name": "zack"
+    }
+  ]
+}

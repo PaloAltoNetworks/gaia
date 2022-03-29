@@ -1,0 +1,153 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "metricsqueryrange": {
+        "description": "Prometheus compatible endpoint to evaluate an expression query over a range of\ntime. This can be used to retrieve back Aporeto specific metrics for a given\nnamespace. All queries are protected within the namespace of the caller.",
+        "properties": {
+          "end": {
+            "description": "End timestamp \u003crfc3339 | unix_timestamp\u003e.",
+            "example": "2015-07-01T20:11:00.781Z",
+            "type": "string"
+          },
+          "query": {
+            "description": "Prometheus expression query string.",
+            "example": "flows{namespace=~\"/mycompany.*\"}",
+            "type": "string"
+          },
+          "start": {
+            "description": "Start timestamp \u003crfc3339 | unix_timestamp\u003e.",
+            "example": "2015-07-01T20:11:00.781Z",
+            "type": "string"
+          },
+          "step": {
+            "description": "Query resolution step width in duration format or float number of seconds.",
+            "example": "15s",
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "metricsqueryrange",
+    "version": "1.0"
+  },
+  "paths": {
+    "/metricsqueryrange": {
+      "get": {
+        "description": "Evaluates an expression query over a range of time returning a \"matrix\" result\ntype.",
+        "operationId": "get-all-metricsqueryrange",
+        "parameters": [
+          {
+            "description": "End timestamp \u003crfc3339 | unix_timestamp\u003e.",
+            "example": "2015-07-01T20:11:00.781Z",
+            "in": "query",
+            "name": "end",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Prometheus expression query string.",
+            "example": "flows{namespace=~\"/mycompany.*\"}",
+            "in": "query",
+            "name": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Start timestamp \u003crfc3339 | unix_timestamp\u003e.",
+            "example": "2015-07-01T20:10:30.781Z",
+            "in": "query",
+            "name": "start",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Query resolution step width in duration format or float number of seconds.",
+            "example": "15s",
+            "in": "query",
+            "name": "step",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/metricsqueryrange"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/metrics",
+          "jenova"
+        ]
+      },
+      "post": {
+        "description": "Evaluates an expression query over a range of time returning a \"matrix\" result.\nThis has the same behavior as the GET request, however it is useful when\nspecifying a large query that may breach server-side URL character limits. In\nsuch a case, you can URL-encode the parameters that would be used for a GET\nrequest directly in the request body by using the POST method and Content-Type:\napplication/x-www-form-urlencoded header.",
+        "operationId": "create-a-new-metricsqueryrange",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/metricsqueryrange"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/metricsqueryrange"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/metrics",
+          "jenova"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/metrics'",
+      "name": "visualization/metrics"
+    },
+    {
+      "description": "This tag is for package 'jenova'",
+      "name": "jenova"
+    }
+  ]
+}

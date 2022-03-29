@@ -1,0 +1,75 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "oauthkey": {
+        "description": "OAUTHInfo provides the information for an OAUTH server to retrieve the secrets\nthat can validate a JWT token issued by us.",
+        "properties": {
+          "keyString": {
+            "description": "KeyString is the JWKS key response for an OAUTH verifier. It provides the OAUTH\ncompatible signing keys.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "oauthkey",
+    "version": "1.0"
+  },
+  "paths": {
+    "/oauthkeys/{id}": {
+      "get": {
+        "description": "Retrieves the OAUTH info.",
+        "operationId": "get-oauthkey-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/oauthkey"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "internal/token",
+          "cactuar"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'internal/token'",
+      "name": "internal/token"
+    },
+    {
+      "description": "This tag is for package 'cactuar'",
+      "name": "cactuar"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "plan": {
+        "description": "Contains the various billing plans available.",
+        "properties": {
+          "description": {
+            "description": "Contains the description of the plan.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "key": {
+            "description": "Contains the key identifier of the plan.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "name": {
+            "description": "Contains the name of the plan.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "plan",
+    "version": "1.0"
+  },
+  "paths": {
+    "/plans": {
+      "get": {
+        "description": "Retrieves the list of plans.",
+        "operationId": "get-all-plans",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/plan"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/billing",
+          "vince"
+        ]
+      }
+    },
+    "/plans/{id}": {
+      "get": {
+        "description": "Retrieves the plan with the given ID.",
+        "operationId": "get-plan-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/plan"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/billing",
+          "vince"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/billing'",
+      "name": "core/billing"
+    },
+    {
+      "description": "This tag is for package 'vince'",
+      "name": "vince"
+    }
+  ]
+}

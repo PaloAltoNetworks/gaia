@@ -1,0 +1,99 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "search": {
+        "description": "Perform a full text search on the database.",
+        "properties": {
+          "object": {
+            "description": "Contains the matched object.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "objectID": {
+            "description": "Contains the ID of the match.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "objectIdentity": {
+            "description": "Contains the identity of the match.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "objectNamespace": {
+            "description": "Contains the namespace of the match.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "score": {
+            "description": "Contains the score of the match.",
+            "readOnly": true,
+            "type": "number"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "search",
+    "version": "1.0"
+  },
+  "paths": {
+    "/search": {
+      "get": {
+        "description": "Perform a full text search on the database.",
+        "operationId": "get-all-search",
+        "parameters": [
+          {
+            "description": "search query.",
+            "example": "my enforcer",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/search"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "gogole"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core'",
+      "name": "core"
+    },
+    {
+      "description": "This tag is for package 'gogole'",
+      "name": "gogole"
+    }
+  ]
+}

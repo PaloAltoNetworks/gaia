@@ -1321,6 +1321,7 @@ func supportedSubtypes() map[string]struct{} {
 		"Integer":          {},
 		"Endpoint":         {},
 		"AutomationAction": {},
+		"Enum":             {},
 	}
 }
 

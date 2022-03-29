@@ -1,0 +1,110 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "localca": {
+        "description": "Can be used to retrieve or renew the local and SSH certificate authorities of\nthe namespace.",
+        "properties": {
+          "SSHCertificate": {
+            "description": "The SSH certificate authority used by the namespace.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "SSHCertificateRenew": {
+            "description": "Set to `true` to renew the SSH certificate authority of the namespace.",
+            "type": "boolean"
+          },
+          "certificate": {
+            "description": "The certificate authority used by the namespace.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "certificateRenew": {
+            "description": "Set to `true` to renew the certificate authority of the namespace.",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "localca",
+    "version": "1.0"
+  },
+  "paths": {
+    "/localcas": {
+      "get": {
+        "description": "Returns the local and SSH certificate authorities of the namespace.",
+        "operationId": "get-all-localcas",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/localca"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Renews the local and/or SSH certificate authorities of the namespace.",
+        "operationId": "create-a-new-localca",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/localca"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/localca"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/namespace'",
+      "name": "core/namespace"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

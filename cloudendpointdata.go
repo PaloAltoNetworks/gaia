@@ -11,6 +11,17 @@ import (
 	"go.aporeto.io/elemental"
 )
 
+// CloudEndpointDataResourceStatusValue represents the possible values for attribute "resourceStatus".
+type CloudEndpointDataResourceStatusValue string
+
+const (
+	// CloudEndpointDataResourceStatusActive represents the value Active.
+	CloudEndpointDataResourceStatusActive CloudEndpointDataResourceStatusValue = "Active"
+
+	// CloudEndpointDataResourceStatusInactive represents the value Inactive.
+	CloudEndpointDataResourceStatusInactive CloudEndpointDataResourceStatusValue = "Inactive"
+)
+
 // CloudEndpointDataServiceTypeValue represents the possible values for attribute "serviceType".
 type CloudEndpointDataServiceTypeValue string
 
@@ -46,6 +57,9 @@ const (
 
 	// CloudEndpointDataTypePeeringConnection represents the value PeeringConnection.
 	CloudEndpointDataTypePeeringConnection CloudEndpointDataTypeValue = "PeeringConnection"
+
+	// CloudEndpointDataTypePublicIPAddress represents the value PublicIPAddress.
+	CloudEndpointDataTypePublicIPAddress CloudEndpointDataTypeValue = "PublicIPAddress"
 
 	// CloudEndpointDataTypeService represents the value Service.
 	CloudEndpointDataTypeService CloudEndpointDataTypeValue = "Service"
@@ -87,6 +101,9 @@ type CloudEndpointData struct {
 	// if the endpoint has a public IP we store the IP address in this field.
 	PublicIPAddresses []string `json:"publicIPAddresses" msgpack:"publicIPAddresses" bson:"publicipaddresses" mapstructure:"publicIPAddresses,omitempty"`
 
+	// The status of the resource.
+	ResourceStatus CloudEndpointDataResourceStatusValue `json:"resourceStatus" msgpack:"resourceStatus" bson:"resourcestatus" mapstructure:"resourceStatus,omitempty"`
+
 	// Identifies the name of the service for service endpoints.
 	ServiceName string `json:"serviceName,omitempty" msgpack:"serviceName,omitempty" bson:"servicename,omitempty" mapstructure:"serviceName,omitempty"`
 
@@ -110,6 +127,7 @@ func NewCloudEndpointData() *CloudEndpointData {
 		PublicIPAddresses:     []string{},
 		AttachedInterfaces:    []string{},
 		VPCAttachments:        []string{},
+		ResourceStatus:        CloudEndpointDataResourceStatusActive,
 		ServiceType:           CloudEndpointDataServiceTypeNotApplicable,
 	}
 }
@@ -132,6 +150,7 @@ func (o *CloudEndpointData) GetBSON() (interface{}, error) {
 	s.ImageID = o.ImageID
 	s.ProductInfo = o.ProductInfo
 	s.PublicIPAddresses = o.PublicIPAddresses
+	s.ResourceStatus = o.ResourceStatus
 	s.ServiceName = o.ServiceName
 	s.ServiceType = o.ServiceType
 	s.Type = o.Type
@@ -160,6 +179,7 @@ func (o *CloudEndpointData) SetBSON(raw bson.Raw) error {
 	o.ImageID = s.ImageID
 	o.ProductInfo = s.ProductInfo
 	o.PublicIPAddresses = s.PublicIPAddresses
+	o.ResourceStatus = s.ResourceStatus
 	o.ServiceName = s.ServiceName
 	o.ServiceType = s.ServiceType
 	o.Type = s.Type
@@ -213,6 +233,10 @@ func (o *CloudEndpointData) Validate() error {
 		}
 	}
 
+	if err := elemental.ValidateStringInList("resourceStatus", string(o.ResourceStatus), []string{"Active", "Inactive"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if err := elemental.ValidateStringInList("serviceType", string(o.ServiceType), []string{"Interface", "Gateway", "GatewayLoadBalancer", "NotApplicable"}, false); err != nil {
 		errors = errors.Append(err)
 	}
@@ -221,7 +245,7 @@ func (o *CloudEndpointData) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Instance", "LoadBalancer", "PeeringConnection", "Service", "Gateway", "TransitGateway", "NATGateway"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Instance", "LoadBalancer", "PeeringConnection", "Service", "Gateway", "TransitGateway", "NATGateway", "PublicIPAddress"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -275,6 +299,8 @@ func (o *CloudEndpointData) ValueForAttribute(name string) interface{} {
 		return o.ProductInfo
 	case "publicIPAddresses":
 		return o.PublicIPAddresses
+	case "resourceStatus":
+		return o.ResourceStatus
 	case "serviceName":
 		return o.ServiceName
 	case "serviceType":
@@ -380,6 +406,17 @@ instance imageID in other clouds.`,
 		SubType:        "string",
 		Type:           "list",
 	},
+	"ResourceStatus": {
+		AllowedChoices: []string{"Active", "Inactive"},
+		BSONFieldName:  "resourcestatus",
+		ConvertedName:  "ResourceStatus",
+		DefaultValue:   CloudEndpointDataResourceStatusActive,
+		Description:    `The status of the resource.`,
+		Exposed:        true,
+		Name:           "resourceStatus",
+		Stored:         true,
+		Type:           "enum",
+	},
 	"ServiceName": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "servicename",
@@ -403,7 +440,7 @@ Balancer).`,
 		Type:    "enum",
 	},
 	"Type": {
-		AllowedChoices: []string{"Instance", "LoadBalancer", "PeeringConnection", "Service", "Gateway", "TransitGateway", "NATGateway"},
+		AllowedChoices: []string{"Instance", "LoadBalancer", "PeeringConnection", "Service", "Gateway", "TransitGateway", "NATGateway", "PublicIPAddress"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
@@ -509,6 +546,17 @@ instance imageID in other clouds.`,
 		SubType:        "string",
 		Type:           "list",
 	},
+	"resourcestatus": {
+		AllowedChoices: []string{"Active", "Inactive"},
+		BSONFieldName:  "resourcestatus",
+		ConvertedName:  "ResourceStatus",
+		DefaultValue:   CloudEndpointDataResourceStatusActive,
+		Description:    `The status of the resource.`,
+		Exposed:        true,
+		Name:           "resourceStatus",
+		Stored:         true,
+		Type:           "enum",
+	},
 	"servicename": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "servicename",
@@ -532,7 +580,7 @@ Balancer).`,
 		Type:    "enum",
 	},
 	"type": {
-		AllowedChoices: []string{"Instance", "LoadBalancer", "PeeringConnection", "Service", "Gateway", "TransitGateway", "NATGateway"},
+		AllowedChoices: []string{"Instance", "LoadBalancer", "PeeringConnection", "Service", "Gateway", "TransitGateway", "NATGateway", "PublicIPAddress"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
@@ -545,15 +593,16 @@ Balancer).`,
 }
 
 type mongoAttributesCloudEndpointData struct {
-	VPCAttached           bool                              `bson:"vpcattached"`
-	VPCAttachments        []string                          `bson:"vpcattachments"`
-	AssociatedRouteTables []string                          `bson:"associatedroutetables"`
-	AttachedInterfaces    []string                          `bson:"attachedinterfaces"`
-	ForwardingEnabled     bool                              `bson:"forwardingenabled"`
-	ImageID               string                            `bson:"imageid,omitempty"`
-	ProductInfo           []*CloudEndpointDataProductInfo   `bson:"productinfo,omitempty"`
-	PublicIPAddresses     []string                          `bson:"publicipaddresses"`
-	ServiceName           string                            `bson:"servicename,omitempty"`
-	ServiceType           CloudEndpointDataServiceTypeValue `bson:"servicetype"`
-	Type                  CloudEndpointDataTypeValue        `bson:"type"`
+	VPCAttached           bool                                 `bson:"vpcattached"`
+	VPCAttachments        []string                             `bson:"vpcattachments"`
+	AssociatedRouteTables []string                             `bson:"associatedroutetables"`
+	AttachedInterfaces    []string                             `bson:"attachedinterfaces"`
+	ForwardingEnabled     bool                                 `bson:"forwardingenabled"`
+	ImageID               string                               `bson:"imageid,omitempty"`
+	ProductInfo           []*CloudEndpointDataProductInfo      `bson:"productinfo,omitempty"`
+	PublicIPAddresses     []string                             `bson:"publicipaddresses"`
+	ResourceStatus        CloudEndpointDataResourceStatusValue `bson:"resourcestatus"`
+	ServiceName           string                               `bson:"servicename,omitempty"`
+	ServiceType           CloudEndpointDataServiceTypeValue    `bson:"servicetype"`
+	Type                  CloudEndpointDataTypeValue           `bson:"type"`
 }

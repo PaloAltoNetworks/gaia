@@ -1,0 +1,92 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "namespacepolicyinfo": {
+        "description": "(Deprecated) Returns the policy info of the specified namespace.",
+        "properties": {
+          "PUIncomingTrafficAction": {
+            "deprecated": true,
+            "description": "(Deprecated) The processing unit action for incoming traffic for the namespace.",
+            "enum": [
+              "Allow",
+              "Reject",
+              "Inherit"
+            ],
+            "readOnly": true
+          },
+          "PUOutgoingTrafficAction": {
+            "deprecated": true,
+            "description": "(Deprecated) The processing unit action for outgoing traffic for the namespace.",
+            "enum": [
+              "Allow",
+              "Reject",
+              "Inherit"
+            ],
+            "readOnly": true
+          },
+          "prefixes": {
+            "deprecated": true,
+            "description": "(Deprecated) List of tag prefixes that will be used to suggest policies.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "namespacepolicyinfo",
+    "version": "1.0"
+  },
+  "paths": {
+    "/namespacepolicyinfo": {
+      "get": {
+        "description": "(Deprecated) Returns the policy info of the specified namespace.",
+        "operationId": "get-all-namespacepolicyinfo",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/namespacepolicyinfo"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/namespace'",
+      "name": "core/namespace"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

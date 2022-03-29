@@ -1,0 +1,115 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "suggestedpolicy": {
+        "description": "Allows you to obtain network ruleset policy suggestions.",
+        "properties": {
+          "policy": {
+            "$ref": "./networkrulesetpolicy#/components/schemas/networkrulesetpolicy"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "suggestedpolicy",
+    "version": "1.0"
+  },
+  "paths": {
+    "/suggestedpolicies": {
+      "get": {
+        "description": "Retrieves a list of network policy suggestions.",
+        "operationId": "get-all-suggestedpolicies",
+        "parameters": [
+          {
+            "description": "Set the absolute end of the time window.",
+            "example": "2018/04/08 10:42",
+            "in": "query",
+            "name": "endAbsolute",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the relative end of the time window.",
+            "example": "-1h",
+            "in": "query",
+            "name": "endRelative",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Deprecated. This does not do anything anymore.",
+            "example": "-3s",
+            "in": "query",
+            "name": "flowOffset",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the absolute start of the time window.",
+            "example": "2018/03/08 10:42",
+            "in": "query",
+            "name": "startAbsolute",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the relative start of the time window.",
+            "example": "-1h",
+            "in": "query",
+            "name": "startRelative",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/suggestedpolicy"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/depmaps",
+          "jenova"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/depmaps'",
+      "name": "visualization/depmaps"
+    },
+    {
+      "description": "This tag is for package 'jenova'",
+      "name": "jenova"
+    }
+  ]
+}

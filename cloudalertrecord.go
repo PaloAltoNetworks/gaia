@@ -12,6 +12,17 @@ import (
 	"go.aporeto.io/elemental"
 )
 
+// CloudAlertRecordCloudTypeValue represents the possible values for attribute "cloudType".
+type CloudAlertRecordCloudTypeValue string
+
+const (
+	// CloudAlertRecordCloudTypeAWS represents the value AWS.
+	CloudAlertRecordCloudTypeAWS CloudAlertRecordCloudTypeValue = "AWS"
+
+	// CloudAlertRecordCloudTypeAZURE represents the value AZURE.
+	CloudAlertRecordCloudTypeAZURE CloudAlertRecordCloudTypeValue = "AZURE"
+)
+
 // CloudAlertRecordResourceTypeValue represents the possible values for attribute "resourceType".
 type CloudAlertRecordResourceTypeValue string
 
@@ -116,6 +127,9 @@ type CloudAlertRecord struct {
 	// List of tags attached to an entity.
 	AssociatedTags []string `json:"associatedTags" msgpack:"associatedTags" bson:"associatedtags" mapstructure:"associatedTags,omitempty"`
 
+	// Cloud type of the entity.
+	CloudType CloudAlertRecordCloudTypeValue `json:"cloudType" msgpack:"cloudType" bson:"cloudtype" mapstructure:"cloudType,omitempty"`
+
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey string `json:"-" msgpack:"-" bson:"createidempotencykey" mapstructure:"-,omitempty"`
 
@@ -186,6 +200,7 @@ func NewCloudAlertRecord() *CloudAlertRecord {
 		ModelVersion:   1,
 		Annotations:    map[string][]string{},
 		AssociatedTags: []string{},
+		CloudType:      CloudAlertRecordCloudTypeAWS,
 		Published:      false,
 		NormalizedTags: []string{},
 	}
@@ -225,6 +240,7 @@ func (o *CloudAlertRecord) GetBSON() (interface{}, error) {
 	s.AccountID = o.AccountID
 	s.Annotations = o.Annotations
 	s.AssociatedTags = o.AssociatedTags
+	s.CloudType = o.CloudType
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	s.CreateTime = o.CreateTime
 	s.LastExecutionTimestamp = o.LastExecutionTimestamp
@@ -265,6 +281,7 @@ func (o *CloudAlertRecord) SetBSON(raw bson.Raw) error {
 	o.AccountID = s.AccountID
 	o.Annotations = s.Annotations
 	o.AssociatedTags = s.AssociatedTags
+	o.CloudType = s.CloudType
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	o.CreateTime = s.CreateTime
 	o.LastExecutionTimestamp = s.LastExecutionTimestamp
@@ -475,6 +492,7 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			AccountID:              &o.AccountID,
 			Annotations:            &o.Annotations,
 			AssociatedTags:         &o.AssociatedTags,
+			CloudType:              &o.CloudType,
 			CreateIdempotencyKey:   &o.CreateIdempotencyKey,
 			CreateTime:             &o.CreateTime,
 			LastExecutionTimestamp: &o.LastExecutionTimestamp,
@@ -508,6 +526,8 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.Annotations = &(o.Annotations)
 		case "associatedTags":
 			sp.AssociatedTags = &(o.AssociatedTags)
+		case "cloudType":
+			sp.CloudType = &(o.CloudType)
 		case "createIdempotencyKey":
 			sp.CreateIdempotencyKey = &(o.CreateIdempotencyKey)
 		case "createTime":
@@ -570,6 +590,9 @@ func (o *CloudAlertRecord) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.AssociatedTags != nil {
 		o.AssociatedTags = *so.AssociatedTags
+	}
+	if so.CloudType != nil {
+		o.CloudType = *so.CloudType
 	}
 	if so.CreateIdempotencyKey != nil {
 		o.CreateIdempotencyKey = *so.CreateIdempotencyKey
@@ -664,6 +687,10 @@ func (o *CloudAlertRecord) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := elemental.ValidateStringInList("cloudType", string(o.CloudType), []string{"AWS", "AZURE"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if err := elemental.ValidateRequiredString("name", o.Name); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
@@ -718,6 +745,8 @@ func (o *CloudAlertRecord) ValueForAttribute(name string) interface{} {
 		return o.Annotations
 	case "associatedTags":
 		return o.AssociatedTags
+	case "cloudType":
+		return o.CloudType
 	case "createIdempotencyKey":
 		return o.CreateIdempotencyKey
 	case "createTime":
@@ -815,6 +844,17 @@ raised.`,
 		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
+	},
+	"CloudType": {
+		AllowedChoices: []string{"AWS", "AZURE"},
+		BSONFieldName:  "cloudtype",
+		ConvertedName:  "CloudType",
+		DefaultValue:   CloudAlertRecordCloudTypeAWS,
+		Description:    `Cloud type of the entity.`,
+		Exposed:        true,
+		Name:           "cloudType",
+		Stored:         true,
+		Type:           "enum",
 	},
 	"CreateIdempotencyKey": {
 		AllowedChoices: []string{},
@@ -1118,6 +1158,17 @@ raised.`,
 		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
+	},
+	"cloudtype": {
+		AllowedChoices: []string{"AWS", "AZURE"},
+		BSONFieldName:  "cloudtype",
+		ConvertedName:  "CloudType",
+		DefaultValue:   CloudAlertRecordCloudTypeAWS,
+		Description:    `Cloud type of the entity.`,
+		Exposed:        true,
+		Name:           "cloudType",
+		Stored:         true,
+		Type:           "enum",
 	},
 	"createidempotencykey": {
 		AllowedChoices: []string{},
@@ -1445,6 +1496,9 @@ type SparseCloudAlertRecord struct {
 	// List of tags attached to an entity.
 	AssociatedTags *[]string `json:"associatedTags,omitempty" msgpack:"associatedTags,omitempty" bson:"associatedtags,omitempty" mapstructure:"associatedTags,omitempty"`
 
+	// Cloud type of the entity.
+	CloudType *CloudAlertRecordCloudTypeValue `json:"cloudType,omitempty" msgpack:"cloudType,omitempty" bson:"cloudtype,omitempty" mapstructure:"cloudType,omitempty"`
+
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey *string `json:"-" msgpack:"-" bson:"createidempotencykey,omitempty" mapstructure:"-,omitempty"`
 
@@ -1560,6 +1614,9 @@ func (o *SparseCloudAlertRecord) GetBSON() (interface{}, error) {
 	if o.AssociatedTags != nil {
 		s.AssociatedTags = o.AssociatedTags
 	}
+	if o.CloudType != nil {
+		s.CloudType = o.CloudType
+	}
 	if o.CreateIdempotencyKey != nil {
 		s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	}
@@ -1645,6 +1702,9 @@ func (o *SparseCloudAlertRecord) SetBSON(raw bson.Raw) error {
 	if s.AssociatedTags != nil {
 		o.AssociatedTags = s.AssociatedTags
 	}
+	if s.CloudType != nil {
+		o.CloudType = s.CloudType
+	}
 	if s.CreateIdempotencyKey != nil {
 		o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	}
@@ -1727,6 +1787,9 @@ func (o *SparseCloudAlertRecord) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.AssociatedTags != nil {
 		out.AssociatedTags = *o.AssociatedTags
+	}
+	if o.CloudType != nil {
+		out.CloudType = *o.CloudType
 	}
 	if o.CreateIdempotencyKey != nil {
 		out.CreateIdempotencyKey = *o.CreateIdempotencyKey
@@ -2010,6 +2073,7 @@ type mongoAttributesCloudAlertRecord struct {
 	AccountID              string                            `bson:"accountid"`
 	Annotations            map[string][]string               `bson:"annotations"`
 	AssociatedTags         []string                          `bson:"associatedtags"`
+	CloudType              CloudAlertRecordCloudTypeValue    `bson:"cloudtype"`
 	CreateIdempotencyKey   string                            `bson:"createidempotencykey"`
 	CreateTime             time.Time                         `bson:"createtime"`
 	LastExecutionTimestamp time.Time                         `bson:"lastexecutiontimestamp"`
@@ -2035,6 +2099,7 @@ type mongoAttributesSparseCloudAlertRecord struct {
 	AccountID              *string                            `bson:"accountid,omitempty"`
 	Annotations            *map[string][]string               `bson:"annotations,omitempty"`
 	AssociatedTags         *[]string                          `bson:"associatedtags,omitempty"`
+	CloudType              *CloudAlertRecordCloudTypeValue    `bson:"cloudtype,omitempty"`
 	CreateIdempotencyKey   *string                            `bson:"createidempotencykey,omitempty"`
 	CreateTime             *time.Time                         `bson:"createtime,omitempty"`
 	LastExecutionTimestamp *time.Time                         `bson:"lastexecutiontimestamp,omitempty"`

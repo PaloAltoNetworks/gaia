@@ -1,0 +1,104 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "namespaceinfo": {
+        "description": "Returns the information of the specified namespace.",
+        "properties": {
+          "PUIncomingTrafficAction": {
+            "description": "The processing unit action for incoming traffic for the namespace.",
+            "enum": [
+              "Allow",
+              "Reject",
+              "Inherit"
+            ],
+            "readOnly": true
+          },
+          "PUOutgoingTrafficAction": {
+            "description": "The processing unit action for outgoing traffic for the namespace.",
+            "enum": [
+              "Allow",
+              "Reject",
+              "Inherit"
+            ],
+            "readOnly": true
+          },
+          "description": {
+            "description": "Description of the namespace.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "name": {
+            "description": "Name of the namespace.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "prefixes": {
+            "description": "List of tag prefixes that will be used to suggest policies.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "protected": {
+            "description": "Defines if the namespace is protected.",
+            "readOnly": true,
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "namespaceinfo",
+    "version": "1.0"
+  },
+  "paths": {
+    "/namespaceinfo": {
+      "get": {
+        "description": "Returns the information of the specified namespace.",
+        "operationId": "get-all-namespaceinfo",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/namespaceinfo"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/namespace'",
+      "name": "core/namespace"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

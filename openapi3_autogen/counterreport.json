@@ -1,0 +1,370 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "counterreport": {
+        "description": "Post a new counter tracing report.",
+        "properties": {
+          "AckInUnknownState": {
+            "description": "Counter for sending FIN ACK received in unknown connection state.",
+            "type": "integer"
+          },
+          "AckInvalidFormat": {
+            "description": "Counter for ACK packet dropped because of invalid format.",
+            "type": "integer"
+          },
+          "AckRejected": {
+            "description": "Counter for ACK packets rejected as per policy.",
+            "type": "integer"
+          },
+          "AckSigValidationFailed": {
+            "description": "Counter for ACK packet dropped because signature validation failed.",
+            "type": "integer"
+          },
+          "AckTCPNoTCPAuthOption": {
+            "description": "Counter for TCP authentication option not found.",
+            "type": "integer"
+          },
+          "ConnectionsProcessed": {
+            "description": "Counter for connections processed.",
+            "type": "integer"
+          },
+          "ContextIDNotFound": {
+            "description": "Counter for unable to find ContextID.",
+            "type": "integer"
+          },
+          "DroppedExternalService": {
+            "description": "Counter for no ACLs found for external services. Dropping application SYN\npacket.",
+            "type": "integer"
+          },
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "InvalidConnState": {
+            "description": "Counter for invalid connection state.",
+            "type": "integer"
+          },
+          "InvalidNetState": {
+            "description": "Counter for invalid net state.",
+            "type": "integer"
+          },
+          "InvalidProtocol": {
+            "description": "Counter for invalid protocol.",
+            "type": "integer"
+          },
+          "InvalidSynAck": {
+            "description": "Counter for processing unit is already dead - drop SYN ACK packet.",
+            "type": "integer"
+          },
+          "MarkNotFound": {
+            "description": "Counter for processing unit mark not found.",
+            "type": "integer"
+          },
+          "NetSynNotSeen": {
+            "description": "Counter for network SYN packet was not seen.",
+            "type": "integer"
+          },
+          "NoConnFound": {
+            "description": "Counter for no context or connection found.",
+            "type": "integer"
+          },
+          "NonPUTraffic": {
+            "description": "Counter for traffic that belongs to a non-processing unit process.",
+            "type": "integer"
+          },
+          "OutOfOrderSynAck": {
+            "description": "Counter for SYN ACK for flow with processed FIN ACK.",
+            "type": "integer"
+          },
+          "PortNotFound": {
+            "description": "Counter for port not found.",
+            "type": "integer"
+          },
+          "RejectPacket": {
+            "description": "Counter for reject the packet as per policy.",
+            "type": "integer"
+          },
+          "ServicePostprocessorFailed": {
+            "description": "Counter for post service processing failed for network packet.",
+            "type": "integer"
+          },
+          "ServicePreprocessorFailed": {
+            "description": "Counter for network packets that failed preprocessing.",
+            "type": "integer"
+          },
+          "SynAckBadClaims": {
+            "description": "Counter for SYN ACK packet dropped because of bad claims.",
+            "type": "integer"
+          },
+          "SynAckClaimsMisMatch": {
+            "description": "Counter for SYN ACK packet dropped because of encryption mismatch.",
+            "type": "integer"
+          },
+          "SynAckDroppedExternalService": {
+            "description": "Counter for SYN ACK from external service dropped.",
+            "type": "integer"
+          },
+          "SynAckInvalidFormat": {
+            "description": "Counter for SYN ACK packet dropped because of invalid format.",
+            "type": "integer"
+          },
+          "SynAckMissingClaims": {
+            "description": "Counter for SYN ACK packet dropped because of no claims.",
+            "type": "integer"
+          },
+          "SynAckMissingToken": {
+            "description": "Counter for SYN ACK packet dropped because of missing token.",
+            "type": "integer"
+          },
+          "SynAckNoTCPAuthOption": {
+            "description": "Counter for TCP authentication option not found.",
+            "type": "integer"
+          },
+          "SynAckRejected": {
+            "description": "Counter for dropping because of reject rule on transmitter.",
+            "type": "integer"
+          },
+          "SynDroppedInvalidFormat": {
+            "description": "Counter for SYN packet dropped because of invalid format.",
+            "type": "integer"
+          },
+          "SynDroppedInvalidToken": {
+            "description": "Counter for SYN packet dropped because of invalid token.",
+            "type": "integer"
+          },
+          "SynDroppedNoClaims": {
+            "description": "Counter for SYN packet dropped because of no claims.",
+            "type": "integer"
+          },
+          "SynDroppedTCPOption": {
+            "description": "Counter for TCP authentication option not found.",
+            "type": "integer"
+          },
+          "SynRejectPacket": {
+            "description": "Counter for SYN packet dropped due to policy.",
+            "type": "integer"
+          },
+          "SynUnexpectedPacket": {
+            "description": "Counter for received SYN packet from unknown processing unit.",
+            "type": "integer"
+          },
+          "TCPAuthNotFound": {
+            "description": "Counter for TCP authentication option not found.",
+            "type": "integer"
+          },
+          "UDPAckInvalidSignature": {
+            "description": "Counter for UDP ACK packet dropped due to an invalid signature.",
+            "type": "integer"
+          },
+          "UDPConnectionsProcessed": {
+            "description": "Counter for number of processed UDP connections.",
+            "type": "integer"
+          },
+          "UDPDropContextNotFound": {
+            "description": "Counter for dropped UDP data packets with no context.",
+            "type": "integer"
+          },
+          "UDPDropFin": {
+            "description": "Counter for dropped UDP FIN handshake packets.",
+            "type": "integer"
+          },
+          "UDPDropInNfQueue": {
+            "description": "Counter for dropped UDP in NfQueue.",
+            "type": "integer"
+          },
+          "UDPDropNoConnection": {
+            "description": "Counter for dropped UDP data packets with no connection.",
+            "type": "integer"
+          },
+          "UDPDropPacket": {
+            "description": "Counter for dropped UDP data packets.",
+            "type": "integer"
+          },
+          "UDPDropQueueFull": {
+            "description": "Counter for dropped UDP queue full.",
+            "type": "integer"
+          },
+          "UDPDropSynAck": {
+            "description": "Counter for dropped UDP SYN ACK handshake packets.",
+            "type": "integer"
+          },
+          "UDPInvalidNetState": {
+            "description": "Counter for UDP packets received in invalid network state.",
+            "type": "integer"
+          },
+          "UDPPostProcessingFailed": {
+            "description": "Counter for UDP packets failing postprocessing.",
+            "type": "integer"
+          },
+          "UDPPreProcessingFailed": {
+            "description": "Counter for UDP packets failing preprocessing.",
+            "type": "integer"
+          },
+          "UDPRejected": {
+            "description": "Counter for UDP packets dropped due to policy.",
+            "type": "integer"
+          },
+          "UDPSynAckDropBadClaims": {
+            "description": "Counter for UDP SYN ACK packets dropped due to bad claims.",
+            "type": "integer"
+          },
+          "UDPSynAckMissingClaims": {
+            "description": "Counter for UDP SYN ACK packets dropped due to missing claims.",
+            "type": "integer"
+          },
+          "UDPSynAckPolicy": {
+            "description": "Counter for UDP SYN ACK packets dropped due to bad claims.",
+            "type": "integer"
+          },
+          "UDPSynDrop": {
+            "description": "Counter for dropped UDP SYN transmits.",
+            "type": "integer"
+          },
+          "UDPSynDropPolicy": {
+            "description": "Counter for dropped UDP SYN policy.",
+            "type": "integer"
+          },
+          "UDPSynInvalidToken": {
+            "description": "Counter for dropped UDP FIN handshake packets.",
+            "type": "integer"
+          },
+          "UDPSynMissingClaims": {
+            "description": "Counter for UDP SYN packet dropped due to missing claims.",
+            "type": "integer"
+          },
+          "UnknownError": {
+            "description": "Counter for unknown error.",
+            "type": "integer"
+          },
+          "connectionsAnalyzed": {
+            "description": "Non-zero counter indicates analyzed connections for unencrypted, encrypted,\nand packets from endpoint applications with the TCP Fast Open option set. These\nare not dropped counter.",
+            "type": "integer"
+          },
+          "connectionsDropped": {
+            "description": "Non-zero counter indicates dropped connections because of invalid state,\nnon-processing unit traffic, or out of order packets.",
+            "type": "integer"
+          },
+          "connectionsExpired": {
+            "description": "Non-zero counter indicates expired connections because of response not being\nreceived within a certain amount of time after the request is made.",
+            "type": "integer"
+          },
+          "droppedPackets": {
+            "description": "Non-zero counter indicates dropped packets that did not hit any of our iptables\nrules and queue drops.",
+            "type": "integer"
+          },
+          "encryptionFailures": {
+            "description": "Non-zero counter indicates encryption processing failures of data packets.",
+            "type": "integer"
+          },
+          "enforcerID": {
+            "description": "Identifier of the enforcer sending the report.",
+            "example": "xxxx-xxx-xxxx",
+            "type": "string"
+          },
+          "enforcerNamespace": {
+            "deprecated": true,
+            "description": "Namespace of the enforcer sending the report. This field is deprecated. Use the\n'namespace' field instead.\nfield instead.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "externalNetworkConnections": {
+            "description": "Non-zero counter indicates connections going to and from external networks.\nThese may be drops or allowed counters.",
+            "type": "integer"
+          },
+          "namespace": {
+            "description": "Namespace of the enforcer sending the report.",
+            "example": "/my/namespace",
+            "readOnly": true,
+            "type": "string"
+          },
+          "policyDrops": {
+            "description": "Non-zero counter indicates packets dropped due to a reject policy.",
+            "type": "integer"
+          },
+          "processingUnitID": {
+            "description": "PUID is the ID of the processing unit reporting the counter.",
+            "example": "xxx-xxx-xxx",
+            "type": "string"
+          },
+          "processingUnitNamespace": {
+            "description": "Namespace of the processing unit reporting the counter.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "Timestamp is the date of the report.",
+            "example": "2018-06-14T23:10:46.420397985Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "tokenDrops": {
+            "description": "Non-zero counter indicates packets rejected due to anything related to token\ncreation/parsing failures.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "enforcerID"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "counterreport",
+    "version": "1.0"
+  },
+  "paths": {
+    "/counterreports": {
+      "post": {
+        "description": "Create a counter report.",
+        "operationId": "create-a-new-counterreport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/counterreport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/counterreport"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/enforcer",
+          "zack"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/enforcer'",
+      "name": "core/enforcer"
+    },
+    {
+      "description": "This tag is for package 'zack'",
+      "name": "zack"
+    }
+  ]
+}

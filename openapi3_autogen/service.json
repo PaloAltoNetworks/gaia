@@ -1,0 +1,555 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "service": {
+        "description": "Defines a generic service object at layer 4 or layer 7 that encapsulates the\ndescription of a microservice. A service exposes APIs and can be implemented\nthrough third-party entities (such as a cloud provider) or through processing\nunits.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "IPs": {
+            "description": "The list of IP addresses where the service can be accessed. This is an optional\nattribute and is only required if no host names are provided. The system will\nautomatically resolve IP addresses from host names otherwise.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "JWTSigningCertificate": {
+            "description": "PEM-encoded certificate that will be used to validate the user's JSON web token\n(JWT)\nin HTTP requests. This is an optional field, needed only if the\n`authorizationType`\nis set to `JWT`.",
+            "type": "string"
+          },
+          "MTLSCertificateAuthority": {
+            "description": "PEM-encoded certificate authority to use to verify client certificates. This\nonly applies if `authorizationType` is set to `MTLS`. If it is not set,\nMicrosegmentation Console's public signing certificate authority will be used.",
+            "type": "string"
+          },
+          "OIDCCallbackURL": {
+            "description": "This is an advanced setting. Optional OIDC callback URL. If you don't set it,\nthe enforcer will autodiscover it. It will be\n`https://\u003chosts[0]|IPs[0]\u003e/aporeto/oidc/callback`.",
+            "type": "string"
+          },
+          "OIDCClientID": {
+            "description": "OIDC Client ID. Only has effect if the `authorizationType` is set to `OIDC`.",
+            "type": "string"
+          },
+          "OIDCClientSecret": {
+            "description": "OIDC Client Secret. Only has effect if the `authorizationType` is set to `OIDC`.",
+            "type": "string"
+          },
+          "OIDCProviderURL": {
+            "description": "OIDC discovery endpoint. Only has effect if the `authorizationType`\nis set to `OIDC`.",
+            "example": "https://accounts.google.com",
+            "type": "string"
+          },
+          "OIDCScopes": {
+            "description": "Configures the scopes you want to request from the OIDC provider. Only has\neffect\nif `authorizationType` is set to `OIDC`.",
+            "example": [
+              "email",
+              "profile"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "TLSCertificate": {
+            "description": "PEM-encoded certificate to expose to the clients for TLS. Only has effect and\nrequired if `TLSType` is set to `External`.",
+            "type": "string"
+          },
+          "TLSCertificateKey": {
+            "description": "PEM-encoded certificate key associated with `TLSCertificate`. Only has effect\nand required if `TLSType` is set to `External`.",
+            "type": "string"
+          },
+          "TLSType": {
+            "default": "Aporeto",
+            "description": "Set how to provide a server certificate to the service.\n\n- `Aporeto`: Generate a certificate signed by the Microsegmentation\nConsole public CA.\n- `LetsEncrypt`: Issue a certificate from Let's Encrypt.\n- `External`: Let you define your own certificate and key to use.\n- `None`: TLS is disabled (not recommended).",
+            "enum": [
+              "Aporeto",
+              "LetsEncrypt",
+              "External",
+              "None"
+            ]
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "authorizationType": {
+            "default": "None",
+            "description": "Defines the user authorization type that should be used.\n\n- `None` (default): No authorization.\n- `JWT`:  Configures a simple JWT verification from the HTTP `Authorization`\nheader.\n- `OIDC`: Configures OIDC authorization. You must then set\n`OIDCClientID`,`OIDCClientSecret`, `OIDCProviderURL`.\n- `MTLS`: Configures client certificate authorization. Then you can optionally\nuse `MTLSCertificateAuthority`, otherwise Microsegmentation Console's public\nsigning certificate will be used.",
+            "enum": [
+              "None",
+              "JWT",
+              "OIDC",
+              "MTLS"
+            ]
+          },
+          "claimsToHTTPHeaderMappings": {
+            "description": "Defines a list of mappings between claims and HTTP headers. When these mappings\nare defined, the enforcer will copy the values of the claims to the\ncorresponding HTTP headers.",
+            "items": {
+              "$ref": "./claimmapping#/components/schemas/claimmapping"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "disabled": {
+            "description": "Defines if the property is disabled.",
+            "type": "boolean"
+          },
+          "endpoints": {
+            "description": "Resolves the API endpoints that the service is exposing. Only valid during\npolicy rendering.",
+            "items": {
+              "$ref": "./endpoint#/components/schemas/endpoint"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "exposedAPIs": {
+            "description": "Contains a tag expression that will determine which APIs a service is exposing.\nThe APIs can be defined as the `RESTAPISpec` or similar specifications for other\nlayer 7 protocols.",
+            "example": [
+              [
+                "package=p1"
+              ]
+            ],
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "exposedPort": {
+            "description": "The port that the service can be accessed on. Note that this is different from\nthe `port` attribute that describes the port that the service is actually\nlistening on. For example if a load balancer is used, the `exposedPort` is\nthe port that the load balancer is listening for the service, whereas the\nport that the implementation is listening on can be different.",
+            "example": 443,
+            "type": "integer"
+          },
+          "exposedServiceIsTLS": {
+            "default": false,
+            "description": "Indicates that the exposed service is TLS. This means that the enforcer has to\ninitiate a TLS session in order to forward traffic to the service.",
+            "type": "boolean"
+          },
+          "external": {
+            "default": false,
+            "description": "Indicates if this is an external service.",
+            "type": "boolean"
+          },
+          "hosts": {
+            "description": "The host names that the service can be accessed on.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "metadata": {
+            "description": "Contains tags that can only be set during creation, must all start\nwith the '@' prefix, and should only be used by external systems.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "port": {
+            "description": "The port that the implementation of the service is listening to. It can be\ndifferent than `exposedPort`. This is needed for port mapping use cases\nwhere there are private and public ports.",
+            "example": 443,
+            "type": "integer"
+          },
+          "propagate": {
+            "description": "Propagates the policy to all of its children.",
+            "type": "boolean"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "proxyProtocolEnabled": {
+            "description": "Enable trust in proxy protocols header.",
+            "type": "boolean"
+          },
+          "proxyProtocolSubnets": {
+            "description": "Only allow proxy protocols from the given subnets .",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "publicApplicationPort": {
+            "description": "A new virtual port that the service can be accessed on using HTTPS. Since the\nenforcer transparently inserts TLS in the application path, you might want\nto declare a new port where the enforcer listens for TLS. However, the\napplication does not need to be modified and the enforcer will map the\ntraffic to the correct application port. This is useful when\nan application is being accessed from a public network.",
+            "example": 443,
+            "type": "integer"
+          },
+          "redirectURLOnAuthorizationFailure": {
+            "description": "If this is set, the user will be redirected to that URL in case of any\nauthorization failure, allowing you to provide a nice message to the user.\nThe query parameter `?failure_message=\u003cmessage\u003e` will be added to that\nURL explaining the possible reason for the failure.",
+            "type": "string"
+          },
+          "selectors": {
+            "description": "A tag or tag expression that identifies the processing unit that implements this\nparticular service.",
+            "example": [
+              [
+                "$identity=processingunit"
+              ]
+            ],
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "trustedCertificateAuthorities": {
+            "description": "PEM-encoded certificate authorities to trust when additional hops are needed. It\nmust be set if the service must reach a service marked as `external` or must go\nthrough an additional TLS termination point like a layer 7 load balancer.",
+            "type": "string"
+          },
+          "type": {
+            "default": "HTTP",
+            "description": "Type of service.",
+            "enum": [
+              "HTTP",
+              "TCP",
+              "KubernetesSecrets",
+              "VaultSecrets"
+            ]
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "exposedPort",
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "service",
+    "version": "1.0"
+  },
+  "paths": {
+    "/services": {
+      "get": {
+        "description": "Retrieves the list of services.",
+        "operationId": "get-all-services",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that have been archived.",
+            "in": "query",
+            "name": "archived",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/service"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/services",
+          "squall"
+        ]
+      },
+      "post": {
+        "description": "Creates a new service.",
+        "operationId": "create-a-new-service",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/service"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/service"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/services",
+          "squall"
+        ]
+      }
+    },
+    "/services/{id}": {
+      "delete": {
+        "description": "Deletes the service with the given ID.",
+        "operationId": "delete-service-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/service"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/services",
+          "squall"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the service with the given ID.",
+        "operationId": "get-service-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that have been archived.",
+            "in": "query",
+            "name": "archived",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/service"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/services",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the service with the given ID.",
+        "operationId": "update-service-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/service"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/service"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/services",
+          "squall"
+        ]
+      }
+    },
+    "/services/{id}/httpresourcespecs": {
+      "get": {
+        "description": "Retrieves the HTTP Resource exposed by this service.",
+        "operationId": "get-all-httpresourcespecs-for-a-given-service",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./httpresourcespec#/components/schemas/httpresourcespec"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/services",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/services/{id}/processingunits": {
+      "get": {
+        "description": "Retrieves the processing units that implement this service.",
+        "operationId": "get-all-processingunits-for-a-given-service",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "./processingunit#/components/schemas/processingunit"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/processingunit",
+          "squall"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/services'",
+      "name": "policy/services"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

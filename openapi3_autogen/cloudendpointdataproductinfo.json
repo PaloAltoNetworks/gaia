@@ -1,0 +1,45 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudendpointdataproductinfo": {
+        "description": "Parameters associated with a cloud endpoint data product.",
+        "properties": {
+          "productID": {
+            "description": "The ID of the corresponding product.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of the product.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudendpointdataproductinfo",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

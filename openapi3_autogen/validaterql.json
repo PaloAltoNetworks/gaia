@@ -1,0 +1,101 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "validaterql": {
+        "description": "Used to validate RQL queries.",
+        "properties": {
+          "error": {
+            "description": "The error message if the query fails validation.",
+            "type": "string"
+          },
+          "policyType": {
+            "description": "The type of the policy.",
+            "type": "string"
+          },
+          "prismaID": {
+            "description": "The Prisma Cloud ID.",
+            "type": "integer"
+          },
+          "query": {
+            "description": "The query to validate.",
+            "example": "network from microseg.flow_record where id == '1'",
+            "type": "string"
+          },
+          "searchType": {
+            "description": "The search type.",
+            "type": "string"
+          },
+          "status": {
+            "description": "The http status code of the response.",
+            "type": "integer"
+          },
+          "timestamp": {
+            "description": "The timestamp of the query in nanoseconds.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "validaterql",
+    "version": "1.0"
+  },
+  "paths": {
+    "/validaterql": {
+      "post": {
+        "description": "Validates a given RQL query. This operation does not store data and has no side\neffects.",
+        "operationId": "create-a-new-validaterql",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/validaterql"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/validaterql"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/rql",
+          "larl"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/rql'",
+      "name": "core/rql"
+    },
+    {
+      "description": "This tag is for package 'larl'",
+      "name": "larl"
+    }
+  ]
+}
