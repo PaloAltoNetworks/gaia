@@ -36,6 +36,16 @@ attributes:
     subtype: string
     stored: true
 
+  - name: attachedEntities
+    description: A list of entitites that are associated to a given endpoint.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    example_value:
+    - eni-12344
+    - subnet-abcd
+
   - name: attachedInterfaces
     description: |-
       A list of interfaces attached with the endpoint. In some cases endpoints can
