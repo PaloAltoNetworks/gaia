@@ -48,6 +48,14 @@
             "description": "If the interface is of type or external, the relatedObjectID identifies the\nrelated service or gateway.",
             "type": "string"
           },
+          "resourceStatus": {
+            "default": "Active",
+            "description": "The status of the resource.",
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
+          },
           "routeTableID": {
             "description": "The route table that must be used for this interface. Applies to Transit\nGateways and other special types.",
             "example": [
