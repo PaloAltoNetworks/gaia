@@ -10234,6 +10234,10 @@ Parameters associated with a cloud endpoint.
 ```json
 {
   "VPCAttached": false,
+  "attachedEntities": [
+    "eni-12344",
+    "subnet-abcd"
+  ],
   "attachedInterfaces": [
     "eni-12344",
     "eni-33333"
@@ -10267,6 +10271,12 @@ Type: `[]string`
 
 List of route tables associated with this endpoint. Depending on cloud provider
 it can apply in some gateways.
+
+##### `attachedEntities`
+
+Type: `[]string`
+
+A list of entitites that are associated to a given endpoint.
 
 ##### `attachedInterfaces`
 
