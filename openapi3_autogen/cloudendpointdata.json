@@ -23,6 +23,17 @@
             },
             "type": "array"
           },
+          "attachedEntities": {
+            "description": "A list of entitites that are associated to a given endpoint.",
+            "example": [
+              "eni-12344",
+              "subnet-abcd"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "attachedInterfaces": {
             "description": "A list of interfaces attached with the endpoint. In some cases endpoints can\nhave more than one interface.",
             "example": [
@@ -55,6 +66,14 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "resourceStatus": {
+            "default": "Active",
+            "description": "The status of the resource.",
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
           },
           "serviceName": {
             "description": "Identifies the name of the service for service endpoints.",
