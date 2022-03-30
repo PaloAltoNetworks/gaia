@@ -34,8 +34,10 @@
           "cloudType": {
             "default": "AWS",
             "description": "Cloud type of the entity.",
-            "example": "AWS",
-            "type": "string"
+            "enum": [
+              "AWS",
+              "AZURE"
+            ]
           },
           "createTime": {
             "description": "Creation date of the object.",
