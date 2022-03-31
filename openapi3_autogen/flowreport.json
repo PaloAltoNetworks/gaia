@@ -23,10 +23,6 @@
             "example": "api.east.acme.com",
             "type": "string"
           },
-          "destinationExternalNetworkID": {
-            "description": "Closest external network that matches destination IP.",
-            "type": "string"
-          },
           "destinationFQDN": {
             "description": "Destination fully qualified domain name (FQDN), if known.",
             "type": "string"
@@ -174,10 +170,6 @@
           "sourceController": {
             "description": "Identifier of the source controller.",
             "example": "api.west.acme.com",
-            "type": "string"
-          },
-          "sourceExternalNetworkID": {
-            "description": "Closest external network that matches source IP.",
             "type": "string"
           },
           "sourceID": {

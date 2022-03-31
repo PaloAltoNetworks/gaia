@@ -3,8 +3,9 @@ SHELL := /bin/bash -o pipefail
 
 export GO111MODULE = on
 
-default: format codegen lint test diff-check
+default: format codegen openapi3gen lint test diff-check
 all: format codegen openapi3gen lint test
+generate: format codegen openapi3gen
 
 .PHONY:codegen
 codegen:

@@ -12,6 +12,16 @@
             },
             "type": "array"
           },
+          "attachedEntities": {
+            "description": "ID of associated objects with this interface.",
+            "example": [
+              "subnet-074c152ae45ea0c73"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "attachmentType": {
             "description": "Attachment type describes where this interface is attached to (Instance, Load\nBalancer, Gateway, etc).",
             "enum": [
@@ -47,6 +57,14 @@
           "relatedObjectID": {
             "description": "If the interface is of type or external, the relatedObjectID identifies the\nrelated service or gateway.",
             "type": "string"
+          },
+          "resourceStatus": {
+            "default": "Active",
+            "description": "The status of the resource.",
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
           },
           "routeTableID": {
             "description": "The route table that must be used for this interface. Applies to Transit\nGateways and other special types.",
