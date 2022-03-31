@@ -64,6 +64,11 @@
             },
             "type": "array"
           },
+          "resourceStatus": {
+            "description": "The status of the resource.",
+            "example": "Active",
+            "type": "string"
+          },
           "resourceType": {
             "default": "Instance",
             "description": "The type of endpoint resource. The resource type is a mandatory field and a\nquery cannot span multiple resource types.",
