@@ -10469,6 +10469,9 @@ Parameters associated with a cloud interface.
 
 ```json
 {
+  "attachedEntities": [
+    "subnet-074c152ae45ea0c73"
+  ],
   "attachmentType": "Instance",
   "availabilityZone": "us-east-1",
   "hasPublicIP": false,
@@ -10490,6 +10493,12 @@ Type: [`[]cloudaddress`](#cloudaddress)
 
 List of IP addresses/subnets (IPv4 or IPv6) associated with the
 interface.
+
+##### `attachedEntities`
+
+Type: `[]string`
+
+ID of associated objects with this interface.
 
 ##### `attachmentType` [`required`]
 

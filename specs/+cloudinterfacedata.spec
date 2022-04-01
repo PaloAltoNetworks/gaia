@@ -22,6 +22,15 @@ attributes:
     extensions:
       refMode: pointer
 
+  - name: attachedEntities
+    description: ID of associated objects with this interface.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    example_value:
+    - subnet-074c152ae45ea0c73
+
   - name: attachmentType
     description: |-
       Attachment type describes where this interface is attached to (Instance, Load
