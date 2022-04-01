@@ -50,6 +50,7 @@ attributes:
     - NetworkInterface
     - Subnet
     - IPConfiguration
+    - VirtualNetwork
     example_value: VirtualMachine
 
   - name: name
