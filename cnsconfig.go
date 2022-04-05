@@ -93,14 +93,14 @@ type CNSConfig struct {
 	// List of tags attached to an entity.
 	AssociatedTags []string `json:"associatedTags" msgpack:"associatedTags" bson:"associatedtags" mapstructure:"associatedTags,omitempty"`
 
+	// If `true` net effective permissions Azure v1 is enabled.
+	AzureV1Enabled bool `json:"azureV1Enabled" msgpack:"azureV1Enabled" bson:"azurev1enabled" mapstructure:"azureV1Enabled,omitempty"`
+
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey string `json:"-" msgpack:"-" bson:"createidempotencykey" mapstructure:"-,omitempty"`
 
 	// Creation date of the object.
 	CreateTime time.Time `json:"createTime" msgpack:"createTime" bson:"createtime" mapstructure:"createTime,omitempty"`
-
-	// If `true` net effective permissions Azure v1 is enabled.
-	EnableAzurev1 bool `json:"enableAzurev1" msgpack:"enableAzurev1" bson:"enableazurev1" mapstructure:"enableAzurev1,omitempty"`
 
 	// If `true` net effective permissions feature is enabled.
 	EnableNetEffectivePermissions bool `json:"enableNetEffectivePermissions" msgpack:"enableNetEffectivePermissions" bson:"enableneteffectivepermissions" mapstructure:"enableNetEffectivePermissions,omitempty"`
@@ -184,9 +184,9 @@ func (o *CNSConfig) GetBSON() (interface{}, error) {
 	}
 	s.Annotations = o.Annotations
 	s.AssociatedTags = o.AssociatedTags
+	s.AzureV1Enabled = o.AzureV1Enabled
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	s.CreateTime = o.CreateTime
-	s.EnableAzurev1 = o.EnableAzurev1
 	s.EnableNetEffectivePermissions = o.EnableNetEffectivePermissions
 	s.EnableNetworkSecurity = o.EnableNetworkSecurity
 	s.MigrationsLog = o.MigrationsLog
@@ -218,9 +218,9 @@ func (o *CNSConfig) SetBSON(raw bson.Raw) error {
 	o.ID = s.ID.Hex()
 	o.Annotations = s.Annotations
 	o.AssociatedTags = s.AssociatedTags
+	o.AzureV1Enabled = s.AzureV1Enabled
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	o.CreateTime = s.CreateTime
-	o.EnableAzurev1 = s.EnableAzurev1
 	o.EnableNetEffectivePermissions = s.EnableNetEffectivePermissions
 	o.EnableNetworkSecurity = s.EnableNetworkSecurity
 	o.MigrationsLog = s.MigrationsLog
@@ -419,9 +419,9 @@ func (o *CNSConfig) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			ID:                            &o.ID,
 			Annotations:                   &o.Annotations,
 			AssociatedTags:                &o.AssociatedTags,
+			AzureV1Enabled:                &o.AzureV1Enabled,
 			CreateIdempotencyKey:          &o.CreateIdempotencyKey,
 			CreateTime:                    &o.CreateTime,
-			EnableAzurev1:                 &o.EnableAzurev1,
 			EnableNetEffectivePermissions: &o.EnableNetEffectivePermissions,
 			EnableNetworkSecurity:         &o.EnableNetworkSecurity,
 			MigrationsLog:                 &o.MigrationsLog,
@@ -445,12 +445,12 @@ func (o *CNSConfig) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Annotations = &(o.Annotations)
 		case "associatedTags":
 			sp.AssociatedTags = &(o.AssociatedTags)
+		case "azureV1Enabled":
+			sp.AzureV1Enabled = &(o.AzureV1Enabled)
 		case "createIdempotencyKey":
 			sp.CreateIdempotencyKey = &(o.CreateIdempotencyKey)
 		case "createTime":
 			sp.CreateTime = &(o.CreateTime)
-		case "enableAzurev1":
-			sp.EnableAzurev1 = &(o.EnableAzurev1)
 		case "enableNetEffectivePermissions":
 			sp.EnableNetEffectivePermissions = &(o.EnableNetEffectivePermissions)
 		case "enableNetworkSecurity":
@@ -495,14 +495,14 @@ func (o *CNSConfig) Patch(sparse elemental.SparseIdentifiable) {
 	if so.AssociatedTags != nil {
 		o.AssociatedTags = *so.AssociatedTags
 	}
+	if so.AzureV1Enabled != nil {
+		o.AzureV1Enabled = *so.AzureV1Enabled
+	}
 	if so.CreateIdempotencyKey != nil {
 		o.CreateIdempotencyKey = *so.CreateIdempotencyKey
 	}
 	if so.CreateTime != nil {
 		o.CreateTime = *so.CreateTime
-	}
-	if so.EnableAzurev1 != nil {
-		o.EnableAzurev1 = *so.EnableAzurev1
 	}
 	if so.EnableNetEffectivePermissions != nil {
 		o.EnableNetEffectivePermissions = *so.EnableNetEffectivePermissions
@@ -613,12 +613,12 @@ func (o *CNSConfig) ValueForAttribute(name string) interface{} {
 		return o.Annotations
 	case "associatedTags":
 		return o.AssociatedTags
+	case "azureV1Enabled":
+		return o.AzureV1Enabled
 	case "createIdempotencyKey":
 		return o.CreateIdempotencyKey
 	case "createTime":
 		return o.CreateTime
-	case "enableAzurev1":
-		return o.EnableAzurev1
 	case "enableNetEffectivePermissions":
 		return o.EnableNetEffectivePermissions
 	case "enableNetworkSecurity":
@@ -689,6 +689,16 @@ var CNSConfigAttributesMap = map[string]elemental.AttributeSpecification{
 		SubType:        "string",
 		Type:           "list",
 	},
+	"AzureV1Enabled": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "azurev1enabled",
+		ConvertedName:  "AzureV1Enabled",
+		Description:    `If ` + "`" + `true` + "`" + ` net effective permissions Azure v1 is enabled.`,
+		Exposed:        true,
+		Name:           "azureV1Enabled",
+		Stored:         true,
+		Type:           "boolean",
+	},
 	"CreateIdempotencyKey": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -716,16 +726,6 @@ var CNSConfigAttributesMap = map[string]elemental.AttributeSpecification{
 		Setter:         true,
 		Stored:         true,
 		Type:           "time",
-	},
-	"EnableAzurev1": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "enableazurev1",
-		ConvertedName:  "EnableAzurev1",
-		Description:    `If ` + "`" + `true` + "`" + ` net effective permissions Azure v1 is enabled.`,
-		Exposed:        true,
-		Name:           "enableAzurev1",
-		Stored:         true,
-		Type:           "boolean",
 	},
 	"EnableNetEffectivePermissions": {
 		AllowedChoices: []string{},
@@ -916,6 +916,16 @@ var CNSConfigLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		SubType:        "string",
 		Type:           "list",
 	},
+	"azurev1enabled": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "azurev1enabled",
+		ConvertedName:  "AzureV1Enabled",
+		Description:    `If ` + "`" + `true` + "`" + ` net effective permissions Azure v1 is enabled.`,
+		Exposed:        true,
+		Name:           "azureV1Enabled",
+		Stored:         true,
+		Type:           "boolean",
+	},
 	"createidempotencykey": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -943,16 +953,6 @@ var CNSConfigLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Setter:         true,
 		Stored:         true,
 		Type:           "time",
-	},
-	"enableazurev1": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "enableazurev1",
-		ConvertedName:  "EnableAzurev1",
-		Description:    `If ` + "`" + `true` + "`" + ` net effective permissions Azure v1 is enabled.`,
-		Exposed:        true,
-		Name:           "enableAzurev1",
-		Stored:         true,
-		Type:           "boolean",
 	},
 	"enableneteffectivepermissions": {
 		AllowedChoices: []string{},
@@ -1172,14 +1172,14 @@ type SparseCNSConfig struct {
 	// List of tags attached to an entity.
 	AssociatedTags *[]string `json:"associatedTags,omitempty" msgpack:"associatedTags,omitempty" bson:"associatedtags,omitempty" mapstructure:"associatedTags,omitempty"`
 
+	// If `true` net effective permissions Azure v1 is enabled.
+	AzureV1Enabled *bool `json:"azureV1Enabled,omitempty" msgpack:"azureV1Enabled,omitempty" bson:"azurev1enabled,omitempty" mapstructure:"azureV1Enabled,omitempty"`
+
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey *string `json:"-" msgpack:"-" bson:"createidempotencykey,omitempty" mapstructure:"-,omitempty"`
 
 	// Creation date of the object.
 	CreateTime *time.Time `json:"createTime,omitempty" msgpack:"createTime,omitempty" bson:"createtime,omitempty" mapstructure:"createTime,omitempty"`
-
-	// If `true` net effective permissions Azure v1 is enabled.
-	EnableAzurev1 *bool `json:"enableAzurev1,omitempty" msgpack:"enableAzurev1,omitempty" bson:"enableazurev1,omitempty" mapstructure:"enableAzurev1,omitempty"`
 
 	// If `true` net effective permissions feature is enabled.
 	EnableNetEffectivePermissions *bool `json:"enableNetEffectivePermissions,omitempty" msgpack:"enableNetEffectivePermissions,omitempty" bson:"enableneteffectivepermissions,omitempty" mapstructure:"enableNetEffectivePermissions,omitempty"`
@@ -1267,14 +1267,14 @@ func (o *SparseCNSConfig) GetBSON() (interface{}, error) {
 	if o.AssociatedTags != nil {
 		s.AssociatedTags = o.AssociatedTags
 	}
+	if o.AzureV1Enabled != nil {
+		s.AzureV1Enabled = o.AzureV1Enabled
+	}
 	if o.CreateIdempotencyKey != nil {
 		s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	}
 	if o.CreateTime != nil {
 		s.CreateTime = o.CreateTime
-	}
-	if o.EnableAzurev1 != nil {
-		s.EnableAzurev1 = o.EnableAzurev1
 	}
 	if o.EnableNetEffectivePermissions != nil {
 		s.EnableNetEffectivePermissions = o.EnableNetEffectivePermissions
@@ -1334,14 +1334,14 @@ func (o *SparseCNSConfig) SetBSON(raw bson.Raw) error {
 	if s.AssociatedTags != nil {
 		o.AssociatedTags = s.AssociatedTags
 	}
+	if s.AzureV1Enabled != nil {
+		o.AzureV1Enabled = s.AzureV1Enabled
+	}
 	if s.CreateIdempotencyKey != nil {
 		o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	}
 	if s.CreateTime != nil {
 		o.CreateTime = s.CreateTime
-	}
-	if s.EnableAzurev1 != nil {
-		o.EnableAzurev1 = s.EnableAzurev1
 	}
 	if s.EnableNetEffectivePermissions != nil {
 		o.EnableNetEffectivePermissions = s.EnableNetEffectivePermissions
@@ -1399,14 +1399,14 @@ func (o *SparseCNSConfig) ToPlain() elemental.PlainIdentifiable {
 	if o.AssociatedTags != nil {
 		out.AssociatedTags = *o.AssociatedTags
 	}
+	if o.AzureV1Enabled != nil {
+		out.AzureV1Enabled = *o.AzureV1Enabled
+	}
 	if o.CreateIdempotencyKey != nil {
 		out.CreateIdempotencyKey = *o.CreateIdempotencyKey
 	}
 	if o.CreateTime != nil {
 		out.CreateTime = *o.CreateTime
-	}
-	if o.EnableAzurev1 != nil {
-		out.EnableAzurev1 = *o.EnableAzurev1
 	}
 	if o.EnableNetEffectivePermissions != nil {
 		out.EnableNetEffectivePermissions = *o.EnableNetEffectivePermissions
@@ -1665,9 +1665,9 @@ type mongoAttributesCNSConfig struct {
 	ID                            bson.ObjectId       `bson:"_id,omitempty"`
 	Annotations                   map[string][]string `bson:"annotations"`
 	AssociatedTags                []string            `bson:"associatedtags"`
+	AzureV1Enabled                bool                `bson:"azurev1enabled"`
 	CreateIdempotencyKey          string              `bson:"createidempotencykey"`
 	CreateTime                    time.Time           `bson:"createtime"`
-	EnableAzurev1                 bool                `bson:"enableazurev1"`
 	EnableNetEffectivePermissions bool                `bson:"enableneteffectivepermissions"`
 	EnableNetworkSecurity         bool                `bson:"enablenetworksecurity"`
 	MigrationsLog                 map[string]string   `bson:"migrationslog,omitempty"`
@@ -1684,9 +1684,9 @@ type mongoAttributesSparseCNSConfig struct {
 	ID                            bson.ObjectId        `bson:"_id,omitempty"`
 	Annotations                   *map[string][]string `bson:"annotations,omitempty"`
 	AssociatedTags                *[]string            `bson:"associatedtags,omitempty"`
+	AzureV1Enabled                *bool                `bson:"azurev1enabled,omitempty"`
 	CreateIdempotencyKey          *string              `bson:"createidempotencykey,omitempty"`
 	CreateTime                    *time.Time           `bson:"createtime,omitempty"`
-	EnableAzurev1                 *bool                `bson:"enableazurev1,omitempty"`
 	EnableNetEffectivePermissions *bool                `bson:"enableneteffectivepermissions,omitempty"`
 	EnableNetworkSecurity         *bool                `bson:"enablenetworksecurity,omitempty"`
 	MigrationsLog                 *map[string]string   `bson:"migrationslog,omitempty"`

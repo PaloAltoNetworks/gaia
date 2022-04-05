@@ -31,7 +31,7 @@ indexes:
 # Attributes
 attributes:
   v1:
-  - name: enableAzurev1
+  - name: azureV1Enabled
     description: If `true` net effective permissions Azure v1 is enabled.
     type: boolean
     exposed: true

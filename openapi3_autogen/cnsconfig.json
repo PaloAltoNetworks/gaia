@@ -27,15 +27,15 @@
             },
             "type": "array"
           },
+          "azureV1Enabled": {
+            "description": "If `true` net effective permissions Azure v1 is enabled.",
+            "type": "boolean"
+          },
           "createTime": {
             "description": "Creation date of the object.",
             "format": "date-time",
             "readOnly": true,
             "type": "string"
-          },
-          "enableAzurev1": {
-            "description": "If `true` net effective permissions Azure v1 is enabled.",
-            "type": "boolean"
           },
           "enableNetEffectivePermissions": {
             "description": "If `true` net effective permissions feature is enabled.",
