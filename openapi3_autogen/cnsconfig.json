@@ -37,6 +37,11 @@
             "readOnly": true,
             "type": "string"
           },
+          "enable": {
+            "default": true,
+            "description": "If `true` the tenant is enabled.",
+            "type": "boolean"
+          },
           "enableNetEffectivePermissions": {
             "description": "If `true` net effective permissions feature is enabled.",
             "type": "boolean"
