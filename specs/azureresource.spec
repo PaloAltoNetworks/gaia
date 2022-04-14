@@ -51,6 +51,7 @@ attributes:
     - Subnet
     - IPConfiguration
     - VirtualNetwork
+    - NetworkSecurityGroup
     example_value: VirtualMachine
 
   - name: name
