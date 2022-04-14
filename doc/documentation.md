@@ -7585,7 +7585,7 @@ Holds the CNS configuration for a namespace.
 ```json
 {
   "azureV1Enabled": false,
-  "enable": true,
+  "disabled": false,
   "enableNetEffectivePermissions": false,
   "enableNetworkSecurity": false,
   "protected": false
@@ -7650,17 +7650,11 @@ Type: `time`
 
 Creation date of the object.
 
-##### `enable`
+##### `disabled`
 
 Type: `boolean`
 
-If `true` the tenant is enabled.
-
-Default value:
-
-```json
-true
-```
+Defines if the property is disabled.
 
 ##### `enableNetEffectivePermissions`
 

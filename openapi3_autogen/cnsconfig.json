@@ -37,9 +37,8 @@
             "readOnly": true,
             "type": "string"
           },
-          "enable": {
-            "default": true,
-            "description": "If `true` the tenant is enabled.",
+          "disabled": {
+            "description": "Defines if the property is disabled.",
             "type": "boolean"
           },
           "enableNetEffectivePermissions": {

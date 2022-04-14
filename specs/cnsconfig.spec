@@ -21,6 +21,7 @@ model:
   - '@namespaced'
   - '@timeable'
   - '@zoned'
+  - '@disabled'
 
 # Indexes
 indexes:
@@ -36,13 +37,6 @@ attributes:
     type: boolean
     exposed: true
     stored: true
-
-  - name: enable
-    description: If `true` the tenant is enabled.
-    type: boolean
-    exposed: true
-    stored: true
-    default_value: true
 
   - name: enableNetEffectivePermissions
     description: If `true` net effective permissions feature is enabled.
