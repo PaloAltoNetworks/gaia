@@ -21,6 +21,7 @@ model:
   - '@namespaced'
   - '@timeable'
   - '@zoned'
+  - '@disabled'
 
 # Indexes
 indexes:

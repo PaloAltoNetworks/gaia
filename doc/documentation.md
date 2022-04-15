@@ -7585,6 +7585,7 @@ Holds the CNS configuration for a namespace.
 ```json
 {
   "azureV1Enabled": false,
+  "disabled": false,
   "enableNetEffectivePermissions": false,
   "enableNetworkSecurity": false,
   "protected": false
@@ -7648,6 +7649,12 @@ If `true` net effective permissions Azure v1 is enabled.
 Type: `time`
 
 Creation date of the object.
+
+##### `disabled`
+
+Type: `boolean`
+
+Defines if the property is disabled.
 
 ##### `enableNetEffectivePermissions`
 
