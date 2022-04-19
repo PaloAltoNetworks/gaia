@@ -22,6 +22,7 @@ attributes:
     allowed_choices:
     - AWS
     - GCP
+    - Azure
     default_value: AWS
 
   - name: name

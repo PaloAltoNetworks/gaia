@@ -1,0 +1,35 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "poke": {
+        "description": "When available, poke can be used to update various information about the parent.\nFor instance, for enforcers, poke will be used as the heartbeat.",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "poke",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core'",
+      "name": "core"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

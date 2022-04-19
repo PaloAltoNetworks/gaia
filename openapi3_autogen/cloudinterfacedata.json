@@ -1,0 +1,125 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudinterfacedata": {
+        "description": "Parameters associated with a cloud interface.",
+        "properties": {
+          "addresses": {
+            "description": "List of IP addresses/subnets (IPv4 or IPv6) associated with the\ninterface.",
+            "items": {
+              "$ref": "./cloudaddress#/components/schemas/cloudaddress"
+            },
+            "type": "array"
+          },
+          "attachedEntities": {
+            "description": "ID of associated objects with this interface.",
+            "example": [
+              "subnet-074c152ae45ea0c73"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "attachmentType": {
+            "description": "Attachment type describes where this interface is attached to (Instance, Load\nBalancer, Gateway, etc).",
+            "enum": [
+              "Instance",
+              "LoadBalancer",
+              "Gateway",
+              "Service",
+              "TransitGatewayVPCAttachment",
+              "NetworkLoadBalancer",
+              "Lambda",
+              "GatewayLoadBalancer",
+              "GatewayLoadBalancerEndpoint",
+              "VPCEndpoint",
+              "APIGatewayManaged",
+              "EFA",
+              "UnsupportedService"
+            ],
+            "example": "Instance"
+          },
+          "availabilityZone": {
+            "description": "Availability zone of the interface.",
+            "example": "us-east-1",
+            "type": "string"
+          },
+          "hasPublicIP": {
+            "description": "If the interface has a public IP in one of its IP address.",
+            "type": "boolean"
+          },
+          "parentID": {
+            "description": "If the interface is attached to Load Balancer, the parentID identifies the\nrelated Load Balancer.",
+            "type": "string"
+          },
+          "relatedObjectID": {
+            "description": "If the interface is of type or external, the relatedObjectID identifies the\nrelated service or gateway.",
+            "type": "string"
+          },
+          "resourceStatus": {
+            "default": "Active",
+            "description": "The status of the resource.",
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
+          },
+          "routeTableID": {
+            "description": "The route table that must be used for this interface. Applies to Transit\nGateways and other special types.",
+            "example": [
+              "rt1233"
+            ],
+            "type": "string"
+          },
+          "securityTags": {
+            "description": "Security tags associated with the instance.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "subnets": {
+            "description": "ID of subnet associated with this interface.",
+            "example": [
+              "subnet-074c152ae45ea0c73"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "attachmentType"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudinterfacedata",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

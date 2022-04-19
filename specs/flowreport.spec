@@ -23,3 +23,9 @@ indexes:
   - timestamp
 - - sourceID
 - - destinationID
+
+# Relations
+relations:
+- rest_name: suggestedpolicy
+  get:
+    description: Provides network ruleset policy suggestions for the given flow ID.

@@ -1,0 +1,72 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudnetworkrulesetdata": {
+        "description": "Parameters associated with a cloud network rule set.",
+        "properties": {
+          "incomingRules": {
+            "description": "The set of rules to apply to incoming traffic (traffic coming to the Processing\nUnit matching the subject).",
+            "items": {
+              "$ref": "./cloudnetworkrule#/components/schemas/cloudnetworkrule"
+            },
+            "type": "array"
+          },
+          "outgoingRules": {
+            "description": "The set of rules to apply to outgoing traffic (traffic coming from the\nProcessing Unit matching the subject).",
+            "items": {
+              "$ref": "./cloudnetworkrule#/components/schemas/cloudnetworkrule"
+            },
+            "type": "array"
+          },
+          "subject": {
+            "description": "A tag expression identifying used to match processing units to which this policy\napplies to.",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "Type identifies if this is a security group rule set or ACL.",
+            "enum": [
+              "SecurityGroup",
+              "ACL"
+            ],
+            "example": "SecurityGroup"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudnetworkrulesetdata",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

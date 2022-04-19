@@ -1,0 +1,119 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "policyrenderer": {
+        "description": "Allows you to render policies of a given type for a given set of tags.",
+        "properties": {
+          "policies": {
+            "description": "List of policies rendered for the given set of tags.",
+            "items": {
+              "$ref": "./policyrule#/components/schemas/policyrule"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "processMode": {
+            "default": "Subject",
+            "description": "`Subject` (default): Set if the `processMode` should use the subject. `Object`:\nSet if\nthe `processMode` should use the object. This only has effect when rendering an\nSSH\nauthorization for now.",
+            "enum": [
+              "Subject",
+              "Object"
+            ]
+          },
+          "tags": {
+            "description": "List of tags of the object to render the hook for.",
+            "example": [
+              "a=a",
+              "b=b"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "type": {
+            "description": "Type of policy to render.",
+            "enum": [
+              "APIAuthorization",
+              "EnforcerProfile",
+              "File",
+              "Hook",
+              "Infrastructure",
+              "NamespaceMapping",
+              "Network",
+              "ProcessingUnit",
+              "Quota",
+              "Syscall",
+              "TokenScope",
+              "SSHAuthorization",
+              "UserAccess"
+            ],
+            "example": "APIAuthorization"
+          }
+        },
+        "required": [
+          "tags",
+          "type"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "policyrenderer",
+    "version": "1.0"
+  },
+  "paths": {
+    "/policyrenderers": {
+      "post": {
+        "description": "Render a policy of a given type for a given set of tags.",
+        "operationId": "create-a-new-policyrenderer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/policyrenderer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/policyrenderer"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core'",
+      "name": "core"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

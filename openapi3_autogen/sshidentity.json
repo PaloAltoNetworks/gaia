@@ -1,0 +1,86 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "sshidentity": {
+        "description": "Returns an SSH certificate containing the bearer claims. This SSH certificate\ncan\nbe used to connect to a node where the enforcer is protecting SSH sessions.",
+        "properties": {
+          "certificate": {
+            "description": "Contains the signed SSH certificate in OpenSSH format.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "publicKey": {
+            "description": "Contains the public key to sign in OpenSSH format. You can generate an SSH\npublic key with the standard `ssh-keygen` tool.",
+            "example": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCytT my key",
+            "type": "string"
+          },
+          "systemAccount": {
+            "description": "Define the targeted system account name.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "publicKey"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "sshidentity",
+    "version": "1.0"
+  },
+  "paths": {
+    "/sshidentities": {
+      "post": {
+        "description": "Creates a new SSH certificate.",
+        "operationId": "create-a-new-sshidentity",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/sshidentity"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/sshidentity"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/ssh",
+          "cactuar"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/ssh'",
+      "name": "policy/ssh"
+    },
+    {
+      "description": "This tag is for package 'cactuar'",
+      "name": "cactuar"
+    }
+  ]
+}

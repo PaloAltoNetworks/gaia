@@ -1,0 +1,136 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "accessreport": {
+        "description": "Represents any access made by the user.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "action": {
+            "description": "Action applied to the access.",
+            "enum": [
+              "Accept",
+              "Reject"
+            ],
+            "example": "Accept"
+          },
+          "claimHash": {
+            "description": "Hash of the claims used to communicate.",
+            "type": "string"
+          },
+          "enforcerID": {
+            "description": "Identifier of the enforcer.",
+            "example": "xxx-xxx-xxx",
+            "type": "string"
+          },
+          "enforcerNamespace": {
+            "description": "Namespace of the enforcer.",
+            "example": "/my/namespace",
+            "type": "string"
+          },
+          "processingUnitID": {
+            "description": "ID of the processing unit of the report.",
+            "example": "xxx-xxx-xxx-xxx",
+            "type": "string"
+          },
+          "processingUnitName": {
+            "description": "Name of the processing unit of the report.",
+            "example": "pu1",
+            "type": "string"
+          },
+          "processingUnitNamespace": {
+            "description": "Namespace of the processing unit of the report.",
+            "example": "/my/ns",
+            "type": "string"
+          },
+          "reason": {
+            "description": "This field is only set if `action` is set to `Reject`. It specifies the reason\nfor the rejection.",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "Date of the report.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "type": {
+            "description": "Type of the report.",
+            "enum": [
+              "SSHLogin",
+              "SSHLogout",
+              "SudoEnter",
+              "SudoExit"
+            ],
+            "example": "SSHLogin"
+          }
+        },
+        "required": [
+          "action",
+          "enforcerID",
+          "enforcerNamespace",
+          "type"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "accessreport",
+    "version": "1.0"
+  },
+  "paths": {
+    "/accessreports": {
+      "post": {
+        "description": "Create an access report.",
+        "operationId": "create-a-new-accessreport",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/accessreport"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/accessreport"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "policy/access",
+          "zack"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'policy/access'",
+      "name": "policy/access"
+    },
+    {
+      "description": "This tag is for package 'zack'",
+      "name": "zack"
+    }
+  ]
+}

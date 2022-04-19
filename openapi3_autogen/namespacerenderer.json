@@ -1,0 +1,88 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "namespacerenderer": {
+        "description": "This object allows you to determine which namespace an object should reside in\nbased on the tags provided.",
+        "properties": {
+          "namespace": {
+            "description": "The namespace where the object should reside in.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "tags": {
+            "description": "List of tags of the object to render the namespace for.",
+            "example": [
+              "a=a",
+              "b=b"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "tags"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "namespacerenderer",
+    "version": "1.0"
+  },
+  "paths": {
+    "/namespacerenderers": {
+      "post": {
+        "description": "Renders the namespace where an object should reside.",
+        "operationId": "create-a-new-namespacerenderer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/namespacerenderer"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/namespacerenderer"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/namespace",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/namespace'",
+      "name": "core/namespace"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

@@ -93,13 +93,15 @@ attributes:
     stored: true
 
   - name: OIDCClientID
-    description: OIDC Client ID. Only has effect if the `authorizationType` is set to `OIDC`.
+    description: OIDC Client ID. Only has effect if the `authorizationType` is set
+      to `OIDC`.
     type: string
     exposed: true
     stored: true
 
   - name: OIDCClientSecret
-    description: OIDC Client Secret. Only has effect if the `authorizationType` is set to `OIDC`.
+    description: OIDC Client Secret. Only has effect if the `authorizationType` is
+      set to `OIDC`.
     type: string
     exposed: true
     stored: true

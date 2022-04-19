@@ -3,8 +3,9 @@ SHELL := /bin/bash -o pipefail
 
 export GO111MODULE = on
 
-default: lint test
-all: format codegen lint test
+default: format codegen openapi3gen lint test diff-check
+all: format codegen openapi3gen lint test
+generate: format codegen openapi3gen
 
 .PHONY:codegen
 codegen:
@@ -18,6 +19,19 @@ codegen:
 	rm -rf codegen .keep
 	data=$$(rego doc -d specs || exit 1) && \
 		echo -e "$${data}" > doc/documentation.md
+
+.PHONY:openapi3gen
+openapi3gen:
+	rm -rf openapi3_autogen && \
+		elegen folder -g openapi3 --split-output --public -d specs -o . && \
+		mv ./openapi3 ./openapi3_autogen && \
+		find ./openapi3_autogen -type f -exec mv {} {}.json \;
+
+
+.PHONY: diff-check
+diff-check:
+	git update-index -q --really-refresh
+	git diff-index --quiet HEAD -- || (git diff && false)
 
 format: format-specs format-type format-validation format-parameter
 format-specs:

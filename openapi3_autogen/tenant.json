@@ -1,0 +1,140 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "tenant": {
+        "description": "Can be used to create a tenant's namespace and API authorization policy to grant\naccess.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "externalID": {
+            "description": "The external ID of the tenant.",
+            "example": "customer-123",
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the tenant.",
+            "example": "acme",
+            "type": "string"
+          }
+        },
+        "required": [
+          "externalID",
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "tenant",
+    "version": "1.0"
+  },
+  "paths": {
+    "/tenants": {
+      "post": {
+        "description": "Creates the tenant's namespace and API authorization policy.",
+        "operationId": "create-a-new-tenant",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/tenant"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tenant"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/tenant",
+          "karl"
+        ]
+      }
+    },
+    "/tenants/{id}": {
+      "delete": {
+        "description": "Delete the tenant with the given Prisma or namespace ID.",
+        "operationId": "delete-tenant-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tenant"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/tenant",
+          "karl"
+        ]
+      },
+      "get": {
+        "description": "Retrieve the tenant with the given Prisma or namespace ID.",
+        "operationId": "get-tenant-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/tenant"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/tenant",
+          "karl"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/tenant'",
+      "name": "core/tenant"
+    },
+    {
+      "description": "This tag is for package 'karl'",
+      "name": "karl"
+    }
+  ]
+}

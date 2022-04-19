@@ -36,6 +36,16 @@ attributes:
     subtype: string
     stored: true
 
+  - name: attachedEntities
+    description: A list of entitites that are associated to a given endpoint.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    example_value:
+    - eni-12344
+    - subnet-abcd
+
   - name: attachedInterfaces
     description: |-
       A list of interfaces attached with the endpoint. In some cases endpoints can
@@ -83,6 +93,16 @@ attributes:
     subtype: string
     stored: true
 
+  - name: resourceStatus
+    description: The status of the resource.
+    type: enum
+    exposed: true
+    stored: true
+    allowed_choices:
+    - Active
+    - Inactive
+    default_value: Active
+
   - name: serviceName
     description: Identifies the name of the service for service endpoints.
     type: string
@@ -118,4 +138,5 @@ attributes:
     - Gateway
     - TransitGateway
     - NATGateway
+    - PublicIPAddress
     example_value: Instance

@@ -1,0 +1,130 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cnssearch": {
+        "description": "Provide search results for Prisma Cloud's investigate page.",
+        "properties": {
+          "ID": {
+            "description": "ID of the search request.",
+            "type": "string"
+          },
+          "data": {
+            "$ref": "./pcsearchresult#/components/schemas/pcsearchresult"
+          },
+          "description": {
+            "description": "Description of the search.",
+            "type": "string"
+          },
+          "endAbsolute": {
+            "default": 0,
+            "description": "Absolute end time of search, in UNIX time.",
+            "type": "integer"
+          },
+          "limit": {
+            "default": 100,
+            "description": "The number of items to fetch.",
+            "type": "integer"
+          },
+          "name": {
+            "description": "Name of the RQL search request. Should set to be empty.",
+            "type": "string"
+          },
+          "pageToken": {
+            "description": "Represents the token to fetch next page.",
+            "type": "string"
+          },
+          "parsedQuery": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "The cloud network query data that was created after the RQL was parsed.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "query": {
+            "description": "The RQL query.",
+            "example": "network dns where id == 1",
+            "type": "string"
+          },
+          "saved": {
+            "description": "Indicates if the search has been saved.",
+            "type": "boolean"
+          },
+          "searchType": {
+            "description": "Type of search request. Should set to be network.",
+            "type": "string"
+          },
+          "startAbsolute": {
+            "default": 0,
+            "description": "Absolute start time of search, in UNIX time.",
+            "type": "integer"
+          },
+          "timeRange": {
+            "$ref": "./pctimerange#/components/schemas/pctimerange"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cnssearch",
+    "version": "1.0"
+  },
+  "paths": {
+    "/cnssearches": {
+      "post": {
+        "description": "Retrieves RQL search results.",
+        "operationId": "create-a-new-cnssearch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cnssearch"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cnssearch"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/rql",
+          "karl"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/rql'",
+      "name": "core/rql"
+    },
+    {
+      "description": "This tag is for package 'karl'",
+      "name": "karl"
+    }
+  ]
+}

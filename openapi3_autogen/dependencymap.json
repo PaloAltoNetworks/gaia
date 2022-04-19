@@ -1,0 +1,179 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "dependencymap": {
+        "description": "Returns a data structure representing the graph of all processing units\nand their connections in a particular namespace, in a given time window. To pass\nthe time window you can use the query parameters `startAbsolute`, `endAbsolute`,\n`startRelative`, `endRelative`.\n\nFor example:\n\n`/dependencymaps?startAbsolute=1489132800000\u0026endAbsolute=1489219200000`.",
+        "properties": {
+          "edges": {
+            "additionalProperties": {
+              "$ref": "./graphedge#/components/schemas/graphedge"
+            },
+            "description": "The edges of the map.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "groups": {
+            "additionalProperties": {
+              "$ref": "./graphgroup#/components/schemas/graphgroup"
+            },
+            "description": "Provides information about the group values.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "nodes": {
+            "additionalProperties": {
+              "$ref": "./graphnode#/components/schemas/graphnode"
+            },
+            "description": "Refers to the nodes of the map.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "viewSuggestions": {
+            "description": "Provides suggested views based on relevant tags.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "dependencymap",
+    "version": "1.0"
+  },
+  "paths": {
+    "/dependencymaps": {
+      "get": {
+        "description": "Retrieves the dependency map of a namespace.",
+        "operationId": "get-all-dependencymaps",
+        "parameters": [
+          {
+            "description": "Set the absolute end of the time window.",
+            "example": "2018/04/08 10:42",
+            "in": "query",
+            "name": "endAbsolute",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the relative end of the time window.",
+            "example": "-1h",
+            "in": "query",
+            "name": "endRelative",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Deprecated. This does not do anything anymore.",
+            "example": "-3s",
+            "in": "query",
+            "name": "flowOffset",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the absolute start of the time window.",
+            "example": "2018/03/08 10:42",
+            "in": "query",
+            "name": "startAbsolute",
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the relative start of the time window.",
+            "example": "-1h",
+            "in": "query",
+            "name": "startRelative",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Only show objects with the given tags in the dependency map.",
+            "example": "env=prod",
+            "in": "query",
+            "name": "tag",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Set the view query for grouping the dependency map.",
+            "example": "$namespace then app",
+            "in": "query",
+            "name": "view",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Also return the view suggestions.",
+            "in": "query",
+            "name": "viewSuggestions",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/dependencymap"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/depmaps",
+          "jenova"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/depmaps'",
+      "name": "visualization/depmaps"
+    },
+    {
+      "description": "This tag is for package 'jenova'",
+      "name": "jenova"
+    }
+  ]
+}

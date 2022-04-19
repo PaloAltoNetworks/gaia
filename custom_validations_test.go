@@ -3375,6 +3375,16 @@ func TestValidateUIParameters(t *testing.T) {
 			},
 			false,
 		},
+		{
+			"Test with List and Subtype enum",
+			args{
+				p: &UIParameter{
+					Type:    UIParameterTypeList,
+					Subtype: "Enum",
+				},
+			},
+			false,
+		},
 		// Error cases
 		{
 			"Test with List and empty Subtype",
@@ -4458,6 +4468,16 @@ func TestValidateNativeID(t *testing.T) {
 			"arn:aws:elasticloadbalancing:us-east-2:345744466724:loadbalancer/app/abhi-aws-v2/eb7edb2d68b71a0f",
 			false,
 		},
+		{
+			"valid",
+			"/subscriptions/e3e57e4f-0ceb-449c-a8b4-23d61bd60554/resourceGroups/someaccount/providers/Microsoft.Network/virtualNetworks/somevnet/subnets/default",
+			false,
+		},
+		{
+			"valid",
+			"{version:\"2020.2\",id:\"/subscriptions/e3e57e4f-0ceb-449c-a8b4-23d61bd60554/resourceGroups/someaccount/providers/Microsoft.Network/virtualNetworks/somevnet/subnets/default\"}",
+			false,
+		},
 	}
 
 	for _, tt := range tests {
@@ -4881,7 +4901,6 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 			args{
 				"invalid",
 				&CloudNetworkQuery{
-					Type: CloudNetworkQueryTypeNetworkPath,
 					SourceSelector: &CloudNetworkQueryFilter{
 						VPCIDs:    []string{"vpc1"},
 						ObjectIDs: []string{"object1"},
@@ -4891,6 +4910,63 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 						ObjectIDs: []string{"object1"},
 					},
 					AddressMatchCriteria: CloudNetworkQueryAddressMatchCriteriaPartialMatch,
+				},
+			},
+			true,
+		},
+		{
+			"source and dest have same cloud types",
+			args{
+				"valid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"AWS"},
+						VPCIDs:       []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"AWS"},
+						VPCIDs:       []string{"vpc1"},
+					},
+				},
+			},
+			false,
+		},
+		{
+			"source and dest have different cloud types",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"GCP"},
+						VPCIDs:       []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"AWS"},
+						VPCIDs:       []string{"vpc1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"source and dest have different cloud types",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"GCP", "AWS"},
+						VPCIDs:       []string{"vpc1"},
+					},
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"AWS"},
+						VPCIDs:       []string{"vpc1"},
+					},
 				},
 			},
 			true,

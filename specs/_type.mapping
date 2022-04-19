@@ -394,6 +394,20 @@ _elemental_identifiable:
         }
       }
 
+_enforcer_operational_status:
+  elemental:
+    type: EnforcerOperationalStatusValue
+  jsonschema:
+    type: |-
+      {
+        "enum": ["Connected", "Disconnected", "Initialized", "Registered"]
+      }
+  openapi3:
+    type: |-
+      {
+        "enum": ["Connected", "Disconnected", "Initialized", "Registered"]
+      }
+
 _portlist:
   elemental:
     type: '[]*portutils.PortsRange'
@@ -419,6 +433,20 @@ _portlist:
           "type": "object",
           "additionalProperties": true
         }
+      }
+
+_pu_operational_status:
+  elemental:
+    type: ProcessingUnitOperationalStatusValue
+  jsonschema:
+    type: |-
+      {
+        "enum": ["Initialized", "Paused", "Running", "Stopped", "Terminated"]
+      }
+  openapi3:
+    type: |-
+      {
+        "enum": ["Initialized", "Paused", "Running", "Stopped", "Terminated"]
       }
 
 _rendered_policy:

@@ -1,0 +1,102 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "statsinfo": {
+        "description": "Lists the fields and tags available in a statistics measurement.",
+        "properties": {
+          "fields": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Contains the list of fields. You cannot group by these fields.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "measurement": {
+            "default": "Flows",
+            "description": "Name of the measurement.",
+            "enum": [
+              "Flows",
+              "Audit",
+              "Enforcers",
+              "Files",
+              "EventLogs",
+              "Counters",
+              "Accesses",
+              "Packets",
+              "DNSLookups",
+              "PingReports",
+              "ConnectionExceptions"
+            ]
+          },
+          "tags": {
+            "description": "Contains the list of tags. You can group by these tags.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "statsinfo",
+    "version": "1.0"
+  },
+  "paths": {
+    "/statsinfo": {
+      "post": {
+        "description": "Retrieves information about the content of the stats measurement.",
+        "operationId": "create-a-new-statsinfo",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/statsinfo"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/statsinfo"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "visualization/statsquery",
+          "jenova"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/statsquery'",
+      "name": "visualization/statsquery"
+    },
+    {
+      "description": "This tag is for package 'jenova'",
+      "name": "jenova"
+    }
+  ]
+}

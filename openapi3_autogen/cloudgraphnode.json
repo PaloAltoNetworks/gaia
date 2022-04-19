@@ -1,0 +1,44 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudgraphnode": {
+        "description": "Returns a data structure representing the graph of all cloud nodes and their\nconnections in a particular namespace.",
+        "properties": {
+          "nodeData": {
+            "$ref": "./cloudnode#/components/schemas/cloudnode"
+          },
+          "type": {
+            "description": "The type of the node as a string.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudgraphnode",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

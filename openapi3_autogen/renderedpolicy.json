@@ -1,0 +1,207 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "renderedpolicy": {
+        "description": "Retrieve the aggregated policies applied to a particular processing unit.",
+        "properties": {
+          "certificate": {
+            "deprecated": true,
+            "description": "The certificate associated with this processing unit. It will identify the\nprocessing unit to any internal or external services.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "datapathType": {
+            "deprecated": true,
+            "description": "The datapath type that this processing unit must implement according to\nthe rendered policy:\n- `Default`: This policy is not making a decision for the datapath.\n- `Aporeto`: The enforcer is managing and handling the datapath.\n- `EnvoyAuthorizer`: The enforcer is serving Envoy-compatible gRPC APIs\nthat for example can be used by an Envoy proxy to use the Microsegmentation PKI\nand implement Microsegmentation network policies. NOTE: The enforcer is not\nowning the datapath in this case. It is merely providing an authorizer API.",
+            "enum": [
+              "Default",
+              "Aporeto",
+              "EnvoyAuthorizer"
+            ],
+            "readOnly": true
+          },
+          "defaultPUIncomingTrafficAction": {
+            "default": "Reject",
+            "description": "Describes the default for incoming traffic.",
+            "enum": [
+              "Allow",
+              "Reject"
+            ]
+          },
+          "defaultPUOutgoingTrafficAction": {
+            "default": "Reject",
+            "description": "Describes the default for outgoing traffic.",
+            "enum": [
+              "Allow",
+              "Reject"
+            ]
+          },
+          "dependendServices": {
+            "description": "The list of services that this processing unit depends on.",
+            "items": {
+              "$ref": "./service#/components/schemas/service"
+            },
+            "type": "array"
+          },
+          "egressPolicies": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/policyrule"
+            },
+            "deprecated": true,
+            "description": "Lists all the egress policies attached to processing unit.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "exposedServices": {
+            "description": "The list of services that this processing unit is implementing.",
+            "items": {
+              "$ref": "./service#/components/schemas/service"
+            },
+            "type": "array"
+          },
+          "hashedTags": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Contains the list of all tags and their hashed that have been used.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "ingressPolicies": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/policyrule"
+            },
+            "deprecated": true,
+            "description": "Lists all the ingress policies attached to the processing unit.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "matchingTags": {
+            "deprecated": true,
+            "description": "Contains the list of tags that matched the policies.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "processingUnit": {
+            "$ref": "./processingunit#/components/schemas/processingunit"
+          },
+          "processingUnitID": {
+            "deprecated": true,
+            "description": "Identifier of the processing unit.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "processingUnitTags": {
+            "description": "Can be set during a `POST` operation to render a policy on a processing unit\ntags.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "rendererVersion": {
+            "description": "Indicates the version of the engine used to render the policies.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "ruleSetPolicies": {
+            "description": "Lists all the rule set policies attached to processing unit.",
+            "items": {
+              "$ref": "./policyrule#/components/schemas/policyrule"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "scopes": {
+            "description": "The set of scopes granted to this processing unit that has to be\npresent in HTTP requests.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "wireTags": {
+            "description": "Contains the list of tags that must go on the wire.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "renderedpolicy",
+    "version": "1.0"
+  },
+  "paths": {
+    "/renderedpolicies": {
+      "post": {
+        "description": "Render a policy for a processing unit.",
+        "operationId": "create-a-new-renderedpolicy",
+        "parameters": [
+          {
+            "description": "Select the network policy renderer to use.",
+            "in": "query",
+            "name": "renderer",
+            "schema": {
+              "enum": [
+                "v1",
+                "v2"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/renderedpolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/renderedpolicy"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/policy",
+          "squall"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/policy'",
+      "name": "core/policy"
+    },
+    {
+      "description": "This tag is for package 'squall'",
+      "name": "squall"
+    }
+  ]
+}

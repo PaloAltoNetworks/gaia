@@ -1,0 +1,323 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "ldapprovider": {
+        "description": "Allows you to declare a generic LDAP provider that can be used in exchange\nfor a Midgard token.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "address": {
+            "description": "Contains the fully qualified domain name (FQDN) or IP address of the private\nLDAP server.",
+            "example": "ldap.company.com",
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "baseDN": {
+            "description": "Contains the base distinguished name (DN) to use for LDAP queries. Example:\n`dc=example,dc=com`.",
+            "example": "dc=universe,dc=io",
+            "type": "string"
+          },
+          "bindDN": {
+            "description": "Contains the DN to use to bind to the LDAP server. Example:\n`cn=admin,dc=example,dc=com`.",
+            "example": "cn=readonly,dc=universe,dc=io",
+            "type": "string"
+          },
+          "bindPassword": {
+            "description": "Contains the password to be used with the `bindDN` to authenticate to the LDAP\nserver.",
+            "example": "s3cr3t",
+            "type": "string"
+          },
+          "bindSearchFilter": {
+            "default": "uid={USERNAME}",
+            "description": "The filter to use to locate the relevant user accounts. For Windows-based\nsystems, the value may\nbe `sAMAccountName={USERNAME}`. For Linux and other systems, the value may be\n`uid={USERNAME}`.",
+            "type": "string"
+          },
+          "certificateAuthority": {
+            "description": "Can be left empty if the LDAP server's certificate is signed by a public,\ntrusted certificate\nauthority. Otherwise, include the public key of the certificate authority that\nsigned the\nLDAP server's certificate.",
+            "example": "-----BEGIN CERTIFICATE-----\nMIIBPzCB5qADAgECAhEAwbx3c+QW24ePXyD94geytzAKBggqhkjOPQQDAjAPMQ0w\nCwYDVQQDEwR0b3RvMB4XDTE5MDIyMjIzNDA1MFoXDTI4MTIzMTIzNDA1MFowDzEN\nMAsGA1UEAxMEdG90bzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJi6CwRDeKks\nXb3pDEslmFGR7k9Aeh5RK+XmdqKKPGb3NQWEFPGolnqOR34iVuf7KSxTuzaaVWfu\nXEa94faUQEqjIzAhMA4GA1UdDwEB/wQEAwIBBjAPBgNVHRMBAf8EBTADAQH/MAoG\nCCqGSM49BAMCA0gAMEUCIQD+nL9RF9EvQXHyYuJ31Lz9yWd9hsK91stnpAs890gS\n/AIgQIKjBBpiyQNZZWso5H04qke9QYMVPegiQQufFFBj32c=\n-----END CERTIFICATE-----",
+            "type": "string"
+          },
+          "connSecurityProtocol": {
+            "default": "InbandTLS",
+            "description": "Specifies the connection type for the LDAP provider. `TLS` or `InbandTLS`\n(default).",
+            "enum": [
+              "TLS",
+              "InbandTLS"
+            ]
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "default": {
+            "description": "If set, this will be the default LDAP provider. There can be only one default\nprovider in your account. When logging in with LDAP, if no provider name is\ngiven, the default will be used.",
+            "type": "boolean"
+          },
+          "description": {
+            "description": "Description of the object.",
+            "type": "string"
+          },
+          "ignoredKeys": {
+            "description": "A list of keys that must not be imported into a Microsegmentation authorization.\nIf\n`includedKeys` is also set, and a key is in both lists, the key will be ignored.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "includedKeys": {
+            "description": "A list of keys that must be imported into a Microsegmentation authorization. If\n`ignoredKeys` is also set, and a key is in both lists, the key will be ignored.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "name": {
+            "description": "Name of the entity.",
+            "example": "the name",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "subjectKey": {
+            "default": "uid",
+            "description": "The key to be used to populate the subject of the Midgard token. If you want to\nuse the user as a subject, for Windows-based systems you may use\n`sAMAccountName`.\nFor Linux and other systems, you may wish to use `uid` (default). You can also\nuse\nany alternate key.",
+            "type": "string"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "baseDN",
+          "bindDN",
+          "bindPassword",
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "ldapprovider",
+    "version": "1.0"
+  },
+  "paths": {
+    "/ldapproviders": {
+      "get": {
+        "description": "Retrieves the list of the namespace LDAP providers.",
+        "operationId": "get-all-ldapproviders",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ldapprovider"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "cactuar"
+        ]
+      },
+      "post": {
+        "description": "Creates a new LDAP provider.",
+        "operationId": "create-a-new-ldapprovider",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ldapprovider"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ldapprovider"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "cactuar"
+        ]
+      }
+    },
+    "/ldapproviders/{id}": {
+      "delete": {
+        "description": "Deletes the provider with the given ID.",
+        "operationId": "delete-ldapprovider-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ldapprovider"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "cactuar"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the provider with the given ID.",
+        "operationId": "get-ldapprovider-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ldapprovider"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "cactuar"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the provider with the given ID.",
+        "operationId": "update-ldapprovider-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ldapprovider"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ldapprovider"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "core/authentication",
+          "cactuar"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'core/authentication'",
+      "name": "core/authentication"
+    },
+    {
+      "description": "This tag is for package 'cactuar'",
+      "name": "cactuar"
+    }
+  ]
+}

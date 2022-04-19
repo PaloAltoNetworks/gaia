@@ -1,0 +1,67 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudsubnetdata": {
+        "description": "Parameters associated with a subnet.",
+        "properties": {
+          "address": {
+            "description": "Address CIDR of the Subnet.",
+            "example": "10.0.0.0/8",
+            "type": "string"
+          },
+          "routeTableID": {
+            "description": "Route Table associated with the subnet.",
+            "example": "rtb-1234567",
+            "type": "string"
+          },
+          "securityTags": {
+            "description": "Security tags associated with the instance.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "zoneID": {
+            "description": "The availability zone ID of the subnet.",
+            "example": "aws-east",
+            "type": "string"
+          },
+          "zoneName": {
+            "description": "The availability zone of the subnet.",
+            "example": "aws-east",
+            "type": "string"
+          }
+        },
+        "required": [
+          "address"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudsubnetdata",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

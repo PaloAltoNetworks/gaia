@@ -1,0 +1,53 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "comment": {
+        "description": "Represents a comment from a user.",
+        "properties": {
+          "claims": {
+            "description": "The claims of the author.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "content": {
+            "description": "The content of the comment.",
+            "type": "string"
+          },
+          "date": {
+            "description": "The date of the comment.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "comment",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core'",
+      "name": "core"
+    },
+    {
+      "description": "This tag is for package 'vivi'",
+      "name": "vivi"
+    }
+  ]
+}
