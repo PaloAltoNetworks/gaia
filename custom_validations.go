@@ -762,6 +762,15 @@ func ValidateServicePort(attribute string, servicePort string) error {
 
 	parts := strings.SplitN(servicePort, "/", 2)
 	upperProto := strings.ToUpper(parts[0])
+
+	if upperProto == "APPID" {
+		if parts[1] == "" {
+			return makeValidationError(attribute, fmt.Sprintf("appid missing in the string"))
+		}
+
+		return nil
+	}
+
 	if protocols.L4ProtocolNumberFromName(upperProto) == -1 {
 		return makeValidationError(attribute, fmt.Sprintf("'%s' is not a valid protocol", upperProto))
 	}

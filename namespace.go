@@ -204,6 +204,9 @@ type Namespace struct {
 	// Description of the object.
 	Description string `json:"description" msgpack:"description" bson:"description" mapstructure:"description,omitempty"`
 
+	// L7 Security Enabled. This flag enables deep packet inspection and other security services.
+	L7SecurityServices bool `json:"customZoning" msgpack:"customZoning" bson:"customzoning" mapstructure:"customZoning,omitempty"`
+
 	// The certificate authority used by this namespace.
 	LocalCA string `json:"-" msgpack:"-" bson:"localca" mapstructure:"-,omitempty"`
 

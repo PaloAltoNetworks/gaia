@@ -162,6 +162,9 @@ type FlowReport struct {
 	// Action applied to the flow.
 	Action FlowReportActionValue `json:"action,omitempty" msgpack:"action,omitempty" bson:"a,omitempty" mapstructure:"action,omitempty"`
 
+	// Appid of the flow observed.
+	Appids []string `json:"appids" msgpack:"appids" bson:"appids" mapstructure:"appids,omitempty"`
+
 	// Identifier of the destination controller.
 	DestinationController string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"b,omitempty" mapstructure:"destinationController,omitempty"`
 
