@@ -105,7 +105,7 @@ attributes:
     example_value: subnet-0ae4a90153dfb642c
     getter: true
     setter: true
-    max_length: 256
+    max_length: 512
     orderable: true
     validations:
     - $nativeid

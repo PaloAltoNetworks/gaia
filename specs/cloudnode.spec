@@ -106,4 +106,5 @@ attributes:
     - LoadBalancer
     - LoadBalancerRoute
     - PublicIPAddress
+    - ScaleSet
     example_value: Endpoint

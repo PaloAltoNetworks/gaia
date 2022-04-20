@@ -45,7 +45,8 @@ var (
 
 		"cloudloadbalancerroute": CloudLoadBalancerRouteIdentity,
 
-		"cloudmanagednetwork":   CloudManagedNetworkIdentity,
+		"cloudmanagednetwork": CloudManagedNetworkIdentity,
+
 		"cloudnetworkinterface": CloudNetworkInterfaceIdentity,
 		"cloudnetworkquery":     CloudNetworkQueryIdentity,
 
@@ -56,7 +57,9 @@ var (
 		"cloudpolicy":          CloudPolicyIdentity,
 		"cloudpublicipaddress": CloudPublicIPAddressIdentity,
 
-		"cloudroutetable":            CloudRouteTableIdentity,
+		"cloudroutetable": CloudRouteTableIdentity,
+		"cloudscaleset":   CloudScaleSetIdentity,
+
 		"cloudschedulednetworkquery": CloudScheduledNetworkQueryIdentity,
 		"cloudsnapshotaccount":       CloudSnapshotAccountIdentity,
 		"cloudsubnet":                CloudSubnetIdentity,
@@ -248,7 +251,8 @@ var (
 
 		"cloudloadbalancerroutes": CloudLoadBalancerRouteIdentity,
 
-		"cloudmanagednetworks":   CloudManagedNetworkIdentity,
+		"cloudmanagednetworks": CloudManagedNetworkIdentity,
+
 		"cloudnetworkinterfaces": CloudNetworkInterfaceIdentity,
 		"cloudnetworkqueries":    CloudNetworkQueryIdentity,
 
@@ -259,7 +263,9 @@ var (
 		"cloudpolicies":          CloudPolicyIdentity,
 		"cloudpublicipaddresses": CloudPublicIPAddressIdentity,
 
-		"cloudroutetables":             CloudRouteTableIdentity,
+		"cloudroutetables": CloudRouteTableIdentity,
+		"cloudscalesets":   CloudScaleSetIdentity,
+
 		"cloudschedulednetworkqueries": CloudScheduledNetworkQueryIdentity,
 		"cloudsnapshotaccounts":        CloudSnapshotAccountIdentity,
 		"cloudsubnets":                 CloudSubnetIdentity,
@@ -433,6 +439,8 @@ var (
 		"crules":             CloudNetworkRuleSetIdentity,
 		"publicipaddress":    CloudPublicIPAddressIdentity,
 		"publicipaddresses":  CloudPublicIPAddressIdentity,
+		"scaleset":           CloudScaleSetIdentity,
+		"scalesets":          CloudScaleSetIdentity,
 		"vpc":                CloudVPCIdentity,
 		"vpcs":               CloudVPCIdentity,
 		"pcc":                CNSConfigIdentity,
@@ -814,6 +822,16 @@ var (
 			{"createIdempotencyKey"},
 		},
 		"cloudroutetable": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "nativeID"},
+			{"namespace", "accountid"},
+			{"namespace", "vpcid"},
+			{"createIdempotencyKey"},
+		},
+		"cloudscaleset": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
 			{"namespace"},
@@ -1470,6 +1488,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudPublicIPAddress()
 	case CloudRouteTableIdentity:
 		return NewCloudRouteTable()
+	case CloudScaleSetIdentity:
+		return NewCloudScaleSet()
 	case CloudScheduledNetworkQueryIdentity:
 		return NewCloudScheduledNetworkQuery()
 	case CloudSnapshotAccountIdentity:
@@ -1829,6 +1849,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudPublicIPAddress()
 	case CloudRouteTableIdentity:
 		return NewSparseCloudRouteTable()
+	case CloudScaleSetIdentity:
+		return NewSparseCloudScaleSet()
 	case CloudScheduledNetworkQueryIdentity:
 		return NewSparseCloudScheduledNetworkQuery()
 	case CloudSnapshotAccountIdentity:
@@ -2196,6 +2218,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudPublicIPAddressList{}
 	case CloudRouteTableIdentity:
 		return &CloudRouteTablesList{}
+	case CloudScaleSetIdentity:
+		return &CloudScaleSetsList{}
 	case CloudScheduledNetworkQueryIdentity:
 		return &CloudScheduledNetworkQueriesList{}
 	case CloudSnapshotAccountIdentity:
@@ -2553,6 +2577,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudPublicIPAddressList{}
 	case CloudRouteTableIdentity:
 		return &SparseCloudRouteTablesList{}
+	case CloudScaleSetIdentity:
+		return &SparseCloudScaleSetsList{}
 	case CloudScheduledNetworkQueryIdentity:
 		return &SparseCloudScheduledNetworkQueriesList{}
 	case CloudSnapshotAccountIdentity:
@@ -2889,6 +2915,7 @@ func AllIdentities() []elemental.Identity {
 		CloudPolicyIdentity,
 		CloudPublicIPAddressIdentity,
 		CloudRouteTableIdentity,
+		CloudScaleSetIdentity,
 		CloudScheduledNetworkQueryIdentity,
 		CloudSnapshotAccountIdentity,
 		CloudSubnetIdentity,
@@ -3144,6 +3171,11 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		}
 	case CloudRouteTableIdentity:
 		return []string{}
+	case CloudScaleSetIdentity:
+		return []string{
+			"scaleset",
+			"scalesets",
+		}
 	case CloudScheduledNetworkQueryIdentity:
 		return []string{}
 	case CloudSnapshotAccountIdentity:
