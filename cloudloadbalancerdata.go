@@ -14,13 +14,16 @@ import (
 // CloudLoadBalancerData represents the model of a cloudloadbalancerdata
 type CloudLoadBalancerData struct {
 	// Mapping of a listener to its associated target group ID list.
-	Listenertargetmapping map[string][]string `json:"listenertargetmapping" msgpack:"listenertargetmapping" bson:"listenertargetmapping" mapstructure:"listenertargetmapping,omitempty"`
+	ListenerTargetMapping map[string][]string `json:"listenerTargetMapping" msgpack:"listenerTargetMapping" bson:"listenertargetmapping" mapstructure:"listenerTargetMapping,omitempty"`
 
 	// The name of the load balancer.
 	Name string `json:"name" msgpack:"name" bson:"name" mapstructure:"name,omitempty"`
 
 	// The scheme tells whether the load balancer is internet facing or internal.
 	Scheme string `json:"scheme" msgpack:"scheme" bson:"scheme" mapstructure:"scheme,omitempty"`
+
+	// Mapping of a SNAT source to target IP list.
+	SnatTargetMapping map[string][]string `json:"snatTargetMapping" msgpack:"snatTargetMapping" bson:"snattargetmapping" mapstructure:"snatTargetMapping,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -30,7 +33,8 @@ func NewCloudLoadBalancerData() *CloudLoadBalancerData {
 
 	return &CloudLoadBalancerData{
 		ModelVersion:          1,
-		Listenertargetmapping: map[string][]string{},
+		ListenerTargetMapping: map[string][]string{},
+		SnatTargetMapping:     map[string][]string{},
 	}
 }
 
@@ -44,9 +48,10 @@ func (o *CloudLoadBalancerData) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesCloudLoadBalancerData{}
 
-	s.Listenertargetmapping = o.Listenertargetmapping
+	s.ListenerTargetMapping = o.ListenerTargetMapping
 	s.Name = o.Name
 	s.Scheme = o.Scheme
+	s.SnatTargetMapping = o.SnatTargetMapping
 
 	return s, nil
 }
@@ -64,9 +69,10 @@ func (o *CloudLoadBalancerData) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
-	o.Listenertargetmapping = s.Listenertargetmapping
+	o.ListenerTargetMapping = s.ListenerTargetMapping
 	o.Name = s.Name
 	o.Scheme = s.Scheme
+	o.SnatTargetMapping = s.SnatTargetMapping
 
 	return nil
 }
@@ -141,12 +147,14 @@ func (*CloudLoadBalancerData) AttributeSpecifications() map[string]elemental.Att
 func (o *CloudLoadBalancerData) ValueForAttribute(name string) interface{} {
 
 	switch name {
-	case "listenertargetmapping":
-		return o.Listenertargetmapping
+	case "listenerTargetMapping":
+		return o.ListenerTargetMapping
 	case "name":
 		return o.Name
 	case "scheme":
 		return o.Scheme
+	case "snatTargetMapping":
+		return o.SnatTargetMapping
 	}
 
 	return nil
@@ -154,13 +162,13 @@ func (o *CloudLoadBalancerData) ValueForAttribute(name string) interface{} {
 
 // CloudLoadBalancerDataAttributesMap represents the map of attribute for CloudLoadBalancerData.
 var CloudLoadBalancerDataAttributesMap = map[string]elemental.AttributeSpecification{
-	"Listenertargetmapping": {
+	"ListenerTargetMapping": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "listenertargetmapping",
-		ConvertedName:  "Listenertargetmapping",
+		ConvertedName:  "ListenerTargetMapping",
 		Description:    `Mapping of a listener to its associated target group ID list.`,
 		Exposed:        true,
-		Name:           "listenertargetmapping",
+		Name:           "listenerTargetMapping",
 		Stored:         true,
 		SubType:        "map[string][]string",
 		Type:           "external",
@@ -185,6 +193,17 @@ var CloudLoadBalancerDataAttributesMap = map[string]elemental.AttributeSpecifica
 		Stored:         true,
 		Type:           "string",
 	},
+	"SnatTargetMapping": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "snattargetmapping",
+		ConvertedName:  "SnatTargetMapping",
+		Description:    `Mapping of a SNAT source to target IP list.`,
+		Exposed:        true,
+		Name:           "snatTargetMapping",
+		Stored:         true,
+		SubType:        "map[string][]string",
+		Type:           "external",
+	},
 }
 
 // CloudLoadBalancerDataLowerCaseAttributesMap represents the map of attribute for CloudLoadBalancerData.
@@ -192,10 +211,10 @@ var CloudLoadBalancerDataLowerCaseAttributesMap = map[string]elemental.Attribute
 	"listenertargetmapping": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "listenertargetmapping",
-		ConvertedName:  "Listenertargetmapping",
+		ConvertedName:  "ListenerTargetMapping",
 		Description:    `Mapping of a listener to its associated target group ID list.`,
 		Exposed:        true,
-		Name:           "listenertargetmapping",
+		Name:           "listenerTargetMapping",
 		Stored:         true,
 		SubType:        "map[string][]string",
 		Type:           "external",
@@ -220,10 +239,22 @@ var CloudLoadBalancerDataLowerCaseAttributesMap = map[string]elemental.Attribute
 		Stored:         true,
 		Type:           "string",
 	},
+	"snattargetmapping": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "snattargetmapping",
+		ConvertedName:  "SnatTargetMapping",
+		Description:    `Mapping of a SNAT source to target IP list.`,
+		Exposed:        true,
+		Name:           "snatTargetMapping",
+		Stored:         true,
+		SubType:        "map[string][]string",
+		Type:           "external",
+	},
 }
 
 type mongoAttributesCloudLoadBalancerData struct {
-	Listenertargetmapping map[string][]string `bson:"listenertargetmapping"`
+	ListenerTargetMapping map[string][]string `bson:"listenertargetmapping"`
 	Name                  string              `bson:"name"`
 	Scheme                string              `bson:"scheme"`
+	SnatTargetMapping     map[string][]string `bson:"snattargetmapping"`
 }

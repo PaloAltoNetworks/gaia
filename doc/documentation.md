@@ -10774,7 +10774,7 @@ Parameters associated with a cloud load balancer.
 
 #### Attributes
 
-##### `listenertargetmapping`
+##### `listenerTargetMapping`
 
 Type: `map[string][]string`
 
@@ -10791,6 +10791,12 @@ The name of the load balancer.
 Type: `string`
 
 The scheme tells whether the load balancer is internet facing or internal.
+
+##### `snatTargetMapping`
+
+Type: `map[string][]string`
+
+Mapping of a SNAT source to target IP list.
 
 ### CloudLoadBalancerRoute
 

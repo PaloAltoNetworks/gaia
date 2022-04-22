@@ -11,7 +11,7 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: listenertargetmapping
+  - name: listenerTargetMapping
     description: Mapping of a listener to its associated target group ID list.
     type: external
     exposed: true
@@ -32,3 +32,10 @@ attributes:
     exposed: true
     stored: true
     example_value: internet-facing
+
+  - name: snatTargetMapping
+    description: Mapping of a SNAT source to target IP list.
+    type: external
+    exposed: true
+    subtype: map[string][]string
+    stored: true
