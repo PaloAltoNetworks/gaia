@@ -324,6 +324,14 @@ relations:
   create:
     description: Creates a new routing table.
 
+- rest_name: cloudscaleset
+  get:
+    description: Retrieves the list of Scale Sets.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a cloud scale set.
+
 - rest_name: cloudschedulednetworkquery
   get:
     description: Retrieves Cloud Scheduled Network Query job.
