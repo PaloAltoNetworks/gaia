@@ -37,6 +37,9 @@ const (
 	// CloudNodeTypeRouteTable represents the value RouteTable.
 	CloudNodeTypeRouteTable CloudNodeTypeValue = "RouteTable"
 
+	// CloudNodeTypeScaleSet represents the value ScaleSet.
+	CloudNodeTypeScaleSet CloudNodeTypeValue = "ScaleSet"
+
 	// CloudNodeTypeSubnet represents the value Subnet.
 	CloudNodeTypeSubnet CloudNodeTypeValue = "Subnet"
 
@@ -947,7 +950,7 @@ func (o *CloudNode) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateMaximumLength("nativeID", o.NativeID, 256, false); err != nil {
+	if err := elemental.ValidateMaximumLength("nativeID", o.NativeID, 512, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -963,7 +966,7 @@ func (o *CloudNode) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1299,7 +1302,7 @@ var CloudNodeAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
 		Getter:         true,
-		MaxLength:      256,
+		MaxLength:      512,
 		Name:           "nativeID",
 		Orderable:      true,
 		Required:       true,
@@ -1421,7 +1424,7 @@ var CloudNodeAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "string",
 	},
 	"Type": {
-		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress"},
+		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
@@ -1718,7 +1721,7 @@ var CloudNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
 		Getter:         true,
-		MaxLength:      256,
+		MaxLength:      512,
 		Name:           "nativeID",
 		Orderable:      true,
 		Required:       true,
@@ -1840,7 +1843,7 @@ var CloudNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Type:           "string",
 	},
 	"type": {
-		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress"},
+		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
