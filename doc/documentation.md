@@ -10191,7 +10191,7 @@ Type: `string`
 
 Namespace tag attached to an entity.
 
-##### `nativeID` [`required`,`max_length=256`]
+##### `nativeID` [`required`,`max_length=512`]
 
 Type: `string`
 
@@ -10578,6 +10578,51 @@ Type: `[]string`
 
 ID of subnet associated with this interface.
 
+### CloudIPConfiguration
+
+Manages the properties associated to an IP configuration.
+
+#### Example
+
+```json
+{
+  "hasPublicIP": false
+}
+```
+
+#### Attributes
+
+##### `addresses`
+
+Type: [`[]cloudaddress`](#cloudaddress)
+
+List of IP addresses/subnets (IPv4 or IPv6) associated with the
+interface.
+
+##### `backendPool`
+
+Type: `[]string`
+
+Backend pool of the load balancer (if any) fronting the Scale Set.
+
+##### `hasPublicIP`
+
+Type: `boolean`
+
+If the IP Configuration has a public IP.
+
+##### `ipConfigName`
+
+Type: `string`
+
+IP configuration of the NICs associated to the Scale Set.
+
+##### `subnet`
+
+Type: `string`
+
+Subnet of the NIC associated to the Scale Set.
+
 ### CloudLoadBalancer
 
 A CloudLoadBalancer represents a Load Balancer as defined in an cloud provider
@@ -10711,7 +10756,7 @@ Type: `string`
 
 Namespace tag attached to an entity.
 
-##### `nativeID` [`required`,`max_length=256`]
+##### `nativeID` [`required`,`max_length=512`]
 
 Type: `string`
 
@@ -10932,7 +10977,7 @@ Type: `string`
 
 Namespace tag attached to an entity.
 
-##### `nativeID` [`required`,`max_length=256`]
+##### `nativeID` [`required`,`max_length=512`]
 
 Type: `string`
 
@@ -11155,7 +11200,7 @@ Type: `string`
 
 Namespace tag attached to an entity.
 
-##### `nativeID` [`required`,`max_length=256`]
+##### `nativeID` [`required`,`max_length=512`]
 
 Type: `string`
 
@@ -11208,6 +11253,41 @@ Default value:
 Type: `time`
 
 Last update date of the object.
+
+### CloudNetworkConfigData
+
+Manages the network properties associated to a Virtual Machine Scale Set.
+
+#### Example
+
+```json
+{
+  "attachedEntities": [
+    "subnet-074c152ae45ea0c73",
+    "security-group-1"
+  ]
+}
+```
+
+#### Attributes
+
+##### `attachedEntities`
+
+Type: `[]string`
+
+ID of associated objects with this interface configuration.
+
+##### `ipConfigurations`
+
+Type: [`[]cloudipconfiguration`](#cloudipconfiguration)
+
+IP configurations of the NICs in the Scale Set.
+
+##### `networkConfigName`
+
+Type: `string`
+
+Network configuration name of the NIC associated in the Scale Set.
 
 ### CloudNetworkInterface
 
@@ -11343,7 +11423,7 @@ Type: `string`
 
 Namespace tag attached to an entity.
 
-##### `nativeID` [`required`,`max_length=256`]
+##### `nativeID` [`required`,`max_length=512`]
 
 Type: `string`
 
@@ -11984,7 +12064,7 @@ Type: `string`
 
 Namespace tag attached to an entity.
 
-##### `nativeID` [`required`,`max_length=256`]
+##### `nativeID` [`required`,`max_length=512`]
 
 Type: `string`
 
@@ -12202,7 +12282,7 @@ Type: `string`
 
 Namespace tag attached to an entity.
 
-##### `nativeID` [`required`,`max_length=256`]
+##### `nativeID` [`required`,`max_length=512`]
 
 Type: `string`
 
@@ -12264,7 +12344,7 @@ The sub-type of the object as found in the parameters. Used for indexing.
 
 ##### `type` [`required`]
 
-Type: `enum(Endpoint | Subnet | VPC | Interface | RouteTable | NetworkRuleSet | LoadBalancer | LoadBalancerRoute | PublicIPAddress)`
+Type: `enum(Endpoint | Subnet | VPC | Interface | RouteTable | NetworkRuleSet | LoadBalancer | LoadBalancerRoute | PublicIPAddress | ScaleSet)`
 
 Type of the endpoint.
 
@@ -12558,7 +12638,7 @@ Type: `string`
 
 Namespace tag attached to an entity.
 
-##### `nativeID` [`required`,`max_length=256`]
+##### `nativeID` [`required`,`max_length=512`]
 
 Type: `string`
 
@@ -12842,7 +12922,7 @@ Type: `string`
 
 Namespace tag attached to an entity.
 
-##### `nativeID` [`required`,`max_length=256`]
+##### `nativeID` [`required`,`max_length=512`]
 
 Type: `string`
 
@@ -12889,6 +12969,197 @@ Prisma Cloud Resource ID.
 Type: `time`
 
 Last update date of the object.
+
+### CloudScaleSet
+
+A Cloud Scale Set represents a group of homogeneous VMs which are scaled up and
+down based on the load.
+
+#### Example
+
+```json
+{
+  "APIID": 12344555,
+  "VPCID": "vpc-023419c5952374917",
+  "accountID": 9123450055,
+  "cloudType": "AWS",
+  "customerID": 1234455,
+  "name": "myobject",
+  "nativeID": "subnet-0ae4a90153dfb642c",
+  "policyReferences": [
+    "sg-123"
+  ],
+  "protected": false,
+  "regionName": "AWS Tokyo",
+  "resourceID": 12344555
+}
+```
+
+#### Relations
+
+##### `GET /cloudscalesets`
+
+Retrieves the list of Scale Sets.
+
+Parameters:
+
+- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
+
+##### `POST /cloudscalesets`
+
+Creates a cloud scale set.
+
+##### `DELETE /cloudscalesets/:id`
+
+Deletes the object with the given ID.
+
+##### `GET /cloudscalesets/:id`
+
+Retrieves the object with the given ID.
+
+##### `PUT /cloudscalesets/:id`
+
+Updates the object with the given ID.
+
+#### Attributes
+
+##### `APIID`
+
+Type: `integer`
+
+Prisma Cloud API ID (matches Prisma Cloud API ID).
+
+##### `ID` [`identifier`,`autogenerated`,`read_only`]
+
+Type: `string`
+
+Identifier of the object.
+
+##### `VPCID`
+
+Type: `string`
+
+ID of the host VPC.
+
+##### `accountID`
+
+Type: `string`
+
+Cloud account ID associated with the entity (matches Prisma Cloud accountID).
+
+##### `annotations`
+
+Type: `map[string][]string`
+
+Stores additional information about an entity.
+
+##### `associatedTags`
+
+Type: `[]string`
+
+List of tags attached to an entity.
+
+##### `cloudTags`
+
+Type: `[]string`
+
+Internal representation of object tags retrieved from the cloud provider.
+
+##### `cloudType`
+
+Type: `string`
+
+Cloud type of the entity.
+
+##### `createTime` [`autogenerated`,`read_only`]
+
+Type: `time`
+
+Creation date of the object.
+
+##### `customerID`
+
+Type: `integer`
+
+Customer ID as identified by Prisma Cloud.
+
+##### `ingestionTime`
+
+Type: `time`
+
+The time that the object was first ingested.
+
+##### `name`
+
+Type: `string`
+
+Name of the object (optional).
+
+##### `namespace` [`autogenerated`,`read_only`]
+
+Type: `string`
+
+Namespace tag attached to an entity.
+
+##### `nativeID` [`required`,`max_length=512`]
+
+Type: `string`
+
+ID of the cloud provider object.
+
+##### `normalizedTags` [`autogenerated`,`read_only`]
+
+Type: `[]string`
+
+Contains the list of normalized tags of the entities.
+
+##### `parameters`
+
+Type: [`cloudscalesetdata`](#cloudscalesetdata)
+
+Scale set related parameters.
+
+##### `policyReferences`
+
+Type: `[]string`
+
+A list of policy references associated with this cloud node.
+
+##### `protected`
+
+Type: `boolean`
+
+Defines if the object is protected.
+
+##### `regionName` [`max_length=256`]
+
+Type: `string`
+
+Region name associated with the entity.
+
+##### `resourceID`
+
+Type: `integer`
+
+Prisma Cloud Resource ID.
+
+##### `updateTime` [`autogenerated`,`read_only`]
+
+Type: `time`
+
+Last update date of the object.
+
+### CloudScaleSetData
+
+Manages the properties associated to a Virtual Machine Scale Set.
+
+#### Attributes
+
+##### `networkConfigs`
+
+Type: [`[]cloudnetworkconfigdata`](#cloudnetworkconfigdata)
+
+Scale set related parameters.
 
 ### CloudScheduledNetworkQuery
 
@@ -13205,7 +13476,7 @@ Type: `string`
 
 Namespace tag attached to an entity.
 
-##### `nativeID` [`required`,`max_length=256`]
+##### `nativeID` [`required`,`max_length=512`]
 
 Type: `string`
 
@@ -13432,7 +13703,7 @@ Type: `string`
 
 Namespace tag attached to an entity.
 
-##### `nativeID` [`required`,`max_length=256`]
+##### `nativeID` [`required`,`max_length=512`]
 
 Type: `string`
 

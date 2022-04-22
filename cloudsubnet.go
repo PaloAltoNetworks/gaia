@@ -823,7 +823,7 @@ func (o *CloudSubnet) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateMaximumLength("nativeID", o.NativeID, 256, false); err != nil {
+	if err := elemental.ValidateMaximumLength("nativeID", o.NativeID, 512, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1140,7 +1140,7 @@ var CloudSubnetAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
 		Getter:         true,
-		MaxLength:      256,
+		MaxLength:      512,
 		Name:           "nativeID",
 		Orderable:      true,
 		Required:       true,
@@ -1493,7 +1493,7 @@ var CloudSubnetLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
 		Getter:         true,
-		MaxLength:      256,
+		MaxLength:      512,
 		Name:           "nativeID",
 		Orderable:      true,
 		Required:       true,

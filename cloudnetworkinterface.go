@@ -823,7 +823,7 @@ func (o *CloudNetworkInterface) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateMaximumLength("nativeID", o.NativeID, 256, false); err != nil {
+	if err := elemental.ValidateMaximumLength("nativeID", o.NativeID, 512, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1140,7 +1140,7 @@ var CloudNetworkInterfaceAttributesMap = map[string]elemental.AttributeSpecifica
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
 		Getter:         true,
-		MaxLength:      256,
+		MaxLength:      512,
 		Name:           "nativeID",
 		Orderable:      true,
 		Required:       true,
@@ -1494,7 +1494,7 @@ var CloudNetworkInterfaceLowerCaseAttributesMap = map[string]elemental.Attribute
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
 		Getter:         true,
-		MaxLength:      256,
+		MaxLength:      512,
 		Name:           "nativeID",
 		Orderable:      true,
 		Required:       true,
