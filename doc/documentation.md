@@ -11252,24 +11252,7 @@ Last update date of the object.
 
 Manages the network properties associated to a Virtual Machine Scale Set.
 
-#### Example
-
-```json
-{
-  "attachedEntities": [
-    "subnet-074c152ae45ea0c73",
-    "security-group-1"
-  ]
-}
-```
-
 #### Attributes
-
-##### `attachedEntities`
-
-Type: `[]string`
-
-ID of associated objects with this interface configuration.
 
 ##### `ipConfigurations`
 
@@ -13161,7 +13144,24 @@ Last update date of the object.
 
 Manages the properties associated to a Virtual Machine Scale Set.
 
+#### Example
+
+```json
+{
+  "attachedEntities": [
+    "lb1-backendpool-1",
+    "lb2-backendpool-3"
+  ]
+}
+```
+
 #### Attributes
+
+##### `attachedEntities`
+
+Type: `[]string`
+
+ID of associated objects with this interface configuration.
 
 ##### `networkConfigs`
 
