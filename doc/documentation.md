@@ -4996,7 +4996,7 @@ be transmitted on the wire.
 
 ##### `type` [`creation_only`]
 
-Type: `enum(Default | Tenant | CloudAccount | Group | Kubernetes)`
+Type: `enum(Default | Tenant | CloudAccount | Group | Kubernetes | ECS)`
 
 The type defines the purpose of the namespace:
 - `Default`: A universal namespace that is capable of all actions and views.
@@ -6953,7 +6953,7 @@ Indicates if this processing unit must be placed in tracing mode.
 
 ##### `type` [`creation_only`]
 
-Type: `enum(APIGateway | Docker | Host | HostService | LinuxService | WindowsService | RKT | User | SSHSession)`
+Type: `enum(APIGateway | Docker | Host | HostService | LinuxService | WindowsService | RKT | User | SSHSession | ECS)`
 
 Type of processing unit: `APIGateway`, `Docker`, `Host`, `HostService`,
 `LinuxService`, `WindowsService`, `RKT`, `User`, or `SSHSession`.
