@@ -1,0 +1,44 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudscalesetdata": {
+        "description": "Manages the properties associated to a Virtual Machine Scale Set.",
+        "properties": {
+          "networkConfigs": {
+            "description": "Scale set related parameters.",
+            "items": {
+              "$ref": "./cloudnetworkconfigdata#/components/schemas/cloudnetworkconfigdata"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudscalesetdata",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

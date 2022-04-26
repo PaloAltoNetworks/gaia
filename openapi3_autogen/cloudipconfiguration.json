@@ -1,0 +1,63 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudipconfiguration": {
+        "description": "Manages the properties associated to an IP configuration.",
+        "properties": {
+          "addresses": {
+            "description": "List of IP addresses/subnets (IPv4 or IPv6) associated with the\ninterface.",
+            "items": {
+              "$ref": "./cloudaddress#/components/schemas/cloudaddress"
+            },
+            "type": "array"
+          },
+          "backendPools": {
+            "description": "List of backend pools of the load balancer (if any) fronting the Scale Set.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "hasPublicIP": {
+            "description": "If the IP Configuration has a public IP.",
+            "type": "boolean"
+          },
+          "ipConfigName": {
+            "description": "IP configuration of the NICs associated to the Scale Set.",
+            "type": "string"
+          },
+          "subnet": {
+            "description": "Subnet of the NIC associated to the Scale Set.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudipconfiguration",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}
