@@ -10599,11 +10599,11 @@ Type: [`[]cloudaddress`](#cloudaddress)
 List of IP addresses/subnets (IPv4 or IPv6) associated with the
 interface.
 
-##### `backendPool`
+##### `backendPools`
 
 Type: `[]string`
 
-Backend pool of the load balancer (if any) fronting the Scale Set.
+List of backend pools of the load balancer (if any) fronting the Scale Set.
 
 ##### `hasPublicIP`
 

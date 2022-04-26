@@ -22,8 +22,9 @@ attributes:
     extensions:
       refMode: pointer
 
-  - name: backendPool
-    description: Backend pool of the load balancer (if any) fronting the Scale Set.
+  - name: backendPools
+    description: List of backend pools of the load balancer (if any) fronting the
+      Scale Set.
     type: list
     exposed: true
     subtype: string

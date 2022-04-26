@@ -17,8 +17,8 @@ type CloudIPConfiguration struct {
 	// interface.
 	Addresses []*CloudAddress `json:"addresses" msgpack:"addresses" bson:"addresses" mapstructure:"addresses,omitempty"`
 
-	// Backend pool of the load balancer (if any) fronting the Scale Set.
-	BackendPool []string `json:"backendPool" msgpack:"backendPool" bson:"backendpool" mapstructure:"backendPool,omitempty"`
+	// List of backend pools of the load balancer (if any) fronting the Scale Set.
+	BackendPools []string `json:"backendPools" msgpack:"backendPools" bson:"backendpools" mapstructure:"backendPools,omitempty"`
 
 	// If the IP Configuration has a public IP.
 	HasPublicIP bool `json:"hasPublicIP" msgpack:"hasPublicIP" bson:"haspublicip" mapstructure:"hasPublicIP,omitempty"`
@@ -38,7 +38,7 @@ func NewCloudIPConfiguration() *CloudIPConfiguration {
 	return &CloudIPConfiguration{
 		ModelVersion: 1,
 		Addresses:    []*CloudAddress{},
-		BackendPool:  []string{},
+		BackendPools: []string{},
 	}
 }
 
@@ -53,7 +53,7 @@ func (o *CloudIPConfiguration) GetBSON() (interface{}, error) {
 	s := &mongoAttributesCloudIPConfiguration{}
 
 	s.Addresses = o.Addresses
-	s.BackendPool = o.BackendPool
+	s.BackendPools = o.BackendPools
 	s.HasPublicIP = o.HasPublicIP
 	s.IpConfigName = o.IpConfigName
 	s.Subnet = o.Subnet
@@ -75,7 +75,7 @@ func (o *CloudIPConfiguration) SetBSON(raw bson.Raw) error {
 	}
 
 	o.Addresses = s.Addresses
-	o.BackendPool = s.BackendPool
+	o.BackendPools = s.BackendPools
 	o.HasPublicIP = s.HasPublicIP
 	o.IpConfigName = s.IpConfigName
 	o.Subnet = s.Subnet
@@ -165,8 +165,8 @@ func (o *CloudIPConfiguration) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "addresses":
 		return o.Addresses
-	case "backendPool":
-		return o.BackendPool
+	case "backendPools":
+		return o.BackendPools
 	case "hasPublicIP":
 		return o.HasPublicIP
 	case "ipConfigName":
@@ -192,13 +192,13 @@ interface.`,
 		SubType: "cloudaddress",
 		Type:    "refList",
 	},
-	"BackendPool": {
+	"BackendPools": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "backendpool",
-		ConvertedName:  "BackendPool",
-		Description:    `Backend pool of the load balancer (if any) fronting the Scale Set.`,
+		BSONFieldName:  "backendpools",
+		ConvertedName:  "BackendPools",
+		Description:    `List of backend pools of the load balancer (if any) fronting the Scale Set.`,
 		Exposed:        true,
-		Name:           "backendPool",
+		Name:           "backendPools",
 		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
@@ -249,13 +249,13 @@ interface.`,
 		SubType: "cloudaddress",
 		Type:    "refList",
 	},
-	"backendpool": {
+	"backendpools": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "backendpool",
-		ConvertedName:  "BackendPool",
-		Description:    `Backend pool of the load balancer (if any) fronting the Scale Set.`,
+		BSONFieldName:  "backendpools",
+		ConvertedName:  "BackendPools",
+		Description:    `List of backend pools of the load balancer (if any) fronting the Scale Set.`,
 		Exposed:        true,
-		Name:           "backendPool",
+		Name:           "backendPools",
 		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
@@ -294,7 +294,7 @@ interface.`,
 
 type mongoAttributesCloudIPConfiguration struct {
 	Addresses    []*CloudAddress `bson:"addresses"`
-	BackendPool  []string        `bson:"backendpool"`
+	BackendPools []string        `bson:"backendpools"`
 	HasPublicIP  bool            `bson:"haspublicip"`
 	IpConfigName string          `bson:"ipconfigname"`
 	Subnet       string          `bson:"subnet"`
