@@ -64,6 +64,9 @@ const (
 	// NamespaceTypeDefault represents the value Default.
 	NamespaceTypeDefault NamespaceTypeValue = "Default"
 
+	// NamespaceTypeECS represents the value ECS.
+	NamespaceTypeECS NamespaceTypeValue = "ECS"
+
 	// NamespaceTypeGroup represents the value Group.
 	NamespaceTypeGroup NamespaceTypeValue = "Group"
 
@@ -952,7 +955,7 @@ func (o *Namespace) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Default", "Tenant", "CloudAccount", "Group", "Kubernetes"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Default", "Tenant", "CloudAccount", "Group", "Kubernetes", "ECS"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1431,7 +1434,7 @@ be transmitted on the wire.`,
 		Type:    "list",
 	},
 	"Type": {
-		AllowedChoices: []string{"Default", "Tenant", "CloudAccount", "Group", "Kubernetes"},
+		AllowedChoices: []string{"Default", "Tenant", "CloudAccount", "Group", "Kubernetes", "ECS"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		CreationOnly:   true,
@@ -1888,7 +1891,7 @@ be transmitted on the wire.`,
 		Type:    "list",
 	},
 	"type": {
-		AllowedChoices: []string{"Default", "Tenant", "CloudAccount", "Group", "Kubernetes"},
+		AllowedChoices: []string{"Default", "Tenant", "CloudAccount", "Group", "Kubernetes", "ECS"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		CreationOnly:   true,
