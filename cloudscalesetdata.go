@@ -13,6 +13,9 @@ import (
 
 // CloudScaleSetData represents the model of a cloudscalesetdata
 type CloudScaleSetData struct {
+	// ID of associated objects with this interface configuration.
+	AttachedEntities []string `json:"attachedEntities" msgpack:"attachedEntities" bson:"attachedentities" mapstructure:"attachedEntities,omitempty"`
+
 	// Scale set related parameters.
 	NetworkConfigs []*CloudNetworkConfigData `json:"networkConfigs" msgpack:"networkConfigs" bson:"networkconfigs" mapstructure:"networkConfigs,omitempty"`
 
@@ -23,8 +26,9 @@ type CloudScaleSetData struct {
 func NewCloudScaleSetData() *CloudScaleSetData {
 
 	return &CloudScaleSetData{
-		ModelVersion:   1,
-		NetworkConfigs: []*CloudNetworkConfigData{},
+		ModelVersion:     1,
+		AttachedEntities: []string{},
+		NetworkConfigs:   []*CloudNetworkConfigData{},
 	}
 }
 
@@ -38,6 +42,7 @@ func (o *CloudScaleSetData) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesCloudScaleSetData{}
 
+	s.AttachedEntities = o.AttachedEntities
 	s.NetworkConfigs = o.NetworkConfigs
 
 	return s, nil
@@ -56,6 +61,7 @@ func (o *CloudScaleSetData) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	o.AttachedEntities = s.AttachedEntities
 	o.NetworkConfigs = s.NetworkConfigs
 
 	return nil
@@ -141,6 +147,8 @@ func (*CloudScaleSetData) AttributeSpecifications() map[string]elemental.Attribu
 func (o *CloudScaleSetData) ValueForAttribute(name string) interface{} {
 
 	switch name {
+	case "attachedEntities":
+		return o.AttachedEntities
 	case "networkConfigs":
 		return o.NetworkConfigs
 	}
@@ -150,6 +158,17 @@ func (o *CloudScaleSetData) ValueForAttribute(name string) interface{} {
 
 // CloudScaleSetDataAttributesMap represents the map of attribute for CloudScaleSetData.
 var CloudScaleSetDataAttributesMap = map[string]elemental.AttributeSpecification{
+	"AttachedEntities": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "attachedentities",
+		ConvertedName:  "AttachedEntities",
+		Description:    `ID of associated objects with this interface configuration.`,
+		Exposed:        true,
+		Name:           "attachedEntities",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"NetworkConfigs": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "networkconfigs",
@@ -165,6 +184,17 @@ var CloudScaleSetDataAttributesMap = map[string]elemental.AttributeSpecification
 
 // CloudScaleSetDataLowerCaseAttributesMap represents the map of attribute for CloudScaleSetData.
 var CloudScaleSetDataLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"attachedentities": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "attachedentities",
+		ConvertedName:  "AttachedEntities",
+		Description:    `ID of associated objects with this interface configuration.`,
+		Exposed:        true,
+		Name:           "attachedEntities",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"networkconfigs": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "networkconfigs",
@@ -179,5 +209,6 @@ var CloudScaleSetDataLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 }
 
 type mongoAttributesCloudScaleSetData struct {
-	NetworkConfigs []*CloudNetworkConfigData `bson:"networkconfigs"`
+	AttachedEntities []string                  `bson:"attachedentities"`
+	NetworkConfigs   []*CloudNetworkConfigData `bson:"networkconfigs"`
 }

@@ -12,16 +12,6 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: attachedEntities
-    description: ID of associated objects with this interface configuration.
-    type: list
-    exposed: true
-    subtype: string
-    stored: true
-    example_value:
-    - subnet-074c152ae45ea0c73
-    - security-group-1
-
   - name: ipConfigurations
     description: IP configurations of the NICs in the Scale Set.
     type: refList
