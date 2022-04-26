@@ -5,17 +5,6 @@
       "cloudnetworkconfigdata": {
         "description": "Manages the network properties associated to a Virtual Machine Scale Set.",
         "properties": {
-          "attachedEntities": {
-            "description": "ID of associated objects with this interface configuration.",
-            "example": [
-              "subnet-074c152ae45ea0c73",
-              "security-group-1"
-            ],
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
           "ipConfigurations": {
             "description": "IP configurations of the NICs in the Scale Set.",
             "items": {

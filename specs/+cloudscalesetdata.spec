@@ -11,6 +11,16 @@ model:
 # Attributes
 attributes:
   v1:
+  - name: attachedEntities
+    description: ID of associated objects with this interface configuration.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    example_value:
+    - lb1-backendpool-1
+    - lb2-backendpool-3
+
   - name: networkConfigs
     description: Scale set related parameters.
     type: refList

@@ -5,6 +5,17 @@
       "cloudscalesetdata": {
         "description": "Manages the properties associated to a Virtual Machine Scale Set.",
         "properties": {
+          "attachedEntities": {
+            "description": "ID of associated objects with this interface configuration.",
+            "example": [
+              "lb1-backendpool-1",
+              "lb2-backendpool-3"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "networkConfigs": {
             "description": "Scale set related parameters.",
             "items": {
