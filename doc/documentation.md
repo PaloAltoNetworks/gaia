@@ -21368,7 +21368,7 @@ Tags of object represented by the node.
 
 ##### `type`
 
-Type: `enum(Docker | ExternalNetwork | Volume | Claim | Node | Namespace | RemoteController | APIGateway | Host | HostService | LinuxService | WindowsService | RKT | User | SSHSession)`
+Type: `enum(Docker | ExternalNetwork | Volume | Claim | Node | Namespace | RemoteController | APIGateway | Host | HostService | LinuxService | WindowsService | RKT | User | SSHSession | ECS)`
 
 Type of object represented by the node.
 
