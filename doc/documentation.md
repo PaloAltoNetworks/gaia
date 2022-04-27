@@ -10599,11 +10599,11 @@ Type: [`[]cloudaddress`](#cloudaddress)
 List of IP addresses/subnets (IPv4 or IPv6) associated with the
 interface.
 
-##### `backendPool`
+##### `backendPools`
 
 Type: `[]string`
 
-Backend pool of the load balancer (if any) fronting the Scale Set.
+List of backend pools of the load balancer (if any) fronting the Scale Set.
 
 ##### `hasPublicIP`
 
@@ -10819,7 +10819,7 @@ Parameters associated with a cloud load balancer.
 
 #### Attributes
 
-##### `listenertargetmapping`
+##### `listenerTargetMapping`
 
 Type: `map[string][]string`
 
@@ -10836,6 +10836,12 @@ The name of the load balancer.
 Type: `string`
 
 The scheme tells whether the load balancer is internet facing or internal.
+
+##### `snatTargetMapping`
+
+Type: `map[string][]string`
+
+Mapping of a SNAT source to target IP list.
 
 ### CloudLoadBalancerRoute
 

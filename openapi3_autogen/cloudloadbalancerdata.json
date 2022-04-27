@@ -5,7 +5,7 @@
       "cloudloadbalancerdata": {
         "description": "Parameters associated with a cloud load balancer.",
         "properties": {
-          "listenertargetmapping": {
+          "listenerTargetMapping": {
             "additionalProperties": {
               "items": {
                 "type": "string"
@@ -24,6 +24,16 @@
             "description": "The scheme tells whether the load balancer is internet facing or internal.",
             "example": "internet-facing",
             "type": "string"
+          },
+          "snatTargetMapping": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Mapping of a SNAT source to target IP list.",
+            "type": "object"
           }
         },
         "type": "object"

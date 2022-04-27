@@ -12,8 +12,8 @@
             },
             "type": "array"
           },
-          "backendPool": {
-            "description": "Backend pool of the load balancer (if any) fronting the Scale Set.",
+          "backendPools": {
+            "description": "List of backend pools of the load balancer (if any) fronting the Scale Set.",
             "items": {
               "type": "string"
             },
