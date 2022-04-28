@@ -14,7 +14,13 @@ import (
 // MetricsQueryResult represents the model of a metricsqueryresult
 type MetricsQueryResult struct {
 	// The data of the query.
-	Data map[string]interface{} `json:"data" msgpack:"data" bson:"-" mapstructure:"data,omitempty"`
+	Data map[string]interface{} `json:"data,omitempty" msgpack:"data,omitempty" bson:"-" mapstructure:"data,omitempty"`
+
+	// The error message from the query attempt.
+	Error string `json:"error,omitempty" msgpack:"error,omitempty" bson:"-" mapstructure:"error,omitempty"`
+
+	// The type of error that occurred.
+	ErrorType string `json:"errorType,omitempty" msgpack:"errorType,omitempty" bson:"-" mapstructure:"errorType,omitempty"`
 
 	// The status of the query.
 	Status string `json:"status" msgpack:"status" bson:"-" mapstructure:"status,omitempty"`
@@ -132,6 +138,10 @@ func (o *MetricsQueryResult) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "data":
 		return o.Data
+	case "error":
+		return o.Error
+	case "errorType":
+		return o.ErrorType
 	case "status":
 		return o.Status
 	}
@@ -149,6 +159,22 @@ var MetricsQueryResultAttributesMap = map[string]elemental.AttributeSpecificatio
 		Name:           "data",
 		SubType:        "map[string]interface{}",
 		Type:           "external",
+	},
+	"Error": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Error",
+		Description:    `The error message from the query attempt.`,
+		Exposed:        true,
+		Name:           "error",
+		Type:           "string",
+	},
+	"ErrorType": {
+		AllowedChoices: []string{},
+		ConvertedName:  "ErrorType",
+		Description:    `The type of error that occurred.`,
+		Exposed:        true,
+		Name:           "errorType",
+		Type:           "string",
 	},
 	"Status": {
 		AllowedChoices: []string{},
@@ -170,6 +196,22 @@ var MetricsQueryResultLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Name:           "data",
 		SubType:        "map[string]interface{}",
 		Type:           "external",
+	},
+	"error": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Error",
+		Description:    `The error message from the query attempt.`,
+		Exposed:        true,
+		Name:           "error",
+		Type:           "string",
+	},
+	"errortype": {
+		AllowedChoices: []string{},
+		ConvertedName:  "ErrorType",
+		Description:    `The type of error that occurred.`,
+		Exposed:        true,
+		Name:           "errorType",
+		Type:           "string",
 	},
 	"status": {
 		AllowedChoices: []string{},

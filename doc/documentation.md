@@ -21671,6 +21671,18 @@ Type: `map[string]interface{}`
 
 The data of the query.
 
+##### `error`
+
+Type: `string`
+
+The error message from the query attempt.
+
+##### `errorType`
+
+Type: `string`
+
+The type of error that occurred.
+
 ##### `status`
 
 Type: `string`

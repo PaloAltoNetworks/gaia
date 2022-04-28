@@ -16,6 +16,19 @@ attributes:
     type: external
     exposed: true
     subtype: map[string]interface{}
+    omit_empty: true
+
+  - name: error
+    description: The error message from the query attempt.
+    type: string
+    exposed: true
+    omit_empty: true
+
+  - name: errorType
+    description: The type of error that occurred.
+    type: string
+    exposed: true
+    omit_empty: true
 
   - name: status
     description: The status of the query.
