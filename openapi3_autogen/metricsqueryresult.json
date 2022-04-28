@@ -1,0 +1,48 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "metricsqueryresult": {
+        "description": "Represent the result of a metrics query.",
+        "properties": {
+          "data": {
+            "additionalProperties": {
+              "type": "object"
+            },
+            "description": "The data of the query.",
+            "type": "object"
+          },
+          "status": {
+            "description": "The status of the query.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "metricsqueryresult",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'visualization/metricsquery'",
+      "name": "visualization/metricsquery"
+    },
+    {
+      "description": "This tag is for package 'jenova'",
+      "name": "jenova"
+    }
+  ]
+}
