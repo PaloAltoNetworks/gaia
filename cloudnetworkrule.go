@@ -34,6 +34,9 @@ type CloudNetworkRule struct {
 	// A list of IP CIDRS that identify local endpoints.
 	LocalNetworks []string `json:"localNetworks,omitempty" msgpack:"localNetworks,omitempty" bson:"localnetworks,omitempty" mapstructure:"localNetworks,omitempty"`
 
+	// A list of Service Tags provided by the platform.
+	LocalServiceTags []string `json:"localServiceTags,omitempty" msgpack:"localServiceTags,omitempty" bson:"localservicetags,omitempty" mapstructure:"localServiceTags,omitempty"`
+
 	// A list of IP CIDRS that identify remote endpoints.
 	Networks []string `json:"networks,omitempty" msgpack:"networks,omitempty" bson:"networks,omitempty" mapstructure:"networks,omitempty"`
 
@@ -50,6 +53,9 @@ type CloudNetworkRule struct {
 	// designation
 	// is not allowed.
 	ProtocolPorts []string `json:"protocolPorts" msgpack:"protocolPorts" bson:"protocolports" mapstructure:"protocolPorts,omitempty"`
+
+	// A list of Service Tags provided by the platform.
+	ServiceTags []string `json:"serviceTags,omitempty" msgpack:"serviceTags,omitempty" bson:"servicetags,omitempty" mapstructure:"serviceTags,omitempty"`
 
 	// An internal representation of the local networks to increase performance. Not
 	// visible
@@ -70,9 +76,11 @@ func NewCloudNetworkRule() *CloudNetworkRule {
 		ModelVersion:        1,
 		Action:              CloudNetworkRuleActionAllow,
 		LocalNetworks:       []string{},
+		LocalServiceTags:    []string{},
 		Networks:            []string{},
 		Object:              [][]string{},
 		ProtocolPorts:       []string{},
+		ServiceTags:         []string{},
 		StoredLocalNetworks: []*net.IPNet{},
 		StoredNetworks:      []*net.IPNet{},
 	}
@@ -90,10 +98,12 @@ func (o *CloudNetworkRule) GetBSON() (interface{}, error) {
 
 	s.Action = o.Action
 	s.LocalNetworks = o.LocalNetworks
+	s.LocalServiceTags = o.LocalServiceTags
 	s.Networks = o.Networks
 	s.Object = o.Object
 	s.Priority = o.Priority
 	s.ProtocolPorts = o.ProtocolPorts
+	s.ServiceTags = o.ServiceTags
 	s.StoredLocalNetworks = o.StoredLocalNetworks
 	s.StoredNetworks = o.StoredNetworks
 
@@ -115,10 +125,12 @@ func (o *CloudNetworkRule) SetBSON(raw bson.Raw) error {
 
 	o.Action = s.Action
 	o.LocalNetworks = s.LocalNetworks
+	o.LocalServiceTags = s.LocalServiceTags
 	o.Networks = s.Networks
 	o.Object = s.Object
 	o.Priority = s.Priority
 	o.ProtocolPorts = s.ProtocolPorts
+	o.ServiceTags = s.ServiceTags
 	o.StoredLocalNetworks = s.StoredLocalNetworks
 	o.StoredNetworks = s.StoredNetworks
 
@@ -219,6 +231,8 @@ func (o *CloudNetworkRule) ValueForAttribute(name string) interface{} {
 		return o.Action
 	case "localNetworks":
 		return o.LocalNetworks
+	case "localServiceTags":
+		return o.LocalServiceTags
 	case "networks":
 		return o.Networks
 	case "object":
@@ -227,6 +241,8 @@ func (o *CloudNetworkRule) ValueForAttribute(name string) interface{} {
 		return o.Priority
 	case "protocolPorts":
 		return o.ProtocolPorts
+	case "serviceTags":
+		return o.ServiceTags
 	case "storedLocalNetworks":
 		return o.StoredLocalNetworks
 	case "storedNetworks":
@@ -260,6 +276,18 @@ policy.`,
 		Description:    `A list of IP CIDRS that identify local endpoints.`,
 		Exposed:        true,
 		Name:           "localNetworks",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"LocalServiceTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "localservicetags",
+		ConvertedName:  "LocalServiceTags",
+		Description:    `A list of Service Tags provided by the platform.`,
+		Exposed:        true,
+		Name:           "localServiceTags",
 		ReadOnly:       true,
 		Stored:         true,
 		SubType:        "string",
@@ -314,6 +342,18 @@ is not allowed.`,
 		Stored:  true,
 		SubType: "string",
 		Type:    "list",
+	},
+	"ServiceTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "servicetags",
+		ConvertedName:  "ServiceTags",
+		Description:    `A list of Service Tags provided by the platform.`,
+		Exposed:        true,
+		Name:           "serviceTags",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
 	},
 	"StoredLocalNetworks": {
 		AllowedChoices: []string{},
@@ -375,6 +415,18 @@ policy.`,
 		SubType:        "string",
 		Type:           "list",
 	},
+	"localservicetags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "localservicetags",
+		ConvertedName:  "LocalServiceTags",
+		Description:    `A list of Service Tags provided by the platform.`,
+		Exposed:        true,
+		Name:           "localServiceTags",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"networks": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "networks",
@@ -425,6 +477,18 @@ is not allowed.`,
 		SubType: "string",
 		Type:    "list",
 	},
+	"servicetags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "servicetags",
+		ConvertedName:  "ServiceTags",
+		Description:    `A list of Service Tags provided by the platform.`,
+		Exposed:        true,
+		Name:           "serviceTags",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"storedlocalnetworks": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -459,10 +523,12 @@ to end users.`,
 type mongoAttributesCloudNetworkRule struct {
 	Action              CloudNetworkRuleActionValue `bson:"action"`
 	LocalNetworks       []string                    `bson:"localnetworks,omitempty"`
+	LocalServiceTags    []string                    `bson:"localservicetags,omitempty"`
 	Networks            []string                    `bson:"networks,omitempty"`
 	Object              [][]string                  `bson:"object"`
 	Priority            int                         `bson:"priority,omitempty"`
 	ProtocolPorts       []string                    `bson:"protocolports"`
+	ServiceTags         []string                    `bson:"servicetags,omitempty"`
 	StoredLocalNetworks []*net.IPNet                `bson:"storedlocalnetworks,omitempty"`
 	StoredNetworks      []*net.IPNet                `bson:"storednetworks,omitempty"`
 }
