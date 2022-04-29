@@ -21,6 +21,14 @@
             "readOnly": true,
             "type": "array"
           },
+          "localServiceTags": {
+            "description": "A list of Service Tags provided by the platform.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
           "networks": {
             "description": "A list of IP CIDRS that identify remote endpoints.",
             "items": {
@@ -48,6 +56,14 @@
             "items": {
               "type": "string"
             },
+            "type": "array"
+          },
+          "serviceTags": {
+            "description": "A list of Service Tags provided by the platform.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
             "type": "array"
           },
           "storedLocalNetworks": {
