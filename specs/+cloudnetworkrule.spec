@@ -26,6 +26,15 @@ attributes:
     - Reject
     default_value: Allow
 
+  - name: localNetworkTags
+    description: A list of Service Tags provided by the platform.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    read_only: true
+    omit_empty: true
+
   - name: localNetworks
     description: A list of IP CIDRS that identify local endpoints.
     type: list
@@ -37,6 +46,15 @@ attributes:
     validations:
     - $optionalcidroriplist
 
+  - name: networkTags
+    description: A list of Service Tags provided by the platform.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    read_only: true
+    omit_empty: true
+
   - name: networks
     description: A list of IP CIDRS that identify remote endpoints.
     type: list
@@ -45,8 +63,6 @@ attributes:
     stored: true
     read_only: true
     omit_empty: true
-    validations:
-    - $optionalcidroriplist
 
   - name: object
     description: |-

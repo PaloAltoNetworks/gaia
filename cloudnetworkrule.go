@@ -31,8 +31,14 @@ type CloudNetworkRule struct {
 	// policy.
 	Action CloudNetworkRuleActionValue `json:"action" msgpack:"action" bson:"action" mapstructure:"action,omitempty"`
 
+	// A list of Service Tags provided by the platform.
+	LocalNetworkTags []string `json:"localNetworkTags,omitempty" msgpack:"localNetworkTags,omitempty" bson:"localnetworktags,omitempty" mapstructure:"localNetworkTags,omitempty"`
+
 	// A list of IP CIDRS that identify local endpoints.
 	LocalNetworks []string `json:"localNetworks,omitempty" msgpack:"localNetworks,omitempty" bson:"localnetworks,omitempty" mapstructure:"localNetworks,omitempty"`
+
+	// A list of Service Tags provided by the platform.
+	NetworkTags []string `json:"networkTags,omitempty" msgpack:"networkTags,omitempty" bson:"networktags,omitempty" mapstructure:"networkTags,omitempty"`
 
 	// A list of IP CIDRS that identify remote endpoints.
 	Networks []string `json:"networks,omitempty" msgpack:"networks,omitempty" bson:"networks,omitempty" mapstructure:"networks,omitempty"`
@@ -69,7 +75,9 @@ func NewCloudNetworkRule() *CloudNetworkRule {
 	return &CloudNetworkRule{
 		ModelVersion:        1,
 		Action:              CloudNetworkRuleActionAllow,
+		LocalNetworkTags:    []string{},
 		LocalNetworks:       []string{},
+		NetworkTags:         []string{},
 		Networks:            []string{},
 		Object:              [][]string{},
 		ProtocolPorts:       []string{},
@@ -89,7 +97,9 @@ func (o *CloudNetworkRule) GetBSON() (interface{}, error) {
 	s := &mongoAttributesCloudNetworkRule{}
 
 	s.Action = o.Action
+	s.LocalNetworkTags = o.LocalNetworkTags
 	s.LocalNetworks = o.LocalNetworks
+	s.NetworkTags = o.NetworkTags
 	s.Networks = o.Networks
 	s.Object = o.Object
 	s.Priority = o.Priority
@@ -114,7 +124,9 @@ func (o *CloudNetworkRule) SetBSON(raw bson.Raw) error {
 	}
 
 	o.Action = s.Action
+	o.LocalNetworkTags = s.LocalNetworkTags
 	o.LocalNetworks = s.LocalNetworks
+	o.NetworkTags = s.NetworkTags
 	o.Networks = s.Networks
 	o.Object = s.Object
 	o.Priority = s.Priority
@@ -173,10 +185,6 @@ func (o *CloudNetworkRule) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := ValidateOptionalCIDRorIPList("networks", o.Networks); err != nil {
-		errors = errors.Append(err)
-	}
-
 	if err := ValidateServicePorts("protocolPorts", o.ProtocolPorts); err != nil {
 		errors = errors.Append(err)
 	}
@@ -217,8 +225,12 @@ func (o *CloudNetworkRule) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "action":
 		return o.Action
+	case "localNetworkTags":
+		return o.LocalNetworkTags
 	case "localNetworks":
 		return o.LocalNetworks
+	case "networkTags":
+		return o.NetworkTags
 	case "networks":
 		return o.Networks
 	case "object":
@@ -253,6 +265,18 @@ policy.`,
 		Stored:   true,
 		Type:     "enum",
 	},
+	"LocalNetworkTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "localnetworktags",
+		ConvertedName:  "LocalNetworkTags",
+		Description:    `A list of Service Tags provided by the platform.`,
+		Exposed:        true,
+		Name:           "localNetworkTags",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"LocalNetworks": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "localnetworks",
@@ -260,6 +284,18 @@ policy.`,
 		Description:    `A list of IP CIDRS that identify local endpoints.`,
 		Exposed:        true,
 		Name:           "localNetworks",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"NetworkTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "networktags",
+		ConvertedName:  "NetworkTags",
+		Description:    `A list of Service Tags provided by the platform.`,
+		Exposed:        true,
+		Name:           "networkTags",
 		ReadOnly:       true,
 		Stored:         true,
 		SubType:        "string",
@@ -363,6 +399,18 @@ policy.`,
 		Stored:   true,
 		Type:     "enum",
 	},
+	"localnetworktags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "localnetworktags",
+		ConvertedName:  "LocalNetworkTags",
+		Description:    `A list of Service Tags provided by the platform.`,
+		Exposed:        true,
+		Name:           "localNetworkTags",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"localnetworks": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "localnetworks",
@@ -370,6 +418,18 @@ policy.`,
 		Description:    `A list of IP CIDRS that identify local endpoints.`,
 		Exposed:        true,
 		Name:           "localNetworks",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"networktags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "networktags",
+		ConvertedName:  "NetworkTags",
+		Description:    `A list of Service Tags provided by the platform.`,
+		Exposed:        true,
+		Name:           "networkTags",
 		ReadOnly:       true,
 		Stored:         true,
 		SubType:        "string",
@@ -458,7 +518,9 @@ to end users.`,
 
 type mongoAttributesCloudNetworkRule struct {
 	Action              CloudNetworkRuleActionValue `bson:"action"`
+	LocalNetworkTags    []string                    `bson:"localnetworktags,omitempty"`
 	LocalNetworks       []string                    `bson:"localnetworks,omitempty"`
+	NetworkTags         []string                    `bson:"networktags,omitempty"`
 	Networks            []string                    `bson:"networks,omitempty"`
 	Object              [][]string                  `bson:"object"`
 	Priority            int                         `bson:"priority,omitempty"`
