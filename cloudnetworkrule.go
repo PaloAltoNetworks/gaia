@@ -185,6 +185,10 @@ func (o *CloudNetworkRule) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := ValidateOptionalCIDRorIPList("networks", o.Networks); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if err := ValidateServicePorts("protocolPorts", o.ProtocolPorts); err != nil {
 		errors = errors.Append(err)
 	}

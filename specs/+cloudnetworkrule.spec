@@ -54,6 +54,8 @@ attributes:
     stored: true
     read_only: true
     omit_empty: true
+    validations:
+    - $optionalcidroriplist
 
   - name: object
     description: |-
