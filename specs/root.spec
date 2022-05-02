@@ -344,6 +344,16 @@ relations:
   delete:
     description: Deletes a Cloud Scheduled Network Query job.
 
+- rest_name: cloudservicetag
+  get:
+    description: Retrieves the list of service tags.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a Cloud Service Tag.
+  delete:
+    description: Deletes a Cloud Service Tag.
+
 - rest_name: cloudsnapshotaccount
   create:
     description: Initiates a cloud account for snapshot data ingestion.

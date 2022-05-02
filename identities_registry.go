@@ -61,6 +61,7 @@ var (
 		"cloudscaleset":   CloudScaleSetIdentity,
 
 		"cloudschedulednetworkquery": CloudScheduledNetworkQueryIdentity,
+		"cloudservicetag":            CloudServiceTagIdentity,
 		"cloudsnapshotaccount":       CloudSnapshotAccountIdentity,
 		"cloudsubnet":                CloudSubnetIdentity,
 
@@ -268,6 +269,7 @@ var (
 		"cloudscalesets":   CloudScaleSetIdentity,
 
 		"cloudschedulednetworkqueries": CloudScheduledNetworkQueryIdentity,
+		"cloudserviceta":               CloudServiceTagIdentity,
 		"cloudsnapshotaccounts":        CloudSnapshotAccountIdentity,
 		"cloudsubnets":                 CloudSubnetIdentity,
 
@@ -852,6 +854,15 @@ var (
 			{"namespace", "normalizedTags"},
 			{"name"},
 			{"disabled", "lastexecutiontimestamp"},
+		},
+		"cloudservicetag": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"name"},
+			{"createIdempotencyKey"},
 		},
 		"cloudsnapshotaccount": {
 			{"updateIdempotencyKey"},
@@ -1494,6 +1505,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudScaleSet()
 	case CloudScheduledNetworkQueryIdentity:
 		return NewCloudScheduledNetworkQuery()
+	case CloudServiceTagIdentity:
+		return NewCloudServiceTag()
 	case CloudSnapshotAccountIdentity:
 		return NewCloudSnapshotAccount()
 	case CloudSubnetIdentity:
@@ -1855,6 +1868,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudScaleSet()
 	case CloudScheduledNetworkQueryIdentity:
 		return NewSparseCloudScheduledNetworkQuery()
+	case CloudServiceTagIdentity:
+		return NewSparseCloudServiceTag()
 	case CloudSnapshotAccountIdentity:
 		return NewSparseCloudSnapshotAccount()
 	case CloudSubnetIdentity:
@@ -2224,6 +2239,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudScaleSetsList{}
 	case CloudScheduledNetworkQueryIdentity:
 		return &CloudScheduledNetworkQueriesList{}
+	case CloudServiceTagIdentity:
+		return &CloudServiceTagsList{}
 	case CloudSnapshotAccountIdentity:
 		return &CloudSnapshotAccountsList{}
 	case CloudSubnetIdentity:
@@ -2583,6 +2600,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudScaleSetsList{}
 	case CloudScheduledNetworkQueryIdentity:
 		return &SparseCloudScheduledNetworkQueriesList{}
+	case CloudServiceTagIdentity:
+		return &SparseCloudServiceTagsList{}
 	case CloudSnapshotAccountIdentity:
 		return &SparseCloudSnapshotAccountsList{}
 	case CloudSubnetIdentity:
@@ -2919,6 +2938,7 @@ func AllIdentities() []elemental.Identity {
 		CloudRouteTableIdentity,
 		CloudScaleSetIdentity,
 		CloudScheduledNetworkQueryIdentity,
+		CloudServiceTagIdentity,
 		CloudSnapshotAccountIdentity,
 		CloudSubnetIdentity,
 		CloudVPCIdentity,
@@ -3179,6 +3199,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"scalesets",
 		}
 	case CloudScheduledNetworkQueryIdentity:
+		return []string{}
+	case CloudServiceTagIdentity:
 		return []string{}
 	case CloudSnapshotAccountIdentity:
 		return []string{}
