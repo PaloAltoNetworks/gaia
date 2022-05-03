@@ -10,6 +10,9 @@
             "example": "flows{namespace=~\"/mycompany.*\"}",
             "type": "string"
           },
+          "result": {
+            "$ref": "./metricsqueryresult#/components/schemas/metricsqueryresult"
+          },
           "time": {
             "description": "Evaluation timestamp \u003crfc3339 | unix_timestamp\u003e.",
             "example": "2015-07-01T20:11:00.781Z",
