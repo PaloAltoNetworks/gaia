@@ -2,8 +2,8 @@
   "openapi": "3.0.3",
   "components": {
     "schemas": {
-      "cloudnode": {
-        "description": "Manages the list of cloud nodes available in a cloud deployment.",
+      "cloudscaleset": {
+        "description": "A Cloud Scale Set represents a group of homogeneous VMs which are scaled up and\ndown based on the load.",
         "properties": {
           "APIID": {
             "description": "Prisma Cloud API ID (matches Prisma Cloud API ID).",
@@ -37,13 +37,6 @@
           },
           "associatedTags": {
             "description": "List of tags attached to an entity.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "attachments": {
-            "description": "The list of attachments for this node.",
             "items": {
               "type": "string"
             },
@@ -101,11 +94,7 @@
             "type": "array"
           },
           "parameters": {
-            "additionalProperties": {
-              "type": "object"
-            },
-            "description": "The cloud attributes of the object.",
-            "type": "object"
+            "$ref": "./cloudscalesetdata#/components/schemas/cloudscalesetdata"
           },
           "policyReferences": {
             "description": "A list of policy references associated with this cloud node.",
@@ -126,41 +115,10 @@
             "example": "AWS Tokyo",
             "type": "string"
           },
-          "relatedObjectID": {
-            "description": "A reference to a related object.",
-            "type": "string"
-          },
           "resourceID": {
             "description": "Prisma Cloud Resource ID.",
             "example": 12344555,
             "type": "integer"
-          },
-          "securityTags": {
-            "description": "List of security tags associated with the node.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "subType": {
-            "description": "The sub-type of the object as found in the parameters. Used for indexing.",
-            "type": "string"
-          },
-          "type": {
-            "description": "Type of the endpoint.",
-            "enum": [
-              "Endpoint",
-              "Subnet",
-              "VPC",
-              "Interface",
-              "RouteTable",
-              "NetworkRuleSet",
-              "LoadBalancer",
-              "LoadBalancerRoute",
-              "PublicIPAddress",
-              "ScaleSet"
-            ],
-            "example": "Endpoint"
           },
           "updateTime": {
             "description": "Last update date of the object.",
@@ -170,8 +128,7 @@
           }
         },
         "required": [
-          "nativeID",
-          "type"
+          "nativeID"
         ],
         "type": "object"
       }
@@ -187,14 +144,14 @@
       "name": "TODO"
     },
     "termsOfService": "https://localhost/TODO",
-    "title": "cloudnode",
+    "title": "cloudscaleset",
     "version": "1.0"
   },
   "paths": {
-    "/cloudnodes": {
+    "/cloudscalesets": {
       "get": {
-        "description": "Retrieves the list of cloud nodes.",
-        "operationId": "get-all-cloudnodes",
+        "description": "Retrieves the list of Scale Sets.",
+        "operationId": "get-all-cloudscalesets",
         "parameters": [
           {
             "description": "Filtering query. Consequent `q` parameters will form an or.",
@@ -212,7 +169,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/cloudnode"
+                    "$ref": "#/components/schemas/cloudscaleset"
                   },
                   "type": "array"
                 }
@@ -225,18 +182,47 @@
           "pcn/infrastructure",
           "yeul"
         ]
-      }
-    },
-    "/cloudnodes/{id}": {
-      "delete": {
-        "description": "Deletes the cloud node with the given ID.",
-        "operationId": "delete-cloudnode-by-ID",
+      },
+      "post": {
+        "description": "Creates a cloud scale set.",
+        "operationId": "create-a-new-cloudscaleset",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudscaleset"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/cloudnode"
+                  "$ref": "#/components/schemas/cloudscaleset"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      }
+    },
+    "/cloudscalesets/{id}": {
+      "delete": {
+        "description": "Deletes the object with the given ID.",
+        "operationId": "delete-cloudscaleset-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudscaleset"
                 }
               }
             },
@@ -249,14 +235,14 @@
         ]
       },
       "get": {
-        "description": "Retrieves the cloud node with the given ID.",
-        "operationId": "get-cloudnode-by-ID",
+        "description": "Retrieves the object with the given ID.",
+        "operationId": "get-cloudscaleset-by-ID",
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/cloudnode"
+                  "$ref": "#/components/schemas/cloudscaleset"
                 }
               }
             },
@@ -277,7 +263,36 @@
             "type": "string"
           }
         }
-      ]
+      ],
+      "put": {
+        "description": "Updates the object with the given ID.",
+        "operationId": "update-cloudscaleset-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudscaleset"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudscaleset"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      }
     }
   },
   "tags": [
