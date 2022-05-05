@@ -52,6 +52,7 @@ attributes:
     - IPConfiguration
     - VirtualNetwork
     - NetworkSecurityGroup
+    - NATGateway
     example_value: VirtualMachine
 
   - name: name
