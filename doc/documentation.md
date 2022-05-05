@@ -10812,12 +10812,21 @@ Parameters associated with a cloud load balancer.
 
 ```json
 {
+  "attachedEntities": [
+    "subnet-074c152ae45ea0c73"
+  ],
   "name": "lb-009251c49cf46d940",
   "scheme": "internet-facing"
 }
 ```
 
 #### Attributes
+
+##### `attachedEntities`
+
+Type: `[]string`
+
+ID of associated objects with this load balancer.
 
 ##### `listenertargetmapping`
 
