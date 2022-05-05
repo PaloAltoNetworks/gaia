@@ -27,6 +27,12 @@ const (
 	// AzureResourceKindNetworkSecurityGroup represents the value NetworkSecurityGroup.
 	AzureResourceKindNetworkSecurityGroup AzureResourceKindValue = "NetworkSecurityGroup"
 
+	// AzureResourceKindPublicIPAddress represents the value PublicIPAddress.
+	AzureResourceKindPublicIPAddress AzureResourceKindValue = "PublicIPAddress"
+
+	// AzureResourceKindPublicIPPrefix represents the value PublicIPPrefix.
+	AzureResourceKindPublicIPPrefix AzureResourceKindValue = "PublicIPPrefix"
+
 	// AzureResourceKindSubnet represents the value Subnet.
 	AzureResourceKindSubnet AzureResourceKindValue = "Subnet"
 
@@ -474,7 +480,7 @@ func (o *AzureResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -597,7 +603,7 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "external",
 	},
 	"Kind": {
-		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway"},
+		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,
@@ -763,7 +769,7 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Type:           "external",
 	},
 	"kind": {
-		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway"},
+		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,

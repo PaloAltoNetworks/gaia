@@ -53,6 +53,8 @@ attributes:
     - VirtualNetwork
     - NetworkSecurityGroup
     - NATGateway
+    - PublicIPAddress
+    - PublicIPPrefix
     example_value: VirtualMachine
 
   - name: name
