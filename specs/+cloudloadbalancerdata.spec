@@ -11,6 +11,15 @@ model:
 # Attributes
 attributes:
   v1:
+  - name: attachedEntities
+    description: ID of associated objects with this load balancer.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    example_value:
+    - subnet-074c152ae45ea0c73
+
   - name: listenertargetmapping
     description: Mapping of a listener to its associated target group ID list.
     type: external
