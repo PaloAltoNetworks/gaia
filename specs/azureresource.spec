@@ -55,6 +55,7 @@ attributes:
     - NATGateway
     - PublicIPAddress
     - PublicIPPrefix
+    - VirtualMachineScaleSet
     example_value: VirtualMachine
 
   - name: name

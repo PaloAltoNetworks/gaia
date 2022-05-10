@@ -39,6 +39,9 @@ const (
 	// AzureResourceKindVirtualMachine represents the value VirtualMachine.
 	AzureResourceKindVirtualMachine AzureResourceKindValue = "VirtualMachine"
 
+	// AzureResourceKindVirtualMachineScaleSet represents the value VirtualMachineScaleSet.
+	AzureResourceKindVirtualMachineScaleSet AzureResourceKindValue = "VirtualMachineScaleSet"
+
 	// AzureResourceKindVirtualNetwork represents the value VirtualNetwork.
 	AzureResourceKindVirtualNetwork AzureResourceKindValue = "VirtualNetwork"
 )
@@ -480,7 +483,7 @@ func (o *AzureResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -603,7 +606,7 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "external",
 	},
 	"Kind": {
-		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix"},
+		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,
@@ -769,7 +772,7 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Type:           "external",
 	},
 	"kind": {
-		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix"},
+		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,
