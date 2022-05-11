@@ -109,7 +109,7 @@ type DNSLookupReport struct {
 	// Action of the DNS request.
 	Action DNSLookupReportActionValue `json:"action,omitempty" msgpack:"action,omitempty" bson:"a,omitempty" mapstructure:"action,omitempty"`
 
-	// The local ID set by enforcer, used to correllate with flow reports.
+	// The local ID set by enforcer, used to correlate with flow reports.
 	EnforcerDNSReportID string `json:"enforcerDNSReportID,omitempty" msgpack:"enforcerDNSReportID,omitempty" bson:"m,omitempty" mapstructure:"enforcerDNSReportID,omitempty"`
 
 	// ID of the enforcer.
@@ -652,7 +652,7 @@ var DNSLookupReportAttributesMap = map[string]elemental.AttributeSpecification{
 		AllowedChoices: []string{},
 		BSONFieldName:  "m",
 		ConvertedName:  "EnforcerDNSReportID",
-		Description:    `The local ID set by enforcer, used to correllate with flow reports.`,
+		Description:    `The local ID set by enforcer, used to correlate with flow reports.`,
 		Exposed:        true,
 		Name:           "enforcerDNSReportID",
 		Stored:         true,
@@ -868,7 +868,7 @@ var DNSLookupReportLowerCaseAttributesMap = map[string]elemental.AttributeSpecif
 		AllowedChoices: []string{},
 		BSONFieldName:  "m",
 		ConvertedName:  "EnforcerDNSReportID",
-		Description:    `The local ID set by enforcer, used to correllate with flow reports.`,
+		Description:    `The local ID set by enforcer, used to correlate with flow reports.`,
 		Exposed:        true,
 		Name:           "enforcerDNSReportID",
 		Stored:         true,
@@ -1123,7 +1123,7 @@ type SparseDNSLookupReport struct {
 	// Action of the DNS request.
 	Action *DNSLookupReportActionValue `json:"action,omitempty" msgpack:"action,omitempty" bson:"a,omitempty" mapstructure:"action,omitempty"`
 
-	// The local ID set by enforcer, used to correllate with flow reports.
+	// The local ID set by enforcer, used to correlate with flow reports.
 	EnforcerDNSReportID *string `json:"enforcerDNSReportID,omitempty" msgpack:"enforcerDNSReportID,omitempty" bson:"m,omitempty" mapstructure:"enforcerDNSReportID,omitempty"`
 
 	// ID of the enforcer.

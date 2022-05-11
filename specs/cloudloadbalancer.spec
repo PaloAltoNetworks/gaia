@@ -8,7 +8,7 @@ model:
   description: |-
     A CloudLoadBalancer represents a Load Balancer as defined in an cloud provider
     (AWS/Azure/GCP etc).
-    The Load Balancer is essentially an L4,L7 or gateway load balancer with atleast
+    The Load Balancer is essentially an L4,L7 or gateway load balancer with at least
     1 target group attached and it defines how a load balancing happens.
   aliases:
   - loadbalancer
@@ -32,7 +32,7 @@ model:
 attributes:
   v1:
   - name: parameters
-    description: LoadBalancer related parameters.
+    description: Load Balancer related parameters.
     type: ref
     exposed: true
     subtype: cloudloadbalancerdata
