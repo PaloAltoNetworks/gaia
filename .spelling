@@ -57,6 +57,8 @@ autodiscover
 autodiscover
 automations
 automations
+AutomationAction
+AutomationCondition
 AutomationTemplate
 AWSAccount
 backend
@@ -92,6 +94,12 @@ CloudGraph
 CloudGraphNode
 CloudGraphNodeAction
 CloudInterfaceData
+CloudIPConfiguration
+CloudLoadBalancer
+CloudLoadBalancerData
+CloudLoadBalancerRoute
+CloudLoadBalancerRouteData
+CloudNetworkConfigData
 CloudManagedNetwork
 CloudNetworkInterface
 CloudNetworkQuery
@@ -102,10 +110,14 @@ CloudNetworkRuleSet
 CloudNetworkRuleSetData
 CloudNode
 CloudPolicy
+CloudPublicIPAddress
 CloudRoute
 CloudRouteData
 CloudRouteTable
+CloudScaleSet
+CloudScaleSetData
 CloudScheduledNetworkQuery
+CloudServiceTag
 CloudSnapshotAccount
 CloudSubnet
 CloudSubnetData
@@ -125,6 +137,7 @@ CommonName
 ComplianceIssue
 ConnectionExceptionReport
 ConnectionExceptionReports
+ConnectionsResult
 containerd
 containerd
 ContainerImage
@@ -137,6 +150,7 @@ CRDs
 CRI-O
 cron
 cron
+CurrentConnection
 daemonset
 daemonset
 DaemonSet
@@ -147,7 +161,7 @@ DebugBundle
 DefaultEnforcerVersion
 DependencyMap
 depmaps
-depmaps
+DestinationFQDN
 DiscoveryMode
 dns
 dns
@@ -176,6 +190,7 @@ EnforcerProfileMappingPolicy
 EnforcerRefresh
 EnforcerReport
 EnforcerReports
+EnforcerSecret
 EnforcerTraceReport
 enum
 enum
@@ -197,12 +212,14 @@ FlowReports
 FNV-32a
 fqdns
 FreeBSD
+FullMatch
 georedundancy
 georedundancy
 GitLab
 Golang
 Grafana
 GraphEdge
+GraphEdgeFlowDetails
 GraphGroup
 GraphNode
 GraphPolicyInfo
@@ -293,7 +310,9 @@ MessagePack
 metadata
 metadata
 MetricsQuery
+metricsquery
 MetricsQueryRange
+MetricsQueryResult
 Microsegmentation
 microservice
 Midgard
@@ -316,13 +335,14 @@ NamespaceType
 NamespaceUnique
 nativeID
 NetworkAccessPolicy
-NetworkPath 
+NetworkPath
 NetworkRule
 NetworkRuleNet
 NetworkRuleSetPolicy
 NfQueue
 nginx
 nginx
+NICs
 nip.io
 nip.io
 NodePort
@@ -349,6 +369,8 @@ PacketReport
 PacketReport
 PacketReports
 Palo
+parentID
+PartialMatch
 PasswordReset
 PasswordReset
 PCC
@@ -409,6 +431,7 @@ pu
 pu
 publicApplicationPort
 publicApplicationPort
+PublicIPAddress
 purefresh
 PUTrafficAction
 quota
@@ -491,6 +514,8 @@ svc
 synack
 synack
 SynAckTransmitted
+Syslog
+syslog
 syslogs
 syslogs
 systemd
@@ -540,6 +565,7 @@ VMs
 VMs
 VPC
 VPCs
+v1
 Webhook
 Webhook
 whitelist

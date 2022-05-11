@@ -65,7 +65,7 @@ attributes:
     orderable: true
 
   - name: flowReportInterval
-    description: Frequency that flow report counts are upated.
+    description: Frequency that flow report counts are updated.
     type: string
     exposed: true
     stored: true
@@ -117,7 +117,7 @@ attributes:
     deprecated: true
 
   - name: syslogEnabled
-    description: Enables syslog functionality of enforcers using this enforcerprofile.
+    description: Enables syslog functionality of enforcers using this enforcer profile.
     type: boolean
     exposed: true
     stored: true

@@ -37,7 +37,7 @@ attributes:
     stored: true
 
   - name: attachedEntities
-    description: A list of entitites that are associated to a given endpoint.
+    description: A list of entities that are associated to a given endpoint.
     type: list
     exposed: true
     subtype: string
