@@ -27,8 +27,10 @@ var (
 		"automation":                AutomationIdentity,
 		"automationaction":          AutomationActionIdentity,
 		"automationcondition":       AutomationConditionIdentity,
-		"cachedflowreport":          CachedFlowReportIdentity,
-		"category":                  CategoryIdentity,
+		"bucketdestinationport":     BucketDestinationPortIdentity,
+
+		"cachedflowreport": CachedFlowReportIdentity,
+		"category":         CategoryIdentity,
 
 		"claims":              ClaimsIdentity,
 		"clausesmatch":        ClauseMatchIdentity,
@@ -235,8 +237,10 @@ var (
 		"automations":                 AutomationIdentity,
 		"automationactions":           AutomationActionIdentity,
 		"automationconditions":        AutomationConditionIdentity,
-		"cachedflowreports":           CachedFlowReportIdentity,
-		"categories":                  CategoryIdentity,
+		"bucketdestinationports":      BucketDestinationPortIdentity,
+
+		"cachedflowreports": CachedFlowReportIdentity,
+		"categories":        CategoryIdentity,
 
 		"claims":              ClaimsIdentity,
 		"clausesmatches":      ClauseMatchIdentity,
@@ -436,6 +440,7 @@ var (
 		"auto":               AutomationIdentity,
 		"autoact":            AutomationActionIdentity,
 		"autocon":            AutomationConditionIdentity,
+		"bktdestport":        BucketDestinationPortIdentity,
 		"loadbalancer":       CloudLoadBalancerIdentity,
 		"loadbalancers":      CloudLoadBalancerIdentity,
 		"loadbalancerroute":  CloudLoadBalancerRouteIdentity,
@@ -663,6 +668,10 @@ var (
 			{"namespace", "key"},
 			{"name"},
 			{"createIdempotencyKey"},
+		},
+		"bucketdestinationport": {
+			{"namespace"},
+			{"namespace", "normalizedTags"},
 		},
 		"cachedflowreport": {
 			{"sourceID"},
@@ -1461,6 +1470,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewAutomationAction()
 	case AutomationConditionIdentity:
 		return NewAutomationCondition()
+	case BucketDestinationPortIdentity:
+		return NewBucketDestinationPort()
 	case CachedFlowReportIdentity:
 		return NewCachedFlowReport()
 	case CategoryIdentity:
@@ -1824,6 +1835,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseAutomationAction()
 	case AutomationConditionIdentity:
 		return NewSparseAutomationCondition()
+	case BucketDestinationPortIdentity:
+		return NewSparseBucketDestinationPort()
 	case CachedFlowReportIdentity:
 		return NewSparseCachedFlowReport()
 	case CategoryIdentity:
@@ -2195,6 +2208,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &AutomationActionsList{}
 	case AutomationConditionIdentity:
 		return &AutomationConditionsList{}
+	case BucketDestinationPortIdentity:
+		return &BucketDestinationPortsList{}
 	case CachedFlowReportIdentity:
 		return &CachedFlowReportsList{}
 	case CategoryIdentity:
@@ -2556,6 +2571,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseAutomationActionsList{}
 	case AutomationConditionIdentity:
 		return &SparseAutomationConditionsList{}
+	case BucketDestinationPortIdentity:
+		return &SparseBucketDestinationPortsList{}
 	case CachedFlowReportIdentity:
 		return &SparseCachedFlowReportsList{}
 	case CategoryIdentity:
@@ -2916,6 +2933,7 @@ func AllIdentities() []elemental.Identity {
 		AutomationIdentity,
 		AutomationActionIdentity,
 		AutomationConditionIdentity,
+		BucketDestinationPortIdentity,
 		CachedFlowReportIdentity,
 		CategoryIdentity,
 		ClaimsIdentity,
@@ -3141,6 +3159,10 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case AutomationConditionIdentity:
 		return []string{
 			"autocon",
+		}
+	case BucketDestinationPortIdentity:
+		return []string{
+			"bktdestport",
 		}
 	case CachedFlowReportIdentity:
 		return []string{}

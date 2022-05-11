@@ -632,6 +632,25 @@ map[string]bool:
         }
       }
 
+map[string]bucketentry:
+  elemental:
+    type: map[string]*BucketEntry
+    init: map[string]*BucketEntry{}
+  jsonschema:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": true
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object"
+        }
+      }
+
 map[string]int:
   elemental:
     type: map[string]int
