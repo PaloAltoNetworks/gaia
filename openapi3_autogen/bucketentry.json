@@ -1,0 +1,53 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "bucketentry": {
+        "description": "Represent an entry within a bucket.",
+        "properties": {
+          "action": {
+            "description": "Action applied to the type.",
+            "enum": [
+              "Accept",
+              "Reject"
+            ],
+            "example": "Accept"
+          },
+          "timestamp": {
+            "description": "Time and date of the entry.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "action"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "bucketentry",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'applicationinsight/buckets'",
+      "name": "applicationinsight/buckets"
+    },
+    {
+      "description": "This tag is for package 'agrias'",
+      "name": "agrias"
+    }
+  ]
+}
