@@ -156,7 +156,7 @@ type EnforcerProfile struct {
 	// traffic to the Kubernetes API, and using Microsegmentation for SSH only.
 	ExcludedNetworks []string `json:"excludedNetworks" msgpack:"excludedNetworks" bson:"excludednetworks" mapstructure:"excludedNetworks,omitempty"`
 
-	// Frequency that flow report counts are upated.
+	// Frequency that flow report counts are updated.
 	FlowReportInterval string `json:"flowReportInterval" msgpack:"flowReportInterval" bson:"flowreportinterval" mapstructure:"flowReportInterval,omitempty"`
 
 	// A tag expression that identifies processing units to ignore. This can be
@@ -195,7 +195,7 @@ type EnforcerProfile struct {
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
-	// Enables syslog functionality of enforcers using this enforcerprofile.
+	// Enables syslog functionality of enforcers using this enforcer profile.
 	SyslogEnabled bool `json:"syslogEnabled" msgpack:"syslogEnabled" bson:"syslogenabled" mapstructure:"syslogEnabled,omitempty"`
 
 	// Contains the remote endpoint to dispatch the syslog messages.
@@ -1154,7 +1154,7 @@ traffic to the Kubernetes API, and using Microsegmentation for SSH only.`,
 		BSONFieldName:  "flowreportinterval",
 		ConvertedName:  "FlowReportInterval",
 		DefaultValue:   "30m",
-		Description:    `Frequency that flow report counts are upated.`,
+		Description:    `Frequency that flow report counts are updated.`,
 		Exposed:        true,
 		Name:           "flowReportInterval",
 		Stored:         true,
@@ -1314,7 +1314,7 @@ with the '@' prefix, and should only be used by external systems.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "syslogenabled",
 		ConvertedName:  "SyslogEnabled",
-		Description:    `Enables syslog functionality of enforcers using this enforcerprofile.`,
+		Description:    `Enables syslog functionality of enforcers using this enforcer profile.`,
 		Exposed:        true,
 		Name:           "syslogEnabled",
 		Stored:         true,
@@ -1590,7 +1590,7 @@ traffic to the Kubernetes API, and using Microsegmentation for SSH only.`,
 		BSONFieldName:  "flowreportinterval",
 		ConvertedName:  "FlowReportInterval",
 		DefaultValue:   "30m",
-		Description:    `Frequency that flow report counts are upated.`,
+		Description:    `Frequency that flow report counts are updated.`,
 		Exposed:        true,
 		Name:           "flowReportInterval",
 		Stored:         true,
@@ -1750,7 +1750,7 @@ with the '@' prefix, and should only be used by external systems.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "syslogenabled",
 		ConvertedName:  "SyslogEnabled",
-		Description:    `Enables syslog functionality of enforcers using this enforcerprofile.`,
+		Description:    `Enables syslog functionality of enforcers using this enforcer profile.`,
 		Exposed:        true,
 		Name:           "syslogEnabled",
 		Stored:         true,
@@ -2002,7 +2002,7 @@ type SparseEnforcerProfile struct {
 	// traffic to the Kubernetes API, and using Microsegmentation for SSH only.
 	ExcludedNetworks *[]string `json:"excludedNetworks,omitempty" msgpack:"excludedNetworks,omitempty" bson:"excludednetworks,omitempty" mapstructure:"excludedNetworks,omitempty"`
 
-	// Frequency that flow report counts are upated.
+	// Frequency that flow report counts are updated.
 	FlowReportInterval *string `json:"flowReportInterval,omitempty" msgpack:"flowReportInterval,omitempty" bson:"flowreportinterval,omitempty" mapstructure:"flowReportInterval,omitempty"`
 
 	// A tag expression that identifies processing units to ignore. This can be
@@ -2041,7 +2041,7 @@ type SparseEnforcerProfile struct {
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
-	// Enables syslog functionality of enforcers using this enforcerprofile.
+	// Enables syslog functionality of enforcers using this enforcer profile.
 	SyslogEnabled *bool `json:"syslogEnabled,omitempty" msgpack:"syslogEnabled,omitempty" bson:"syslogenabled,omitempty" mapstructure:"syslogEnabled,omitempty"`
 
 	// Contains the remote endpoint to dispatch the syslog messages.

@@ -33,7 +33,7 @@ model:
 attributes:
   v1:
   - name: parameters
-    description: LoadBalancer route related parameters.
+    description: Load Balancer route related parameters.
     type: ref
     exposed: true
     subtype: cloudloadbalancerroutedata
