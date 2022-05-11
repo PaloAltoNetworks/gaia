@@ -305,7 +305,7 @@ func (o *CloudPublicIPAddress) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *CloudPublicIPAddress) Doc() string {
 
-	return `A CloudPublicIPAddress represents a PublicIPAdress as defined in an Azure cloud
+	return `A CloudPublicIPAddress represents a PublicIPAddress as defined in an Azure cloud
 provider.`
 }
 

@@ -48,7 +48,7 @@ attributes:
       bson_name: a
 
   - name: enforcerDNSReportID
-    description: The local ID set by enforcer, used to correllate with flow reports.
+    description: The local ID set by enforcer, used to correlate with flow reports.
     type: string
     exposed: true
     stored: true

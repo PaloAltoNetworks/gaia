@@ -3,8 +3,8 @@ SHELL := /bin/bash -o pipefail
 
 export GO111MODULE = on
 
-default: format codegen openapi3gen lint test diff-check
-all: format codegen openapi3gen lint test
+default: generate spelling lint test diff-check
+all: generate spelling lint test
 generate: format codegen openapi3gen
 
 .PHONY:codegen

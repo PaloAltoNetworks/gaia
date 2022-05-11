@@ -10343,7 +10343,7 @@ it can apply in some gateways.
 
 Type: `[]string`
 
-A list of entitites that are associated to a given endpoint.
+A list of entities that are associated to a given endpoint.
 
 ##### `attachedInterfaces`
 
@@ -10680,7 +10680,7 @@ Subnet of the NIC associated to the Scale Set.
 
 A CloudLoadBalancer represents a Load Balancer as defined in an cloud provider
 (AWS/Azure/GCP etc).
-The Load Balancer is essentially an L4,L7 or gateway load balancer with atleast
+The Load Balancer is essentially an L4,L7 or gateway load balancer with at least
 1 target group attached and it defines how a load balancing happens.
 
 #### Example
@@ -10825,7 +10825,7 @@ Contains the list of normalized tags of the entities.
 
 Type: [`cloudloadbalancerdata`](#cloudloadbalancerdata)
 
-LoadBalancer related parameters.
+Load Balancer related parameters.
 
 ##### `policyReferences`
 
@@ -11049,7 +11049,7 @@ Contains the list of normalized tags of the entities.
 
 Type: [`cloudloadbalancerroutedata`](#cloudloadbalancerroutedata)
 
-LoadBalancer route related parameters.
+Load Balancer route related parameters.
 
 ##### `policyReferences`
 
@@ -12574,7 +12574,7 @@ Last update date of the object.
 
 ### CloudPublicIPAddress
 
-A CloudPublicIPAddress represents a PublicIPAdress as defined in an Azure cloud
+A CloudPublicIPAddress represents a PublicIPAddress as defined in an Azure cloud
 provider.
 
 #### Example
@@ -15517,7 +15517,7 @@ Action of the DNS request.
 
 Type: `string`
 
-The local ID set by enforcer, used to correllate with flow reports.
+The local ID set by enforcer, used to correlate with flow reports.
 
 ##### `enforcerID`
 
@@ -15719,7 +15719,7 @@ traffic to the Kubernetes API, and using Microsegmentation for SSH only.
 
 Type: `string`
 
-Frequency that flow report counts are upated.
+Frequency that flow report counts are updated.
 
 Default value:
 
@@ -15812,7 +15812,7 @@ Defines if the object is protected.
 
 Type: `boolean`
 
-Enables syslog functionality of enforcers using this enforcerprofile.
+Enables syslog functionality of enforcers using this enforcer profile.
 
 ##### `syslogEndpoint`
 
