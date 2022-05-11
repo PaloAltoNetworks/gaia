@@ -56,6 +56,7 @@ attributes:
     - PublicIPAddress
     - PublicIPPrefix
     - VirtualMachineScaleSet
+    - VirtualMachineScaleSetVM
     example_value: VirtualMachine
 
   - name: name
