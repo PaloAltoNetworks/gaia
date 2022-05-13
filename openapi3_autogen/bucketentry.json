@@ -13,6 +13,11 @@
             ],
             "example": "Accept"
           },
+          "occurrences": {
+            "default": 1,
+            "description": "Number of times the entry was logged.",
+            "type": "integer"
+          },
           "timestamp": {
             "description": "Time and date of the entry.",
             "format": "date-time",
@@ -20,7 +25,8 @@
           }
         },
         "required": [
-          "action"
+          "action",
+          "occurrences"
         ],
         "type": "object"
       }

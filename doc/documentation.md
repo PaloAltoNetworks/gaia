@@ -70,7 +70,8 @@ Represent an entry within a bucket.
 
 ```json
 {
-  "action": "Accept"
+  "action": "Accept",
+  "occurrences": 1
 }
 ```
 
@@ -81,6 +82,18 @@ Represent an entry within a bucket.
 Type: `enum(Accept | Reject)`
 
 Action applied to the type.
+
+##### `occurrences` [`required`]
+
+Type: `integer`
+
+Number of times the entry was logged.
+
+Default value:
+
+```json
+1
+```
 
 ##### `timestamp`
 

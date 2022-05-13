@@ -28,6 +28,9 @@ type BucketEntry struct {
 	// Action applied to the type.
 	Action BucketEntryActionValue `json:"action,omitempty" msgpack:"action,omitempty" bson:"action,omitempty" mapstructure:"action,omitempty"`
 
+	// Number of times the entry was logged.
+	Occurrences int `json:"occurrences" msgpack:"occurrences" bson:"occurrences" mapstructure:"occurrences,omitempty"`
+
 	// Time and date of the entry.
 	Timestamp time.Time `json:"timestamp,omitempty" msgpack:"timestamp,omitempty" bson:"timestamp,omitempty" mapstructure:"timestamp,omitempty"`
 
@@ -39,6 +42,7 @@ func NewBucketEntry() *BucketEntry {
 
 	return &BucketEntry{
 		ModelVersion: 1,
+		Occurrences:  1,
 	}
 }
 
@@ -53,6 +57,7 @@ func (o *BucketEntry) GetBSON() (interface{}, error) {
 	s := &mongoAttributesBucketEntry{}
 
 	s.Action = o.Action
+	s.Occurrences = o.Occurrences
 	s.Timestamp = o.Timestamp
 
 	return s, nil
@@ -72,6 +77,7 @@ func (o *BucketEntry) SetBSON(raw bson.Raw) error {
 	}
 
 	o.Action = s.Action
+	o.Occurrences = s.Occurrences
 	o.Timestamp = s.Timestamp
 
 	return nil
@@ -121,6 +127,10 @@ func (o *BucketEntry) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := elemental.ValidateRequiredInt("occurrences", o.Occurrences); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
 	if len(requiredErrors) > 0 {
 		return requiredErrors
 	}
@@ -157,6 +167,8 @@ func (o *BucketEntry) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "action":
 		return o.Action
+	case "occurrences":
+		return o.Occurrences
 	case "timestamp":
 		return o.Timestamp
 	}
@@ -176,6 +188,18 @@ var BucketEntryAttributesMap = map[string]elemental.AttributeSpecification{
 		Required:       true,
 		Stored:         true,
 		Type:           "enum",
+	},
+	"Occurrences": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "occurrences",
+		ConvertedName:  "Occurrences",
+		DefaultValue:   1,
+		Description:    `Number of times the entry was logged.`,
+		Exposed:        true,
+		Name:           "occurrences",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
 	},
 	"Timestamp": {
 		AllowedChoices: []string{},
@@ -203,6 +227,18 @@ var BucketEntryLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Stored:         true,
 		Type:           "enum",
 	},
+	"occurrences": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "occurrences",
+		ConvertedName:  "Occurrences",
+		DefaultValue:   1,
+		Description:    `Number of times the entry was logged.`,
+		Exposed:        true,
+		Name:           "occurrences",
+		Required:       true,
+		Stored:         true,
+		Type:           "integer",
+	},
 	"timestamp": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "timestamp",
@@ -217,6 +253,7 @@ var BucketEntryLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 }
 
 type mongoAttributesBucketEntry struct {
-	Action    BucketEntryActionValue `bson:"action,omitempty"`
-	Timestamp time.Time              `bson:"timestamp,omitempty"`
+	Action      BucketEntryActionValue `bson:"action,omitempty"`
+	Occurrences int                    `bson:"occurrences"`
+	Timestamp   time.Time              `bson:"timestamp,omitempty"`
 }

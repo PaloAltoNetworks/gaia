@@ -23,6 +23,14 @@ attributes:
     example_value: Accept
     omit_empty: true
 
+  - name: occurrences
+    description: Number of times the entry was logged.
+    type: integer
+    exposed: true
+    stored: true
+    required: true
+    default_value: 1
+
   - name: timestamp
     description: Time and date of the entry.
     type: time
