@@ -670,8 +670,10 @@ var (
 			{"createIdempotencyKey"},
 		},
 		"bucketdestinationport": {
+			{"namespace", "date"},
 			{"namespace"},
 			{"namespace", "normalizedTags"},
+			{":shard", ":unique", "zone", "zHash"},
 		},
 		"cachedflowreport": {
 			{"sourceID"},

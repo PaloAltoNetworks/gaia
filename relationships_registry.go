@@ -754,7 +754,38 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[BucketDestinationPortIdentity] = &elemental.Relationship{}
+	relationshipsRegistry[BucketDestinationPortIdentity] = &elemental.Relationship{
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "numberOfTopEntries",
+						Type: "integer",
+					},
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "numberOfTopEntries",
+						Type: "integer",
+					},
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+	}
 
 	relationshipsRegistry[CNSConfigIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{

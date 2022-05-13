@@ -5,6 +5,16 @@
       "bucketdestinationport": {
         "description": "Holds the destination ports of flows across 24 hours (beginning of a day to\nthe end).",
         "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "date": {
+            "description": "The date that the bucket tracks.",
+            "example": "2022-05-09",
+            "type": "string"
+          },
           "namespace": {
             "description": "Namespace tag attached to an entity.",
             "readOnly": true,
@@ -12,7 +22,10 @@
           },
           "ports": {
             "additionalProperties": {
-              "type": "object"
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
             },
             "description": "Ports encountered and number of occurrences seen.",
             "type": "object"
@@ -20,12 +33,15 @@
           "topPorts": {
             "description": "List of most encountered ports, sorted by occurrences.",
             "items": {
-              "type": "string"
+              "$ref": "./buckettopentry#/components/schemas/buckettopentry"
             },
             "readOnly": true,
             "type": "array"
           }
         },
+        "required": [
+          "date"
+        ],
         "type": "object"
       }
     }
@@ -43,7 +59,52 @@
     "title": "bucketdestinationport",
     "version": "1.0"
   },
-  "paths": {},
+  "paths": {
+    "/bucketdestinationports": {
+      "get": {
+        "description": "Retrieves the list of destination port buckets.",
+        "operationId": "get-all-bucketdestinationports",
+        "parameters": [
+          {
+            "description": "if set, it will return the top entries up to the number specified (default 10).",
+            "in": "query",
+            "name": "numberOfTopEntries",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/bucketdestinationport"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "applicationinsight/buckets",
+          "agrias"
+        ]
+      }
+    }
+  },
   "tags": [
     {
       "description": "This tag is for group 'applicationinsight/buckets'",

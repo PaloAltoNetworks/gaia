@@ -553,6 +553,34 @@ json.RawMessage:
         "type": "string"
       }
 
+map[string][]bucketentry:
+  elemental:
+    type: map[string][]*BucketEntry
+    init: map[string][]*BucketEntry{}
+  jsonschema:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+
 map[string][]map[string]interface{}:
   elemental:
     type: map[string][]map[string]interface{}
@@ -629,25 +657,6 @@ map[string]bool:
         "type": "object",
         "additionalProperties": {
           "type": "boolean"
-        }
-      }
-
-map[string]bucketentry:
-  elemental:
-    type: map[string]*BucketEntry
-    init: map[string]*BucketEntry{}
-  jsonschema:
-    type: |-
-      {
-        "type": "object",
-        "additionalProperties": true
-      }
-  openapi3:
-    type: |-
-      {
-        "type": "object",
-        "additionalProperties": {
-          "type": "object"
         }
       }
 

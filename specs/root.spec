@@ -188,6 +188,18 @@ relations:
   create:
     description: Creates a new automation condition.
 
+- rest_name: bucketdestinationport
+  get:
+    description: Retrieves the list of destination port buckets.
+    global_parameters:
+    - $filtering
+    parameters:
+      entries:
+      - name: numberOfTopEntries
+        description: if set, it will return the top entries up to the number specified
+          (default 10).
+        type: integer
+
 - rest_name: cachedflowreport
   create:
     description: Create a cached flow statistics report.

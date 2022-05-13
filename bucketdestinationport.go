@@ -83,14 +83,30 @@ func (o BucketDestinationPortsList) Version() int {
 
 // BucketDestinationPort represents the model of a bucketdestinationport
 type BucketDestinationPort struct {
+	// Identifier of the object.
+	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
+
+	// The date that the bucket tracks.
+	Date string `json:"date" msgpack:"date" bson:"date" mapstructure:"date,omitempty"`
+
+	// Internal property maintaining migrations information.
+	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
+
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
 
 	// Ports encountered and number of occurrences seen.
-	Ports map[string]*BucketEntry `json:"ports,omitempty" msgpack:"ports,omitempty" bson:"ports,omitempty" mapstructure:"ports,omitempty"`
+	Ports map[string][]*BucketEntry `json:"ports,omitempty" msgpack:"ports,omitempty" bson:"ports,omitempty" mapstructure:"ports,omitempty"`
 
 	// List of most encountered ports, sorted by occurrences.
-	TopPorts []string `json:"topPorts,omitempty" msgpack:"topPorts,omitempty" bson:"-" mapstructure:"topPorts,omitempty"`
+	TopPorts []*BucketTopEntry `json:"topPorts,omitempty" msgpack:"topPorts,omitempty" bson:"-" mapstructure:"topPorts,omitempty"`
+
+	// geographical hash of the data. This is used for sharding and
+	// georedundancy.
+	ZHash int `json:"-" msgpack:"-" bson:"zhash" mapstructure:"-,omitempty"`
+
+	// Logical storage zone. Used for sharding.
+	Zone int `json:"-" msgpack:"-" bson:"zone" mapstructure:"-,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -99,9 +115,10 @@ type BucketDestinationPort struct {
 func NewBucketDestinationPort() *BucketDestinationPort {
 
 	return &BucketDestinationPort{
-		ModelVersion: 1,
-		Ports:        map[string]*BucketEntry{},
-		TopPorts:     []string{},
+		ModelVersion:  1,
+		MigrationsLog: map[string]string{},
+		Ports:         map[string][]*BucketEntry{},
+		TopPorts:      []*BucketTopEntry{},
 	}
 }
 
@@ -114,12 +131,13 @@ func (o *BucketDestinationPort) Identity() elemental.Identity {
 // Identifier returns the value of the object's unique identifier.
 func (o *BucketDestinationPort) Identifier() string {
 
-	return ""
+	return o.ID
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
 func (o *BucketDestinationPort) SetIdentifier(id string) {
 
+	o.ID = id
 }
 
 // GetBSON implements the bson marshaling interface.
@@ -132,8 +150,15 @@ func (o *BucketDestinationPort) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesBucketDestinationPort{}
 
+	if o.ID != "" {
+		s.ID = bson.ObjectIdHex(o.ID)
+	}
+	s.Date = o.Date
+	s.MigrationsLog = o.MigrationsLog
 	s.Namespace = o.Namespace
 	s.Ports = o.Ports
+	s.ZHash = o.ZHash
+	s.Zone = o.Zone
 
 	return s, nil
 }
@@ -151,8 +176,13 @@ func (o *BucketDestinationPort) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	o.ID = s.ID.Hex()
+	o.Date = s.Date
+	o.MigrationsLog = s.MigrationsLog
 	o.Namespace = s.Namespace
 	o.Ports = s.Ports
+	o.ZHash = s.ZHash
+	o.Zone = s.Zone
 
 	return nil
 }
@@ -187,6 +217,18 @@ func (o *BucketDestinationPort) String() string {
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
+// GetMigrationsLog returns the MigrationsLog of the receiver.
+func (o *BucketDestinationPort) GetMigrationsLog() map[string]string {
+
+	return o.MigrationsLog
+}
+
+// SetMigrationsLog sets the property MigrationsLog of the receiver using the given value.
+func (o *BucketDestinationPort) SetMigrationsLog(migrationsLog map[string]string) {
+
+	o.MigrationsLog = migrationsLog
+}
+
 // GetNamespace returns the Namespace of the receiver.
 func (o *BucketDestinationPort) GetNamespace() string {
 
@@ -199,6 +241,30 @@ func (o *BucketDestinationPort) SetNamespace(namespace string) {
 	o.Namespace = namespace
 }
 
+// GetZHash returns the ZHash of the receiver.
+func (o *BucketDestinationPort) GetZHash() int {
+
+	return o.ZHash
+}
+
+// SetZHash sets the property ZHash of the receiver using the given value.
+func (o *BucketDestinationPort) SetZHash(zHash int) {
+
+	o.ZHash = zHash
+}
+
+// GetZone returns the Zone of the receiver.
+func (o *BucketDestinationPort) GetZone() int {
+
+	return o.Zone
+}
+
+// SetZone sets the property Zone of the receiver using the given value.
+func (o *BucketDestinationPort) SetZone(zone int) {
+
+	o.Zone = zone
+}
+
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
 func (o *BucketDestinationPort) ToSparse(fields ...string) elemental.SparseIdentifiable {
@@ -206,21 +272,36 @@ func (o *BucketDestinationPort) ToSparse(fields ...string) elemental.SparseIdent
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseBucketDestinationPort{
-			Namespace: &o.Namespace,
-			Ports:     &o.Ports,
-			TopPorts:  &o.TopPorts,
+			ID:            &o.ID,
+			Date:          &o.Date,
+			MigrationsLog: &o.MigrationsLog,
+			Namespace:     &o.Namespace,
+			Ports:         &o.Ports,
+			TopPorts:      &o.TopPorts,
+			ZHash:         &o.ZHash,
+			Zone:          &o.Zone,
 		}
 	}
 
 	sp := &SparseBucketDestinationPort{}
 	for _, f := range fields {
 		switch f {
+		case "ID":
+			sp.ID = &(o.ID)
+		case "date":
+			sp.Date = &(o.Date)
+		case "migrationsLog":
+			sp.MigrationsLog = &(o.MigrationsLog)
 		case "namespace":
 			sp.Namespace = &(o.Namespace)
 		case "ports":
 			sp.Ports = &(o.Ports)
 		case "topPorts":
 			sp.TopPorts = &(o.TopPorts)
+		case "zHash":
+			sp.ZHash = &(o.ZHash)
+		case "zone":
+			sp.Zone = &(o.Zone)
 		}
 	}
 
@@ -234,6 +315,15 @@ func (o *BucketDestinationPort) Patch(sparse elemental.SparseIdentifiable) {
 	}
 
 	so := sparse.(*SparseBucketDestinationPort)
+	if so.ID != nil {
+		o.ID = *so.ID
+	}
+	if so.Date != nil {
+		o.Date = *so.Date
+	}
+	if so.MigrationsLog != nil {
+		o.MigrationsLog = *so.MigrationsLog
+	}
 	if so.Namespace != nil {
 		o.Namespace = *so.Namespace
 	}
@@ -242,6 +332,12 @@ func (o *BucketDestinationPort) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.TopPorts != nil {
 		o.TopPorts = *so.TopPorts
+	}
+	if so.ZHash != nil {
+		o.ZHash = *so.ZHash
+	}
+	if so.Zone != nil {
+		o.Zone = *so.Zone
 	}
 }
 
@@ -274,6 +370,20 @@ func (o *BucketDestinationPort) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
+
+	if err := elemental.ValidateRequiredString("date", o.Date); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	for _, sub := range o.TopPorts {
+		if sub == nil {
+			continue
+		}
+		elemental.ResetDefaultForZeroValues(sub)
+		if err := sub.Validate(); err != nil {
+			errors = errors.Append(err)
+		}
+	}
 
 	if len(requiredErrors) > 0 {
 		return requiredErrors
@@ -309,12 +419,22 @@ func (*BucketDestinationPort) AttributeSpecifications() map[string]elemental.Att
 func (o *BucketDestinationPort) ValueForAttribute(name string) interface{} {
 
 	switch name {
+	case "ID":
+		return o.ID
+	case "date":
+		return o.Date
+	case "migrationsLog":
+		return o.MigrationsLog
 	case "namespace":
 		return o.Namespace
 	case "ports":
 		return o.Ports
 	case "topPorts":
 		return o.TopPorts
+	case "zHash":
+		return o.ZHash
+	case "zone":
+		return o.Zone
 	}
 
 	return nil
@@ -322,6 +442,45 @@ func (o *BucketDestinationPort) ValueForAttribute(name string) interface{} {
 
 // BucketDestinationPortAttributesMap represents the map of attribute for BucketDestinationPort.
 var BucketDestinationPortAttributesMap = map[string]elemental.AttributeSpecification{
+	"ID": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "_id",
+		ConvertedName:  "ID",
+		Description:    `Identifier of the object.`,
+		Exposed:        true,
+		Filterable:     true,
+		Identifier:     true,
+		Name:           "ID",
+		Orderable:      true,
+		ReadOnly:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"Date": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "date",
+		ConvertedName:  "Date",
+		CreationOnly:   true,
+		Description:    `The date that the bucket tracks.`,
+		Exposed:        true,
+		Name:           "date",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"MigrationsLog": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "migrationslog",
+		ConvertedName:  "MigrationsLog",
+		Description:    `Internal property maintaining migrations information.`,
+		Getter:         true,
+		Name:           "migrationsLog",
+		Setter:         true,
+		Stored:         true,
+		SubType:        "map[string]string",
+		Type:           "external",
+	},
 	"Namespace": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -346,7 +505,7 @@ var BucketDestinationPortAttributesMap = map[string]elemental.AttributeSpecifica
 		Exposed:        true,
 		Name:           "ports",
 		Stored:         true,
-		SubType:        "map[string]bucketentry",
+		SubType:        "map[string][]bucketentry",
 		Type:           "external",
 	},
 	"TopPorts": {
@@ -357,13 +516,80 @@ var BucketDestinationPortAttributesMap = map[string]elemental.AttributeSpecifica
 		Exposed:        true,
 		Name:           "topPorts",
 		ReadOnly:       true,
-		SubType:        "string",
-		Type:           "list",
+		SubType:        "buckettopentry",
+		Type:           "refList",
+	},
+	"ZHash": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "zhash",
+		ConvertedName:  "ZHash",
+		Description: `geographical hash of the data. This is used for sharding and
+georedundancy.`,
+		Getter:   true,
+		Name:     "zHash",
+		ReadOnly: true,
+		Setter:   true,
+		Stored:   true,
+		Type:     "integer",
+	},
+	"Zone": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "zone",
+		ConvertedName:  "Zone",
+		Description:    `Logical storage zone. Used for sharding.`,
+		Getter:         true,
+		Name:           "zone",
+		ReadOnly:       true,
+		Setter:         true,
+		Stored:         true,
+		Transient:      true,
+		Type:           "integer",
 	},
 }
 
 // BucketDestinationPortLowerCaseAttributesMap represents the map of attribute for BucketDestinationPort.
 var BucketDestinationPortLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"id": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "_id",
+		ConvertedName:  "ID",
+		Description:    `Identifier of the object.`,
+		Exposed:        true,
+		Filterable:     true,
+		Identifier:     true,
+		Name:           "ID",
+		Orderable:      true,
+		ReadOnly:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"date": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "date",
+		ConvertedName:  "Date",
+		CreationOnly:   true,
+		Description:    `The date that the bucket tracks.`,
+		Exposed:        true,
+		Name:           "date",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"migrationslog": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "migrationslog",
+		ConvertedName:  "MigrationsLog",
+		Description:    `Internal property maintaining migrations information.`,
+		Getter:         true,
+		Name:           "migrationsLog",
+		Setter:         true,
+		Stored:         true,
+		SubType:        "map[string]string",
+		Type:           "external",
+	},
 	"namespace": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -388,7 +614,7 @@ var BucketDestinationPortLowerCaseAttributesMap = map[string]elemental.Attribute
 		Exposed:        true,
 		Name:           "ports",
 		Stored:         true,
-		SubType:        "map[string]bucketentry",
+		SubType:        "map[string][]bucketentry",
 		Type:           "external",
 	},
 	"topports": {
@@ -399,8 +625,36 @@ var BucketDestinationPortLowerCaseAttributesMap = map[string]elemental.Attribute
 		Exposed:        true,
 		Name:           "topPorts",
 		ReadOnly:       true,
-		SubType:        "string",
-		Type:           "list",
+		SubType:        "buckettopentry",
+		Type:           "refList",
+	},
+	"zhash": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "zhash",
+		ConvertedName:  "ZHash",
+		Description: `geographical hash of the data. This is used for sharding and
+georedundancy.`,
+		Getter:   true,
+		Name:     "zHash",
+		ReadOnly: true,
+		Setter:   true,
+		Stored:   true,
+		Type:     "integer",
+	},
+	"zone": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "zone",
+		ConvertedName:  "Zone",
+		Description:    `Logical storage zone. Used for sharding.`,
+		Getter:         true,
+		Name:           "zone",
+		ReadOnly:       true,
+		Setter:         true,
+		Stored:         true,
+		Transient:      true,
+		Type:           "integer",
 	},
 }
 
@@ -467,14 +721,30 @@ func (o SparseBucketDestinationPortsList) Version() int {
 
 // SparseBucketDestinationPort represents the sparse version of a bucketdestinationport.
 type SparseBucketDestinationPort struct {
+	// Identifier of the object.
+	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
+
+	// The date that the bucket tracks.
+	Date *string `json:"date,omitempty" msgpack:"date,omitempty" bson:"date,omitempty" mapstructure:"date,omitempty"`
+
+	// Internal property maintaining migrations information.
+	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
+
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
 
 	// Ports encountered and number of occurrences seen.
-	Ports *map[string]*BucketEntry `json:"ports,omitempty" msgpack:"ports,omitempty" bson:"ports,omitempty" mapstructure:"ports,omitempty"`
+	Ports *map[string][]*BucketEntry `json:"ports,omitempty" msgpack:"ports,omitempty" bson:"ports,omitempty" mapstructure:"ports,omitempty"`
 
 	// List of most encountered ports, sorted by occurrences.
-	TopPorts *[]string `json:"topPorts,omitempty" msgpack:"topPorts,omitempty" bson:"-" mapstructure:"topPorts,omitempty"`
+	TopPorts *[]*BucketTopEntry `json:"topPorts,omitempty" msgpack:"topPorts,omitempty" bson:"-" mapstructure:"topPorts,omitempty"`
+
+	// geographical hash of the data. This is used for sharding and
+	// georedundancy.
+	ZHash *int `json:"-" msgpack:"-" bson:"zhash,omitempty" mapstructure:"-,omitempty"`
+
+	// Logical storage zone. Used for sharding.
+	Zone *int `json:"-" msgpack:"-" bson:"zone,omitempty" mapstructure:"-,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -493,12 +763,20 @@ func (o *SparseBucketDestinationPort) Identity() elemental.Identity {
 // Identifier returns the value of the sparse object's unique identifier.
 func (o *SparseBucketDestinationPort) Identifier() string {
 
-	return ""
+	if o.ID == nil {
+		return ""
+	}
+	return *o.ID
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
 func (o *SparseBucketDestinationPort) SetIdentifier(id string) {
 
+	if id != "" {
+		o.ID = &id
+	} else {
+		o.ID = nil
+	}
 }
 
 // GetBSON implements the bson marshaling interface.
@@ -511,11 +789,26 @@ func (o *SparseBucketDestinationPort) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesSparseBucketDestinationPort{}
 
+	if o.ID != nil {
+		s.ID = bson.ObjectIdHex(*o.ID)
+	}
+	if o.Date != nil {
+		s.Date = o.Date
+	}
+	if o.MigrationsLog != nil {
+		s.MigrationsLog = o.MigrationsLog
+	}
 	if o.Namespace != nil {
 		s.Namespace = o.Namespace
 	}
 	if o.Ports != nil {
 		s.Ports = o.Ports
+	}
+	if o.ZHash != nil {
+		s.ZHash = o.ZHash
+	}
+	if o.Zone != nil {
+		s.Zone = o.Zone
 	}
 
 	return s, nil
@@ -534,11 +827,25 @@ func (o *SparseBucketDestinationPort) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	id := s.ID.Hex()
+	o.ID = &id
+	if s.Date != nil {
+		o.Date = s.Date
+	}
+	if s.MigrationsLog != nil {
+		o.MigrationsLog = s.MigrationsLog
+	}
 	if s.Namespace != nil {
 		o.Namespace = s.Namespace
 	}
 	if s.Ports != nil {
 		o.Ports = s.Ports
+	}
+	if s.ZHash != nil {
+		o.ZHash = s.ZHash
+	}
+	if s.Zone != nil {
+		o.Zone = s.Zone
 	}
 
 	return nil
@@ -554,6 +861,15 @@ func (o *SparseBucketDestinationPort) Version() int {
 func (o *SparseBucketDestinationPort) ToPlain() elemental.PlainIdentifiable {
 
 	out := NewBucketDestinationPort()
+	if o.ID != nil {
+		out.ID = *o.ID
+	}
+	if o.Date != nil {
+		out.Date = *o.Date
+	}
+	if o.MigrationsLog != nil {
+		out.MigrationsLog = *o.MigrationsLog
+	}
 	if o.Namespace != nil {
 		out.Namespace = *o.Namespace
 	}
@@ -563,8 +879,30 @@ func (o *SparseBucketDestinationPort) ToPlain() elemental.PlainIdentifiable {
 	if o.TopPorts != nil {
 		out.TopPorts = *o.TopPorts
 	}
+	if o.ZHash != nil {
+		out.ZHash = *o.ZHash
+	}
+	if o.Zone != nil {
+		out.Zone = *o.Zone
+	}
 
 	return out
+}
+
+// GetMigrationsLog returns the MigrationsLog of the receiver.
+func (o *SparseBucketDestinationPort) GetMigrationsLog() (out map[string]string) {
+
+	if o.MigrationsLog == nil {
+		return
+	}
+
+	return *o.MigrationsLog
+}
+
+// SetMigrationsLog sets the property MigrationsLog of the receiver using the address of the given value.
+func (o *SparseBucketDestinationPort) SetMigrationsLog(migrationsLog map[string]string) {
+
+	o.MigrationsLog = &migrationsLog
 }
 
 // GetNamespace returns the Namespace of the receiver.
@@ -581,6 +919,38 @@ func (o *SparseBucketDestinationPort) GetNamespace() (out string) {
 func (o *SparseBucketDestinationPort) SetNamespace(namespace string) {
 
 	o.Namespace = &namespace
+}
+
+// GetZHash returns the ZHash of the receiver.
+func (o *SparseBucketDestinationPort) GetZHash() (out int) {
+
+	if o.ZHash == nil {
+		return
+	}
+
+	return *o.ZHash
+}
+
+// SetZHash sets the property ZHash of the receiver using the address of the given value.
+func (o *SparseBucketDestinationPort) SetZHash(zHash int) {
+
+	o.ZHash = &zHash
+}
+
+// GetZone returns the Zone of the receiver.
+func (o *SparseBucketDestinationPort) GetZone() (out int) {
+
+	if o.Zone == nil {
+		return
+	}
+
+	return *o.Zone
+}
+
+// SetZone sets the property Zone of the receiver using the address of the given value.
+func (o *SparseBucketDestinationPort) SetZone(zone int) {
+
+	o.Zone = &zone
 }
 
 // DeepCopy returns a deep copy if the SparseBucketDestinationPort.
@@ -608,10 +978,20 @@ func (o *SparseBucketDestinationPort) DeepCopyInto(out *SparseBucketDestinationP
 }
 
 type mongoAttributesBucketDestinationPort struct {
-	Namespace string                  `bson:"namespace"`
-	Ports     map[string]*BucketEntry `bson:"ports,omitempty"`
+	ID            bson.ObjectId             `bson:"_id,omitempty"`
+	Date          string                    `bson:"date"`
+	MigrationsLog map[string]string         `bson:"migrationslog,omitempty"`
+	Namespace     string                    `bson:"namespace"`
+	Ports         map[string][]*BucketEntry `bson:"ports,omitempty"`
+	ZHash         int                       `bson:"zhash"`
+	Zone          int                       `bson:"zone"`
 }
 type mongoAttributesSparseBucketDestinationPort struct {
-	Namespace *string                  `bson:"namespace,omitempty"`
-	Ports     *map[string]*BucketEntry `bson:"ports,omitempty"`
+	ID            bson.ObjectId              `bson:"_id,omitempty"`
+	Date          *string                    `bson:"date,omitempty"`
+	MigrationsLog *map[string]string         `bson:"migrationslog,omitempty"`
+	Namespace     *string                    `bson:"namespace,omitempty"`
+	Ports         *map[string][]*BucketEntry `bson:"ports,omitempty"`
+	ZHash         *int                       `bson:"zhash,omitempty"`
+	Zone          *int                       `bson:"zone,omitempty"`
 }
