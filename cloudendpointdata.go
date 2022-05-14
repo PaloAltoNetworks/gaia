@@ -82,7 +82,7 @@ type CloudEndpointData struct {
 	// it can apply in some gateways.
 	AssociatedRouteTables []string `json:"associatedRouteTables" msgpack:"associatedRouteTables" bson:"associatedroutetables" mapstructure:"associatedRouteTables,omitempty"`
 
-	// A list of entitites that are associated to a given endpoint.
+	// A list of entities that are associated to a given endpoint.
 	AttachedEntities []string `json:"attachedEntities" msgpack:"attachedEntities" bson:"attachedentities" mapstructure:"attachedEntities,omitempty"`
 
 	// A list of interfaces attached with the endpoint. In some cases endpoints can
@@ -361,7 +361,7 @@ it can apply in some gateways.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "attachedentities",
 		ConvertedName:  "AttachedEntities",
-		Description:    `A list of entitites that are associated to a given endpoint.`,
+		Description:    `A list of entities that are associated to a given endpoint.`,
 		Exposed:        true,
 		Name:           "attachedEntities",
 		Stored:         true,
@@ -512,7 +512,7 @@ it can apply in some gateways.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "attachedentities",
 		ConvertedName:  "AttachedEntities",
-		Description:    `A list of entitites that are associated to a given endpoint.`,
+		Description:    `A list of entities that are associated to a given endpoint.`,
 		Exposed:        true,
 		Name:           "attachedEntities",
 		Stored:         true,

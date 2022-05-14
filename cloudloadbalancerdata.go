@@ -13,6 +13,9 @@ import (
 
 // CloudLoadBalancerData represents the model of a cloudloadbalancerdata
 type CloudLoadBalancerData struct {
+	// ID of associated objects with this load balancer.
+	AttachedEntities []string `json:"attachedEntities" msgpack:"attachedEntities" bson:"attachedentities" mapstructure:"attachedEntities,omitempty"`
+
 	// Mapping of a listener to its associated target group ID list.
 	Listenertargetmapping map[string][]string `json:"listenertargetmapping" msgpack:"listenertargetmapping" bson:"listenertargetmapping" mapstructure:"listenertargetmapping,omitempty"`
 
@@ -30,6 +33,7 @@ func NewCloudLoadBalancerData() *CloudLoadBalancerData {
 
 	return &CloudLoadBalancerData{
 		ModelVersion:          1,
+		AttachedEntities:      []string{},
 		Listenertargetmapping: map[string][]string{},
 	}
 }
@@ -44,6 +48,7 @@ func (o *CloudLoadBalancerData) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesCloudLoadBalancerData{}
 
+	s.AttachedEntities = o.AttachedEntities
 	s.Listenertargetmapping = o.Listenertargetmapping
 	s.Name = o.Name
 	s.Scheme = o.Scheme
@@ -64,6 +69,7 @@ func (o *CloudLoadBalancerData) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	o.AttachedEntities = s.AttachedEntities
 	o.Listenertargetmapping = s.Listenertargetmapping
 	o.Name = s.Name
 	o.Scheme = s.Scheme
@@ -141,6 +147,8 @@ func (*CloudLoadBalancerData) AttributeSpecifications() map[string]elemental.Att
 func (o *CloudLoadBalancerData) ValueForAttribute(name string) interface{} {
 
 	switch name {
+	case "attachedEntities":
+		return o.AttachedEntities
 	case "listenertargetmapping":
 		return o.Listenertargetmapping
 	case "name":
@@ -154,6 +162,17 @@ func (o *CloudLoadBalancerData) ValueForAttribute(name string) interface{} {
 
 // CloudLoadBalancerDataAttributesMap represents the map of attribute for CloudLoadBalancerData.
 var CloudLoadBalancerDataAttributesMap = map[string]elemental.AttributeSpecification{
+	"AttachedEntities": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "attachedentities",
+		ConvertedName:  "AttachedEntities",
+		Description:    `ID of associated objects with this load balancer.`,
+		Exposed:        true,
+		Name:           "attachedEntities",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"Listenertargetmapping": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "listenertargetmapping",
@@ -189,6 +208,17 @@ var CloudLoadBalancerDataAttributesMap = map[string]elemental.AttributeSpecifica
 
 // CloudLoadBalancerDataLowerCaseAttributesMap represents the map of attribute for CloudLoadBalancerData.
 var CloudLoadBalancerDataLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"attachedentities": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "attachedentities",
+		ConvertedName:  "AttachedEntities",
+		Description:    `ID of associated objects with this load balancer.`,
+		Exposed:        true,
+		Name:           "attachedEntities",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"listenertargetmapping": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "listenertargetmapping",
@@ -223,6 +253,7 @@ var CloudLoadBalancerDataLowerCaseAttributesMap = map[string]elemental.Attribute
 }
 
 type mongoAttributesCloudLoadBalancerData struct {
+	AttachedEntities      []string            `bson:"attachedentities"`
 	Listenertargetmapping map[string][]string `bson:"listenertargetmapping"`
 	Name                  string              `bson:"name"`
 	Scheme                string              `bson:"scheme"`

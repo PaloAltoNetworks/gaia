@@ -67,6 +67,9 @@ const (
 	// ProcessingUnitTypeDocker represents the value Docker.
 	ProcessingUnitTypeDocker ProcessingUnitTypeValue = "Docker"
 
+	// ProcessingUnitTypeECS represents the value ECS.
+	ProcessingUnitTypeECS ProcessingUnitTypeValue = "ECS"
+
 	// ProcessingUnitTypeHost represents the value Host.
 	ProcessingUnitTypeHost ProcessingUnitTypeValue = "Host"
 
@@ -1049,7 +1052,7 @@ func (o *ProcessingUnit) Validate() error {
 		}
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"APIGateway", "Docker", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"APIGateway", "Docker", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession", "ECS"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1580,7 +1583,7 @@ manifest.`,
 		Type:           "ref",
 	},
 	"Type": {
-		AllowedChoices: []string{"APIGateway", "Docker", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession"},
+		AllowedChoices: []string{"APIGateway", "Docker", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession", "ECS"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		CreationOnly:   true,
@@ -2107,7 +2110,7 @@ manifest.`,
 		Type:           "ref",
 	},
 	"type": {
-		AllowedChoices: []string{"APIGateway", "Docker", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession"},
+		AllowedChoices: []string{"APIGateway", "Docker", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession", "ECS"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		CreationOnly:   true,

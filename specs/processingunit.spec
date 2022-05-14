@@ -246,6 +246,7 @@ attributes:
     - RKT
     - User
     - SSHSession
+    - ECS
     example_value: Docker
     filterable: true
 

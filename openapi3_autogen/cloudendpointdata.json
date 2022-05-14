@@ -24,7 +24,7 @@
             "type": "array"
           },
           "attachedEntities": {
-            "description": "A list of entitites that are associated to a given endpoint.",
+            "description": "A list of entities that are associated to a given endpoint.",
             "example": [
               "eni-12344",
               "subnet-abcd"

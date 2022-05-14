@@ -25,6 +25,9 @@ const (
 	// GraphNodeTypeDocker represents the value Docker.
 	GraphNodeTypeDocker GraphNodeTypeValue = "Docker"
 
+	// GraphNodeTypeECS represents the value ECS.
+	GraphNodeTypeECS GraphNodeTypeValue = "ECS"
+
 	// GraphNodeTypeExternalNetwork represents the value ExternalNetwork.
 	GraphNodeTypeExternalNetwork GraphNodeTypeValue = "ExternalNetwork"
 
@@ -425,7 +428,7 @@ func (o *GraphNode) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController", "APIGateway", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController", "APIGateway", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession", "ECS"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -599,7 +602,7 @@ var GraphNodeAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "list",
 	},
 	"Type": {
-		AllowedChoices: []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController", "APIGateway", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession"},
+		AllowedChoices: []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController", "APIGateway", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession", "ECS"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of object represented by the node.`,
@@ -735,7 +738,7 @@ var GraphNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Type:           "list",
 	},
 	"type": {
-		AllowedChoices: []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController", "APIGateway", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession"},
+		AllowedChoices: []string{"Docker", "ExternalNetwork", "Volume", "Claim", "Node", "Namespace", "RemoteController", "APIGateway", "Host", "HostService", "LinuxService", "WindowsService", "RKT", "User", "SSHSession", "ECS"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of object represented by the node.`,

@@ -305,7 +305,7 @@ func (o *CloudPublicIPAddress) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *CloudPublicIPAddress) Doc() string {
 
-	return `A CloudPublicIPAddress represents a PublicIPAdress as defined in an Azure cloud
+	return `A CloudPublicIPAddress represents a PublicIPAddress as defined in an Azure cloud
 provider.`
 }
 
@@ -824,7 +824,7 @@ func (o *CloudPublicIPAddress) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateMaximumLength("nativeID", o.NativeID, 256, false); err != nil {
+	if err := elemental.ValidateMaximumLength("nativeID", o.NativeID, 512, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1141,7 +1141,7 @@ var CloudPublicIPAddressAttributesMap = map[string]elemental.AttributeSpecificat
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
 		Getter:         true,
-		MaxLength:      256,
+		MaxLength:      512,
 		Name:           "nativeID",
 		Orderable:      true,
 		Required:       true,
@@ -1494,7 +1494,7 @@ var CloudPublicIPAddressLowerCaseAttributesMap = map[string]elemental.AttributeS
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
 		Getter:         true,
-		MaxLength:      256,
+		MaxLength:      512,
 		Name:           "nativeID",
 		Orderable:      true,
 		Required:       true,

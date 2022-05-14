@@ -5,6 +5,16 @@
       "cloudloadbalancerdata": {
         "description": "Parameters associated with a cloud load balancer.",
         "properties": {
+          "attachedEntities": {
+            "description": "ID of associated objects with this load balancer.",
+            "example": [
+              "subnet-074c152ae45ea0c73"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "listenertargetmapping": {
             "additionalProperties": {
               "items": {

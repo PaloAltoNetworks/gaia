@@ -21,7 +21,6 @@ jobs:
         go:
           - 1.18
           - 1.17
-          - 1.16
     steps:
       - uses: actions/checkout@v2
 
