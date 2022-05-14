@@ -119,9 +119,6 @@ type NamespaceInfo struct {
 	// The processing unit action for outgoing traffic for the namespace.
 	PUOutgoingTrafficAction NamespaceInfoPUOutgoingTrafficActionValue `json:"PUOutgoingTrafficAction" msgpack:"PUOutgoingTrafficAction" bson:"-" mapstructure:"PUOutgoingTrafficAction,omitempty"`
 
-	// L7 security services
-	L7SecurityServices bool
-
 	// Description of the namespace.
 	Description string `json:"description" msgpack:"description" bson:"-" mapstructure:"description,omitempty"`
 

@@ -18,6 +18,13 @@
             ],
             "example": "Accept"
           },
+          "appids": {
+            "description": "appids represents appids present in the flow\nis not allowed.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "destinationController": {
             "description": "Identifier of the destination controller.",
             "example": "api.east.acme.com",

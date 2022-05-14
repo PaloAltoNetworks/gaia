@@ -17,6 +17,14 @@ attributes:
     type: boolean
     exposed: true
 
+  - name: appids
+    description: |-
+      appids represents appids present in the flow
+      is not allowed.
+    type: list
+    exposed: true
+    subtype: string
+
   - name: protoPort
     description: The protocol for this edge. If it is tcp or udp, the port is also
       included.

@@ -162,8 +162,9 @@ type FlowReport struct {
 	// Action applied to the flow.
 	Action FlowReportActionValue `json:"action,omitempty" msgpack:"action,omitempty" bson:"a,omitempty" mapstructure:"action,omitempty"`
 
-	// Appid of the flow observed.
-	Appids []string `json:"appids" msgpack:"appids" bson:"appids" mapstructure:"appids,omitempty"`
+	// appids represents appids present in the flow
+	// is not allowed.
+	Appids []string `json:"appids,omitempty" msgpack:"appids,omitempty" bson:"ap,omitempty" mapstructure:"appids,omitempty"`
 
 	// Identifier of the destination controller.
 	DestinationController string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"b,omitempty" mapstructure:"destinationController,omitempty"`
@@ -303,6 +304,7 @@ func NewFlowReport() *FlowReport {
 
 	return &FlowReport{
 		ModelVersion:   1,
+		Appids:         []string{},
 		ObservedAction: FlowReportObservedActionNotApplicable,
 		ServiceType:    FlowReportServiceTypeNotApplicable,
 		MigrationsLog:  map[string]string{},
@@ -341,6 +343,7 @@ func (o *FlowReport) GetBSON() (interface{}, error) {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
 	s.Action = o.Action
+	s.Appids = o.Appids
 	s.DestinationController = o.DestinationController
 	s.DestinationFQDN = o.DestinationFQDN
 	s.DestinationID = o.DestinationID
@@ -401,6 +404,7 @@ func (o *FlowReport) SetBSON(raw bson.Raw) error {
 
 	o.ID = s.ID.Hex()
 	o.Action = s.Action
+	o.Appids = s.Appids
 	o.DestinationController = s.DestinationController
 	o.DestinationFQDN = s.DestinationFQDN
 	o.DestinationID = s.DestinationID
@@ -522,6 +526,7 @@ func (o *FlowReport) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		return &SparseFlowReport{
 			ID:                      &o.ID,
 			Action:                  &o.Action,
+			Appids:                  &o.Appids,
 			DestinationController:   &o.DestinationController,
 			DestinationFQDN:         &o.DestinationFQDN,
 			DestinationID:           &o.DestinationID,
@@ -573,6 +578,8 @@ func (o *FlowReport) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.ID = &(o.ID)
 		case "action":
 			sp.Action = &(o.Action)
+		case "appids":
+			sp.Appids = &(o.Appids)
 		case "destinationController":
 			sp.DestinationController = &(o.DestinationController)
 		case "destinationFQDN":
@@ -673,6 +680,9 @@ func (o *FlowReport) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Action != nil {
 		o.Action = *so.Action
+	}
+	if so.Appids != nil {
+		o.Appids = *so.Appids
 	}
 	if so.DestinationController != nil {
 		o.DestinationController = *so.DestinationController
@@ -923,6 +933,8 @@ func (o *FlowReport) ValueForAttribute(name string) interface{} {
 		return o.ID
 	case "action":
 		return o.Action
+	case "appids":
+		return o.Appids
 	case "destinationController":
 		return o.DestinationController
 	case "destinationFQDN":
@@ -1037,6 +1049,18 @@ var FlowReportAttributesMap = map[string]elemental.AttributeSpecification{
 		Required:       true,
 		Stored:         true,
 		Type:           "enum",
+	},
+	"Appids": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ap",
+		ConvertedName:  "Appids",
+		Description: `appids represents appids present in the flow
+is not allowed.`,
+		Exposed: true,
+		Name:    "appids",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
 	},
 	"DestinationController": {
 		AllowedChoices: []string{},
@@ -1507,6 +1531,18 @@ var FlowReportLowerCaseAttributesMap = map[string]elemental.AttributeSpecificati
 		Required:       true,
 		Stored:         true,
 		Type:           "enum",
+	},
+	"appids": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ap",
+		ConvertedName:  "Appids",
+		Description: `appids represents appids present in the flow
+is not allowed.`,
+		Exposed: true,
+		Name:    "appids",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
 	},
 	"destinationcontroller": {
 		AllowedChoices: []string{},
@@ -2021,6 +2057,10 @@ type SparseFlowReport struct {
 	// Action applied to the flow.
 	Action *FlowReportActionValue `json:"action,omitempty" msgpack:"action,omitempty" bson:"a,omitempty" mapstructure:"action,omitempty"`
 
+	// appids represents appids present in the flow
+	// is not allowed.
+	Appids *[]string `json:"appids,omitempty" msgpack:"appids,omitempty" bson:"ap,omitempty" mapstructure:"appids,omitempty"`
+
 	// Identifier of the destination controller.
 	DestinationController *string `json:"destinationController,omitempty" msgpack:"destinationController,omitempty" bson:"b,omitempty" mapstructure:"destinationController,omitempty"`
 
@@ -2200,6 +2240,9 @@ func (o *SparseFlowReport) GetBSON() (interface{}, error) {
 	if o.Action != nil {
 		s.Action = o.Action
 	}
+	if o.Appids != nil {
+		s.Appids = o.Appids
+	}
 	if o.DestinationController != nil {
 		s.DestinationController = o.DestinationController
 	}
@@ -2345,6 +2388,9 @@ func (o *SparseFlowReport) SetBSON(raw bson.Raw) error {
 	if s.Action != nil {
 		o.Action = s.Action
 	}
+	if s.Appids != nil {
+		o.Appids = s.Appids
+	}
 	if s.DestinationController != nil {
 		o.DestinationController = s.DestinationController
 	}
@@ -2487,6 +2533,9 @@ func (o *SparseFlowReport) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Action != nil {
 		out.Action = *o.Action
+	}
+	if o.Appids != nil {
+		out.Appids = *o.Appids
 	}
 	if o.DestinationController != nil {
 		out.DestinationController = *o.DestinationController
@@ -2690,6 +2739,7 @@ func (o *SparseFlowReport) DeepCopyInto(out *SparseFlowReport) {
 type mongoAttributesFlowReport struct {
 	ID                      bson.ObjectId                  `bson:"_id,omitempty"`
 	Action                  FlowReportActionValue          `bson:"a,omitempty"`
+	Appids                  []string                       `bson:"ap,omitempty"`
 	DestinationController   string                         `bson:"b,omitempty"`
 	DestinationFQDN         string                         `bson:"am,omitempty"`
 	DestinationID           string                         `bson:"c,omitempty"`
@@ -2735,6 +2785,7 @@ type mongoAttributesFlowReport struct {
 type mongoAttributesSparseFlowReport struct {
 	ID                      bson.ObjectId                   `bson:"_id,omitempty"`
 	Action                  *FlowReportActionValue          `bson:"a,omitempty"`
+	Appids                  *[]string                       `bson:"ap,omitempty"`
 	DestinationController   *string                         `bson:"b,omitempty"`
 	DestinationFQDN         *string                         `bson:"am,omitempty"`
 	DestinationID           *string                         `bson:"c,omitempty"`

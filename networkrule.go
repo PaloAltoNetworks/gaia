@@ -31,6 +31,9 @@ type NetworkRule struct {
 	// policy.
 	Action NetworkRuleActionValue `json:"action" msgpack:"action" bson:"-" mapstructure:"action,omitempty"`
 
+	// appid restrictions.
+	AppidRestrictions string `json:"appidRestrictions" msgpack:"appidRestrictions" bson:"-" mapstructure:"appidRestrictions,omitempty"`
+
 	// If `true`, the relevant flows will not be reported to the Microsegmentation
 	// Console.
 	// Under some advanced scenarios you may wish to set this to `true`, such as to
@@ -56,9 +59,6 @@ type NetworkRule struct {
 	// designation
 	// is not allowed.
 	ProtocolPorts []string `json:"protocolPorts" msgpack:"protocolPorts" bson:"-" mapstructure:"protocolPorts,omitempty"`
-
-	// appids restriction
-	AppidRestrictions string `json:"appidRestrictions" msgpack:"appidRestrictions" bson:"-" mapstructure:"appidRestrictions,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -219,6 +219,8 @@ func (o *NetworkRule) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "action":
 		return o.Action
+	case "appidRestrictions":
+		return o.AppidRestrictions
 	case "logsDisabled":
 		return o.LogsDisabled
 	case "name":
@@ -250,6 +252,15 @@ policy.`,
 		Name:     "action",
 		Required: true,
 		Type:     "enum",
+	},
+	"AppidRestrictions": {
+		AllowedChoices: []string{},
+		ConvertedName:  "AppidRestrictions",
+		Description:    `appid restrictions.`,
+		Exposed:        true,
+		Name:           "appidRestrictions",
+		SubType:        "string",
+		Type:           "string",
 	},
 	"LogsDisabled": {
 		AllowedChoices: []string{},
@@ -329,6 +340,15 @@ policy.`,
 		Name:     "action",
 		Required: true,
 		Type:     "enum",
+	},
+	"appidrestrictions": {
+		AllowedChoices: []string{},
+		ConvertedName:  "AppidRestrictions",
+		Description:    `appid restrictions.`,
+		Exposed:        true,
+		Name:           "appidRestrictions",
+		SubType:        "string",
+		Type:           "string",
 	},
 	"logsdisabled": {
 		AllowedChoices: []string{},

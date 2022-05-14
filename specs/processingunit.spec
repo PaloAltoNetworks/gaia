@@ -268,6 +268,22 @@ attributes:
     filterable: true
     transient: true
 
+  - name: wireTagsFiltered
+    description: |-
+      Contains the list of filtered wire tags that must go on the wire. Enforcer
+      filters out the namespace and controller labels.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+
+  - name: wireTagsFilteredSignature
+    description: This field contains the JWT signature of the above wireTagsFiltered
+      field.
+    type: string
+    exposed: true
+    stored: true
+
 # Relations
 relations:
 - rest_name: pingprobe

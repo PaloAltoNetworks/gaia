@@ -16,6 +16,10 @@ type GraphEdgeFlowDetails struct {
 	// Indicates whether the flow was accepted.
 	Accepted bool `json:"accepted" msgpack:"accepted" bson:"-" mapstructure:"accepted,omitempty"`
 
+	// appids represents appids present in the flow
+	// is not allowed.
+	Appids []string `json:"appids" msgpack:"appids" bson:"-" mapstructure:"appids,omitempty"`
+
 	// The protocol for this edge. If it is tcp or udp, the port is also included.
 	ProtoPort string `json:"protoPort" msgpack:"protoPort" bson:"-" mapstructure:"protoPort,omitempty"`
 
@@ -27,6 +31,7 @@ func NewGraphEdgeFlowDetails() *GraphEdgeFlowDetails {
 
 	return &GraphEdgeFlowDetails{
 		ModelVersion: 1,
+		Appids:       []string{},
 	}
 }
 
@@ -131,6 +136,8 @@ func (o *GraphEdgeFlowDetails) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "accepted":
 		return o.Accepted
+	case "appids":
+		return o.Appids
 	case "protoPort":
 		return o.ProtoPort
 	}
@@ -147,6 +154,16 @@ var GraphEdgeFlowDetailsAttributesMap = map[string]elemental.AttributeSpecificat
 		Exposed:        true,
 		Name:           "accepted",
 		Type:           "boolean",
+	},
+	"Appids": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Appids",
+		Description: `appids represents appids present in the flow
+is not allowed.`,
+		Exposed: true,
+		Name:    "appids",
+		SubType: "string",
+		Type:    "list",
 	},
 	"ProtoPort": {
 		AllowedChoices: []string{},
@@ -167,6 +184,16 @@ var GraphEdgeFlowDetailsLowerCaseAttributesMap = map[string]elemental.AttributeS
 		Exposed:        true,
 		Name:           "accepted",
 		Type:           "boolean",
+	},
+	"appids": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Appids",
+		Description: `appids represents appids present in the flow
+is not allowed.`,
+		Exposed: true,
+		Name:    "appids",
+		SubType: "string",
+		Type:    "list",
 	},
 	"protoport": {
 		AllowedChoices: []string{},

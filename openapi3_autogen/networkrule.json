@@ -13,6 +13,10 @@
               "Reject"
             ]
           },
+          "appidRestrictions": {
+            "description": "appid restrictions.",
+            "type": "string"
+          },
           "logsDisabled": {
             "description": "If `true`, the relevant flows will not be reported to the Microsegmentation\nConsole.\nUnder some advanced scenarios you may wish to set this to `true`, such as to\nsave space or improve performance.",
             "type": "boolean"

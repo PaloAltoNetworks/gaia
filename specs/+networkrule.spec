@@ -28,6 +28,12 @@ attributes:
     - Reject
     default_value: Allow
 
+  - name: appidRestrictions
+    description: appid restrictions.
+    type: string
+    exposed: true
+    subtype: string
+
   - name: logsDisabled
     description: |-
       If `true`, the relevant flows will not be reported to the Microsegmentation
@@ -87,10 +93,3 @@ attributes:
     subtype: string
     validations:
     - $serviceports
-
-  - name: appidRestrictions
-    description: |-
-      appid restrictions.
-    type: string
-    exposed: true
-    subtype: string
