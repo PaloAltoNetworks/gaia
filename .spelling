@@ -97,6 +97,7 @@ CloudInterfaceData
 CloudIPConfiguration
 CloudLoadBalancer
 CloudLoadBalancerData
+CloudLoadBalancerDataTargetGroup
 CloudLoadBalancerRoute
 CloudLoadBalancerRouteData
 CloudNetworkConfigData
