@@ -564,7 +564,7 @@ map[string][]cloudloadbalancerdatatargetgroup:
         "additionalProperties": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
             "additionalProperties": true
           }
         }
@@ -576,7 +576,7 @@ map[string][]cloudloadbalancerdatatargetgroup:
         "additionalProperties": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
             "additionalProperties": true
           }
         }
