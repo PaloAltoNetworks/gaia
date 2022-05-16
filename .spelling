@@ -95,6 +95,8 @@ CloudGraphNode
 CloudGraphNodeAction
 CloudInterfaceData
 CloudIPConfiguration
+CloudIPRange
+CloudStoredIPRange
 CloudLoadBalancer
 CloudLoadBalancerData
 CloudLoadBalancerRoute
@@ -439,6 +441,7 @@ quota
 QuotaCheck
 QuotaCheck
 QuotaPolicy
+range
 Reachable
 rebalance
 rebalance

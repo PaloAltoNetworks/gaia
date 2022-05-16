@@ -35,6 +35,18 @@ const (
 	// CloudEndpointDataServiceTypeInterface represents the value Interface.
 	CloudEndpointDataServiceTypeInterface CloudEndpointDataServiceTypeValue = "Interface"
 
+	// CloudEndpointDataServiceTypeMicrosoftDBforMySQLFlexibleServers represents the value MicrosoftDBforMySQLFlexibleServers.
+	CloudEndpointDataServiceTypeMicrosoftDBforMySQLFlexibleServers CloudEndpointDataServiceTypeValue = "MicrosoftDBforMySQLFlexibleServers"
+
+	// CloudEndpointDataServiceTypeMicrosoftDBforMySQLServers represents the value MicrosoftDBforMySQLServers.
+	CloudEndpointDataServiceTypeMicrosoftDBforMySQLServers CloudEndpointDataServiceTypeValue = "MicrosoftDBforMySQLServers"
+
+	// CloudEndpointDataServiceTypeMicrosoftDBforPostgreSQLFlexibleServers represents the value MicrosoftDBforPostgreSQLFlexibleServers.
+	CloudEndpointDataServiceTypeMicrosoftDBforPostgreSQLFlexibleServers CloudEndpointDataServiceTypeValue = "MicrosoftDBforPostgreSQLFlexibleServers"
+
+	// CloudEndpointDataServiceTypeMicrosoftDBforPostgreSQLServers represents the value MicrosoftDBforPostgreSQLServers.
+	CloudEndpointDataServiceTypeMicrosoftDBforPostgreSQLServers CloudEndpointDataServiceTypeValue = "MicrosoftDBforPostgreSQLServers"
+
 	// CloudEndpointDataServiceTypeNotApplicable represents the value NotApplicable.
 	CloudEndpointDataServiceTypeNotApplicable CloudEndpointDataServiceTypeValue = "NotApplicable"
 )
@@ -243,7 +255,7 @@ func (o *CloudEndpointData) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("serviceType", string(o.ServiceType), []string{"Interface", "Gateway", "GatewayLoadBalancer", "NotApplicable"}, false); err != nil {
+	if err := elemental.ValidateStringInList("serviceType", string(o.ServiceType), []string{"Interface", "Gateway", "GatewayLoadBalancer", "MicrosoftDBforMySQLServers", "MicrosoftDBforMySQLFlexibleServers", "MicrosoftDBforPostgreSQLServers", "MicrosoftDBforPostgreSQLFlexibleServers", "NotApplicable"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -447,7 +459,7 @@ instance imageID in other clouds.`,
 		Type:           "string",
 	},
 	"ServiceType": {
-		AllowedChoices: []string{"Interface", "Gateway", "GatewayLoadBalancer", "NotApplicable"},
+		AllowedChoices: []string{"Interface", "Gateway", "GatewayLoadBalancer", "MicrosoftDBforMySQLServers", "MicrosoftDBforMySQLFlexibleServers", "MicrosoftDBforPostgreSQLServers", "MicrosoftDBforPostgreSQLFlexibleServers", "NotApplicable"},
 		BSONFieldName:  "servicetype",
 		ConvertedName:  "ServiceType",
 		DefaultValue:   CloudEndpointDataServiceTypeNotApplicable,
@@ -598,7 +610,7 @@ instance imageID in other clouds.`,
 		Type:           "string",
 	},
 	"servicetype": {
-		AllowedChoices: []string{"Interface", "Gateway", "GatewayLoadBalancer", "NotApplicable"},
+		AllowedChoices: []string{"Interface", "Gateway", "GatewayLoadBalancer", "MicrosoftDBforMySQLServers", "MicrosoftDBforMySQLFlexibleServers", "MicrosoftDBforPostgreSQLServers", "MicrosoftDBforPostgreSQLFlexibleServers", "NotApplicable"},
 		BSONFieldName:  "servicetype",
 		ConvertedName:  "ServiceType",
 		DefaultValue:   CloudEndpointDataServiceTypeNotApplicable,

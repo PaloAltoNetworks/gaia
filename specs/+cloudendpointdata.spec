@@ -121,6 +121,10 @@ attributes:
     - Interface
     - Gateway
     - GatewayLoadBalancer
+    - MicrosoftDBforMySQLServers
+    - MicrosoftDBforMySQLFlexibleServers
+    - MicrosoftDBforPostgreSQLServers
+    - MicrosoftDBforPostgreSQLFlexibleServers
     - NotApplicable
     default_value: NotApplicable
 
