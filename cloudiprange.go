@@ -101,6 +101,14 @@ func (o *CloudIPRange) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
+	if err := ValidateOptionalCIDRorIP("endIP", o.EndIP); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := ValidateOptionalCIDRorIP("startIP", o.StartIP); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if len(requiredErrors) > 0 {
 		return requiredErrors
 	}

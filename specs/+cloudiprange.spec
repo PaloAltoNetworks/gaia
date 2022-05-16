@@ -16,9 +16,13 @@ attributes:
     type: string
     exposed: true
     stored: true
+    validations:
+    - $optionalcidrorip
 
   - name: startIP
     description: Starting IP for the range.
     type: string
     exposed: true
     stored: true
+    validations:
+    - $optionalcidrorip

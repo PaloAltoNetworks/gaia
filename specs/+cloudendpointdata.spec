@@ -66,6 +66,13 @@ attributes:
     exposed: true
     stored: true
 
+  - name: hasPublicIP
+    description: If the endpoint has a public IP or is directly exposed.
+    type: boolean
+    exposed: true
+    stored: true
+    omit_empty: true
+
   - name: imageID
     description: |-
       The imageID of running in the endpoint. Available for instances and
@@ -121,10 +128,7 @@ attributes:
     - Interface
     - Gateway
     - GatewayLoadBalancer
-    - MicrosoftDBforMySQLServers
-    - MicrosoftDBforMySQLFlexibleServers
-    - MicrosoftDBforPostgreSQLServers
-    - MicrosoftDBforPostgreSQLFlexibleServers
+    - ManagedService
     - NotApplicable
     default_value: NotApplicable
 

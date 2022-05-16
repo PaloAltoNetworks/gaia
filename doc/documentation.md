@@ -10257,6 +10257,7 @@ Parameters associated with a cloud endpoint.
     "eni-33333"
   ],
   "forwardingEnabled": false,
+  "hasPublicIP": false,
   "resourceStatus": "Active",
   "serviceType": "NotApplicable",
   "type": "Instance"
@@ -10306,6 +10307,12 @@ Type: `boolean`
 If the endpoint has multiple connections and forwarding can be enabled between
 them.
 
+##### `hasPublicIP`
+
+Type: `boolean`
+
+If the endpoint has a public IP or is directly exposed.
+
 ##### `imageID`
 
 Type: `string`
@@ -10346,7 +10353,7 @@ Identifies the name of the service for service endpoints.
 
 ##### `serviceType`
 
-Type: `enum(Interface | Gateway | GatewayLoadBalancer | MicrosoftDBforMySQLServers | MicrosoftDBforMySQLFlexibleServers | MicrosoftDBforPostgreSQLServers | MicrosoftDBforPostgreSQLFlexibleServers | NotApplicable)`
+Type: `enum(Interface | Gateway | GatewayLoadBalancer | ManagedService | NotApplicable)`
 
 Identifies the service type that this endpoint represents (example Gateway Load
 Balancer).
