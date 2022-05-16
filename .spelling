@@ -69,8 +69,6 @@ base64-encoded
 bolded
 bolded
 BucketDestinationPort
-BucketEntry
-BucketTopEntry
 CA
 CachedFlowReport
 CAs
@@ -541,6 +539,7 @@ TLSType
 TLSType
 TokenEndpointAuthMethodsSupported
 TokenScopePolicy
+TopPort
 TraceMode
 TraceRecord
 TrustedCA

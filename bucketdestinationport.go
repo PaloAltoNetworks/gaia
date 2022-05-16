@@ -89,17 +89,11 @@ type BucketDestinationPort struct {
 	// The date that the bucket tracks.
 	Date string `json:"date" msgpack:"date" bson:"date" mapstructure:"date,omitempty"`
 
-	// Internal property maintaining migrations information.
-	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
-
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
 
 	// Ports encountered and number of occurrences seen.
-	Ports map[string][]*BucketEntry `json:"ports,omitempty" msgpack:"ports,omitempty" bson:"ports,omitempty" mapstructure:"ports,omitempty"`
-
-	// List of most encountered ports, sorted by occurrences.
-	TopPorts []*BucketTopEntry `json:"topPorts,omitempty" msgpack:"topPorts,omitempty" bson:"-" mapstructure:"topPorts,omitempty"`
+	Ports map[string]int `json:"ports,omitempty" msgpack:"ports,omitempty" bson:"ports,omitempty" mapstructure:"ports,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -115,10 +109,8 @@ type BucketDestinationPort struct {
 func NewBucketDestinationPort() *BucketDestinationPort {
 
 	return &BucketDestinationPort{
-		ModelVersion:  1,
-		MigrationsLog: map[string]string{},
-		Ports:         map[string][]*BucketEntry{},
-		TopPorts:      []*BucketTopEntry{},
+		ModelVersion: 1,
+		Ports:        map[string]int{},
 	}
 }
 
@@ -154,7 +146,6 @@ func (o *BucketDestinationPort) GetBSON() (interface{}, error) {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
 	s.Date = o.Date
-	s.MigrationsLog = o.MigrationsLog
 	s.Namespace = o.Namespace
 	s.Ports = o.Ports
 	s.ZHash = o.ZHash
@@ -178,7 +169,6 @@ func (o *BucketDestinationPort) SetBSON(raw bson.Raw) error {
 
 	o.ID = s.ID.Hex()
 	o.Date = s.Date
-	o.MigrationsLog = s.MigrationsLog
 	o.Namespace = s.Namespace
 	o.Ports = s.Ports
 	o.ZHash = s.ZHash
@@ -215,18 +205,6 @@ the end).`
 func (o *BucketDestinationPort) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
-}
-
-// GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *BucketDestinationPort) GetMigrationsLog() map[string]string {
-
-	return o.MigrationsLog
-}
-
-// SetMigrationsLog sets the property MigrationsLog of the receiver using the given value.
-func (o *BucketDestinationPort) SetMigrationsLog(migrationsLog map[string]string) {
-
-	o.MigrationsLog = migrationsLog
 }
 
 // GetNamespace returns the Namespace of the receiver.
@@ -272,14 +250,12 @@ func (o *BucketDestinationPort) ToSparse(fields ...string) elemental.SparseIdent
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseBucketDestinationPort{
-			ID:            &o.ID,
-			Date:          &o.Date,
-			MigrationsLog: &o.MigrationsLog,
-			Namespace:     &o.Namespace,
-			Ports:         &o.Ports,
-			TopPorts:      &o.TopPorts,
-			ZHash:         &o.ZHash,
-			Zone:          &o.Zone,
+			ID:        &o.ID,
+			Date:      &o.Date,
+			Namespace: &o.Namespace,
+			Ports:     &o.Ports,
+			ZHash:     &o.ZHash,
+			Zone:      &o.Zone,
 		}
 	}
 
@@ -290,14 +266,10 @@ func (o *BucketDestinationPort) ToSparse(fields ...string) elemental.SparseIdent
 			sp.ID = &(o.ID)
 		case "date":
 			sp.Date = &(o.Date)
-		case "migrationsLog":
-			sp.MigrationsLog = &(o.MigrationsLog)
 		case "namespace":
 			sp.Namespace = &(o.Namespace)
 		case "ports":
 			sp.Ports = &(o.Ports)
-		case "topPorts":
-			sp.TopPorts = &(o.TopPorts)
 		case "zHash":
 			sp.ZHash = &(o.ZHash)
 		case "zone":
@@ -321,17 +293,11 @@ func (o *BucketDestinationPort) Patch(sparse elemental.SparseIdentifiable) {
 	if so.Date != nil {
 		o.Date = *so.Date
 	}
-	if so.MigrationsLog != nil {
-		o.MigrationsLog = *so.MigrationsLog
-	}
 	if so.Namespace != nil {
 		o.Namespace = *so.Namespace
 	}
 	if so.Ports != nil {
 		o.Ports = *so.Ports
-	}
-	if so.TopPorts != nil {
-		o.TopPorts = *so.TopPorts
 	}
 	if so.ZHash != nil {
 		o.ZHash = *so.ZHash
@@ -375,16 +341,6 @@ func (o *BucketDestinationPort) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	for _, sub := range o.TopPorts {
-		if sub == nil {
-			continue
-		}
-		elemental.ResetDefaultForZeroValues(sub)
-		if err := sub.Validate(); err != nil {
-			errors = errors.Append(err)
-		}
-	}
-
 	if len(requiredErrors) > 0 {
 		return requiredErrors
 	}
@@ -423,14 +379,10 @@ func (o *BucketDestinationPort) ValueForAttribute(name string) interface{} {
 		return o.ID
 	case "date":
 		return o.Date
-	case "migrationsLog":
-		return o.MigrationsLog
 	case "namespace":
 		return o.Namespace
 	case "ports":
 		return o.Ports
-	case "topPorts":
-		return o.TopPorts
 	case "zHash":
 		return o.ZHash
 	case "zone":
@@ -469,18 +421,6 @@ var BucketDestinationPortAttributesMap = map[string]elemental.AttributeSpecifica
 		Stored:         true,
 		Type:           "string",
 	},
-	"MigrationsLog": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "migrationslog",
-		ConvertedName:  "MigrationsLog",
-		Description:    `Internal property maintaining migrations information.`,
-		Getter:         true,
-		Name:           "migrationsLog",
-		Setter:         true,
-		Stored:         true,
-		SubType:        "map[string]string",
-		Type:           "external",
-	},
 	"Namespace": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -505,19 +445,8 @@ var BucketDestinationPortAttributesMap = map[string]elemental.AttributeSpecifica
 		Exposed:        true,
 		Name:           "ports",
 		Stored:         true,
-		SubType:        "map[string][]bucketentry",
+		SubType:        "map[string]int",
 		Type:           "external",
-	},
-	"TopPorts": {
-		AllowedChoices: []string{},
-		Autogenerated:  true,
-		ConvertedName:  "TopPorts",
-		Description:    `List of most encountered ports, sorted by occurrences.`,
-		Exposed:        true,
-		Name:           "topPorts",
-		ReadOnly:       true,
-		SubType:        "buckettopentry",
-		Type:           "refList",
 	},
 	"ZHash": {
 		AllowedChoices: []string{},
@@ -578,18 +507,6 @@ var BucketDestinationPortLowerCaseAttributesMap = map[string]elemental.Attribute
 		Stored:         true,
 		Type:           "string",
 	},
-	"migrationslog": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "migrationslog",
-		ConvertedName:  "MigrationsLog",
-		Description:    `Internal property maintaining migrations information.`,
-		Getter:         true,
-		Name:           "migrationsLog",
-		Setter:         true,
-		Stored:         true,
-		SubType:        "map[string]string",
-		Type:           "external",
-	},
 	"namespace": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -614,19 +531,8 @@ var BucketDestinationPortLowerCaseAttributesMap = map[string]elemental.Attribute
 		Exposed:        true,
 		Name:           "ports",
 		Stored:         true,
-		SubType:        "map[string][]bucketentry",
+		SubType:        "map[string]int",
 		Type:           "external",
-	},
-	"topports": {
-		AllowedChoices: []string{},
-		Autogenerated:  true,
-		ConvertedName:  "TopPorts",
-		Description:    `List of most encountered ports, sorted by occurrences.`,
-		Exposed:        true,
-		Name:           "topPorts",
-		ReadOnly:       true,
-		SubType:        "buckettopentry",
-		Type:           "refList",
 	},
 	"zhash": {
 		AllowedChoices: []string{},
@@ -727,17 +633,11 @@ type SparseBucketDestinationPort struct {
 	// The date that the bucket tracks.
 	Date *string `json:"date,omitempty" msgpack:"date,omitempty" bson:"date,omitempty" mapstructure:"date,omitempty"`
 
-	// Internal property maintaining migrations information.
-	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
-
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
 
 	// Ports encountered and number of occurrences seen.
-	Ports *map[string][]*BucketEntry `json:"ports,omitempty" msgpack:"ports,omitempty" bson:"ports,omitempty" mapstructure:"ports,omitempty"`
-
-	// List of most encountered ports, sorted by occurrences.
-	TopPorts *[]*BucketTopEntry `json:"topPorts,omitempty" msgpack:"topPorts,omitempty" bson:"-" mapstructure:"topPorts,omitempty"`
+	Ports *map[string]int `json:"ports,omitempty" msgpack:"ports,omitempty" bson:"ports,omitempty" mapstructure:"ports,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -795,9 +695,6 @@ func (o *SparseBucketDestinationPort) GetBSON() (interface{}, error) {
 	if o.Date != nil {
 		s.Date = o.Date
 	}
-	if o.MigrationsLog != nil {
-		s.MigrationsLog = o.MigrationsLog
-	}
 	if o.Namespace != nil {
 		s.Namespace = o.Namespace
 	}
@@ -832,9 +729,6 @@ func (o *SparseBucketDestinationPort) SetBSON(raw bson.Raw) error {
 	if s.Date != nil {
 		o.Date = s.Date
 	}
-	if s.MigrationsLog != nil {
-		o.MigrationsLog = s.MigrationsLog
-	}
 	if s.Namespace != nil {
 		o.Namespace = s.Namespace
 	}
@@ -867,17 +761,11 @@ func (o *SparseBucketDestinationPort) ToPlain() elemental.PlainIdentifiable {
 	if o.Date != nil {
 		out.Date = *o.Date
 	}
-	if o.MigrationsLog != nil {
-		out.MigrationsLog = *o.MigrationsLog
-	}
 	if o.Namespace != nil {
 		out.Namespace = *o.Namespace
 	}
 	if o.Ports != nil {
 		out.Ports = *o.Ports
-	}
-	if o.TopPorts != nil {
-		out.TopPorts = *o.TopPorts
 	}
 	if o.ZHash != nil {
 		out.ZHash = *o.ZHash
@@ -887,22 +775,6 @@ func (o *SparseBucketDestinationPort) ToPlain() elemental.PlainIdentifiable {
 	}
 
 	return out
-}
-
-// GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *SparseBucketDestinationPort) GetMigrationsLog() (out map[string]string) {
-
-	if o.MigrationsLog == nil {
-		return
-	}
-
-	return *o.MigrationsLog
-}
-
-// SetMigrationsLog sets the property MigrationsLog of the receiver using the address of the given value.
-func (o *SparseBucketDestinationPort) SetMigrationsLog(migrationsLog map[string]string) {
-
-	o.MigrationsLog = &migrationsLog
 }
 
 // GetNamespace returns the Namespace of the receiver.
@@ -978,20 +850,18 @@ func (o *SparseBucketDestinationPort) DeepCopyInto(out *SparseBucketDestinationP
 }
 
 type mongoAttributesBucketDestinationPort struct {
-	ID            bson.ObjectId             `bson:"_id,omitempty"`
-	Date          string                    `bson:"date"`
-	MigrationsLog map[string]string         `bson:"migrationslog,omitempty"`
-	Namespace     string                    `bson:"namespace"`
-	Ports         map[string][]*BucketEntry `bson:"ports,omitempty"`
-	ZHash         int                       `bson:"zhash"`
-	Zone          int                       `bson:"zone"`
+	ID        bson.ObjectId  `bson:"_id,omitempty"`
+	Date      string         `bson:"date"`
+	Namespace string         `bson:"namespace"`
+	Ports     map[string]int `bson:"ports,omitempty"`
+	ZHash     int            `bson:"zhash"`
+	Zone      int            `bson:"zone"`
 }
 type mongoAttributesSparseBucketDestinationPort struct {
-	ID            bson.ObjectId              `bson:"_id,omitempty"`
-	Date          *string                    `bson:"date,omitempty"`
-	MigrationsLog *map[string]string         `bson:"migrationslog,omitempty"`
-	Namespace     *string                    `bson:"namespace,omitempty"`
-	Ports         *map[string][]*BucketEntry `bson:"ports,omitempty"`
-	ZHash         *int                       `bson:"zhash,omitempty"`
-	Zone          *int                       `bson:"zone,omitempty"`
+	ID        bson.ObjectId   `bson:"_id,omitempty"`
+	Date      *string         `bson:"date,omitempty"`
+	Namespace *string         `bson:"namespace,omitempty"`
+	Ports     *map[string]int `bson:"ports,omitempty"`
+	ZHash     *int            `bson:"zhash,omitempty"`
+	Zone      *int            `bson:"zone,omitempty"`
 }

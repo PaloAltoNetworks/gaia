@@ -28,9 +28,8 @@ var (
 		"automationaction":          AutomationActionIdentity,
 		"automationcondition":       AutomationConditionIdentity,
 		"bucketdestinationport":     BucketDestinationPortIdentity,
-
-		"cachedflowreport": CachedFlowReportIdentity,
-		"category":         CategoryIdentity,
+		"cachedflowreport":          CachedFlowReportIdentity,
+		"category":                  CategoryIdentity,
 
 		"claims":              ClaimsIdentity,
 		"clausesmatch":        ClauseMatchIdentity,
@@ -203,6 +202,7 @@ var (
 
 		"token":            TokenIdentity,
 		"tokenscopepolicy": TokenScopePolicyIdentity,
+		"topport":          TopPortIdentity,
 
 		"trigger":          TriggerIdentity,
 		"trustedca":        TrustedCAIdentity,
@@ -238,9 +238,8 @@ var (
 		"automationactions":           AutomationActionIdentity,
 		"automationconditions":        AutomationConditionIdentity,
 		"bucketdestinationports":      BucketDestinationPortIdentity,
-
-		"cachedflowreports": CachedFlowReportIdentity,
-		"categories":        CategoryIdentity,
+		"cachedflowreports":           CachedFlowReportIdentity,
+		"categories":                  CategoryIdentity,
 
 		"claims":              ClaimsIdentity,
 		"clausesmatches":      ClauseMatchIdentity,
@@ -413,6 +412,7 @@ var (
 
 		"tokens":             TokenIdentity,
 		"tokenscopepolicies": TokenScopePolicyIdentity,
+		"topPorts":           TopPortIdentity,
 
 		"triggers":          TriggerIdentity,
 		"trustedcas":        TrustedCAIdentity,
@@ -440,7 +440,6 @@ var (
 		"auto":               AutomationIdentity,
 		"autoact":            AutomationActionIdentity,
 		"autocon":            AutomationConditionIdentity,
-		"bktdestport":        BucketDestinationPortIdentity,
 		"loadbalancer":       CloudLoadBalancerIdentity,
 		"loadbalancers":      CloudLoadBalancerIdentity,
 		"loadbalancerroute":  CloudLoadBalancerRouteIdentity,
@@ -536,6 +535,7 @@ var (
 		"sugg":               SuggestedPolicyIdentity,
 		"suggs":              SuggestedPolicyIdentity,
 		"tsp":                TokenScopePolicyIdentity,
+		"tp":                 TopPortIdentity,
 		"trustedns":          TrustedNamespaceIdentity,
 		"usrpol":             UserAccessPolicyIdentity,
 		"usrpols":            UserAccessPolicyIdentity,
@@ -1362,6 +1362,7 @@ var (
 		},
 		"token":            nil,
 		"tokenscopepolicy": nil,
+		"topport":          nil,
 		"trigger":          nil,
 		"trustedca":        nil,
 		"trustednamespace": {
@@ -1770,6 +1771,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewToken()
 	case TokenScopePolicyIdentity:
 		return NewTokenScopePolicy()
+	case TopPortIdentity:
+		return NewTopPort()
 	case TriggerIdentity:
 		return NewTrigger()
 	case TrustedCAIdentity:
@@ -2133,6 +2136,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseToken()
 	case TokenScopePolicyIdentity:
 		return NewSparseTokenScopePolicy()
+	case TopPortIdentity:
+		return NewSparseTopPort()
 	case TriggerIdentity:
 		return NewSparseTrigger()
 	case TrustedCAIdentity:
@@ -2506,6 +2511,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &TokensList{}
 	case TokenScopePolicyIdentity:
 		return &TokenScopePoliciesList{}
+	case TopPortIdentity:
+		return &TopPortsList{}
 	case TriggerIdentity:
 		return &TriggersList{}
 	case TrustedCAIdentity:
@@ -2869,6 +2876,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseTokensList{}
 	case TokenScopePolicyIdentity:
 		return &SparseTokenScopePoliciesList{}
+	case TopPortIdentity:
+		return &SparseTopPortsList{}
 	case TriggerIdentity:
 		return &SparseTriggersList{}
 	case TrustedCAIdentity:
@@ -3084,6 +3093,7 @@ func AllIdentities() []elemental.Identity {
 		TextIndexIdentity,
 		TokenIdentity,
 		TokenScopePolicyIdentity,
+		TopPortIdentity,
 		TriggerIdentity,
 		TrustedCAIdentity,
 		TrustedNamespaceIdentity,
@@ -3163,9 +3173,7 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"autocon",
 		}
 	case BucketDestinationPortIdentity:
-		return []string{
-			"bktdestport",
-		}
+		return []string{}
 	case CachedFlowReportIdentity:
 		return []string{}
 	case CategoryIdentity:
@@ -3604,6 +3612,10 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case TokenScopePolicyIdentity:
 		return []string{
 			"tsp",
+		}
+	case TopPortIdentity:
+		return []string{
+			"tp",
 		}
 	case TriggerIdentity:
 		return []string{}
