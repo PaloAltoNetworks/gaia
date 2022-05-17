@@ -1,0 +1,92 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "topport": {
+        "description": "Represent a top port within a bucket.",
+        "properties": {
+          "entry": {
+            "description": "The entry encountered.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "occurrences": {
+            "description": "Number of times the entry showed up.",
+            "readOnly": true,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "topport",
+    "version": "1.0"
+  },
+  "paths": {
+    "/topPorts": {
+      "get": {
+        "description": "Retrieves the list of top destination ports encountered for the specified day\n(default today).",
+        "operationId": "get-all-topPorts",
+        "parameters": [
+          {
+            "description": "if set, it will return the top ports up to the number specified (default 10).",
+            "in": "query",
+            "name": "numberOfTopEntries",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/topport"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "applicationinsight/buckets",
+          "agrias"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'applicationinsight/buckets'",
+      "name": "applicationinsight/buckets"
+    },
+    {
+      "description": "This tag is for package 'agrias'",
+      "name": "agrias"
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "bucketdestinationport": {
+        "description": "Holds the destination ports of flows across 24 hours (beginning of a day to\nthe end).",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "date": {
+            "description": "The date that the bucket tracks.",
+            "example": "2022-05-09",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "ports": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Ports encountered and number of occurrences seen.",
+            "type": "object"
+          }
+        },
+        "required": [
+          "date"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "bucketdestinationport",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'applicationinsight/buckets'",
+      "name": "applicationinsight/buckets"
+    },
+    {
+      "description": "This tag is for package 'agrias'",
+      "name": "agrias"
+    }
+  ]
+}

@@ -1239,6 +1239,20 @@ relations:
   create:
     description: Creates a new token scope policy.
 
+- rest_name: topport
+  get:
+    description: |-
+      Retrieves the list of top destination ports encountered for the specified day
+      (default today).
+    global_parameters:
+    - $filtering
+    parameters:
+      entries:
+      - name: numberOfTopEntries
+        description: if set, it will return the top ports up to the number specified
+          (default 10).
+        type: integer
+
 - rest_name: trustedca
   get:
     description: Retrieves the trusted CAs of a namespace.

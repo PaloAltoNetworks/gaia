@@ -36,6 +36,7 @@ aporeto-crds
 aporeto-operator
 aporeto-operator
 AppCredential
+applicationinsight
 attachedInterfaces
 auditd
 auditd
@@ -67,6 +68,7 @@ base64-encoded
 base64-encoded
 bolded
 bolded
+BucketDestinationPort
 CA
 CachedFlowReport
 CAs
@@ -540,6 +542,7 @@ TLSType
 TLSType
 TokenEndpointAuthMethodsSupported
 TokenScopePolicy
+TopPort
 TraceMode
 TraceRecord
 TrustedCA

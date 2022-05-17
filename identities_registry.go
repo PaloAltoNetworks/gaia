@@ -27,6 +27,7 @@ var (
 		"automation":                AutomationIdentity,
 		"automationaction":          AutomationActionIdentity,
 		"automationcondition":       AutomationConditionIdentity,
+		"bucketdestinationport":     BucketDestinationPortIdentity,
 		"cachedflowreport":          CachedFlowReportIdentity,
 		"category":                  CategoryIdentity,
 
@@ -202,6 +203,7 @@ var (
 
 		"token":            TokenIdentity,
 		"tokenscopepolicy": TokenScopePolicyIdentity,
+		"topport":          TopPortIdentity,
 
 		"trigger":          TriggerIdentity,
 		"trustedca":        TrustedCAIdentity,
@@ -236,6 +238,7 @@ var (
 		"automations":                 AutomationIdentity,
 		"automationactions":           AutomationActionIdentity,
 		"automationconditions":        AutomationConditionIdentity,
+		"bucketdestinationports":      BucketDestinationPortIdentity,
 		"cachedflowreports":           CachedFlowReportIdentity,
 		"categories":                  CategoryIdentity,
 
@@ -411,6 +414,7 @@ var (
 
 		"tokens":             TokenIdentity,
 		"tokenscopepolicies": TokenScopePolicyIdentity,
+		"topPorts":           TopPortIdentity,
 
 		"triggers":          TriggerIdentity,
 		"trustedcas":        TrustedCAIdentity,
@@ -533,6 +537,7 @@ var (
 		"sugg":               SuggestedPolicyIdentity,
 		"suggs":              SuggestedPolicyIdentity,
 		"tsp":                TokenScopePolicyIdentity,
+		"tp":                 TopPortIdentity,
 		"trustedns":          TrustedNamespaceIdentity,
 		"usrpol":             UserAccessPolicyIdentity,
 		"usrpols":            UserAccessPolicyIdentity,
@@ -665,6 +670,12 @@ var (
 			{"namespace", "key"},
 			{"name"},
 			{"createIdempotencyKey"},
+		},
+		"bucketdestinationport": {
+			{"namespace", "date"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{":shard", ":unique", "zone", "zHash"},
 		},
 		"cachedflowreport": {
 			{"sourceID"},
@@ -1353,6 +1364,7 @@ var (
 		},
 		"token":            nil,
 		"tokenscopepolicy": nil,
+		"topport":          nil,
 		"trigger":          nil,
 		"trustedca":        nil,
 		"trustednamespace": {
@@ -1463,6 +1475,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewAutomationAction()
 	case AutomationConditionIdentity:
 		return NewAutomationCondition()
+	case BucketDestinationPortIdentity:
+		return NewBucketDestinationPort()
 	case CachedFlowReportIdentity:
 		return NewCachedFlowReport()
 	case CategoryIdentity:
@@ -1759,6 +1773,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewToken()
 	case TokenScopePolicyIdentity:
 		return NewTokenScopePolicy()
+	case TopPortIdentity:
+		return NewTopPort()
 	case TriggerIdentity:
 		return NewTrigger()
 	case TrustedCAIdentity:
@@ -1826,6 +1842,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseAutomationAction()
 	case AutomationConditionIdentity:
 		return NewSparseAutomationCondition()
+	case BucketDestinationPortIdentity:
+		return NewSparseBucketDestinationPort()
 	case CachedFlowReportIdentity:
 		return NewSparseCachedFlowReport()
 	case CategoryIdentity:
@@ -2120,6 +2138,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseToken()
 	case TokenScopePolicyIdentity:
 		return NewSparseTokenScopePolicy()
+	case TopPortIdentity:
+		return NewSparseTopPort()
 	case TriggerIdentity:
 		return NewSparseTrigger()
 	case TrustedCAIdentity:
@@ -2197,6 +2217,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &AutomationActionsList{}
 	case AutomationConditionIdentity:
 		return &AutomationConditionsList{}
+	case BucketDestinationPortIdentity:
+		return &BucketDestinationPortsList{}
 	case CachedFlowReportIdentity:
 		return &CachedFlowReportsList{}
 	case CategoryIdentity:
@@ -2491,6 +2513,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &TokensList{}
 	case TokenScopePolicyIdentity:
 		return &TokenScopePoliciesList{}
+	case TopPortIdentity:
+		return &TopPortsList{}
 	case TriggerIdentity:
 		return &TriggersList{}
 	case TrustedCAIdentity:
@@ -2558,6 +2582,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseAutomationActionsList{}
 	case AutomationConditionIdentity:
 		return &SparseAutomationConditionsList{}
+	case BucketDestinationPortIdentity:
+		return &SparseBucketDestinationPortsList{}
 	case CachedFlowReportIdentity:
 		return &SparseCachedFlowReportsList{}
 	case CategoryIdentity:
@@ -2852,6 +2878,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseTokensList{}
 	case TokenScopePolicyIdentity:
 		return &SparseTokenScopePoliciesList{}
+	case TopPortIdentity:
+		return &SparseTopPortsList{}
 	case TriggerIdentity:
 		return &SparseTriggersList{}
 	case TrustedCAIdentity:
@@ -2918,6 +2946,7 @@ func AllIdentities() []elemental.Identity {
 		AutomationIdentity,
 		AutomationActionIdentity,
 		AutomationConditionIdentity,
+		BucketDestinationPortIdentity,
 		CachedFlowReportIdentity,
 		CategoryIdentity,
 		ClaimsIdentity,
@@ -3066,6 +3095,7 @@ func AllIdentities() []elemental.Identity {
 		TextIndexIdentity,
 		TokenIdentity,
 		TokenScopePolicyIdentity,
+		TopPortIdentity,
 		TriggerIdentity,
 		TrustedCAIdentity,
 		TrustedNamespaceIdentity,
@@ -3144,6 +3174,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"autocon",
 		}
+	case BucketDestinationPortIdentity:
+		return []string{}
 	case CachedFlowReportIdentity:
 		return []string{}
 	case CategoryIdentity:
@@ -3582,6 +3614,10 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case TokenScopePolicyIdentity:
 		return []string{
 			"tsp",
+		}
+	case TopPortIdentity:
+		return []string{
+			"tp",
 		}
 	case TriggerIdentity:
 		return []string{}
