@@ -29,13 +29,19 @@ func (p *PortsRange) HasOverlapWithPortsList(ports *PortsList) bool {
 	return false
 }
 
-// HasOverlapWithPortsRange returns true if the range overlaps one of the port ranges.
+// HasOverlapWithPortsRange returns true if the range overlaps the given ports range.
 func (p *PortsRange) HasOverlapWithPortsRange(otherRange *PortsRange) bool {
 
 	return p.FromPort >= otherRange.FromPort && p.FromPort <= otherRange.ToPort ||
 		p.ToPort >= otherRange.FromPort && p.ToPort <= otherRange.ToPort ||
 		otherRange.FromPort >= p.FromPort && otherRange.FromPort <= p.ToPort ||
 		otherRange.ToPort >= p.FromPort && otherRange.ToPort <= p.ToPort
+}
+
+// ContainsPortsRange returns true if the range contains the given ports range.
+func (p *PortsRange) ContainsPortsRange(otherRange *PortsRange) bool {
+
+	return p.FromPort <= otherRange.FromPort && p.ToPort >= otherRange.ToPort
 }
 
 // HasOverlapWithPortsRanges returns true if the range has overlaps with the given ports.
