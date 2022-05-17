@@ -135,7 +135,7 @@ type CloudLoadBalancerRoute struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags []string `json:"normalizedTags" msgpack:"normalizedTags" bson:"normalizedtags" mapstructure:"normalizedTags,omitempty"`
 
-	// LoadBalancer route related parameters.
+	// Load Balancer route related parameters.
 	Parameters *CloudLoadBalancerRouteData `json:"parameters" msgpack:"parameters" bson:"parameters" mapstructure:"parameters,omitempty"`
 
 	// A list of policy references associated with this cloud node.
@@ -1172,7 +1172,7 @@ var CloudLoadBalancerRouteAttributesMap = map[string]elemental.AttributeSpecific
 		AllowedChoices: []string{},
 		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
-		Description:    `LoadBalancer route related parameters.`,
+		Description:    `Load Balancer route related parameters.`,
 		Exposed:        true,
 		Name:           "parameters",
 		Stored:         true,
@@ -1525,7 +1525,7 @@ var CloudLoadBalancerRouteLowerCaseAttributesMap = map[string]elemental.Attribut
 		AllowedChoices: []string{},
 		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
-		Description:    `LoadBalancer route related parameters.`,
+		Description:    `Load Balancer route related parameters.`,
 		Exposed:        true,
 		Name:           "parameters",
 		Stored:         true,
@@ -1757,7 +1757,7 @@ type SparseCloudLoadBalancerRoute struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags *[]string `json:"normalizedTags,omitempty" msgpack:"normalizedTags,omitempty" bson:"normalizedtags,omitempty" mapstructure:"normalizedTags,omitempty"`
 
-	// LoadBalancer route related parameters.
+	// Load Balancer route related parameters.
 	Parameters *CloudLoadBalancerRouteData `json:"parameters,omitempty" msgpack:"parameters,omitempty" bson:"parameters,omitempty" mapstructure:"parameters,omitempty"`
 
 	// A list of policy references associated with this cloud node.

@@ -2,27 +2,12 @@
   "openapi": "3.0.3",
   "components": {
     "schemas": {
-      "cloudpublicipaddress": {
-        "description": "A CloudPublicIPAddress represents a PublicIPAddress as defined in an Azure cloud\nprovider.",
+      "cloudservicetag": {
+        "description": "Provides the expanded list of network prefixes for a given Service Tag provided\nby the platform.",
         "properties": {
-          "APIID": {
-            "description": "Prisma Cloud API ID (matches Prisma Cloud API ID).",
-            "example": 12344555,
-            "type": "integer"
-          },
           "ID": {
             "description": "Identifier of the object.",
             "readOnly": true,
-            "type": "string"
-          },
-          "VPCID": {
-            "description": "ID of the host VPC.",
-            "example": "vpc-023419c5952374917",
-            "type": "string"
-          },
-          "accountID": {
-            "description": "Cloud account ID associated with the entity (matches Prisma Cloud accountID).",
-            "example": 9123450055,
             "type": "string"
           },
           "annotations": {
@@ -42,17 +27,13 @@
             },
             "type": "array"
           },
-          "cloudTags": {
-            "description": "Internal representation of object tags retrieved from the cloud provider.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
           "cloudType": {
-            "description": "Cloud type of the entity.",
-            "example": "AWS",
-            "type": "string"
+            "default": "AWS",
+            "description": "Cloud Type of the Service Tag.",
+            "enum": [
+              "AZURE",
+              "AWS"
+            ]
           },
           "createTime": {
             "description": "Creation date of the object.",
@@ -60,29 +41,25 @@
             "readOnly": true,
             "type": "string"
           },
-          "customerID": {
-            "description": "Customer ID as identified by Prisma Cloud.",
-            "example": 1234455,
-            "type": "integer"
-          },
-          "ingestionTime": {
-            "description": "The time that the object was first ingested.",
-            "format": "date-time",
+          "description": {
+            "description": "Description of the object.",
             "type": "string"
           },
+          "ipPrefixList": {
+            "description": "The IP Prefixes associated with a Service Tag.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "name": {
-            "description": "Name of the object (optional).",
-            "example": "myobject",
+            "description": "Name of the entity.",
+            "example": "the name",
             "type": "string"
           },
           "namespace": {
             "description": "Namespace tag attached to an entity.",
             "readOnly": true,
-            "type": "string"
-          },
-          "nativeID": {
-            "description": "ID of the cloud provider object.",
-            "example": "subnet-0ae4a90153dfb642c",
             "type": "string"
           },
           "normalizedTags": {
@@ -93,32 +70,9 @@
             "readOnly": true,
             "type": "array"
           },
-          "parameters": {
-            "$ref": "./cloudaddress#/components/schemas/cloudaddress"
-          },
-          "policyReferences": {
-            "description": "A list of policy references associated with this cloud node.",
-            "example": [
-              "sg-123"
-            ],
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
           "protected": {
             "description": "Defines if the object is protected.",
             "type": "boolean"
-          },
-          "regionName": {
-            "description": "Region name associated with the entity.",
-            "example": "AWS Tokyo",
-            "type": "string"
-          },
-          "resourceID": {
-            "description": "Prisma Cloud Resource ID.",
-            "example": 12344555,
-            "type": "integer"
           },
           "updateTime": {
             "description": "Last update date of the object.",
@@ -128,7 +82,7 @@
           }
         },
         "required": [
-          "nativeID"
+          "name"
         ],
         "type": "object"
       }
@@ -144,14 +98,14 @@
       "name": "TODO"
     },
     "termsOfService": "https://localhost/TODO",
-    "title": "cloudpublicipaddress",
+    "title": "cloudservicetag",
     "version": "1.0"
   },
   "paths": {
-    "/cloudpublicipaddresses": {
+    "/cloudserviceta": {
       "get": {
-        "description": "Retrieve the list of public IP addresses.",
-        "operationId": "get-all-cloudpublicipaddresses",
+        "description": "Retrieves the list of service tags.",
+        "operationId": "get-all-cloudserviceta",
         "parameters": [
           {
             "description": "Filtering query. Consequent `q` parameters will form an or.",
@@ -169,7 +123,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/cloudpublicipaddress"
+                    "$ref": "#/components/schemas/cloudservicetag"
                   },
                   "type": "array"
                 }
@@ -184,13 +138,13 @@
         ]
       },
       "post": {
-        "description": "Creates a Public IP address.",
-        "operationId": "create-a-new-cloudpublicipaddress",
+        "description": "Creates a Cloud Service Tag.",
+        "operationId": "create-a-new-cloudservicetag",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/cloudpublicipaddress"
+                "$ref": "#/components/schemas/cloudservicetag"
               }
             }
           }
@@ -200,7 +154,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/cloudpublicipaddress"
+                  "$ref": "#/components/schemas/cloudservicetag"
                 }
               }
             },
@@ -213,16 +167,16 @@
         ]
       }
     },
-    "/cloudpublicipaddresses/{id}": {
+    "/cloudserviceta/{id}": {
       "delete": {
-        "description": "Deletes the object with the given ID.",
-        "operationId": "delete-cloudpublicipaddress-by-ID",
+        "description": "Deletes the IP prefixes for a service tag.",
+        "operationId": "delete-cloudservicetag-by-ID",
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/cloudpublicipaddress"
+                  "$ref": "#/components/schemas/cloudservicetag"
                 }
               }
             },
@@ -235,14 +189,25 @@
         ]
       },
       "get": {
-        "description": "Retrieves the object with the given ID.",
-        "operationId": "get-cloudpublicipaddress-by-ID",
+        "description": "Retrieves the IP prefixes mapping for a given service tag.",
+        "operationId": "get-cloudservicetag-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/cloudpublicipaddress"
+                  "$ref": "#/components/schemas/cloudservicetag"
                 }
               }
             },
@@ -265,13 +230,13 @@
         }
       ],
       "put": {
-        "description": "Updates the object with the given ID.",
-        "operationId": "update-cloudpublicipaddress-by-ID",
+        "description": "Updates the IP prefixes for a given service tag.",
+        "operationId": "update-cloudservicetag-by-ID",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/cloudpublicipaddress"
+                "$ref": "#/components/schemas/cloudservicetag"
               }
             }
           }
@@ -281,7 +246,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/cloudpublicipaddress"
+                  "$ref": "#/components/schemas/cloudservicetag"
                 }
               }
             },
