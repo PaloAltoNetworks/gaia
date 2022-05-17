@@ -13,6 +13,14 @@
               "Reject"
             ]
           },
+          "ipRanges": {
+            "description": "A list of ips range.",
+            "items": {
+              "$ref": "./cloudiprange#/components/schemas/cloudiprange"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
           "localNetworks": {
             "description": "A list of IP CIDRS that identify local endpoints.",
             "items": {
@@ -62,6 +70,14 @@
             "description": "A list of Service Tags provided by the platform.",
             "items": {
               "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "storedIPRanges": {
+            "description": "A list of ips range for internal use. Not visible to end users.",
+            "items": {
+              "$ref": "./cloudstorediprange#/components/schemas/cloudstorediprange"
             },
             "readOnly": true,
             "type": "array"
