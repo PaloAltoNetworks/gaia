@@ -118,6 +118,7 @@ var (
 		"issue":                    IssueIdentity,
 		"issueservicetoken":        IssueServiceTokenIdentity,
 
+		"jwt":               JwtIdentity,
 		"kubernetescluster": KubernetesClusterIdentity,
 		"ldapprovider":      LDAPProviderIdentity,
 		"localca":           LocalCAIdentity,
@@ -184,6 +185,7 @@ var (
 		"servicedependencypolicy": ServiceDependencyPolicyIdentity,
 		"servicepublication":      ServicePublicationIdentity,
 		"servicetoken":            ServiceTokenIdentity,
+		"signtag":                 SigntagIdentity,
 		"squalltag":               SquallTagIdentity,
 		"sshauthority":            SSHAuthorityIdentity,
 		"sshauthorizationpolicy":  SSHAuthorizationPolicyIdentity,
@@ -326,6 +328,7 @@ var (
 		"issue":                      IssueIdentity,
 		"issueservicetokens":         IssueServiceTokenIdentity,
 
+		"jwts":               JwtIdentity,
 		"kubernetesclusters": KubernetesClusterIdentity,
 		"ldapproviders":      LDAPProviderIdentity,
 		"localcas":           LocalCAIdentity,
@@ -392,6 +395,7 @@ var (
 		"servicedependencypolicies": ServiceDependencyPolicyIdentity,
 		"servicepublications":       ServicePublicationIdentity,
 		"servicetoken":              ServiceTokenIdentity,
+		"signtags":                  SigntagIdentity,
 		"squalltags":                SquallTagIdentity,
 		"sshauthorities":            SSHAuthorityIdentity,
 		"sshauthorizationpolicies":  SSHAuthorizationPolicyIdentity,
@@ -1109,6 +1113,7 @@ var (
 		},
 		"issue":             nil,
 		"issueservicetoken": nil,
+		"jwt":               nil,
 		"kubernetescluster": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
@@ -1321,6 +1326,7 @@ var (
 		"servicedependencypolicy": nil,
 		"servicepublication":      nil,
 		"servicetoken":            nil,
+		"signtag":                 nil,
 		"squalltag":               nil,
 		"sshauthority": {
 			{":shard", ":unique", "zone", "zHash"},
@@ -1605,6 +1611,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewIssue()
 	case IssueServiceTokenIdentity:
 		return NewIssueServiceToken()
+	case JwtIdentity:
+		return NewJwt()
 	case KubernetesClusterIdentity:
 		return NewKubernetesCluster()
 	case LDAPProviderIdentity:
@@ -1725,6 +1733,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewServicePublication()
 	case ServiceTokenIdentity:
 		return NewServiceToken()
+	case SigntagIdentity:
+		return NewSigntag()
 	case SquallTagIdentity:
 		return NewSquallTag()
 	case SSHAuthorityIdentity:
@@ -1968,6 +1978,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseIssue()
 	case IssueServiceTokenIdentity:
 		return NewSparseIssueServiceToken()
+	case JwtIdentity:
+		return NewSparseJwt()
 	case KubernetesClusterIdentity:
 		return NewSparseKubernetesCluster()
 	case LDAPProviderIdentity:
@@ -2086,6 +2098,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseServicePublication()
 	case ServiceTokenIdentity:
 		return NewSparseServiceToken()
+	case SigntagIdentity:
+		return NewSparseSigntag()
 	case SquallTagIdentity:
 		return NewSparseSquallTag()
 	case SSHAuthorityIdentity:
@@ -2339,6 +2353,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &IssuesList{}
 	case IssueServiceTokenIdentity:
 		return &IssueServiceTokensList{}
+	case JwtIdentity:
+		return &JwtsList{}
 	case KubernetesClusterIdentity:
 		return &KubernetesClustersList{}
 	case LDAPProviderIdentity:
@@ -2457,6 +2473,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &ServicePublicationsList{}
 	case ServiceTokenIdentity:
 		return &ServiceTokensList{}
+	case SigntagIdentity:
+		return &SigntagsList{}
 	case SquallTagIdentity:
 		return &SquallTagsList{}
 	case SSHAuthorityIdentity:
@@ -2700,6 +2718,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseIssuesList{}
 	case IssueServiceTokenIdentity:
 		return &SparseIssueServiceTokensList{}
+	case JwtIdentity:
+		return &SparseJwtsList{}
 	case KubernetesClusterIdentity:
 		return &SparseKubernetesClustersList{}
 	case LDAPProviderIdentity:
@@ -2818,6 +2838,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseServicePublicationsList{}
 	case ServiceTokenIdentity:
 		return &SparseServiceTokensList{}
+	case SigntagIdentity:
+		return &SparseSigntagsList{}
 	case SquallTagIdentity:
 		return &SparseSquallTagsList{}
 	case SSHAuthorityIdentity:
@@ -2988,6 +3010,7 @@ func AllIdentities() []elemental.Identity {
 		IsolationProfileIdentity,
 		IssueIdentity,
 		IssueServiceTokenIdentity,
+		JwtIdentity,
 		KubernetesClusterIdentity,
 		LDAPProviderIdentity,
 		LocalCAIdentity,
@@ -3048,6 +3071,7 @@ func AllIdentities() []elemental.Identity {
 		ServiceDependencyPolicyIdentity,
 		ServicePublicationIdentity,
 		ServiceTokenIdentity,
+		SigntagIdentity,
 		SquallTagIdentity,
 		SSHAuthorityIdentity,
 		SSHAuthorizationPolicyIdentity,
@@ -3354,6 +3378,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{}
 	case IssueServiceTokenIdentity:
 		return []string{}
+	case JwtIdentity:
+		return []string{}
 	case KubernetesClusterIdentity:
 		return []string{
 			"k8scluster",
@@ -3534,6 +3560,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case ServicePublicationIdentity:
 		return []string{}
 	case ServiceTokenIdentity:
+		return []string{}
+	case SigntagIdentity:
 		return []string{}
 	case SquallTagIdentity:
 		return []string{}

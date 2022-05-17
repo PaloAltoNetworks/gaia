@@ -3442,6 +3442,8 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[JwtIdentity] = &elemental.Relationship{}
+
 	relationshipsRegistry[KubernetesClusterIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -5546,6 +5548,8 @@ func init() {
 			"root": {},
 		},
 	}
+
+	relationshipsRegistry[SigntagIdentity] = &elemental.Relationship{}
 
 	relationshipsRegistry[SquallTagIdentity] = &elemental.Relationship{
 		RetrieveMany: map[string]*elemental.RelationshipInfo{

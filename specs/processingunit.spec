@@ -135,6 +135,19 @@ attributes:
     stored: true
     filterable: true
 
+  - name: hashedTagsSignature
+    description: This field contains the JWT signature of the list of hashed tags.
+      field.
+    type: string
+    exposed: true
+    stored: true
+
+  - name: associatedLocalCAID
+    description: AssociatedLocalCAID holds the remote ID of the certificate authority that has been used to sign
+     the tags.
+    type: string
+    stored: true
+
   - name: image
     description: |-
       This field is deprecated and it is there for backward compatibility. Use
@@ -269,21 +282,13 @@ attributes:
     filterable: true
     transient: true
 
-  - name: wireTagsFiltered
+  - name: wireTagsWithHash
     description: |-
-      Contains the list of filtered wire tags that must go on the wire. Enforcer
-      filters out the namespace and controller labels.
-    type: list
+      Contains the list of wire tags that must go on the wire and their mapping to
+      corresponding hashes.
+    type: external
     exposed: true
-    subtype: string
-    stored: true
-
-  - name: wireTagsFilteredSignature
-    description: This field contains the JWT signature of the above wireTagsFiltered
-      field.
-    type: string
-    exposed: true
-    stored: true
+    subtype: map[string]string
 
 # Relations
 relations:

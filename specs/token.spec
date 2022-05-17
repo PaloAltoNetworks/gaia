@@ -15,7 +15,6 @@ attributes:
     description: Certificate contains the client certificate to use to create a token.
     type: string
     exposed: true
-    required: true
     creation_only: true
     example_value: |-
       -----BEGIN CERTIFICATE-----

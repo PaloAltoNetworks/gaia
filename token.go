@@ -277,10 +277,6 @@ func (o *Token) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if err := elemental.ValidateRequiredString("certificate", o.Certificate); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
 	if len(requiredErrors) > 0 {
 		return requiredErrors
 	}
@@ -339,7 +335,6 @@ var TokenAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `Certificate contains the client certificate to use to create a token.`,
 		Exposed:        true,
 		Name:           "certificate",
-		Required:       true,
 		Type:           "string",
 	},
 	"SigningKeyID": {
@@ -392,7 +387,6 @@ var TokenLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `Certificate contains the client certificate to use to create a token.`,
 		Exposed:        true,
 		Name:           "certificate",
-		Required:       true,
 		Type:           "string",
 	},
 	"signingkeyid": {
