@@ -223,6 +223,85 @@ func Test_PortsRange_HasOverlapWithPortsRange(t *testing.T) {
 	}
 }
 
+func Test_PortsRange_ContainsPortsRange(t *testing.T) {
+
+	type args struct {
+		pr  *PortsRange
+		opr *PortsRange
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{
+			name: "exact match",
+			args: args{
+				pr: &PortsRange{
+					FromPort: 80,
+					ToPort:   443,
+				},
+				opr: &PortsRange{
+					FromPort: 80,
+					ToPort:   443,
+				},
+			},
+			want: true,
+		},
+		{
+			name: "contains",
+			args: args{
+				pr: &PortsRange{
+					FromPort: 80,
+					ToPort:   443,
+				},
+				opr: &PortsRange{
+					FromPort: 81,
+					ToPort:   442,
+				},
+			},
+			want: true,
+		},
+		{
+			name: "overlap not contain",
+			args: args{
+				pr: &PortsRange{
+					FromPort: 80,
+					ToPort:   443,
+				},
+				opr: &PortsRange{
+					FromPort: 81,
+					ToPort:   444,
+				},
+			},
+			want: false,
+		},
+		{
+			name: "no contain",
+			args: args{
+				pr: &PortsRange{
+					FromPort: 80,
+					ToPort:   443,
+				},
+				opr: &PortsRange{
+					FromPort: 600,
+					ToPort:   700,
+				},
+			},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.args.pr.ContainsPortsRange(tt.args.opr)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ContainsPortsRange() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func Test_PortsRange_HasOverlapWithPortsRanges(t *testing.T) {
 
 	type args struct {
