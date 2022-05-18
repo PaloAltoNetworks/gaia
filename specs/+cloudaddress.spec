@@ -76,7 +76,7 @@ attributes:
     - $optionalcidrorip
 
   - name: publicIPRef
-    description: The referrence to public IP address.
+    description: The reference to a public IP address.
     type: string
     exposed: true
     stored: true

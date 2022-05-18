@@ -47,7 +47,7 @@ type CloudAddress struct {
 	// The public IP address value.
 	PublicIP string `json:"publicIP" msgpack:"publicIP" bson:"publicip" mapstructure:"publicIP,omitempty"`
 
-	// The referrence to public IP address.
+	// The reference to a public IP address.
 	PublicIPRef string `json:"publicIPRef" msgpack:"publicIPRef" bson:"publicipref" mapstructure:"publicIPRef,omitempty"`
 
 	// Internal representation of public IP addresses to accelerate operations. Not
@@ -306,7 +306,7 @@ to users.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "publicipref",
 		ConvertedName:  "PublicIPRef",
-		Description:    `The referrence to public IP address.`,
+		Description:    `The reference to a public IP address.`,
 		Exposed:        true,
 		Name:           "publicIPRef",
 		Stored:         true,
@@ -409,7 +409,7 @@ to users.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "publicipref",
 		ConvertedName:  "PublicIPRef",
-		Description:    `The referrence to public IP address.`,
+		Description:    `The reference to a public IP address.`,
 		Exposed:        true,
 		Name:           "publicIPRef",
 		Stored:         true,
