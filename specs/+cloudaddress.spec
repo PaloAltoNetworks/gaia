@@ -67,13 +67,19 @@ attributes:
     example_value: ip-172-20-53-29.us-west-2.compute.internal
 
   - name: publicIP
-    description: The private IP address value.
+    description: The public IP address value.
     type: string
     exposed: true
     stored: true
     example_value: 10.1.1.2
     validations:
     - $optionalcidrorip
+
+  - name: publicIPRef
+    description: The referrence to public IP address.
+    type: string
+    exposed: true
+    stored: true
 
   - name: publicNetwork
     description: |-
