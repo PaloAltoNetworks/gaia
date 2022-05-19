@@ -5528,9 +5528,9 @@ The ID of the enforcer associated with the processing unit.
 
 The namespace of the enforcer associated with the processing unit.
 
-##### `hashedTagsSignature` `string`
+##### `hashOfHashedTags` `string`
 
-This field contains the JWT signature of the list of hashed tags. field.
+Contains the hash of the hashed wire tags.
 
 ##### `image` `string`
 
@@ -5603,6 +5603,10 @@ Holds the previous operational status if it has changed.
 
 Defines if the object is protected.
 
+##### `signedHashOfHashedTags` `string`
+
+This field contains the signature of the hash of the hashed tags. field.
+
 ##### `tracing` [`tracemode`](#tracemode)
 
 Indicates if this processing unit must be placed in tracing mode.
@@ -5622,7 +5626,7 @@ _This attribute is deprecated_.
 
 List of vulnerabilities affecting this processing unit.
 
-##### `wireTagsWithHash` `map[string]string`
+##### `wireTagToHashTag` `map[string]string`
 
 Contains the list of wire tags that must go on the wire and their mapping to
 corresponding hashes.

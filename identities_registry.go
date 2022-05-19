@@ -184,6 +184,7 @@ var (
 		"servicedependencypolicy": ServiceDependencyPolicyIdentity,
 		"servicepublication":      ServicePublicationIdentity,
 		"servicetoken":            ServiceTokenIdentity,
+		"signhash":                SignhashIdentity,
 		"squalltag":               SquallTagIdentity,
 		"sshauthority":            SSHAuthorityIdentity,
 		"sshauthorizationpolicy":  SSHAuthorizationPolicyIdentity,
@@ -392,6 +393,7 @@ var (
 		"servicedependencypolicies": ServiceDependencyPolicyIdentity,
 		"servicepublications":       ServicePublicationIdentity,
 		"servicetoken":              ServiceTokenIdentity,
+		"signhashes":                SignhashIdentity,
 		"squalltags":                SquallTagIdentity,
 		"sshauthorities":            SSHAuthorityIdentity,
 		"sshauthorizationpolicies":  SSHAuthorizationPolicyIdentity,
@@ -1321,6 +1323,7 @@ var (
 		"servicedependencypolicy": nil,
 		"servicepublication":      nil,
 		"servicetoken":            nil,
+		"signhash":                nil,
 		"squalltag":               nil,
 		"sshauthority": {
 			{":shard", ":unique", "zone", "zHash"},
@@ -1725,6 +1728,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewServicePublication()
 	case ServiceTokenIdentity:
 		return NewServiceToken()
+	case SignhashIdentity:
+		return NewSignhash()
 	case SquallTagIdentity:
 		return NewSquallTag()
 	case SSHAuthorityIdentity:
@@ -2086,6 +2091,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseServicePublication()
 	case ServiceTokenIdentity:
 		return NewSparseServiceToken()
+	case SignhashIdentity:
+		return NewSparseSignhash()
 	case SquallTagIdentity:
 		return NewSparseSquallTag()
 	case SSHAuthorityIdentity:
@@ -2457,6 +2464,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &ServicePublicationsList{}
 	case ServiceTokenIdentity:
 		return &ServiceTokensList{}
+	case SignhashIdentity:
+		return &SignhashsList{}
 	case SquallTagIdentity:
 		return &SquallTagsList{}
 	case SSHAuthorityIdentity:
@@ -2818,6 +2827,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseServicePublicationsList{}
 	case ServiceTokenIdentity:
 		return &SparseServiceTokensList{}
+	case SignhashIdentity:
+		return &SparseSignhashsList{}
 	case SquallTagIdentity:
 		return &SparseSquallTagsList{}
 	case SSHAuthorityIdentity:
@@ -3048,6 +3059,7 @@ func AllIdentities() []elemental.Identity {
 		ServiceDependencyPolicyIdentity,
 		ServicePublicationIdentity,
 		ServiceTokenIdentity,
+		SignhashIdentity,
 		SquallTagIdentity,
 		SSHAuthorityIdentity,
 		SSHAuthorizationPolicyIdentity,
@@ -3534,6 +3546,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case ServicePublicationIdentity:
 		return []string{}
 	case ServiceTokenIdentity:
+		return []string{}
+	case SignhashIdentity:
 		return []string{}
 	case SquallTagIdentity:
 		return []string{}

@@ -1230,6 +1230,10 @@ relations:
   create:
     description: Creates a new token.
 
+- rest_name: signhash
+  create:
+    description: Creates the signature of the hashed string.
+
 - rest_name: tokenscopepolicy
   get:
     description: Retrieves the list of token scope policies.

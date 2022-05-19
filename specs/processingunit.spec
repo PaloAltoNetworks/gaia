@@ -135,8 +135,8 @@ attributes:
     stored: true
     filterable: true
 
-  - name: hashedTagsSignature
-    description: This field contains the JWT signature of the list of hashed tags.
+  - name: signedHashOfHashedTags
+    description: This field contains the signature of the hash of the hashed tags.
       field.
     type: string
     exposed: true
@@ -282,13 +282,20 @@ attributes:
     filterable: true
     transient: true
 
-  - name: wireTagsWithHash
+  - name: wireTagToHashTag
     description: |-
       Contains the list of wire tags that must go on the wire and their mapping to
       corresponding hashes.
     type: external
     exposed: true
     subtype: map[string]string
+
+  - name: hashOfHashedTags
+    description: |-
+      Contains the hash of the hashed wire tags.
+    type: string
+    exposed: true
+    stored: true
 
 # Relations
 relations:

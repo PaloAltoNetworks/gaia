@@ -230,8 +230,8 @@ type ProcessingUnit struct {
 	// The namespace of the enforcer associated with the processing unit.
 	EnforcerNamespace string `json:"enforcerNamespace" msgpack:"enforcerNamespace" bson:"enforcernamespace" mapstructure:"enforcerNamespace,omitempty"`
 
-	// This field contains the JWT signature of the list of hashed tags. field.
-	HashedTagsSignature string `json:"hashedTagsSignature" msgpack:"hashedTagsSignature" bson:"hashedtagssignature" mapstructure:"hashedTagsSignature,omitempty"`
+	// Contains the hash of the hashed wire tags.
+	HashOfHashedTags string `json:"hashOfHashedTags" msgpack:"hashOfHashedTags" bson:"hashofhashedtags" mapstructure:"hashOfHashedTags,omitempty"`
 
 	// This field is deprecated and it is there for backward compatibility. Use
 	// `images` instead.
@@ -285,6 +285,9 @@ type ProcessingUnit struct {
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
+	// This field contains the signature of the hash of the hashed tags. field.
+	SignedHashOfHashedTags string `json:"signedHashOfHashedTags" msgpack:"signedHashOfHashedTags" bson:"signedhashofhashedtags" mapstructure:"signedHashOfHashedTags,omitempty"`
+
 	// Indicates if this processing unit must be placed in tracing mode.
 	Tracing *TraceMode `json:"tracing" msgpack:"tracing" bson:"-" mapstructure:"tracing,omitempty"`
 
@@ -306,7 +309,7 @@ type ProcessingUnit struct {
 
 	// Contains the list of wire tags that must go on the wire and their mapping to
 	// corresponding hashes.
-	WireTagsWithHash map[string]string `json:"wireTagsWithHash" msgpack:"wireTagsWithHash" bson:"-" mapstructure:"wireTagsWithHash,omitempty"`
+	WireTagToHashTag map[string]string `json:"wireTagToHashTag" msgpack:"wireTagToHashTag" bson:"-" mapstructure:"wireTagToHashTag,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -329,12 +332,12 @@ func NewProcessingUnit() *ProcessingUnit {
 		DatapathType:      ProcessingUnitDatapathTypeAporeto,
 		EnforcementStatus: ProcessingUnitEnforcementStatusInactive,
 		OperationalStatus: ProcessingUnitOperationalStatusInitialized,
+		Images:            []string{},
+		Metadata:          []string{},
 		Tracing:           NewTraceMode(),
 		MigrationsLog:     map[string]string{},
 		Vulnerabilities:   []string{},
-		WireTagsWithHash:  map[string]string{},
-		Metadata:          []string{},
-		Images:            []string{},
+		WireTagToHashTag:  map[string]string{},
 		NormalizedTags:    []string{},
 		NetworkServices:   []*ProcessingUnitService{},
 	}
@@ -386,7 +389,7 @@ func (o *ProcessingUnit) GetBSON() (interface{}, error) {
 	s.EnforcementStatus = o.EnforcementStatus
 	s.EnforcerID = o.EnforcerID
 	s.EnforcerNamespace = o.EnforcerNamespace
-	s.HashedTagsSignature = o.HashedTagsSignature
+	s.HashOfHashedTags = o.HashOfHashedTags
 	s.Images = o.Images
 	s.LastCollectionTime = o.LastCollectionTime
 	s.LastSyncTime = o.LastSyncTime
@@ -399,6 +402,7 @@ func (o *ProcessingUnit) GetBSON() (interface{}, error) {
 	s.NormalizedTags = o.NormalizedTags
 	s.OperationalStatus = o.OperationalStatus
 	s.Protected = o.Protected
+	s.SignedHashOfHashedTags = o.SignedHashOfHashedTags
 	s.Type = o.Type
 	s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
 	s.UpdateTime = o.UpdateTime
@@ -439,7 +443,7 @@ func (o *ProcessingUnit) SetBSON(raw bson.Raw) error {
 	o.EnforcementStatus = s.EnforcementStatus
 	o.EnforcerID = s.EnforcerID
 	o.EnforcerNamespace = s.EnforcerNamespace
-	o.HashedTagsSignature = s.HashedTagsSignature
+	o.HashOfHashedTags = s.HashOfHashedTags
 	o.Images = s.Images
 	o.LastCollectionTime = s.LastCollectionTime
 	o.LastSyncTime = s.LastSyncTime
@@ -452,6 +456,7 @@ func (o *ProcessingUnit) SetBSON(raw bson.Raw) error {
 	o.NormalizedTags = s.NormalizedTags
 	o.OperationalStatus = s.OperationalStatus
 	o.Protected = s.Protected
+	o.SignedHashOfHashedTags = s.SignedHashOfHashedTags
 	o.Type = s.Type
 	o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
 	o.UpdateTime = s.UpdateTime
@@ -727,7 +732,7 @@ func (o *ProcessingUnit) ToSparse(fields ...string) elemental.SparseIdentifiable
 			EnforcementStatus:         &o.EnforcementStatus,
 			EnforcerID:                &o.EnforcerID,
 			EnforcerNamespace:         &o.EnforcerNamespace,
-			HashedTagsSignature:       &o.HashedTagsSignature,
+			HashOfHashedTags:          &o.HashOfHashedTags,
 			Image:                     &o.Image,
 			Images:                    &o.Images,
 			LastCollectionTime:        &o.LastCollectionTime,
@@ -743,13 +748,14 @@ func (o *ProcessingUnit) ToSparse(fields ...string) elemental.SparseIdentifiable
 			OperationalStatus:         &o.OperationalStatus,
 			PreviousOperationalStatus: &o.PreviousOperationalStatus,
 			Protected:                 &o.Protected,
+			SignedHashOfHashedTags:    &o.SignedHashOfHashedTags,
 			Tracing:                   o.Tracing,
 			Type:                      &o.Type,
 			UpdateIdempotencyKey:      &o.UpdateIdempotencyKey,
 			UpdateTime:                &o.UpdateTime,
 			Vulnerabilities:           &o.Vulnerabilities,
 			VulnerabilityLevel:        &o.VulnerabilityLevel,
-			WireTagsWithHash:          &o.WireTagsWithHash,
+			WireTagToHashTag:          &o.WireTagToHashTag,
 			ZHash:                     &o.ZHash,
 			Zone:                      &o.Zone,
 		}
@@ -790,8 +796,8 @@ func (o *ProcessingUnit) ToSparse(fields ...string) elemental.SparseIdentifiable
 			sp.EnforcerID = &(o.EnforcerID)
 		case "enforcerNamespace":
 			sp.EnforcerNamespace = &(o.EnforcerNamespace)
-		case "hashedTagsSignature":
-			sp.HashedTagsSignature = &(o.HashedTagsSignature)
+		case "hashOfHashedTags":
+			sp.HashOfHashedTags = &(o.HashOfHashedTags)
 		case "image":
 			sp.Image = &(o.Image)
 		case "images":
@@ -822,6 +828,8 @@ func (o *ProcessingUnit) ToSparse(fields ...string) elemental.SparseIdentifiable
 			sp.PreviousOperationalStatus = &(o.PreviousOperationalStatus)
 		case "protected":
 			sp.Protected = &(o.Protected)
+		case "signedHashOfHashedTags":
+			sp.SignedHashOfHashedTags = &(o.SignedHashOfHashedTags)
 		case "tracing":
 			sp.Tracing = o.Tracing
 		case "type":
@@ -834,8 +842,8 @@ func (o *ProcessingUnit) ToSparse(fields ...string) elemental.SparseIdentifiable
 			sp.Vulnerabilities = &(o.Vulnerabilities)
 		case "vulnerabilityLevel":
 			sp.VulnerabilityLevel = &(o.VulnerabilityLevel)
-		case "wireTagsWithHash":
-			sp.WireTagsWithHash = &(o.WireTagsWithHash)
+		case "wireTagToHashTag":
+			sp.WireTagToHashTag = &(o.WireTagToHashTag)
 		case "zHash":
 			sp.ZHash = &(o.ZHash)
 		case "zone":
@@ -901,8 +909,8 @@ func (o *ProcessingUnit) Patch(sparse elemental.SparseIdentifiable) {
 	if so.EnforcerNamespace != nil {
 		o.EnforcerNamespace = *so.EnforcerNamespace
 	}
-	if so.HashedTagsSignature != nil {
-		o.HashedTagsSignature = *so.HashedTagsSignature
+	if so.HashOfHashedTags != nil {
+		o.HashOfHashedTags = *so.HashOfHashedTags
 	}
 	if so.Image != nil {
 		o.Image = *so.Image
@@ -949,6 +957,9 @@ func (o *ProcessingUnit) Patch(sparse elemental.SparseIdentifiable) {
 	if so.Protected != nil {
 		o.Protected = *so.Protected
 	}
+	if so.SignedHashOfHashedTags != nil {
+		o.SignedHashOfHashedTags = *so.SignedHashOfHashedTags
+	}
 	if so.Tracing != nil {
 		o.Tracing = so.Tracing
 	}
@@ -967,8 +978,8 @@ func (o *ProcessingUnit) Patch(sparse elemental.SparseIdentifiable) {
 	if so.VulnerabilityLevel != nil {
 		o.VulnerabilityLevel = *so.VulnerabilityLevel
 	}
-	if so.WireTagsWithHash != nil {
-		o.WireTagsWithHash = *so.WireTagsWithHash
+	if so.WireTagToHashTag != nil {
+		o.WireTagToHashTag = *so.WireTagToHashTag
 	}
 	if so.ZHash != nil {
 		o.ZHash = *so.ZHash
@@ -1131,8 +1142,8 @@ func (o *ProcessingUnit) ValueForAttribute(name string) interface{} {
 		return o.EnforcerID
 	case "enforcerNamespace":
 		return o.EnforcerNamespace
-	case "hashedTagsSignature":
-		return o.HashedTagsSignature
+	case "hashOfHashedTags":
+		return o.HashOfHashedTags
 	case "image":
 		return o.Image
 	case "images":
@@ -1163,6 +1174,8 @@ func (o *ProcessingUnit) ValueForAttribute(name string) interface{} {
 		return o.PreviousOperationalStatus
 	case "protected":
 		return o.Protected
+	case "signedHashOfHashedTags":
+		return o.SignedHashOfHashedTags
 	case "tracing":
 		return o.Tracing
 	case "type":
@@ -1175,8 +1188,8 @@ func (o *ProcessingUnit) ValueForAttribute(name string) interface{} {
 		return o.Vulnerabilities
 	case "vulnerabilityLevel":
 		return o.VulnerabilityLevel
-	case "wireTagsWithHash":
-		return o.WireTagsWithHash
+	case "wireTagToHashTag":
+		return o.WireTagToHashTag
 	case "zHash":
 		return o.ZHash
 	case "zone":
@@ -1400,13 +1413,13 @@ enforcement attempt.`,
 		Stored:         true,
 		Type:           "string",
 	},
-	"HashedTagsSignature": {
+	"HashOfHashedTags": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "hashedtagssignature",
-		ConvertedName:  "HashedTagsSignature",
-		Description:    `This field contains the JWT signature of the list of hashed tags. field.`,
+		BSONFieldName:  "hashofhashedtags",
+		ConvertedName:  "HashOfHashedTags",
+		Description:    `Contains the hash of the hashed wire tags.`,
 		Exposed:        true,
-		Name:           "hashedTagsSignature",
+		Name:           "hashOfHashedTags",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1603,6 +1616,16 @@ manifest.`,
 		Stored:         true,
 		Type:           "boolean",
 	},
+	"SignedHashOfHashedTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "signedhashofhashedtags",
+		ConvertedName:  "SignedHashOfHashedTags",
+		Description:    `This field contains the signature of the hash of the hashed tags. field.`,
+		Exposed:        true,
+		Name:           "signedHashOfHashedTags",
+		Stored:         true,
+		Type:           "string",
+	},
 	"Tracing": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Tracing",
@@ -1680,13 +1703,13 @@ manifest.`,
 		Transient:      true,
 		Type:           "string",
 	},
-	"WireTagsWithHash": {
+	"WireTagToHashTag": {
 		AllowedChoices: []string{},
-		ConvertedName:  "WireTagsWithHash",
+		ConvertedName:  "WireTagToHashTag",
 		Description: `Contains the list of wire tags that must go on the wire and their mapping to
 corresponding hashes.`,
 		Exposed: true,
-		Name:    "wireTagsWithHash",
+		Name:    "wireTagToHashTag",
 		SubType: "map[string]string",
 		Type:    "external",
 	},
@@ -1934,13 +1957,13 @@ enforcement attempt.`,
 		Stored:         true,
 		Type:           "string",
 	},
-	"hashedtagssignature": {
+	"hashofhashedtags": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "hashedtagssignature",
-		ConvertedName:  "HashedTagsSignature",
-		Description:    `This field contains the JWT signature of the list of hashed tags. field.`,
+		BSONFieldName:  "hashofhashedtags",
+		ConvertedName:  "HashOfHashedTags",
+		Description:    `Contains the hash of the hashed wire tags.`,
 		Exposed:        true,
-		Name:           "hashedTagsSignature",
+		Name:           "hashOfHashedTags",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -2137,6 +2160,16 @@ manifest.`,
 		Stored:         true,
 		Type:           "boolean",
 	},
+	"signedhashofhashedtags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "signedhashofhashedtags",
+		ConvertedName:  "SignedHashOfHashedTags",
+		Description:    `This field contains the signature of the hash of the hashed tags. field.`,
+		Exposed:        true,
+		Name:           "signedHashOfHashedTags",
+		Stored:         true,
+		Type:           "string",
+	},
 	"tracing": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Tracing",
@@ -2214,13 +2247,13 @@ manifest.`,
 		Transient:      true,
 		Type:           "string",
 	},
-	"wiretagswithhash": {
+	"wiretagtohashtag": {
 		AllowedChoices: []string{},
-		ConvertedName:  "WireTagsWithHash",
+		ConvertedName:  "WireTagToHashTag",
 		Description: `Contains the list of wire tags that must go on the wire and their mapping to
 corresponding hashes.`,
 		Exposed: true,
-		Name:    "wireTagsWithHash",
+		Name:    "wireTagToHashTag",
 		SubType: "map[string]string",
 		Type:    "external",
 	},
@@ -2383,8 +2416,8 @@ type SparseProcessingUnit struct {
 	// The namespace of the enforcer associated with the processing unit.
 	EnforcerNamespace *string `json:"enforcerNamespace,omitempty" msgpack:"enforcerNamespace,omitempty" bson:"enforcernamespace,omitempty" mapstructure:"enforcerNamespace,omitempty"`
 
-	// This field contains the JWT signature of the list of hashed tags. field.
-	HashedTagsSignature *string `json:"hashedTagsSignature,omitempty" msgpack:"hashedTagsSignature,omitempty" bson:"hashedtagssignature,omitempty" mapstructure:"hashedTagsSignature,omitempty"`
+	// Contains the hash of the hashed wire tags.
+	HashOfHashedTags *string `json:"hashOfHashedTags,omitempty" msgpack:"hashOfHashedTags,omitempty" bson:"hashofhashedtags,omitempty" mapstructure:"hashOfHashedTags,omitempty"`
 
 	// This field is deprecated and it is there for backward compatibility. Use
 	// `images` instead.
@@ -2438,6 +2471,9 @@ type SparseProcessingUnit struct {
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
+	// This field contains the signature of the hash of the hashed tags. field.
+	SignedHashOfHashedTags *string `json:"signedHashOfHashedTags,omitempty" msgpack:"signedHashOfHashedTags,omitempty" bson:"signedhashofhashedtags,omitempty" mapstructure:"signedHashOfHashedTags,omitempty"`
+
 	// Indicates if this processing unit must be placed in tracing mode.
 	Tracing *TraceMode `json:"tracing,omitempty" msgpack:"tracing,omitempty" bson:"-" mapstructure:"tracing,omitempty"`
 
@@ -2459,7 +2495,7 @@ type SparseProcessingUnit struct {
 
 	// Contains the list of wire tags that must go on the wire and their mapping to
 	// corresponding hashes.
-	WireTagsWithHash *map[string]string `json:"wireTagsWithHash,omitempty" msgpack:"wireTagsWithHash,omitempty" bson:"-" mapstructure:"wireTagsWithHash,omitempty"`
+	WireTagToHashTag *map[string]string `json:"wireTagToHashTag,omitempty" msgpack:"wireTagToHashTag,omitempty" bson:"-" mapstructure:"wireTagToHashTag,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -2559,8 +2595,8 @@ func (o *SparseProcessingUnit) GetBSON() (interface{}, error) {
 	if o.EnforcerNamespace != nil {
 		s.EnforcerNamespace = o.EnforcerNamespace
 	}
-	if o.HashedTagsSignature != nil {
-		s.HashedTagsSignature = o.HashedTagsSignature
+	if o.HashOfHashedTags != nil {
+		s.HashOfHashedTags = o.HashOfHashedTags
 	}
 	if o.Images != nil {
 		s.Images = o.Images
@@ -2597,6 +2633,9 @@ func (o *SparseProcessingUnit) GetBSON() (interface{}, error) {
 	}
 	if o.Protected != nil {
 		s.Protected = o.Protected
+	}
+	if o.SignedHashOfHashedTags != nil {
+		s.SignedHashOfHashedTags = o.SignedHashOfHashedTags
 	}
 	if o.Type != nil {
 		s.Type = o.Type
@@ -2683,8 +2722,8 @@ func (o *SparseProcessingUnit) SetBSON(raw bson.Raw) error {
 	if s.EnforcerNamespace != nil {
 		o.EnforcerNamespace = s.EnforcerNamespace
 	}
-	if s.HashedTagsSignature != nil {
-		o.HashedTagsSignature = s.HashedTagsSignature
+	if s.HashOfHashedTags != nil {
+		o.HashOfHashedTags = s.HashOfHashedTags
 	}
 	if s.Images != nil {
 		o.Images = s.Images
@@ -2721,6 +2760,9 @@ func (o *SparseProcessingUnit) SetBSON(raw bson.Raw) error {
 	}
 	if s.Protected != nil {
 		o.Protected = s.Protected
+	}
+	if s.SignedHashOfHashedTags != nil {
+		o.SignedHashOfHashedTags = s.SignedHashOfHashedTags
 	}
 	if s.Type != nil {
 		o.Type = s.Type
@@ -2805,8 +2847,8 @@ func (o *SparseProcessingUnit) ToPlain() elemental.PlainIdentifiable {
 	if o.EnforcerNamespace != nil {
 		out.EnforcerNamespace = *o.EnforcerNamespace
 	}
-	if o.HashedTagsSignature != nil {
-		out.HashedTagsSignature = *o.HashedTagsSignature
+	if o.HashOfHashedTags != nil {
+		out.HashOfHashedTags = *o.HashOfHashedTags
 	}
 	if o.Image != nil {
 		out.Image = *o.Image
@@ -2853,6 +2895,9 @@ func (o *SparseProcessingUnit) ToPlain() elemental.PlainIdentifiable {
 	if o.Protected != nil {
 		out.Protected = *o.Protected
 	}
+	if o.SignedHashOfHashedTags != nil {
+		out.SignedHashOfHashedTags = *o.SignedHashOfHashedTags
+	}
 	if o.Tracing != nil {
 		out.Tracing = o.Tracing
 	}
@@ -2871,8 +2916,8 @@ func (o *SparseProcessingUnit) ToPlain() elemental.PlainIdentifiable {
 	if o.VulnerabilityLevel != nil {
 		out.VulnerabilityLevel = *o.VulnerabilityLevel
 	}
-	if o.WireTagsWithHash != nil {
-		out.WireTagsWithHash = *o.WireTagsWithHash
+	if o.WireTagToHashTag != nil {
+		out.WireTagToHashTag = *o.WireTagToHashTag
 	}
 	if o.ZHash != nil {
 		out.ZHash = *o.ZHash
@@ -3181,78 +3226,80 @@ func (o *SparseProcessingUnit) DeepCopyInto(out *SparseProcessingUnit) {
 }
 
 type mongoAttributesProcessingUnit struct {
-	ID                   bson.ObjectId                        `bson:"_id,omitempty"`
-	Annotations          map[string][]string                  `bson:"annotations"`
-	Archived             bool                                 `bson:"archived"`
-	AssociatedLocalCAID  string                               `bson:"associatedlocalcaid"`
-	AssociatedTags       []string                             `bson:"associatedtags"`
-	ClientLocalID        string                               `bson:"clientlocalid,omitempty"`
-	CollectInfo          bool                                 `bson:"collectinfo"`
-	CollectedInfo        map[string]string                    `bson:"collectedinfo"`
-	Controller           string                               `bson:"controller"`
-	CreateIdempotencyKey string                               `bson:"createidempotencykey"`
-	CreateTime           time.Time                            `bson:"createtime"`
-	DatapathType         ProcessingUnitDatapathTypeValue      `bson:"datapathtype"`
-	Description          string                               `bson:"description"`
-	EnforcementStatus    ProcessingUnitEnforcementStatusValue `bson:"enforcementstatus"`
-	EnforcerID           string                               `bson:"enforcerid"`
-	EnforcerNamespace    string                               `bson:"enforcernamespace"`
-	HashedTagsSignature  string                               `bson:"hashedtagssignature"`
-	Images               []string                             `bson:"images"`
-	LastCollectionTime   time.Time                            `bson:"lastcollectiontime"`
-	LastSyncTime         time.Time                            `bson:"lastsynctime"`
-	Metadata             []string                             `bson:"metadata"`
-	MigrationsLog        map[string]string                    `bson:"migrationslog,omitempty"`
-	Name                 string                               `bson:"name"`
-	Namespace            string                               `bson:"namespace"`
-	NativeContextID      string                               `bson:"nativecontextid"`
-	NetworkServices      []*ProcessingUnitService             `bson:"networkservices"`
-	NormalizedTags       []string                             `bson:"normalizedtags"`
-	OperationalStatus    ProcessingUnitOperationalStatusValue `bson:"operationalstatus"`
-	Protected            bool                                 `bson:"protected"`
-	Type                 ProcessingUnitTypeValue              `bson:"type"`
-	UpdateIdempotencyKey string                               `bson:"updateidempotencykey"`
-	UpdateTime           time.Time                            `bson:"updatetime"`
-	Vulnerabilities      []string                             `bson:"vulnerabilities"`
-	VulnerabilityLevel   string                               `bson:"vulnerabilitylevel"`
-	ZHash                int                                  `bson:"zhash"`
-	Zone                 int                                  `bson:"zone"`
+	ID                     bson.ObjectId                        `bson:"_id,omitempty"`
+	Annotations            map[string][]string                  `bson:"annotations"`
+	Archived               bool                                 `bson:"archived"`
+	AssociatedLocalCAID    string                               `bson:"associatedlocalcaid"`
+	AssociatedTags         []string                             `bson:"associatedtags"`
+	ClientLocalID          string                               `bson:"clientlocalid,omitempty"`
+	CollectInfo            bool                                 `bson:"collectinfo"`
+	CollectedInfo          map[string]string                    `bson:"collectedinfo"`
+	Controller             string                               `bson:"controller"`
+	CreateIdempotencyKey   string                               `bson:"createidempotencykey"`
+	CreateTime             time.Time                            `bson:"createtime"`
+	DatapathType           ProcessingUnitDatapathTypeValue      `bson:"datapathtype"`
+	Description            string                               `bson:"description"`
+	EnforcementStatus      ProcessingUnitEnforcementStatusValue `bson:"enforcementstatus"`
+	EnforcerID             string                               `bson:"enforcerid"`
+	EnforcerNamespace      string                               `bson:"enforcernamespace"`
+	HashOfHashedTags       string                               `bson:"hashofhashedtags"`
+	Images                 []string                             `bson:"images"`
+	LastCollectionTime     time.Time                            `bson:"lastcollectiontime"`
+	LastSyncTime           time.Time                            `bson:"lastsynctime"`
+	Metadata               []string                             `bson:"metadata"`
+	MigrationsLog          map[string]string                    `bson:"migrationslog,omitempty"`
+	Name                   string                               `bson:"name"`
+	Namespace              string                               `bson:"namespace"`
+	NativeContextID        string                               `bson:"nativecontextid"`
+	NetworkServices        []*ProcessingUnitService             `bson:"networkservices"`
+	NormalizedTags         []string                             `bson:"normalizedtags"`
+	OperationalStatus      ProcessingUnitOperationalStatusValue `bson:"operationalstatus"`
+	Protected              bool                                 `bson:"protected"`
+	SignedHashOfHashedTags string                               `bson:"signedhashofhashedtags"`
+	Type                   ProcessingUnitTypeValue              `bson:"type"`
+	UpdateIdempotencyKey   string                               `bson:"updateidempotencykey"`
+	UpdateTime             time.Time                            `bson:"updatetime"`
+	Vulnerabilities        []string                             `bson:"vulnerabilities"`
+	VulnerabilityLevel     string                               `bson:"vulnerabilitylevel"`
+	ZHash                  int                                  `bson:"zhash"`
+	Zone                   int                                  `bson:"zone"`
 }
 type mongoAttributesSparseProcessingUnit struct {
-	ID                   bson.ObjectId                         `bson:"_id,omitempty"`
-	Annotations          *map[string][]string                  `bson:"annotations,omitempty"`
-	Archived             *bool                                 `bson:"archived,omitempty"`
-	AssociatedLocalCAID  *string                               `bson:"associatedlocalcaid,omitempty"`
-	AssociatedTags       *[]string                             `bson:"associatedtags,omitempty"`
-	ClientLocalID        *string                               `bson:"clientlocalid,omitempty"`
-	CollectInfo          *bool                                 `bson:"collectinfo,omitempty"`
-	CollectedInfo        *map[string]string                    `bson:"collectedinfo,omitempty"`
-	Controller           *string                               `bson:"controller,omitempty"`
-	CreateIdempotencyKey *string                               `bson:"createidempotencykey,omitempty"`
-	CreateTime           *time.Time                            `bson:"createtime,omitempty"`
-	DatapathType         *ProcessingUnitDatapathTypeValue      `bson:"datapathtype,omitempty"`
-	Description          *string                               `bson:"description,omitempty"`
-	EnforcementStatus    *ProcessingUnitEnforcementStatusValue `bson:"enforcementstatus,omitempty"`
-	EnforcerID           *string                               `bson:"enforcerid,omitempty"`
-	EnforcerNamespace    *string                               `bson:"enforcernamespace,omitempty"`
-	HashedTagsSignature  *string                               `bson:"hashedtagssignature,omitempty"`
-	Images               *[]string                             `bson:"images,omitempty"`
-	LastCollectionTime   *time.Time                            `bson:"lastcollectiontime,omitempty"`
-	LastSyncTime         *time.Time                            `bson:"lastsynctime,omitempty"`
-	Metadata             *[]string                             `bson:"metadata,omitempty"`
-	MigrationsLog        *map[string]string                    `bson:"migrationslog,omitempty"`
-	Name                 *string                               `bson:"name,omitempty"`
-	Namespace            *string                               `bson:"namespace,omitempty"`
-	NativeContextID      *string                               `bson:"nativecontextid,omitempty"`
-	NetworkServices      *[]*ProcessingUnitService             `bson:"networkservices,omitempty"`
-	NormalizedTags       *[]string                             `bson:"normalizedtags,omitempty"`
-	OperationalStatus    *ProcessingUnitOperationalStatusValue `bson:"operationalstatus,omitempty"`
-	Protected            *bool                                 `bson:"protected,omitempty"`
-	Type                 *ProcessingUnitTypeValue              `bson:"type,omitempty"`
-	UpdateIdempotencyKey *string                               `bson:"updateidempotencykey,omitempty"`
-	UpdateTime           *time.Time                            `bson:"updatetime,omitempty"`
-	Vulnerabilities      *[]string                             `bson:"vulnerabilities,omitempty"`
-	VulnerabilityLevel   *string                               `bson:"vulnerabilitylevel,omitempty"`
-	ZHash                *int                                  `bson:"zhash,omitempty"`
-	Zone                 *int                                  `bson:"zone,omitempty"`
+	ID                     bson.ObjectId                         `bson:"_id,omitempty"`
+	Annotations            *map[string][]string                  `bson:"annotations,omitempty"`
+	Archived               *bool                                 `bson:"archived,omitempty"`
+	AssociatedLocalCAID    *string                               `bson:"associatedlocalcaid,omitempty"`
+	AssociatedTags         *[]string                             `bson:"associatedtags,omitempty"`
+	ClientLocalID          *string                               `bson:"clientlocalid,omitempty"`
+	CollectInfo            *bool                                 `bson:"collectinfo,omitempty"`
+	CollectedInfo          *map[string]string                    `bson:"collectedinfo,omitempty"`
+	Controller             *string                               `bson:"controller,omitempty"`
+	CreateIdempotencyKey   *string                               `bson:"createidempotencykey,omitempty"`
+	CreateTime             *time.Time                            `bson:"createtime,omitempty"`
+	DatapathType           *ProcessingUnitDatapathTypeValue      `bson:"datapathtype,omitempty"`
+	Description            *string                               `bson:"description,omitempty"`
+	EnforcementStatus      *ProcessingUnitEnforcementStatusValue `bson:"enforcementstatus,omitempty"`
+	EnforcerID             *string                               `bson:"enforcerid,omitempty"`
+	EnforcerNamespace      *string                               `bson:"enforcernamespace,omitempty"`
+	HashOfHashedTags       *string                               `bson:"hashofhashedtags,omitempty"`
+	Images                 *[]string                             `bson:"images,omitempty"`
+	LastCollectionTime     *time.Time                            `bson:"lastcollectiontime,omitempty"`
+	LastSyncTime           *time.Time                            `bson:"lastsynctime,omitempty"`
+	Metadata               *[]string                             `bson:"metadata,omitempty"`
+	MigrationsLog          *map[string]string                    `bson:"migrationslog,omitempty"`
+	Name                   *string                               `bson:"name,omitempty"`
+	Namespace              *string                               `bson:"namespace,omitempty"`
+	NativeContextID        *string                               `bson:"nativecontextid,omitempty"`
+	NetworkServices        *[]*ProcessingUnitService             `bson:"networkservices,omitempty"`
+	NormalizedTags         *[]string                             `bson:"normalizedtags,omitempty"`
+	OperationalStatus      *ProcessingUnitOperationalStatusValue `bson:"operationalstatus,omitempty"`
+	Protected              *bool                                 `bson:"protected,omitempty"`
+	SignedHashOfHashedTags *string                               `bson:"signedhashofhashedtags,omitempty"`
+	Type                   *ProcessingUnitTypeValue              `bson:"type,omitempty"`
+	UpdateIdempotencyKey   *string                               `bson:"updateidempotencykey,omitempty"`
+	UpdateTime             *time.Time                            `bson:"updatetime,omitempty"`
+	Vulnerabilities        *[]string                             `bson:"vulnerabilities,omitempty"`
+	VulnerabilityLevel     *string                               `bson:"vulnerabilitylevel,omitempty"`
+	ZHash                  *int                                  `bson:"zhash,omitempty"`
+	Zone                   *int                                  `bson:"zone,omitempty"`
 }
