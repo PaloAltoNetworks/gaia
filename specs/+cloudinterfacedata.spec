@@ -62,6 +62,15 @@ attributes:
     stored: true
     example_value: us-east-1
 
+  - name: groupTags
+    description: |-
+      Group tags associated with the interface. In Azure, its
+      ApplicationSecurityGroup.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+
   - name: hasPublicIP
     description: If the interface has a public IP in one of its IP address.
     type: boolean
