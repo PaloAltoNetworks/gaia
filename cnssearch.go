@@ -119,7 +119,7 @@ type CNSSearch struct {
 	// Absolute start time of search, in UNIX time.
 	StartAbsolute int `json:"startAbsolute" msgpack:"startAbsolute" bson:"-" mapstructure:"startAbsolute,omitempty"`
 
-	// Time range used by PC APIs. Its type is dynamic. Aporeto needs to pass this data
+	// Time range used by PC API. Its type is dynamic. Aporeto needs to pass this data
 	// to PC backend.
 	TimeRange *PCTimeRange `json:"timeRange" msgpack:"timeRange" bson:"-" mapstructure:"timeRange,omitempty"`
 
@@ -541,7 +541,7 @@ var CNSSearchAttributesMap = map[string]elemental.AttributeSpecification{
 	"TimeRange": {
 		AllowedChoices: []string{},
 		ConvertedName:  "TimeRange",
-		Description: `Time range used by PC APIs. Its type is dynamic. Aporeto needs to pass this data
+		Description: `Time range used by PC API. Its type is dynamic. Aporeto needs to pass this data
 to PC backend.`,
 		Exposed: true,
 		Name:    "timeRange",
@@ -657,7 +657,7 @@ var CNSSearchLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 	"timerange": {
 		AllowedChoices: []string{},
 		ConvertedName:  "TimeRange",
-		Description: `Time range used by PC APIs. Its type is dynamic. Aporeto needs to pass this data
+		Description: `Time range used by PC API. Its type is dynamic. Aporeto needs to pass this data
 to PC backend.`,
 		Exposed: true,
 		Name:    "timeRange",
@@ -765,7 +765,7 @@ type SparseCNSSearch struct {
 	// Absolute start time of search, in UNIX time.
 	StartAbsolute *int `json:"startAbsolute,omitempty" msgpack:"startAbsolute,omitempty" bson:"-" mapstructure:"startAbsolute,omitempty"`
 
-	// Time range used by PC APIs. Its type is dynamic. Aporeto needs to pass this data
+	// Time range used by PC API. Its type is dynamic. Aporeto needs to pass this data
 	// to PC backend.
 	TimeRange *PCTimeRange `json:"timeRange,omitempty" msgpack:"timeRange,omitempty" bson:"-" mapstructure:"timeRange,omitempty"`
 

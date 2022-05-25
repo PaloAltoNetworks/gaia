@@ -93,7 +93,7 @@ attributes:
 
   - name: timeRange
     description: |-
-      Time range used by PC APIs. Its type is dynamic. Aporeto needs to pass this data
+      Time range used by PC API. Its type is dynamic. Aporeto needs to pass this data
       to PC backend.
     type: ref
     exposed: true
