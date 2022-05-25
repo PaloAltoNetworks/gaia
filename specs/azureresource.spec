@@ -57,6 +57,8 @@ attributes:
     - PublicIPPrefix
     - VirtualMachineScaleSet
     - VirtualMachineScaleSetVM
+    - LoadBalancer
+    - BackendAddressPool
     example_value: VirtualMachine
 
   - name: name
