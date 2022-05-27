@@ -9543,6 +9543,17 @@ Last update date of the object.
 
 Represents the reputation information from PANDB.
 
+#### Example
+
+```json
+{
+  "URLs": [
+    "1.2.3.4",
+    "google.com"
+  ]
+}
+```
+
 #### Relations
 
 ##### `POST /reputations`
@@ -9557,11 +9568,11 @@ Type: [`[]urlreputation`](#urlreputation)
 
 List of URL reputations.
 
-##### `URLs`
+##### `URLs` [`required`]
 
 Type: `[]string`
 
-The evidence related to the risk level.
+The IP addresses and/or FQDNs to look up.
 
 ### URLReputation
 

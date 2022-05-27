@@ -14,13 +14,20 @@
             "type": "array"
           },
           "URLs": {
-            "description": "The evidence related to the risk level.",
+            "description": "The IP addresses and/or FQDNs to look up.",
+            "example": [
+              "1.2.3.4",
+              "google.com"
+            ],
             "items": {
               "type": "string"
             },
             "type": "array"
           }
         },
+        "required": [
+          "URLs"
+        ],
         "type": "object"
       }
     }

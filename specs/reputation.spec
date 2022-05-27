@@ -24,8 +24,11 @@ attributes:
       refMode: pointer
 
   - name: URLs
-    description: The evidence related to the risk level.
+    description: The IP addresses and/or FQDNs to look up.
     type: list
     exposed: true
     subtype: string
-    omit_empty: true
+    required: true
+    example_value:
+    - 1.2.3.4
+    - google.com

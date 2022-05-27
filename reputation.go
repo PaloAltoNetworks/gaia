@@ -86,8 +86,8 @@ type Reputation struct {
 	// List of URL reputations.
 	URLReputations []*URLReputation `json:"URLReputations,omitempty" msgpack:"URLReputations,omitempty" bson:"-" mapstructure:"URLReputations,omitempty"`
 
-	// The evidence related to the risk level.
-	URLs []string `json:"URLs,omitempty" msgpack:"URLs,omitempty" bson:"-" mapstructure:"URLs,omitempty"`
+	// The IP addresses and/or FQDNs to look up.
+	URLs []string `json:"URLs" msgpack:"URLs" bson:"-" mapstructure:"URLs,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -257,6 +257,10 @@ func (o *Reputation) Validate() error {
 		}
 	}
 
+	if err := elemental.ValidateRequiredExternal("URLs", o.URLs); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
 	if len(requiredErrors) > 0 {
 		return requiredErrors
 	}
@@ -316,9 +320,10 @@ var ReputationAttributesMap = map[string]elemental.AttributeSpecification{
 	"URLs": {
 		AllowedChoices: []string{},
 		ConvertedName:  "URLs",
-		Description:    `The evidence related to the risk level.`,
+		Description:    `The IP addresses and/or FQDNs to look up.`,
 		Exposed:        true,
 		Name:           "URLs",
+		Required:       true,
 		SubType:        "string",
 		Type:           "list",
 	},
@@ -340,9 +345,10 @@ var ReputationLowerCaseAttributesMap = map[string]elemental.AttributeSpecificati
 	"urls": {
 		AllowedChoices: []string{},
 		ConvertedName:  "URLs",
-		Description:    `The evidence related to the risk level.`,
+		Description:    `The IP addresses and/or FQDNs to look up.`,
 		Exposed:        true,
 		Name:           "URLs",
+		Required:       true,
 		SubType:        "string",
 		Type:           "list",
 	},
@@ -414,7 +420,7 @@ type SparseReputation struct {
 	// List of URL reputations.
 	URLReputations *[]*URLReputation `json:"URLReputations,omitempty" msgpack:"URLReputations,omitempty" bson:"-" mapstructure:"URLReputations,omitempty"`
 
-	// The evidence related to the risk level.
+	// The IP addresses and/or FQDNs to look up.
 	URLs *[]string `json:"URLs,omitempty" msgpack:"URLs,omitempty" bson:"-" mapstructure:"URLs,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
