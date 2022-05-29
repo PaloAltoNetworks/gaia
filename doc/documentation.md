@@ -12204,7 +12204,7 @@ applies to.
 
 ##### `type` [`required`]
 
-Type: `enum(SecurityGroup | ACL)`
+Type: `enum(EffectiveSecurityGroup | SecurityGroup | ACL)`
 
 Type identifies if this is a security group rule set or ACL.
 
