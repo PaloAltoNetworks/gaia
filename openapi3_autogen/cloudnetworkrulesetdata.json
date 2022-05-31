@@ -32,6 +32,7 @@
           "type": {
             "description": "Type identifies if this is a security group rule set or ACL.",
             "enum": [
+              "EffectiveSecurityGroup",
               "SecurityGroup",
               "ACL"
             ],

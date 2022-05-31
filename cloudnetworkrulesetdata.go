@@ -18,6 +18,9 @@ const (
 	// CloudNetworkRuleSetDataTypeACL represents the value ACL.
 	CloudNetworkRuleSetDataTypeACL CloudNetworkRuleSetDataTypeValue = "ACL"
 
+	// CloudNetworkRuleSetDataTypeEffectiveSecurityGroup represents the value EffectiveSecurityGroup.
+	CloudNetworkRuleSetDataTypeEffectiveSecurityGroup CloudNetworkRuleSetDataTypeValue = "EffectiveSecurityGroup"
+
 	// CloudNetworkRuleSetDataTypeSecurityGroup represents the value SecurityGroup.
 	CloudNetworkRuleSetDataTypeSecurityGroup CloudNetworkRuleSetDataTypeValue = "SecurityGroup"
 )
@@ -162,7 +165,7 @@ func (o *CloudNetworkRuleSetData) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"SecurityGroup", "ACL"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"EffectiveSecurityGroup", "SecurityGroup", "ACL"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -265,7 +268,7 @@ applies to.`,
 		Type:    "external",
 	},
 	"Type": {
-		AllowedChoices: []string{"SecurityGroup", "ACL"},
+		AllowedChoices: []string{"EffectiveSecurityGroup", "SecurityGroup", "ACL"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type identifies if this is a security group rule set or ACL.`,
@@ -327,7 +330,7 @@ applies to.`,
 		Type:    "external",
 	},
 	"type": {
-		AllowedChoices: []string{"SecurityGroup", "ACL"},
+		AllowedChoices: []string{"EffectiveSecurityGroup", "SecurityGroup", "ACL"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type identifies if this is a security group rule set or ACL.`,
