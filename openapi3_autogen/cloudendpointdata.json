@@ -24,7 +24,7 @@
             "type": "array"
           },
           "attachedEntities": {
-            "description": "A list of entitites that are associated to a given endpoint.",
+            "description": "A list of entities that are associated to a given endpoint.",
             "example": [
               "eni-12344",
               "subnet-abcd"
@@ -47,6 +47,10 @@
           },
           "forwardingEnabled": {
             "description": "If the endpoint has multiple connections and forwarding can be enabled between\nthem.",
+            "type": "boolean"
+          },
+          "hasPublicIP": {
+            "description": "If the endpoint has a public IP or is directly exposed.",
             "type": "boolean"
           },
           "imageID": {
@@ -86,6 +90,7 @@
               "Interface",
               "Gateway",
               "GatewayLoadBalancer",
+              "ManagedService",
               "NotApplicable"
             ]
           },

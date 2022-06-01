@@ -63,7 +63,8 @@ var (
 		"cloudschedulednetworkquery": CloudScheduledNetworkQueryIdentity,
 		"cloudservicetag":            CloudServiceTagIdentity,
 		"cloudsnapshotaccount":       CloudSnapshotAccountIdentity,
-		"cloudsubnet":                CloudSubnetIdentity,
+
+		"cloudsubnet": CloudSubnetIdentity,
 
 		"cloudvpc": CloudVPCIdentity,
 
@@ -271,7 +272,8 @@ var (
 		"cloudschedulednetworkqueries": CloudScheduledNetworkQueryIdentity,
 		"cloudserviceta":               CloudServiceTagIdentity,
 		"cloudsnapshotaccounts":        CloudSnapshotAccountIdentity,
-		"cloudsubnets":                 CloudSubnetIdentity,
+
+		"cloudsubnets": CloudSubnetIdentity,
 
 		"cloudvpcs": CloudVPCIdentity,
 
@@ -794,7 +796,7 @@ var (
 			{"namespace", "vpcid", "parameters"},
 			{"namespace", "type", "parameters"},
 			{"namespace", "nativeID"},
-			{"namespace", "vpcid", "type", "subtype"},
+			{"namespace", "vpcid", "type", "subtype", "cloudtype"},
 			{"namespace", "vpcid"},
 			{"namespace"},
 			{"namespace", "accountid"},

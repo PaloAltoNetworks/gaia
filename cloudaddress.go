@@ -44,8 +44,11 @@ type CloudAddress struct {
 	// The private DNS name associated with the address.
 	PublicDNSName string `json:"publicDNSName" msgpack:"publicDNSName" bson:"publicdnsname" mapstructure:"publicDNSName,omitempty"`
 
-	// The private IP address value.
+	// The public IP address value.
 	PublicIP string `json:"publicIP" msgpack:"publicIP" bson:"publicip" mapstructure:"publicIP,omitempty"`
+
+	// The reference to a public IP address.
+	PublicIPRef string `json:"publicIPRef" msgpack:"publicIPRef" bson:"publicipref" mapstructure:"publicIPRef,omitempty"`
 
 	// Internal representation of public IP addresses to accelerate operations. Not
 	// exposed to users.
@@ -81,6 +84,7 @@ func (o *CloudAddress) GetBSON() (interface{}, error) {
 	s.PrivateNetwork = o.PrivateNetwork
 	s.PublicDNSName = o.PublicDNSName
 	s.PublicIP = o.PublicIP
+	s.PublicIPRef = o.PublicIPRef
 	s.PublicNetwork = o.PublicNetwork
 
 	return s, nil
@@ -106,6 +110,7 @@ func (o *CloudAddress) SetBSON(raw bson.Raw) error {
 	o.PrivateNetwork = s.PrivateNetwork
 	o.PublicDNSName = s.PublicDNSName
 	o.PublicIP = s.PublicIP
+	o.PublicIPRef = s.PublicIPRef
 	o.PublicNetwork = s.PublicNetwork
 
 	return nil
@@ -211,6 +216,8 @@ func (o *CloudAddress) ValueForAttribute(name string) interface{} {
 		return o.PublicDNSName
 	case "publicIP":
 		return o.PublicIP
+	case "publicIPRef":
+		return o.PublicIPRef
 	case "publicNetwork":
 		return o.PublicNetwork
 	}
@@ -289,9 +296,19 @@ to users.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "publicip",
 		ConvertedName:  "PublicIP",
-		Description:    `The private IP address value.`,
+		Description:    `The public IP address value.`,
 		Exposed:        true,
 		Name:           "publicIP",
+		Stored:         true,
+		Type:           "string",
+	},
+	"PublicIPRef": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "publicipref",
+		ConvertedName:  "PublicIPRef",
+		Description:    `The reference to a public IP address.`,
+		Exposed:        true,
+		Name:           "publicIPRef",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -382,9 +399,19 @@ to users.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "publicip",
 		ConvertedName:  "PublicIP",
-		Description:    `The private IP address value.`,
+		Description:    `The public IP address value.`,
 		Exposed:        true,
 		Name:           "publicIP",
+		Stored:         true,
+		Type:           "string",
+	},
+	"publicipref": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "publicipref",
+		ConvertedName:  "PublicIPRef",
+		Description:    `The reference to a public IP address.`,
+		Exposed:        true,
+		Name:           "publicIPRef",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -412,5 +439,6 @@ type mongoAttributesCloudAddress struct {
 	PrivateNetwork *net.IPNet                 `bson:"privatenetwork,omitempty"`
 	PublicDNSName  string                     `bson:"publicdnsname"`
 	PublicIP       string                     `bson:"publicip"`
+	PublicIPRef    string                     `bson:"publicipref"`
 	PublicNetwork  *net.IPNet                 `bson:"publicnetwork,omitempty"`
 }
