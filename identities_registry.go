@@ -45,7 +45,8 @@ var (
 
 		"cloudloadbalancerroute": CloudLoadBalancerRouteIdentity,
 
-		"cloudmanagednetwork":   CloudManagedNetworkIdentity,
+		"cloudmanagednetwork": CloudManagedNetworkIdentity,
+
 		"cloudnetworkinterface": CloudNetworkInterfaceIdentity,
 		"cloudnetworkquery":     CloudNetworkQueryIdentity,
 
@@ -56,10 +57,14 @@ var (
 		"cloudpolicy":          CloudPolicyIdentity,
 		"cloudpublicipaddress": CloudPublicIPAddressIdentity,
 
-		"cloudroutetable":            CloudRouteTableIdentity,
+		"cloudroutetable": CloudRouteTableIdentity,
+		"cloudscaleset":   CloudScaleSetIdentity,
+
 		"cloudschedulednetworkquery": CloudScheduledNetworkQueryIdentity,
+		"cloudservicetag":            CloudServiceTagIdentity,
 		"cloudsnapshotaccount":       CloudSnapshotAccountIdentity,
-		"cloudsubnet":                CloudSubnetIdentity,
+
+		"cloudsubnet": CloudSubnetIdentity,
 
 		"cloudvpc": CloudVPCIdentity,
 
@@ -114,14 +119,15 @@ var (
 		"issue":                    IssueIdentity,
 		"issueservicetoken":        IssueServiceTokenIdentity,
 
-		"kubernetescluster":      KubernetesClusterIdentity,
-		"ldapprovider":           LDAPProviderIdentity,
-		"localca":                LocalCAIdentity,
-		"log":                    LogIdentity,
-		"logout":                 LogoutIdentity,
-		"message":                MessageIdentity,
-		"metricsquery":           MetricsQueryIdentity,
-		"metricsqueryrange":      MetricsQueryRangeIdentity,
+		"kubernetescluster": KubernetesClusterIdentity,
+		"ldapprovider":      LDAPProviderIdentity,
+		"localca":           LocalCAIdentity,
+		"log":               LogIdentity,
+		"logout":            LogoutIdentity,
+		"message":           MessageIdentity,
+		"metricsquery":      MetricsQueryIdentity,
+		"metricsqueryrange": MetricsQueryRangeIdentity,
+
 		"namespace":              NamespaceIdentity,
 		"namespaceinfo":          NamespaceInfoIdentity,
 		"namespacemappingpolicy": NamespaceMappingPolicyIdentity,
@@ -248,7 +254,8 @@ var (
 
 		"cloudloadbalancerroutes": CloudLoadBalancerRouteIdentity,
 
-		"cloudmanagednetworks":   CloudManagedNetworkIdentity,
+		"cloudmanagednetworks": CloudManagedNetworkIdentity,
+
 		"cloudnetworkinterfaces": CloudNetworkInterfaceIdentity,
 		"cloudnetworkqueries":    CloudNetworkQueryIdentity,
 
@@ -259,10 +266,14 @@ var (
 		"cloudpolicies":          CloudPolicyIdentity,
 		"cloudpublicipaddresses": CloudPublicIPAddressIdentity,
 
-		"cloudroutetables":             CloudRouteTableIdentity,
+		"cloudroutetables": CloudRouteTableIdentity,
+		"cloudscalesets":   CloudScaleSetIdentity,
+
 		"cloudschedulednetworkqueries": CloudScheduledNetworkQueryIdentity,
+		"cloudserviceta":               CloudServiceTagIdentity,
 		"cloudsnapshotaccounts":        CloudSnapshotAccountIdentity,
-		"cloudsubnets":                 CloudSubnetIdentity,
+
+		"cloudsubnets": CloudSubnetIdentity,
 
 		"cloudvpcs": CloudVPCIdentity,
 
@@ -317,14 +328,15 @@ var (
 		"issue":                      IssueIdentity,
 		"issueservicetokens":         IssueServiceTokenIdentity,
 
-		"kubernetesclusters":       KubernetesClusterIdentity,
-		"ldapproviders":            LDAPProviderIdentity,
-		"localcas":                 LocalCAIdentity,
-		"logs":                     LogIdentity,
-		"logout":                   LogoutIdentity,
-		"messages":                 MessageIdentity,
-		"metricsquery":             MetricsQueryIdentity,
-		"metricsqueryrange":        MetricsQueryRangeIdentity,
+		"kubernetesclusters": KubernetesClusterIdentity,
+		"ldapproviders":      LDAPProviderIdentity,
+		"localcas":           LocalCAIdentity,
+		"logs":               LogIdentity,
+		"logout":             LogoutIdentity,
+		"messages":           MessageIdentity,
+		"metricsquery":       MetricsQueryIdentity,
+		"metricsqueryrange":  MetricsQueryRangeIdentity,
+
 		"namespaces":               NamespaceIdentity,
 		"namespaceinfo":            NamespaceInfoIdentity,
 		"namespacemappingpolicies": NamespaceMappingPolicyIdentity,
@@ -433,6 +445,8 @@ var (
 		"crules":             CloudNetworkRuleSetIdentity,
 		"publicipaddress":    CloudPublicIPAddressIdentity,
 		"publicipaddresses":  CloudPublicIPAddressIdentity,
+		"scaleset":           CloudScaleSetIdentity,
+		"scalesets":          CloudScaleSetIdentity,
 		"vpc":                CloudVPCIdentity,
 		"vpcs":               CloudVPCIdentity,
 		"pcc":                CNSConfigIdentity,
@@ -782,7 +796,7 @@ var (
 			{"namespace", "vpcid", "parameters"},
 			{"namespace", "type", "parameters"},
 			{"namespace", "nativeID"},
-			{"namespace", "vpcid", "type", "subtype"},
+			{"namespace", "vpcid", "type", "subtype", "cloudtype"},
 			{"namespace", "vpcid"},
 			{"namespace"},
 			{"namespace", "accountid"},
@@ -823,6 +837,16 @@ var (
 			{"namespace", "vpcid"},
 			{"createIdempotencyKey"},
 		},
+		"cloudscaleset": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "nativeID"},
+			{"namespace", "accountid"},
+			{"namespace", "vpcid"},
+			{"createIdempotencyKey"},
+		},
 		"cloudschedulednetworkquery": {
 			{"namespace", "prismacloudalertruleid"},
 			{"namespace", "name"},
@@ -832,6 +856,15 @@ var (
 			{"namespace", "normalizedTags"},
 			{"name"},
 			{"disabled", "lastexecutiontimestamp"},
+		},
+		"cloudservicetag": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"namespace", "name"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"name"},
+			{"createIdempotencyKey"},
 		},
 		"cloudsnapshotaccount": {
 			{"updateIdempotencyKey"},
@@ -860,13 +893,15 @@ var (
 			{"createIdempotencyKey"},
 		},
 		"cnsconfig": {
+			{":shard", ":unique", "zone", "zHash"},
 			{"updateIdempotencyKey"},
 			{"prismaID"},
-			{"namespace", "prismaID"},
-			{"namespace"},
 			{"namespace", "normalizedTags"},
+			{"namespace", "prismaID"},
+			{"namespace", "disabled"},
+			{"namespace"},
+			{"disabled"},
 			{"createIdempotencyKey"},
-			{":shard", ":unique", "zone", "zHash"},
 		},
 		"cnsrqlquery":   nil,
 		"cnssearch":     nil,
@@ -1468,8 +1503,12 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudPublicIPAddress()
 	case CloudRouteTableIdentity:
 		return NewCloudRouteTable()
+	case CloudScaleSetIdentity:
+		return NewCloudScaleSet()
 	case CloudScheduledNetworkQueryIdentity:
 		return NewCloudScheduledNetworkQuery()
+	case CloudServiceTagIdentity:
+		return NewCloudServiceTag()
 	case CloudSnapshotAccountIdentity:
 		return NewCloudSnapshotAccount()
 	case CloudSubnetIdentity:
@@ -1827,8 +1866,12 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudPublicIPAddress()
 	case CloudRouteTableIdentity:
 		return NewSparseCloudRouteTable()
+	case CloudScaleSetIdentity:
+		return NewSparseCloudScaleSet()
 	case CloudScheduledNetworkQueryIdentity:
 		return NewSparseCloudScheduledNetworkQuery()
+	case CloudServiceTagIdentity:
+		return NewSparseCloudServiceTag()
 	case CloudSnapshotAccountIdentity:
 		return NewSparseCloudSnapshotAccount()
 	case CloudSubnetIdentity:
@@ -2194,8 +2237,12 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudPublicIPAddressList{}
 	case CloudRouteTableIdentity:
 		return &CloudRouteTablesList{}
+	case CloudScaleSetIdentity:
+		return &CloudScaleSetsList{}
 	case CloudScheduledNetworkQueryIdentity:
 		return &CloudScheduledNetworkQueriesList{}
+	case CloudServiceTagIdentity:
+		return &CloudServiceTagsList{}
 	case CloudSnapshotAccountIdentity:
 		return &CloudSnapshotAccountsList{}
 	case CloudSubnetIdentity:
@@ -2551,8 +2598,12 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudPublicIPAddressList{}
 	case CloudRouteTableIdentity:
 		return &SparseCloudRouteTablesList{}
+	case CloudScaleSetIdentity:
+		return &SparseCloudScaleSetsList{}
 	case CloudScheduledNetworkQueryIdentity:
 		return &SparseCloudScheduledNetworkQueriesList{}
+	case CloudServiceTagIdentity:
+		return &SparseCloudServiceTagsList{}
 	case CloudSnapshotAccountIdentity:
 		return &SparseCloudSnapshotAccountsList{}
 	case CloudSubnetIdentity:
@@ -2887,7 +2938,9 @@ func AllIdentities() []elemental.Identity {
 		CloudPolicyIdentity,
 		CloudPublicIPAddressIdentity,
 		CloudRouteTableIdentity,
+		CloudScaleSetIdentity,
 		CloudScheduledNetworkQueryIdentity,
+		CloudServiceTagIdentity,
 		CloudSnapshotAccountIdentity,
 		CloudSubnetIdentity,
 		CloudVPCIdentity,
@@ -3142,7 +3195,14 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		}
 	case CloudRouteTableIdentity:
 		return []string{}
+	case CloudScaleSetIdentity:
+		return []string{
+			"scaleset",
+			"scalesets",
+		}
 	case CloudScheduledNetworkQueryIdentity:
+		return []string{}
+	case CloudServiceTagIdentity:
 		return []string{}
 	case CloudSnapshotAccountIdentity:
 		return []string{}

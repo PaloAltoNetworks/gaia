@@ -135,7 +135,7 @@ type CloudLoadBalancer struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags []string `json:"normalizedTags" msgpack:"normalizedTags" bson:"normalizedtags" mapstructure:"normalizedTags,omitempty"`
 
-	// LoadBalancer related parameters.
+	// Load Balancer related parameters.
 	Parameters *CloudLoadBalancerData `json:"parameters" msgpack:"parameters" bson:"parameters" mapstructure:"parameters,omitempty"`
 
 	// A list of policy references associated with this cloud node.
@@ -307,7 +307,7 @@ func (o *CloudLoadBalancer) Doc() string {
 
 	return `A CloudLoadBalancer represents a Load Balancer as defined in an cloud provider
 (AWS/Azure/GCP etc).
-The Load Balancer is essentially an L4,L7 or gateway load balancer with atleast
+The Load Balancer is essentially an L4,L7 or gateway load balancer with at least
 1 target group attached and it defines how a load balancing happens.`
 }
 
@@ -826,7 +826,7 @@ func (o *CloudLoadBalancer) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateMaximumLength("nativeID", o.NativeID, 256, false); err != nil {
+	if err := elemental.ValidateMaximumLength("nativeID", o.NativeID, 512, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1143,7 +1143,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
 		Getter:         true,
-		MaxLength:      256,
+		MaxLength:      512,
 		Name:           "nativeID",
 		Orderable:      true,
 		Required:       true,
@@ -1171,7 +1171,7 @@ var CloudLoadBalancerAttributesMap = map[string]elemental.AttributeSpecification
 		AllowedChoices: []string{},
 		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
-		Description:    `LoadBalancer related parameters.`,
+		Description:    `Load Balancer related parameters.`,
 		Exposed:        true,
 		Name:           "parameters",
 		Stored:         true,
@@ -1496,7 +1496,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
 		Getter:         true,
-		MaxLength:      256,
+		MaxLength:      512,
 		Name:           "nativeID",
 		Orderable:      true,
 		Required:       true,
@@ -1524,7 +1524,7 @@ var CloudLoadBalancerLowerCaseAttributesMap = map[string]elemental.AttributeSpec
 		AllowedChoices: []string{},
 		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
-		Description:    `LoadBalancer related parameters.`,
+		Description:    `Load Balancer related parameters.`,
 		Exposed:        true,
 		Name:           "parameters",
 		Stored:         true,
@@ -1756,7 +1756,7 @@ type SparseCloudLoadBalancer struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags *[]string `json:"normalizedTags,omitempty" msgpack:"normalizedTags,omitempty" bson:"normalizedtags,omitempty" mapstructure:"normalizedTags,omitempty"`
 
-	// LoadBalancer related parameters.
+	// Load Balancer related parameters.
 	Parameters *CloudLoadBalancerData `json:"parameters,omitempty" msgpack:"parameters,omitempty" bson:"parameters,omitempty" mapstructure:"parameters,omitempty"`
 
 	// A list of policy references associated with this cloud node.

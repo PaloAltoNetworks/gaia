@@ -37,7 +37,7 @@ attributes:
     stored: true
 
   - name: attachedEntities
-    description: A list of entitites that are associated to a given endpoint.
+    description: A list of entities that are associated to a given endpoint.
     type: list
     exposed: true
     subtype: string
@@ -65,6 +65,13 @@ attributes:
     type: boolean
     exposed: true
     stored: true
+
+  - name: hasPublicIP
+    description: If the endpoint has a public IP or is directly exposed.
+    type: boolean
+    exposed: true
+    stored: true
+    omit_empty: true
 
   - name: imageID
     description: |-
@@ -121,6 +128,7 @@ attributes:
     - Interface
     - Gateway
     - GatewayLoadBalancer
+    - ManagedService
     - NotApplicable
     default_value: NotApplicable
 

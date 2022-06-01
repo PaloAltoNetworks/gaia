@@ -3,7 +3,7 @@
   "components": {
     "schemas": {
       "cloudloadbalancer": {
-        "description": "A CloudLoadBalancer represents a Load Balancer as defined in an cloud provider\n(AWS/Azure/GCP etc).\nThe Load Balancer is essentially an L4,L7 or gateway load balancer with atleast\n1 target group attached and it defines how a load balancing happens.",
+        "description": "A CloudLoadBalancer represents a Load Balancer as defined in an cloud provider\n(AWS/Azure/GCP etc).\nThe Load Balancer is essentially an L4,L7 or gateway load balancer with at least\n1 target group attached and it defines how a load balancing happens.",
         "properties": {
           "APIID": {
             "description": "Prisma Cloud API ID (matches Prisma Cloud API ID).",

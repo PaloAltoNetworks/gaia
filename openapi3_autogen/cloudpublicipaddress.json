@@ -3,7 +3,7 @@
   "components": {
     "schemas": {
       "cloudpublicipaddress": {
-        "description": "A CloudPublicIPAddress represents a PublicIPAdress as defined in an Azure cloud\nprovider.",
+        "description": "A CloudPublicIPAddress represents a PublicIPAddress as defined in an Azure cloud\nprovider.",
         "properties": {
           "APIID": {
             "description": "Prisma Cloud API ID (matches Prisma Cloud API ID).",

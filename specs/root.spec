@@ -324,6 +324,14 @@ relations:
   create:
     description: Creates a new routing table.
 
+- rest_name: cloudscaleset
+  get:
+    description: Retrieves the list of Scale Sets.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a cloud scale set.
+
 - rest_name: cloudschedulednetworkquery
   get:
     description: Retrieves Cloud Scheduled Network Query job.
@@ -335,6 +343,16 @@ relations:
       evaluate alert rules.
   delete:
     description: Deletes a Cloud Scheduled Network Query job.
+
+- rest_name: cloudservicetag
+  get:
+    description: Retrieves the list of service tags.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a Cloud Service Tag.
+  delete:
+    description: Deletes a Cloud Service Tag.
 
 - rest_name: cloudsnapshotaccount
   create:

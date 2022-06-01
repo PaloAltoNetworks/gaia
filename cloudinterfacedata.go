@@ -72,6 +72,9 @@ type CloudInterfaceData struct {
 	// interface.
 	Addresses []*CloudAddress `json:"addresses" msgpack:"addresses" bson:"addresses" mapstructure:"addresses,omitempty"`
 
+	// ID of associated objects with this interface.
+	AttachedEntities []string `json:"attachedEntities" msgpack:"attachedEntities" bson:"attachedentities" mapstructure:"attachedEntities,omitempty"`
+
 	// Attachment type describes where this interface is attached to (Instance, Load
 	// Balancer, Gateway, etc).
 	AttachmentType CloudInterfaceDataAttachmentTypeValue `json:"attachmentType" msgpack:"attachmentType" bson:"attachmenttype" mapstructure:"attachmentType,omitempty"`
@@ -110,11 +113,12 @@ type CloudInterfaceData struct {
 func NewCloudInterfaceData() *CloudInterfaceData {
 
 	return &CloudInterfaceData{
-		ModelVersion:   1,
-		Addresses:      []*CloudAddress{},
-		ResourceStatus: CloudInterfaceDataResourceStatusActive,
-		SecurityTags:   []string{},
-		Subnets:        []string{},
+		ModelVersion:     1,
+		Addresses:        []*CloudAddress{},
+		AttachedEntities: []string{},
+		ResourceStatus:   CloudInterfaceDataResourceStatusActive,
+		SecurityTags:     []string{},
+		Subnets:          []string{},
 	}
 }
 
@@ -129,6 +133,7 @@ func (o *CloudInterfaceData) GetBSON() (interface{}, error) {
 	s := &mongoAttributesCloudInterfaceData{}
 
 	s.Addresses = o.Addresses
+	s.AttachedEntities = o.AttachedEntities
 	s.AttachmentType = o.AttachmentType
 	s.AvailabilityZone = o.AvailabilityZone
 	s.HasPublicIP = o.HasPublicIP
@@ -156,6 +161,7 @@ func (o *CloudInterfaceData) SetBSON(raw bson.Raw) error {
 	}
 
 	o.Addresses = s.Addresses
+	o.AttachedEntities = s.AttachedEntities
 	o.AttachmentType = s.AttachmentType
 	o.AvailabilityZone = s.AvailabilityZone
 	o.HasPublicIP = s.HasPublicIP
@@ -263,6 +269,8 @@ func (o *CloudInterfaceData) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "addresses":
 		return o.Addresses
+	case "attachedEntities":
+		return o.AttachedEntities
 	case "attachmentType":
 		return o.AttachmentType
 	case "availabilityZone":
@@ -299,6 +307,17 @@ interface.`,
 		Stored:  true,
 		SubType: "cloudaddress",
 		Type:    "refList",
+	},
+	"AttachedEntities": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "attachedentities",
+		ConvertedName:  "AttachedEntities",
+		Description:    `ID of associated objects with this interface.`,
+		Exposed:        true,
+		Name:           "attachedEntities",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
 	},
 	"AttachmentType": {
 		AllowedChoices: []string{"Instance", "LoadBalancer", "Gateway", "Service", "TransitGatewayVPCAttachment", "NetworkLoadBalancer", "Lambda", "GatewayLoadBalancer", "GatewayLoadBalancerEndpoint", "VPCEndpoint", "APIGatewayManaged", "EFA", "UnsupportedService"},
@@ -414,6 +433,17 @@ interface.`,
 		SubType: "cloudaddress",
 		Type:    "refList",
 	},
+	"attachedentities": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "attachedentities",
+		ConvertedName:  "AttachedEntities",
+		Description:    `ID of associated objects with this interface.`,
+		Exposed:        true,
+		Name:           "attachedEntities",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"attachmenttype": {
 		AllowedChoices: []string{"Instance", "LoadBalancer", "Gateway", "Service", "TransitGatewayVPCAttachment", "NetworkLoadBalancer", "Lambda", "GatewayLoadBalancer", "GatewayLoadBalancerEndpoint", "VPCEndpoint", "APIGatewayManaged", "EFA", "UnsupportedService"},
 		BSONFieldName:  "attachmenttype",
@@ -516,6 +546,7 @@ Gateways and other special types.`,
 
 type mongoAttributesCloudInterfaceData struct {
 	Addresses        []*CloudAddress                       `bson:"addresses"`
+	AttachedEntities []string                              `bson:"attachedentities"`
 	AttachmentType   CloudInterfaceDataAttachmentTypeValue `bson:"attachmenttype"`
 	AvailabilityZone string                                `bson:"availabilityzone"`
 	HasPublicIP      bool                                  `bson:"haspublicip"`

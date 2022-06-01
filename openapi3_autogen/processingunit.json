@@ -185,7 +185,8 @@
               "WindowsService",
               "RKT",
               "User",
-              "SSHSession"
+              "SSHSession",
+              "ECS"
             ],
             "example": "Docker"
           },

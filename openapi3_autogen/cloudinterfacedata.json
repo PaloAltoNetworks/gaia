@@ -12,6 +12,16 @@
             },
             "type": "array"
           },
+          "attachedEntities": {
+            "description": "ID of associated objects with this interface.",
+            "example": [
+              "subnet-074c152ae45ea0c73"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "attachmentType": {
             "description": "Attachment type describes where this interface is attached to (Instance, Load\nBalancer, Gateway, etc).",
             "enum": [

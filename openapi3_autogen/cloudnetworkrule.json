@@ -13,6 +13,30 @@
               "Reject"
             ]
           },
+          "ipRanges": {
+            "description": "A list of ips range.",
+            "items": {
+              "$ref": "./cloudiprange#/components/schemas/cloudiprange"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "localNetworks": {
+            "description": "A list of IP CIDRS that identify local endpoints.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "localServiceTags": {
+            "description": "A list of Service Tags provided by the platform.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
           "networks": {
             "description": "A list of IP CIDRS that identify remote endpoints.",
             "items": {
@@ -40,6 +64,33 @@
             "items": {
               "type": "string"
             },
+            "type": "array"
+          },
+          "serviceTags": {
+            "description": "A list of Service Tags provided by the platform.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "storedIPRanges": {
+            "description": "A list of ips range for internal use. Not visible to end users.",
+            "items": {
+              "$ref": "./cloudstorediprange#/components/schemas/cloudstorediprange"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "storedLocalNetworks": {
+            "description": "An internal representation of the local networks to increase performance. Not\nvisible\nto end users.",
+            "items": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "readOnly": true,
             "type": "array"
           },
           "storedNetworks": {
