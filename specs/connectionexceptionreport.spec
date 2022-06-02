@@ -180,6 +180,10 @@ attributes:
     - SynTransmitted
     - SynAckTransmitted
     - AckTransmitted
+    - SynReceived
+    - SynAckReceived
+    - AckProcessed
+    - Data
     - Unknown
     - TFOProbe
     example_value:
