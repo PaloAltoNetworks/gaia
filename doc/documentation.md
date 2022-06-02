@@ -10544,8 +10544,8 @@ Availability zone of the interface.
 
 Type: `[]string`
 
-Group tags associated with the interface. In Azure, its
-ApplicationSecurityGroup.
+Group tags associated with the interface. In Azure, its Application Security
+Group.
 
 ##### `hasPublicIP`
 

@@ -82,8 +82,8 @@ type CloudInterfaceData struct {
 	// Availability zone of the interface.
 	AvailabilityZone string `json:"availabilityZone" msgpack:"availabilityZone" bson:"availabilityzone" mapstructure:"availabilityZone,omitempty"`
 
-	// Group tags associated with the interface. In Azure, its
-	// ApplicationSecurityGroup.
+	// Group tags associated with the interface. In Azure, its Application Security
+	// Group.
 	GroupTags []string `json:"groupTags" msgpack:"groupTags" bson:"grouptags" mapstructure:"groupTags,omitempty"`
 
 	// If the interface has a public IP in one of its IP address.
@@ -354,8 +354,8 @@ Balancer, Gateway, etc).`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "grouptags",
 		ConvertedName:  "GroupTags",
-		Description: `Group tags associated with the interface. In Azure, its
-ApplicationSecurityGroup.`,
+		Description: `Group tags associated with the interface. In Azure, its Application Security
+Group.`,
 		Exposed: true,
 		Name:    "groupTags",
 		Stored:  true,
@@ -491,8 +491,8 @@ Balancer, Gateway, etc).`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "grouptags",
 		ConvertedName:  "GroupTags",
-		Description: `Group tags associated with the interface. In Azure, its
-ApplicationSecurityGroup.`,
+		Description: `Group tags associated with the interface. In Azure, its Application Security
+Group.`,
 		Exposed: true,
 		Name:    "groupTags",
 		Stored:  true,
