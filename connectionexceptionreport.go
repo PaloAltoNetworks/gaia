@@ -30,11 +30,23 @@ const (
 type ConnectionExceptionReportStateValue string
 
 const (
+	// ConnectionExceptionReportStateAckProcessed represents the value AckProcessed.
+	ConnectionExceptionReportStateAckProcessed ConnectionExceptionReportStateValue = "AckProcessed"
+
 	// ConnectionExceptionReportStateAckTransmitted represents the value AckTransmitted.
 	ConnectionExceptionReportStateAckTransmitted ConnectionExceptionReportStateValue = "AckTransmitted"
 
+	// ConnectionExceptionReportStateData represents the value Data.
+	ConnectionExceptionReportStateData ConnectionExceptionReportStateValue = "Data"
+
+	// ConnectionExceptionReportStateSynAckReceived represents the value SynAckReceived.
+	ConnectionExceptionReportStateSynAckReceived ConnectionExceptionReportStateValue = "SynAckReceived"
+
 	// ConnectionExceptionReportStateSynAckTransmitted represents the value SynAckTransmitted.
 	ConnectionExceptionReportStateSynAckTransmitted ConnectionExceptionReportStateValue = "SynAckTransmitted"
+
+	// ConnectionExceptionReportStateSynReceived represents the value SynReceived.
+	ConnectionExceptionReportStateSynReceived ConnectionExceptionReportStateValue = "SynReceived"
 
 	// ConnectionExceptionReportStateSynTransmitted represents the value SynTransmitted.
 	ConnectionExceptionReportStateSynTransmitted ConnectionExceptionReportStateValue = "SynTransmitted"
@@ -560,7 +572,7 @@ func (o *ConnectionExceptionReport) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("state", string(o.State), []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "Unknown", "TFOProbe"}, false); err != nil {
+	if err := elemental.ValidateStringInList("state", string(o.State), []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "SynReceived", "SynAckReceived", "AckProcessed", "Data", "Unknown", "TFOProbe"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -825,7 +837,7 @@ state.`,
 		Type:           "string",
 	},
 	"State": {
-		AllowedChoices: []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "Unknown", "TFOProbe"},
+		AllowedChoices: []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "SynReceived", "SynAckReceived", "AckProcessed", "Data", "Unknown", "TFOProbe"},
 		BSONFieldName:  "l",
 		ConvertedName:  "State",
 		Description:    `Represents the current state this report was generated.`,
@@ -1060,7 +1072,7 @@ state.`,
 		Type:           "string",
 	},
 	"state": {
-		AllowedChoices: []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "Unknown", "TFOProbe"},
+		AllowedChoices: []string{"SynTransmitted", "SynAckTransmitted", "AckTransmitted", "SynReceived", "SynAckReceived", "AckProcessed", "Data", "Unknown", "TFOProbe"},
 		BSONFieldName:  "l",
 		ConvertedName:  "State",
 		Description:    `Represents the current state this report was generated.`,

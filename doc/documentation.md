@@ -17963,7 +17963,7 @@ Source IP address.
 
 ##### `state` [`required`]
 
-Type: `enum(SynTransmitted | SynAckTransmitted | AckTransmitted | Unknown | TFOProbe)`
+Type: `enum(SynTransmitted | SynAckTransmitted | AckTransmitted | SynReceived | SynAckReceived | AckProcessed | Data | Unknown | TFOProbe)`
 
 Represents the current state this report was generated.
 
