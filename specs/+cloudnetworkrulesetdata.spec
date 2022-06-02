@@ -58,6 +58,7 @@ attributes:
     stored: true
     required: true
     allowed_choices:
+    - EffectiveSecurityGroup
     - SecurityGroup
     - ACL
     example_value: SecurityGroup

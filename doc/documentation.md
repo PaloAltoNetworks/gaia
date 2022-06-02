@@ -12271,7 +12271,7 @@ applies to.
 
 ##### `type` [`required`]
 
-Type: `enum(SecurityGroup | ACL)`
+Type: `enum(EffectiveSecurityGroup | SecurityGroup | ACL)`
 
 Type identifies if this is a security group rule set or ACL.
 
@@ -18030,7 +18030,7 @@ Source IP address.
 
 ##### `state` [`required`]
 
-Type: `enum(SynTransmitted | SynAckTransmitted | AckTransmitted | Unknown | TFOProbe)`
+Type: `enum(SynTransmitted | SynAckTransmitted | AckTransmitted | SynReceived | SynAckReceived | AckProcessed | Data | Unknown | TFOProbe)`
 
 Represents the current state this report was generated.
 
