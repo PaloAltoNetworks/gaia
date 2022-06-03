@@ -1,0 +1,63 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "urlreputation": {
+        "description": "Represents the URL reputation information.",
+        "properties": {
+          "URL": {
+            "description": "The IP address or FQDN.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "categories": {
+            "description": "The categories codes related to the risk level.",
+            "items": {
+              "type": "integer"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "evidence": {
+            "description": "The evidence related to the risk level.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "riskLevel": {
+            "description": "The associated IP/FQDN risk level.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "urlreputation",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pc/pandb'",
+      "name": "pc/pandb"
+    },
+    {
+      "description": "This tag is for package 'karl'",
+      "name": "karl"
+    }
+  ]
+}

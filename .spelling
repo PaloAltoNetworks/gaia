@@ -371,6 +371,7 @@ PacketReport
 PacketReport
 PacketReports
 Palo
+pandb
 parentID
 PartialMatch
 PasswordReset
@@ -556,6 +557,7 @@ unencrypted
 unlogged
 URIs
 URIs
+URLReputation
 UserAccessPolicy
 UserAccessPolicy
 userland
