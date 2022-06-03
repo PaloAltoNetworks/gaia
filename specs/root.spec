@@ -1059,6 +1059,10 @@ relations:
     - $filtering
     - $timewindow
 
+- rest_name: reputation
+  create:
+    description: Get reputation information of IP/FQDN from PANDB.
+
 - rest_name: revocation
   get:
     description: Verify the revocation of a certificate according to parameters.

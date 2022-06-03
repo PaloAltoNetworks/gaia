@@ -5048,6 +5048,12 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[ReputationIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
 	relationshipsRegistry[RevocationIdentity] = &elemental.Relationship{
 		Update: map[string]*elemental.RelationshipInfo{
 			"root": {},
