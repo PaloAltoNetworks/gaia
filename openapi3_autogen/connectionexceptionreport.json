@@ -85,6 +85,10 @@
               "SynTransmitted",
               "SynAckTransmitted",
               "AckTransmitted",
+              "SynReceived",
+              "SynAckReceived",
+              "AckProcessed",
+              "Data",
               "Unknown",
               "TFOProbe"
             ],
