@@ -195,6 +195,7 @@ var (
 		"statsinfo":               StatsInfoIdentity,
 		"statsquery":              StatsQueryIdentity,
 		"suggestedpolicy":         SuggestedPolicyIdentity,
+		"suspiciousactivity":      SuspiciousActivityIdentity,
 		"tag":                     TagIdentity,
 		"taginject":               TagInjectIdentity,
 		"tagprefix":               TagPrefixIdentity,
@@ -406,6 +407,7 @@ var (
 		"statsinfo":                 StatsInfoIdentity,
 		"statsqueries":              StatsQueryIdentity,
 		"suggestedpolicies":         SuggestedPolicyIdentity,
+		"suspiciousactivities":      SuspiciousActivityIdentity,
 		"tags":                      TagIdentity,
 		"taginjects":                TagInjectIdentity,
 		"tagprefixes":               TagPrefixIdentity,
@@ -537,6 +539,7 @@ var (
 		"sugpols":            SuggestedPolicyIdentity,
 		"sugg":               SuggestedPolicyIdentity,
 		"suggs":              SuggestedPolicyIdentity,
+		"susact":             SuspiciousActivityIdentity,
 		"tsp":                TokenScopePolicyIdentity,
 		"trustedns":          TrustedNamespaceIdentity,
 		"usrpol":             UserAccessPolicyIdentity,
@@ -1348,6 +1351,11 @@ var (
 		"statsinfo":              nil,
 		"statsquery":             nil,
 		"suggestedpolicy":        nil,
+		"suspiciousactivity": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+		},
 		"tag": {
 			{"namespace"},
 			{"namespace", "normalizedTags"},
@@ -1760,6 +1768,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewStatsQuery()
 	case SuggestedPolicyIdentity:
 		return NewSuggestedPolicy()
+	case SuspiciousActivityIdentity:
+		return NewSuspiciousActivity()
 	case TagIdentity:
 		return NewTag()
 	case TagInjectIdentity:
@@ -2125,6 +2135,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseStatsQuery()
 	case SuggestedPolicyIdentity:
 		return NewSparseSuggestedPolicy()
+	case SuspiciousActivityIdentity:
+		return NewSparseSuspiciousActivity()
 	case TagIdentity:
 		return NewSparseTag()
 	case TagInjectIdentity:
@@ -2500,6 +2512,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &StatsQueriesList{}
 	case SuggestedPolicyIdentity:
 		return &SuggestedPoliciesList{}
+	case SuspiciousActivityIdentity:
+		return &SuspiciousActivitiesList{}
 	case TagIdentity:
 		return &TagsList{}
 	case TagInjectIdentity:
@@ -2865,6 +2879,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseStatsQueriesList{}
 	case SuggestedPolicyIdentity:
 		return &SparseSuggestedPoliciesList{}
+	case SuspiciousActivityIdentity:
+		return &SparseSuspiciousActivitiesList{}
 	case TagIdentity:
 		return &SparseTagsList{}
 	case TagInjectIdentity:
@@ -3089,6 +3105,7 @@ func AllIdentities() []elemental.Identity {
 		StatsInfoIdentity,
 		StatsQueryIdentity,
 		SuggestedPolicyIdentity,
+		SuspiciousActivityIdentity,
 		TagIdentity,
 		TagInjectIdentity,
 		TagPrefixIdentity,
@@ -3601,6 +3618,10 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"sugpols",
 			"sugg",
 			"suggs",
+		}
+	case SuspiciousActivityIdentity:
+		return []string{
+			"susact",
 		}
 	case TagIdentity:
 		return []string{}

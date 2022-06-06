@@ -1,0 +1,199 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "suspiciousactivity": {
+        "description": "Represents a suspicious activity found on the platform.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "categories": {
+            "description": "The list of category names.",
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "counter": {
+            "description": "Number of times this suspicious activity is found.",
+            "type": "integer"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "firstOccurrenceTme": {
+            "description": "The timestamp when the suspicious activity first occurred.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "lastOccurrenceTme": {
+            "description": "The timestamp when the suspicious activity last occurred.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "risk": {
+            "default": "Unknown",
+            "description": "The level of risk.",
+            "enum": [
+              "Low",
+              "Medium",
+              "High",
+              "Unknown"
+            ]
+          },
+          "sourceID": {
+            "description": "The identifier of the source.",
+            "type": "string"
+          },
+          "sourceName": {
+            "description": "The name of the source.",
+            "type": "string"
+          },
+          "sourceNamespace": {
+            "description": "The namespace of the source.",
+            "type": "string"
+          },
+          "sourceType": {
+            "description": "The type of the source.",
+            "type": "string"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "suspiciousactivity",
+    "version": "1.0"
+  },
+  "paths": {
+    "/suspiciousactivities/{id}": {
+      "delete": {
+        "description": "Deletes the suspicious activity with the given ID.",
+        "operationId": "delete-suspiciousactivity-by-ID",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/suspiciousactivity"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pc/alerts",
+          "karl"
+        ]
+      },
+      "get": {
+        "description": "Retrieves the suspicious activity with the given ID.",
+        "operationId": "get-suspiciousactivity-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/suspiciousactivity"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pc/alerts",
+          "karl"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "put": {
+        "description": "Updates the suspicious activity with the given ID.",
+        "operationId": "update-suspiciousactivity-by-ID",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/suspiciousactivity"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/suspiciousactivity"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pc/alerts",
+          "karl"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pc/alerts'",
+      "name": "pc/alerts"
+    },
+    {
+      "description": "This tag is for package 'karl'",
+      "name": "karl"
+    }
+  ]
+}
