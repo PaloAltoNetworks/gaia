@@ -13,6 +13,14 @@
               "Reject"
             ]
           },
+          "groupTags": {
+            "description": "A list of tags to group resources.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
           "ipRanges": {
             "description": "A list of ips range.",
             "items": {

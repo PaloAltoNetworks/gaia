@@ -82,6 +82,10 @@ type CloudInterfaceData struct {
 	// Availability zone of the interface.
 	AvailabilityZone string `json:"availabilityZone" msgpack:"availabilityZone" bson:"availabilityzone" mapstructure:"availabilityZone,omitempty"`
 
+	// Group tags associated with the interface. In Azure, its Application Security
+	// Group.
+	GroupTags []string `json:"groupTags" msgpack:"groupTags" bson:"grouptags" mapstructure:"groupTags,omitempty"`
+
 	// If the interface has a public IP in one of its IP address.
 	HasPublicIP bool `json:"hasPublicIP" msgpack:"hasPublicIP" bson:"haspublicip" mapstructure:"hasPublicIP,omitempty"`
 
@@ -116,6 +120,7 @@ func NewCloudInterfaceData() *CloudInterfaceData {
 		ModelVersion:     1,
 		Addresses:        []*CloudAddress{},
 		AttachedEntities: []string{},
+		GroupTags:        []string{},
 		ResourceStatus:   CloudInterfaceDataResourceStatusActive,
 		SecurityTags:     []string{},
 		Subnets:          []string{},
@@ -136,6 +141,7 @@ func (o *CloudInterfaceData) GetBSON() (interface{}, error) {
 	s.AttachedEntities = o.AttachedEntities
 	s.AttachmentType = o.AttachmentType
 	s.AvailabilityZone = o.AvailabilityZone
+	s.GroupTags = o.GroupTags
 	s.HasPublicIP = o.HasPublicIP
 	s.ParentID = o.ParentID
 	s.RelatedObjectID = o.RelatedObjectID
@@ -164,6 +170,7 @@ func (o *CloudInterfaceData) SetBSON(raw bson.Raw) error {
 	o.AttachedEntities = s.AttachedEntities
 	o.AttachmentType = s.AttachmentType
 	o.AvailabilityZone = s.AvailabilityZone
+	o.GroupTags = s.GroupTags
 	o.HasPublicIP = s.HasPublicIP
 	o.ParentID = s.ParentID
 	o.RelatedObjectID = s.RelatedObjectID
@@ -275,6 +282,8 @@ func (o *CloudInterfaceData) ValueForAttribute(name string) interface{} {
 		return o.AttachmentType
 	case "availabilityZone":
 		return o.AvailabilityZone
+	case "groupTags":
+		return o.GroupTags
 	case "hasPublicIP":
 		return o.HasPublicIP
 	case "parentID":
@@ -340,6 +349,18 @@ Balancer, Gateway, etc).`,
 		Name:           "availabilityZone",
 		Stored:         true,
 		Type:           "string",
+	},
+	"GroupTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "grouptags",
+		ConvertedName:  "GroupTags",
+		Description: `Group tags associated with the interface. In Azure, its Application Security
+Group.`,
+		Exposed: true,
+		Name:    "groupTags",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
 	},
 	"HasPublicIP": {
 		AllowedChoices: []string{},
@@ -466,6 +487,18 @@ Balancer, Gateway, etc).`,
 		Stored:         true,
 		Type:           "string",
 	},
+	"grouptags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "grouptags",
+		ConvertedName:  "GroupTags",
+		Description: `Group tags associated with the interface. In Azure, its Application Security
+Group.`,
+		Exposed: true,
+		Name:    "groupTags",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
 	"haspublicip": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "haspublicip",
@@ -549,6 +582,7 @@ type mongoAttributesCloudInterfaceData struct {
 	AttachedEntities []string                              `bson:"attachedentities"`
 	AttachmentType   CloudInterfaceDataAttachmentTypeValue `bson:"attachmenttype"`
 	AvailabilityZone string                                `bson:"availabilityzone"`
+	GroupTags        []string                              `bson:"grouptags"`
 	HasPublicIP      bool                                  `bson:"haspublicip"`
 	ParentID         string                                `bson:"parentid"`
 	RelatedObjectID  string                                `bson:"relatedobjectid"`
