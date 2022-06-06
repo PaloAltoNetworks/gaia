@@ -1185,6 +1185,7 @@ relations:
     global_parameters:
     - $timewindow
     - $flowoffset
+    - $filtering
 
 - rest_name: tag
   get:

@@ -21787,6 +21787,7 @@ Parameters:
 - `startAbsolute` (`time`): Set the absolute start of the time window.
 - `startRelative` (`duration`): Set the relative start of the time window.
 - `flowOffset` (`duration`): Deprecated. This does not do anything anymore.
+- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
 
 Mandatory Parameters
 
