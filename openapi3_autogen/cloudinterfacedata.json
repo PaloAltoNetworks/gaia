@@ -46,6 +46,13 @@
             "example": "us-east-1",
             "type": "string"
           },
+          "groupTags": {
+            "description": "Group tags associated with the interface. In Azure, its Application Security\nGroup.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "hasPublicIP": {
             "description": "If the interface has a public IP in one of its IP address.",
             "type": "boolean"

@@ -5713,6 +5713,11 @@ func init() {
 						Name: "flowOffset",
 						Type: "duration",
 					},
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
 				},
 			},
 		},
@@ -5767,6 +5772,11 @@ func init() {
 					{
 						Name: "flowOffset",
 						Type: "duration",
+					},
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
 					},
 				},
 			},

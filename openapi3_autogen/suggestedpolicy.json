@@ -61,6 +61,15 @@
             }
           },
           {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "description": "Set the absolute start of the time window.",
             "example": "2018/03/08 10:42",
             "in": "query",

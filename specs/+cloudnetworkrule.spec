@@ -26,6 +26,15 @@ attributes:
     - Reject
     default_value: Allow
 
+  - name: groupTags
+    description: A list of tags to group resources.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    read_only: true
+    omit_empty: true
+
   - name: ipRanges
     description: A list of ips range.
     type: refList
