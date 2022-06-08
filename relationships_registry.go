@@ -4584,7 +4584,14 @@ func init() {
 
 	relationshipsRegistry[ProcessingUnitIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
-			"root": {},
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "signtags",
+						Type: "string",
+					},
+				},
+			},
 		},
 		Update: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -5550,6 +5557,12 @@ func init() {
 	}
 
 	relationshipsRegistry[ServiceTokenIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
+	relationshipsRegistry[SignhashIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
 		},
