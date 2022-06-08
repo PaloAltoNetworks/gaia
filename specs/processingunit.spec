@@ -135,6 +135,20 @@ attributes:
     stored: true
     filterable: true
 
+  - name: signedHashOfHashedTags
+    description: This field contains the signature of the hash of the hashed tags.
+      field.
+    type: string
+    exposed: true
+    stored: true
+
+  - name: associatedLocalCAID
+    description: AssociatedLocalCAID holds the remote ID of the certificate authority that has been used to sign
+     the tags.
+    type: string
+    stored: true
+    exposed: true
+
   - name: image
     description: |-
       This field is deprecated and it is there for backward compatibility. Use
@@ -268,6 +282,21 @@ attributes:
     deprecated: true
     filterable: true
     transient: true
+
+  - name: wireTagToHashTag
+    description: |-
+      Contains the list of wire tags that must go on the wire and their mapping to
+      corresponding hashes.
+    type: external
+    exposed: true
+    subtype: map[string]string
+
+  - name: hashOfHashedTags
+    description: |-
+      Contains the hash of the hashed wire tags.
+    type: string
+    exposed: true
+    stored: true
 
 # Relations
 relations:
