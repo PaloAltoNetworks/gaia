@@ -174,7 +174,7 @@ type Namespace struct {
 	Annotations map[string][]string `json:"annotations" msgpack:"annotations" bson:"annotations" mapstructure:"annotations,omitempty"`
 
 	// AssociatedLocalCAID holds the remote ID of the certificate authority to use.
-	AssociatedLocalCAID string `json:"-" msgpack:"-" bson:"associatedlocalcaid" mapstructure:"-,omitempty"`
+	AssociatedLocalCAID string `json:"associatedLocalCAID" msgpack:"associatedLocalCAID" bson:"associatedlocalcaid" mapstructure:"associatedLocalCAID,omitempty"`
 
 	// The remote ID of the SSH certificate authority to use.
 	AssociatedSSHCAID string `json:"associatedSSHCAID" msgpack:"associatedSSHCAID" bson:"associatedsshcaid" mapstructure:"associatedSSHCAID,omitempty"`
@@ -1152,6 +1152,7 @@ issued by the controller.`,
 		BSONFieldName:  "associatedlocalcaid",
 		ConvertedName:  "AssociatedLocalCAID",
 		Description:    `AssociatedLocalCAID holds the remote ID of the certificate authority to use.`,
+		Exposed:        true,
 		Name:           "associatedLocalCAID",
 		ReadOnly:       true,
 		Stored:         true,
@@ -1609,6 +1610,7 @@ issued by the controller.`,
 		BSONFieldName:  "associatedlocalcaid",
 		ConvertedName:  "AssociatedLocalCAID",
 		Description:    `AssociatedLocalCAID holds the remote ID of the certificate authority to use.`,
+		Exposed:        true,
 		Name:           "associatedLocalCAID",
 		ReadOnly:       true,
 		Stored:         true,
@@ -2068,7 +2070,7 @@ type SparseNamespace struct {
 	Annotations *map[string][]string `json:"annotations,omitempty" msgpack:"annotations,omitempty" bson:"annotations,omitempty" mapstructure:"annotations,omitempty"`
 
 	// AssociatedLocalCAID holds the remote ID of the certificate authority to use.
-	AssociatedLocalCAID *string `json:"-" msgpack:"-" bson:"associatedlocalcaid,omitempty" mapstructure:"-,omitempty"`
+	AssociatedLocalCAID *string `json:"associatedLocalCAID,omitempty" msgpack:"associatedLocalCAID,omitempty" bson:"associatedlocalcaid,omitempty" mapstructure:"associatedLocalCAID,omitempty"`
 
 	// The remote ID of the SSH certificate authority to use.
 	AssociatedSSHCAID *string `json:"associatedSSHCAID,omitempty" msgpack:"associatedSSHCAID,omitempty" bson:"associatedsshcaid,omitempty" mapstructure:"associatedSSHCAID,omitempty"`

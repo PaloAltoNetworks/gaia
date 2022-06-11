@@ -3906,6 +3906,10 @@ issued by the controller.
 
 Stores additional information about an entity.
 
+##### `associatedLocalCAID` `string` [`read_only`]
+
+AssociatedLocalCAID holds the remote ID of the certificate authority to use.
+
 ##### `associatedSSHCAID` `string` [`read_only`]
 
 The remote ID of the SSH certificate authority to use.
