@@ -10,6 +10,23 @@
             "readOnly": true,
             "type": "string"
           },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "categories": {
             "description": "The list of category names.",
             "items": {
@@ -27,12 +44,12 @@
             "readOnly": true,
             "type": "string"
           },
-          "firstOccurrenceTme": {
+          "firstOccurrenceTime": {
             "description": "The timestamp when the suspicious activity first occurred.",
             "format": "date-time",
             "type": "string"
           },
-          "lastOccurrenceTme": {
+          "lastOccurrenceTime": {
             "description": "The timestamp when the suspicious activity last occurred.",
             "format": "date-time",
             "type": "string"
@@ -41,6 +58,18 @@
             "description": "Namespace tag attached to an entity.",
             "readOnly": true,
             "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
           },
           "risk": {
             "default": "Unknown",
@@ -93,6 +122,79 @@
     "version": "1.0"
   },
   "paths": {
+    "/suspiciousactivities": {
+      "get": {
+        "description": "Retrieves a list of suspicious activities.",
+        "operationId": "get-all-suspiciousactivities",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/suspiciousactivity"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pc/alerts",
+          "karl"
+        ]
+      },
+      "post": {
+        "description": "Creates a new suspicious activity.",
+        "operationId": "create-a-new-suspiciousactivity",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/suspiciousactivity"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/suspiciousactivity"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pc/alerts",
+          "karl"
+        ]
+      }
+    },
     "/suspiciousactivities/{id}": {
       "delete": {
         "description": "Deletes the suspicious activity with the given ID.",

@@ -12,60 +12,43 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// SuspiciousActivityRiskValue represents the possible values for attribute "risk".
-type SuspiciousActivityRiskValue string
-
-const (
-	// SuspiciousActivityRiskHigh represents the value High.
-	SuspiciousActivityRiskHigh SuspiciousActivityRiskValue = "High"
-
-	// SuspiciousActivityRiskLow represents the value Low.
-	SuspiciousActivityRiskLow SuspiciousActivityRiskValue = "Low"
-
-	// SuspiciousActivityRiskMedium represents the value Medium.
-	SuspiciousActivityRiskMedium SuspiciousActivityRiskValue = "Medium"
-
-	// SuspiciousActivityRiskUnknown represents the value Unknown.
-	SuspiciousActivityRiskUnknown SuspiciousActivityRiskValue = "Unknown"
-)
-
-// SuspiciousActivityIdentity represents the Identity of the object.
-var SuspiciousActivityIdentity = elemental.Identity{
-	Name:     "suspiciousactivity",
-	Category: "suspiciousactivities",
+// UnknownIPAddressIdentity represents the Identity of the object.
+var UnknownIPAddressIdentity = elemental.Identity{
+	Name:     "unknownipaddress",
+	Category: "unknownipaddresses",
 	Package:  "karl",
 	Private:  false,
 }
 
-// SuspiciousActivitiesList represents a list of SuspiciousActivities
-type SuspiciousActivitiesList []*SuspiciousActivity
+// UnknownIPAddressList represents a list of UnknownIPAddress
+type UnknownIPAddressList []*UnknownIPAddress
 
 // Identity returns the identity of the objects in the list.
-func (o SuspiciousActivitiesList) Identity() elemental.Identity {
+func (o UnknownIPAddressList) Identity() elemental.Identity {
 
-	return SuspiciousActivityIdentity
+	return UnknownIPAddressIdentity
 }
 
-// Copy returns a pointer to a copy the SuspiciousActivitiesList.
-func (o SuspiciousActivitiesList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the UnknownIPAddressList.
+func (o UnknownIPAddressList) Copy() elemental.Identifiables {
 
-	copy := append(SuspiciousActivitiesList{}, o...)
+	copy := append(UnknownIPAddressList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SuspiciousActivitiesList.
-func (o SuspiciousActivitiesList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the UnknownIPAddressList.
+func (o UnknownIPAddressList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SuspiciousActivitiesList{}, o...)
+	out := append(UnknownIPAddressList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SuspiciousActivity))
+		out = append(out, obj.(*UnknownIPAddress))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SuspiciousActivitiesList) List() elemental.IdentifiablesList {
+func (o UnknownIPAddressList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -76,33 +59,36 @@ func (o SuspiciousActivitiesList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SuspiciousActivitiesList) DefaultOrder() []string {
+func (o UnknownIPAddressList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToSparse returns the SuspiciousActivitiesList converted to SparseSuspiciousActivitiesList.
+// ToSparse returns the UnknownIPAddressList converted to SparseUnknownIPAddressList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o SuspiciousActivitiesList) ToSparse(fields ...string) elemental.Identifiables {
+func (o UnknownIPAddressList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseSuspiciousActivitiesList, len(o))
+	out := make(SparseUnknownIPAddressList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseSuspiciousActivity)
+		out[i] = o[i].ToSparse(fields...).(*SparseUnknownIPAddress)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o SuspiciousActivitiesList) Version() int {
+func (o UnknownIPAddressList) Version() int {
 
 	return 1
 }
 
-// SuspiciousActivity represents the model of a suspiciousactivity
-type SuspiciousActivity struct {
+// UnknownIPAddress represents the model of a unknownipaddress
+type UnknownIPAddress struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
+
+	// IP/FQDN encountered.
+	Address string `json:"address" msgpack:"address" bson:"address" mapstructure:"address,omitempty"`
 
 	// Stores additional information about an entity.
 	Annotations map[string][]string `json:"annotations" msgpack:"annotations" bson:"annotations" mapstructure:"annotations,omitempty"`
@@ -110,26 +96,11 @@ type SuspiciousActivity struct {
 	// List of tags attached to an entity.
 	AssociatedTags []string `json:"associatedTags" msgpack:"associatedTags" bson:"associatedtags" mapstructure:"associatedTags,omitempty"`
 
-	// The list of category names.
-	Categories []int `json:"categories" msgpack:"categories" bson:"categories" mapstructure:"categories,omitempty"`
-
-	// Number of times this suspicious activity is found.
-	Counter int `json:"counter" msgpack:"counter" bson:"counter" mapstructure:"counter,omitempty"`
-
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey string `json:"-" msgpack:"-" bson:"createidempotencykey" mapstructure:"-,omitempty"`
 
 	// Creation date of the object.
 	CreateTime time.Time `json:"createTime" msgpack:"createTime" bson:"createtime" mapstructure:"createTime,omitempty"`
-
-	// The timestamp when the suspicious activity first occurred.
-	FirstOccurrenceTime time.Time `json:"firstOccurrenceTime" msgpack:"firstOccurrenceTime" bson:"firstoccurrencetime" mapstructure:"firstOccurrenceTime,omitempty"`
-
-	// The timestamp when the suspicious activity last occurred.
-	LastOccurrenceTime time.Time `json:"lastOccurrenceTime" msgpack:"lastOccurrenceTime" bson:"lastoccurrencetime" mapstructure:"lastOccurrenceTime,omitempty"`
-
-	// Internal property maintaining migrations information.
-	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
@@ -137,23 +108,23 @@ type SuspiciousActivity struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags []string `json:"normalizedTags" msgpack:"normalizedTags" bson:"normalizedtags" mapstructure:"normalizedTags,omitempty"`
 
+	// Number of times the address was seen for the source.
+	Occurrences int `json:"occurrences" msgpack:"occurrences" bson:"occurrences" mapstructure:"occurrences,omitempty"`
+
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
-	// The level of risk.
-	Risk SuspiciousActivityRiskValue `json:"risk" msgpack:"risk" bson:"risk" mapstructure:"risk,omitempty"`
-
-	// The identifier of the source.
+	// Identifier of the source of the address.
 	SourceID string `json:"sourceID" msgpack:"sourceID" bson:"sourceid" mapstructure:"sourceID,omitempty"`
 
-	// The name of the source.
-	SourceName string `json:"sourceName" msgpack:"sourceName" bson:"sourcename" mapstructure:"sourceName,omitempty"`
+	// Identity of the source of the address.
+	SourceIdentity string `json:"sourceIdentity" msgpack:"sourceIdentity" bson:"sourceidentity" mapstructure:"sourceIdentity,omitempty"`
 
-	// The namespace of the source.
+	// Namespace of the source of the address.
 	SourceNamespace string `json:"sourceNamespace" msgpack:"sourceNamespace" bson:"sourcenamespace" mapstructure:"sourceNamespace,omitempty"`
 
-	// The type of the source.
-	SourceType string `json:"sourceType" msgpack:"sourceType" bson:"sourcetype" mapstructure:"sourceType,omitempty"`
+	// The timestamp of the source of the address.
+	Timestamp time.Time `json:"timestamp" msgpack:"timestamp" bson:"timestamp" mapstructure:"timestamp,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey string `json:"-" msgpack:"-" bson:"updateidempotencykey" mapstructure:"-,omitempty"`
@@ -171,68 +142,61 @@ type SuspiciousActivity struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSuspiciousActivity returns a new *SuspiciousActivity
-func NewSuspiciousActivity() *SuspiciousActivity {
+// NewUnknownIPAddress returns a new *UnknownIPAddress
+func NewUnknownIPAddress() *UnknownIPAddress {
 
-	return &SuspiciousActivity{
+	return &UnknownIPAddress{
 		ModelVersion:   1,
 		Annotations:    map[string][]string{},
 		AssociatedTags: []string{},
-		Categories:     []int{},
 		NormalizedTags: []string{},
-		Risk:           SuspiciousActivityRiskUnknown,
-		MigrationsLog:  map[string]string{},
 	}
 }
 
 // Identity returns the Identity of the object.
-func (o *SuspiciousActivity) Identity() elemental.Identity {
+func (o *UnknownIPAddress) Identity() elemental.Identity {
 
-	return SuspiciousActivityIdentity
+	return UnknownIPAddressIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *SuspiciousActivity) Identifier() string {
+func (o *UnknownIPAddress) Identifier() string {
 
 	return o.ID
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *SuspiciousActivity) SetIdentifier(id string) {
+func (o *UnknownIPAddress) SetIdentifier(id string) {
 
 	o.ID = id
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SuspiciousActivity) GetBSON() (interface{}, error) {
+func (o *UnknownIPAddress) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSuspiciousActivity{}
+	s := &mongoAttributesUnknownIPAddress{}
 
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
+	s.Address = o.Address
 	s.Annotations = o.Annotations
 	s.AssociatedTags = o.AssociatedTags
-	s.Categories = o.Categories
-	s.Counter = o.Counter
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	s.CreateTime = o.CreateTime
-	s.FirstOccurrenceTime = o.FirstOccurrenceTime
-	s.LastOccurrenceTime = o.LastOccurrenceTime
-	s.MigrationsLog = o.MigrationsLog
 	s.Namespace = o.Namespace
 	s.NormalizedTags = o.NormalizedTags
+	s.Occurrences = o.Occurrences
 	s.Protected = o.Protected
-	s.Risk = o.Risk
 	s.SourceID = o.SourceID
-	s.SourceName = o.SourceName
+	s.SourceIdentity = o.SourceIdentity
 	s.SourceNamespace = o.SourceNamespace
-	s.SourceType = o.SourceType
+	s.Timestamp = o.Timestamp
 	s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
 	s.UpdateTime = o.UpdateTime
 	s.ZHash = o.ZHash
@@ -243,35 +207,31 @@ func (o *SuspiciousActivity) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SuspiciousActivity) SetBSON(raw bson.Raw) error {
+func (o *UnknownIPAddress) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSuspiciousActivity{}
+	s := &mongoAttributesUnknownIPAddress{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
 
 	o.ID = s.ID.Hex()
+	o.Address = s.Address
 	o.Annotations = s.Annotations
 	o.AssociatedTags = s.AssociatedTags
-	o.Categories = s.Categories
-	o.Counter = s.Counter
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	o.CreateTime = s.CreateTime
-	o.FirstOccurrenceTime = s.FirstOccurrenceTime
-	o.LastOccurrenceTime = s.LastOccurrenceTime
-	o.MigrationsLog = s.MigrationsLog
 	o.Namespace = s.Namespace
 	o.NormalizedTags = s.NormalizedTags
+	o.Occurrences = s.Occurrences
 	o.Protected = s.Protected
-	o.Risk = s.Risk
 	o.SourceID = s.SourceID
-	o.SourceName = s.SourceName
+	o.SourceIdentity = s.SourceIdentity
 	o.SourceNamespace = s.SourceNamespace
-	o.SourceType = s.SourceType
+	o.Timestamp = s.Timestamp
 	o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
 	o.UpdateTime = s.UpdateTime
 	o.ZHash = s.ZHash
@@ -281,203 +241,187 @@ func (o *SuspiciousActivity) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SuspiciousActivity) Version() int {
+func (o *UnknownIPAddress) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *SuspiciousActivity) BleveType() string {
+func (o *UnknownIPAddress) BleveType() string {
 
-	return "suspiciousactivity"
+	return "unknownipaddress"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *SuspiciousActivity) DefaultOrder() []string {
+func (o *UnknownIPAddress) DefaultOrder() []string {
 
 	return []string{}
 }
 
 // Doc returns the documentation for the object
-func (o *SuspiciousActivity) Doc() string {
+func (o *UnknownIPAddress) Doc() string {
 
-	return `Represents a suspicious activity found on the platform.`
+	return `Holds the IP/FQDN of flows going to somewhere (default) external network.`
 }
 
-func (o *SuspiciousActivity) String() string {
+func (o *UnknownIPAddress) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // GetAnnotations returns the Annotations of the receiver.
-func (o *SuspiciousActivity) GetAnnotations() map[string][]string {
+func (o *UnknownIPAddress) GetAnnotations() map[string][]string {
 
 	return o.Annotations
 }
 
 // SetAnnotations sets the property Annotations of the receiver using the given value.
-func (o *SuspiciousActivity) SetAnnotations(annotations map[string][]string) {
+func (o *UnknownIPAddress) SetAnnotations(annotations map[string][]string) {
 
 	o.Annotations = annotations
 }
 
 // GetAssociatedTags returns the AssociatedTags of the receiver.
-func (o *SuspiciousActivity) GetAssociatedTags() []string {
+func (o *UnknownIPAddress) GetAssociatedTags() []string {
 
 	return o.AssociatedTags
 }
 
 // SetAssociatedTags sets the property AssociatedTags of the receiver using the given value.
-func (o *SuspiciousActivity) SetAssociatedTags(associatedTags []string) {
+func (o *UnknownIPAddress) SetAssociatedTags(associatedTags []string) {
 
 	o.AssociatedTags = associatedTags
 }
 
 // GetCreateIdempotencyKey returns the CreateIdempotencyKey of the receiver.
-func (o *SuspiciousActivity) GetCreateIdempotencyKey() string {
+func (o *UnknownIPAddress) GetCreateIdempotencyKey() string {
 
 	return o.CreateIdempotencyKey
 }
 
 // SetCreateIdempotencyKey sets the property CreateIdempotencyKey of the receiver using the given value.
-func (o *SuspiciousActivity) SetCreateIdempotencyKey(createIdempotencyKey string) {
+func (o *UnknownIPAddress) SetCreateIdempotencyKey(createIdempotencyKey string) {
 
 	o.CreateIdempotencyKey = createIdempotencyKey
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *SuspiciousActivity) GetCreateTime() time.Time {
+func (o *UnknownIPAddress) GetCreateTime() time.Time {
 
 	return o.CreateTime
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the given value.
-func (o *SuspiciousActivity) SetCreateTime(createTime time.Time) {
+func (o *UnknownIPAddress) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = createTime
 }
 
-// GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *SuspiciousActivity) GetMigrationsLog() map[string]string {
-
-	return o.MigrationsLog
-}
-
-// SetMigrationsLog sets the property MigrationsLog of the receiver using the given value.
-func (o *SuspiciousActivity) SetMigrationsLog(migrationsLog map[string]string) {
-
-	o.MigrationsLog = migrationsLog
-}
-
 // GetNamespace returns the Namespace of the receiver.
-func (o *SuspiciousActivity) GetNamespace() string {
+func (o *UnknownIPAddress) GetNamespace() string {
 
 	return o.Namespace
 }
 
 // SetNamespace sets the property Namespace of the receiver using the given value.
-func (o *SuspiciousActivity) SetNamespace(namespace string) {
+func (o *UnknownIPAddress) SetNamespace(namespace string) {
 
 	o.Namespace = namespace
 }
 
 // GetNormalizedTags returns the NormalizedTags of the receiver.
-func (o *SuspiciousActivity) GetNormalizedTags() []string {
+func (o *UnknownIPAddress) GetNormalizedTags() []string {
 
 	return o.NormalizedTags
 }
 
 // SetNormalizedTags sets the property NormalizedTags of the receiver using the given value.
-func (o *SuspiciousActivity) SetNormalizedTags(normalizedTags []string) {
+func (o *UnknownIPAddress) SetNormalizedTags(normalizedTags []string) {
 
 	o.NormalizedTags = normalizedTags
 }
 
 // GetProtected returns the Protected of the receiver.
-func (o *SuspiciousActivity) GetProtected() bool {
+func (o *UnknownIPAddress) GetProtected() bool {
 
 	return o.Protected
 }
 
 // SetProtected sets the property Protected of the receiver using the given value.
-func (o *SuspiciousActivity) SetProtected(protected bool) {
+func (o *UnknownIPAddress) SetProtected(protected bool) {
 
 	o.Protected = protected
 }
 
 // GetUpdateIdempotencyKey returns the UpdateIdempotencyKey of the receiver.
-func (o *SuspiciousActivity) GetUpdateIdempotencyKey() string {
+func (o *UnknownIPAddress) GetUpdateIdempotencyKey() string {
 
 	return o.UpdateIdempotencyKey
 }
 
 // SetUpdateIdempotencyKey sets the property UpdateIdempotencyKey of the receiver using the given value.
-func (o *SuspiciousActivity) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
+func (o *UnknownIPAddress) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
 
 	o.UpdateIdempotencyKey = updateIdempotencyKey
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *SuspiciousActivity) GetUpdateTime() time.Time {
+func (o *UnknownIPAddress) GetUpdateTime() time.Time {
 
 	return o.UpdateTime
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the given value.
-func (o *SuspiciousActivity) SetUpdateTime(updateTime time.Time) {
+func (o *UnknownIPAddress) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *SuspiciousActivity) GetZHash() int {
+func (o *UnknownIPAddress) GetZHash() int {
 
 	return o.ZHash
 }
 
 // SetZHash sets the property ZHash of the receiver using the given value.
-func (o *SuspiciousActivity) SetZHash(zHash int) {
+func (o *UnknownIPAddress) SetZHash(zHash int) {
 
 	o.ZHash = zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *SuspiciousActivity) GetZone() int {
+func (o *UnknownIPAddress) GetZone() int {
 
 	return o.Zone
 }
 
 // SetZone sets the property Zone of the receiver using the given value.
-func (o *SuspiciousActivity) SetZone(zone int) {
+func (o *UnknownIPAddress) SetZone(zone int) {
 
 	o.Zone = zone
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *SuspiciousActivity) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *UnknownIPAddress) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseSuspiciousActivity{
+		return &SparseUnknownIPAddress{
 			ID:                   &o.ID,
+			Address:              &o.Address,
 			Annotations:          &o.Annotations,
 			AssociatedTags:       &o.AssociatedTags,
-			Categories:           &o.Categories,
-			Counter:              &o.Counter,
 			CreateIdempotencyKey: &o.CreateIdempotencyKey,
 			CreateTime:           &o.CreateTime,
-			FirstOccurrenceTime:  &o.FirstOccurrenceTime,
-			LastOccurrenceTime:   &o.LastOccurrenceTime,
-			MigrationsLog:        &o.MigrationsLog,
 			Namespace:            &o.Namespace,
 			NormalizedTags:       &o.NormalizedTags,
+			Occurrences:          &o.Occurrences,
 			Protected:            &o.Protected,
-			Risk:                 &o.Risk,
 			SourceID:             &o.SourceID,
-			SourceName:           &o.SourceName,
+			SourceIdentity:       &o.SourceIdentity,
 			SourceNamespace:      &o.SourceNamespace,
-			SourceType:           &o.SourceType,
+			Timestamp:            &o.Timestamp,
 			UpdateIdempotencyKey: &o.UpdateIdempotencyKey,
 			UpdateTime:           &o.UpdateTime,
 			ZHash:                &o.ZHash,
@@ -485,45 +429,37 @@ func (o *SuspiciousActivity) ToSparse(fields ...string) elemental.SparseIdentifi
 		}
 	}
 
-	sp := &SparseSuspiciousActivity{}
+	sp := &SparseUnknownIPAddress{}
 	for _, f := range fields {
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
+		case "address":
+			sp.Address = &(o.Address)
 		case "annotations":
 			sp.Annotations = &(o.Annotations)
 		case "associatedTags":
 			sp.AssociatedTags = &(o.AssociatedTags)
-		case "categories":
-			sp.Categories = &(o.Categories)
-		case "counter":
-			sp.Counter = &(o.Counter)
 		case "createIdempotencyKey":
 			sp.CreateIdempotencyKey = &(o.CreateIdempotencyKey)
 		case "createTime":
 			sp.CreateTime = &(o.CreateTime)
-		case "firstOccurrenceTime":
-			sp.FirstOccurrenceTime = &(o.FirstOccurrenceTime)
-		case "lastOccurrenceTime":
-			sp.LastOccurrenceTime = &(o.LastOccurrenceTime)
-		case "migrationsLog":
-			sp.MigrationsLog = &(o.MigrationsLog)
 		case "namespace":
 			sp.Namespace = &(o.Namespace)
 		case "normalizedTags":
 			sp.NormalizedTags = &(o.NormalizedTags)
+		case "occurrences":
+			sp.Occurrences = &(o.Occurrences)
 		case "protected":
 			sp.Protected = &(o.Protected)
-		case "risk":
-			sp.Risk = &(o.Risk)
 		case "sourceID":
 			sp.SourceID = &(o.SourceID)
-		case "sourceName":
-			sp.SourceName = &(o.SourceName)
+		case "sourceIdentity":
+			sp.SourceIdentity = &(o.SourceIdentity)
 		case "sourceNamespace":
 			sp.SourceNamespace = &(o.SourceNamespace)
-		case "sourceType":
-			sp.SourceType = &(o.SourceType)
+		case "timestamp":
+			sp.Timestamp = &(o.Timestamp)
 		case "updateIdempotencyKey":
 			sp.UpdateIdempotencyKey = &(o.UpdateIdempotencyKey)
 		case "updateTime":
@@ -538,15 +474,18 @@ func (o *SuspiciousActivity) ToSparse(fields ...string) elemental.SparseIdentifi
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseSuspiciousActivity to the object.
-func (o *SuspiciousActivity) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseUnknownIPAddress to the object.
+func (o *UnknownIPAddress) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseSuspiciousActivity)
+	so := sparse.(*SparseUnknownIPAddress)
 	if so.ID != nil {
 		o.ID = *so.ID
+	}
+	if so.Address != nil {
+		o.Address = *so.Address
 	}
 	if so.Annotations != nil {
 		o.Annotations = *so.Annotations
@@ -554,26 +493,11 @@ func (o *SuspiciousActivity) Patch(sparse elemental.SparseIdentifiable) {
 	if so.AssociatedTags != nil {
 		o.AssociatedTags = *so.AssociatedTags
 	}
-	if so.Categories != nil {
-		o.Categories = *so.Categories
-	}
-	if so.Counter != nil {
-		o.Counter = *so.Counter
-	}
 	if so.CreateIdempotencyKey != nil {
 		o.CreateIdempotencyKey = *so.CreateIdempotencyKey
 	}
 	if so.CreateTime != nil {
 		o.CreateTime = *so.CreateTime
-	}
-	if so.FirstOccurrenceTime != nil {
-		o.FirstOccurrenceTime = *so.FirstOccurrenceTime
-	}
-	if so.LastOccurrenceTime != nil {
-		o.LastOccurrenceTime = *so.LastOccurrenceTime
-	}
-	if so.MigrationsLog != nil {
-		o.MigrationsLog = *so.MigrationsLog
 	}
 	if so.Namespace != nil {
 		o.Namespace = *so.Namespace
@@ -581,23 +505,23 @@ func (o *SuspiciousActivity) Patch(sparse elemental.SparseIdentifiable) {
 	if so.NormalizedTags != nil {
 		o.NormalizedTags = *so.NormalizedTags
 	}
+	if so.Occurrences != nil {
+		o.Occurrences = *so.Occurrences
+	}
 	if so.Protected != nil {
 		o.Protected = *so.Protected
-	}
-	if so.Risk != nil {
-		o.Risk = *so.Risk
 	}
 	if so.SourceID != nil {
 		o.SourceID = *so.SourceID
 	}
-	if so.SourceName != nil {
-		o.SourceName = *so.SourceName
+	if so.SourceIdentity != nil {
+		o.SourceIdentity = *so.SourceIdentity
 	}
 	if so.SourceNamespace != nil {
 		o.SourceNamespace = *so.SourceNamespace
 	}
-	if so.SourceType != nil {
-		o.SourceType = *so.SourceType
+	if so.Timestamp != nil {
+		o.Timestamp = *so.Timestamp
 	}
 	if so.UpdateIdempotencyKey != nil {
 		o.UpdateIdempotencyKey = *so.UpdateIdempotencyKey
@@ -613,41 +537,37 @@ func (o *SuspiciousActivity) Patch(sparse elemental.SparseIdentifiable) {
 	}
 }
 
-// DeepCopy returns a deep copy if the SuspiciousActivity.
-func (o *SuspiciousActivity) DeepCopy() *SuspiciousActivity {
+// DeepCopy returns a deep copy if the UnknownIPAddress.
+func (o *UnknownIPAddress) DeepCopy() *UnknownIPAddress {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SuspiciousActivity{}
+	out := &UnknownIPAddress{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SuspiciousActivity.
-func (o *SuspiciousActivity) DeepCopyInto(out *SuspiciousActivity) {
+// DeepCopyInto copies the receiver into the given *UnknownIPAddress.
+func (o *UnknownIPAddress) DeepCopyInto(out *UnknownIPAddress) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SuspiciousActivity: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy UnknownIPAddress: %s", err))
 	}
 
-	*out = *target.(*SuspiciousActivity)
+	*out = *target.(*UnknownIPAddress)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *SuspiciousActivity) Validate() error {
+func (o *UnknownIPAddress) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
 	if err := ValidateTagsWithoutReservedPrefixes("associatedTags", o.AssociatedTags); err != nil {
-		errors = errors.Append(err)
-	}
-
-	if err := elemental.ValidateStringInList("risk", string(o.Risk), []string{"Low", "Medium", "High", "Unknown"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -663,64 +583,56 @@ func (o *SuspiciousActivity) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*SuspiciousActivity) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*UnknownIPAddress) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := SuspiciousActivityAttributesMap[name]; ok {
+	if v, ok := UnknownIPAddressAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return SuspiciousActivityLowerCaseAttributesMap[name]
+	return UnknownIPAddressLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*SuspiciousActivity) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*UnknownIPAddress) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return SuspiciousActivityAttributesMap
+	return UnknownIPAddressAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *SuspiciousActivity) ValueForAttribute(name string) interface{} {
+func (o *UnknownIPAddress) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
 		return o.ID
+	case "address":
+		return o.Address
 	case "annotations":
 		return o.Annotations
 	case "associatedTags":
 		return o.AssociatedTags
-	case "categories":
-		return o.Categories
-	case "counter":
-		return o.Counter
 	case "createIdempotencyKey":
 		return o.CreateIdempotencyKey
 	case "createTime":
 		return o.CreateTime
-	case "firstOccurrenceTime":
-		return o.FirstOccurrenceTime
-	case "lastOccurrenceTime":
-		return o.LastOccurrenceTime
-	case "migrationsLog":
-		return o.MigrationsLog
 	case "namespace":
 		return o.Namespace
 	case "normalizedTags":
 		return o.NormalizedTags
+	case "occurrences":
+		return o.Occurrences
 	case "protected":
 		return o.Protected
-	case "risk":
-		return o.Risk
 	case "sourceID":
 		return o.SourceID
-	case "sourceName":
-		return o.SourceName
+	case "sourceIdentity":
+		return o.SourceIdentity
 	case "sourceNamespace":
 		return o.SourceNamespace
-	case "sourceType":
-		return o.SourceType
+	case "timestamp":
+		return o.Timestamp
 	case "updateIdempotencyKey":
 		return o.UpdateIdempotencyKey
 	case "updateTime":
@@ -734,8 +646,8 @@ func (o *SuspiciousActivity) ValueForAttribute(name string) interface{} {
 	return nil
 }
 
-// SuspiciousActivityAttributesMap represents the map of attribute for SuspiciousActivity.
-var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecification{
+// UnknownIPAddressAttributesMap represents the map of attribute for UnknownIPAddress.
+var UnknownIPAddressAttributesMap = map[string]elemental.AttributeSpecification{
 	"ID": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -748,6 +660,16 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"Address": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "address",
+		ConvertedName:  "Address",
+		Description:    `IP/FQDN encountered.`,
+		Exposed:        true,
+		Name:           "address",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -777,27 +699,6 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		SubType:        "string",
 		Type:           "list",
 	},
-	"Categories": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "categories",
-		ConvertedName:  "Categories",
-		Description:    `The list of category names.`,
-		Exposed:        true,
-		Name:           "categories",
-		Stored:         true,
-		SubType:        "integer",
-		Type:           "list",
-	},
-	"Counter": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "counter",
-		ConvertedName:  "Counter",
-		Description:    `Number of times this suspicious activity is found.`,
-		Exposed:        true,
-		Name:           "counter",
-		Stored:         true,
-		Type:           "integer",
-	},
 	"CreateIdempotencyKey": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -825,38 +726,6 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Setter:         true,
 		Stored:         true,
 		Type:           "time",
-	},
-	"FirstOccurrenceTime": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "firstoccurrencetime",
-		ConvertedName:  "FirstOccurrenceTime",
-		Description:    `The timestamp when the suspicious activity first occurred.`,
-		Exposed:        true,
-		Name:           "firstOccurrenceTime",
-		Stored:         true,
-		Type:           "time",
-	},
-	"LastOccurrenceTime": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "lastoccurrencetime",
-		ConvertedName:  "LastOccurrenceTime",
-		Description:    `The timestamp when the suspicious activity last occurred.`,
-		Exposed:        true,
-		Name:           "lastOccurrenceTime",
-		Stored:         true,
-		Type:           "time",
-	},
-	"MigrationsLog": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "migrationslog",
-		ConvertedName:  "MigrationsLog",
-		Description:    `Internal property maintaining migrations information.`,
-		Getter:         true,
-		Name:           "migrationsLog",
-		Setter:         true,
-		Stored:         true,
-		SubType:        "map[string]string",
-		Type:           "external",
 	},
 	"Namespace": {
 		AllowedChoices: []string{},
@@ -890,6 +759,16 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Transient:      true,
 		Type:           "list",
 	},
+	"Occurrences": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "occurrences",
+		ConvertedName:  "Occurrences",
+		Description:    `Number of times the address was seen for the source.`,
+		Exposed:        true,
+		Name:           "occurrences",
+		Stored:         true,
+		Type:           "integer",
+	},
 	"Protected": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "protected",
@@ -903,36 +782,23 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Stored:         true,
 		Type:           "boolean",
 	},
-	"Risk": {
-		AllowedChoices: []string{"Low", "Medium", "High", "Unknown"},
-		BSONFieldName:  "risk",
-		ConvertedName:  "Risk",
-		DefaultValue:   SuspiciousActivityRiskUnknown,
-		Description:    `The level of risk.`,
-		Exposed:        true,
-		Name:           "risk",
-		Stored:         true,
-		Type:           "enum",
-	},
 	"SourceID": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "sourceid",
 		ConvertedName:  "SourceID",
-		CreationOnly:   true,
-		Description:    `The identifier of the source.`,
+		Description:    `Identifier of the source of the address.`,
 		Exposed:        true,
 		Name:           "sourceID",
 		Stored:         true,
 		Type:           "string",
 	},
-	"SourceName": {
+	"SourceIdentity": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "sourcename",
-		ConvertedName:  "SourceName",
-		CreationOnly:   true,
-		Description:    `The name of the source.`,
+		BSONFieldName:  "sourceidentity",
+		ConvertedName:  "SourceIdentity",
+		Description:    `Identity of the source of the address.`,
 		Exposed:        true,
-		Name:           "sourceName",
+		Name:           "sourceIdentity",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -940,23 +806,21 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		AllowedChoices: []string{},
 		BSONFieldName:  "sourcenamespace",
 		ConvertedName:  "SourceNamespace",
-		CreationOnly:   true,
-		Description:    `The namespace of the source.`,
+		Description:    `Namespace of the source of the address.`,
 		Exposed:        true,
 		Name:           "sourceNamespace",
 		Stored:         true,
 		Type:           "string",
 	},
-	"SourceType": {
+	"Timestamp": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "sourcetype",
-		ConvertedName:  "SourceType",
-		CreationOnly:   true,
-		Description:    `The type of the source.`,
+		BSONFieldName:  "timestamp",
+		ConvertedName:  "Timestamp",
+		Description:    `The timestamp of the source of the address.`,
 		Exposed:        true,
-		Name:           "sourceType",
+		Name:           "timestamp",
 		Stored:         true,
-		Type:           "string",
+		Type:           "time",
 	},
 	"UpdateIdempotencyKey": {
 		AllowedChoices: []string{},
@@ -1016,8 +880,8 @@ georedundancy.`,
 	},
 }
 
-// SuspiciousActivityLowerCaseAttributesMap represents the map of attribute for SuspiciousActivity.
-var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// UnknownIPAddressLowerCaseAttributesMap represents the map of attribute for UnknownIPAddress.
+var UnknownIPAddressLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"id": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -1030,6 +894,16 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"address": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "address",
+		ConvertedName:  "Address",
+		Description:    `IP/FQDN encountered.`,
+		Exposed:        true,
+		Name:           "address",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1059,27 +933,6 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		SubType:        "string",
 		Type:           "list",
 	},
-	"categories": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "categories",
-		ConvertedName:  "Categories",
-		Description:    `The list of category names.`,
-		Exposed:        true,
-		Name:           "categories",
-		Stored:         true,
-		SubType:        "integer",
-		Type:           "list",
-	},
-	"counter": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "counter",
-		ConvertedName:  "Counter",
-		Description:    `Number of times this suspicious activity is found.`,
-		Exposed:        true,
-		Name:           "counter",
-		Stored:         true,
-		Type:           "integer",
-	},
 	"createidempotencykey": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -1107,38 +960,6 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Setter:         true,
 		Stored:         true,
 		Type:           "time",
-	},
-	"firstoccurrencetime": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "firstoccurrencetime",
-		ConvertedName:  "FirstOccurrenceTime",
-		Description:    `The timestamp when the suspicious activity first occurred.`,
-		Exposed:        true,
-		Name:           "firstOccurrenceTime",
-		Stored:         true,
-		Type:           "time",
-	},
-	"lastoccurrencetime": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "lastoccurrencetime",
-		ConvertedName:  "LastOccurrenceTime",
-		Description:    `The timestamp when the suspicious activity last occurred.`,
-		Exposed:        true,
-		Name:           "lastOccurrenceTime",
-		Stored:         true,
-		Type:           "time",
-	},
-	"migrationslog": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "migrationslog",
-		ConvertedName:  "MigrationsLog",
-		Description:    `Internal property maintaining migrations information.`,
-		Getter:         true,
-		Name:           "migrationsLog",
-		Setter:         true,
-		Stored:         true,
-		SubType:        "map[string]string",
-		Type:           "external",
 	},
 	"namespace": {
 		AllowedChoices: []string{},
@@ -1172,6 +993,16 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Transient:      true,
 		Type:           "list",
 	},
+	"occurrences": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "occurrences",
+		ConvertedName:  "Occurrences",
+		Description:    `Number of times the address was seen for the source.`,
+		Exposed:        true,
+		Name:           "occurrences",
+		Stored:         true,
+		Type:           "integer",
+	},
 	"protected": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "protected",
@@ -1185,36 +1016,23 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Stored:         true,
 		Type:           "boolean",
 	},
-	"risk": {
-		AllowedChoices: []string{"Low", "Medium", "High", "Unknown"},
-		BSONFieldName:  "risk",
-		ConvertedName:  "Risk",
-		DefaultValue:   SuspiciousActivityRiskUnknown,
-		Description:    `The level of risk.`,
-		Exposed:        true,
-		Name:           "risk",
-		Stored:         true,
-		Type:           "enum",
-	},
 	"sourceid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "sourceid",
 		ConvertedName:  "SourceID",
-		CreationOnly:   true,
-		Description:    `The identifier of the source.`,
+		Description:    `Identifier of the source of the address.`,
 		Exposed:        true,
 		Name:           "sourceID",
 		Stored:         true,
 		Type:           "string",
 	},
-	"sourcename": {
+	"sourceidentity": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "sourcename",
-		ConvertedName:  "SourceName",
-		CreationOnly:   true,
-		Description:    `The name of the source.`,
+		BSONFieldName:  "sourceidentity",
+		ConvertedName:  "SourceIdentity",
+		Description:    `Identity of the source of the address.`,
 		Exposed:        true,
-		Name:           "sourceName",
+		Name:           "sourceIdentity",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1222,23 +1040,21 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		AllowedChoices: []string{},
 		BSONFieldName:  "sourcenamespace",
 		ConvertedName:  "SourceNamespace",
-		CreationOnly:   true,
-		Description:    `The namespace of the source.`,
+		Description:    `Namespace of the source of the address.`,
 		Exposed:        true,
 		Name:           "sourceNamespace",
 		Stored:         true,
 		Type:           "string",
 	},
-	"sourcetype": {
+	"timestamp": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "sourcetype",
-		ConvertedName:  "SourceType",
-		CreationOnly:   true,
-		Description:    `The type of the source.`,
+		BSONFieldName:  "timestamp",
+		ConvertedName:  "Timestamp",
+		Description:    `The timestamp of the source of the address.`,
 		Exposed:        true,
-		Name:           "sourceType",
+		Name:           "timestamp",
 		Stored:         true,
-		Type:           "string",
+		Type:           "time",
 	},
 	"updateidempotencykey": {
 		AllowedChoices: []string{},
@@ -1298,35 +1114,35 @@ georedundancy.`,
 	},
 }
 
-// SparseSuspiciousActivitiesList represents a list of SparseSuspiciousActivities
-type SparseSuspiciousActivitiesList []*SparseSuspiciousActivity
+// SparseUnknownIPAddressList represents a list of SparseUnknownIPAddress
+type SparseUnknownIPAddressList []*SparseUnknownIPAddress
 
 // Identity returns the identity of the objects in the list.
-func (o SparseSuspiciousActivitiesList) Identity() elemental.Identity {
+func (o SparseUnknownIPAddressList) Identity() elemental.Identity {
 
-	return SuspiciousActivityIdentity
+	return UnknownIPAddressIdentity
 }
 
-// Copy returns a pointer to a copy the SparseSuspiciousActivitiesList.
-func (o SparseSuspiciousActivitiesList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseUnknownIPAddressList.
+func (o SparseUnknownIPAddressList) Copy() elemental.Identifiables {
 
-	copy := append(SparseSuspiciousActivitiesList{}, o...)
+	copy := append(SparseUnknownIPAddressList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseSuspiciousActivitiesList.
-func (o SparseSuspiciousActivitiesList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseUnknownIPAddressList.
+func (o SparseUnknownIPAddressList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseSuspiciousActivitiesList{}, o...)
+	out := append(SparseUnknownIPAddressList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseSuspiciousActivity))
+		out = append(out, obj.(*SparseUnknownIPAddress))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseSuspiciousActivitiesList) List() elemental.IdentifiablesList {
+func (o SparseUnknownIPAddressList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -1337,13 +1153,13 @@ func (o SparseSuspiciousActivitiesList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseSuspiciousActivitiesList) DefaultOrder() []string {
+func (o SparseUnknownIPAddressList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToPlain returns the SparseSuspiciousActivitiesList converted to SuspiciousActivitiesList.
-func (o SparseSuspiciousActivitiesList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseUnknownIPAddressList converted to UnknownIPAddressList.
+func (o SparseUnknownIPAddressList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -1354,15 +1170,18 @@ func (o SparseSuspiciousActivitiesList) ToPlain() elemental.IdentifiablesList {
 }
 
 // Version returns the version of the content.
-func (o SparseSuspiciousActivitiesList) Version() int {
+func (o SparseUnknownIPAddressList) Version() int {
 
 	return 1
 }
 
-// SparseSuspiciousActivity represents the sparse version of a suspiciousactivity.
-type SparseSuspiciousActivity struct {
+// SparseUnknownIPAddress represents the sparse version of a unknownipaddress.
+type SparseUnknownIPAddress struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
+
+	// IP/FQDN encountered.
+	Address *string `json:"address,omitempty" msgpack:"address,omitempty" bson:"address,omitempty" mapstructure:"address,omitempty"`
 
 	// Stores additional information about an entity.
 	Annotations *map[string][]string `json:"annotations,omitempty" msgpack:"annotations,omitempty" bson:"annotations,omitempty" mapstructure:"annotations,omitempty"`
@@ -1370,26 +1189,11 @@ type SparseSuspiciousActivity struct {
 	// List of tags attached to an entity.
 	AssociatedTags *[]string `json:"associatedTags,omitempty" msgpack:"associatedTags,omitempty" bson:"associatedtags,omitempty" mapstructure:"associatedTags,omitempty"`
 
-	// The list of category names.
-	Categories *[]int `json:"categories,omitempty" msgpack:"categories,omitempty" bson:"categories,omitempty" mapstructure:"categories,omitempty"`
-
-	// Number of times this suspicious activity is found.
-	Counter *int `json:"counter,omitempty" msgpack:"counter,omitempty" bson:"counter,omitempty" mapstructure:"counter,omitempty"`
-
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey *string `json:"-" msgpack:"-" bson:"createidempotencykey,omitempty" mapstructure:"-,omitempty"`
 
 	// Creation date of the object.
 	CreateTime *time.Time `json:"createTime,omitempty" msgpack:"createTime,omitempty" bson:"createtime,omitempty" mapstructure:"createTime,omitempty"`
-
-	// The timestamp when the suspicious activity first occurred.
-	FirstOccurrenceTime *time.Time `json:"firstOccurrenceTime,omitempty" msgpack:"firstOccurrenceTime,omitempty" bson:"firstoccurrencetime,omitempty" mapstructure:"firstOccurrenceTime,omitempty"`
-
-	// The timestamp when the suspicious activity last occurred.
-	LastOccurrenceTime *time.Time `json:"lastOccurrenceTime,omitempty" msgpack:"lastOccurrenceTime,omitempty" bson:"lastoccurrencetime,omitempty" mapstructure:"lastOccurrenceTime,omitempty"`
-
-	// Internal property maintaining migrations information.
-	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
@@ -1397,23 +1201,23 @@ type SparseSuspiciousActivity struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags *[]string `json:"normalizedTags,omitempty" msgpack:"normalizedTags,omitempty" bson:"normalizedtags,omitempty" mapstructure:"normalizedTags,omitempty"`
 
+	// Number of times the address was seen for the source.
+	Occurrences *int `json:"occurrences,omitempty" msgpack:"occurrences,omitempty" bson:"occurrences,omitempty" mapstructure:"occurrences,omitempty"`
+
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
-	// The level of risk.
-	Risk *SuspiciousActivityRiskValue `json:"risk,omitempty" msgpack:"risk,omitempty" bson:"risk,omitempty" mapstructure:"risk,omitempty"`
-
-	// The identifier of the source.
+	// Identifier of the source of the address.
 	SourceID *string `json:"sourceID,omitempty" msgpack:"sourceID,omitempty" bson:"sourceid,omitempty" mapstructure:"sourceID,omitempty"`
 
-	// The name of the source.
-	SourceName *string `json:"sourceName,omitempty" msgpack:"sourceName,omitempty" bson:"sourcename,omitempty" mapstructure:"sourceName,omitempty"`
+	// Identity of the source of the address.
+	SourceIdentity *string `json:"sourceIdentity,omitempty" msgpack:"sourceIdentity,omitempty" bson:"sourceidentity,omitempty" mapstructure:"sourceIdentity,omitempty"`
 
-	// The namespace of the source.
+	// Namespace of the source of the address.
 	SourceNamespace *string `json:"sourceNamespace,omitempty" msgpack:"sourceNamespace,omitempty" bson:"sourcenamespace,omitempty" mapstructure:"sourceNamespace,omitempty"`
 
-	// The type of the source.
-	SourceType *string `json:"sourceType,omitempty" msgpack:"sourceType,omitempty" bson:"sourcetype,omitempty" mapstructure:"sourceType,omitempty"`
+	// The timestamp of the source of the address.
+	Timestamp *time.Time `json:"timestamp,omitempty" msgpack:"timestamp,omitempty" bson:"timestamp,omitempty" mapstructure:"timestamp,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey *string `json:"-" msgpack:"-" bson:"updateidempotencykey,omitempty" mapstructure:"-,omitempty"`
@@ -1431,19 +1235,19 @@ type SparseSuspiciousActivity struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseSuspiciousActivity returns a new  SparseSuspiciousActivity.
-func NewSparseSuspiciousActivity() *SparseSuspiciousActivity {
-	return &SparseSuspiciousActivity{}
+// NewSparseUnknownIPAddress returns a new  SparseUnknownIPAddress.
+func NewSparseUnknownIPAddress() *SparseUnknownIPAddress {
+	return &SparseUnknownIPAddress{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseSuspiciousActivity) Identity() elemental.Identity {
+func (o *SparseUnknownIPAddress) Identity() elemental.Identity {
 
-	return SuspiciousActivityIdentity
+	return UnknownIPAddressIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseSuspiciousActivity) Identifier() string {
+func (o *SparseUnknownIPAddress) Identifier() string {
 
 	if o.ID == nil {
 		return ""
@@ -1452,7 +1256,7 @@ func (o *SparseSuspiciousActivity) Identifier() string {
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseSuspiciousActivity) SetIdentifier(id string) {
+func (o *SparseUnknownIPAddress) SetIdentifier(id string) {
 
 	if id != "" {
 		o.ID = &id
@@ -1463,16 +1267,19 @@ func (o *SparseSuspiciousActivity) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseSuspiciousActivity) GetBSON() (interface{}, error) {
+func (o *SparseUnknownIPAddress) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseSuspiciousActivity{}
+	s := &mongoAttributesSparseUnknownIPAddress{}
 
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
+	}
+	if o.Address != nil {
+		s.Address = o.Address
 	}
 	if o.Annotations != nil {
 		s.Annotations = o.Annotations
@@ -1480,26 +1287,11 @@ func (o *SparseSuspiciousActivity) GetBSON() (interface{}, error) {
 	if o.AssociatedTags != nil {
 		s.AssociatedTags = o.AssociatedTags
 	}
-	if o.Categories != nil {
-		s.Categories = o.Categories
-	}
-	if o.Counter != nil {
-		s.Counter = o.Counter
-	}
 	if o.CreateIdempotencyKey != nil {
 		s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	}
 	if o.CreateTime != nil {
 		s.CreateTime = o.CreateTime
-	}
-	if o.FirstOccurrenceTime != nil {
-		s.FirstOccurrenceTime = o.FirstOccurrenceTime
-	}
-	if o.LastOccurrenceTime != nil {
-		s.LastOccurrenceTime = o.LastOccurrenceTime
-	}
-	if o.MigrationsLog != nil {
-		s.MigrationsLog = o.MigrationsLog
 	}
 	if o.Namespace != nil {
 		s.Namespace = o.Namespace
@@ -1507,23 +1299,23 @@ func (o *SparseSuspiciousActivity) GetBSON() (interface{}, error) {
 	if o.NormalizedTags != nil {
 		s.NormalizedTags = o.NormalizedTags
 	}
+	if o.Occurrences != nil {
+		s.Occurrences = o.Occurrences
+	}
 	if o.Protected != nil {
 		s.Protected = o.Protected
-	}
-	if o.Risk != nil {
-		s.Risk = o.Risk
 	}
 	if o.SourceID != nil {
 		s.SourceID = o.SourceID
 	}
-	if o.SourceName != nil {
-		s.SourceName = o.SourceName
+	if o.SourceIdentity != nil {
+		s.SourceIdentity = o.SourceIdentity
 	}
 	if o.SourceNamespace != nil {
 		s.SourceNamespace = o.SourceNamespace
 	}
-	if o.SourceType != nil {
-		s.SourceType = o.SourceType
+	if o.Timestamp != nil {
+		s.Timestamp = o.Timestamp
 	}
 	if o.UpdateIdempotencyKey != nil {
 		s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
@@ -1543,30 +1335,27 @@ func (o *SparseSuspiciousActivity) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseSuspiciousActivity) SetBSON(raw bson.Raw) error {
+func (o *SparseUnknownIPAddress) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseSuspiciousActivity{}
+	s := &mongoAttributesSparseUnknownIPAddress{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
 
 	id := s.ID.Hex()
 	o.ID = &id
+	if s.Address != nil {
+		o.Address = s.Address
+	}
 	if s.Annotations != nil {
 		o.Annotations = s.Annotations
 	}
 	if s.AssociatedTags != nil {
 		o.AssociatedTags = s.AssociatedTags
-	}
-	if s.Categories != nil {
-		o.Categories = s.Categories
-	}
-	if s.Counter != nil {
-		o.Counter = s.Counter
 	}
 	if s.CreateIdempotencyKey != nil {
 		o.CreateIdempotencyKey = s.CreateIdempotencyKey
@@ -1574,38 +1363,29 @@ func (o *SparseSuspiciousActivity) SetBSON(raw bson.Raw) error {
 	if s.CreateTime != nil {
 		o.CreateTime = s.CreateTime
 	}
-	if s.FirstOccurrenceTime != nil {
-		o.FirstOccurrenceTime = s.FirstOccurrenceTime
-	}
-	if s.LastOccurrenceTime != nil {
-		o.LastOccurrenceTime = s.LastOccurrenceTime
-	}
-	if s.MigrationsLog != nil {
-		o.MigrationsLog = s.MigrationsLog
-	}
 	if s.Namespace != nil {
 		o.Namespace = s.Namespace
 	}
 	if s.NormalizedTags != nil {
 		o.NormalizedTags = s.NormalizedTags
 	}
+	if s.Occurrences != nil {
+		o.Occurrences = s.Occurrences
+	}
 	if s.Protected != nil {
 		o.Protected = s.Protected
-	}
-	if s.Risk != nil {
-		o.Risk = s.Risk
 	}
 	if s.SourceID != nil {
 		o.SourceID = s.SourceID
 	}
-	if s.SourceName != nil {
-		o.SourceName = s.SourceName
+	if s.SourceIdentity != nil {
+		o.SourceIdentity = s.SourceIdentity
 	}
 	if s.SourceNamespace != nil {
 		o.SourceNamespace = s.SourceNamespace
 	}
-	if s.SourceType != nil {
-		o.SourceType = s.SourceType
+	if s.Timestamp != nil {
+		o.Timestamp = s.Timestamp
 	}
 	if s.UpdateIdempotencyKey != nil {
 		o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
@@ -1624,17 +1404,20 @@ func (o *SparseSuspiciousActivity) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseSuspiciousActivity) Version() int {
+func (o *SparseUnknownIPAddress) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseSuspiciousActivity) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseUnknownIPAddress) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewSuspiciousActivity()
+	out := NewUnknownIPAddress()
 	if o.ID != nil {
 		out.ID = *o.ID
+	}
+	if o.Address != nil {
+		out.Address = *o.Address
 	}
 	if o.Annotations != nil {
 		out.Annotations = *o.Annotations
@@ -1642,26 +1425,11 @@ func (o *SparseSuspiciousActivity) ToPlain() elemental.PlainIdentifiable {
 	if o.AssociatedTags != nil {
 		out.AssociatedTags = *o.AssociatedTags
 	}
-	if o.Categories != nil {
-		out.Categories = *o.Categories
-	}
-	if o.Counter != nil {
-		out.Counter = *o.Counter
-	}
 	if o.CreateIdempotencyKey != nil {
 		out.CreateIdempotencyKey = *o.CreateIdempotencyKey
 	}
 	if o.CreateTime != nil {
 		out.CreateTime = *o.CreateTime
-	}
-	if o.FirstOccurrenceTime != nil {
-		out.FirstOccurrenceTime = *o.FirstOccurrenceTime
-	}
-	if o.LastOccurrenceTime != nil {
-		out.LastOccurrenceTime = *o.LastOccurrenceTime
-	}
-	if o.MigrationsLog != nil {
-		out.MigrationsLog = *o.MigrationsLog
 	}
 	if o.Namespace != nil {
 		out.Namespace = *o.Namespace
@@ -1669,23 +1437,23 @@ func (o *SparseSuspiciousActivity) ToPlain() elemental.PlainIdentifiable {
 	if o.NormalizedTags != nil {
 		out.NormalizedTags = *o.NormalizedTags
 	}
+	if o.Occurrences != nil {
+		out.Occurrences = *o.Occurrences
+	}
 	if o.Protected != nil {
 		out.Protected = *o.Protected
-	}
-	if o.Risk != nil {
-		out.Risk = *o.Risk
 	}
 	if o.SourceID != nil {
 		out.SourceID = *o.SourceID
 	}
-	if o.SourceName != nil {
-		out.SourceName = *o.SourceName
+	if o.SourceIdentity != nil {
+		out.SourceIdentity = *o.SourceIdentity
 	}
 	if o.SourceNamespace != nil {
 		out.SourceNamespace = *o.SourceNamespace
 	}
-	if o.SourceType != nil {
-		out.SourceType = *o.SourceType
+	if o.Timestamp != nil {
+		out.Timestamp = *o.Timestamp
 	}
 	if o.UpdateIdempotencyKey != nil {
 		out.UpdateIdempotencyKey = *o.UpdateIdempotencyKey
@@ -1704,7 +1472,7 @@ func (o *SparseSuspiciousActivity) ToPlain() elemental.PlainIdentifiable {
 }
 
 // GetAnnotations returns the Annotations of the receiver.
-func (o *SparseSuspiciousActivity) GetAnnotations() (out map[string][]string) {
+func (o *SparseUnknownIPAddress) GetAnnotations() (out map[string][]string) {
 
 	if o.Annotations == nil {
 		return
@@ -1714,13 +1482,13 @@ func (o *SparseSuspiciousActivity) GetAnnotations() (out map[string][]string) {
 }
 
 // SetAnnotations sets the property Annotations of the receiver using the address of the given value.
-func (o *SparseSuspiciousActivity) SetAnnotations(annotations map[string][]string) {
+func (o *SparseUnknownIPAddress) SetAnnotations(annotations map[string][]string) {
 
 	o.Annotations = &annotations
 }
 
 // GetAssociatedTags returns the AssociatedTags of the receiver.
-func (o *SparseSuspiciousActivity) GetAssociatedTags() (out []string) {
+func (o *SparseUnknownIPAddress) GetAssociatedTags() (out []string) {
 
 	if o.AssociatedTags == nil {
 		return
@@ -1730,13 +1498,13 @@ func (o *SparseSuspiciousActivity) GetAssociatedTags() (out []string) {
 }
 
 // SetAssociatedTags sets the property AssociatedTags of the receiver using the address of the given value.
-func (o *SparseSuspiciousActivity) SetAssociatedTags(associatedTags []string) {
+func (o *SparseUnknownIPAddress) SetAssociatedTags(associatedTags []string) {
 
 	o.AssociatedTags = &associatedTags
 }
 
 // GetCreateIdempotencyKey returns the CreateIdempotencyKey of the receiver.
-func (o *SparseSuspiciousActivity) GetCreateIdempotencyKey() (out string) {
+func (o *SparseUnknownIPAddress) GetCreateIdempotencyKey() (out string) {
 
 	if o.CreateIdempotencyKey == nil {
 		return
@@ -1746,13 +1514,13 @@ func (o *SparseSuspiciousActivity) GetCreateIdempotencyKey() (out string) {
 }
 
 // SetCreateIdempotencyKey sets the property CreateIdempotencyKey of the receiver using the address of the given value.
-func (o *SparseSuspiciousActivity) SetCreateIdempotencyKey(createIdempotencyKey string) {
+func (o *SparseUnknownIPAddress) SetCreateIdempotencyKey(createIdempotencyKey string) {
 
 	o.CreateIdempotencyKey = &createIdempotencyKey
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *SparseSuspiciousActivity) GetCreateTime() (out time.Time) {
+func (o *SparseUnknownIPAddress) GetCreateTime() (out time.Time) {
 
 	if o.CreateTime == nil {
 		return
@@ -1762,29 +1530,13 @@ func (o *SparseSuspiciousActivity) GetCreateTime() (out time.Time) {
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the address of the given value.
-func (o *SparseSuspiciousActivity) SetCreateTime(createTime time.Time) {
+func (o *SparseUnknownIPAddress) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = &createTime
 }
 
-// GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *SparseSuspiciousActivity) GetMigrationsLog() (out map[string]string) {
-
-	if o.MigrationsLog == nil {
-		return
-	}
-
-	return *o.MigrationsLog
-}
-
-// SetMigrationsLog sets the property MigrationsLog of the receiver using the address of the given value.
-func (o *SparseSuspiciousActivity) SetMigrationsLog(migrationsLog map[string]string) {
-
-	o.MigrationsLog = &migrationsLog
-}
-
 // GetNamespace returns the Namespace of the receiver.
-func (o *SparseSuspiciousActivity) GetNamespace() (out string) {
+func (o *SparseUnknownIPAddress) GetNamespace() (out string) {
 
 	if o.Namespace == nil {
 		return
@@ -1794,13 +1546,13 @@ func (o *SparseSuspiciousActivity) GetNamespace() (out string) {
 }
 
 // SetNamespace sets the property Namespace of the receiver using the address of the given value.
-func (o *SparseSuspiciousActivity) SetNamespace(namespace string) {
+func (o *SparseUnknownIPAddress) SetNamespace(namespace string) {
 
 	o.Namespace = &namespace
 }
 
 // GetNormalizedTags returns the NormalizedTags of the receiver.
-func (o *SparseSuspiciousActivity) GetNormalizedTags() (out []string) {
+func (o *SparseUnknownIPAddress) GetNormalizedTags() (out []string) {
 
 	if o.NormalizedTags == nil {
 		return
@@ -1810,13 +1562,13 @@ func (o *SparseSuspiciousActivity) GetNormalizedTags() (out []string) {
 }
 
 // SetNormalizedTags sets the property NormalizedTags of the receiver using the address of the given value.
-func (o *SparseSuspiciousActivity) SetNormalizedTags(normalizedTags []string) {
+func (o *SparseUnknownIPAddress) SetNormalizedTags(normalizedTags []string) {
 
 	o.NormalizedTags = &normalizedTags
 }
 
 // GetProtected returns the Protected of the receiver.
-func (o *SparseSuspiciousActivity) GetProtected() (out bool) {
+func (o *SparseUnknownIPAddress) GetProtected() (out bool) {
 
 	if o.Protected == nil {
 		return
@@ -1826,13 +1578,13 @@ func (o *SparseSuspiciousActivity) GetProtected() (out bool) {
 }
 
 // SetProtected sets the property Protected of the receiver using the address of the given value.
-func (o *SparseSuspiciousActivity) SetProtected(protected bool) {
+func (o *SparseUnknownIPAddress) SetProtected(protected bool) {
 
 	o.Protected = &protected
 }
 
 // GetUpdateIdempotencyKey returns the UpdateIdempotencyKey of the receiver.
-func (o *SparseSuspiciousActivity) GetUpdateIdempotencyKey() (out string) {
+func (o *SparseUnknownIPAddress) GetUpdateIdempotencyKey() (out string) {
 
 	if o.UpdateIdempotencyKey == nil {
 		return
@@ -1842,13 +1594,13 @@ func (o *SparseSuspiciousActivity) GetUpdateIdempotencyKey() (out string) {
 }
 
 // SetUpdateIdempotencyKey sets the property UpdateIdempotencyKey of the receiver using the address of the given value.
-func (o *SparseSuspiciousActivity) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
+func (o *SparseUnknownIPAddress) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
 
 	o.UpdateIdempotencyKey = &updateIdempotencyKey
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *SparseSuspiciousActivity) GetUpdateTime() (out time.Time) {
+func (o *SparseUnknownIPAddress) GetUpdateTime() (out time.Time) {
 
 	if o.UpdateTime == nil {
 		return
@@ -1858,13 +1610,13 @@ func (o *SparseSuspiciousActivity) GetUpdateTime() (out time.Time) {
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the address of the given value.
-func (o *SparseSuspiciousActivity) SetUpdateTime(updateTime time.Time) {
+func (o *SparseUnknownIPAddress) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = &updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *SparseSuspiciousActivity) GetZHash() (out int) {
+func (o *SparseUnknownIPAddress) GetZHash() (out int) {
 
 	if o.ZHash == nil {
 		return
@@ -1874,13 +1626,13 @@ func (o *SparseSuspiciousActivity) GetZHash() (out int) {
 }
 
 // SetZHash sets the property ZHash of the receiver using the address of the given value.
-func (o *SparseSuspiciousActivity) SetZHash(zHash int) {
+func (o *SparseUnknownIPAddress) SetZHash(zHash int) {
 
 	o.ZHash = &zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *SparseSuspiciousActivity) GetZone() (out int) {
+func (o *SparseUnknownIPAddress) GetZone() (out int) {
 
 	if o.Zone == nil {
 		return
@@ -1890,80 +1642,72 @@ func (o *SparseSuspiciousActivity) GetZone() (out int) {
 }
 
 // SetZone sets the property Zone of the receiver using the address of the given value.
-func (o *SparseSuspiciousActivity) SetZone(zone int) {
+func (o *SparseUnknownIPAddress) SetZone(zone int) {
 
 	o.Zone = &zone
 }
 
-// DeepCopy returns a deep copy if the SparseSuspiciousActivity.
-func (o *SparseSuspiciousActivity) DeepCopy() *SparseSuspiciousActivity {
+// DeepCopy returns a deep copy if the SparseUnknownIPAddress.
+func (o *SparseUnknownIPAddress) DeepCopy() *SparseUnknownIPAddress {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseSuspiciousActivity{}
+	out := &SparseUnknownIPAddress{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseSuspiciousActivity.
-func (o *SparseSuspiciousActivity) DeepCopyInto(out *SparseSuspiciousActivity) {
+// DeepCopyInto copies the receiver into the given *SparseUnknownIPAddress.
+func (o *SparseUnknownIPAddress) DeepCopyInto(out *SparseUnknownIPAddress) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseSuspiciousActivity: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseUnknownIPAddress: %s", err))
 	}
 
-	*out = *target.(*SparseSuspiciousActivity)
+	*out = *target.(*SparseUnknownIPAddress)
 }
 
-type mongoAttributesSuspiciousActivity struct {
-	ID                   bson.ObjectId               `bson:"_id,omitempty"`
-	Annotations          map[string][]string         `bson:"annotations"`
-	AssociatedTags       []string                    `bson:"associatedtags"`
-	Categories           []int                       `bson:"categories"`
-	Counter              int                         `bson:"counter"`
-	CreateIdempotencyKey string                      `bson:"createidempotencykey"`
-	CreateTime           time.Time                   `bson:"createtime"`
-	FirstOccurrenceTime  time.Time                   `bson:"firstoccurrencetime"`
-	LastOccurrenceTime   time.Time                   `bson:"lastoccurrencetime"`
-	MigrationsLog        map[string]string           `bson:"migrationslog,omitempty"`
-	Namespace            string                      `bson:"namespace"`
-	NormalizedTags       []string                    `bson:"normalizedtags"`
-	Protected            bool                        `bson:"protected"`
-	Risk                 SuspiciousActivityRiskValue `bson:"risk"`
-	SourceID             string                      `bson:"sourceid"`
-	SourceName           string                      `bson:"sourcename"`
-	SourceNamespace      string                      `bson:"sourcenamespace"`
-	SourceType           string                      `bson:"sourcetype"`
-	UpdateIdempotencyKey string                      `bson:"updateidempotencykey"`
-	UpdateTime           time.Time                   `bson:"updatetime"`
-	ZHash                int                         `bson:"zhash"`
-	Zone                 int                         `bson:"zone"`
+type mongoAttributesUnknownIPAddress struct {
+	ID                   bson.ObjectId       `bson:"_id,omitempty"`
+	Address              string              `bson:"address"`
+	Annotations          map[string][]string `bson:"annotations"`
+	AssociatedTags       []string            `bson:"associatedtags"`
+	CreateIdempotencyKey string              `bson:"createidempotencykey"`
+	CreateTime           time.Time           `bson:"createtime"`
+	Namespace            string              `bson:"namespace"`
+	NormalizedTags       []string            `bson:"normalizedtags"`
+	Occurrences          int                 `bson:"occurrences"`
+	Protected            bool                `bson:"protected"`
+	SourceID             string              `bson:"sourceid"`
+	SourceIdentity       string              `bson:"sourceidentity"`
+	SourceNamespace      string              `bson:"sourcenamespace"`
+	Timestamp            time.Time           `bson:"timestamp"`
+	UpdateIdempotencyKey string              `bson:"updateidempotencykey"`
+	UpdateTime           time.Time           `bson:"updatetime"`
+	ZHash                int                 `bson:"zhash"`
+	Zone                 int                 `bson:"zone"`
 }
-type mongoAttributesSparseSuspiciousActivity struct {
-	ID                   bson.ObjectId                `bson:"_id,omitempty"`
-	Annotations          *map[string][]string         `bson:"annotations,omitempty"`
-	AssociatedTags       *[]string                    `bson:"associatedtags,omitempty"`
-	Categories           *[]int                       `bson:"categories,omitempty"`
-	Counter              *int                         `bson:"counter,omitempty"`
-	CreateIdempotencyKey *string                      `bson:"createidempotencykey,omitempty"`
-	CreateTime           *time.Time                   `bson:"createtime,omitempty"`
-	FirstOccurrenceTime  *time.Time                   `bson:"firstoccurrencetime,omitempty"`
-	LastOccurrenceTime   *time.Time                   `bson:"lastoccurrencetime,omitempty"`
-	MigrationsLog        *map[string]string           `bson:"migrationslog,omitempty"`
-	Namespace            *string                      `bson:"namespace,omitempty"`
-	NormalizedTags       *[]string                    `bson:"normalizedtags,omitempty"`
-	Protected            *bool                        `bson:"protected,omitempty"`
-	Risk                 *SuspiciousActivityRiskValue `bson:"risk,omitempty"`
-	SourceID             *string                      `bson:"sourceid,omitempty"`
-	SourceName           *string                      `bson:"sourcename,omitempty"`
-	SourceNamespace      *string                      `bson:"sourcenamespace,omitempty"`
-	SourceType           *string                      `bson:"sourcetype,omitempty"`
-	UpdateIdempotencyKey *string                      `bson:"updateidempotencykey,omitempty"`
-	UpdateTime           *time.Time                   `bson:"updatetime,omitempty"`
-	ZHash                *int                         `bson:"zhash,omitempty"`
-	Zone                 *int                         `bson:"zone,omitempty"`
+type mongoAttributesSparseUnknownIPAddress struct {
+	ID                   bson.ObjectId        `bson:"_id,omitempty"`
+	Address              *string              `bson:"address,omitempty"`
+	Annotations          *map[string][]string `bson:"annotations,omitempty"`
+	AssociatedTags       *[]string            `bson:"associatedtags,omitempty"`
+	CreateIdempotencyKey *string              `bson:"createidempotencykey,omitempty"`
+	CreateTime           *time.Time           `bson:"createtime,omitempty"`
+	Namespace            *string              `bson:"namespace,omitempty"`
+	NormalizedTags       *[]string            `bson:"normalizedtags,omitempty"`
+	Occurrences          *int                 `bson:"occurrences,omitempty"`
+	Protected            *bool                `bson:"protected,omitempty"`
+	SourceID             *string              `bson:"sourceid,omitempty"`
+	SourceIdentity       *string              `bson:"sourceidentity,omitempty"`
+	SourceNamespace      *string              `bson:"sourcenamespace,omitempty"`
+	Timestamp            *time.Time           `bson:"timestamp,omitempty"`
+	UpdateIdempotencyKey *string              `bson:"updateidempotencykey,omitempty"`
+	UpdateTime           *time.Time           `bson:"updatetime,omitempty"`
+	ZHash                *int                 `bson:"zhash,omitempty"`
+	Zone                 *int                 `bson:"zone,omitempty"`
 }

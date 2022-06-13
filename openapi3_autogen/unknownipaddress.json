@@ -1,0 +1,187 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "unknownipaddress": {
+        "description": "Holds the IP/FQDN of flows going to somewhere (default) external network.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "address": {
+            "description": "IP/FQDN encountered.",
+            "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "occurrences": {
+            "description": "Number of times the address was seen for the source.",
+            "type": "integer"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
+          },
+          "sourceID": {
+            "description": "Identifier of the source of the address.",
+            "type": "string"
+          },
+          "sourceIdentity": {
+            "description": "Identity of the source of the address.",
+            "type": "string"
+          },
+          "sourceNamespace": {
+            "description": "Namespace of the source of the address.",
+            "type": "string"
+          },
+          "timestamp": {
+            "description": "The timestamp of the source of the address.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "unknownipaddress",
+    "version": "1.0"
+  },
+  "paths": {
+    "/unknownipaddresses": {
+      "get": {
+        "description": "Retrieves a list of unknown IP addresses.",
+        "operationId": "get-all-unknownipaddresses",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/unknownipaddress"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pc/alerts",
+          "karl"
+        ]
+      },
+      "post": {
+        "description": "Creates a new unknown IP address entry to store an IP/FQDN to be scanned.",
+        "operationId": "create-a-new-unknownipaddress",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/unknownipaddress"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unknownipaddress"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pc/alerts",
+          "karl"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pc/alerts'",
+      "name": "pc/alerts"
+    },
+    {
+      "description": "This tag is for package 'karl'",
+      "name": "karl"
+    }
+  ]
+}

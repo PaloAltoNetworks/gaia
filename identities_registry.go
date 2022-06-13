@@ -210,6 +210,8 @@ var (
 		"trustedca":        TrustedCAIdentity,
 		"trustednamespace": TrustedNamespaceIdentity,
 
+		"unknownipaddress": UnknownIPAddressIdentity,
+
 		"useraccesspolicy":     UserAccessPolicyIdentity,
 		"validaterql":          ValidateRQLIdentity,
 		"validateuiparameter":  ValidateUIParameterIdentity,
@@ -421,6 +423,8 @@ var (
 		"triggers":          TriggerIdentity,
 		"trustedcas":        TrustedCAIdentity,
 		"trustednamespaces": TrustedNamespaceIdentity,
+
+		"unknownipaddresses": UnknownIPAddressIdentity,
 
 		"useraccesspolicies":    UserAccessPolicyIdentity,
 		"validaterql":           ValidateRQLIdentity,
@@ -1352,9 +1356,13 @@ var (
 		"statsquery":             nil,
 		"suggestedpolicy":        nil,
 		"suspiciousactivity": {
-			{":shard", ":unique", "zone", "zHash"},
+			{"updateIdempotencyKey"},
+			{"namespace", "sourceName"},
 			{"namespace"},
 			{"namespace", "normalizedTags"},
+			{"namespace", "sourceID"},
+			{"createIdempotencyKey"},
+			{":shard", ":unique", "zone", "zHash"},
 		},
 		"tag": {
 			{"namespace"},
@@ -1384,6 +1392,15 @@ var (
 			{"namespace", "normalizedTags"},
 			{"name"},
 			{"createIdempotencyKey"},
+		},
+		"unknownipaddress": {
+			{"updateIdempotencyKey"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "address"},
+			{"createTime"},
+			{"createIdempotencyKey"},
+			{":shard", ":unique", "zone", "zHash"},
 		},
 		"useraccesspolicy":    nil,
 		"validaterql":         nil,
@@ -1792,6 +1809,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewTrustedCA()
 	case TrustedNamespaceIdentity:
 		return NewTrustedNamespace()
+	case UnknownIPAddressIdentity:
+		return NewUnknownIPAddress()
 	case UserAccessPolicyIdentity:
 		return NewUserAccessPolicy()
 	case ValidateRQLIdentity:
@@ -2159,6 +2178,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseTrustedCA()
 	case TrustedNamespaceIdentity:
 		return NewSparseTrustedNamespace()
+	case UnknownIPAddressIdentity:
+		return NewSparseUnknownIPAddress()
 	case UserAccessPolicyIdentity:
 		return NewSparseUserAccessPolicy()
 	case ValidateRQLIdentity:
@@ -2536,6 +2557,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &TrustedCAsList{}
 	case TrustedNamespaceIdentity:
 		return &TrustedNamespacesList{}
+	case UnknownIPAddressIdentity:
+		return &UnknownIPAddressList{}
 	case UserAccessPolicyIdentity:
 		return &UserAccessPoliciesList{}
 	case ValidateRQLIdentity:
@@ -2903,6 +2926,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseTrustedCAsList{}
 	case TrustedNamespaceIdentity:
 		return &SparseTrustedNamespacesList{}
+	case UnknownIPAddressIdentity:
+		return &SparseUnknownIPAddressList{}
 	case UserAccessPolicyIdentity:
 		return &SparseUserAccessPoliciesList{}
 	case ValidateRQLIdentity:
@@ -3117,6 +3142,7 @@ func AllIdentities() []elemental.Identity {
 		TriggerIdentity,
 		TrustedCAIdentity,
 		TrustedNamespaceIdentity,
+		UnknownIPAddressIdentity,
 		UserAccessPolicyIdentity,
 		ValidateRQLIdentity,
 		ValidateUIParameterIdentity,
@@ -3649,6 +3675,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"trustedns",
 		}
+	case UnknownIPAddressIdentity:
+		return []string{}
 	case UserAccessPolicyIdentity:
 		return []string{
 			"usrpol",

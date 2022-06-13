@@ -17,11 +17,19 @@ model:
     global_parameters:
     - $filtering
   extends:
-  - '@zoned'
+  - '@base'
+  - '@identifiable-stored'
   - '@migratable'
   - '@namespaced'
-  - '@identifiable-stored'
   - '@timeable'
+  - '@zoned'
+
+# Indexes
+indexes:
+- - namespace
+  - sourceID
+- - namespace
+  - sourceName
 
 # Attributes
 attributes:
@@ -39,13 +47,13 @@ attributes:
     exposed: true
     stored: true
 
-  - name: firstOccurrenceTme
+  - name: firstOccurrenceTime
     description: The timestamp when the suspicious activity first occurred.
     type: time
     exposed: true
     stored: true
 
-  - name: lastOccurrenceTme
+  - name: lastOccurrenceTime
     description: The timestamp when the suspicious activity last occurred.
     type: time
     exposed: true
