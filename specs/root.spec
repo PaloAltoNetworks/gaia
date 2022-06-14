@@ -392,9 +392,7 @@ relations:
     parameters:
       entries:
       - name: neocna
-        description: Indicates whether execution should be diverted to the neocna
-          module. Note that other criteria might need to be met for execution to be
-          diverted.
+        description: if set to true, processing might be diverted to NEOCNA.
         type: boolean
 
 - rest_name: cnssuggestion
