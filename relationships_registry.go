@@ -5718,6 +5718,10 @@ func init() {
 						Type:     "string",
 						Multiple: true,
 					},
+					{
+						Name: "propagated",
+						Type: "boolean",
+					},
 				},
 			},
 		},
@@ -5777,6 +5781,10 @@ func init() {
 						Name:     "q",
 						Type:     "string",
 						Multiple: true,
+					},
+					{
+						Name: "propagated",
+						Type: "boolean",
 					},
 				},
 			},
