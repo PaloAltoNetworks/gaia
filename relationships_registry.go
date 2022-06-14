@@ -5662,71 +5662,14 @@ func init() {
 
 	relationshipsRegistry[SuggestedPolicyIdentity] = &elemental.Relationship{
 		RetrieveMany: map[string]*elemental.RelationshipInfo{
-			"flowreport": {},
-			"root": {
-				RequiredParameters: elemental.NewParametersRequirement(
-					[][][]string{
-						{
-							{
-								"endRelative",
-							},
-							{
-								"startRelative",
-							},
-							{
-								"startRelative",
-								"endRelative",
-							},
-							{
-								"startRelative",
-								"endAbsolute",
-							},
-							{
-								"startAbsolute",
-								"endRelative",
-							},
-							{
-								"startAbsolute",
-								"endAbsolute",
-							},
-						},
-					},
-				),
+			"flowreport": {
 				Parameters: []elemental.ParameterDefinition{
-					{
-						Name: "endAbsolute",
-						Type: "time",
-					},
-					{
-						Name: "endRelative",
-						Type: "duration",
-					},
-					{
-						Name: "startAbsolute",
-						Type: "time",
-					},
-					{
-						Name: "startRelative",
-						Type: "duration",
-					},
-					{
-						Name: "flowOffset",
-						Type: "duration",
-					},
-					{
-						Name:     "q",
-						Type:     "string",
-						Multiple: true,
-					},
 					{
 						Name: "propagated",
 						Type: "boolean",
 					},
 				},
 			},
-		},
-		Info: map[string]*elemental.RelationshipInfo{
-			"flowreport": {},
 			"root": {
 				RequiredParameters: elemental.NewParametersRequirement(
 					[][][]string{
@@ -5782,9 +5725,72 @@ func init() {
 						Type:     "string",
 						Multiple: true,
 					},
+				},
+			},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"flowreport": {
+				Parameters: []elemental.ParameterDefinition{
 					{
 						Name: "propagated",
 						Type: "boolean",
+					},
+				},
+			},
+			"root": {
+				RequiredParameters: elemental.NewParametersRequirement(
+					[][][]string{
+						{
+							{
+								"endRelative",
+							},
+							{
+								"startRelative",
+							},
+							{
+								"startRelative",
+								"endRelative",
+							},
+							{
+								"startRelative",
+								"endAbsolute",
+							},
+							{
+								"startAbsolute",
+								"endRelative",
+							},
+							{
+								"startAbsolute",
+								"endAbsolute",
+							},
+						},
+					},
+				),
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "endAbsolute",
+						Type: "time",
+					},
+					{
+						Name: "endRelative",
+						Type: "duration",
+					},
+					{
+						Name: "startAbsolute",
+						Type: "time",
+					},
+					{
+						Name: "startRelative",
+						Type: "duration",
+					},
+					{
+						Name: "flowOffset",
+						Type: "duration",
+					},
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
 					},
 				},
 			},

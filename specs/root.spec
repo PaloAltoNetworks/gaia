@@ -1186,7 +1186,6 @@ relations:
     - $timewindow
     - $flowoffset
     - $filtering
-    - $propagatable
 
 - rest_name: tag
   get:

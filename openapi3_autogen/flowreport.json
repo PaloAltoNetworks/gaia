@@ -276,6 +276,16 @@
       "get": {
         "description": "Provides network ruleset policy suggestions for the given flow ID.",
         "operationId": "get-all-suggestedpolicies-for-a-given-flowreport",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {

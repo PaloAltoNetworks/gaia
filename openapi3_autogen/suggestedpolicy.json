@@ -61,14 +61,6 @@
             }
           },
           {
-            "description": "Also retrieve the objects that propagate down.",
-            "in": "query",
-            "name": "propagated",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          {
             "description": "Filtering query. Consequent `q` parameters will form an or.",
             "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
             "in": "query",
