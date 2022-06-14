@@ -5,7 +5,7 @@ export GO111MODULE = on
 
 default: generate spelling lint test diff-check
 all: generate spelling lint test
-generate: format codegen openapi3gen
+generate: codegen openapi3gen format
 
 .PHONY:codegen
 codegen:
