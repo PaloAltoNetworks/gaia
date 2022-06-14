@@ -389,6 +389,13 @@ relations:
 - rest_name: cnssearch
   create:
     description: Retrieves RQL search results.
+    parameters:
+      entries:
+      - name: neocna
+        description: Indicates whether execution should be diverted to the neocna
+          module. Note that other criteria might need to be met for execution to be
+          diverted.
+        type: boolean
 
 - rest_name: cnssuggestion
   create:

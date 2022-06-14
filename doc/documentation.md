@@ -7118,6 +7118,10 @@ Provide search results for Prisma Cloud's investigate page.
 
 Retrieves RQL search results.
 
+Parameters:
+
+- `neocna` (`boolean`): Indicates whether execution should be diverted to the neocna module. Note that other criteria might need to be met for execution to be diverted.
+
 #### Attributes
 
 ##### `ID`
