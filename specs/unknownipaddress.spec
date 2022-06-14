@@ -17,7 +17,8 @@ model:
 indexes:
 - - namespace
   - address
-- - createTime
+- - namespace
+  - createTime
 
 # Attributes
 attributes:

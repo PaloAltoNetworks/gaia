@@ -1395,10 +1395,10 @@ var (
 		},
 		"unknownipaddress": {
 			{"updateIdempotencyKey"},
+			{"namespace", "createTime"},
 			{"namespace"},
 			{"namespace", "normalizedTags"},
 			{"namespace", "address"},
-			{"createTime"},
 			{"createIdempotencyKey"},
 			{":shard", ":unique", "zone", "zHash"},
 		},
