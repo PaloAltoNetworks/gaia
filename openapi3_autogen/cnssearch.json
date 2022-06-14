@@ -89,6 +89,16 @@
       "post": {
         "description": "Retrieves RQL search results.",
         "operationId": "create-a-new-cnssearch",
+        "parameters": [
+          {
+            "description": "if set to true, processing might be diverted to NEOCNA.",
+            "in": "query",
+            "name": "neocna",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
