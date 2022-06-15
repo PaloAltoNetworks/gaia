@@ -5662,7 +5662,14 @@ func init() {
 
 	relationshipsRegistry[SuggestedPolicyIdentity] = &elemental.Relationship{
 		RetrieveMany: map[string]*elemental.RelationshipInfo{
-			"flowreport": {},
+			"flowreport": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "propagated",
+						Type: "boolean",
+					},
+				},
+			},
 			"root": {
 				RequiredParameters: elemental.NewParametersRequirement(
 					[][][]string{
@@ -5722,7 +5729,14 @@ func init() {
 			},
 		},
 		Info: map[string]*elemental.RelationshipInfo{
-			"flowreport": {},
+			"flowreport": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "propagated",
+						Type: "boolean",
+					},
+				},
+			},
 			"root": {
 				RequiredParameters: elemental.NewParametersRequirement(
 					[][][]string{
