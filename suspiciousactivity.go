@@ -647,8 +647,40 @@ func (o *SuspiciousActivity) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := elemental.ValidateRequiredExternal("categories", o.Categories); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateRequiredTime("firstOccurrenceTime", o.FirstOccurrenceTime); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateRequiredTime("lastOccurrenceTime", o.LastOccurrenceTime); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateRequiredString("risk", string(o.Risk)); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
 	if err := elemental.ValidateStringInList("risk", string(o.Risk), []string{"Low", "Medium", "High", "Unknown"}, false); err != nil {
 		errors = errors.Append(err)
+	}
+
+	if err := elemental.ValidateRequiredString("sourceID", o.SourceID); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateRequiredString("sourceName", o.SourceName); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateRequiredString("sourceNamespace", o.SourceNamespace); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateRequiredString("sourceType", o.SourceType); err != nil {
+		requiredErrors = requiredErrors.Append(err)
 	}
 
 	if len(requiredErrors) > 0 {
@@ -784,6 +816,7 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Description:    `The list of category names.`,
 		Exposed:        true,
 		Name:           "categories",
+		Required:       true,
 		Stored:         true,
 		SubType:        "integer",
 		Type:           "list",
@@ -833,6 +866,7 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Description:    `The timestamp when the suspicious activity first occurred.`,
 		Exposed:        true,
 		Name:           "firstOccurrenceTime",
+		Required:       true,
 		Stored:         true,
 		Type:           "time",
 	},
@@ -843,6 +877,7 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Description:    `The timestamp when the suspicious activity last occurred.`,
 		Exposed:        true,
 		Name:           "lastOccurrenceTime",
+		Required:       true,
 		Stored:         true,
 		Type:           "time",
 	},
@@ -911,6 +946,7 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Description:    `The level of risk.`,
 		Exposed:        true,
 		Name:           "risk",
+		Required:       true,
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -922,6 +958,7 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Description:    `The identifier of the source.`,
 		Exposed:        true,
 		Name:           "sourceID",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -933,6 +970,7 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Description:    `The name of the source.`,
 		Exposed:        true,
 		Name:           "sourceName",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -944,6 +982,7 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Description:    `The namespace of the source.`,
 		Exposed:        true,
 		Name:           "sourceNamespace",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -955,6 +994,7 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Description:    `The type of the source.`,
 		Exposed:        true,
 		Name:           "sourceType",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1066,6 +1106,7 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Description:    `The list of category names.`,
 		Exposed:        true,
 		Name:           "categories",
+		Required:       true,
 		Stored:         true,
 		SubType:        "integer",
 		Type:           "list",
@@ -1115,6 +1156,7 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Description:    `The timestamp when the suspicious activity first occurred.`,
 		Exposed:        true,
 		Name:           "firstOccurrenceTime",
+		Required:       true,
 		Stored:         true,
 		Type:           "time",
 	},
@@ -1125,6 +1167,7 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Description:    `The timestamp when the suspicious activity last occurred.`,
 		Exposed:        true,
 		Name:           "lastOccurrenceTime",
+		Required:       true,
 		Stored:         true,
 		Type:           "time",
 	},
@@ -1193,6 +1236,7 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Description:    `The level of risk.`,
 		Exposed:        true,
 		Name:           "risk",
+		Required:       true,
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -1204,6 +1248,7 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Description:    `The identifier of the source.`,
 		Exposed:        true,
 		Name:           "sourceID",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1215,6 +1260,7 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Description:    `The name of the source.`,
 		Exposed:        true,
 		Name:           "sourceName",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1226,6 +1272,7 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Description:    `The namespace of the source.`,
 		Exposed:        true,
 		Name:           "sourceNamespace",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1237,6 +1284,7 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Description:    `The type of the source.`,
 		Exposed:        true,
 		Name:           "sourceType",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},

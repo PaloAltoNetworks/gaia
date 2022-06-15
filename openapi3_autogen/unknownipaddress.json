@@ -12,6 +12,7 @@
           },
           "address": {
             "description": "IP/FQDN encountered.",
+            "example": "google.com",
             "type": "string"
           },
           "annotations": {
@@ -60,18 +61,22 @@
           },
           "sourceID": {
             "description": "Identifier of the source of the address.",
+            "example": "62aa2888a76fe8dc9efa1000",
             "type": "string"
           },
           "sourceIdentity": {
             "description": "Identity of the source of the address.",
+            "example": "flowreport",
             "type": "string"
           },
           "sourceNamespace": {
             "description": "Namespace of the source of the address.",
+            "example": "/my/namespace",
             "type": "string"
           },
           "timestamp": {
             "description": "The timestamp of the source of the address.",
+            "example": "2018-06-14T23:10:46.420397985Z",
             "format": "date-time",
             "type": "string"
           },
@@ -82,6 +87,13 @@
             "type": "string"
           }
         },
+        "required": [
+          "address",
+          "sourceID",
+          "sourceIdentity",
+          "sourceNamespace",
+          "timestamp"
+        ],
         "type": "object"
       }
     }

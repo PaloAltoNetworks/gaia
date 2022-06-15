@@ -29,6 +29,10 @@
           },
           "categories": {
             "description": "The list of category names.",
+            "example": [
+              56,
+              100
+            ],
             "items": {
               "type": "integer"
             },
@@ -46,11 +50,13 @@
           },
           "firstOccurrenceTime": {
             "description": "The timestamp when the suspicious activity first occurred.",
+            "example": "2018-06-14T23:10:46.420397985Z",
             "format": "date-time",
             "type": "string"
           },
           "lastOccurrenceTime": {
             "description": "The timestamp when the suspicious activity last occurred.",
+            "example": "2018-06-14T23:10:46.420397985Z",
             "format": "date-time",
             "type": "string"
           },
@@ -83,18 +89,22 @@
           },
           "sourceID": {
             "description": "The identifier of the source.",
+            "example": "62aa2888a76fe8dc9efa1000",
             "type": "string"
           },
           "sourceName": {
             "description": "The name of the source.",
+            "example": "google.com",
             "type": "string"
           },
           "sourceNamespace": {
             "description": "The namespace of the source.",
+            "example": "/my/namespace",
             "type": "string"
           },
           "sourceType": {
             "description": "The type of the source.",
+            "example": "flowreport",
             "type": "string"
           },
           "updateTime": {
@@ -104,6 +114,16 @@
             "type": "string"
           }
         },
+        "required": [
+          "categories",
+          "firstOccurrenceTime",
+          "lastOccurrenceTime",
+          "risk",
+          "sourceID",
+          "sourceName",
+          "sourceNamespace",
+          "sourceType"
+        ],
         "type": "object"
       }
     }

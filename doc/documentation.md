@@ -9547,8 +9547,18 @@ Represents a suspicious activity found on the platform.
 
 ```json
 {
+  "categories": [
+    56,
+    100
+  ],
+  "firstOccurrenceTime": "2018-06-14T23:10:46.420397985Z",
+  "lastOccurrenceTime": "2018-06-14T23:10:46.420397985Z",
   "protected": false,
-  "risk": "Unknown"
+  "risk": "Unknown",
+  "sourceID": "62aa2888a76fe8dc9efa1000",
+  "sourceName": "google.com",
+  "sourceNamespace": "/my/namespace",
+  "sourceType": "flowreport"
 }
 ```
 
@@ -9603,7 +9613,7 @@ Type: `[]string`
 
 List of tags attached to an entity.
 
-##### `categories`
+##### `categories` [`required`]
 
 Type: `[]integer`
 
@@ -9621,13 +9631,13 @@ Type: `time`
 
 Creation date of the object.
 
-##### `firstOccurrenceTime`
+##### `firstOccurrenceTime` [`required`]
 
 Type: `time`
 
 The timestamp when the suspicious activity first occurred.
 
-##### `lastOccurrenceTime`
+##### `lastOccurrenceTime` [`required`]
 
 Type: `time`
 
@@ -9651,7 +9661,7 @@ Type: `boolean`
 
 Defines if the object is protected.
 
-##### `risk`
+##### `risk` [`required`]
 
 Type: `enum(Low | Medium | High | Unknown)`
 
@@ -9663,25 +9673,25 @@ Default value:
 "Unknown"
 ```
 
-##### `sourceID` [`creation_only`]
+##### `sourceID` [`required`,`creation_only`]
 
 Type: `string`
 
 The identifier of the source.
 
-##### `sourceName` [`creation_only`]
+##### `sourceName` [`required`,`creation_only`]
 
 Type: `string`
 
 The name of the source.
 
-##### `sourceNamespace` [`creation_only`]
+##### `sourceNamespace` [`required`,`creation_only`]
 
 Type: `string`
 
 The namespace of the source.
 
-##### `sourceType` [`creation_only`]
+##### `sourceType` [`required`,`creation_only`]
 
 Type: `string`
 
@@ -9701,7 +9711,12 @@ Holds the IP/FQDN of flows going to somewhere (default) external network.
 
 ```json
 {
-  "protected": false
+  "address": "google.com",
+  "protected": false,
+  "sourceID": "62aa2888a76fe8dc9efa1000",
+  "sourceIdentity": "flowreport",
+  "sourceNamespace": "/my/namespace",
+  "timestamp": "2018-06-14T23:10:46.420397985Z"
 }
 ```
 
@@ -9728,7 +9743,7 @@ Type: `string`
 
 Identifier of the object.
 
-##### `address`
+##### `address` [`required`]
 
 Type: `string`
 
@@ -9776,25 +9791,25 @@ Type: `boolean`
 
 Defines if the object is protected.
 
-##### `sourceID`
+##### `sourceID` [`required`]
 
 Type: `string`
 
 Identifier of the source of the address.
 
-##### `sourceIdentity`
+##### `sourceIdentity` [`required`]
 
 Type: `string`
 
 Identity of the source of the address.
 
-##### `sourceNamespace`
+##### `sourceNamespace` [`required`]
 
 Type: `string`
 
 Namespace of the source of the address.
 
-##### `timestamp`
+##### `timestamp` [`required`]
 
 Type: `time`
 

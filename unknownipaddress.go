@@ -567,8 +567,28 @@ func (o *UnknownIPAddress) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
+	if err := elemental.ValidateRequiredString("address", o.Address); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
 	if err := ValidateTagsWithoutReservedPrefixes("associatedTags", o.AssociatedTags); err != nil {
 		errors = errors.Append(err)
+	}
+
+	if err := elemental.ValidateRequiredString("sourceID", o.SourceID); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateRequiredString("sourceIdentity", o.SourceIdentity); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateRequiredString("sourceNamespace", o.SourceNamespace); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateRequiredTime("timestamp", o.Timestamp); err != nil {
+		requiredErrors = requiredErrors.Append(err)
 	}
 
 	if len(requiredErrors) > 0 {
@@ -670,6 +690,7 @@ var UnknownIPAddressAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `IP/FQDN encountered.`,
 		Exposed:        true,
 		Name:           "address",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -789,6 +810,7 @@ var UnknownIPAddressAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `Identifier of the source of the address.`,
 		Exposed:        true,
 		Name:           "sourceID",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -799,6 +821,7 @@ var UnknownIPAddressAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `Identity of the source of the address.`,
 		Exposed:        true,
 		Name:           "sourceIdentity",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -809,6 +832,7 @@ var UnknownIPAddressAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `Namespace of the source of the address.`,
 		Exposed:        true,
 		Name:           "sourceNamespace",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -819,6 +843,7 @@ var UnknownIPAddressAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The timestamp of the source of the address.`,
 		Exposed:        true,
 		Name:           "timestamp",
+		Required:       true,
 		Stored:         true,
 		Type:           "time",
 	},
@@ -904,6 +929,7 @@ var UnknownIPAddressLowerCaseAttributesMap = map[string]elemental.AttributeSpeci
 		Description:    `IP/FQDN encountered.`,
 		Exposed:        true,
 		Name:           "address",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1023,6 +1049,7 @@ var UnknownIPAddressLowerCaseAttributesMap = map[string]elemental.AttributeSpeci
 		Description:    `Identifier of the source of the address.`,
 		Exposed:        true,
 		Name:           "sourceID",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1033,6 +1060,7 @@ var UnknownIPAddressLowerCaseAttributesMap = map[string]elemental.AttributeSpeci
 		Description:    `Identity of the source of the address.`,
 		Exposed:        true,
 		Name:           "sourceIdentity",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1043,6 +1071,7 @@ var UnknownIPAddressLowerCaseAttributesMap = map[string]elemental.AttributeSpeci
 		Description:    `Namespace of the source of the address.`,
 		Exposed:        true,
 		Name:           "sourceNamespace",
+		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1053,6 +1082,7 @@ var UnknownIPAddressLowerCaseAttributesMap = map[string]elemental.AttributeSpeci
 		Description:    `The timestamp of the source of the address.`,
 		Exposed:        true,
 		Name:           "timestamp",
+		Required:       true,
 		Stored:         true,
 		Type:           "time",
 	},
