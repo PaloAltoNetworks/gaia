@@ -659,10 +659,6 @@ func (o *SuspiciousActivity) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateRequiredString("risk", string(o.Risk)); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
 	if err := elemental.ValidateStringInList("risk", string(o.Risk), []string{"Low", "Medium", "High", "Unknown"}, false); err != nil {
 		errors = errors.Append(err)
 	}
@@ -946,7 +942,6 @@ var SuspiciousActivityAttributesMap = map[string]elemental.AttributeSpecificatio
 		Description:    `The level of risk.`,
 		Exposed:        true,
 		Name:           "risk",
-		Required:       true,
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -1236,7 +1231,6 @@ var SuspiciousActivityLowerCaseAttributesMap = map[string]elemental.AttributeSpe
 		Description:    `The level of risk.`,
 		Exposed:        true,
 		Name:           "risk",
-		Required:       true,
 		Stored:         true,
 		Type:           "enum",
 	},

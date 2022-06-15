@@ -9661,7 +9661,7 @@ Type: `boolean`
 
 Defines if the object is protected.
 
-##### `risk` [`required`]
+##### `risk`
 
 Type: `enum(Low | Medium | High | Unknown)`
 
