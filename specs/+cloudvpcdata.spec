@@ -11,12 +11,15 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: address
-    description: Address CIDR of the VPC.
-    type: string
+  - name: addresses
+    description: Address CIDRs of the VPC.
+    type: list
     exposed: true
+    subtype: string
     stored: true
     required: true
-    example_value: 10.0.0.0/8
+    example_value:
+    - 10.8.0.0/16
+    - 172.24.0.0/16
     validations:
-    - $cidr
+    - $cidrs
