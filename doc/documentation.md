@@ -11876,6 +11876,12 @@ The exact object that the search applies. If ObjectIDs are defined, the rest of
 the fields are ignored. An object ID can refer to an instance, VPC endpoint, or
 network interface.
 
+##### `paasTypes`
+
+Type: `[]string`
+
+Identifies a list of for Platform as a Service types.
+
 ##### `productInfoType`
 
 Type: `string`
@@ -11903,7 +11909,7 @@ The status of the resource.
 
 ##### `resourceType` [`required`]
 
-Type: `enum(Instance | Interface | Service | ProcessingUnit)`
+Type: `enum(Instance | Interface | Service | ProcessingUnit | PaaS)`
 
 The type of endpoint resource. The resource type is a mandatory field and a
 query cannot span multiple resource types.
