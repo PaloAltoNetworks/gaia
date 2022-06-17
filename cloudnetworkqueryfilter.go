@@ -52,7 +52,7 @@ type CloudNetworkQueryFilter struct {
 	// network interface.
 	ObjectIDs []string `json:"objectIDs,omitempty" msgpack:"objectIDs,omitempty" bson:"objectids,omitempty" mapstructure:"objectIDs,omitempty"`
 
-	// Identifies a list of for Platform as a Service types.
+	// Identifies a list of Platform as a Service types.
 	PaasTypes []string `json:"paasTypes,omitempty" msgpack:"paasTypes,omitempty" bson:"paastypes,omitempty" mapstructure:"paasTypes,omitempty"`
 
 	// Restricts the query on only endpoints with the given productInfoType.
@@ -370,7 +370,7 @@ network interface.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "paastypes",
 		ConvertedName:  "PaasTypes",
-		Description:    `Identifies a list of for Platform as a Service types.`,
+		Description:    `Identifies a list of Platform as a Service types.`,
 		Exposed:        true,
 		Name:           "paasTypes",
 		Stored:         true,
@@ -573,7 +573,7 @@ network interface.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "paastypes",
 		ConvertedName:  "PaasTypes",
-		Description:    `Identifies a list of for Platform as a Service types.`,
+		Description:    `Identifies a list of Platform as a Service types.`,
 		Exposed:        true,
 		Name:           "paasTypes",
 		Stored:         true,

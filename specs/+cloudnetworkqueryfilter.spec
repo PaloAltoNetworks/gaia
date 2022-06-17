@@ -65,7 +65,7 @@ attributes:
     omit_empty: true
 
   - name: paasTypes
-    description: Identifies a list of for Platform as a Service types.
+    description: Identifies a list of Platform as a Service types.
     type: list
     exposed: true
     subtype: string

@@ -11880,7 +11880,7 @@ network interface.
 
 Type: `[]string`
 
-Identifies a list of for Platform as a Service types.
+Identifies a list of Platform as a Service types.
 
 ##### `productInfoType`
 
