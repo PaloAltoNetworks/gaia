@@ -5010,11 +5010,26 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 					DestinationSelector: &CloudNetworkQueryFilter{
 						ResourceType: CloudNetworkQueryFilterResourceTypePaaS,
 						CloudTypes:   []string{"Aws"},
-						PaasTypes:    []string{"sql"},
+						PaasTypes:    []string{"MicrosoftDBforMySQLFlexibleServers"},
 					},
 				},
 			},
 			true,
+		},
+		{
+			"paas filter is set for Azure",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceIP: "1.1.1.0/24",
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypePaaS,
+						CloudTypes:   []string{"Azure"},
+						PaasTypes:    []string{"sql"},
+					},
+				},
+			},
+			false,
 		},
 	}
 
