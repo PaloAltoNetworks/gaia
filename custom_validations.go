@@ -1545,6 +1545,10 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 		}
 	}
 
+	if !emptySourceSelector && len(q.SourceSelector.PaasTypes) != 0 {
+		return makeValidationError("sourceSelector", "PaaS service names cannot be set for source")
+	}
+
 	if q.DestinationIP != "" {
 		isPrivate, err := IsAddressPrivate(q.DestinationIP)
 		if err != nil {
@@ -1648,6 +1652,7 @@ func IsCloudNetworkQueryFilterEmpty(f *CloudNetworkQueryFilter) bool {
 		len(f.ServiceOwners) == 0 &&
 		len(f.ServiceTypes) == 0 &&
 		len(f.ImageIDs) == 0 &&
+		len(f.PaasTypes) == 0 &&
 		len(f.ServiceNames) == 0 &&
 		f.ProductInfoType == "" &&
 		f.ProductInfoValue == "" {
@@ -1686,6 +1691,22 @@ func ValidateCloudNetworkQueryFilter(attribute string, f *CloudNetworkQueryFilte
 
 	if f.ResourceType != CloudNetworkQueryFilterResourceTypeService && len(f.ServiceNames) > 0 {
 		return makeValidationError(attribute, fmt.Sprintf("service name filtering only allowed for selectors with resource type: %s", CloudNetworkQueryFilterResourceTypeService))
+	}
+
+	if f.ResourceType != CloudNetworkQueryFilterResourceTypePaaS && len(f.PaasTypes) > 0 {
+		return makeValidationError(attribute, fmt.Sprintf("paas filtering only allowed for selectors with resource type: %s", CloudNetworkQueryFilterResourceTypePaaS))
+	}
+
+	var azure bool
+	for _, ct := range f.CloudTypes {
+		if strings.EqualFold(ct, "Azure") {
+			azure = true
+			break
+		}
+	}
+
+	if f.ResourceType == CloudNetworkQueryFilterResourceTypePaaS && !azure {
+		return makeValidationError(attribute, "paas filtering only allowed for Azure queries")
 	}
 
 	return nil

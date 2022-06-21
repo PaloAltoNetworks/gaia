@@ -4971,6 +4971,66 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 			},
 			true,
 		},
+		{
+			"paas filter is set for source selector",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"Azure"},
+						PaasTypes:    []string{"sql"},
+					},
+					DestinationIP: "1.1.1.0/24",
+				},
+			},
+			true,
+		},
+		{
+			"paas filter is not empty but resource type is not paas",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceIP: "1.1.1.0/24",
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInstance,
+						CloudTypes:   []string{"Azure"},
+						PaasTypes:    []string{"sql"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"paas filter is set for AWS",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceIP: "1.1.1.0/24",
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypePaaS,
+						CloudTypes:   []string{"Aws"},
+						PaasTypes:    []string{"MicrosoftDBforMySQLFlexibleServers"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"paas filter is set for Azure",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceIP: "1.1.1.0/24",
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypePaaS,
+						CloudTypes:   []string{"Azure"},
+						PaasTypes:    []string{"sql"},
+					},
+				},
+			},
+			false,
+		},
 	}
 
 	for _, tt := range tests {

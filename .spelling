@@ -514,6 +514,7 @@ subnet
 subnets
 subnets
 SuggestedPolicy
+SuspiciousActivity
 svc
 synack
 synack
@@ -554,6 +555,7 @@ UIParameter
 UIParameterVisibility
 UIStep
 unencrypted
+UnknownIPAddress
 unlogged
 URIs
 URIs
