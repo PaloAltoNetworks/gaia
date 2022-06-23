@@ -14344,17 +14344,20 @@ Managed the list of IP addresses associated with an interface.
 
 ```json
 {
-  "address": "10.0.0.0/8"
+  "addresses": [
+    "10.8.0.0/16",
+    "172.24.0.0/16"
+  ]
 }
 ```
 
 #### Attributes
 
-##### `address` [`required`]
+##### `addresses` [`required`]
 
-Type: `string`
+Type: `[]string`
 
-Address CIDR of the VPC.
+Address CIDRs of the VPC.
 
 ### CNSRQLQuery
 

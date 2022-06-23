@@ -5,14 +5,20 @@
       "cloudvpcdata": {
         "description": "Managed the list of IP addresses associated with an interface.",
         "properties": {
-          "address": {
-            "description": "Address CIDR of the VPC.",
-            "example": "10.0.0.0/8",
-            "type": "string"
+          "addresses": {
+            "description": "Address CIDRs of the VPC.",
+            "example": [
+              "10.8.0.0/16",
+              "172.24.0.0/16"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           }
         },
         "required": [
-          "address"
+          "addresses"
         ],
         "type": "object"
       }
