@@ -59,6 +59,8 @@ attributes:
     - VirtualMachineScaleSetVM
     - LoadBalancer
     - BackendAddressPool
+    - OutboundRule
+    - FrontendIPConfiguration
     example_value: VirtualMachine
 
   - name: name
