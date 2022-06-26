@@ -80,6 +80,13 @@ attributes:
     stored: true
     orderable: true
 
+  - name: successfulExecutionTimestampMap
+    description: Mapping of last successful execution timestamp for every account.
+    type: external
+    exposed: true
+    subtype: map[string]string
+    stored: true
+
   - name: tenantPrismaID
     description: Prisma ID of the tenant in which the Alert Rule is created.
     type: string

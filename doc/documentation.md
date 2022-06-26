@@ -13701,6 +13701,12 @@ Type: `time`
 Timestamp of the last time the query was successfully executed and results were
 obtained.
 
+##### `successfulExecutionTimestampMap`
+
+Type: `map[string]string`
+
+Mapping of last successful execution timestamp for every account.
+
 ##### `tenantPrismaID`
 
 Type: `string`
