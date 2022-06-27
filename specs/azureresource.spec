@@ -91,8 +91,7 @@ attributes:
     example_value: my-deployment
 
   - name: resourceID
-    description: The identifier of the resource as presented by Azure, which is a
-      path.
+    description: The identifier of the resource as presented by Azure, which is a path.
     type: string
     exposed: true
     stored: true

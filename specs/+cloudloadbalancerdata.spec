@@ -35,8 +35,7 @@ attributes:
     example_value: lb-009251c49cf46d940
 
   - name: scheme
-    description: The scheme tells whether the load balancer is internet facing or
-      internal.
+    description: The scheme tells whether the load balancer is internet facing or internal.
     type: string
     exposed: true
     stored: true

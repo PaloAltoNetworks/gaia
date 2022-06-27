@@ -11,8 +11,7 @@ model:
 attributes:
   v1:
   - name: PUIncomingTrafficAction
-    description: (Deprecated) The processing unit action for incoming traffic for
-      the namespace.
+    description: (Deprecated) The processing unit action for incoming traffic for the namespace.
     type: enum
     exposed: true
     read_only: true
@@ -23,8 +22,7 @@ attributes:
     deprecated: true
 
   - name: PUOutgoingTrafficAction
-    description: (Deprecated) The processing unit action for outgoing traffic for
-      the namespace.
+    description: (Deprecated) The processing unit action for outgoing traffic for the namespace.
     type: enum
     exposed: true
     read_only: true

@@ -15,8 +15,7 @@ model:
 attributes:
   v1:
   - name: IPTables
-    description: Instructs the enforcers to provide an iptables trace for a processing
-      unit.
+    description: Instructs the enforcers to provide an iptables trace for a processing unit.
     type: boolean
     exposed: true
     stored: true

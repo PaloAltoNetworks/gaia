@@ -5,8 +5,7 @@ model:
   entity_name: CloudGraphNodeAction
   package: yeul
   group: pcn/infrastructure
-  description: Describes the action and corresponding policy that resulted in this
-    decision.
+  description: Describes the action and corresponding policy that resulted in this decision.
   detached: true
 
 # Attributes

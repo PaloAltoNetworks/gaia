@@ -42,8 +42,7 @@ attributes:
     - sub=test
 
   - name: signingKeyID
-    description: SigningKeyID holds the ID of the private certificate to use to sign
-      the token.
+    description: SigningKeyID holds the ID of the private certificate to use to sign the token.
     type: string
     exposed: true
     stored: true

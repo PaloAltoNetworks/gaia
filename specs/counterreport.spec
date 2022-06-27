@@ -587,8 +587,7 @@ attributes:
       bson_name: bj
 
   - name: encryptionFailures
-    description: Non-zero counter indicates encryption processing failures of data
-      packets.
+    description: Non-zero counter indicates encryption processing failures of data packets.
     type: integer
     exposed: true
     stored: true

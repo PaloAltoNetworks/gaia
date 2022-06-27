@@ -86,8 +86,7 @@ attributes:
     exposed: true
 
   - name: subjectOverride
-    description: Additional subject information to use to override the ones in the
-      CSR.
+    description: Additional subject information to use to override the ones in the CSR.
     type: ref
     exposed: true
     subtype: pkixname

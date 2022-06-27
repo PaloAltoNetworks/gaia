@@ -56,8 +56,7 @@ attributes:
     - $optionalcidrs
 
   - name: expirationTime
-    description: If set the SSH authorization will be automatically deleted after
-      the given time.
+    description: If set the SSH authorization will be automatically deleted after the given time.
     type: time
     exposed: true
     stored: true

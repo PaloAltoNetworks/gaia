@@ -23,8 +23,7 @@ indexes:
 attributes:
   v1:
   - name: isLocalDestinationID
-    description: Indicates if the destination endpoint is an enforcer-local processing
-      unit.
+    description: Indicates if the destination endpoint is an enforcer-local processing unit.
     type: boolean
     exposed: true
     stored: true
@@ -33,8 +32,7 @@ attributes:
       bson_name: ai
 
   - name: isLocalSourceID
-    description: Indicates if the source endpoint is an enforcer-local processing
-      unit.
+    description: Indicates if the source endpoint is an enforcer-local processing unit.
     type: boolean
     exposed: true
     stored: true

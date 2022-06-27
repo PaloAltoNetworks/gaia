@@ -719,10 +719,6 @@ func (o *Alarm) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateRequiredString("severity", string(o.Severity)); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
 	if err := elemental.ValidateStringInList("severity", string(o.Severity), []string{"Low", "Medium", "High", "Critical"}, false); err != nil {
 		errors = errors.Append(err)
 	}
@@ -1051,7 +1047,6 @@ identifier, then only the occurrence will be incremented.`,
 		Description:    `Severity of the alarm.`,
 		Exposed:        true,
 		Name:           "severity",
-		Required:       true,
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -1360,7 +1355,6 @@ identifier, then only the occurrence will be incremented.`,
 		Description:    `Severity of the alarm.`,
 		Exposed:        true,
 		Name:           "severity",
-		Required:       true,
 		Stored:         true,
 		Type:           "enum",
 	},

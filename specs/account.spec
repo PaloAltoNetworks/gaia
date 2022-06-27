@@ -60,8 +60,7 @@ attributes:
     transient: true
 
   - name: SSHCARenew
-    description: Set to `true` to renew the SSH certificate authority of the account
-      namespace.
+    description: Set to `true` to renew the SSH certificate authority of the account namespace.
     type: boolean
     exposed: true
 
@@ -171,8 +170,7 @@ attributes:
     transient: true
 
   - name: localCARenew
-    description: Set to `true` to renew the local certificate authority of the account
-      namespace.
+    description: Set to `true` to renew the local certificate authority of the account namespace.
     type: boolean
     exposed: true
 

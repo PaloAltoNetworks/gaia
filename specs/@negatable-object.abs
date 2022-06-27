@@ -2,8 +2,7 @@
 attributes:
   v1:
   - name: negateObject
-    description: Setting this to `true` will invert the object to find what is not
-      matching.
+    description: Setting this to `true` will invert the object to find what is not matching.
     type: boolean
     exposed: true
     stored: true

@@ -63,8 +63,7 @@ attributes:
     stored: true
 
   - name: deploymentCount
-    description: DeploymentCount represents the number of expected deployment for
-      this app.
+    description: DeploymentCount represents the number of expected deployment for this app.
     type: integer
     stored: true
     read_only: true

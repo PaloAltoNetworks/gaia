@@ -5,8 +5,7 @@ model:
   entity_name: GraphEdgeFlowDetails
   package: meteor
   group: visualization/depmaps
-  description: Contains more specific information about a particular flow between
-    two nodes.
+  description: Contains more specific information about a particular flow between two nodes.
   detached: true
 
 # Attributes
@@ -18,8 +17,7 @@ attributes:
     exposed: true
 
   - name: protoPort
-    description: The protocol for this edge. If it is tcp or udp, the port is also
-      included.
+    description: The protocol for this edge. If it is tcp or udp, the port is also included.
     type: string
     exposed: true
     example_value: tcp/443

@@ -4346,7 +4346,7 @@ Type: `boolean`
 
 Defines if the object is protected.
 
-##### `severity` [`required`]
+##### `severity`
 
 Type: `enum(Low | Medium | High | Critical)`
 
