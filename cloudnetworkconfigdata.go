@@ -11,7 +11,7 @@ import (
 // CloudNetworkConfigData represents the model of a cloudnetworkconfigdata
 type CloudNetworkConfigData struct {
 	// IP configurations of the NICs in the Scale Set.
-	IpConfigurations []*CloudIPConfiguration `json:"ipConfigurations" msgpack:"ipConfigurations" bson:"ipconfigurations" mapstructure:"ipConfigurations,omitempty"`
+	IPConfigurations []*CloudIPConfiguration `json:"IPConfigurations" msgpack:"IPConfigurations" bson:"ipconfigurations" mapstructure:"IPConfigurations,omitempty"`
 
 	// Network configuration name of the NIC associated in the Scale Set.
 	NetworkConfigName string `json:"networkConfigName" msgpack:"networkConfigName" bson:"networkconfigname" mapstructure:"networkConfigName,omitempty"`
@@ -24,7 +24,7 @@ func NewCloudNetworkConfigData() *CloudNetworkConfigData {
 
 	return &CloudNetworkConfigData{
 		ModelVersion:     1,
-		IpConfigurations: []*CloudIPConfiguration{},
+		IPConfigurations: []*CloudIPConfiguration{},
 	}
 }
 
@@ -38,7 +38,7 @@ func (o *CloudNetworkConfigData) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesCloudNetworkConfigData{}
 
-	s.IpConfigurations = o.IpConfigurations
+	s.IPConfigurations = o.IPConfigurations
 	s.NetworkConfigName = o.NetworkConfigName
 
 	return s, nil
@@ -57,7 +57,7 @@ func (o *CloudNetworkConfigData) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
-	o.IpConfigurations = s.IpConfigurations
+	o.IPConfigurations = s.IPConfigurations
 	o.NetworkConfigName = s.NetworkConfigName
 
 	return nil
@@ -99,7 +99,7 @@ func (o *CloudNetworkConfigData) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	for _, sub := range o.IpConfigurations {
+	for _, sub := range o.IPConfigurations {
 		if sub == nil {
 			continue
 		}
@@ -143,8 +143,8 @@ func (*CloudNetworkConfigData) AttributeSpecifications() map[string]elemental.At
 func (o *CloudNetworkConfigData) ValueForAttribute(name string) interface{} {
 
 	switch name {
-	case "ipConfigurations":
-		return o.IpConfigurations
+	case "IPConfigurations":
+		return o.IPConfigurations
 	case "networkConfigName":
 		return o.NetworkConfigName
 	}
@@ -154,13 +154,13 @@ func (o *CloudNetworkConfigData) ValueForAttribute(name string) interface{} {
 
 // CloudNetworkConfigDataAttributesMap represents the map of attribute for CloudNetworkConfigData.
 var CloudNetworkConfigDataAttributesMap = map[string]elemental.AttributeSpecification{
-	"IpConfigurations": {
+	"IPConfigurations": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "ipconfigurations",
-		ConvertedName:  "IpConfigurations",
+		ConvertedName:  "IPConfigurations",
 		Description:    `IP configurations of the NICs in the Scale Set.`,
 		Exposed:        true,
-		Name:           "ipConfigurations",
+		Name:           "IPConfigurations",
 		Stored:         true,
 		SubType:        "cloudipconfiguration",
 		Type:           "refList",
@@ -182,10 +182,10 @@ var CloudNetworkConfigDataLowerCaseAttributesMap = map[string]elemental.Attribut
 	"ipconfigurations": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "ipconfigurations",
-		ConvertedName:  "IpConfigurations",
+		ConvertedName:  "IPConfigurations",
 		Description:    `IP configurations of the NICs in the Scale Set.`,
 		Exposed:        true,
-		Name:           "ipConfigurations",
+		Name:           "IPConfigurations",
 		Stored:         true,
 		SubType:        "cloudipconfiguration",
 		Type:           "refList",
@@ -203,6 +203,6 @@ var CloudNetworkConfigDataLowerCaseAttributesMap = map[string]elemental.Attribut
 }
 
 type mongoAttributesCloudNetworkConfigData struct {
-	IpConfigurations  []*CloudIPConfiguration `bson:"ipconfigurations"`
+	IPConfigurations  []*CloudIPConfiguration `bson:"ipconfigurations"`
 	NetworkConfigName string                  `bson:"networkconfigname"`
 }

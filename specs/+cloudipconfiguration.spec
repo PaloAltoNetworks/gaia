@@ -11,6 +11,12 @@ model:
 # Attributes
 attributes:
   v1:
+  - name: IPConfigName
+    description: IP configuration of the NICs associated to the Scale Set.
+    type: string
+    exposed: true
+    stored: true
+
   - name: addresses
     description: |-
       List of IP addresses/subnets (IPv4 or IPv6) associated with the
@@ -32,12 +38,6 @@ attributes:
   - name: hasPublicIP
     description: If the IP Configuration has a public IP.
     type: boolean
-    exposed: true
-    stored: true
-
-  - name: ipConfigName
-    description: IP configuration of the NICs associated to the Scale Set.
-    type: string
     exposed: true
     stored: true
 
