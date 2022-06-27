@@ -105,6 +105,7 @@
             "description": "The authentication realm. This will define how to verify\ncredentials from internal or external source of authentication.",
             "enum": [
               "AWSSecurityToken",
+              "AWSIdentityToken",
               "Certificate",
               "Google",
               "LDAP",

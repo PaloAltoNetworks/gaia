@@ -16,6 +16,9 @@ import (
 type IssueRealmValue string
 
 const (
+	// IssueRealmAWSIdentityToken represents the value AWSIdentityToken.
+	IssueRealmAWSIdentityToken IssueRealmValue = "AWSIdentityToken"
+
 	// IssueRealmAWSSecurityToken represents the value AWSSecurityToken.
 	IssueRealmAWSSecurityToken IssueRealmValue = "AWSSecurityToken"
 
@@ -420,7 +423,7 @@ func (o *Issue) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("realm", string(o.Realm), []string{"AWSSecurityToken", "Certificate", "Google", "LDAP", "Vince", "GCPIdentityToken", "AzureIdentityToken", "OIDC", "SAML", "AporetoIdentityToken", "PCIdentityToken"}, false); err != nil {
+	if err := elemental.ValidateStringInList("realm", string(o.Realm), []string{"AWSSecurityToken", "AWSIdentityToken", "Certificate", "Google", "LDAP", "Vince", "GCPIdentityToken", "AzureIdentityToken", "OIDC", "SAML", "AporetoIdentityToken", "PCIdentityToken"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -557,7 +560,7 @@ for further information.`,
 		Type:           "integer",
 	},
 	"Realm": {
-		AllowedChoices: []string{"AWSSecurityToken", "Certificate", "Google", "LDAP", "Vince", "GCPIdentityToken", "AzureIdentityToken", "OIDC", "SAML", "AporetoIdentityToken", "PCIdentityToken"},
+		AllowedChoices: []string{"AWSSecurityToken", "AWSIdentityToken", "Certificate", "Google", "LDAP", "Vince", "GCPIdentityToken", "AzureIdentityToken", "OIDC", "SAML", "AporetoIdentityToken", "PCIdentityToken"},
 		ConvertedName:  "Realm",
 		Description: `The authentication realm. This will define how to verify
 credentials from internal or external source of authentication.`,
@@ -704,7 +707,7 @@ for further information.`,
 		Type:           "integer",
 	},
 	"realm": {
-		AllowedChoices: []string{"AWSSecurityToken", "Certificate", "Google", "LDAP", "Vince", "GCPIdentityToken", "AzureIdentityToken", "OIDC", "SAML", "AporetoIdentityToken", "PCIdentityToken"},
+		AllowedChoices: []string{"AWSSecurityToken", "AWSIdentityToken", "Certificate", "Google", "LDAP", "Vince", "GCPIdentityToken", "AzureIdentityToken", "OIDC", "SAML", "AporetoIdentityToken", "PCIdentityToken"},
 		ConvertedName:  "Realm",
 		Description: `The authentication realm. This will define how to verify
 credentials from internal or external source of authentication.`,
