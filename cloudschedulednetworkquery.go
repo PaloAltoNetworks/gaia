@@ -124,7 +124,7 @@ type CloudScheduledNetworkQuery struct {
 	SuccessfulExecutionTimestamp time.Time `json:"successfulExecutionTimestamp" msgpack:"successfulExecutionTimestamp" bson:"successfulexecutiontimestamp" mapstructure:"successfulExecutionTimestamp,omitempty"`
 
 	// Mapping of last successful execution timestamp for every account.
-	SuccessfulExecutionTimestampMap map[string]string `json:"successfulExecutionTimestampMap" msgpack:"successfulExecutionTimestampMap" bson:"successfulexecutiontimestampmap" mapstructure:"successfulExecutionTimestampMap,omitempty"`
+	SuccessfulExecutionTimestampMap map[string]time.Time `json:"successfulExecutionTimestampMap" msgpack:"successfulExecutionTimestampMap" bson:"successfulexecutiontimestampmap" mapstructure:"successfulExecutionTimestampMap,omitempty"`
 
 	// Prisma ID of the tenant in which the Alert Rule is created.
 	TenantPrismaID string `json:"tenantPrismaID" msgpack:"tenantPrismaID" bson:"tenantprismaid" mapstructure:"tenantPrismaID,omitempty"`
@@ -149,7 +149,7 @@ func NewCloudScheduledNetworkQuery() *CloudScheduledNetworkQuery {
 		ModelVersion:                    1,
 		CloudNetworkQuery:               NewCloudNetworkQuery(),
 		MigrationsLog:                   map[string]string{},
-		SuccessfulExecutionTimestampMap: map[string]string{},
+		SuccessfulExecutionTimestampMap: map[string]time.Time{},
 	}
 }
 
@@ -759,7 +759,7 @@ obtained.`,
 		Exposed:        true,
 		Name:           "successfulExecutionTimestampMap",
 		Stored:         true,
-		SubType:        "map[string]string",
+		SubType:        "map[string]time",
 		Type:           "external",
 	},
 	"TenantPrismaID": {
@@ -977,7 +977,7 @@ obtained.`,
 		Exposed:        true,
 		Name:           "successfulExecutionTimestampMap",
 		Stored:         true,
-		SubType:        "map[string]string",
+		SubType:        "map[string]time",
 		Type:           "external",
 	},
 	"tenantprismaid": {
@@ -1139,7 +1139,7 @@ type SparseCloudScheduledNetworkQuery struct {
 	SuccessfulExecutionTimestamp *time.Time `json:"successfulExecutionTimestamp,omitempty" msgpack:"successfulExecutionTimestamp,omitempty" bson:"successfulexecutiontimestamp,omitempty" mapstructure:"successfulExecutionTimestamp,omitempty"`
 
 	// Mapping of last successful execution timestamp for every account.
-	SuccessfulExecutionTimestampMap *map[string]string `json:"successfulExecutionTimestampMap,omitempty" msgpack:"successfulExecutionTimestampMap,omitempty" bson:"successfulexecutiontimestampmap,omitempty" mapstructure:"successfulExecutionTimestampMap,omitempty"`
+	SuccessfulExecutionTimestampMap *map[string]time.Time `json:"successfulExecutionTimestampMap,omitempty" msgpack:"successfulExecutionTimestampMap,omitempty" bson:"successfulexecutiontimestampmap,omitempty" mapstructure:"successfulExecutionTimestampMap,omitempty"`
 
 	// Prisma ID of the tenant in which the Alert Rule is created.
 	TenantPrismaID *string `json:"tenantPrismaID,omitempty" msgpack:"tenantPrismaID,omitempty" bson:"tenantprismaid,omitempty" mapstructure:"tenantPrismaID,omitempty"`
@@ -1515,38 +1515,38 @@ func (o *SparseCloudScheduledNetworkQuery) DeepCopyInto(out *SparseCloudSchedule
 }
 
 type mongoAttributesCloudScheduledNetworkQuery struct {
-	ID                              bson.ObjectId      `bson:"_id,omitempty"`
-	CloudNetworkQuery               *CloudNetworkQuery `bson:"cloudnetworkquery"`
-	CreateTime                      time.Time          `bson:"createtime"`
-	Disabled                        bool               `bson:"disabled"`
-	LastExecutionTimestamp          time.Time          `bson:"lastexecutiontimestamp"`
-	MigrationsLog                   map[string]string  `bson:"migrationslog,omitempty"`
-	Name                            string             `bson:"name"`
-	Namespace                       string             `bson:"namespace"`
-	PrismaCloudAlertRuleID          string             `bson:"prismacloudalertruleid"`
-	PrismaCloudPolicyID             string             `bson:"prismacloudpolicyid"`
-	SuccessfulExecutionTimestamp    time.Time          `bson:"successfulexecutiontimestamp"`
-	SuccessfulExecutionTimestampMap map[string]string  `bson:"successfulexecutiontimestampmap"`
-	TenantPrismaID                  string             `bson:"tenantprismaid"`
-	UpdateTime                      time.Time          `bson:"updatetime"`
-	ZHash                           int                `bson:"zhash"`
-	Zone                            int                `bson:"zone"`
+	ID                              bson.ObjectId        `bson:"_id,omitempty"`
+	CloudNetworkQuery               *CloudNetworkQuery   `bson:"cloudnetworkquery"`
+	CreateTime                      time.Time            `bson:"createtime"`
+	Disabled                        bool                 `bson:"disabled"`
+	LastExecutionTimestamp          time.Time            `bson:"lastexecutiontimestamp"`
+	MigrationsLog                   map[string]string    `bson:"migrationslog,omitempty"`
+	Name                            string               `bson:"name"`
+	Namespace                       string               `bson:"namespace"`
+	PrismaCloudAlertRuleID          string               `bson:"prismacloudalertruleid"`
+	PrismaCloudPolicyID             string               `bson:"prismacloudpolicyid"`
+	SuccessfulExecutionTimestamp    time.Time            `bson:"successfulexecutiontimestamp"`
+	SuccessfulExecutionTimestampMap map[string]time.Time `bson:"successfulexecutiontimestampmap"`
+	TenantPrismaID                  string               `bson:"tenantprismaid"`
+	UpdateTime                      time.Time            `bson:"updatetime"`
+	ZHash                           int                  `bson:"zhash"`
+	Zone                            int                  `bson:"zone"`
 }
 type mongoAttributesSparseCloudScheduledNetworkQuery struct {
-	ID                              bson.ObjectId      `bson:"_id,omitempty"`
-	CloudNetworkQuery               *CloudNetworkQuery `bson:"cloudnetworkquery,omitempty"`
-	CreateTime                      *time.Time         `bson:"createtime,omitempty"`
-	Disabled                        *bool              `bson:"disabled,omitempty"`
-	LastExecutionTimestamp          *time.Time         `bson:"lastexecutiontimestamp,omitempty"`
-	MigrationsLog                   *map[string]string `bson:"migrationslog,omitempty"`
-	Name                            *string            `bson:"name,omitempty"`
-	Namespace                       *string            `bson:"namespace,omitempty"`
-	PrismaCloudAlertRuleID          *string            `bson:"prismacloudalertruleid,omitempty"`
-	PrismaCloudPolicyID             *string            `bson:"prismacloudpolicyid,omitempty"`
-	SuccessfulExecutionTimestamp    *time.Time         `bson:"successfulexecutiontimestamp,omitempty"`
-	SuccessfulExecutionTimestampMap *map[string]string `bson:"successfulexecutiontimestampmap,omitempty"`
-	TenantPrismaID                  *string            `bson:"tenantprismaid,omitempty"`
-	UpdateTime                      *time.Time         `bson:"updatetime,omitempty"`
-	ZHash                           *int               `bson:"zhash,omitempty"`
-	Zone                            *int               `bson:"zone,omitempty"`
+	ID                              bson.ObjectId         `bson:"_id,omitempty"`
+	CloudNetworkQuery               *CloudNetworkQuery    `bson:"cloudnetworkquery,omitempty"`
+	CreateTime                      *time.Time            `bson:"createtime,omitempty"`
+	Disabled                        *bool                 `bson:"disabled,omitempty"`
+	LastExecutionTimestamp          *time.Time            `bson:"lastexecutiontimestamp,omitempty"`
+	MigrationsLog                   *map[string]string    `bson:"migrationslog,omitempty"`
+	Name                            *string               `bson:"name,omitempty"`
+	Namespace                       *string               `bson:"namespace,omitempty"`
+	PrismaCloudAlertRuleID          *string               `bson:"prismacloudalertruleid,omitempty"`
+	PrismaCloudPolicyID             *string               `bson:"prismacloudpolicyid,omitempty"`
+	SuccessfulExecutionTimestamp    *time.Time            `bson:"successfulexecutiontimestamp,omitempty"`
+	SuccessfulExecutionTimestampMap *map[string]time.Time `bson:"successfulexecutiontimestampmap,omitempty"`
+	TenantPrismaID                  *string               `bson:"tenantprismaid,omitempty"`
+	UpdateTime                      *time.Time            `bson:"updatetime,omitempty"`
+	ZHash                           *int                  `bson:"zhash,omitempty"`
+	Zone                            *int                  `bson:"zone,omitempty"`
 }

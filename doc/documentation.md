@@ -13703,7 +13703,7 @@ obtained.
 
 ##### `successfulExecutionTimestampMap`
 
-Type: `map[string]string`
+Type: `map[string]time`
 
 Mapping of last successful execution timestamp for every account.
 

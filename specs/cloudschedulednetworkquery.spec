@@ -84,7 +84,7 @@ attributes:
     description: Mapping of last successful execution timestamp for every account.
     type: external
     exposed: true
-    subtype: map[string]string
+    subtype: map[string]time
     stored: true
 
   - name: tenantPrismaID
