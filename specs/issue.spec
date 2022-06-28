@@ -70,6 +70,7 @@ attributes:
     required: true
     allowed_choices:
     - AWSSecurityToken
+    - AWSIdentityToken
     - Certificate
     - Google
     - LDAP
