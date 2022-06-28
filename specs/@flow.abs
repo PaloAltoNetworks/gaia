@@ -59,6 +59,16 @@ attributes:
     extensions:
       bson_name: d
 
+  - name: destinationName
+    description: Name of the destination.
+    type: string
+    exposed: true
+    stored: true
+    example_value: processing-unit-1
+    omit_empty: true
+    extensions:
+      bson_name: ao
+
   - name: destinationNamespace
     description: |-
       Namespace of the destination. This is deprecated. Use `remoteNamespace`. This
@@ -363,6 +373,16 @@ attributes:
     omit_empty: true
     extensions:
       bson_name: ac
+
+  - name: sourceName
+    description: Name of the source.
+    type: string
+    exposed: true
+    stored: true
+    example_value: processing-unit-2
+    omit_empty: true
+    extensions:
+      bson_name: ap
 
   - name: sourceNamespace
     description: |-
