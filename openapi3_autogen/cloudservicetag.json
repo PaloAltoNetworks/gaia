@@ -10,6 +10,13 @@
             "readOnly": true,
             "type": "string"
           },
+          "IPPrefixList": {
+            "description": "The IP Prefixes associated with a Service Tag.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "annotations": {
             "additionalProperties": {
               "items": {
@@ -44,13 +51,6 @@
           "description": {
             "description": "Description of the object.",
             "type": "string"
-          },
-          "ipPrefixList": {
-            "description": "The IP Prefixes associated with a Service Tag.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
           },
           "name": {
             "description": "Name of the entity.",
