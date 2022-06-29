@@ -4217,7 +4217,6 @@ Represents an event requiring attention.
   "kind": "aporeto.alarm.kind",
   "name": "the name",
   "protected": false,
-  "severity": "Low",
   "status": "Open"
 }
 ```
@@ -4345,12 +4344,6 @@ Number of times this alarm has been seen.
 Type: `boolean`
 
 Defines if the object is protected.
-
-##### `severity`
-
-Type: `enum(Low | Medium | High | Critical)`
-
-Severity of the alarm.
 
 ##### `status`
 
