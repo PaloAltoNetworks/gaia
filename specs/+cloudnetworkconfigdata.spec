@@ -5,7 +5,8 @@ model:
   entity_name: CloudNetworkConfigData
   package: yeul
   group: pcn/infrastructure
-  description: Manages the network properties associated to a Virtual Machine Scale Set.
+  description: Manages the network properties associated to a Virtual Machine Scale
+    Set.
   detached: true
 
 # Attributes

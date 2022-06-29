@@ -5,7 +5,8 @@ model:
   entity_name: RenderedPolicy
   package: squall
   group: core/policy
-  description: Retrieve the aggregated policies applied to a particular processing unit.
+  description: Retrieve the aggregated policies applied to a particular processing
+    unit.
   aliases:
   - rpol
   - rpols

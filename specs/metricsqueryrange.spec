@@ -45,7 +45,8 @@ attributes:
     example_value: "2015-07-01T20:11:00.781Z"
 
   - name: step
-    description: Query resolution step width in duration format or float number of seconds.
+    description: Query resolution step width in duration format or float number of
+      seconds.
     type: string
     exposed: true
     example_value: 15s

@@ -149,7 +149,8 @@ attributes:
     transient: true
 
   - name: tokenRenew
-    description: If set to `true` a new token will be issued and the previous one invalidated.
+    description: If set to `true` a new token will be issued and the previous one
+      invalidated.
     type: boolean
     exposed: true
 

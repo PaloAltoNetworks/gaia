@@ -87,7 +87,8 @@ attributes:
     orderable: true
 
   - name: associatedLocalCAID
-    description: AssociatedLocalCAID holds the remote ID of the certificate authority to use.
+    description: AssociatedLocalCAID holds the remote ID of the certificate authority
+      to use.
     type: string
     stored: true
     read_only: true
@@ -257,7 +258,8 @@ relations:
     parameters:
       entries:
       - name: mode
-        description: When set to type `OIDC` it will return the data as a raw JSON object and not a Microsegmentation Console-compatible API.
+        description: When set to type `OIDC` it will return the data as a raw JSON
+          object and not a Microsegmentation Console-compatible API.
         type: enum
         allowed_choices:
         - oidc
@@ -268,7 +270,8 @@ relations:
     parameters:
       entries:
       - name: mode
-        description: When set to `OIDC` it will return the data as a raw JSON object and not a Microsegmentation Console-compatible API.
+        description: When set to `OIDC` it will return the data as a raw JSON object
+          and not a Microsegmentation Console-compatible API.
         type: enum
         allowed_choices:
         - oidc
