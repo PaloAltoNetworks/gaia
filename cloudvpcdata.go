@@ -13,8 +13,8 @@ import (
 
 // CloudVPCData represents the model of a cloudvpcdata
 type CloudVPCData struct {
-	// Address CIDR of the VPC.
-	Address string `json:"address" msgpack:"address" bson:"address" mapstructure:"address,omitempty"`
+	// Address CIDRs of the VPC.
+	Addresses []string `json:"addresses" msgpack:"addresses" bson:"addresses" mapstructure:"addresses,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -24,6 +24,7 @@ func NewCloudVPCData() *CloudVPCData {
 
 	return &CloudVPCData{
 		ModelVersion: 1,
+		Addresses:    []string{},
 	}
 }
 
@@ -37,7 +38,7 @@ func (o *CloudVPCData) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesCloudVPCData{}
 
-	s.Address = o.Address
+	s.Addresses = o.Addresses
 
 	return s, nil
 }
@@ -55,7 +56,7 @@ func (o *CloudVPCData) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
-	o.Address = s.Address
+	o.Addresses = s.Addresses
 
 	return nil
 }
@@ -96,11 +97,11 @@ func (o *CloudVPCData) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if err := elemental.ValidateRequiredString("address", o.Address); err != nil {
+	if err := elemental.ValidateRequiredExternal("addresses", o.Addresses); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := ValidateCIDR("address", o.Address); err != nil {
+	if err := ValidateCIDRList("addresses", o.Addresses); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -138,8 +139,8 @@ func (*CloudVPCData) AttributeSpecifications() map[string]elemental.AttributeSpe
 func (o *CloudVPCData) ValueForAttribute(name string) interface{} {
 
 	switch name {
-	case "address":
-		return o.Address
+	case "addresses":
+		return o.Addresses
 	}
 
 	return nil
@@ -147,34 +148,36 @@ func (o *CloudVPCData) ValueForAttribute(name string) interface{} {
 
 // CloudVPCDataAttributesMap represents the map of attribute for CloudVPCData.
 var CloudVPCDataAttributesMap = map[string]elemental.AttributeSpecification{
-	"Address": {
+	"Addresses": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "address",
-		ConvertedName:  "Address",
-		Description:    `Address CIDR of the VPC.`,
+		BSONFieldName:  "addresses",
+		ConvertedName:  "Addresses",
+		Description:    `Address CIDRs of the VPC.`,
 		Exposed:        true,
-		Name:           "address",
+		Name:           "addresses",
 		Required:       true,
 		Stored:         true,
-		Type:           "string",
+		SubType:        "string",
+		Type:           "list",
 	},
 }
 
 // CloudVPCDataLowerCaseAttributesMap represents the map of attribute for CloudVPCData.
 var CloudVPCDataLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
-	"address": {
+	"addresses": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "address",
-		ConvertedName:  "Address",
-		Description:    `Address CIDR of the VPC.`,
+		BSONFieldName:  "addresses",
+		ConvertedName:  "Addresses",
+		Description:    `Address CIDRs of the VPC.`,
 		Exposed:        true,
-		Name:           "address",
+		Name:           "addresses",
 		Required:       true,
 		Stored:         true,
-		Type:           "string",
+		SubType:        "string",
+		Type:           "list",
 	},
 }
 
 type mongoAttributesCloudVPCData struct {
-	Address string `bson:"address"`
+	Addresses []string `bson:"addresses"`
 }

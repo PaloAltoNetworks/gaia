@@ -64,6 +64,14 @@ attributes:
     stored: true
     omit_empty: true
 
+  - name: paasTypes
+    description: Identifies a list of Platform as a Service types.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
   - name: productInfoType
     description: Restricts the query on only endpoints with the given productInfoType.
     type: string
@@ -111,6 +119,7 @@ attributes:
     - Interface
     - Service
     - ProcessingUnit
+    - PaaS
     default_value: Instance
 
   - name: securityTags

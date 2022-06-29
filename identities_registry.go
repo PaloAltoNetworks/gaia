@@ -196,6 +196,7 @@ var (
 		"statsinfo":               StatsInfoIdentity,
 		"statsquery":              StatsQueryIdentity,
 		"suggestedpolicy":         SuggestedPolicyIdentity,
+		"suspiciousactivity":      SuspiciousActivityIdentity,
 		"tag":                     TagIdentity,
 		"taginject":               TagInjectIdentity,
 		"tagprefix":               TagPrefixIdentity,
@@ -209,6 +210,8 @@ var (
 		"trigger":          TriggerIdentity,
 		"trustedca":        TrustedCAIdentity,
 		"trustednamespace": TrustedNamespaceIdentity,
+
+		"unknownipaddress": UnknownIPAddressIdentity,
 
 		"useraccesspolicy":     UserAccessPolicyIdentity,
 		"validaterql":          ValidateRQLIdentity,
@@ -408,6 +411,7 @@ var (
 		"statsinfo":                 StatsInfoIdentity,
 		"statsqueries":              StatsQueryIdentity,
 		"suggestedpolicies":         SuggestedPolicyIdentity,
+		"suspiciousactivities":      SuspiciousActivityIdentity,
 		"tags":                      TagIdentity,
 		"taginjects":                TagInjectIdentity,
 		"tagprefixes":               TagPrefixIdentity,
@@ -421,6 +425,8 @@ var (
 		"triggers":          TriggerIdentity,
 		"trustedcas":        TrustedCAIdentity,
 		"trustednamespaces": TrustedNamespaceIdentity,
+
+		"unknownipaddresses": UnknownIPAddressIdentity,
 
 		"useraccesspolicies":    UserAccessPolicyIdentity,
 		"validaterql":           ValidateRQLIdentity,
@@ -539,6 +545,7 @@ var (
 		"sugpols":            SuggestedPolicyIdentity,
 		"sugg":               SuggestedPolicyIdentity,
 		"suggs":              SuggestedPolicyIdentity,
+		"susact":             SuspiciousActivityIdentity,
 		"tsp":                TokenScopePolicyIdentity,
 		"trustedns":          TrustedNamespaceIdentity,
 		"usrpol":             UserAccessPolicyIdentity,
@@ -1351,6 +1358,15 @@ var (
 		"statsinfo":              nil,
 		"statsquery":             nil,
 		"suggestedpolicy":        nil,
+		"suspiciousactivity": {
+			{"updateIdempotencyKey"},
+			{"namespace", "sourceName"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "sourceID"},
+			{"createIdempotencyKey"},
+			{":shard", ":unique", "zone", "zHash"},
+		},
 		"tag": {
 			{"namespace"},
 			{"namespace", "normalizedTags"},
@@ -1379,6 +1395,15 @@ var (
 			{"namespace", "normalizedTags"},
 			{"name"},
 			{"createIdempotencyKey"},
+		},
+		"unknownipaddress": {
+			{"updateIdempotencyKey"},
+			{"namespace", "createTime"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "address"},
+			{"createIdempotencyKey"},
+			{":shard", ":unique", "zone", "zHash"},
 		},
 		"useraccesspolicy":    nil,
 		"validaterql":         nil,
@@ -1765,6 +1790,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewStatsQuery()
 	case SuggestedPolicyIdentity:
 		return NewSuggestedPolicy()
+	case SuspiciousActivityIdentity:
+		return NewSuspiciousActivity()
 	case TagIdentity:
 		return NewTag()
 	case TagInjectIdentity:
@@ -1787,6 +1814,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewTrustedCA()
 	case TrustedNamespaceIdentity:
 		return NewTrustedNamespace()
+	case UnknownIPAddressIdentity:
+		return NewUnknownIPAddress()
 	case UserAccessPolicyIdentity:
 		return NewUserAccessPolicy()
 	case ValidateRQLIdentity:
@@ -2132,6 +2161,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseStatsQuery()
 	case SuggestedPolicyIdentity:
 		return NewSparseSuggestedPolicy()
+	case SuspiciousActivityIdentity:
+		return NewSparseSuspiciousActivity()
 	case TagIdentity:
 		return NewSparseTag()
 	case TagInjectIdentity:
@@ -2154,6 +2185,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseTrustedCA()
 	case TrustedNamespaceIdentity:
 		return NewSparseTrustedNamespace()
+	case UnknownIPAddressIdentity:
+		return NewSparseUnknownIPAddress()
 	case UserAccessPolicyIdentity:
 		return NewSparseUserAccessPolicy()
 	case ValidateRQLIdentity:
@@ -2509,6 +2542,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &StatsQueriesList{}
 	case SuggestedPolicyIdentity:
 		return &SuggestedPoliciesList{}
+	case SuspiciousActivityIdentity:
+		return &SuspiciousActivitiesList{}
 	case TagIdentity:
 		return &TagsList{}
 	case TagInjectIdentity:
@@ -2531,6 +2566,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &TrustedCAsList{}
 	case TrustedNamespaceIdentity:
 		return &TrustedNamespacesList{}
+	case UnknownIPAddressIdentity:
+		return &UnknownIPAddressList{}
 	case UserAccessPolicyIdentity:
 		return &UserAccessPoliciesList{}
 	case ValidateRQLIdentity:
@@ -2876,6 +2913,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseStatsQueriesList{}
 	case SuggestedPolicyIdentity:
 		return &SparseSuggestedPoliciesList{}
+	case SuspiciousActivityIdentity:
+		return &SparseSuspiciousActivitiesList{}
 	case TagIdentity:
 		return &SparseTagsList{}
 	case TagInjectIdentity:
@@ -2898,6 +2937,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseTrustedCAsList{}
 	case TrustedNamespaceIdentity:
 		return &SparseTrustedNamespacesList{}
+	case UnknownIPAddressIdentity:
+		return &SparseUnknownIPAddressList{}
 	case UserAccessPolicyIdentity:
 		return &SparseUserAccessPoliciesList{}
 	case ValidateRQLIdentity:
@@ -3101,6 +3142,7 @@ func AllIdentities() []elemental.Identity {
 		StatsInfoIdentity,
 		StatsQueryIdentity,
 		SuggestedPolicyIdentity,
+		SuspiciousActivityIdentity,
 		TagIdentity,
 		TagInjectIdentity,
 		TagPrefixIdentity,
@@ -3112,6 +3154,7 @@ func AllIdentities() []elemental.Identity {
 		TriggerIdentity,
 		TrustedCAIdentity,
 		TrustedNamespaceIdentity,
+		UnknownIPAddressIdentity,
 		UserAccessPolicyIdentity,
 		ValidateRQLIdentity,
 		ValidateUIParameterIdentity,
@@ -3616,6 +3659,10 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"sugg",
 			"suggs",
 		}
+	case SuspiciousActivityIdentity:
+		return []string{
+			"susact",
+		}
 	case TagIdentity:
 		return []string{}
 	case TagInjectIdentity:
@@ -3642,6 +3689,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"trustedns",
 		}
+	case UnknownIPAddressIdentity:
+		return []string{}
 	case UserAccessPolicyIdentity:
 		return []string{
 			"usrpol",
