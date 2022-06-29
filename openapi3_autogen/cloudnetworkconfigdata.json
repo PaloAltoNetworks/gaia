@@ -5,7 +5,7 @@
       "cloudnetworkconfigdata": {
         "description": "Manages the network properties associated to a Virtual Machine Scale Set.",
         "properties": {
-          "IPConfigurations": {
+          "ipConfigurations": {
             "description": "IP configurations of the NICs in the Scale Set.",
             "items": {
               "$ref": "./cloudipconfiguration#/components/schemas/cloudipconfiguration"

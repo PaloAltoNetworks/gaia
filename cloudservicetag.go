@@ -100,9 +100,6 @@ type CloudServiceTag struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
-	// The IP Prefixes associated with a Service Tag.
-	IPPrefixList []string `json:"IPPrefixList" msgpack:"IPPrefixList" bson:"ipprefixlist" mapstructure:"IPPrefixList,omitempty"`
-
 	// Stores additional information about an entity.
 	Annotations map[string][]string `json:"annotations" msgpack:"annotations" bson:"annotations" mapstructure:"annotations,omitempty"`
 
@@ -120,6 +117,9 @@ type CloudServiceTag struct {
 
 	// Description of the object.
 	Description string `json:"description" msgpack:"description" bson:"description" mapstructure:"description,omitempty"`
+
+	// The IP Prefixes associated with a Service Tag.
+	IpPrefixList []string `json:"ipPrefixList" msgpack:"ipPrefixList" bson:"ipprefixlist" mapstructure:"ipPrefixList,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -161,7 +161,7 @@ func NewCloudServiceTag() *CloudServiceTag {
 		AssociatedTags: []string{},
 		CloudType:      CloudServiceTagCloudTypeAWS,
 		MigrationsLog:  map[string]string{},
-		IPPrefixList:   []string{},
+		IpPrefixList:   []string{},
 		NormalizedTags: []string{},
 	}
 }
@@ -197,13 +197,13 @@ func (o *CloudServiceTag) GetBSON() (interface{}, error) {
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
-	s.IPPrefixList = o.IPPrefixList
 	s.Annotations = o.Annotations
 	s.AssociatedTags = o.AssociatedTags
 	s.CloudType = o.CloudType
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	s.CreateTime = o.CreateTime
 	s.Description = o.Description
+	s.IpPrefixList = o.IpPrefixList
 	s.MigrationsLog = o.MigrationsLog
 	s.Name = o.Name
 	s.Namespace = o.Namespace
@@ -231,13 +231,13 @@ func (o *CloudServiceTag) SetBSON(raw bson.Raw) error {
 	}
 
 	o.ID = s.ID.Hex()
-	o.IPPrefixList = s.IPPrefixList
 	o.Annotations = s.Annotations
 	o.AssociatedTags = s.AssociatedTags
 	o.CloudType = s.CloudType
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	o.CreateTime = s.CreateTime
 	o.Description = s.Description
+	o.IpPrefixList = s.IpPrefixList
 	o.MigrationsLog = s.MigrationsLog
 	o.Name = s.Name
 	o.Namespace = s.Namespace
@@ -459,13 +459,13 @@ func (o *CloudServiceTag) ToSparse(fields ...string) elemental.SparseIdentifiabl
 		// nolint: goimports
 		return &SparseCloudServiceTag{
 			ID:                   &o.ID,
-			IPPrefixList:         &o.IPPrefixList,
 			Annotations:          &o.Annotations,
 			AssociatedTags:       &o.AssociatedTags,
 			CloudType:            &o.CloudType,
 			CreateIdempotencyKey: &o.CreateIdempotencyKey,
 			CreateTime:           &o.CreateTime,
 			Description:          &o.Description,
+			IpPrefixList:         &o.IpPrefixList,
 			MigrationsLog:        &o.MigrationsLog,
 			Name:                 &o.Name,
 			Namespace:            &o.Namespace,
@@ -483,8 +483,6 @@ func (o *CloudServiceTag) ToSparse(fields ...string) elemental.SparseIdentifiabl
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
-		case "IPPrefixList":
-			sp.IPPrefixList = &(o.IPPrefixList)
 		case "annotations":
 			sp.Annotations = &(o.Annotations)
 		case "associatedTags":
@@ -497,6 +495,8 @@ func (o *CloudServiceTag) ToSparse(fields ...string) elemental.SparseIdentifiabl
 			sp.CreateTime = &(o.CreateTime)
 		case "description":
 			sp.Description = &(o.Description)
+		case "ipPrefixList":
+			sp.IpPrefixList = &(o.IpPrefixList)
 		case "migrationsLog":
 			sp.MigrationsLog = &(o.MigrationsLog)
 		case "name":
@@ -531,9 +531,6 @@ func (o *CloudServiceTag) Patch(sparse elemental.SparseIdentifiable) {
 	if so.ID != nil {
 		o.ID = *so.ID
 	}
-	if so.IPPrefixList != nil {
-		o.IPPrefixList = *so.IPPrefixList
-	}
 	if so.Annotations != nil {
 		o.Annotations = *so.Annotations
 	}
@@ -551,6 +548,9 @@ func (o *CloudServiceTag) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Description != nil {
 		o.Description = *so.Description
+	}
+	if so.IpPrefixList != nil {
+		o.IpPrefixList = *so.IpPrefixList
 	}
 	if so.MigrationsLog != nil {
 		o.MigrationsLog = *so.MigrationsLog
@@ -611,10 +611,6 @@ func (o *CloudServiceTag) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if err := ValidateOptionalCIDRList("IPPrefixList", o.IPPrefixList); err != nil {
-		errors = errors.Append(err)
-	}
-
 	if err := ValidateTagsWithoutReservedPrefixes("associatedTags", o.AssociatedTags); err != nil {
 		errors = errors.Append(err)
 	}
@@ -624,6 +620,10 @@ func (o *CloudServiceTag) Validate() error {
 	}
 
 	if err := elemental.ValidateMaximumLength("description", o.Description, 1024, false); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := ValidateOptionalCIDRList("ipPrefixList", o.IpPrefixList); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -671,8 +671,6 @@ func (o *CloudServiceTag) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "ID":
 		return o.ID
-	case "IPPrefixList":
-		return o.IPPrefixList
 	case "annotations":
 		return o.Annotations
 	case "associatedTags":
@@ -685,6 +683,8 @@ func (o *CloudServiceTag) ValueForAttribute(name string) interface{} {
 		return o.CreateTime
 	case "description":
 		return o.Description
+	case "ipPrefixList":
+		return o.IpPrefixList
 	case "migrationsLog":
 		return o.MigrationsLog
 	case "name":
@@ -724,17 +724,6 @@ var CloudServiceTagAttributesMap = map[string]elemental.AttributeSpecification{
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
-	},
-	"IPPrefixList": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "ipprefixlist",
-		ConvertedName:  "IPPrefixList",
-		Description:    `The IP Prefixes associated with a Service Tag.`,
-		Exposed:        true,
-		Name:           "IPPrefixList",
-		Stored:         true,
-		SubType:        "string",
-		Type:           "list",
 	},
 	"Annotations": {
 		AllowedChoices: []string{},
@@ -814,6 +803,17 @@ var CloudServiceTagAttributesMap = map[string]elemental.AttributeSpecification{
 		Setter:         true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"IpPrefixList": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ipprefixlist",
+		ConvertedName:  "IpPrefixList",
+		Description:    `The IP Prefixes associated with a Service Tag.`,
+		Exposed:        true,
+		Name:           "ipPrefixList",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
 	},
 	"MigrationsLog": {
 		AllowedChoices: []string{},
@@ -963,17 +963,6 @@ var CloudServiceTagLowerCaseAttributesMap = map[string]elemental.AttributeSpecif
 		Stored:         true,
 		Type:           "string",
 	},
-	"ipprefixlist": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "ipprefixlist",
-		ConvertedName:  "IPPrefixList",
-		Description:    `The IP Prefixes associated with a Service Tag.`,
-		Exposed:        true,
-		Name:           "IPPrefixList",
-		Stored:         true,
-		SubType:        "string",
-		Type:           "list",
-	},
 	"annotations": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "annotations",
@@ -1052,6 +1041,17 @@ var CloudServiceTagLowerCaseAttributesMap = map[string]elemental.AttributeSpecif
 		Setter:         true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"ipprefixlist": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ipprefixlist",
+		ConvertedName:  "IpPrefixList",
+		Description:    `The IP Prefixes associated with a Service Tag.`,
+		Exposed:        true,
+		Name:           "ipPrefixList",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
 	},
 	"migrationslog": {
 		AllowedChoices: []string{},
@@ -1252,9 +1252,6 @@ type SparseCloudServiceTag struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
-	// The IP Prefixes associated with a Service Tag.
-	IPPrefixList *[]string `json:"IPPrefixList,omitempty" msgpack:"IPPrefixList,omitempty" bson:"ipprefixlist,omitempty" mapstructure:"IPPrefixList,omitempty"`
-
 	// Stores additional information about an entity.
 	Annotations *map[string][]string `json:"annotations,omitempty" msgpack:"annotations,omitempty" bson:"annotations,omitempty" mapstructure:"annotations,omitempty"`
 
@@ -1272,6 +1269,9 @@ type SparseCloudServiceTag struct {
 
 	// Description of the object.
 	Description *string `json:"description,omitempty" msgpack:"description,omitempty" bson:"description,omitempty" mapstructure:"description,omitempty"`
+
+	// The IP Prefixes associated with a Service Tag.
+	IpPrefixList *[]string `json:"ipPrefixList,omitempty" msgpack:"ipPrefixList,omitempty" bson:"ipprefixlist,omitempty" mapstructure:"ipPrefixList,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -1347,9 +1347,6 @@ func (o *SparseCloudServiceTag) GetBSON() (interface{}, error) {
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
 	}
-	if o.IPPrefixList != nil {
-		s.IPPrefixList = o.IPPrefixList
-	}
 	if o.Annotations != nil {
 		s.Annotations = o.Annotations
 	}
@@ -1367,6 +1364,9 @@ func (o *SparseCloudServiceTag) GetBSON() (interface{}, error) {
 	}
 	if o.Description != nil {
 		s.Description = o.Description
+	}
+	if o.IpPrefixList != nil {
+		s.IpPrefixList = o.IpPrefixList
 	}
 	if o.MigrationsLog != nil {
 		s.MigrationsLog = o.MigrationsLog
@@ -1414,9 +1414,6 @@ func (o *SparseCloudServiceTag) SetBSON(raw bson.Raw) error {
 
 	id := s.ID.Hex()
 	o.ID = &id
-	if s.IPPrefixList != nil {
-		o.IPPrefixList = s.IPPrefixList
-	}
 	if s.Annotations != nil {
 		o.Annotations = s.Annotations
 	}
@@ -1434,6 +1431,9 @@ func (o *SparseCloudServiceTag) SetBSON(raw bson.Raw) error {
 	}
 	if s.Description != nil {
 		o.Description = s.Description
+	}
+	if s.IpPrefixList != nil {
+		o.IpPrefixList = s.IpPrefixList
 	}
 	if s.MigrationsLog != nil {
 		o.MigrationsLog = s.MigrationsLog
@@ -1479,9 +1479,6 @@ func (o *SparseCloudServiceTag) ToPlain() elemental.PlainIdentifiable {
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
-	if o.IPPrefixList != nil {
-		out.IPPrefixList = *o.IPPrefixList
-	}
 	if o.Annotations != nil {
 		out.Annotations = *o.Annotations
 	}
@@ -1499,6 +1496,9 @@ func (o *SparseCloudServiceTag) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Description != nil {
 		out.Description = *o.Description
+	}
+	if o.IpPrefixList != nil {
+		out.IpPrefixList = *o.IpPrefixList
 	}
 	if o.MigrationsLog != nil {
 		out.MigrationsLog = *o.MigrationsLog
@@ -1781,13 +1781,13 @@ func (o *SparseCloudServiceTag) DeepCopyInto(out *SparseCloudServiceTag) {
 
 type mongoAttributesCloudServiceTag struct {
 	ID                   bson.ObjectId                 `bson:"_id,omitempty"`
-	IPPrefixList         []string                      `bson:"ipprefixlist"`
 	Annotations          map[string][]string           `bson:"annotations"`
 	AssociatedTags       []string                      `bson:"associatedtags"`
 	CloudType            CloudServiceTagCloudTypeValue `bson:"cloudtype"`
 	CreateIdempotencyKey string                        `bson:"createidempotencykey"`
 	CreateTime           time.Time                     `bson:"createtime"`
 	Description          string                        `bson:"description"`
+	IpPrefixList         []string                      `bson:"ipprefixlist"`
 	MigrationsLog        map[string]string             `bson:"migrationslog,omitempty"`
 	Name                 string                        `bson:"name"`
 	Namespace            string                        `bson:"namespace"`
@@ -1800,13 +1800,13 @@ type mongoAttributesCloudServiceTag struct {
 }
 type mongoAttributesSparseCloudServiceTag struct {
 	ID                   bson.ObjectId                  `bson:"_id,omitempty"`
-	IPPrefixList         *[]string                      `bson:"ipprefixlist,omitempty"`
 	Annotations          *map[string][]string           `bson:"annotations,omitempty"`
 	AssociatedTags       *[]string                      `bson:"associatedtags,omitempty"`
 	CloudType            *CloudServiceTagCloudTypeValue `bson:"cloudtype,omitempty"`
 	CreateIdempotencyKey *string                        `bson:"createidempotencykey,omitempty"`
 	CreateTime           *time.Time                     `bson:"createtime,omitempty"`
 	Description          *string                        `bson:"description,omitempty"`
+	IpPrefixList         *[]string                      `bson:"ipprefixlist,omitempty"`
 	MigrationsLog        *map[string]string             `bson:"migrationslog,omitempty"`
 	Name                 *string                        `bson:"name,omitempty"`
 	Namespace            *string                        `bson:"namespace,omitempty"`

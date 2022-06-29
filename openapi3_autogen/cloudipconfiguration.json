@@ -5,10 +5,6 @@
       "cloudipconfiguration": {
         "description": "Manages the properties associated to an IP configuration.",
         "properties": {
-          "IPConfigName": {
-            "description": "IP configuration of the NICs associated to the Scale Set.",
-            "type": "string"
-          },
           "addresses": {
             "description": "List of IP addresses/subnets (IPv4 or IPv6) associated with the\ninterface.",
             "items": {
@@ -26,6 +22,10 @@
           "hasPublicIP": {
             "description": "If the IP Configuration has a public IP.",
             "type": "boolean"
+          },
+          "ipConfigName": {
+            "description": "IP configuration of the NICs associated to the Scale Set.",
+            "type": "string"
           },
           "subnet": {
             "description": "Subnet of the NIC associated to the Scale Set.",

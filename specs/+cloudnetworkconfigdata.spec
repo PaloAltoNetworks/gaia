@@ -12,7 +12,7 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: IPConfigurations
+  - name: ipConfigurations
     description: IP configurations of the NICs in the Scale Set.
     type: refList
     exposed: true

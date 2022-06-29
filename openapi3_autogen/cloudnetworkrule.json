@@ -5,14 +5,6 @@
       "cloudnetworkrule": {
         "description": "Represents an ingress or egress network rule.",
         "properties": {
-          "IPRanges": {
-            "description": "A list of ips range.",
-            "items": {
-              "$ref": "./cloudiprange#/components/schemas/cloudiprange"
-            },
-            "readOnly": true,
-            "type": "array"
-          },
           "action": {
             "default": "Allow",
             "description": "Defines the action to apply to a flow.\n- `Allow`: allows the defined traffic.\n- `Reject`: rejects the defined traffic; useful in conjunction with an allow all\npolicy.",
@@ -25,6 +17,14 @@
             "description": "A list of tags to group resources.",
             "items": {
               "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "ipRanges": {
+            "description": "A list of ips range.",
+            "items": {
+              "$ref": "./cloudiprange#/components/schemas/cloudiprange"
             },
             "readOnly": true,
             "type": "array"

@@ -29,15 +29,6 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: IPPrefixList
-    description: The IP Prefixes associated with a Service Tag.
-    type: list
-    exposed: true
-    subtype: string
-    stored: true
-    validations:
-    - $optionalcidrs
-
   - name: cloudType
     description: Cloud Type of the Service Tag.
     type: enum
@@ -47,3 +38,12 @@ attributes:
     - AZURE
     - AWS
     default_value: AWS
+
+  - name: ipPrefixList
+    description: The IP Prefixes associated with a Service Tag.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    validations:
+    - $optionalcidrs

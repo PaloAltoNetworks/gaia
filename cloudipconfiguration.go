@@ -13,9 +13,6 @@ import (
 
 // CloudIPConfiguration represents the model of a cloudipconfiguration
 type CloudIPConfiguration struct {
-	// IP configuration of the NICs associated to the Scale Set.
-	IPConfigName string `json:"IPConfigName" msgpack:"IPConfigName" bson:"ipconfigname" mapstructure:"IPConfigName,omitempty"`
-
 	// List of IP addresses/subnets (IPv4 or IPv6) associated with the
 	// interface.
 	Addresses []*CloudAddress `json:"addresses" msgpack:"addresses" bson:"addresses" mapstructure:"addresses,omitempty"`
@@ -25,6 +22,9 @@ type CloudIPConfiguration struct {
 
 	// If the IP Configuration has a public IP.
 	HasPublicIP bool `json:"hasPublicIP" msgpack:"hasPublicIP" bson:"haspublicip" mapstructure:"hasPublicIP,omitempty"`
+
+	// IP configuration of the NICs associated to the Scale Set.
+	IpConfigName string `json:"ipConfigName" msgpack:"ipConfigName" bson:"ipconfigname" mapstructure:"ipConfigName,omitempty"`
 
 	// Subnet of the NIC associated to the Scale Set.
 	Subnet string `json:"subnet" msgpack:"subnet" bson:"subnet" mapstructure:"subnet,omitempty"`
@@ -52,10 +52,10 @@ func (o *CloudIPConfiguration) GetBSON() (interface{}, error) {
 
 	s := &mongoAttributesCloudIPConfiguration{}
 
-	s.IPConfigName = o.IPConfigName
 	s.Addresses = o.Addresses
 	s.BackendPool = o.BackendPool
 	s.HasPublicIP = o.HasPublicIP
+	s.IpConfigName = o.IpConfigName
 	s.Subnet = o.Subnet
 
 	return s, nil
@@ -74,10 +74,10 @@ func (o *CloudIPConfiguration) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
-	o.IPConfigName = s.IPConfigName
 	o.Addresses = s.Addresses
 	o.BackendPool = s.BackendPool
 	o.HasPublicIP = s.HasPublicIP
+	o.IpConfigName = s.IpConfigName
 	o.Subnet = s.Subnet
 
 	return nil
@@ -163,14 +163,14 @@ func (*CloudIPConfiguration) AttributeSpecifications() map[string]elemental.Attr
 func (o *CloudIPConfiguration) ValueForAttribute(name string) interface{} {
 
 	switch name {
-	case "IPConfigName":
-		return o.IPConfigName
 	case "addresses":
 		return o.Addresses
 	case "backendPool":
 		return o.BackendPool
 	case "hasPublicIP":
 		return o.HasPublicIP
+	case "ipConfigName":
+		return o.IpConfigName
 	case "subnet":
 		return o.Subnet
 	}
@@ -180,16 +180,6 @@ func (o *CloudIPConfiguration) ValueForAttribute(name string) interface{} {
 
 // CloudIPConfigurationAttributesMap represents the map of attribute for CloudIPConfiguration.
 var CloudIPConfigurationAttributesMap = map[string]elemental.AttributeSpecification{
-	"IPConfigName": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "ipconfigname",
-		ConvertedName:  "IPConfigName",
-		Description:    `IP configuration of the NICs associated to the Scale Set.`,
-		Exposed:        true,
-		Name:           "IPConfigName",
-		Stored:         true,
-		Type:           "string",
-	},
 	"Addresses": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "addresses",
@@ -223,6 +213,16 @@ interface.`,
 		Stored:         true,
 		Type:           "boolean",
 	},
+	"IpConfigName": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ipconfigname",
+		ConvertedName:  "IpConfigName",
+		Description:    `IP configuration of the NICs associated to the Scale Set.`,
+		Exposed:        true,
+		Name:           "ipConfigName",
+		Stored:         true,
+		Type:           "string",
+	},
 	"Subnet": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "subnet",
@@ -237,16 +237,6 @@ interface.`,
 
 // CloudIPConfigurationLowerCaseAttributesMap represents the map of attribute for CloudIPConfiguration.
 var CloudIPConfigurationLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
-	"ipconfigname": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "ipconfigname",
-		ConvertedName:  "IPConfigName",
-		Description:    `IP configuration of the NICs associated to the Scale Set.`,
-		Exposed:        true,
-		Name:           "IPConfigName",
-		Stored:         true,
-		Type:           "string",
-	},
 	"addresses": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "addresses",
@@ -280,6 +270,16 @@ interface.`,
 		Stored:         true,
 		Type:           "boolean",
 	},
+	"ipconfigname": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "ipconfigname",
+		ConvertedName:  "IpConfigName",
+		Description:    `IP configuration of the NICs associated to the Scale Set.`,
+		Exposed:        true,
+		Name:           "ipConfigName",
+		Stored:         true,
+		Type:           "string",
+	},
 	"subnet": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "subnet",
@@ -293,9 +293,9 @@ interface.`,
 }
 
 type mongoAttributesCloudIPConfiguration struct {
-	IPConfigName string          `bson:"ipconfigname"`
 	Addresses    []*CloudAddress `bson:"addresses"`
 	BackendPool  []string        `bson:"backendpool"`
 	HasPublicIP  bool            `bson:"haspublicip"`
+	IpConfigName string          `bson:"ipconfigname"`
 	Subnet       string          `bson:"subnet"`
 }
