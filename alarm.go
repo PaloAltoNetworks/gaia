@@ -12,6 +12,23 @@ import (
 	"go.aporeto.io/elemental"
 )
 
+// AlarmSeverityValue represents the possible values for attribute "severity".
+type AlarmSeverityValue string
+
+const (
+	// AlarmSeverityCritical represents the value Critical.
+	AlarmSeverityCritical AlarmSeverityValue = "Critical"
+
+	// AlarmSeverityHigh represents the value High.
+	AlarmSeverityHigh AlarmSeverityValue = "High"
+
+	// AlarmSeverityLow represents the value Low.
+	AlarmSeverityLow AlarmSeverityValue = "Low"
+
+	// AlarmSeverityMedium represents the value Medium.
+	AlarmSeverityMedium AlarmSeverityValue = "Medium"
+)
+
 // AlarmStatusValue represents the possible values for attribute "status".
 type AlarmStatusValue string
 
@@ -153,6 +170,9 @@ type Alarm struct {
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
+	// Severity of the alarm.
+	Severity AlarmSeverityValue `json:"severity" msgpack:"severity" bson:"severity" mapstructure:"severity,omitempty"`
+
 	// Status of the alarm.
 	Status AlarmStatusValue `json:"status" msgpack:"status" bson:"status" mapstructure:"status,omitempty"`
 
@@ -182,8 +202,8 @@ func NewAlarm() *Alarm {
 		AssociatedTags: []string{},
 		Emails:         []string{},
 		MigrationsLog:  map[string]string{},
-		Occurrences:    []time.Time{},
 		NormalizedTags: []string{},
+		Occurrences:    []time.Time{},
 		Status:         AlarmStatusOpen,
 	}
 }
@@ -234,6 +254,7 @@ func (o *Alarm) GetBSON() (interface{}, error) {
 	s.NormalizedTags = o.NormalizedTags
 	s.Occurrences = o.Occurrences
 	s.Protected = o.Protected
+	s.Severity = o.Severity
 	s.Status = o.Status
 	s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
 	s.UpdateTime = o.UpdateTime
@@ -272,6 +293,7 @@ func (o *Alarm) SetBSON(raw bson.Raw) error {
 	o.NormalizedTags = s.NormalizedTags
 	o.Occurrences = s.Occurrences
 	o.Protected = s.Protected
+	o.Severity = s.Severity
 	o.Status = s.Status
 	o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
 	o.UpdateTime = s.UpdateTime
@@ -504,6 +526,7 @@ func (o *Alarm) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			NormalizedTags:       &o.NormalizedTags,
 			Occurrences:          &o.Occurrences,
 			Protected:            &o.Protected,
+			Severity:             &o.Severity,
 			Status:               &o.Status,
 			UpdateIdempotencyKey: &o.UpdateIdempotencyKey,
 			UpdateTime:           &o.UpdateTime,
@@ -549,6 +572,8 @@ func (o *Alarm) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Occurrences = &(o.Occurrences)
 		case "protected":
 			sp.Protected = &(o.Protected)
+		case "severity":
+			sp.Severity = &(o.Severity)
 		case "status":
 			sp.Status = &(o.Status)
 		case "updateIdempotencyKey":
@@ -623,6 +648,9 @@ func (o *Alarm) Patch(sparse elemental.SparseIdentifiable) {
 	if so.Protected != nil {
 		o.Protected = *so.Protected
 	}
+	if so.Severity != nil {
+		o.Severity = *so.Severity
+	}
 	if so.Status != nil {
 		o.Status = *so.Status
 	}
@@ -691,6 +719,10 @@ func (o *Alarm) Validate() error {
 	}
 
 	if err := elemental.ValidateMaximumLength("name", o.Name, 256, false); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := elemental.ValidateStringInList("severity", string(o.Severity), []string{"Low", "Medium", "High", "Critical"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -766,6 +798,8 @@ func (o *Alarm) ValueForAttribute(name string) interface{} {
 		return o.Occurrences
 	case "protected":
 		return o.Protected
+	case "severity":
+		return o.Severity
 	case "status":
 		return o.Status
 	case "updateIdempotencyKey":
@@ -1008,6 +1042,16 @@ identifier, then only the occurrence will be incremented.`,
 		Setter:         true,
 		Stored:         true,
 		Type:           "boolean",
+	},
+	"Severity": {
+		AllowedChoices: []string{"Low", "Medium", "High", "Critical"},
+		BSONFieldName:  "severity",
+		ConvertedName:  "Severity",
+		Description:    `Severity of the alarm.`,
+		Exposed:        true,
+		Name:           "severity",
+		Stored:         true,
+		Type:           "enum",
 	},
 	"Status": {
 		AllowedChoices: []string{"Acknowledged", "Open", "Resolved"},
@@ -1307,6 +1351,16 @@ identifier, then only the occurrence will be incremented.`,
 		Stored:         true,
 		Type:           "boolean",
 	},
+	"severity": {
+		AllowedChoices: []string{"Low", "Medium", "High", "Critical"},
+		BSONFieldName:  "severity",
+		ConvertedName:  "Severity",
+		Description:    `Severity of the alarm.`,
+		Exposed:        true,
+		Name:           "severity",
+		Stored:         true,
+		Type:           "enum",
+	},
 	"status": {
 		AllowedChoices: []string{"Acknowledged", "Open", "Resolved"},
 		BSONFieldName:  "status",
@@ -1495,6 +1549,9 @@ type SparseAlarm struct {
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
+	// Severity of the alarm.
+	Severity *AlarmSeverityValue `json:"severity,omitempty" msgpack:"severity,omitempty" bson:"severity,omitempty" mapstructure:"severity,omitempty"`
+
 	// Status of the alarm.
 	Status *AlarmStatusValue `json:"status,omitempty" msgpack:"status,omitempty" bson:"status,omitempty" mapstructure:"status,omitempty"`
 
@@ -1602,6 +1659,9 @@ func (o *SparseAlarm) GetBSON() (interface{}, error) {
 	if o.Protected != nil {
 		s.Protected = o.Protected
 	}
+	if o.Severity != nil {
+		s.Severity = o.Severity
+	}
 	if o.Status != nil {
 		s.Status = o.Status
 	}
@@ -1680,6 +1740,9 @@ func (o *SparseAlarm) SetBSON(raw bson.Raw) error {
 	}
 	if s.Protected != nil {
 		o.Protected = s.Protected
+	}
+	if s.Severity != nil {
+		o.Severity = s.Severity
 	}
 	if s.Status != nil {
 		o.Status = s.Status
@@ -1760,6 +1823,9 @@ func (o *SparseAlarm) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Protected != nil {
 		out.Protected = *o.Protected
+	}
+	if o.Severity != nil {
+		out.Severity = *o.Severity
 	}
 	if o.Status != nil {
 		out.Status = *o.Status
@@ -2045,6 +2111,7 @@ type mongoAttributesAlarm struct {
 	NormalizedTags       []string            `bson:"normalizedtags"`
 	Occurrences          []time.Time         `bson:"occurrences"`
 	Protected            bool                `bson:"protected"`
+	Severity             AlarmSeverityValue  `bson:"severity"`
 	Status               AlarmStatusValue    `bson:"status"`
 	UpdateIdempotencyKey string              `bson:"updateidempotencykey"`
 	UpdateTime           time.Time           `bson:"updatetime"`
@@ -2068,6 +2135,7 @@ type mongoAttributesSparseAlarm struct {
 	NormalizedTags       *[]string            `bson:"normalizedtags,omitempty"`
 	Occurrences          *[]time.Time         `bson:"occurrences,omitempty"`
 	Protected            *bool                `bson:"protected,omitempty"`
+	Severity             *AlarmSeverityValue  `bson:"severity,omitempty"`
 	Status               *AlarmStatusValue    `bson:"status,omitempty"`
 	UpdateIdempotencyKey *string              `bson:"updateidempotencykey,omitempty"`
 	UpdateTime           *time.Time           `bson:"updatetime,omitempty"`
