@@ -106,6 +106,7 @@ attributes:
     - Medium
     - High
     - Critical
+    default_value: Low
     example_value: Low
     omit_empty: true
 

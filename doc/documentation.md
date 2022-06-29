@@ -4352,6 +4352,12 @@ Type: `enum(Low | Medium | High | Critical)`
 
 Severity of the alarm.
 
+Default value:
+
+```json
+"Low"
+```
+
 ##### `status`
 
 Type: `enum(Acknowledged | Open | Resolved)`

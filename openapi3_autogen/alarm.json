@@ -104,6 +104,7 @@
             "type": "boolean"
           },
           "severity": {
+            "default": "Low",
             "description": "Severity of the alarm.",
             "enum": [
               "Low",
