@@ -107,6 +107,7 @@ attributes:
     - High
     - Critical
     example_value: Low
+    omit_empty: true
 
   - name: status
     description: Status of the alarm.
