@@ -111,8 +111,7 @@
               "Medium",
               "High",
               "Critical"
-            ],
-            "example": "Low"
+            ]
           },
           "status": {
             "default": "Open",
