@@ -984,6 +984,12 @@ relations:
     - $archivable
   create:
     description: Creates a new processing unit.
+    parameters:
+      entries:
+      - name: signtags
+        description: Sets the flag for the backend to sign the tags.
+        type: string
+        example_value: "true"
 
 - rest_name: processingunitpolicy
   get:
@@ -1243,6 +1249,10 @@ relations:
 - rest_name: token
   create:
     description: Creates a new token.
+
+- rest_name: signhash
+  create:
+    description: Creates the signature of the hashed string.
 
 - rest_name: tokenscopepolicy
   get:

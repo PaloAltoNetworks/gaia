@@ -90,6 +90,7 @@ attributes:
     description: AssociatedLocalCAID holds the remote ID of the certificate authority
       to use.
     type: string
+    exposed: true  
     stored: true
     read_only: true
 
