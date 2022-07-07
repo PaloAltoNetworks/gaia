@@ -20428,6 +20428,7 @@ units.
   "propagate": false,
   "protected": false,
   "proxyProtocolEnabled": false,
+  "proxyProtocolPreserveHeader": false,
   "publicApplicationPort": 443,
   "selectors": [
     [
@@ -20781,6 +20782,12 @@ Defines if the object is protected.
 Type: `boolean`
 
 Enable trust in proxy protocols header.
+
+##### `proxyProtocolPreserveHeader`
+
+Type: `boolean`
+
+Do not strip proxy protocol header.
 
 ##### `proxyProtocolSubnets`
 
