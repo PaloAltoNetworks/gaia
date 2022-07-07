@@ -296,6 +296,12 @@ attributes:
     exposed: true
     stored: true
 
+  - name: proxyProtocolPreserveHeader
+    description: Do not strip proxy protocol header.
+    type: boolean
+    exposed: true
+    stored: true
+
   - name: proxyProtocolSubnets
     description: Only allow proxy protocols from the given subnets .
     type: list
