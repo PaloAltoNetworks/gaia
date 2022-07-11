@@ -4951,6 +4951,10 @@ func init() {
 							"v2",
 						},
 					},
+					{
+						Name: "stripNetworkEntries",
+						Type: "boolean",
+					},
 				},
 			},
 		},
@@ -4965,6 +4969,10 @@ func init() {
 							"v2",
 						},
 					},
+					{
+						Name: "stripNetworkEntries",
+						Type: "boolean",
+					},
 				},
 			},
 		},
@@ -4978,6 +4986,10 @@ func init() {
 							"v1",
 							"v2",
 						},
+					},
+					{
+						Name: "stripNetworkEntries",
+						Type: "boolean",
 					},
 				},
 			},
