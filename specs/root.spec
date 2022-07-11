@@ -1059,6 +1059,10 @@ relations:
     - $filtering
     - $timewindow
 
+- rest_name: reputation
+  create:
+    description: Get reputation information of IP/FQDN from PANDB.
+
 - rest_name: revocation
   get:
     description: Verify the revocation of a certificate according to parameters.
@@ -1181,6 +1185,16 @@ relations:
     global_parameters:
     - $timewindow
     - $flowoffset
+    - $filtering
+
+- rest_name: suspiciousactivity
+  get:
+    description: Retrieves a list of suspicious activities.
+    global_parameters:
+    - $filtering
+    - $propagatable
+  create:
+    description: Creates a new suspicious activity.
 
 - rest_name: tag
   get:
@@ -1262,6 +1276,16 @@ relations:
     - $propagatable
   create:
     description: Creates a new trusted namespace.
+
+- rest_name: unknownipaddress
+  get:
+    description: Retrieves a list of unknown IP addresses.
+    global_parameters:
+    - $filtering
+    - $propagatable
+  create:
+    description: Creates a new unknown IP address entry to store an IP/FQDN to be
+      scanned.
 
 - rest_name: useraccesspolicy
   get:

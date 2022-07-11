@@ -27,6 +27,7 @@ var (
 		"automation":                AutomationIdentity,
 		"automationaction":          AutomationActionIdentity,
 		"automationcondition":       AutomationConditionIdentity,
+		"azureresource":             AzureResourceIdentity,
 		"cachedflowreport":          CachedFlowReportIdentity,
 		"category":                  CategoryIdentity,
 
@@ -63,7 +64,8 @@ var (
 		"cloudschedulednetworkquery": CloudScheduledNetworkQueryIdentity,
 		"cloudservicetag":            CloudServiceTagIdentity,
 		"cloudsnapshotaccount":       CloudSnapshotAccountIdentity,
-		"cloudsubnet":                CloudSubnetIdentity,
+
+		"cloudsubnet": CloudSubnetIdentity,
 
 		"cloudvpc": CloudVPCIdentity,
 
@@ -173,6 +175,7 @@ var (
 		"rendertemplate":          RenderTemplateIdentity,
 		"report":                  ReportIdentity,
 		"reportsquery":            ReportsQueryIdentity,
+		"reputation":              ReputationIdentity,
 		"revocation":              RevocationIdentity,
 		"role":                    RoleIdentity,
 		"root":                    RootIdentity,
@@ -192,6 +195,7 @@ var (
 		"statsinfo":               StatsInfoIdentity,
 		"statsquery":              StatsQueryIdentity,
 		"suggestedpolicy":         SuggestedPolicyIdentity,
+		"suspiciousactivity":      SuspiciousActivityIdentity,
 		"tag":                     TagIdentity,
 		"taginject":               TagInjectIdentity,
 		"tagprefix":               TagPrefixIdentity,
@@ -205,6 +209,8 @@ var (
 		"trigger":          TriggerIdentity,
 		"trustedca":        TrustedCAIdentity,
 		"trustednamespace": TrustedNamespaceIdentity,
+
+		"unknownipaddress": UnknownIPAddressIdentity,
 
 		"useraccesspolicy":     UserAccessPolicyIdentity,
 		"validaterql":          ValidateRQLIdentity,
@@ -235,6 +241,7 @@ var (
 		"automations":                 AutomationIdentity,
 		"automationactions":           AutomationActionIdentity,
 		"automationconditions":        AutomationConditionIdentity,
+		"azureresources":              AzureResourceIdentity,
 		"cachedflowreports":           CachedFlowReportIdentity,
 		"categories":                  CategoryIdentity,
 
@@ -271,7 +278,8 @@ var (
 		"cloudschedulednetworkqueries": CloudScheduledNetworkQueryIdentity,
 		"cloudserviceta":               CloudServiceTagIdentity,
 		"cloudsnapshotaccounts":        CloudSnapshotAccountIdentity,
-		"cloudsubnets":                 CloudSubnetIdentity,
+
+		"cloudsubnets": CloudSubnetIdentity,
 
 		"cloudvpcs": CloudVPCIdentity,
 
@@ -381,6 +389,7 @@ var (
 		"rendertemplates":           RenderTemplateIdentity,
 		"reports":                   ReportIdentity,
 		"reportsqueries":            ReportsQueryIdentity,
+		"reputations":               ReputationIdentity,
 		"revocations":               RevocationIdentity,
 		"roles":                     RoleIdentity,
 		"root":                      RootIdentity,
@@ -400,6 +409,7 @@ var (
 		"statsinfo":                 StatsInfoIdentity,
 		"statsqueries":              StatsQueryIdentity,
 		"suggestedpolicies":         SuggestedPolicyIdentity,
+		"suspiciousactivities":      SuspiciousActivityIdentity,
 		"tags":                      TagIdentity,
 		"taginjects":                TagInjectIdentity,
 		"tagprefixes":               TagPrefixIdentity,
@@ -413,6 +423,8 @@ var (
 		"triggers":          TriggerIdentity,
 		"trustedcas":        TrustedCAIdentity,
 		"trustednamespaces": TrustedNamespaceIdentity,
+
+		"unknownipaddresses": UnknownIPAddressIdentity,
 
 		"useraccesspolicies":    UserAccessPolicyIdentity,
 		"validaterql":           ValidateRQLIdentity,
@@ -519,6 +531,7 @@ var (
 		"cook":               RenderTemplateIdentity,
 		"rtpl":               RenderTemplateIdentity,
 		"rq":                 ReportsQueryIdentity,
+		"rep":                ReputationIdentity,
 		"srv":                ServiceIdentity,
 		"srvdep":             ServiceDependencyPolicyIdentity,
 		"srvdeps":            ServiceDependencyPolicyIdentity,
@@ -530,6 +543,7 @@ var (
 		"sugpols":            SuggestedPolicyIdentity,
 		"sugg":               SuggestedPolicyIdentity,
 		"suggs":              SuggestedPolicyIdentity,
+		"susact":             SuspiciousActivityIdentity,
 		"tsp":                TokenScopePolicyIdentity,
 		"trustedns":          TrustedNamespaceIdentity,
 		"usrpol":             UserAccessPolicyIdentity,
@@ -664,6 +678,13 @@ var (
 			{"name"},
 			{"createIdempotencyKey"},
 		},
+		"azureresource": {
+			{"namespace", "resourceID"},
+			{"namespace", "subscriptionID", "kind"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{":shard", ":unique", "zone", "zHash"},
+		},
 		"cachedflowreport": {
 			{"sourceID"},
 			{"namespace", "timestamp"},
@@ -794,7 +815,7 @@ var (
 			{"namespace", "vpcid", "parameters"},
 			{"namespace", "type", "parameters"},
 			{"namespace", "nativeID"},
-			{"namespace", "vpcid", "type", "subtype"},
+			{"namespace", "vpcid", "type", "subtype", "cloudtype"},
 			{"namespace", "vpcid"},
 			{"namespace"},
 			{"namespace", "accountid"},
@@ -1272,6 +1293,7 @@ var (
 		"rendertemplate":  nil,
 		"report":          nil,
 		"reportsquery":    nil,
+		"reputation":      nil,
 		"revocation": {
 			{":shard", ":unique", "zone", "zHash"},
 		},
@@ -1333,6 +1355,15 @@ var (
 		"statsinfo":              nil,
 		"statsquery":             nil,
 		"suggestedpolicy":        nil,
+		"suspiciousactivity": {
+			{"updateIdempotencyKey"},
+			{"namespace", "sourceName"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "sourceID"},
+			{"createIdempotencyKey"},
+			{":shard", ":unique", "zone", "zHash"},
+		},
 		"tag": {
 			{"namespace"},
 			{"namespace", "normalizedTags"},
@@ -1361,6 +1392,15 @@ var (
 			{"namespace", "normalizedTags"},
 			{"name"},
 			{"createIdempotencyKey"},
+		},
+		"unknownipaddress": {
+			{"updateIdempotencyKey"},
+			{"namespace", "createTime"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "address"},
+			{"createIdempotencyKey"},
+			{":shard", ":unique", "zone", "zHash"},
 		},
 		"useraccesspolicy":    nil,
 		"validaterql":         nil,
@@ -1461,6 +1501,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewAutomationAction()
 	case AutomationConditionIdentity:
 		return NewAutomationCondition()
+	case AzureResourceIdentity:
+		return NewAzureResource()
 	case CachedFlowReportIdentity:
 		return NewCachedFlowReport()
 	case CategoryIdentity:
@@ -1703,6 +1745,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewReport()
 	case ReportsQueryIdentity:
 		return NewReportsQuery()
+	case ReputationIdentity:
+		return NewReputation()
 	case RevocationIdentity:
 		return NewRevocation()
 	case RoleIdentity:
@@ -1741,6 +1785,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewStatsQuery()
 	case SuggestedPolicyIdentity:
 		return NewSuggestedPolicy()
+	case SuspiciousActivityIdentity:
+		return NewSuspiciousActivity()
 	case TagIdentity:
 		return NewTag()
 	case TagInjectIdentity:
@@ -1763,6 +1809,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewTrustedCA()
 	case TrustedNamespaceIdentity:
 		return NewTrustedNamespace()
+	case UnknownIPAddressIdentity:
+		return NewUnknownIPAddress()
 	case UserAccessPolicyIdentity:
 		return NewUserAccessPolicy()
 	case ValidateRQLIdentity:
@@ -1824,6 +1872,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseAutomationAction()
 	case AutomationConditionIdentity:
 		return NewSparseAutomationCondition()
+	case AzureResourceIdentity:
+		return NewSparseAzureResource()
 	case CachedFlowReportIdentity:
 		return NewSparseCachedFlowReport()
 	case CategoryIdentity:
@@ -2066,6 +2116,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseReport()
 	case ReportsQueryIdentity:
 		return NewSparseReportsQuery()
+	case ReputationIdentity:
+		return NewSparseReputation()
 	case RevocationIdentity:
 		return NewSparseRevocation()
 	case RoleIdentity:
@@ -2102,6 +2154,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseStatsQuery()
 	case SuggestedPolicyIdentity:
 		return NewSparseSuggestedPolicy()
+	case SuspiciousActivityIdentity:
+		return NewSparseSuspiciousActivity()
 	case TagIdentity:
 		return NewSparseTag()
 	case TagInjectIdentity:
@@ -2124,6 +2178,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseTrustedCA()
 	case TrustedNamespaceIdentity:
 		return NewSparseTrustedNamespace()
+	case UnknownIPAddressIdentity:
+		return NewSparseUnknownIPAddress()
 	case UserAccessPolicyIdentity:
 		return NewSparseUserAccessPolicy()
 	case ValidateRQLIdentity:
@@ -2195,6 +2251,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &AutomationActionsList{}
 	case AutomationConditionIdentity:
 		return &AutomationConditionsList{}
+	case AzureResourceIdentity:
+		return &AzureResourcesList{}
 	case CachedFlowReportIdentity:
 		return &CachedFlowReportsList{}
 	case CategoryIdentity:
@@ -2437,6 +2495,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &ReportsList{}
 	case ReportsQueryIdentity:
 		return &ReportsQueriesList{}
+	case ReputationIdentity:
+		return &ReputationsList{}
 	case RevocationIdentity:
 		return &RevocationsList{}
 	case RoleIdentity:
@@ -2473,6 +2533,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &StatsQueriesList{}
 	case SuggestedPolicyIdentity:
 		return &SuggestedPoliciesList{}
+	case SuspiciousActivityIdentity:
+		return &SuspiciousActivitiesList{}
 	case TagIdentity:
 		return &TagsList{}
 	case TagInjectIdentity:
@@ -2495,6 +2557,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &TrustedCAsList{}
 	case TrustedNamespaceIdentity:
 		return &TrustedNamespacesList{}
+	case UnknownIPAddressIdentity:
+		return &UnknownIPAddressList{}
 	case UserAccessPolicyIdentity:
 		return &UserAccessPoliciesList{}
 	case ValidateRQLIdentity:
@@ -2556,6 +2620,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseAutomationActionsList{}
 	case AutomationConditionIdentity:
 		return &SparseAutomationConditionsList{}
+	case AzureResourceIdentity:
+		return &SparseAzureResourcesList{}
 	case CachedFlowReportIdentity:
 		return &SparseCachedFlowReportsList{}
 	case CategoryIdentity:
@@ -2798,6 +2864,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseReportsList{}
 	case ReportsQueryIdentity:
 		return &SparseReportsQueriesList{}
+	case ReputationIdentity:
+		return &SparseReputationsList{}
 	case RevocationIdentity:
 		return &SparseRevocationsList{}
 	case RoleIdentity:
@@ -2834,6 +2902,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseStatsQueriesList{}
 	case SuggestedPolicyIdentity:
 		return &SparseSuggestedPoliciesList{}
+	case SuspiciousActivityIdentity:
+		return &SparseSuspiciousActivitiesList{}
 	case TagIdentity:
 		return &SparseTagsList{}
 	case TagInjectIdentity:
@@ -2856,6 +2926,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseTrustedCAsList{}
 	case TrustedNamespaceIdentity:
 		return &SparseTrustedNamespacesList{}
+	case UnknownIPAddressIdentity:
+		return &SparseUnknownIPAddressList{}
 	case UserAccessPolicyIdentity:
 		return &SparseUserAccessPoliciesList{}
 	case ValidateRQLIdentity:
@@ -2916,6 +2988,7 @@ func AllIdentities() []elemental.Identity {
 		AutomationIdentity,
 		AutomationActionIdentity,
 		AutomationConditionIdentity,
+		AzureResourceIdentity,
 		CachedFlowReportIdentity,
 		CategoryIdentity,
 		ClaimsIdentity,
@@ -3037,6 +3110,7 @@ func AllIdentities() []elemental.Identity {
 		RenderTemplateIdentity,
 		ReportIdentity,
 		ReportsQueryIdentity,
+		ReputationIdentity,
 		RevocationIdentity,
 		RoleIdentity,
 		RootIdentity,
@@ -3056,6 +3130,7 @@ func AllIdentities() []elemental.Identity {
 		StatsInfoIdentity,
 		StatsQueryIdentity,
 		SuggestedPolicyIdentity,
+		SuspiciousActivityIdentity,
 		TagIdentity,
 		TagInjectIdentity,
 		TagPrefixIdentity,
@@ -3067,6 +3142,7 @@ func AllIdentities() []elemental.Identity {
 		TriggerIdentity,
 		TrustedCAIdentity,
 		TrustedNamespaceIdentity,
+		UnknownIPAddressIdentity,
 		UserAccessPolicyIdentity,
 		ValidateRQLIdentity,
 		ValidateUIParameterIdentity,
@@ -3142,6 +3218,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"autocon",
 		}
+	case AzureResourceIdentity:
+		return []string{}
 	case CachedFlowReportIdentity:
 		return []string{}
 	case CategoryIdentity:
@@ -3508,6 +3586,10 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"rq",
 		}
+	case ReputationIdentity:
+		return []string{
+			"rep",
+		}
 	case RevocationIdentity:
 		return []string{}
 	case RoleIdentity:
@@ -3563,6 +3645,10 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"sugg",
 			"suggs",
 		}
+	case SuspiciousActivityIdentity:
+		return []string{
+			"susact",
+		}
 	case TagIdentity:
 		return []string{}
 	case TagInjectIdentity:
@@ -3589,6 +3675,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"trustedns",
 		}
+	case UnknownIPAddressIdentity:
+		return []string{}
 	case UserAccessPolicyIdentity:
 		return []string{
 			"usrpol",

@@ -49,6 +49,10 @@
             "description": "If the endpoint has multiple connections and forwarding can be enabled between\nthem.",
             "type": "boolean"
           },
+          "hasPublicIP": {
+            "description": "If the endpoint has a public IP or is directly exposed.",
+            "type": "boolean"
+          },
           "imageID": {
             "description": "The imageID of running in the endpoint. Available for instances and\npotentially other 3rd parties. This can be the AMI ID in AWS or corresponding\ninstance imageID in other clouds.",
             "type": "string"
@@ -86,6 +90,7 @@
               "Interface",
               "Gateway",
               "GatewayLoadBalancer",
+              "ManagedService",
               "NotApplicable"
             ]
           },

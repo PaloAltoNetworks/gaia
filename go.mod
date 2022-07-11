@@ -3,7 +3,7 @@ module go.aporeto.io/gaia
 go 1.17
 
 // Aporeto
-require go.aporeto.io/elemental v1.100.1-0.20220329064507-afcf8911ac24
+require go.aporeto.io/elemental v1.100.1-0.20220524204820-ddfa01dc1c96
 
 require (
 	github.com/araddon/dateparse v0.0.0-20200409225146-d820a6159ab1 // indirect

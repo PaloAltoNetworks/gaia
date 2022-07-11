@@ -31,6 +31,12 @@ type CloudNetworkRule struct {
 	// policy.
 	Action CloudNetworkRuleActionValue `json:"action" msgpack:"action" bson:"action" mapstructure:"action,omitempty"`
 
+	// A list of tags to group resources.
+	GroupTags []string `json:"groupTags,omitempty" msgpack:"groupTags,omitempty" bson:"grouptags,omitempty" mapstructure:"groupTags,omitempty"`
+
+	// A list of ips range.
+	IpRanges []*CloudIPRange `json:"ipRanges,omitempty" msgpack:"ipRanges,omitempty" bson:"ipranges,omitempty" mapstructure:"ipRanges,omitempty"`
+
 	// A list of IP CIDRS that identify local endpoints.
 	LocalNetworks []string `json:"localNetworks,omitempty" msgpack:"localNetworks,omitempty" bson:"localnetworks,omitempty" mapstructure:"localNetworks,omitempty"`
 
@@ -57,6 +63,9 @@ type CloudNetworkRule struct {
 	// A list of Service Tags provided by the platform.
 	ServiceTags []string `json:"serviceTags,omitempty" msgpack:"serviceTags,omitempty" bson:"servicetags,omitempty" mapstructure:"serviceTags,omitempty"`
 
+	// A list of ips range for internal use. Not visible to end users.
+	StoredIPRanges []*CloudStoredIPRange `json:"storedIPRanges,omitempty" msgpack:"storedIPRanges,omitempty" bson:"storedipranges,omitempty" mapstructure:"storedIPRanges,omitempty"`
+
 	// An internal representation of the local networks to increase performance. Not
 	// visible
 	// to end users.
@@ -74,13 +83,16 @@ func NewCloudNetworkRule() *CloudNetworkRule {
 
 	return &CloudNetworkRule{
 		ModelVersion:        1,
-		Action:              CloudNetworkRuleActionAllow,
+		Object:              [][]string{},
+		GroupTags:           []string{},
+		IpRanges:            []*CloudIPRange{},
 		LocalNetworks:       []string{},
 		LocalServiceTags:    []string{},
 		Networks:            []string{},
-		Object:              [][]string{},
+		Action:              CloudNetworkRuleActionAllow,
 		ProtocolPorts:       []string{},
 		ServiceTags:         []string{},
+		StoredIPRanges:      []*CloudStoredIPRange{},
 		StoredLocalNetworks: []*net.IPNet{},
 		StoredNetworks:      []*net.IPNet{},
 	}
@@ -97,6 +109,8 @@ func (o *CloudNetworkRule) GetBSON() (interface{}, error) {
 	s := &mongoAttributesCloudNetworkRule{}
 
 	s.Action = o.Action
+	s.GroupTags = o.GroupTags
+	s.IpRanges = o.IpRanges
 	s.LocalNetworks = o.LocalNetworks
 	s.LocalServiceTags = o.LocalServiceTags
 	s.Networks = o.Networks
@@ -104,6 +118,7 @@ func (o *CloudNetworkRule) GetBSON() (interface{}, error) {
 	s.Priority = o.Priority
 	s.ProtocolPorts = o.ProtocolPorts
 	s.ServiceTags = o.ServiceTags
+	s.StoredIPRanges = o.StoredIPRanges
 	s.StoredLocalNetworks = o.StoredLocalNetworks
 	s.StoredNetworks = o.StoredNetworks
 
@@ -124,6 +139,8 @@ func (o *CloudNetworkRule) SetBSON(raw bson.Raw) error {
 	}
 
 	o.Action = s.Action
+	o.GroupTags = s.GroupTags
+	o.IpRanges = s.IpRanges
 	o.LocalNetworks = s.LocalNetworks
 	o.LocalServiceTags = s.LocalServiceTags
 	o.Networks = s.Networks
@@ -131,6 +148,7 @@ func (o *CloudNetworkRule) SetBSON(raw bson.Raw) error {
 	o.Priority = s.Priority
 	o.ProtocolPorts = s.ProtocolPorts
 	o.ServiceTags = s.ServiceTags
+	o.StoredIPRanges = s.StoredIPRanges
 	o.StoredLocalNetworks = s.StoredLocalNetworks
 	o.StoredNetworks = s.StoredNetworks
 
@@ -181,6 +199,16 @@ func (o *CloudNetworkRule) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	for _, sub := range o.IpRanges {
+		if sub == nil {
+			continue
+		}
+		elemental.ResetDefaultForZeroValues(sub)
+		if err := sub.Validate(); err != nil {
+			errors = errors.Append(err)
+		}
+	}
+
 	if err := ValidateOptionalCIDRorIPList("localNetworks", o.LocalNetworks); err != nil {
 		errors = errors.Append(err)
 	}
@@ -191,6 +219,16 @@ func (o *CloudNetworkRule) Validate() error {
 
 	if err := ValidateServicePorts("protocolPorts", o.ProtocolPorts); err != nil {
 		errors = errors.Append(err)
+	}
+
+	for _, sub := range o.StoredIPRanges {
+		if sub == nil {
+			continue
+		}
+		elemental.ResetDefaultForZeroValues(sub)
+		if err := sub.Validate(); err != nil {
+			errors = errors.Append(err)
+		}
 	}
 
 	if len(requiredErrors) > 0 {
@@ -229,6 +267,10 @@ func (o *CloudNetworkRule) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "action":
 		return o.Action
+	case "groupTags":
+		return o.GroupTags
+	case "ipRanges":
+		return o.IpRanges
 	case "localNetworks":
 		return o.LocalNetworks
 	case "localServiceTags":
@@ -243,6 +285,8 @@ func (o *CloudNetworkRule) ValueForAttribute(name string) interface{} {
 		return o.ProtocolPorts
 	case "serviceTags":
 		return o.ServiceTags
+	case "storedIPRanges":
+		return o.StoredIPRanges
 	case "storedLocalNetworks":
 		return o.StoredLocalNetworks
 	case "storedNetworks":
@@ -268,6 +312,31 @@ policy.`,
 		Required: true,
 		Stored:   true,
 		Type:     "enum",
+	},
+	"GroupTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "grouptags",
+		ConvertedName:  "GroupTags",
+		Description:    `A list of tags to group resources.`,
+		Exposed:        true,
+		Name:           "groupTags",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"IpRanges": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "ipranges",
+		ConvertedName:  "IpRanges",
+		Description:    `A list of ips range.`,
+		Exposed:        true,
+		Name:           "ipRanges",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "cloudiprange",
+		Type:           "refList",
 	},
 	"LocalNetworks": {
 		AllowedChoices: []string{},
@@ -355,6 +424,19 @@ is not allowed.`,
 		SubType:        "string",
 		Type:           "list",
 	},
+	"StoredIPRanges": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "storedipranges",
+		ConvertedName:  "StoredIPRanges",
+		Description:    `A list of ips range for internal use. Not visible to end users.`,
+		Exposed:        true,
+		Name:           "storedIPRanges",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "cloudstorediprange",
+		Type:           "refList",
+	},
 	"StoredLocalNetworks": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -402,6 +484,31 @@ policy.`,
 		Required: true,
 		Stored:   true,
 		Type:     "enum",
+	},
+	"grouptags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "grouptags",
+		ConvertedName:  "GroupTags",
+		Description:    `A list of tags to group resources.`,
+		Exposed:        true,
+		Name:           "groupTags",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"ipranges": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "ipranges",
+		ConvertedName:  "IpRanges",
+		Description:    `A list of ips range.`,
+		Exposed:        true,
+		Name:           "ipRanges",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "cloudiprange",
+		Type:           "refList",
 	},
 	"localnetworks": {
 		AllowedChoices: []string{},
@@ -489,6 +596,19 @@ is not allowed.`,
 		SubType:        "string",
 		Type:           "list",
 	},
+	"storedipranges": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "storedipranges",
+		ConvertedName:  "StoredIPRanges",
+		Description:    `A list of ips range for internal use. Not visible to end users.`,
+		Exposed:        true,
+		Name:           "storedIPRanges",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "cloudstorediprange",
+		Type:           "refList",
+	},
 	"storedlocalnetworks": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -522,6 +642,8 @@ to end users.`,
 
 type mongoAttributesCloudNetworkRule struct {
 	Action              CloudNetworkRuleActionValue `bson:"action"`
+	GroupTags           []string                    `bson:"grouptags,omitempty"`
+	IpRanges            []*CloudIPRange             `bson:"ipranges,omitempty"`
 	LocalNetworks       []string                    `bson:"localnetworks,omitempty"`
 	LocalServiceTags    []string                    `bson:"localservicetags,omitempty"`
 	Networks            []string                    `bson:"networks,omitempty"`
@@ -529,6 +651,7 @@ type mongoAttributesCloudNetworkRule struct {
 	Priority            int                         `bson:"priority,omitempty"`
 	ProtocolPorts       []string                    `bson:"protocolports"`
 	ServiceTags         []string                    `bson:"servicetags,omitempty"`
+	StoredIPRanges      []*CloudStoredIPRange       `bson:"storedipranges,omitempty"`
 	StoredLocalNetworks []*net.IPNet                `bson:"storedlocalnetworks,omitempty"`
 	StoredNetworks      []*net.IPNet                `bson:"storednetworks,omitempty"`
 }

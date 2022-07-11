@@ -829,6 +829,27 @@ map[string]string:
         }
       }
 
+map[string]time:
+  elemental:
+    type: map[string]time.Time
+    init: map[string]time.Time{}
+  jsonschema:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "date-time"
+        }
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "date-time"
+        }
+      }
+
 network:
   elemental:
     type: '*net.IPNet'

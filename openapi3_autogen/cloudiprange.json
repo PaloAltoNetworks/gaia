@@ -2,24 +2,18 @@
   "openapi": "3.0.3",
   "components": {
     "schemas": {
-      "cloudvpcdata": {
-        "description": "Managed the list of IP addresses associated with an interface.",
+      "cloudiprange": {
+        "description": "Parameters associated with a cloud ips range.",
         "properties": {
-          "addresses": {
-            "description": "Address CIDRs of the VPC.",
-            "example": [
-              "10.8.0.0/16",
-              "172.24.0.0/16"
-            ],
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
+          "endIP": {
+            "description": "End IP for the range.",
+            "type": "string"
+          },
+          "startIP": {
+            "description": "Starting IP for the range.",
+            "type": "string"
           }
         },
-        "required": [
-          "addresses"
-        ],
         "type": "object"
       }
     }
@@ -34,7 +28,7 @@
       "name": "TODO"
     },
     "termsOfService": "https://localhost/TODO",
-    "title": "cloudvpcdata",
+    "title": "cloudiprange",
     "version": "1.0"
   },
   "paths": {},

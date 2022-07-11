@@ -754,6 +754,8 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[AzureResourceIdentity] = &elemental.Relationship{}
+
 	relationshipsRegistry[CNSConfigIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -5046,6 +5048,12 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[ReputationIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
 	relationshipsRegistry[RevocationIdentity] = &elemental.Relationship{
 		Update: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -5654,7 +5662,14 @@ func init() {
 
 	relationshipsRegistry[SuggestedPolicyIdentity] = &elemental.Relationship{
 		RetrieveMany: map[string]*elemental.RelationshipInfo{
-			"flowreport": {},
+			"flowreport": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "propagated",
+						Type: "boolean",
+					},
+				},
+			},
 			"root": {
 				RequiredParameters: elemental.NewParametersRequirement(
 					[][][]string{
@@ -5704,12 +5719,24 @@ func init() {
 					{
 						Name: "flowOffset",
 						Type: "duration",
+					},
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
 					},
 				},
 			},
 		},
 		Info: map[string]*elemental.RelationshipInfo{
-			"flowreport": {},
+			"flowreport": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "propagated",
+						Type: "boolean",
+					},
+				},
+			},
 			"root": {
 				RequiredParameters: elemental.NewParametersRequirement(
 					[][][]string{
@@ -5759,6 +5786,67 @@ func init() {
 					{
 						Name: "flowOffset",
 						Type: "duration",
+					},
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+	}
+
+	relationshipsRegistry[SuspiciousActivityIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Update: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Patch: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		Delete: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+		Retrieve: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+					{
+						Name: "propagated",
+						Type: "boolean",
+					},
+				},
+			},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+					{
+						Name: "propagated",
+						Type: "boolean",
 					},
 				},
 			},
@@ -6063,6 +6151,42 @@ func init() {
 			"root": {},
 		},
 		Retrieve: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+					{
+						Name: "propagated",
+						Type: "boolean",
+					},
+				},
+			},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+					{
+						Name: "propagated",
+						Type: "boolean",
+					},
+				},
+			},
+		},
+	}
+
+	relationshipsRegistry[UnknownIPAddressIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
 		},
 		RetrieveMany: map[string]*elemental.RelationshipInfo{

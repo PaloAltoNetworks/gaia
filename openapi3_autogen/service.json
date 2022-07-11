@@ -206,6 +206,10 @@
             "description": "Enable trust in proxy protocols header.",
             "type": "boolean"
           },
+          "proxyProtocolPreserveHeader": {
+            "description": "Do not strip proxy protocol header.",
+            "type": "boolean"
+          },
           "proxyProtocolSubnets": {
             "description": "Only allow proxy protocols from the given subnets .",
             "items": {

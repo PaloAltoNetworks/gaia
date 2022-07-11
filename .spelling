@@ -95,6 +95,8 @@ CloudGraphNode
 CloudGraphNodeAction
 CloudInterfaceData
 CloudIPConfiguration
+CloudIPRange
+CloudStoredIPRange
 CloudLoadBalancer
 CloudLoadBalancerData
 CloudLoadBalancerDataTargetGroup
@@ -370,6 +372,7 @@ PacketReport
 PacketReport
 PacketReports
 Palo
+pandb
 parentID
 PartialMatch
 PasswordReset
@@ -440,6 +443,7 @@ quota
 QuotaCheck
 QuotaCheck
 QuotaPolicy
+range
 Reachable
 rebalance
 rebalance
@@ -511,6 +515,7 @@ subnet
 subnets
 subnets
 SuggestedPolicy
+SuspiciousActivity
 svc
 synack
 synack
@@ -551,9 +556,11 @@ UIParameter
 UIParameterVisibility
 UIStep
 unencrypted
+UnknownIPAddress
 unlogged
 URIs
 URIs
+URLReputation
 UserAccessPolicy
 UserAccessPolicy
 userland

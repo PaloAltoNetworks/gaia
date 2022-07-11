@@ -25,6 +25,7 @@ indexes:
   - vpcid
   - type
   - subtype
+  - cloudtype
 - - namespace
   - relatedObjectID
 - - namespace

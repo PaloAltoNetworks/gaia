@@ -2,24 +2,18 @@
   "openapi": "3.0.3",
   "components": {
     "schemas": {
-      "cloudvpcdata": {
-        "description": "Managed the list of IP addresses associated with an interface.",
+      "cloudstorediprange": {
+        "description": "Parameters associated with a stored cloud ips range.",
         "properties": {
-          "addresses": {
-            "description": "Address CIDRs of the VPC.",
-            "example": [
-              "10.8.0.0/16",
-              "172.24.0.0/16"
-            ],
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
+          "endIP": {
+            "description": "End IP for the range.",
+            "type": "object"
+          },
+          "startIP": {
+            "description": "Starting IP for the range.",
+            "type": "object"
           }
         },
-        "required": [
-          "addresses"
-        ],
         "type": "object"
       }
     }
@@ -34,7 +28,7 @@
       "name": "TODO"
     },
     "termsOfService": "https://localhost/TODO",
-    "title": "cloudvpcdata",
+    "title": "cloudstorediprange",
     "version": "1.0"
   },
   "paths": {},
