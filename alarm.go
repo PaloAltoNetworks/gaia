@@ -171,7 +171,7 @@ type Alarm struct {
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
 	// Severity of the alarm.
-	Severity AlarmSeverityValue `json:"severity,omitempty" msgpack:"severity,omitempty" bson:"severity,omitempty" mapstructure:"severity,omitempty"`
+	Severity AlarmSeverityValue `json:"severity" msgpack:"severity" bson:"severity" mapstructure:"severity,omitempty"`
 
 	// Status of the alarm.
 	Status AlarmStatusValue `json:"status" msgpack:"status" bson:"status" mapstructure:"status,omitempty"`
@@ -2114,7 +2114,7 @@ type mongoAttributesAlarm struct {
 	NormalizedTags       []string            `bson:"normalizedtags"`
 	Occurrences          []time.Time         `bson:"occurrences"`
 	Protected            bool                `bson:"protected"`
-	Severity             AlarmSeverityValue  `bson:"severity,omitempty"`
+	Severity             AlarmSeverityValue  `bson:"severity"`
 	Status               AlarmStatusValue    `bson:"status"`
 	UpdateIdempotencyKey string              `bson:"updateidempotencykey"`
 	UpdateTime           time.Time           `bson:"updatetime"`
