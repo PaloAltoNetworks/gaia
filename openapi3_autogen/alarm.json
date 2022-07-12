@@ -103,6 +103,16 @@
             "description": "Defines if the object is protected.",
             "type": "boolean"
           },
+          "severity": {
+            "default": "Low",
+            "description": "Severity of the alarm.",
+            "enum": [
+              "Low",
+              "Medium",
+              "High",
+              "Critical"
+            ]
+          },
           "status": {
             "default": "Open",
             "description": "Status of the alarm.",
