@@ -1518,9 +1518,6 @@ func ValidateAPIServerServiceName(attribute string, serviceName string) error {
 	return nil
 }
 
-// cloudTypeAzure is the cloud type string for Azure
-var cloudTypeAzure = "Azure"
-
 // ValidateCloudNetworkQueryEntity validates the CloudNetworkQuery entity and all the attribute relations.
 func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 
@@ -1546,7 +1543,7 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 		if isPrivate {
 			return makeValidationError("sourceIP", "'sourceIP' must be a public IP address")
 		}
-		if q.DestinationSelector != nil && len(q.DestinationSelector.CloudTypes) > 0 && strings.EqualFold(q.DestinationSelector.CloudTypes[0], cloudTypeAzure) {
+		if q.DestinationSelector != nil && len(q.DestinationSelector.CloudTypes) > 0 && strings.EqualFold(q.DestinationSelector.CloudTypes[0], constants.CloudTypeAzure) {
 			isAzureReservedIP, err := IsAddressAzureReserved(q.SourceIP)
 			if err != nil {
 				return makeValidationError("sourceIP", "'sourceIP' must be a valid IP address")
@@ -1569,7 +1566,7 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 		if isPrivate {
 			return makeValidationError("destinationIP", "'destinationIP' must be a public IP address")
 		}
-		if q.SourceSelector != nil && len(q.SourceSelector.CloudTypes) > 0 && strings.EqualFold(q.SourceSelector.CloudTypes[0], cloudTypeAzure) {
+		if q.SourceSelector != nil && len(q.SourceSelector.CloudTypes) > 0 && strings.EqualFold(q.SourceSelector.CloudTypes[0], constants.CloudTypeAzure) {
 			isAzureReservedIP, err := IsAddressAzureReserved(q.DestinationIP)
 			if err != nil {
 				return makeValidationError("destinationIP", "'destinationIP' must be a valid IP address")
@@ -1720,7 +1717,7 @@ func ValidateCloudNetworkQueryFilter(attribute string, f *CloudNetworkQueryFilte
 
 	var azure bool
 	for _, ct := range f.CloudTypes {
-		if strings.EqualFold(ct, cloudTypeAzure) {
+		if strings.EqualFold(ct, constants.CloudTypeAzure) {
 			azure = true
 			break
 		}
