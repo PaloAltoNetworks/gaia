@@ -1044,6 +1044,11 @@ relations:
         - v1
         - v2
 
+      - name: stripNetworkEntries
+        description: If set to true, the entries field of all network rules will be
+          stripped.
+        type: boolean
+
 - rest_name: rendertemplate
   create:
     description: Renders a new template.

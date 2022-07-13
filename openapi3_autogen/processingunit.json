@@ -592,6 +592,14 @@
                 "v2"
               ]
             }
+          },
+          {
+            "description": "If set to true, the entries field of all network rules will be stripped.",
+            "in": "query",
+            "name": "stripNetworkEntries",
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "responses": {

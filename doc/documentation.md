@@ -6223,6 +6223,7 @@ Render a policy for a processing unit.
 Parameters:
 
 - `renderer` (`enum(v1 | v2)`): Select the network policy renderer to use.
+- `stripNetworkEntries` (`boolean`): If set to true, the entries field of all network rules will be stripped.
 
 ##### `GET /processingunits/:id/renderedpolicies`
 
@@ -6231,6 +6232,7 @@ Retrieves the policies for the processing unit.
 Parameters:
 
 - `renderer` (`enum(v1 | v2)`): Select the network policy renderer to use.
+- `stripNetworkEntries` (`boolean`): If set to true, the entries field of all network rules will be stripped.
 
 #### Attributes
 
@@ -6739,6 +6741,7 @@ Retrieves the policies for the processing unit.
 Parameters:
 
 - `renderer` (`enum(v1 | v2)`): Select the network policy renderer to use.
+- `stripNetworkEntries` (`boolean`): If set to true, the entries field of all network rules will be stripped.
 
 ##### `GET /processingunits/:id/services`
 
