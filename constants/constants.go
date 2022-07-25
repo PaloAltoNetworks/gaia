@@ -460,3 +460,12 @@ const (
 	// ValidationConstraintViolationKey is added in elemental errors when having a constraint violation.
 	ValidationConstraintViolationKey = "constraintViolation"
 )
+
+// Cloud type constants
+const (
+	// CloudTypeAWS is the key of cloud type AWS
+	CloudTypeAWS = "AWS"
+
+	// CloudTypeAzure is the key of cloud type Azure
+	CloudTypeAzure = "Azure"
+)

@@ -4217,6 +4217,7 @@ Represents an event requiring attention.
   "kind": "aporeto.alarm.kind",
   "name": "the name",
   "protected": false,
+  "severity": "Low",
   "status": "Open"
 }
 ```
@@ -4344,6 +4345,18 @@ Number of times this alarm has been seen.
 Type: `boolean`
 
 Defines if the object is protected.
+
+##### `severity`
+
+Type: `enum(Low | Medium | High | Critical)`
+
+Severity of the alarm.
+
+Default value:
+
+```json
+"Low"
+```
 
 ##### `status`
 
@@ -6210,6 +6223,7 @@ Render a policy for a processing unit.
 Parameters:
 
 - `renderer` (`enum(v1 | v2)`): Select the network policy renderer to use.
+- `stripNetworkEntries` (`boolean`): If set to true, the entries field of all network rules will be stripped.
 
 ##### `GET /processingunits/:id/renderedpolicies`
 
@@ -6218,6 +6232,7 @@ Retrieves the policies for the processing unit.
 Parameters:
 
 - `renderer` (`enum(v1 | v2)`): Select the network policy renderer to use.
+- `stripNetworkEntries` (`boolean`): If set to true, the entries field of all network rules will be stripped.
 
 #### Attributes
 
@@ -6726,6 +6741,7 @@ Retrieves the policies for the processing unit.
 Parameters:
 
 - `renderer` (`enum(v1 | v2)`): Select the network policy renderer to use.
+- `stripNetworkEntries` (`boolean`): If set to true, the entries field of all network rules will be stripped.
 
 ##### `GET /processingunits/:id/services`
 

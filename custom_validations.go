@@ -1543,6 +1543,15 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 		if isPrivate {
 			return makeValidationError("sourceIP", "'sourceIP' must be a public IP address")
 		}
+		if q.DestinationSelector != nil && len(q.DestinationSelector.CloudTypes) > 0 && strings.EqualFold(q.DestinationSelector.CloudTypes[0], constants.CloudTypeAzure) {
+			isAzureReservedIP, err := IsAddressAzureReserved(q.SourceIP)
+			if err != nil {
+				return makeValidationError("sourceIP", "'sourceIP' must be a valid IP address")
+			}
+			if isAzureReservedIP {
+				return makeValidationError("sourceIP", "'sourceIP' cannot be Azure reserved public IP addresses")
+			}
+		}
 	}
 
 	if !emptySourceSelector && len(q.SourceSelector.PaasTypes) != 0 {
@@ -1556,6 +1565,15 @@ func ValidateCloudNetworkQueryEntity(q *CloudNetworkQuery) error {
 		}
 		if isPrivate {
 			return makeValidationError("destinationIP", "'destinationIP' must be a public IP address")
+		}
+		if q.SourceSelector != nil && len(q.SourceSelector.CloudTypes) > 0 && strings.EqualFold(q.SourceSelector.CloudTypes[0], constants.CloudTypeAzure) {
+			isAzureReservedIP, err := IsAddressAzureReserved(q.DestinationIP)
+			if err != nil {
+				return makeValidationError("destinationIP", "'destinationIP' must be a valid IP address")
+			}
+			if isAzureReservedIP {
+				return makeValidationError("destinationIP", "'destinationIP' cannot be Azure reserved public IP addresses")
+			}
 		}
 	}
 
@@ -1699,7 +1717,7 @@ func ValidateCloudNetworkQueryFilter(attribute string, f *CloudNetworkQueryFilte
 
 	var azure bool
 	for _, ct := range f.CloudTypes {
-		if strings.EqualFold(ct, "Azure") {
+		if strings.EqualFold(ct, constants.CloudTypeAzure) {
 			azure = true
 			break
 		}
@@ -1733,6 +1751,31 @@ func IsAddressPrivate(address string) (bool, error) {
 	}
 
 	for _, s := range privateIPSpace {
+		// predefined space
+		_, subnet, _ := net.ParseCIDR(s) // nolint errcheck
+
+		if subnet.Contains(network.IP) {
+			return true, nil
+		}
+	}
+
+	return false, nil
+}
+
+var azureReservedPublicIPSpace = []string{
+	"168.63.129.16/32", // Azure reserved loadbalancer communication channel
+}
+
+// IsAddressAzureReserved will check an address and return true if it is
+// part of the Azure reserved public IP ranges
+func IsAddressAzureReserved(address string) (bool, error) {
+
+	network, err := ipNetFromString(address)
+	if err != nil {
+		return false, err
+	}
+
+	for _, s := range azureReservedPublicIPSpace {
 		// predefined space
 		_, subnet, _ := net.ParseCIDR(s) // nolint errcheck
 

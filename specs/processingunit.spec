@@ -337,6 +337,11 @@ relations:
         - v1
         - v2
 
+      - name: stripNetworkEntries
+        description: If set to true, the entries field of all network rules will be
+          stripped.
+        type: boolean
+
 - rest_name: service
   get:
     description: Retrieves the services used by a processing unit.
