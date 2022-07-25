@@ -18,6 +18,9 @@ const (
 	// AzureResourceKindBackendAddressPool represents the value BackendAddressPool.
 	AzureResourceKindBackendAddressPool AzureResourceKindValue = "BackendAddressPool"
 
+	// AzureResourceKindDatabaseAccount represents the value DatabaseAccount.
+	AzureResourceKindDatabaseAccount AzureResourceKindValue = "DatabaseAccount"
+
 	// AzureResourceKindFrontendIPConfiguration represents the value FrontendIPConfiguration.
 	AzureResourceKindFrontendIPConfiguration AzureResourceKindValue = "FrontendIPConfiguration"
 
@@ -67,6 +70,9 @@ type AzureResourceProviderValue string
 const (
 	// AzureResourceProviderMicrosoftCompute represents the value MicrosoftCompute.
 	AzureResourceProviderMicrosoftCompute AzureResourceProviderValue = "MicrosoftCompute"
+
+	// AzureResourceProviderMicrosoftDocumentDB represents the value MicrosoftDocumentDB.
+	AzureResourceProviderMicrosoftDocumentDB AzureResourceProviderValue = "MicrosoftDocumentDB"
 
 	// AzureResourceProviderMicrosoftNetwork represents the value MicrosoftNetwork.
 	AzureResourceProviderMicrosoftNetwork AzureResourceProviderValue = "MicrosoftNetwork"
@@ -498,7 +504,7 @@ func (o *AzureResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration", "DatabaseAccount"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -510,7 +516,7 @@ func (o *AzureResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("provider", string(o.Provider), []string{"MicrosoftCompute", "MicrosoftNetwork"}, false); err != nil {
+	if err := elemental.ValidateStringInList("provider", string(o.Provider), []string{"MicrosoftCompute", "MicrosoftNetwork", "MicrosoftDocumentDB"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -621,7 +627,7 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "external",
 	},
 	"Kind": {
-		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration"},
+		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration", "DatabaseAccount"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,
@@ -671,7 +677,7 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "string",
 	},
 	"Provider": {
-		AllowedChoices: []string{"MicrosoftCompute", "MicrosoftNetwork"},
+		AllowedChoices: []string{"MicrosoftCompute", "MicrosoftNetwork", "MicrosoftDocumentDB"},
 		BSONFieldName:  "provider",
 		ConvertedName:  "Provider",
 		Description:    `The major type of the resource.`,
@@ -787,7 +793,7 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Type:           "external",
 	},
 	"kind": {
-		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration"},
+		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration", "DatabaseAccount"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,
@@ -837,7 +843,7 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Type:           "string",
 	},
 	"provider": {
-		AllowedChoices: []string{"MicrosoftCompute", "MicrosoftNetwork"},
+		AllowedChoices: []string{"MicrosoftCompute", "MicrosoftNetwork", "MicrosoftDocumentDB"},
 		BSONFieldName:  "provider",
 		ConvertedName:  "Provider",
 		Description:    `The major type of the resource.`,
