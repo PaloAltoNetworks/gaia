@@ -61,6 +61,7 @@ attributes:
     - BackendAddressPool
     - OutboundRule
     - FrontendIPConfiguration
+    - DatabaseAccount
     example_value: VirtualMachine
 
   - name: name
@@ -80,6 +81,7 @@ attributes:
     allowed_choices:
     - MicrosoftCompute
     - MicrosoftNetwork
+    - MicrosoftDocumentDB
     example_value: MicrosoftCompute
 
   - name: resourceGroup
