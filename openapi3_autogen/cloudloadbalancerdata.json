@@ -15,6 +15,16 @@
             },
             "type": "array"
           },
+          "floatingIPBackendPoolMapping": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Mapping of frontend IP to backend pools with floating IP enabled.",
+            "type": "object"
+          },
           "listenertargetmapping": {
             "additionalProperties": {
               "items": {
