@@ -16,7 +16,7 @@ type CloudLoadBalancerData struct {
 	// ID of associated objects with this load balancer.
 	AttachedEntities []string `json:"attachedEntities" msgpack:"attachedEntities" bson:"attachedentities" mapstructure:"attachedEntities,omitempty"`
 
-	// Mapping of frontend IP to backend pools with floating IP enabled.
+	// Mapping of frontend IP to FloatingIP enabled backend pools.
 	FloatingIPBackendPoolMapping map[string][]string `json:"floatingIPBackendPoolMapping" msgpack:"floatingIPBackendPoolMapping" bson:"floatingipbackendpoolmapping" mapstructure:"floatingIPBackendPoolMapping,omitempty"`
 
 	// Mapping of a listener to its associated target group ID list.
@@ -185,7 +185,7 @@ var CloudLoadBalancerDataAttributesMap = map[string]elemental.AttributeSpecifica
 		AllowedChoices: []string{},
 		BSONFieldName:  "floatingipbackendpoolmapping",
 		ConvertedName:  "FloatingIPBackendPoolMapping",
-		Description:    `Mapping of frontend IP to backend pools with floating IP enabled.`,
+		Description:    `Mapping of frontend IP to FloatingIP enabled backend pools.`,
 		Exposed:        true,
 		Name:           "floatingIPBackendPoolMapping",
 		Stored:         true,
@@ -242,7 +242,7 @@ var CloudLoadBalancerDataLowerCaseAttributesMap = map[string]elemental.Attribute
 		AllowedChoices: []string{},
 		BSONFieldName:  "floatingipbackendpoolmapping",
 		ConvertedName:  "FloatingIPBackendPoolMapping",
-		Description:    `Mapping of frontend IP to backend pools with floating IP enabled.`,
+		Description:    `Mapping of frontend IP to FloatingIP enabled backend pools.`,
 		Exposed:        true,
 		Name:           "floatingIPBackendPoolMapping",
 		Stored:         true,

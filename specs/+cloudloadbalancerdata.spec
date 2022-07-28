@@ -21,7 +21,7 @@ attributes:
     - subnet-074c152ae45ea0c73
 
   - name: floatingIPBackendPoolMapping
-    description: Mapping of frontend IP to backend pools with floating IP enabled.
+    description: Mapping of frontend IP to FloatingIP enabled backend pools.
     type: external
     exposed: true
     subtype: map[string][]string

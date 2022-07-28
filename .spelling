@@ -62,7 +62,6 @@ AutomationCondition
 AutomationTemplate
 AWSAccount
 backend
-backend
 base64-encoded
 base64-encoded
 bolded
@@ -209,11 +208,13 @@ FilePath
 FIN
 finack
 finack
+FloatingIP
 FlowReport
 FlowReports
 FNV-32a
 fqdns
 FreeBSD
+frontend
 FullMatch
 georedundancy
 georedundancy

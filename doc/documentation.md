@@ -11237,7 +11237,7 @@ ID of associated objects with this load balancer.
 
 Type: `map[string][]string`
 
-Mapping of frontend IP to backend pools with floating IP enabled.
+Mapping of frontend IP to FloatingIP enabled backend pools.
 
 ##### `listenertargetmapping`
 
