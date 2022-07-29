@@ -294,6 +294,9 @@ type Service struct {
 	// Enable trust in proxy protocols header.
 	ProxyProtocolEnabled bool `json:"proxyProtocolEnabled" msgpack:"proxyProtocolEnabled" bson:"proxyprotocolenabled" mapstructure:"proxyProtocolEnabled,omitempty"`
 
+	// Do not strip proxy protocol header.
+	ProxyProtocolPreserveHeader bool `json:"proxyProtocolPreserveHeader" msgpack:"proxyProtocolPreserveHeader" bson:"proxyprotocolpreserveheader" mapstructure:"proxyProtocolPreserveHeader,omitempty"`
+
 	// Only allow proxy protocols from the given subnets .
 	ProxyProtocolSubnets []string `json:"proxyProtocolSubnets" msgpack:"proxyProtocolSubnets" bson:"proxyprotocolsubnets" mapstructure:"proxyProtocolSubnets,omitempty"`
 
@@ -355,15 +358,15 @@ func NewService() *Service {
 		ClaimsToHTTPHeaderMappings: []*ClaimMapping{},
 		AssociatedTags:             []string{},
 		NormalizedTags:             []string{},
-		TLSType:                    ServiceTLSTypeAporeto,
+		OIDCScopes:                 []string{},
+		AllAPITags:                 []string{},
 		ProxyProtocolSubnets:       []string{},
+		TLSType:                    ServiceTLSTypeAporeto,
+		MigrationsLog:              map[string]string{},
+		Type:                       ServiceTypeHTTP,
 		Selectors:                  [][]string{},
 		IPs:                        []string{},
-		MigrationsLog:              map[string]string{},
-		OIDCScopes:                 []string{},
 		Metadata:                   []string{},
-		AllAPITags:                 []string{},
-		Type:                       ServiceTypeHTTP,
 	}
 }
 
@@ -434,6 +437,7 @@ func (o *Service) GetBSON() (interface{}, error) {
 	s.Propagate = o.Propagate
 	s.Protected = o.Protected
 	s.ProxyProtocolEnabled = o.ProxyProtocolEnabled
+	s.ProxyProtocolPreserveHeader = o.ProxyProtocolPreserveHeader
 	s.ProxyProtocolSubnets = o.ProxyProtocolSubnets
 	s.PublicApplicationPort = o.PublicApplicationPort
 	s.RedirectURLOnAuthorizationFailure = o.RedirectURLOnAuthorizationFailure
@@ -498,6 +502,7 @@ func (o *Service) SetBSON(raw bson.Raw) error {
 	o.Propagate = s.Propagate
 	o.Protected = s.Protected
 	o.ProxyProtocolEnabled = s.ProxyProtocolEnabled
+	o.ProxyProtocolPreserveHeader = s.ProxyProtocolPreserveHeader
 	o.ProxyProtocolSubnets = s.ProxyProtocolSubnets
 	o.PublicApplicationPort = s.PublicApplicationPort
 	o.RedirectURLOnAuthorizationFailure = s.RedirectURLOnAuthorizationFailure
@@ -807,6 +812,7 @@ func (o *Service) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			Propagate:                         &o.Propagate,
 			Protected:                         &o.Protected,
 			ProxyProtocolEnabled:              &o.ProxyProtocolEnabled,
+			ProxyProtocolPreserveHeader:       &o.ProxyProtocolPreserveHeader,
 			ProxyProtocolSubnets:              &o.ProxyProtocolSubnets,
 			PublicApplicationPort:             &o.PublicApplicationPort,
 			RedirectURLOnAuthorizationFailure: &o.RedirectURLOnAuthorizationFailure,
@@ -899,6 +905,8 @@ func (o *Service) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Protected = &(o.Protected)
 		case "proxyProtocolEnabled":
 			sp.ProxyProtocolEnabled = &(o.ProxyProtocolEnabled)
+		case "proxyProtocolPreserveHeader":
+			sp.ProxyProtocolPreserveHeader = &(o.ProxyProtocolPreserveHeader)
 		case "proxyProtocolSubnets":
 			sp.ProxyProtocolSubnets = &(o.ProxyProtocolSubnets)
 		case "publicApplicationPort":
@@ -1065,6 +1073,9 @@ func (o *Service) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.ProxyProtocolEnabled != nil {
 		o.ProxyProtocolEnabled = *so.ProxyProtocolEnabled
+	}
+	if so.ProxyProtocolPreserveHeader != nil {
+		o.ProxyProtocolPreserveHeader = *so.ProxyProtocolPreserveHeader
 	}
 	if so.ProxyProtocolSubnets != nil {
 		o.ProxyProtocolSubnets = *so.ProxyProtocolSubnets
@@ -1327,6 +1338,8 @@ func (o *Service) ValueForAttribute(name string) interface{} {
 		return o.Protected
 	case "proxyProtocolEnabled":
 		return o.ProxyProtocolEnabled
+	case "proxyProtocolPreserveHeader":
+		return o.ProxyProtocolPreserveHeader
 	case "proxyProtocolSubnets":
 		return o.ProxyProtocolSubnets
 	case "publicApplicationPort":
@@ -1850,6 +1863,16 @@ where there are private and public ports.`,
 		Description:    `Enable trust in proxy protocols header.`,
 		Exposed:        true,
 		Name:           "proxyProtocolEnabled",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"ProxyProtocolPreserveHeader": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "proxyprotocolpreserveheader",
+		ConvertedName:  "ProxyProtocolPreserveHeader",
+		Description:    `Do not strip proxy protocol header.`,
+		Exposed:        true,
+		Name:           "proxyProtocolPreserveHeader",
 		Stored:         true,
 		Type:           "boolean",
 	},
@@ -2487,6 +2510,16 @@ where there are private and public ports.`,
 		Stored:         true,
 		Type:           "boolean",
 	},
+	"proxyprotocolpreserveheader": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "proxyprotocolpreserveheader",
+		ConvertedName:  "ProxyProtocolPreserveHeader",
+		Description:    `Do not strip proxy protocol header.`,
+		Exposed:        true,
+		Name:           "proxyProtocolPreserveHeader",
+		Stored:         true,
+		Type:           "boolean",
+	},
 	"proxyprotocolsubnets": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "proxyprotocolsubnets",
@@ -2842,6 +2875,9 @@ type SparseService struct {
 	// Enable trust in proxy protocols header.
 	ProxyProtocolEnabled *bool `json:"proxyProtocolEnabled,omitempty" msgpack:"proxyProtocolEnabled,omitempty" bson:"proxyprotocolenabled,omitempty" mapstructure:"proxyProtocolEnabled,omitempty"`
 
+	// Do not strip proxy protocol header.
+	ProxyProtocolPreserveHeader *bool `json:"proxyProtocolPreserveHeader,omitempty" msgpack:"proxyProtocolPreserveHeader,omitempty" bson:"proxyprotocolpreserveheader,omitempty" mapstructure:"proxyProtocolPreserveHeader,omitempty"`
+
 	// Only allow proxy protocols from the given subnets .
 	ProxyProtocolSubnets *[]string `json:"proxyProtocolSubnets,omitempty" msgpack:"proxyProtocolSubnets,omitempty" bson:"proxyprotocolsubnets,omitempty" mapstructure:"proxyProtocolSubnets,omitempty"`
 
@@ -3038,6 +3074,9 @@ func (o *SparseService) GetBSON() (interface{}, error) {
 	if o.ProxyProtocolEnabled != nil {
 		s.ProxyProtocolEnabled = o.ProxyProtocolEnabled
 	}
+	if o.ProxyProtocolPreserveHeader != nil {
+		s.ProxyProtocolPreserveHeader = o.ProxyProtocolPreserveHeader
+	}
 	if o.ProxyProtocolSubnets != nil {
 		s.ProxyProtocolSubnets = o.ProxyProtocolSubnets
 	}
@@ -3194,6 +3233,9 @@ func (o *SparseService) SetBSON(raw bson.Raw) error {
 	}
 	if s.ProxyProtocolEnabled != nil {
 		o.ProxyProtocolEnabled = s.ProxyProtocolEnabled
+	}
+	if s.ProxyProtocolPreserveHeader != nil {
+		o.ProxyProtocolPreserveHeader = s.ProxyProtocolPreserveHeader
 	}
 	if s.ProxyProtocolSubnets != nil {
 		o.ProxyProtocolSubnets = s.ProxyProtocolSubnets
@@ -3352,6 +3394,9 @@ func (o *SparseService) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.ProxyProtocolEnabled != nil {
 		out.ProxyProtocolEnabled = *o.ProxyProtocolEnabled
+	}
+	if o.ProxyProtocolPreserveHeader != nil {
+		out.ProxyProtocolPreserveHeader = *o.ProxyProtocolPreserveHeader
 	}
 	if o.ProxyProtocolSubnets != nil {
 		out.ProxyProtocolSubnets = *o.ProxyProtocolSubnets
@@ -3757,6 +3802,7 @@ type mongoAttributesService struct {
 	Propagate                         bool                          `bson:"propagate"`
 	Protected                         bool                          `bson:"protected"`
 	ProxyProtocolEnabled              bool                          `bson:"proxyprotocolenabled"`
+	ProxyProtocolPreserveHeader       bool                          `bson:"proxyprotocolpreserveheader"`
 	ProxyProtocolSubnets              []string                      `bson:"proxyprotocolsubnets"`
 	PublicApplicationPort             int                           `bson:"publicapplicationport"`
 	RedirectURLOnAuthorizationFailure string                        `bson:"redirecturlonauthorizationfailure"`
@@ -3806,6 +3852,7 @@ type mongoAttributesSparseService struct {
 	Propagate                         *bool                          `bson:"propagate,omitempty"`
 	Protected                         *bool                          `bson:"protected,omitempty"`
 	ProxyProtocolEnabled              *bool                          `bson:"proxyprotocolenabled,omitempty"`
+	ProxyProtocolPreserveHeader       *bool                          `bson:"proxyprotocolpreserveheader,omitempty"`
 	ProxyProtocolSubnets              *[]string                      `bson:"proxyprotocolsubnets,omitempty"`
 	PublicApplicationPort             *int                           `bson:"publicapplicationport,omitempty"`
 	RedirectURLOnAuthorizationFailure *string                        `bson:"redirecturlonauthorizationfailure,omitempty"`
