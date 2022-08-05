@@ -12931,7 +12931,7 @@ Defines if the object is protected.
 
 ##### `severity` [`required`]
 
-Type: `enum(Low | Medium | High)`
+Type: `enum(Low | Medium | High | UnSupported)`
 
 The severity of a policy violation.
 

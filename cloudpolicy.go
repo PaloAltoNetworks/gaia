@@ -24,6 +24,9 @@ const (
 
 	// CloudPolicySeverityMedium represents the value Medium.
 	CloudPolicySeverityMedium CloudPolicySeverityValue = "Medium"
+
+	// CloudPolicySeverityUnSupported represents the value UnSupported.
+	CloudPolicySeverityUnSupported CloudPolicySeverityValue = "UnSupported"
 )
 
 // CloudPolicyIdentity represents the Identity of the object.
@@ -675,7 +678,7 @@ func (o *CloudPolicy) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("severity", string(o.Severity), []string{"Low", "Medium", "High"}, false); err != nil {
+	if err := elemental.ValidateStringInList("severity", string(o.Severity), []string{"Low", "Medium", "High", "UnSupported"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -970,7 +973,7 @@ derived from the parent.`,
 		Type:           "boolean",
 	},
 	"Severity": {
-		AllowedChoices: []string{"Low", "Medium", "High"},
+		AllowedChoices: []string{"Low", "Medium", "High", "UnSupported"},
 		BSONFieldName:  "severity",
 		ConvertedName:  "Severity",
 		Description:    `The severity of a policy violation.`,
@@ -1248,7 +1251,7 @@ derived from the parent.`,
 		Type:           "boolean",
 	},
 	"severity": {
-		AllowedChoices: []string{"Low", "Medium", "High"},
+		AllowedChoices: []string{"Low", "Medium", "High", "UnSupported"},
 		BSONFieldName:  "severity",
 		ConvertedName:  "Severity",
 		Description:    `The severity of a policy violation.`,
