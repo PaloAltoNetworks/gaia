@@ -33,12 +33,12 @@ jobs:
         run: |
           # stay on an older version of golangci-lint which still builds against 1.17
           # This is due to the introduction of generics.
-          go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.47.3
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.47.3
 
       - name: setup-for-newer-go
         if: ${{ matrix.go > 1.17 }}
         run: |
-          go get github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
       - name: setup
         run: |
