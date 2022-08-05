@@ -79,4 +79,5 @@ attributes:
     - Low
     - Medium
     - High
+    - UnSupported
     example_value: Low
