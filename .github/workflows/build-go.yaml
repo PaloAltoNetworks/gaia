@@ -13,14 +13,33 @@ env:
   GO111MODULE: on
 
 jobs:
-  build:
+  build_go_1_18:
+    name: build go 1.18
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        go:
-          - 1.18
-          - 1.17
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: setup
+        run: |
+          go version
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+          go install github.com/securego/gosec/cmd/gosec@latest
+          #go install golang.org/x/tools/cmd/cover@latest
+          go install github.com/axw/gocov/gocov@master
+          go install github.com/AlekSi/gocov-xml@latest
+          go install go.aporeto.io/elemental/cmd/elegen@master
+          go install go.aporeto.io/regolithe/cmd/rego@master
+
+      - name: build
+        run: |
+          make
+  build_go_1_17:
+    name: build go 1.17
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
