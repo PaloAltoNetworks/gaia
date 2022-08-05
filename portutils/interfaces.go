@@ -1,7 +1,5 @@
 package portutils
 
-import "fmt"
-
 // PortsRange holds a range of ports.
 type PortsRange struct {
 	FromPort int64
@@ -42,7 +40,7 @@ func (p *PortsRange) HasOverlapWithPortsRange(otherRange *PortsRange) bool {
 
 // ContainsPortsRange returns true if the range contains the given ports range.
 func (p *PortsRange) ContainsPortsRange(otherRange *PortsRange) bool {
-	fmt.Println("port range: ", p.FromPort, " to ", p.ToPort)
+
 	return p.FromPort <= otherRange.FromPort && p.ToPort >= otherRange.ToPort
 }
 
