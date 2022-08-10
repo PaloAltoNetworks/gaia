@@ -85,7 +85,8 @@
             "enum": [
               "Low",
               "Medium",
-              "High"
+              "High",
+              "UnSupported"
             ],
             "example": "Low"
           },

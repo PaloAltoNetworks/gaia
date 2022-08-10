@@ -93,9 +93,6 @@ type CNSConfig struct {
 	// List of tags attached to an entity.
 	AssociatedTags []string `json:"associatedTags" msgpack:"associatedTags" bson:"associatedtags" mapstructure:"associatedTags,omitempty"`
 
-	// If `true` net effective permissions Azure v1 is enabled.
-	AzureV1Enabled bool `json:"azureV1Enabled" msgpack:"azureV1Enabled" bson:"azurev1enabled" mapstructure:"azureV1Enabled,omitempty"`
-
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey string `json:"-" msgpack:"-" bson:"createidempotencykey" mapstructure:"-,omitempty"`
 
@@ -187,7 +184,6 @@ func (o *CNSConfig) GetBSON() (interface{}, error) {
 	}
 	s.Annotations = o.Annotations
 	s.AssociatedTags = o.AssociatedTags
-	s.AzureV1Enabled = o.AzureV1Enabled
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	s.CreateTime = o.CreateTime
 	s.Disabled = o.Disabled
@@ -222,7 +218,6 @@ func (o *CNSConfig) SetBSON(raw bson.Raw) error {
 	o.ID = s.ID.Hex()
 	o.Annotations = s.Annotations
 	o.AssociatedTags = s.AssociatedTags
-	o.AzureV1Enabled = s.AzureV1Enabled
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	o.CreateTime = s.CreateTime
 	o.Disabled = s.Disabled
@@ -436,7 +431,6 @@ func (o *CNSConfig) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			ID:                            &o.ID,
 			Annotations:                   &o.Annotations,
 			AssociatedTags:                &o.AssociatedTags,
-			AzureV1Enabled:                &o.AzureV1Enabled,
 			CreateIdempotencyKey:          &o.CreateIdempotencyKey,
 			CreateTime:                    &o.CreateTime,
 			Disabled:                      &o.Disabled,
@@ -463,8 +457,6 @@ func (o *CNSConfig) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Annotations = &(o.Annotations)
 		case "associatedTags":
 			sp.AssociatedTags = &(o.AssociatedTags)
-		case "azureV1Enabled":
-			sp.AzureV1Enabled = &(o.AzureV1Enabled)
 		case "createIdempotencyKey":
 			sp.CreateIdempotencyKey = &(o.CreateIdempotencyKey)
 		case "createTime":
@@ -514,9 +506,6 @@ func (o *CNSConfig) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.AssociatedTags != nil {
 		o.AssociatedTags = *so.AssociatedTags
-	}
-	if so.AzureV1Enabled != nil {
-		o.AzureV1Enabled = *so.AzureV1Enabled
 	}
 	if so.CreateIdempotencyKey != nil {
 		o.CreateIdempotencyKey = *so.CreateIdempotencyKey
@@ -636,8 +625,6 @@ func (o *CNSConfig) ValueForAttribute(name string) interface{} {
 		return o.Annotations
 	case "associatedTags":
 		return o.AssociatedTags
-	case "azureV1Enabled":
-		return o.AzureV1Enabled
 	case "createIdempotencyKey":
 		return o.CreateIdempotencyKey
 	case "createTime":
@@ -713,16 +700,6 @@ var CNSConfigAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
-	},
-	"AzureV1Enabled": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "azurev1enabled",
-		ConvertedName:  "AzureV1Enabled",
-		Description:    `If ` + "`" + `true` + "`" + ` net effective permissions Azure v1 is enabled.`,
-		Exposed:        true,
-		Name:           "azureV1Enabled",
-		Stored:         true,
-		Type:           "boolean",
 	},
 	"CreateIdempotencyKey": {
 		AllowedChoices: []string{},
@@ -953,16 +930,6 @@ var CNSConfigLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
-	},
-	"azurev1enabled": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "azurev1enabled",
-		ConvertedName:  "AzureV1Enabled",
-		Description:    `If ` + "`" + `true` + "`" + ` net effective permissions Azure v1 is enabled.`,
-		Exposed:        true,
-		Name:           "azureV1Enabled",
-		Stored:         true,
-		Type:           "boolean",
 	},
 	"createidempotencykey": {
 		AllowedChoices: []string{},
@@ -1223,9 +1190,6 @@ type SparseCNSConfig struct {
 	// List of tags attached to an entity.
 	AssociatedTags *[]string `json:"associatedTags,omitempty" msgpack:"associatedTags,omitempty" bson:"associatedtags,omitempty" mapstructure:"associatedTags,omitempty"`
 
-	// If `true` net effective permissions Azure v1 is enabled.
-	AzureV1Enabled *bool `json:"azureV1Enabled,omitempty" msgpack:"azureV1Enabled,omitempty" bson:"azurev1enabled,omitempty" mapstructure:"azureV1Enabled,omitempty"`
-
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey *string `json:"-" msgpack:"-" bson:"createidempotencykey,omitempty" mapstructure:"-,omitempty"`
 
@@ -1321,9 +1285,6 @@ func (o *SparseCNSConfig) GetBSON() (interface{}, error) {
 	if o.AssociatedTags != nil {
 		s.AssociatedTags = o.AssociatedTags
 	}
-	if o.AzureV1Enabled != nil {
-		s.AzureV1Enabled = o.AzureV1Enabled
-	}
 	if o.CreateIdempotencyKey != nil {
 		s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	}
@@ -1391,9 +1352,6 @@ func (o *SparseCNSConfig) SetBSON(raw bson.Raw) error {
 	if s.AssociatedTags != nil {
 		o.AssociatedTags = s.AssociatedTags
 	}
-	if s.AzureV1Enabled != nil {
-		o.AzureV1Enabled = s.AzureV1Enabled
-	}
 	if s.CreateIdempotencyKey != nil {
 		o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	}
@@ -1458,9 +1416,6 @@ func (o *SparseCNSConfig) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.AssociatedTags != nil {
 		out.AssociatedTags = *o.AssociatedTags
-	}
-	if o.AzureV1Enabled != nil {
-		out.AzureV1Enabled = *o.AzureV1Enabled
 	}
 	if o.CreateIdempotencyKey != nil {
 		out.CreateIdempotencyKey = *o.CreateIdempotencyKey
@@ -1744,7 +1699,6 @@ type mongoAttributesCNSConfig struct {
 	ID                            bson.ObjectId       `bson:"_id,omitempty"`
 	Annotations                   map[string][]string `bson:"annotations"`
 	AssociatedTags                []string            `bson:"associatedtags"`
-	AzureV1Enabled                bool                `bson:"azurev1enabled"`
 	CreateIdempotencyKey          string              `bson:"createidempotencykey"`
 	CreateTime                    time.Time           `bson:"createtime"`
 	Disabled                      bool                `bson:"disabled"`
@@ -1764,7 +1718,6 @@ type mongoAttributesSparseCNSConfig struct {
 	ID                            bson.ObjectId        `bson:"_id,omitempty"`
 	Annotations                   *map[string][]string `bson:"annotations,omitempty"`
 	AssociatedTags                *[]string            `bson:"associatedtags,omitempty"`
-	AzureV1Enabled                *bool                `bson:"azurev1enabled,omitempty"`
 	CreateIdempotencyKey          *string              `bson:"createidempotencykey,omitempty"`
 	CreateTime                    *time.Time           `bson:"createtime,omitempty"`
 	Disabled                      *bool                `bson:"disabled,omitempty"`
