@@ -376,10 +376,6 @@ relations:
   create:
     description: Retrieves RQL suggestions from Microsegmentation.
 
-- rest_name: commandresponse
-  create:
-    description: Creates a new command response.
-
 - rest_name: connectionexceptionreport
   create:
     description: Create a connection exception report.
