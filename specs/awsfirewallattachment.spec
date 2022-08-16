@@ -1,8 +1,8 @@
 # Model
 model:
-  rest_name: firewallattachment
-  resource_name: firewallattachments
-  entity_name: FirewallAttachment
+  rest_name: awsfirewallattachment
+  resource_name: awsfirewallattachments
+  entity_name: AWSFirewallAttachment
   package: ngfw ## ???
   group: ngfw/firewall ## ???
   description: |-
@@ -20,7 +20,7 @@ attributes:
   - name: endpoints
     description: The list of AWS endpoints.
     type: list
-    subtype: firewallendpoint
+    subtype: awsfirewallendpoint
     extensions:
       refMode: pointer
     exposed: true

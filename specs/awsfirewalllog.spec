@@ -1,8 +1,8 @@
 # Model
 model:
-  rest_name: firewalllog
-  resource_name: firewalllogs
-  entity_name: FirewallLog
+  rest_name: awsfirewalllog
+  resource_name: awsfirewalllogs
+  entity_name: AWSFirewallLog
   package: ngfw ## ???
   group: ngfw/firewall ## ???
   description: |-
