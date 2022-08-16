@@ -4971,6 +4971,126 @@ func TestValidateCloudGraphQuery(t *testing.T) {
 			},
 			true,
 		},
+		{
+			"azure source ip is reserved",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceIP: "168.63.129.16/32",
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"Azure"},
+						VPCIDs:       []string{"vpc1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"azure destination ip is reserved",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					DestinationIP: "168.63.129.16/32",
+					SourceSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"Azure"},
+						VPCIDs:       []string{"vpc1"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"aws source ip is reserved",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceIP: "168.63.129.16/32",
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"AWS"},
+						VPCIDs:       []string{"vpc1"},
+					},
+				},
+			},
+			false,
+		},
+		{
+			"aws destination ip is reserved",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					DestinationIP: "168.63.129.16/32",
+					SourceSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"AWS"},
+						VPCIDs:       []string{"vpc1"},
+					},
+				},
+			},
+			false,
+		},
+		{
+			"paas filter is set for source selector",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInterface,
+						CloudTypes:   []string{"Azure"},
+						PaasTypes:    []string{"sql"},
+					},
+					DestinationIP: "1.1.1.0/24",
+				},
+			},
+			true,
+		},
+		{
+			"paas filter is not empty but resource type is not paas",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceIP: "1.1.1.0/24",
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypeInstance,
+						CloudTypes:   []string{"Azure"},
+						PaasTypes:    []string{"sql"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"paas filter is set for AWS",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceIP: "1.1.1.0/24",
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypePaaS,
+						CloudTypes:   []string{"Aws"},
+						PaasTypes:    []string{"MicrosoftDBforMySQLFlexibleServers"},
+					},
+				},
+			},
+			true,
+		},
+		{
+			"paas filter is set for Azure",
+			args{
+				"invalid",
+				&CloudNetworkQuery{
+					SourceIP: "1.1.1.0/24",
+					DestinationSelector: &CloudNetworkQueryFilter{
+						ResourceType: CloudNetworkQueryFilterResourceTypePaaS,
+						CloudTypes:   []string{"Azure"},
+						PaasTypes:    []string{"sql"},
+					},
+				},
+			},
+			false,
+		},
 	}
 
 	for _, tt := range tests {
@@ -5254,6 +5374,46 @@ func TestValidateSyslogEndpoint(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if err := ValidateSyslogEndpoint(tt.args.attribute, tt.args.endpoint); (err != nil) != tt.wantErr {
 				t.Errorf("ValidateSyslogEndpoint() error = %v, wantErr %v", err, tt.wantErr)
+			}
+		})
+	}
+}
+
+func TestIsAddressAzureReserved(t *testing.T) {
+	tests := []struct {
+		name    string
+		address string
+		want    bool
+		wantErr bool
+	}{
+		{
+			"azure lb ip",
+			"168.63.129.16/32",
+			true,
+			false,
+		},
+		{
+			"other address",
+			"135.20.0.0/24",
+			false,
+			false,
+		},
+		{
+			"invalid ip",
+			"badIP",
+			false,
+			true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := IsAddressAzureReserved(tt.address)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("IsAddressAzureReserved() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("IsAddressAzureReserved() = %v, want %v", got, tt.want)
 			}
 		})
 	}

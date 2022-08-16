@@ -53,7 +53,7 @@
           },
           "flowReportInterval": {
             "default": "30m",
-            "description": "Frequency that flow report counts are upated.",
+            "description": "Frequency that flow report counts are updated.",
             "type": "string"
           },
           "ignoreExpression": {
@@ -125,7 +125,7 @@
             "type": "boolean"
           },
           "syslogEnabled": {
-            "description": "Enables syslog functionality of enforcers using this enforcerprofile.",
+            "description": "Enables syslog functionality of enforcers using this enforcer profile.",
             "type": "boolean"
           },
           "syslogEndpoint": {

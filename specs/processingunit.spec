@@ -246,6 +246,7 @@ attributes:
     - RKT
     - User
     - SSHSession
+    - ECS
     example_value: Docker
     filterable: true
 
@@ -335,6 +336,11 @@ relations:
         allowed_choices:
         - v1
         - v2
+
+      - name: stripNetworkEntries
+        description: If set to true, the entries field of all network rules will be
+          stripped.
+        type: boolean
 
 - rest_name: service
   get:

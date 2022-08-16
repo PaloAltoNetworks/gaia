@@ -19,9 +19,8 @@ jobs:
       fail-fast: false
       matrix:
         go:
+          - 1.18
           - 1.17
-          - 1.16
-          - 1.15
     steps:
       - uses: actions/checkout@v2
 
@@ -29,30 +28,27 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
 
-      - name: setup-for-go-115
-        if: ${{ matrix.go == 1.15 }}
+      - name: setup-for-older-go
+        if: ${{ matrix.go <= 1.17 }}
         run: |
-          # stay on an old version of golangci-lint which still builds against 1.15
-          #
-          # see release notes and this file for detail:
-          # https://github.com/golangci/golangci-lint/blob/v1.43.0/.github/workflows/pr.yml#L67-70
-          go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.42.1
+          # stay on an older version of golangci-lint which still builds against 1.17
+          # This is due to the introduction of generics.
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.47.3
 
-      - name: setup-for-new-go
-        if: ${{ matrix.go != 1.15 }}
+      - name: setup-for-newer-go
+        if: ${{ matrix.go > 1.17 }}
         run: |
-          go get github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
       - name: setup
         run: |
           go version
-          go get github.com/securego/gosec/cmd/gosec
-          #go get golang.org/x/tools/cmd/cover
-          go get github.com/axw/gocov/gocov
-          go get github.com/AlekSi/gocov-xml
-          go get go.aporeto.io/elemental/cmd/elegen
-          go get go.aporeto.io/regolithe/cmd/rego
-          git checkout go.mod go.sum
+          go install github.com/securego/gosec/cmd/gosec@latest
+          #go install golang.org/x/tools/cmd/cover@latest
+          go install github.com/axw/gocov/gocov@master
+          go install github.com/AlekSi/gocov-xml@latest
+          go install go.aporeto.io/elemental/cmd/elegen@master
+          go install go.aporeto.io/regolithe/cmd/rego@master
 
       - name: build
         run: |

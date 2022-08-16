@@ -64,6 +64,14 @@ attributes:
     stored: true
     omit_empty: true
 
+  - name: paasTypes
+    description: Identifies a list of Platform as a Service types.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
   - name: productInfoType
     description: Restricts the query on only endpoints with the given productInfoType.
     type: string
@@ -90,6 +98,14 @@ attributes:
     - us-west-1
     omit_empty: true
 
+  - name: resourceStatus
+    description: The status of the resource.
+    type: string
+    exposed: true
+    stored: true
+    example_value: Active
+    omit_empty: true
+
   - name: resourceType
     description: |-
       The type of endpoint resource. The resource type is a mandatory field and a
@@ -103,6 +119,7 @@ attributes:
     - Interface
     - Service
     - ProcessingUnit
+    - PaaS
     default_value: Instance
 
   - name: securityTags

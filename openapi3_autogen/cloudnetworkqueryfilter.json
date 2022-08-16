@@ -46,6 +46,13 @@
             },
             "type": "array"
           },
+          "paasTypes": {
+            "description": "Identifies a list of Platform as a Service types.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "productInfoType": {
             "description": "Restricts the query on only endpoints with the given productInfoType.",
             "type": "string"
@@ -64,6 +71,11 @@
             },
             "type": "array"
           },
+          "resourceStatus": {
+            "description": "The status of the resource.",
+            "example": "Active",
+            "type": "string"
+          },
           "resourceType": {
             "default": "Instance",
             "description": "The type of endpoint resource. The resource type is a mandatory field and a\nquery cannot span multiple resource types.",
@@ -71,7 +83,8 @@
               "Instance",
               "Interface",
               "Service",
-              "ProcessingUnit"
+              "ProcessingUnit",
+              "PaaS"
             ]
           },
           "securityTags": {

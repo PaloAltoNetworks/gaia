@@ -23,6 +23,17 @@
             },
             "type": "array"
           },
+          "attachedEntities": {
+            "description": "A list of entities that are associated to a given endpoint.",
+            "example": [
+              "eni-12344",
+              "subnet-abcd"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "attachedInterfaces": {
             "description": "A list of interfaces attached with the endpoint. In some cases endpoints can\nhave more than one interface.",
             "example": [
@@ -36,6 +47,10 @@
           },
           "forwardingEnabled": {
             "description": "If the endpoint has multiple connections and forwarding can be enabled between\nthem.",
+            "type": "boolean"
+          },
+          "hasPublicIP": {
+            "description": "If the endpoint has a public IP or is directly exposed.",
             "type": "boolean"
           },
           "imageID": {
@@ -56,6 +71,14 @@
             },
             "type": "array"
           },
+          "resourceStatus": {
+            "default": "Active",
+            "description": "The status of the resource.",
+            "enum": [
+              "Active",
+              "Inactive"
+            ]
+          },
           "serviceName": {
             "description": "Identifies the name of the service for service endpoints.",
             "type": "string"
@@ -67,6 +90,7 @@
               "Interface",
               "Gateway",
               "GatewayLoadBalancer",
+              "ManagedService",
               "NotApplicable"
             ]
           },

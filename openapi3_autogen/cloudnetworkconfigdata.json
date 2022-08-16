@@ -1,0 +1,48 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudnetworkconfigdata": {
+        "description": "Manages the network properties associated to a Virtual Machine Scale Set.",
+        "properties": {
+          "ipConfigurations": {
+            "description": "IP configurations of the NICs in the Scale Set.",
+            "items": {
+              "$ref": "./cloudipconfiguration#/components/schemas/cloudipconfiguration"
+            },
+            "type": "array"
+          },
+          "networkConfigName": {
+            "description": "Network configuration name of the NIC associated in the Scale Set.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudnetworkconfigdata",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

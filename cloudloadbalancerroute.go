@@ -135,7 +135,7 @@ type CloudLoadBalancerRoute struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags []string `json:"normalizedTags" msgpack:"normalizedTags" bson:"normalizedtags" mapstructure:"normalizedTags,omitempty"`
 
-	// LoadBalancer route related parameters.
+	// Load Balancer route related parameters.
 	Parameters *CloudLoadBalancerRouteData `json:"parameters" msgpack:"parameters" bson:"parameters" mapstructure:"parameters,omitempty"`
 
 	// A list of policy references associated with this cloud node.
@@ -827,7 +827,7 @@ func (o *CloudLoadBalancerRoute) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateMaximumLength("nativeID", o.NativeID, 256, false); err != nil {
+	if err := elemental.ValidateMaximumLength("nativeID", o.NativeID, 512, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1144,7 +1144,7 @@ var CloudLoadBalancerRouteAttributesMap = map[string]elemental.AttributeSpecific
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
 		Getter:         true,
-		MaxLength:      256,
+		MaxLength:      512,
 		Name:           "nativeID",
 		Orderable:      true,
 		Required:       true,
@@ -1172,7 +1172,7 @@ var CloudLoadBalancerRouteAttributesMap = map[string]elemental.AttributeSpecific
 		AllowedChoices: []string{},
 		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
-		Description:    `LoadBalancer route related parameters.`,
+		Description:    `Load Balancer route related parameters.`,
 		Exposed:        true,
 		Name:           "parameters",
 		Stored:         true,
@@ -1497,7 +1497,7 @@ var CloudLoadBalancerRouteLowerCaseAttributesMap = map[string]elemental.Attribut
 		Description:    `ID of the cloud provider object.`,
 		Exposed:        true,
 		Getter:         true,
-		MaxLength:      256,
+		MaxLength:      512,
 		Name:           "nativeID",
 		Orderable:      true,
 		Required:       true,
@@ -1525,7 +1525,7 @@ var CloudLoadBalancerRouteLowerCaseAttributesMap = map[string]elemental.Attribut
 		AllowedChoices: []string{},
 		BSONFieldName:  "parameters",
 		ConvertedName:  "Parameters",
-		Description:    `LoadBalancer route related parameters.`,
+		Description:    `Load Balancer route related parameters.`,
 		Exposed:        true,
 		Name:           "parameters",
 		Stored:         true,
@@ -1757,7 +1757,7 @@ type SparseCloudLoadBalancerRoute struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags *[]string `json:"normalizedTags,omitempty" msgpack:"normalizedTags,omitempty" bson:"normalizedtags,omitempty" mapstructure:"normalizedTags,omitempty"`
 
-	// LoadBalancer route related parameters.
+	// Load Balancer route related parameters.
 	Parameters *CloudLoadBalancerRouteData `json:"parameters,omitempty" msgpack:"parameters,omitempty" bson:"parameters,omitempty" mapstructure:"parameters,omitempty"`
 
 	// A list of policy references associated with this cloud node.

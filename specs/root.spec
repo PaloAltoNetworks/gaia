@@ -324,6 +324,14 @@ relations:
   create:
     description: Creates a new routing table.
 
+- rest_name: cloudscaleset
+  get:
+    description: Retrieves the list of Scale Sets.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a cloud scale set.
+
 - rest_name: cloudschedulednetworkquery
   get:
     description: Retrieves Cloud Scheduled Network Query job.
@@ -335,6 +343,16 @@ relations:
       evaluate alert rules.
   delete:
     description: Deletes a Cloud Scheduled Network Query job.
+
+- rest_name: cloudservicetag
+  get:
+    description: Retrieves the list of service tags.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a Cloud Service Tag.
+  delete:
+    description: Deletes a Cloud Service Tag.
 
 - rest_name: cloudsnapshotaccount
   create:
@@ -1026,6 +1044,11 @@ relations:
         - v1
         - v2
 
+      - name: stripNetworkEntries
+        description: If set to true, the entries field of all network rules will be
+          stripped.
+        type: boolean
+
 - rest_name: rendertemplate
   create:
     description: Renders a new template.
@@ -1040,6 +1063,10 @@ relations:
     global_parameters:
     - $filtering
     - $timewindow
+
+- rest_name: reputation
+  create:
+    description: Get reputation information of IP/FQDN from PANDB.
 
 - rest_name: revocation
   get:
@@ -1163,6 +1190,16 @@ relations:
     global_parameters:
     - $timewindow
     - $flowoffset
+    - $filtering
+
+- rest_name: suspiciousactivity
+  get:
+    description: Retrieves a list of suspicious activities.
+    global_parameters:
+    - $filtering
+    - $propagatable
+  create:
+    description: Creates a new suspicious activity.
 
 - rest_name: tag
   get:
@@ -1244,6 +1281,16 @@ relations:
     - $propagatable
   create:
     description: Creates a new trusted namespace.
+
+- rest_name: unknownipaddress
+  get:
+    description: Retrieves a list of unknown IP addresses.
+    global_parameters:
+    - $filtering
+    - $propagatable
+  create:
+    description: Creates a new unknown IP address entry to store an IP/FQDN to be
+      scanned.
 
 - rest_name: useraccesspolicy
   get:

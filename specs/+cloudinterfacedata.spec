@@ -22,6 +22,15 @@ attributes:
     extensions:
       refMode: pointer
 
+  - name: attachedEntities
+    description: ID of associated objects with this interface.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    example_value:
+    - subnet-074c152ae45ea0c73
+
   - name: attachmentType
     description: |-
       Attachment type describes where this interface is attached to (Instance, Load
@@ -53,6 +62,15 @@ attributes:
     stored: true
     example_value: us-east-1
 
+  - name: groupTags
+    description: |-
+      Group tags associated with the interface. In Azure, its Application Security
+      Group.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+
   - name: hasPublicIP
     description: If the interface has a public IP in one of its IP address.
     type: boolean
@@ -74,6 +92,16 @@ attributes:
     type: string
     exposed: true
     stored: true
+
+  - name: resourceStatus
+    description: The status of the resource.
+    type: enum
+    exposed: true
+    stored: true
+    allowed_choices:
+    - Active
+    - Inactive
+    default_value: Active
 
   - name: routeTableID
     description: |-

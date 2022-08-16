@@ -1,0 +1,45 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudiprange": {
+        "description": "Parameters associated with a cloud ips range.",
+        "properties": {
+          "endIP": {
+            "description": "End IP for the range.",
+            "type": "string"
+          },
+          "startIP": {
+            "description": "Starting IP for the range.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudiprange",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

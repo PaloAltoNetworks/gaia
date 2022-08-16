@@ -238,6 +238,7 @@ attributes:
     - CloudAccount
     - Group
     - Kubernetes
+    - ECS
     default_value: Default
 
   - name: zoning

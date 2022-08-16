@@ -1,0 +1,91 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "reputation": {
+        "description": "Represents the reputation information from PANDB.",
+        "properties": {
+          "URLReputations": {
+            "description": "List of URL reputations.",
+            "items": {
+              "$ref": "./urlreputation#/components/schemas/urlreputation"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "URLs": {
+            "description": "The IP addresses and/or FQDNs to look up.",
+            "example": [
+              "1.2.3.4",
+              "google.com"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "URLs"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "reputation",
+    "version": "1.0"
+  },
+  "paths": {
+    "/reputations": {
+      "post": {
+        "description": "Get reputation information of IP/FQDN from PANDB.",
+        "operationId": "create-a-new-reputation",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/reputation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/reputation"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pc/pandb",
+          "karl"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pc/pandb'",
+      "name": "pc/pandb"
+    },
+    {
+      "description": "This tag is for package 'karl'",
+      "name": "karl"
+    }
+  ]
+}

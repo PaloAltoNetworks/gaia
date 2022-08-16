@@ -25,6 +25,7 @@ indexes:
   - vpcid
   - type
   - subtype
+  - cloudtype
 - - namespace
   - relatedObjectID
 - - namespace
@@ -106,4 +107,5 @@ attributes:
     - LoadBalancer
     - LoadBalancerRoute
     - PublicIPAddress
+    - ScaleSet
     example_value: Endpoint

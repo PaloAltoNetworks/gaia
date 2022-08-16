@@ -21,6 +21,9 @@ const (
 	// CloudNetworkQueryFilterResourceTypeInterface represents the value Interface.
 	CloudNetworkQueryFilterResourceTypeInterface CloudNetworkQueryFilterResourceTypeValue = "Interface"
 
+	// CloudNetworkQueryFilterResourceTypePaaS represents the value PaaS.
+	CloudNetworkQueryFilterResourceTypePaaS CloudNetworkQueryFilterResourceTypeValue = "PaaS"
+
 	// CloudNetworkQueryFilterResourceTypeProcessingUnit represents the value ProcessingUnit.
 	CloudNetworkQueryFilterResourceTypeProcessingUnit CloudNetworkQueryFilterResourceTypeValue = "ProcessingUnit"
 
@@ -49,6 +52,9 @@ type CloudNetworkQueryFilter struct {
 	// network interface.
 	ObjectIDs []string `json:"objectIDs,omitempty" msgpack:"objectIDs,omitempty" bson:"objectids,omitempty" mapstructure:"objectIDs,omitempty"`
 
+	// Identifies a list of Platform as a Service types.
+	PaasTypes []string `json:"paasTypes,omitempty" msgpack:"paasTypes,omitempty" bson:"paastypes,omitempty" mapstructure:"paasTypes,omitempty"`
+
 	// Restricts the query on only endpoints with the given productInfoType.
 	ProductInfoType string `json:"productInfoType,omitempty" msgpack:"productInfoType,omitempty" bson:"productinfotype,omitempty" mapstructure:"productInfoType,omitempty"`
 
@@ -58,6 +64,9 @@ type CloudNetworkQueryFilter struct {
 
 	// The region that the search must apply to.
 	Regions []string `json:"regions,omitempty" msgpack:"regions,omitempty" bson:"regions,omitempty" mapstructure:"regions,omitempty"`
+
+	// The status of the resource.
+	ResourceStatus string `json:"resourceStatus,omitempty" msgpack:"resourceStatus,omitempty" bson:"resourcestatus,omitempty" mapstructure:"resourceStatus,omitempty"`
 
 	// The type of endpoint resource. The resource type is a mandatory field and a
 	// query cannot span multiple resource types.
@@ -101,11 +110,12 @@ func NewCloudNetworkQueryFilter() *CloudNetworkQueryFilter {
 		CloudTypes:    []string{},
 		ImageIDs:      []string{},
 		ObjectIDs:     []string{},
-		ServiceOwners: []string{},
+		PaasTypes:     []string{},
+		SecurityTags:  []string{},
 		Regions:       []string{},
 		ResourceType:  CloudNetworkQueryFilterResourceTypeInstance,
-		SecurityTags:  []string{},
 		ServiceNames:  []string{},
+		ServiceOwners: []string{},
 		ServiceTypes:  []string{},
 		Subnets:       []string{},
 		Tags:          []string{},
@@ -128,9 +138,11 @@ func (o *CloudNetworkQueryFilter) GetBSON() (interface{}, error) {
 	s.CloudTypes = o.CloudTypes
 	s.ImageIDs = o.ImageIDs
 	s.ObjectIDs = o.ObjectIDs
+	s.PaasTypes = o.PaasTypes
 	s.ProductInfoType = o.ProductInfoType
 	s.ProductInfoValue = o.ProductInfoValue
 	s.Regions = o.Regions
+	s.ResourceStatus = o.ResourceStatus
 	s.ResourceType = o.ResourceType
 	s.SecurityTags = o.SecurityTags
 	s.ServiceNames = o.ServiceNames
@@ -160,9 +172,11 @@ func (o *CloudNetworkQueryFilter) SetBSON(raw bson.Raw) error {
 	o.CloudTypes = s.CloudTypes
 	o.ImageIDs = s.ImageIDs
 	o.ObjectIDs = s.ObjectIDs
+	o.PaasTypes = s.PaasTypes
 	o.ProductInfoType = s.ProductInfoType
 	o.ProductInfoValue = s.ProductInfoValue
 	o.Regions = s.Regions
+	o.ResourceStatus = s.ResourceStatus
 	o.ResourceType = s.ResourceType
 	o.SecurityTags = s.SecurityTags
 	o.ServiceNames = s.ServiceNames
@@ -214,7 +228,7 @@ func (o *CloudNetworkQueryFilter) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("resourceType", string(o.ResourceType), []string{"Instance", "Interface", "Service", "ProcessingUnit"}, false); err != nil {
+	if err := elemental.ValidateStringInList("resourceType", string(o.ResourceType), []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -262,12 +276,16 @@ func (o *CloudNetworkQueryFilter) ValueForAttribute(name string) interface{} {
 		return o.ImageIDs
 	case "objectIDs":
 		return o.ObjectIDs
+	case "paasTypes":
+		return o.PaasTypes
 	case "productInfoType":
 		return o.ProductInfoType
 	case "productInfoValue":
 		return o.ProductInfoValue
 	case "regions":
 		return o.Regions
+	case "resourceStatus":
+		return o.ResourceStatus
 	case "resourceType":
 		return o.ResourceType
 	case "securityTags":
@@ -348,6 +366,17 @@ network interface.`,
 		SubType: "string",
 		Type:    "list",
 	},
+	"PaasTypes": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "paastypes",
+		ConvertedName:  "PaasTypes",
+		Description:    `Identifies a list of Platform as a Service types.`,
+		Exposed:        true,
+		Name:           "paasTypes",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"ProductInfoType": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "productinfotype",
@@ -380,8 +409,18 @@ not apply to other resource types.`,
 		SubType:        "string",
 		Type:           "list",
 	},
+	"ResourceStatus": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "resourcestatus",
+		ConvertedName:  "ResourceStatus",
+		Description:    `The status of the resource.`,
+		Exposed:        true,
+		Name:           "resourceStatus",
+		Stored:         true,
+		Type:           "string",
+	},
 	"ResourceType": {
-		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit"},
+		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS"},
 		BSONFieldName:  "resourcetype",
 		ConvertedName:  "ResourceType",
 		DefaultValue:   CloudNetworkQueryFilterResourceTypeInstance,
@@ -530,6 +569,17 @@ network interface.`,
 		SubType: "string",
 		Type:    "list",
 	},
+	"paastypes": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "paastypes",
+		ConvertedName:  "PaasTypes",
+		Description:    `Identifies a list of Platform as a Service types.`,
+		Exposed:        true,
+		Name:           "paasTypes",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"productinfotype": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "productinfotype",
@@ -562,8 +612,18 @@ not apply to other resource types.`,
 		SubType:        "string",
 		Type:           "list",
 	},
+	"resourcestatus": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "resourcestatus",
+		ConvertedName:  "ResourceStatus",
+		Description:    `The status of the resource.`,
+		Exposed:        true,
+		Name:           "resourceStatus",
+		Stored:         true,
+		Type:           "string",
+	},
 	"resourcetype": {
-		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit"},
+		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS"},
 		BSONFieldName:  "resourcetype",
 		ConvertedName:  "ResourceType",
 		DefaultValue:   CloudNetworkQueryFilterResourceTypeInstance,
@@ -657,9 +717,11 @@ type mongoAttributesCloudNetworkQueryFilter struct {
 	CloudTypes       []string                                 `bson:"cloudtypes,omitempty"`
 	ImageIDs         []string                                 `bson:"imageids,omitempty"`
 	ObjectIDs        []string                                 `bson:"objectids,omitempty"`
+	PaasTypes        []string                                 `bson:"paastypes,omitempty"`
 	ProductInfoType  string                                   `bson:"productinfotype,omitempty"`
 	ProductInfoValue string                                   `bson:"productinfovalue,omitempty"`
 	Regions          []string                                 `bson:"regions,omitempty"`
+	ResourceStatus   string                                   `bson:"resourcestatus,omitempty"`
 	ResourceType     CloudNetworkQueryFilterResourceTypeValue `bson:"resourcetype"`
 	SecurityTags     []string                                 `bson:"securitytags,omitempty"`
 	ServiceNames     []string                                 `bson:"servicenames,omitempty"`

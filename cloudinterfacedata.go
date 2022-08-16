@@ -55,11 +55,25 @@ const (
 	CloudInterfaceDataAttachmentTypeVPCEndpoint CloudInterfaceDataAttachmentTypeValue = "VPCEndpoint"
 )
 
+// CloudInterfaceDataResourceStatusValue represents the possible values for attribute "resourceStatus".
+type CloudInterfaceDataResourceStatusValue string
+
+const (
+	// CloudInterfaceDataResourceStatusActive represents the value Active.
+	CloudInterfaceDataResourceStatusActive CloudInterfaceDataResourceStatusValue = "Active"
+
+	// CloudInterfaceDataResourceStatusInactive represents the value Inactive.
+	CloudInterfaceDataResourceStatusInactive CloudInterfaceDataResourceStatusValue = "Inactive"
+)
+
 // CloudInterfaceData represents the model of a cloudinterfacedata
 type CloudInterfaceData struct {
 	// List of IP addresses/subnets (IPv4 or IPv6) associated with the
 	// interface.
 	Addresses []*CloudAddress `json:"addresses" msgpack:"addresses" bson:"addresses" mapstructure:"addresses,omitempty"`
+
+	// ID of associated objects with this interface.
+	AttachedEntities []string `json:"attachedEntities" msgpack:"attachedEntities" bson:"attachedentities" mapstructure:"attachedEntities,omitempty"`
 
 	// Attachment type describes where this interface is attached to (Instance, Load
 	// Balancer, Gateway, etc).
@@ -67,6 +81,10 @@ type CloudInterfaceData struct {
 
 	// Availability zone of the interface.
 	AvailabilityZone string `json:"availabilityZone" msgpack:"availabilityZone" bson:"availabilityzone" mapstructure:"availabilityZone,omitempty"`
+
+	// Group tags associated with the interface. In Azure, its Application Security
+	// Group.
+	GroupTags []string `json:"groupTags" msgpack:"groupTags" bson:"grouptags" mapstructure:"groupTags,omitempty"`
 
 	// If the interface has a public IP in one of its IP address.
 	HasPublicIP bool `json:"hasPublicIP" msgpack:"hasPublicIP" bson:"haspublicip" mapstructure:"hasPublicIP,omitempty"`
@@ -78,6 +96,9 @@ type CloudInterfaceData struct {
 	// If the interface is of type or external, the relatedObjectID identifies the
 	// related service or gateway.
 	RelatedObjectID string `json:"relatedObjectID" msgpack:"relatedObjectID" bson:"relatedobjectid" mapstructure:"relatedObjectID,omitempty"`
+
+	// The status of the resource.
+	ResourceStatus CloudInterfaceDataResourceStatusValue `json:"resourceStatus" msgpack:"resourceStatus" bson:"resourcestatus" mapstructure:"resourceStatus,omitempty"`
 
 	// The route table that must be used for this interface. Applies to Transit
 	// Gateways and other special types.
@@ -96,10 +117,13 @@ type CloudInterfaceData struct {
 func NewCloudInterfaceData() *CloudInterfaceData {
 
 	return &CloudInterfaceData{
-		ModelVersion: 1,
-		Addresses:    []*CloudAddress{},
-		SecurityTags: []string{},
-		Subnets:      []string{},
+		ModelVersion:     1,
+		Addresses:        []*CloudAddress{},
+		AttachedEntities: []string{},
+		GroupTags:        []string{},
+		ResourceStatus:   CloudInterfaceDataResourceStatusActive,
+		SecurityTags:     []string{},
+		Subnets:          []string{},
 	}
 }
 
@@ -114,11 +138,14 @@ func (o *CloudInterfaceData) GetBSON() (interface{}, error) {
 	s := &mongoAttributesCloudInterfaceData{}
 
 	s.Addresses = o.Addresses
+	s.AttachedEntities = o.AttachedEntities
 	s.AttachmentType = o.AttachmentType
 	s.AvailabilityZone = o.AvailabilityZone
+	s.GroupTags = o.GroupTags
 	s.HasPublicIP = o.HasPublicIP
 	s.ParentID = o.ParentID
 	s.RelatedObjectID = o.RelatedObjectID
+	s.ResourceStatus = o.ResourceStatus
 	s.RouteTableID = o.RouteTableID
 	s.SecurityTags = o.SecurityTags
 	s.Subnets = o.Subnets
@@ -140,11 +167,14 @@ func (o *CloudInterfaceData) SetBSON(raw bson.Raw) error {
 	}
 
 	o.Addresses = s.Addresses
+	o.AttachedEntities = s.AttachedEntities
 	o.AttachmentType = s.AttachmentType
 	o.AvailabilityZone = s.AvailabilityZone
+	o.GroupTags = s.GroupTags
 	o.HasPublicIP = s.HasPublicIP
 	o.ParentID = s.ParentID
 	o.RelatedObjectID = s.RelatedObjectID
+	o.ResourceStatus = s.ResourceStatus
 	o.RouteTableID = s.RouteTableID
 	o.SecurityTags = s.SecurityTags
 	o.Subnets = s.Subnets
@@ -206,6 +236,10 @@ func (o *CloudInterfaceData) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := elemental.ValidateStringInList("resourceStatus", string(o.ResourceStatus), []string{"Active", "Inactive"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if len(requiredErrors) > 0 {
 		return requiredErrors
 	}
@@ -242,16 +276,22 @@ func (o *CloudInterfaceData) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "addresses":
 		return o.Addresses
+	case "attachedEntities":
+		return o.AttachedEntities
 	case "attachmentType":
 		return o.AttachmentType
 	case "availabilityZone":
 		return o.AvailabilityZone
+	case "groupTags":
+		return o.GroupTags
 	case "hasPublicIP":
 		return o.HasPublicIP
 	case "parentID":
 		return o.ParentID
 	case "relatedObjectID":
 		return o.RelatedObjectID
+	case "resourceStatus":
+		return o.ResourceStatus
 	case "routeTableID":
 		return o.RouteTableID
 	case "securityTags":
@@ -277,6 +317,17 @@ interface.`,
 		SubType: "cloudaddress",
 		Type:    "refList",
 	},
+	"AttachedEntities": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "attachedentities",
+		ConvertedName:  "AttachedEntities",
+		Description:    `ID of associated objects with this interface.`,
+		Exposed:        true,
+		Name:           "attachedEntities",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"AttachmentType": {
 		AllowedChoices: []string{"Instance", "LoadBalancer", "Gateway", "Service", "TransitGatewayVPCAttachment", "NetworkLoadBalancer", "Lambda", "GatewayLoadBalancer", "GatewayLoadBalancerEndpoint", "VPCEndpoint", "APIGatewayManaged", "EFA", "UnsupportedService"},
 		BSONFieldName:  "attachmenttype",
@@ -298,6 +349,18 @@ Balancer, Gateway, etc).`,
 		Name:           "availabilityZone",
 		Stored:         true,
 		Type:           "string",
+	},
+	"GroupTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "grouptags",
+		ConvertedName:  "GroupTags",
+		Description: `Group tags associated with the interface. In Azure, its Application Security
+Group.`,
+		Exposed: true,
+		Name:    "groupTags",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
 	},
 	"HasPublicIP": {
 		AllowedChoices: []string{},
@@ -330,6 +393,17 @@ related service or gateway.`,
 		Name:    "relatedObjectID",
 		Stored:  true,
 		Type:    "string",
+	},
+	"ResourceStatus": {
+		AllowedChoices: []string{"Active", "Inactive"},
+		BSONFieldName:  "resourcestatus",
+		ConvertedName:  "ResourceStatus",
+		DefaultValue:   CloudInterfaceDataResourceStatusActive,
+		Description:    `The status of the resource.`,
+		Exposed:        true,
+		Name:           "resourceStatus",
+		Stored:         true,
+		Type:           "enum",
 	},
 	"RouteTableID": {
 		AllowedChoices: []string{},
@@ -380,6 +454,17 @@ interface.`,
 		SubType: "cloudaddress",
 		Type:    "refList",
 	},
+	"attachedentities": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "attachedentities",
+		ConvertedName:  "AttachedEntities",
+		Description:    `ID of associated objects with this interface.`,
+		Exposed:        true,
+		Name:           "attachedEntities",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"attachmenttype": {
 		AllowedChoices: []string{"Instance", "LoadBalancer", "Gateway", "Service", "TransitGatewayVPCAttachment", "NetworkLoadBalancer", "Lambda", "GatewayLoadBalancer", "GatewayLoadBalancerEndpoint", "VPCEndpoint", "APIGatewayManaged", "EFA", "UnsupportedService"},
 		BSONFieldName:  "attachmenttype",
@@ -401,6 +486,18 @@ Balancer, Gateway, etc).`,
 		Name:           "availabilityZone",
 		Stored:         true,
 		Type:           "string",
+	},
+	"grouptags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "grouptags",
+		ConvertedName:  "GroupTags",
+		Description: `Group tags associated with the interface. In Azure, its Application Security
+Group.`,
+		Exposed: true,
+		Name:    "groupTags",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
 	},
 	"haspublicip": {
 		AllowedChoices: []string{},
@@ -433,6 +530,17 @@ related service or gateway.`,
 		Name:    "relatedObjectID",
 		Stored:  true,
 		Type:    "string",
+	},
+	"resourcestatus": {
+		AllowedChoices: []string{"Active", "Inactive"},
+		BSONFieldName:  "resourcestatus",
+		ConvertedName:  "ResourceStatus",
+		DefaultValue:   CloudInterfaceDataResourceStatusActive,
+		Description:    `The status of the resource.`,
+		Exposed:        true,
+		Name:           "resourceStatus",
+		Stored:         true,
+		Type:           "enum",
 	},
 	"routetableid": {
 		AllowedChoices: []string{},
@@ -471,11 +579,14 @@ Gateways and other special types.`,
 
 type mongoAttributesCloudInterfaceData struct {
 	Addresses        []*CloudAddress                       `bson:"addresses"`
+	AttachedEntities []string                              `bson:"attachedentities"`
 	AttachmentType   CloudInterfaceDataAttachmentTypeValue `bson:"attachmenttype"`
 	AvailabilityZone string                                `bson:"availabilityzone"`
+	GroupTags        []string                              `bson:"grouptags"`
 	HasPublicIP      bool                                  `bson:"haspublicip"`
 	ParentID         string                                `bson:"parentid"`
 	RelatedObjectID  string                                `bson:"relatedobjectid"`
+	ResourceStatus   CloudInterfaceDataResourceStatusValue `bson:"resourcestatus"`
 	RouteTableID     string                                `bson:"routetableid"`
 	SecurityTags     []string                              `bson:"securitytags"`
 	Subnets          []string                              `bson:"subnets"`

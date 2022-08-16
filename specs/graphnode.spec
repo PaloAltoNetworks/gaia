@@ -97,6 +97,7 @@ attributes:
     - RKT
     - User
     - SSHSession
+    - ECS
 
   - name: unreachable
     description: If `true` the node is marked as unreachable.

@@ -6,7 +6,7 @@ model:
   package: yeul
   group: pcn/infrastructure
   description: |-
-    A CloudPublicIPAddress represents a PublicIPAdress as defined in an Azure cloud
+    A CloudPublicIPAddress represents a PublicIPAddress as defined in an Azure cloud
     provider.
   aliases:
   - publicipaddress

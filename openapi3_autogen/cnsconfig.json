@@ -33,6 +33,10 @@
             "readOnly": true,
             "type": "string"
           },
+          "disabled": {
+            "description": "Defines if the property is disabled.",
+            "type": "boolean"
+          },
           "enableNetEffectivePermissions": {
             "description": "If `true` net effective permissions feature is enabled.",
             "type": "boolean"
