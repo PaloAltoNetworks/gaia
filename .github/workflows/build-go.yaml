@@ -19,14 +19,25 @@ jobs:
       fail-fast: false
       matrix:
         go:
-          - 1.18
           - 1.17
+          - 1.18
+          - 1.19
     steps:
       - uses: actions/checkout@v2
 
       - uses: actions/setup-go@v2
         with:
           go-version: ${{ matrix.go }}
+
+      - name: setup
+        run: |
+          go version
+          go install github.com/securego/gosec/cmd/gosec@latest
+          #go install golang.org/x/tools/cmd/cover@latest
+          go install github.com/axw/gocov/gocov@master
+          go install github.com/AlekSi/gocov-xml@latest
+          go install go.aporeto.io/elemental/cmd/elegen@master
+          go install go.aporeto.io/regolithe/cmd/rego@master
 
       - name: setup-for-older-go
         if: ${{ matrix.go <= 1.17 }}
@@ -39,16 +50,6 @@ jobs:
         if: ${{ matrix.go > 1.17 }}
         run: |
           go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-
-      - name: setup
-        run: |
-          go version
-          go install github.com/securego/gosec/cmd/gosec@latest
-          #go install golang.org/x/tools/cmd/cover@latest
-          go install github.com/axw/gocov/gocov@master
-          go install github.com/AlekSi/gocov-xml@latest
-          go install go.aporeto.io/elemental/cmd/elegen@master
-          go install go.aporeto.io/regolithe/cmd/rego@master
 
       - name: build
         run: |
