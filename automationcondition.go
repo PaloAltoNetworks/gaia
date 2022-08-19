@@ -163,12 +163,12 @@ func NewAutomationCondition() *AutomationCondition {
 	return &AutomationCondition{
 		ModelVersion:   1,
 		Annotations:    map[string][]string{},
-		Entitlements:   map[string][]elemental.Operation{},
 		AssociatedTags: []string{},
+		Entitlements:   map[string][]elemental.Operation{},
+		Metadata:       []string{},
 		MigrationsLog:  map[string]string{},
 		NormalizedTags: []string{},
 		Parameters:     map[string]interface{}{},
-		Metadata:       []string{},
 		Steps:          []*UIStep{},
 	}
 }

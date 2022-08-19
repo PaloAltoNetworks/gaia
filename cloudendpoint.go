@@ -174,10 +174,10 @@ func NewCloudEndpoint() *CloudEndpoint {
 		Annotations:      map[string][]string{},
 		AssociatedTags:   []string{},
 		CloudTags:        []string{},
-		PolicyReferences: []string{},
 		MigrationsLog:    map[string]string{},
 		NormalizedTags:   []string{},
 		Parameters:       NewCloudEndpointData(),
+		PolicyReferences: []string{},
 	}
 }
 

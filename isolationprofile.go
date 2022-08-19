@@ -165,9 +165,9 @@ func NewIsolationProfile() *IsolationProfile {
 		Annotations:         map[string][]string{},
 		AssociatedTags:      []string{},
 		CapabilitiesActions: types.CapabilitiesTypeMap{},
+		Metadata:            []string{},
 		MigrationsLog:       map[string]string{},
 		NormalizedTags:      []string{},
-		Metadata:            []string{},
 		SyscallRules:        types.SyscallEnforcementRulesMap{},
 		TargetArchitectures: types.ArchitecturesTypeList{},
 	}

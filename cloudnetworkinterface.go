@@ -174,10 +174,10 @@ func NewCloudNetworkInterface() *CloudNetworkInterface {
 		Annotations:      map[string][]string{},
 		AssociatedTags:   []string{},
 		CloudTags:        []string{},
-		PolicyReferences: []string{},
 		MigrationsLog:    map[string]string{},
 		NormalizedTags:   []string{},
 		Parameters:       NewCloudInterfaceData(),
+		PolicyReferences: []string{},
 	}
 }
 

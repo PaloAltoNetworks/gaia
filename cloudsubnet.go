@@ -174,10 +174,10 @@ func NewCloudSubnet() *CloudSubnet {
 		Annotations:      map[string][]string{},
 		AssociatedTags:   []string{},
 		CloudTags:        []string{},
-		PolicyReferences: []string{},
 		MigrationsLog:    map[string]string{},
 		NormalizedTags:   []string{},
 		Parameters:       NewCloudSubnetData(),
+		PolicyReferences: []string{},
 	}
 }
 

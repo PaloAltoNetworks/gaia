@@ -162,10 +162,10 @@ func NewSAMLProvider() *SAMLProvider {
 
 	return &SAMLProvider{
 		ModelVersion:   1,
-		AssociatedTags: []string{},
 		Annotations:    map[string][]string{},
-		NormalizedTags: []string{},
+		AssociatedTags: []string{},
 		MigrationsLog:  map[string]string{},
+		NormalizedTags: []string{},
 		Subjects:       []string{},
 	}
 }

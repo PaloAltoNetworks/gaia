@@ -256,13 +256,13 @@ func NewNetworkAccessPolicy() *NetworkAccessPolicy {
 	return &NetworkAccessPolicy{
 		ModelVersion:          1,
 		Action:                NetworkAccessPolicyActionAllow,
-		AssociatedTags:        []string{},
 		Annotations:           map[string][]string{},
 		ApplyPolicyMode:       NetworkAccessPolicyApplyPolicyModeBidirectional,
+		AssociatedTags:        []string{},
 		Metadata:              []string{},
-		ObservedTrafficAction: NetworkAccessPolicyObservedTrafficActionContinue,
 		NormalizedTags:        []string{},
 		Object:                [][]string{},
+		ObservedTrafficAction: NetworkAccessPolicyObservedTrafficActionContinue,
 		Ports:                 []string{},
 		Subject:               [][]string{},
 	}

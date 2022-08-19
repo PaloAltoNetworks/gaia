@@ -201,8 +201,8 @@ func NewConnectionExceptionReport() *ConnectionExceptionReport {
 
 	return &ConnectionExceptionReport{
 		ModelVersion:  1,
-		ServiceType:   ConnectionExceptionReportServiceTypeL3,
 		MigrationsLog: map[string]string{},
+		ServiceType:   ConnectionExceptionReportServiceTypeL3,
 	}
 }
 
