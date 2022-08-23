@@ -347,6 +347,9 @@ func NewService() *Service {
 
 	return &Service{
 		ModelVersion:               1,
+		IPs:                        []string{},
+		OIDCScopes:                 []string{},
+		TLSType:                    ServiceTLSTypeAporeto,
 		AllAPITags:                 []string{},
 		AllProcessingUnitsTags:     []string{},
 		Annotations:                map[string][]string{},
@@ -358,14 +361,11 @@ func NewService() *Service {
 		ExposedServiceIsTLS:        false,
 		External:                   false,
 		Hosts:                      []string{},
-		IPs:                        []string{},
 		Metadata:                   []string{},
 		MigrationsLog:              map[string]string{},
 		NormalizedTags:             []string{},
-		OIDCScopes:                 []string{},
 		ProxyProtocolSubnets:       []string{},
 		Selectors:                  [][]string{},
-		TLSType:                    ServiceTLSTypeAporeto,
 		Type:                       ServiceTypeHTTP,
 	}
 }

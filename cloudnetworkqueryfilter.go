@@ -106,6 +106,7 @@ func NewCloudNetworkQueryFilter() *CloudNetworkQueryFilter {
 
 	return &CloudNetworkQueryFilter{
 		ModelVersion:  1,
+		VPCIDs:        []string{},
 		AccountIDs:    []string{},
 		CloudTypes:    []string{},
 		ImageIDs:      []string{},
@@ -119,7 +120,6 @@ func NewCloudNetworkQueryFilter() *CloudNetworkQueryFilter {
 		ServiceTypes:  []string{},
 		Subnets:       []string{},
 		Tags:          []string{},
-		VPCIDs:        []string{},
 	}
 }
 

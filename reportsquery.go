@@ -147,10 +147,10 @@ func NewReportsQuery() *ReportsQuery {
 
 	return &ReportsQuery{
 		ModelVersion:               1,
+		DNSLookupReports:           DNSLookupReportsList{},
 		AccessReports:              AccessReportsList{},
 		ConnectionExceptionReports: ConnectionExceptionReportsList{},
 		CounterReports:             CounterReportsList{},
-		DNSLookupReports:           DNSLookupReportsList{},
 		EnforcerReports:            EnforcerReportsList{},
 		EventLogs:                  EventLogsList{},
 		FlowReports:                FlowReportsList{},
