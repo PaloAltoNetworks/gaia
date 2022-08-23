@@ -54,6 +54,8 @@ jobs:
       - name: build
         run: |
           make
+          git checkout identities_registry.go
+          make diff-check
 
 #      - name: coverage
 #        uses: codacy/codacy-coverage-reporter-action@v1

@@ -121,8 +121,8 @@ func NewOAUTHInfo() *OAUTHInfo {
 
 	return &OAUTHInfo{
 		ModelVersion:                      1,
-		ClaimsSupported:                   []string{},
 		IDTokenSigningAlgValuesSupported:  []string{},
+		ClaimsSupported:                   []string{},
 		ResponseTypesSupported:            []string{},
 		ScopesSupported:                   []string{},
 		SubjectTypesSupported:             []string{},
