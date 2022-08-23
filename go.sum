@@ -364,8 +364,8 @@ github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9de
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.3.5/go.mod h1:mwnBkeHKe2W/ZEtQ+71ViKU8L12m81fl3OWwC1Zlc8k=
-go.aporeto.io/elemental v1.100.1-0.20220524204820-ddfa01dc1c96 h1:jKifjp2JC/cWnfJMPUznRGZ2SO6UE8bkrQjVyq4GySQ=
-go.aporeto.io/elemental v1.100.1-0.20220524204820-ddfa01dc1c96/go.mod h1:YywW0kBkTrupWZ+p/a8PzsSuE0jZz2odnYbLhns0FHs=
+go.aporeto.io/elemental v1.100.1-0.20220823211843-5e7c7a0a25b4 h1:8JDzWJNbMbh9binV2XtPUR0DbJfPB8UAygJh8fHmmIk=
+go.aporeto.io/elemental v1.100.1-0.20220823211843-5e7c7a0a25b4/go.mod h1:YywW0kBkTrupWZ+p/a8PzsSuE0jZz2odnYbLhns0FHs=
 go.aporeto.io/regolithe v1.50.1-0.20220308204532-35cc3143a6b4/go.mod h1:PmnnacXq2l9aoPaxKJ+6PseWenoFXdluC3VmYlO4E/A=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.etcd.io/etcd/api/v3 v3.5.0/go.mod h1:cbVKeC6lCfl7j/8jBhAK6aIYO9XOjdptoxU/nLQcPvs=
