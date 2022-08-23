@@ -131,7 +131,6 @@ func NewCloudEndpointData() *CloudEndpointData {
 
 	return &CloudEndpointData{
 		ModelVersion:          1,
-		VPCAttachments:        []string{},
 		AssociatedRouteTables: []string{},
 		AttachedEntities:      []string{},
 		AttachedInterfaces:    []string{},
@@ -139,6 +138,7 @@ func NewCloudEndpointData() *CloudEndpointData {
 		PublicIPAddresses:     []string{},
 		ResourceStatus:        CloudEndpointDataResourceStatusActive,
 		ServiceType:           CloudEndpointDataServiceTypeNotApplicable,
+		VPCAttachments:        []string{},
 	}
 }
 

@@ -283,12 +283,12 @@ func NewNamespace() *Namespace {
 
 	return &Namespace{
 		ModelVersion:                   1,
-		JWTCertificateType:             NamespaceJWTCertificateTypeNone,
-		JWTCertificates:                map[string]string{},
 		Annotations:                    map[string][]string{},
 		AssociatedTags:                 []string{},
 		DefaultPUIncomingTrafficAction: NamespaceDefaultPUIncomingTrafficActionInherit,
 		DefaultPUOutgoingTrafficAction: NamespaceDefaultPUOutgoingTrafficActionInherit,
+		JWTCertificateType:             NamespaceJWTCertificateTypeNone,
+		JWTCertificates:                map[string]string{},
 		Metadata:                       []string{},
 		MigrationsLog:                  map[string]string{},
 		NetworkAccessPolicyTags:        []string{},

@@ -121,8 +121,8 @@ func NewPolicyGraph() *PolicyGraph {
 
 	return &PolicyGraph{
 		ModelVersion:  1,
-		PUIdentity:    []string{},
 		DependencyMap: NewDependencyMap(),
+		PUIdentity:    []string{},
 		PolicyType:    PolicyGraphPolicyTypeAuthorization,
 		Selectors:     [][]string{},
 	}
