@@ -314,17 +314,17 @@ func NewProcessingUnit() *ProcessingUnit {
 	return &ProcessingUnit{
 		ModelVersion:      1,
 		Annotations:       map[string][]string{},
-		CollectedInfo:     map[string]string{},
 		AssociatedTags:    []string{},
-		EnforcementStatus: ProcessingUnitEnforcementStatusInactive,
+		CollectedInfo:     map[string]string{},
 		DatapathType:      ProcessingUnitDatapathTypeAporeto,
-		NormalizedTags:    []string{},
-		OperationalStatus: ProcessingUnitOperationalStatusInitialized,
+		EnforcementStatus: ProcessingUnitEnforcementStatusInactive,
 		Images:            []string{},
 		Metadata:          []string{},
-		Tracing:           NewTraceMode(),
 		MigrationsLog:     map[string]string{},
 		NetworkServices:   []*ProcessingUnitService{},
+		NormalizedTags:    []string{},
+		OperationalStatus: ProcessingUnitOperationalStatusInitialized,
+		Tracing:           NewTraceMode(),
 		Vulnerabilities:   []string{},
 	}
 }

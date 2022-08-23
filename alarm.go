@@ -198,8 +198,8 @@ func NewAlarm() *Alarm {
 	return &Alarm{
 		ModelVersion:   1,
 		Annotations:    map[string][]string{},
-		Data:           []map[string]string{},
 		AssociatedTags: []string{},
+		Data:           []map[string]string{},
 		Emails:         []string{},
 		MigrationsLog:  map[string]string{},
 		NormalizedTags: []string{},

@@ -300,9 +300,9 @@ func NewFlowReport() *FlowReport {
 
 	return &FlowReport{
 		ModelVersion:   1,
+		MigrationsLog:  map[string]string{},
 		ObservedAction: FlowReportObservedActionNotApplicable,
 		ServiceType:    FlowReportServiceTypeNotApplicable,
-		MigrationsLog:  map[string]string{},
 	}
 }
 

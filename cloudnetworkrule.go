@@ -83,13 +83,13 @@ func NewCloudNetworkRule() *CloudNetworkRule {
 
 	return &CloudNetworkRule{
 		ModelVersion:        1,
-		Object:              [][]string{},
+		Action:              CloudNetworkRuleActionAllow,
 		GroupTags:           []string{},
 		IpRanges:            []*CloudIPRange{},
 		LocalNetworks:       []string{},
 		LocalServiceTags:    []string{},
 		Networks:            []string{},
-		Action:              CloudNetworkRuleActionAllow,
+		Object:              [][]string{},
 		ProtocolPorts:       []string{},
 		ServiceTags:         []string{},
 		StoredIPRanges:      []*CloudStoredIPRange{},

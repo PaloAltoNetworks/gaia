@@ -176,9 +176,9 @@ func NewTokenScopePolicy() *TokenScopePolicy {
 
 	return &TokenScopePolicy{
 		ModelVersion:       1,
-		AssignedScopes:     []string{},
 		AllowedAudiences:   []string{},
 		Annotations:        map[string][]string{},
+		AssignedScopes:     []string{},
 		AssociatedTags:     []string{},
 		InheritedClaimKeys: []string{},
 		Metadata:           []string{},

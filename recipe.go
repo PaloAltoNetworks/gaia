@@ -200,13 +200,13 @@ func NewRecipe() *Recipe {
 		Annotations:      map[string][]string{},
 		AssociatedTags:   []string{},
 		DeploymentMode:   RecipeDeploymentModeUnrestricted,
-		Steps:            []*UIStep{},
-		MigrationsLog:    map[string]string{},
-		TargetIdentities: []string{},
-		Options:          NewRecipeOptions(),
 		Label:            "magicpanda",
 		Metadata:         []string{},
+		MigrationsLog:    map[string]string{},
 		NormalizedTags:   []string{},
+		Options:          NewRecipeOptions(),
+		Steps:            []*UIStep{},
+		TargetIdentities: []string{},
 	}
 }
 

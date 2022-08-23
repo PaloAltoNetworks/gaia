@@ -154,9 +154,9 @@ func NewTrustedNamespace() *TrustedNamespace {
 		ModelVersion:   1,
 		Annotations:    map[string][]string{},
 		AssociatedTags: []string{},
+		MigrationsLog:  map[string]string{},
 		NormalizedTags: []string{},
 		Propagate:      true,
-		MigrationsLog:  map[string]string{},
 	}
 }
 
