@@ -20,6 +20,13 @@ attributes:
     example_value:
     - subnet-074c152ae45ea0c73
 
+  - name: floatingIPBackendPoolMapping
+    description: Mapping of frontend IP to FloatingIP enabled backend pools.
+    type: external
+    exposed: true
+    subtype: map[string][]string
+    stored: true
+
   - name: listenertargetmapping
     description: Mapping of a listener to its associated target group ID list.
     type: external
