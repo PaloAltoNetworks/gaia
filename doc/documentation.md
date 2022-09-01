@@ -7327,11 +7327,11 @@ Results of a firewall log query specified in RQL.
 
 #### Attributes
 
-##### `nodeData`
+##### `logLines`
 
 Type: [`[]firewalllogline`](#firewalllogline)
 
-Details about the node if the query type requests full details.
+Firewall log lines.
 
 ### FirewallLogLine
 

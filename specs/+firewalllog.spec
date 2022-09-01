@@ -11,8 +11,8 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: nodeData
-    description: Details about the node if the query type requests full details.
+  - name: logLines
+    description: Firewall log lines.
     type: refList
     exposed: true
     subtype: firewalllogline

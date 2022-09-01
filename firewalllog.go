@@ -13,8 +13,8 @@ import (
 
 // FirewallLog represents the model of a firewalllog
 type FirewallLog struct {
-	// Details about the node if the query type requests full details.
-	NodeData []*FirewallLogLine `json:"nodeData" msgpack:"nodeData" bson:"-" mapstructure:"nodeData,omitempty"`
+	// Firewall log lines.
+	LogLines []*FirewallLogLine `json:"logLines" msgpack:"logLines" bson:"-" mapstructure:"logLines,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -24,7 +24,7 @@ func NewFirewallLog() *FirewallLog {
 
 	return &FirewallLog{
 		ModelVersion: 1,
-		NodeData:     []*FirewallLogLine{},
+		LogLines:     []*FirewallLogLine{},
 	}
 }
 
@@ -93,7 +93,7 @@ func (o *FirewallLog) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	for _, sub := range o.NodeData {
+	for _, sub := range o.LogLines {
 		if sub == nil {
 			continue
 		}
@@ -137,8 +137,8 @@ func (*FirewallLog) AttributeSpecifications() map[string]elemental.AttributeSpec
 func (o *FirewallLog) ValueForAttribute(name string) interface{} {
 
 	switch name {
-	case "nodeData":
-		return o.NodeData
+	case "logLines":
+		return o.LogLines
 	}
 
 	return nil
@@ -146,12 +146,12 @@ func (o *FirewallLog) ValueForAttribute(name string) interface{} {
 
 // FirewallLogAttributesMap represents the map of attribute for FirewallLog.
 var FirewallLogAttributesMap = map[string]elemental.AttributeSpecification{
-	"NodeData": {
+	"LogLines": {
 		AllowedChoices: []string{},
-		ConvertedName:  "NodeData",
-		Description:    `Details about the node if the query type requests full details.`,
+		ConvertedName:  "LogLines",
+		Description:    `Firewall log lines.`,
 		Exposed:        true,
-		Name:           "nodeData",
+		Name:           "logLines",
 		SubType:        "firewalllogline",
 		Type:           "refList",
 	},
@@ -159,12 +159,12 @@ var FirewallLogAttributesMap = map[string]elemental.AttributeSpecification{
 
 // FirewallLogLowerCaseAttributesMap represents the map of attribute for FirewallLog.
 var FirewallLogLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
-	"nodedata": {
+	"loglines": {
 		AllowedChoices: []string{},
-		ConvertedName:  "NodeData",
-		Description:    `Details about the node if the query type requests full details.`,
+		ConvertedName:  "LogLines",
+		Description:    `Firewall log lines.`,
 		Exposed:        true,
-		Name:           "nodeData",
+		Name:           "logLines",
 		SubType:        "firewalllogline",
 		Type:           "refList",
 	},
