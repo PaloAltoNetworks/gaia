@@ -100,8 +100,9 @@ var (
 		"fileaccesspolicy":             FileAccessPolicyIdentity,
 		"fileaccessreport":             FileAccessReportIdentity,
 		"filepath":                     FilePathIdentity,
-		"flowreport":                   FlowReportIdentity,
-		"graphedge":                    GraphEdgeIdentity,
+
+		"flowreport": FlowReportIdentity,
+		"graphedge":  GraphEdgeIdentity,
 
 		"graphnode":                GraphNodeIdentity,
 		"healthcheck":              HealthCheckIdentity,
@@ -314,8 +315,9 @@ var (
 		"fileaccesspolicies":             FileAccessPolicyIdentity,
 		"fileaccessreports":              FileAccessReportIdentity,
 		"filepaths":                      FilePathIdentity,
-		"flowreports":                    FlowReportIdentity,
-		"graphedges":                     GraphEdgeIdentity,
+
+		"flowreports": FlowReportIdentity,
+		"graphedges":  GraphEdgeIdentity,
 
 		"graphnodes":                 GraphNodeIdentity,
 		"healthchecks":               HealthCheckIdentity,

@@ -10,6 +10,15 @@ model:
 # Attributes
 attributes:
   v1:
+  - name: firewallLogQueryResults
+    description: The firewall log query results.
+    type: ref
+    exposed: true
+    subtype: firewalllog
+    read_only: true
+    extensions:
+      refMode: pointer
+
   - name: internalEdges
     description: The edges of the map connecting internal endpoints.
     type: refMap
