@@ -5,6 +5,9 @@
       "pcsearchresult": {
         "description": "Represents the result data of RQL search.",
         "properties": {
+          "firewallLogQueryResults": {
+            "$ref": "./firewalllog#/components/schemas/firewalllog"
+          },
           "internalEdges": {
             "additionalProperties": {
               "$ref": "./cloudgraphedge#/components/schemas/cloudgraphedge"

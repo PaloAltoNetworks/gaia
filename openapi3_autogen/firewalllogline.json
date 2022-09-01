@@ -1,0 +1,49 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "firewalllogline": {
+        "description": "Log line from the results of a firewall log query specified in RQL.",
+        "properties": {
+          "fields": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "The fields and values for the log line.",
+            "type": "object"
+          },
+          "timestamp": {
+            "description": "The time for the log message.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "firewalllogline",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/rql'",
+      "name": "core/rql"
+    },
+    {
+      "description": "This tag is for package 'larl'",
+      "name": "larl"
+    }
+  ]
+}
