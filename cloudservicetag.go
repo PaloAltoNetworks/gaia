@@ -160,8 +160,8 @@ func NewCloudServiceTag() *CloudServiceTag {
 		Annotations:    map[string][]string{},
 		AssociatedTags: []string{},
 		CloudType:      CloudServiceTagCloudTypeAWS,
-		IpPrefixList:   []string{},
 		MigrationsLog:  map[string]string{},
+		IpPrefixList:   []string{},
 		NormalizedTags: []string{},
 	}
 }

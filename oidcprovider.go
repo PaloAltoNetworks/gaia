@@ -174,8 +174,8 @@ func NewOIDCProvider() *OIDCProvider {
 		ModelVersion:   1,
 		Annotations:    map[string][]string{},
 		AssociatedTags: []string{},
-		MigrationsLog:  map[string]string{},
 		NormalizedTags: []string{},
+		MigrationsLog:  map[string]string{},
 		Scopes:         []string{},
 		Subjects:       []string{},
 	}

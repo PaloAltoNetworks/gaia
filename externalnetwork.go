@@ -183,9 +183,9 @@ func NewExternalNetwork() *ExternalNetwork {
 		Annotations:    map[string][]string{},
 		AssociatedTags: []string{},
 		Entries:        []string{},
-		Metadata:       []string{},
 		MigrationsLog:  map[string]string{},
 		NormalizedTags: []string{},
+		Metadata:       []string{},
 		ServicePorts:   []string{},
 		Type:           ExternalNetworkTypeSubnet,
 	}

@@ -190,16 +190,16 @@ func NewAPIAuthorizationPolicy() *APIAuthorizationPolicy {
 
 	return &APIAuthorizationPolicy{
 		ModelVersion:         1,
+		AuthorizedIdentities: []string{},
 		AllSubjectTags:       []string{},
 		Annotations:          map[string][]string{},
 		AssociatedTags:       []string{},
-		AuthorizedIdentities: []string{},
 		AuthorizedNamespaces: []string{},
 		AuthorizedSubnets:    []string{},
-		Metadata:             []string{},
 		MigrationsLog:        map[string]string{},
 		NormalizedTags:       []string{},
 		Propagate:            true,
+		Metadata:             []string{},
 		Subject:              [][]string{},
 	}
 }

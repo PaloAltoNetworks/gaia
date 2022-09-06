@@ -201,8 +201,8 @@ func NewCloudAlertRecord() *CloudAlertRecord {
 		Annotations:    map[string][]string{},
 		AssociatedTags: []string{},
 		CloudType:      CloudAlertRecordCloudTypeAWS,
-		NormalizedTags: []string{},
 		Published:      false,
+		NormalizedTags: []string{},
 	}
 }
 

@@ -160,10 +160,10 @@ func NewCloudAlertRule() *CloudAlertRule {
 		ModelVersion:         1,
 		Annotations:          map[string][]string{},
 		AssociatedTags:       []string{},
-		MigrationsLog:        map[string]string{},
 		NormalizedTags:       []string{},
-		PrismaCloudPolicyIDs: []string{},
 		Regions:              []string{},
+		MigrationsLog:        map[string]string{},
+		PrismaCloudPolicyIDs: []string{},
 		TargetAccountIDs:     []string{},
 	}
 }

@@ -255,15 +255,15 @@ func NewPolicy() *Policy {
 
 	return &Policy{
 		ModelVersion:   1,
+		Annotations:    map[string][]string{},
 		AllObjectTags:  []string{},
 		AllSubjectTags: []string{},
-		Annotations:    map[string][]string{},
 		AssociatedTags: []string{},
-		Metadata:       []string{},
 		MigrationsLog:  map[string]string{},
+		Metadata:       []string{},
+		Relation:       []string{},
 		NormalizedTags: []string{},
 		Object:         [][]string{},
-		Relation:       []string{},
 		Subject:        [][]string{},
 	}
 }

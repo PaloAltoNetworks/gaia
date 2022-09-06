@@ -185,14 +185,14 @@ func NewAppCredential() *AppCredential {
 
 	return &AppCredential{
 		ModelVersion:      1,
-		Annotations:       map[string][]string{},
 		AssociatedTags:    []string{},
+		Annotations:       map[string][]string{},
 		AuthorizedSubnets: []string{},
-		Metadata:          []string{},
 		MigrationsLog:     map[string]string{},
 		NormalizedTags:    []string{},
 		ParentIDs:         []string{},
 		Roles:             []string{},
+		Metadata:          []string{},
 	}
 }
 

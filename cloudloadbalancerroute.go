@@ -90,6 +90,9 @@ type CloudLoadBalancerRoute struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Prisma Cloud RRN.
+	RRN string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"rrn,omitempty" mapstructure:"RRN,omitempty"`
+
 	// ID of the host VPC.
 	VPCID string `json:"VPCID,omitempty" msgpack:"VPCID,omitempty" bson:"vpcid,omitempty" mapstructure:"VPCID,omitempty"`
 
@@ -171,13 +174,13 @@ func NewCloudLoadBalancerRoute() *CloudLoadBalancerRoute {
 
 	return &CloudLoadBalancerRoute{
 		ModelVersion:     1,
+		MigrationsLog:    map[string]string{},
+		CloudTags:        []string{},
 		Annotations:      map[string][]string{},
 		AssociatedTags:   []string{},
-		CloudTags:        []string{},
-		MigrationsLog:    map[string]string{},
-		NormalizedTags:   []string{},
 		Parameters:       NewCloudLoadBalancerRouteData(),
 		PolicyReferences: []string{},
+		NormalizedTags:   []string{},
 	}
 }
 
@@ -213,6 +216,7 @@ func (o *CloudLoadBalancerRoute) GetBSON() (interface{}, error) {
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
+	s.RRN = o.RRN
 	s.VPCID = o.VPCID
 	s.AccountID = o.AccountID
 	s.Annotations = o.Annotations
@@ -256,6 +260,7 @@ func (o *CloudLoadBalancerRoute) SetBSON(raw bson.Raw) error {
 
 	o.APIID = s.APIID
 	o.ID = s.ID.Hex()
+	o.RRN = s.RRN
 	o.VPCID = s.VPCID
 	o.AccountID = s.AccountID
 	o.Annotations = s.Annotations
@@ -327,6 +332,18 @@ func (o *CloudLoadBalancerRoute) GetAPIID() int {
 func (o *CloudLoadBalancerRoute) SetAPIID(APIID int) {
 
 	o.APIID = APIID
+}
+
+// GetRRN returns the RRN of the receiver.
+func (o *CloudLoadBalancerRoute) GetRRN() string {
+
+	return o.RRN
+}
+
+// SetRRN sets the property RRN of the receiver using the given value.
+func (o *CloudLoadBalancerRoute) SetRRN(RRN string) {
+
+	o.RRN = RRN
 }
 
 // GetVPCID returns the VPCID of the receiver.
@@ -614,6 +631,7 @@ func (o *CloudLoadBalancerRoute) ToSparse(fields ...string) elemental.SparseIden
 		return &SparseCloudLoadBalancerRoute{
 			APIID:                &o.APIID,
 			ID:                   &o.ID,
+			RRN:                  &o.RRN,
 			VPCID:                &o.VPCID,
 			AccountID:            &o.AccountID,
 			Annotations:          &o.Annotations,
@@ -648,6 +666,8 @@ func (o *CloudLoadBalancerRoute) ToSparse(fields ...string) elemental.SparseIden
 			sp.APIID = &(o.APIID)
 		case "ID":
 			sp.ID = &(o.ID)
+		case "RRN":
+			sp.RRN = &(o.RRN)
 		case "VPCID":
 			sp.VPCID = &(o.VPCID)
 		case "accountID":
@@ -714,6 +734,9 @@ func (o *CloudLoadBalancerRoute) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.ID != nil {
 		o.ID = *so.ID
+	}
+	if so.RRN != nil {
+		o.RRN = *so.RRN
 	}
 	if so.VPCID != nil {
 		o.VPCID = *so.VPCID
@@ -884,6 +907,8 @@ func (o *CloudLoadBalancerRoute) ValueForAttribute(name string) interface{} {
 		return o.APIID
 	case "ID":
 		return o.ID
+	case "RRN":
+		return o.RRN
 	case "VPCID":
 		return o.VPCID
 	case "accountID":
@@ -963,6 +988,18 @@ var CloudLoadBalancerRouteAttributesMap = map[string]elemental.AttributeSpecific
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"RRN": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "rrn",
+		ConvertedName:  "RRN",
+		Description:    `Prisma Cloud RRN.`,
+		Exposed:        true,
+		Getter:         true,
+		Name:           "RRN",
+		Setter:         true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1316,6 +1353,18 @@ var CloudLoadBalancerRouteLowerCaseAttributesMap = map[string]elemental.Attribut
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"rrn": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "rrn",
+		ConvertedName:  "RRN",
+		Description:    `Prisma Cloud RRN.`,
+		Exposed:        true,
+		Getter:         true,
+		Name:           "RRN",
+		Setter:         true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1712,6 +1761,9 @@ type SparseCloudLoadBalancerRoute struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Prisma Cloud RRN.
+	RRN *string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"rrn,omitempty" mapstructure:"RRN,omitempty"`
+
 	// ID of the host VPC.
 	VPCID *string `json:"VPCID,omitempty" msgpack:"VPCID,omitempty" bson:"vpcid,omitempty" mapstructure:"VPCID,omitempty"`
 
@@ -1834,6 +1886,9 @@ func (o *SparseCloudLoadBalancerRoute) GetBSON() (interface{}, error) {
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
 	}
+	if o.RRN != nil {
+		s.RRN = o.RRN
+	}
 	if o.VPCID != nil {
 		s.VPCID = o.VPCID
 	}
@@ -1928,6 +1983,9 @@ func (o *SparseCloudLoadBalancerRoute) SetBSON(raw bson.Raw) error {
 	}
 	id := s.ID.Hex()
 	o.ID = &id
+	if s.RRN != nil {
+		o.RRN = s.RRN
+	}
 	if s.VPCID != nil {
 		o.VPCID = s.VPCID
 	}
@@ -2020,6 +2078,9 @@ func (o *SparseCloudLoadBalancerRoute) ToPlain() elemental.PlainIdentifiable {
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
+	if o.RRN != nil {
+		out.RRN = *o.RRN
+	}
 	if o.VPCID != nil {
 		out.VPCID = *o.VPCID
 	}
@@ -2110,6 +2171,22 @@ func (o *SparseCloudLoadBalancerRoute) GetAPIID() (out int) {
 func (o *SparseCloudLoadBalancerRoute) SetAPIID(APIID int) {
 
 	o.APIID = &APIID
+}
+
+// GetRRN returns the RRN of the receiver.
+func (o *SparseCloudLoadBalancerRoute) GetRRN() (out string) {
+
+	if o.RRN == nil {
+		return
+	}
+
+	return *o.RRN
+}
+
+// SetRRN sets the property RRN of the receiver using the address of the given value.
+func (o *SparseCloudLoadBalancerRoute) SetRRN(RRN string) {
+
+	o.RRN = &RRN
 }
 
 // GetVPCID returns the VPCID of the receiver.
@@ -2507,6 +2584,7 @@ func (o *SparseCloudLoadBalancerRoute) DeepCopyInto(out *SparseCloudLoadBalancer
 type mongoAttributesCloudLoadBalancerRoute struct {
 	APIID                int                         `bson:"apiid,omitempty"`
 	ID                   bson.ObjectId               `bson:"_id,omitempty"`
+	RRN                  string                      `bson:"rrn,omitempty"`
 	VPCID                string                      `bson:"vpcid,omitempty"`
 	AccountID            string                      `bson:"accountid,omitempty"`
 	Annotations          map[string][]string         `bson:"annotations"`
@@ -2535,6 +2613,7 @@ type mongoAttributesCloudLoadBalancerRoute struct {
 type mongoAttributesSparseCloudLoadBalancerRoute struct {
 	APIID                *int                        `bson:"apiid,omitempty"`
 	ID                   bson.ObjectId               `bson:"_id,omitempty"`
+	RRN                  *string                     `bson:"rrn,omitempty"`
 	VPCID                *string                     `bson:"vpcid,omitempty"`
 	AccountID            *string                     `bson:"accountid,omitempty"`
 	Annotations          *map[string][]string        `bson:"annotations,omitempty"`

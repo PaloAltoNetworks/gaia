@@ -206,10 +206,10 @@ func NewSSHAuthorizationPolicy() *SSHAuthorizationPolicy {
 		AssociatedTags:    []string{},
 		AuthorizedSubnets: []string{},
 		Extensions:        []string{},
-		Metadata:          []string{},
 		NormalizedTags:    []string{},
 		Object:            [][]string{},
 		Principals:        []string{},
+		Metadata:          []string{},
 		Subject:           [][]string{},
 		Validity:          "1h",
 	}

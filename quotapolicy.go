@@ -165,8 +165,8 @@ func NewQuotaPolicy() *QuotaPolicy {
 		ModelVersion:   1,
 		Annotations:    map[string][]string{},
 		AssociatedTags: []string{},
-		Identities:     []string{},
 		Metadata:       []string{},
+		Identities:     []string{},
 		NormalizedTags: []string{},
 	}
 }
