@@ -319,14 +319,14 @@ func NewEnforcer() *Enforcer {
 		CollectedInfo:         map[string]string{},
 		EnforcementStatus:     EnforcerEnforcementStatusInactive,
 		LastValidHostServices: HostServicesList{},
-		NormalizedTags:        []string{},
+		LogLevel:              EnforcerLogLevelInfo,
 		LogLevelDuration:      "10s",
+		Metadata:              []string{},
+		MigrationStatus:       EnforcerMigrationStatusNone,
+		MigrationsLog:         map[string]string{},
+		NormalizedTags:        []string{},
 		OperationalStatus:     EnforcerOperationalStatusRegistered,
 		Subnets:               []string{},
-		MigrationStatus:       EnforcerMigrationStatusNone,
-		LogLevel:              EnforcerLogLevelInfo,
-		Metadata:              []string{},
-		MigrationsLog:         map[string]string{},
 	}
 }
 

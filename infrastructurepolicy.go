@@ -185,9 +185,9 @@ func NewInfrastructurePolicy() *InfrastructurePolicy {
 	return &InfrastructurePolicy{
 		ModelVersion:    1,
 		Action:          InfrastructurePolicyActionAllow,
-		AssociatedTags:  []string{},
 		Annotations:     map[string][]string{},
 		ApplyPolicyMode: InfrastructurePolicyApplyPolicyModeOutgoingTraffic,
+		AssociatedTags:  []string{},
 		Metadata:        []string{},
 		NormalizedTags:  []string{},
 		Object:          [][]string{},

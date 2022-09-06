@@ -227,15 +227,15 @@ func NewCloudNode() *CloudNode {
 
 	return &CloudNode{
 		ModelVersion:     1,
-		Attachments:      []string{},
-		CloudTags:        []string{},
 		Annotations:      map[string][]string{},
 		AssociatedTags:   []string{},
+		Attachments:      []string{},
+		CloudTags:        []string{},
 		MigrationsLog:    map[string]string{},
-		SecurityTags:     []string{},
 		NormalizedTags:   []string{},
-		PolicyReferences: []string{},
 		Parameters:       map[string]interface{}{},
+		PolicyReferences: []string{},
+		SecurityTags:     []string{},
 	}
 }
 

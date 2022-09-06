@@ -106,20 +106,20 @@ func NewCloudNetworkQueryFilter() *CloudNetworkQueryFilter {
 
 	return &CloudNetworkQueryFilter{
 		ModelVersion:  1,
+		VPCIDs:        []string{},
 		AccountIDs:    []string{},
 		CloudTypes:    []string{},
 		ImageIDs:      []string{},
 		ObjectIDs:     []string{},
 		PaasTypes:     []string{},
-		SecurityTags:  []string{},
 		Regions:       []string{},
 		ResourceType:  CloudNetworkQueryFilterResourceTypeInstance,
+		SecurityTags:  []string{},
 		ServiceNames:  []string{},
 		ServiceOwners: []string{},
 		ServiceTypes:  []string{},
 		Subnets:       []string{},
 		Tags:          []string{},
-		VPCIDs:        []string{},
 	}
 }
 
