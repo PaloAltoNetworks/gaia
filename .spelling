@@ -342,6 +342,7 @@ NetworkRule
 NetworkRuleNet
 NetworkRuleSetPolicy
 NfQueue
+NGFWMetricGroup
 nginx
 nginx
 NICs

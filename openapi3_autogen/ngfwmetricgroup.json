@@ -1,0 +1,174 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "ngfwmetricgroup": {
+        "description": "Defines the Next-Generation Firewall (NGFW) group of metrics.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "countCreditsConsumed": {
+            "description": "The number of Prisma Cloud credits consumed.",
+            "type": "integer"
+          },
+          "countInstancesAdvancedLicense": {
+            "description": "The number of instances with advanced licensing.",
+            "type": "integer"
+          },
+          "countInstancesBasicLicense": {
+            "description": "The number of instances with basic licensing.",
+            "type": "integer"
+          },
+          "countInstancesNGFWMode": {
+            "description": "The number of instances in NGFW mode.",
+            "type": "integer"
+          },
+          "countInstancesTAPLicense": {
+            "description": "The number of instances with TAP licensing.",
+            "type": "integer"
+          },
+          "countInstancesTAPMode": {
+            "description": "The number of instances in TAP mode.",
+            "type": "integer"
+          },
+          "countPoliciesAutoRemedyEnabled": {
+            "description": "The number of NGFW policies with auto-remediation enabled.",
+            "type": "integer"
+          },
+          "countTenantsNGFWEnabled": {
+            "description": "The number of tenants with NGFW enabled.",
+            "type": "integer"
+          },
+          "countThreatsBlocked": {
+            "description": "The number of threats blocked.",
+            "type": "integer"
+          },
+          "countThreatsDetected": {
+            "description": "The number of threats detected.",
+            "type": "integer"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "ngfwmetricgroup",
+    "version": "1.0"
+  },
+  "paths": {
+    "/ngfwmetricgroups": {
+      "get": {
+        "description": "Retrieves a list of NGFW group of metrics.",
+        "operationId": "get-all-ngfwmetricgroups",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ngfwmetricgroup"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "placeholder",
+          "placeholder"
+        ]
+      }
+    },
+    "/ngfwmetricgroups/{id}": {
+      "get": {
+        "description": "Retrieves the NGFW group of metrics with the given ID.",
+        "operationId": "get-ngfwmetricgroup-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ngfwmetricgroup"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "placeholder",
+          "placeholder"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'placeholder'",
+      "name": "placeholder"
+    },
+    {
+      "description": "This tag is for package 'placeholder'",
+      "name": "placeholder"
+    }
+  ]
+}
