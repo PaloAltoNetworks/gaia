@@ -897,6 +897,13 @@ relations:
   create:
     description: Creates a new network rule set policy policy.
 
+- rest_name: ngfwreport
+  get:
+    description: Retrieves a list of NGFW reports.
+    global_parameters:
+    - $filtering
+    - $propagatable
+
 - rest_name: oidcprovider
   get:
     description: Retrieves the list of OIDC providers.

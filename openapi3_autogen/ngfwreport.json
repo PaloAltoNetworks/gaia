@@ -189,7 +189,94 @@
     "title": "ngfwreport",
     "version": "1.0"
   },
-  "paths": {},
+  "paths": {
+    "/ngfwreports": {
+      "get": {
+        "description": "Retrieves a list of NGFW reports.",
+        "operationId": "get-all-ngfwreports",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ngfwreport"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "tbd",
+          "tbd"
+        ]
+      }
+    },
+    "/ngfwreports/{id}": {
+      "get": {
+        "description": "Retrieves the NGFW report with the given ID.",
+        "operationId": "get-ngfwreport-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ngfwreport"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "tbd",
+          "tbd"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
   "tags": [
     {
       "description": "This tag is for group 'tbd'",

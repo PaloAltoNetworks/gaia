@@ -6,6 +6,10 @@ model:
   package: tbd
   group: tbd
   description: Defines a Next-Generation Firewall (NGFW) report.
+  get:
+    description: Retrieves the NGFW report with the given ID.
+    global_parameters:
+    - $propagatable
   extends:
   - '@identifiable-stored'
   - '@namespaced'
