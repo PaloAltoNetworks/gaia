@@ -21,9 +21,7 @@
             "type": "string"
           },
           "reportType": {
-            "default": [
-              "NetworkingReport"
-            ],
+            "default": "NetworkingReport",
             "description": "Type of Cloud NGFW report stored.",
             "enum": [
               "NetworkingReport",

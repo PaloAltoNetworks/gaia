@@ -41,8 +41,7 @@ attributes:
     allowed_choices:
     - NetworkingReport
     - SecurityReport
-    default_value:
-    - NetworkingReport
+    default_value: NetworkingReport
 
   - name: timestamp
     description: Date of the report.

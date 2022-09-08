@@ -14501,9 +14501,7 @@ Defines a Next-Generation Firewall (NGFW) report.
 ```json
 {
   "instanceID": 12345678,
-  "reportType": [
-    "NetworkingReport"
-  ],
+  "reportType": "NetworkingReport",
   "timestamp": "2018-06-14T23:10:46.420397985Z",
   "topApplications": [
     {
@@ -14622,9 +14620,7 @@ Type of Cloud NGFW report stored.
 Default value:
 
 ```json
-[
-  "NetworkingReport"
-]
+"NetworkingReport"
 ```
 
 ##### `timestamp` [`required`]
