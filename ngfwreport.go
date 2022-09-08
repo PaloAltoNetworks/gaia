@@ -27,7 +27,7 @@ const (
 var NGFWReportIdentity = elemental.Identity{
 	Name:     "ngfwreport",
 	Category: "ngfwreports",
-	Package:  "tbd",
+	Package:  "placeholder",
 	Private:  false,
 }
 

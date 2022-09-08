@@ -3,8 +3,8 @@ model:
   rest_name: ngfwreport
   resource_name: ngfwreports
   entity_name: NGFWReport
-  package: tbd
-  group: tbd
+  package: placeholder
+  group: placeholder
   description: Defines a Next-Generation Firewall (NGFW) report.
   get:
     description: Retrieves the NGFW report with the given ID.

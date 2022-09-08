@@ -229,8 +229,8 @@
           }
         },
         "tags": [
-          "tbd",
-          "tbd"
+          "placeholder",
+          "placeholder"
         ]
       }
     },
@@ -261,8 +261,8 @@
           }
         },
         "tags": [
-          "tbd",
-          "tbd"
+          "placeholder",
+          "placeholder"
         ]
       },
       "parameters": [
@@ -279,12 +279,12 @@
   },
   "tags": [
     {
-      "description": "This tag is for group 'tbd'",
-      "name": "tbd"
+      "description": "This tag is for group 'placeholder'",
+      "name": "placeholder"
     },
     {
-      "description": "This tag is for package 'tbd'",
-      "name": "tbd"
+      "description": "This tag is for package 'placeholder'",
+      "name": "placeholder"
     }
   ]
 }
