@@ -5,8 +5,7 @@ model:
   entity_name: NGFWRiskAssessmentDashboard
   package: placeholder
   group: placeholder
-  description: Defines Next-Generation Firewall (NGFW) risk asssessment dashboard
-    metrics.
+  description: Defines Next-Generation Firewall (NGFW) risk assessment dashboard metrics.
   get:
     description: Retrieves NGFW risk assessment dashboard metrics for the specified
       cloud account and time filter.
@@ -39,7 +38,7 @@ attributes:
     - 2
 
   - name: cloudAccountID
-    description: The specified cloud account to provide risk asssessment metrics for.
+    description: The specified cloud account to provide risk assessment metrics for.
     type: string
     exposed: true
     stored: true
@@ -115,7 +114,7 @@ attributes:
 
 
   # WIP
-  
+
   # - name: topMostAccessedDomains
   #   description: The most accessed domains and the assets that contacted them in provided range.
   #   type: external
@@ -159,3 +158,4 @@ attributes:
   # type: TBD
   # exposed: true
   # example_value:
+  

@@ -130,7 +130,7 @@ type NGFWRiskAssessmentDashboard struct {
 	// range.
 	AssetsAtRiskTrendline []int `json:"assetsAtRiskTrendline" msgpack:"assetsAtRiskTrendline" bson:"-" mapstructure:"assetsAtRiskTrendline,omitempty"`
 
-	// The specified cloud account to provide risk asssessment metrics for.
+	// The specified cloud account to provide risk assessment metrics for.
 	CloudAccountID string `json:"cloudAccountID" msgpack:"cloudAccountID" bson:"cloudaccountid" mapstructure:"cloudAccountID,omitempty"`
 
 	// The end of the custom date range when CustomDate is used for dateRangeFilter.
@@ -269,7 +269,7 @@ func (o *NGFWRiskAssessmentDashboard) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *NGFWRiskAssessmentDashboard) Doc() string {
 
-	return `Defines Next-Generation Firewall (NGFW) risk asssessment dashboard metrics.`
+	return `Defines Next-Generation Firewall (NGFW) risk assessment dashboard metrics.`
 }
 
 func (o *NGFWRiskAssessmentDashboard) String() string {
@@ -575,7 +575,7 @@ range.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "cloudaccountid",
 		ConvertedName:  "CloudAccountID",
-		Description:    `The specified cloud account to provide risk asssessment metrics for.`,
+		Description:    `The specified cloud account to provide risk assessment metrics for.`,
 		Exposed:        true,
 		Name:           "cloudAccountID",
 		Required:       true,
@@ -732,7 +732,7 @@ range.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "cloudaccountid",
 		ConvertedName:  "CloudAccountID",
-		Description:    `The specified cloud account to provide risk asssessment metrics for.`,
+		Description:    `The specified cloud account to provide risk assessment metrics for.`,
 		Exposed:        true,
 		Name:           "cloudAccountID",
 		Required:       true,
@@ -928,7 +928,7 @@ type SparseNGFWRiskAssessmentDashboard struct {
 	// range.
 	AssetsAtRiskTrendline *[]int `json:"assetsAtRiskTrendline,omitempty" msgpack:"assetsAtRiskTrendline,omitempty" bson:"-" mapstructure:"assetsAtRiskTrendline,omitempty"`
 
-	// The specified cloud account to provide risk asssessment metrics for.
+	// The specified cloud account to provide risk assessment metrics for.
 	CloudAccountID *string `json:"cloudAccountID,omitempty" msgpack:"cloudAccountID,omitempty" bson:"cloudaccountid,omitempty" mapstructure:"cloudAccountID,omitempty"`
 
 	// The end of the custom date range when CustomDate is used for dateRangeFilter.

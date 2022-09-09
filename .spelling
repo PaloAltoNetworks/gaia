@@ -153,6 +153,7 @@ CRI-O
 cron
 cron
 CurrentConnection
+CVEs
 daemonset
 daemonset
 DaemonSet
@@ -342,6 +343,7 @@ NetworkRule
 NetworkRuleNet
 NetworkRuleSetPolicy
 NfQueue
+NGFWRiskAssessmentDashboard
 nginx
 nginx
 NICs

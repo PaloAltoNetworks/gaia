@@ -3,7 +3,7 @@
   "components": {
     "schemas": {
       "ngfwriskassessmentdashboard": {
-        "description": "Defines Next-Generation Firewall (NGFW) risk asssessment dashboard metrics.",
+        "description": "Defines Next-Generation Firewall (NGFW) risk assessment dashboard metrics.",
         "properties": {
           "ID": {
             "description": "Identifier of the object.",
@@ -24,7 +24,7 @@
             "type": "array"
           },
           "cloudAccountID": {
-            "description": "The specified cloud account to provide risk asssessment metrics for.",
+            "description": "The specified cloud account to provide risk assessment metrics for.",
             "example": 12345678,
             "type": "string"
           },
