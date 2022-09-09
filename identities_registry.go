@@ -137,16 +137,17 @@ var (
 		"namespacetype":          NamespaceTypeIdentity,
 		"networkaccesspolicy":    NetworkAccessPolicyIdentity,
 
-		"networkrulesetpolicy":   NetworkRuleSetPolicyIdentity,
-		"oauthinfo":              OAUTHInfoIdentity,
-		"oauthkey":               OAUTHKeyIdentity,
-		"oidcprovider":           OIDCProviderIdentity,
-		"organizationalmetadata": OrganizationalMetadataIdentity,
-		"packetreport":           PacketReportIdentity,
-		"passwordreset":          PasswordResetIdentity,
-		"pccprovider":            PCCProviderIdentity,
-		"pcsearchresult":         PCSearchResultIdentity,
-		"pctimerange":            PCTimeRangeIdentity,
+		"networkrulesetpolicy":        NetworkRuleSetPolicyIdentity,
+		"ngfwriskassessmentdashboard": NGFWRiskAssessmentDashboardIdentity,
+		"oauthinfo":                   OAUTHInfoIdentity,
+		"oauthkey":                    OAUTHKeyIdentity,
+		"oidcprovider":                OIDCProviderIdentity,
+		"organizationalmetadata":      OrganizationalMetadataIdentity,
+		"packetreport":                PacketReportIdentity,
+		"passwordreset":               PasswordResetIdentity,
+		"pccprovider":                 PCCProviderIdentity,
+		"pcsearchresult":              PCSearchResultIdentity,
+		"pctimerange":                 PCTimeRangeIdentity,
 
 		"pingprobe":   PingProbeIdentity,
 		"pingrequest": PingRequestIdentity,
@@ -351,16 +352,17 @@ var (
 		"namespacetypes":           NamespaceTypeIdentity,
 		"networkaccesspolicies":    NetworkAccessPolicyIdentity,
 
-		"networkrulesetpolicies": NetworkRuleSetPolicyIdentity,
-		"oauthinfo":              OAUTHInfoIdentity,
-		"oauthkeys":              OAUTHKeyIdentity,
-		"oidcproviders":          OIDCProviderIdentity,
-		"organizationalmetadata": OrganizationalMetadataIdentity,
-		"packetreports":          PacketReportIdentity,
-		"passwordreset":          PasswordResetIdentity,
-		"pccproviders":           PCCProviderIdentity,
-		"pcsearchresults":        PCSearchResultIdentity,
-		"pctimeranges":           PCTimeRangeIdentity,
+		"networkrulesetpolicies":       NetworkRuleSetPolicyIdentity,
+		"ngfwriskassessmentdashboards": NGFWRiskAssessmentDashboardIdentity,
+		"oauthinfo":                    OAUTHInfoIdentity,
+		"oauthkeys":                    OAUTHKeyIdentity,
+		"oidcproviders":                OIDCProviderIdentity,
+		"organizationalmetadata":       OrganizationalMetadataIdentity,
+		"packetreports":                PacketReportIdentity,
+		"passwordreset":                PasswordResetIdentity,
+		"pccproviders":                 PCCProviderIdentity,
+		"pcsearchresults":              PCSearchResultIdentity,
+		"pctimeranges":                 PCTimeRangeIdentity,
 
 		"pingprobes":   PingProbeIdentity,
 		"pingrequests": PingRequestIdentity,
@@ -1180,8 +1182,14 @@ var (
 		"namespacetype":          nil,
 		"networkaccesspolicy":    nil,
 		"networkrulesetpolicy":   nil,
-		"oauthinfo":              nil,
-		"oauthkey":               nil,
+		"ngfwriskassessmentdashboard": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"namespace"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+		},
+		"oauthinfo": nil,
+		"oauthkey":  nil,
 		"oidcprovider": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"createIdempotencyKey"},
@@ -1679,6 +1687,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewNetworkAccessPolicy()
 	case NetworkRuleSetPolicyIdentity:
 		return NewNetworkRuleSetPolicy()
+	case NGFWRiskAssessmentDashboardIdentity:
+		return NewNGFWRiskAssessmentDashboard()
 	case OAUTHInfoIdentity:
 		return NewOAUTHInfo()
 	case OAUTHKeyIdentity:
@@ -2050,6 +2060,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseNetworkAccessPolicy()
 	case NetworkRuleSetPolicyIdentity:
 		return NewSparseNetworkRuleSetPolicy()
+	case NGFWRiskAssessmentDashboardIdentity:
+		return NewSparseNGFWRiskAssessmentDashboard()
 	case OAUTHInfoIdentity:
 		return NewSparseOAUTHInfo()
 	case OAUTHKeyIdentity:
@@ -2429,6 +2441,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &NetworkAccessPoliciesList{}
 	case NetworkRuleSetPolicyIdentity:
 		return &NetworkRuleSetPoliciesList{}
+	case NGFWRiskAssessmentDashboardIdentity:
+		return &NGFWRiskAssessmentDashboardsList{}
 	case OAUTHInfoIdentity:
 		return &OAUTHInfosList{}
 	case OAUTHKeyIdentity:
@@ -2798,6 +2812,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseNetworkAccessPoliciesList{}
 	case NetworkRuleSetPolicyIdentity:
 		return &SparseNetworkRuleSetPoliciesList{}
+	case NGFWRiskAssessmentDashboardIdentity:
+		return &SparseNGFWRiskAssessmentDashboardsList{}
 	case OAUTHInfoIdentity:
 		return &SparseOAUTHInfosList{}
 	case OAUTHKeyIdentity:
@@ -3077,6 +3093,7 @@ func AllIdentities() []elemental.Identity {
 		NamespaceTypeIdentity,
 		NetworkAccessPolicyIdentity,
 		NetworkRuleSetPolicyIdentity,
+		NGFWRiskAssessmentDashboardIdentity,
 		OAUTHInfoIdentity,
 		OAUTHKeyIdentity,
 		OIDCProviderIdentity,
@@ -3492,6 +3509,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"networkruleset",
 			"networkrulesets",
 		}
+	case NGFWRiskAssessmentDashboardIdentity:
+		return []string{}
 	case OAUTHInfoIdentity:
 		return []string{}
 	case OAUTHKeyIdentity:
