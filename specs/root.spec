@@ -897,6 +897,10 @@ relations:
   create:
     description: Creates a new network rule set policy policy.
 
+- rest_name: ngfwriskassessmentdashboard
+  create:
+    description: Creates a NGFW risk assessment dashboard bucket for caching stats.
+
 - rest_name: oidcprovider
   get:
     description: Retrieves the list of OIDC providers.

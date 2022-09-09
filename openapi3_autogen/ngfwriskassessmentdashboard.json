@@ -1,0 +1,191 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "ngfwriskassessmentdashboard": {
+        "description": "Defines Next-Generation Firewall (NGFW) risk asssessment dashboard metrics.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "assetsAtRiskTrendline": {
+            "description": "Array of number of workloads contacting suspicious domains, involved in\nanomalous activities, \nor internet facing with high / critical vulnerabilities detected in provided\nrange.",
+            "example": [
+              1,
+              2,
+              1,
+              2
+            ],
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "cloudAccountID": {
+            "description": "The specified cloud account to provide risk asssessment metrics for.",
+            "example": 12345678,
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "recommendedFirewallDeploymentsTrendline": {
+            "description": "Array of number of recommended firewall deployments in provided range.",
+            "example": [
+              1,
+              2,
+              1,
+              2
+            ],
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "riskScoreConfidenceLevel": {
+            "default": "LowConfidence",
+            "description": "Latest risk score confidence level in provided range.",
+            "enum": [
+              "LowConfidence",
+              "MediumConfidence",
+              "HighConfidence",
+              "VeryHighConfidence"
+            ]
+          },
+          "riskScoreTrendLine": {
+            "description": "Array of risk score values over provided range.",
+            "example": [
+              2,
+              3,
+              2,
+              8
+            ],
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          },
+          "threatsTrendline": {
+            "description": "Array of number of CVEs on internet exposed assets detected in provided range.",
+            "example": [
+              1,
+              2,
+              1,
+              2
+            ],
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "cloudAccountID"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "ngfwriskassessmentdashboard",
+    "version": "1.0"
+  },
+  "paths": {
+    "/ngfwriskassessmentdashboards": {
+      "post": {
+        "description": "Creates a NGFW risk assessment dashboard bucket for caching stats.",
+        "operationId": "create-a-new-ngfwriskassessmentdashboard",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ngfwriskassessmentdashboard"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ngfwriskassessmentdashboard"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "placeholder",
+          "placeholder"
+        ]
+      }
+    },
+    "/ngfwriskassessmentdashboards/{id}": {
+      "get": {
+        "description": "Retrieves NGFW risk assessment dashboard metrics for the specified cloud account and time filter.",
+        "operationId": "get-ngfwriskassessmentdashboard-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ngfwriskassessmentdashboard"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "placeholder",
+          "placeholder"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'placeholder'",
+      "name": "placeholder"
+    },
+    {
+      "description": "This tag is for package 'placeholder'",
+      "name": "placeholder"
+    }
+  ]
+}
