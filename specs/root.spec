@@ -897,12 +897,20 @@ relations:
   create:
     description: Creates a new network rule set policy policy.
 
-- rest_name: ngfwmetricgroup
+- rest_name: ngfwgroupmetric
   get:
     description: Retrieves a list of NGFW group of metrics.
-    global_parameters:
-    - $filtering
-    - $propagatable
+    parameters:
+      entries:
+      - name: timerange
+        description: If set, query the metrics based on the specified time range.
+        type: enum
+        allowed_choices:
+        - day
+        - week
+        - month
+        - quarter
+        - year
 
 - rest_name: oidcprovider
   get:

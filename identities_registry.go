@@ -138,7 +138,7 @@ var (
 		"networkaccesspolicy":    NetworkAccessPolicyIdentity,
 
 		"networkrulesetpolicy":   NetworkRuleSetPolicyIdentity,
-		"ngfwmetricgroup":        NGFWMetricGroupIdentity,
+		"ngfwgroupmetric":        NGFWGroupMetricIdentity,
 		"oauthinfo":              OAUTHInfoIdentity,
 		"oauthkey":               OAUTHKeyIdentity,
 		"oidcprovider":           OIDCProviderIdentity,
@@ -353,7 +353,7 @@ var (
 		"networkaccesspolicies":    NetworkAccessPolicyIdentity,
 
 		"networkrulesetpolicies": NetworkRuleSetPolicyIdentity,
-		"ngfwmetricgroups":       NGFWMetricGroupIdentity,
+		"ngfwgroupmetrics":       NGFWGroupMetricIdentity,
 		"oauthinfo":              OAUTHInfoIdentity,
 		"oauthkeys":              OAUTHKeyIdentity,
 		"oidcproviders":          OIDCProviderIdentity,
@@ -1182,13 +1182,9 @@ var (
 		"namespacetype":          nil,
 		"networkaccesspolicy":    nil,
 		"networkrulesetpolicy":   nil,
-		"ngfwmetricgroup": {
-			{":shard", ":unique", "zone", "zHash"},
-			{"namespace"},
-			{"namespace", "normalizedTags"},
-		},
-		"oauthinfo": nil,
-		"oauthkey":  nil,
+		"ngfwgroupmetric":        nil,
+		"oauthinfo":              nil,
+		"oauthkey":               nil,
 		"oidcprovider": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"createIdempotencyKey"},
@@ -1686,8 +1682,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewNetworkAccessPolicy()
 	case NetworkRuleSetPolicyIdentity:
 		return NewNetworkRuleSetPolicy()
-	case NGFWMetricGroupIdentity:
-		return NewNGFWMetricGroup()
+	case NGFWGroupMetricIdentity:
+		return NewNGFWGroupMetric()
 	case OAUTHInfoIdentity:
 		return NewOAUTHInfo()
 	case OAUTHKeyIdentity:
@@ -2059,8 +2055,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseNetworkAccessPolicy()
 	case NetworkRuleSetPolicyIdentity:
 		return NewSparseNetworkRuleSetPolicy()
-	case NGFWMetricGroupIdentity:
-		return NewSparseNGFWMetricGroup()
+	case NGFWGroupMetricIdentity:
+		return NewSparseNGFWGroupMetric()
 	case OAUTHInfoIdentity:
 		return NewSparseOAUTHInfo()
 	case OAUTHKeyIdentity:
@@ -2440,8 +2436,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &NetworkAccessPoliciesList{}
 	case NetworkRuleSetPolicyIdentity:
 		return &NetworkRuleSetPoliciesList{}
-	case NGFWMetricGroupIdentity:
-		return &NGFWMetricGroupsList{}
+	case NGFWGroupMetricIdentity:
+		return &NGFWGroupMetricsList{}
 	case OAUTHInfoIdentity:
 		return &OAUTHInfosList{}
 	case OAUTHKeyIdentity:
@@ -2811,8 +2807,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseNetworkAccessPoliciesList{}
 	case NetworkRuleSetPolicyIdentity:
 		return &SparseNetworkRuleSetPoliciesList{}
-	case NGFWMetricGroupIdentity:
-		return &SparseNGFWMetricGroupsList{}
+	case NGFWGroupMetricIdentity:
+		return &SparseNGFWGroupMetricsList{}
 	case OAUTHInfoIdentity:
 		return &SparseOAUTHInfosList{}
 	case OAUTHKeyIdentity:
@@ -3092,7 +3088,7 @@ func AllIdentities() []elemental.Identity {
 		NamespaceTypeIdentity,
 		NetworkAccessPolicyIdentity,
 		NetworkRuleSetPolicyIdentity,
-		NGFWMetricGroupIdentity,
+		NGFWGroupMetricIdentity,
 		OAUTHInfoIdentity,
 		OAUTHKeyIdentity,
 		OIDCProviderIdentity,
@@ -3508,7 +3504,7 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"networkruleset",
 			"networkrulesets",
 		}
-	case NGFWMetricGroupIdentity:
+	case NGFWGroupMetricIdentity:
 		return []string{}
 	case OAUTHInfoIdentity:
 		return []string{}

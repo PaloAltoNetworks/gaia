@@ -3753,28 +3753,20 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[NGFWMetricGroupIdentity] = &elemental.Relationship{
-		Retrieve: map[string]*elemental.RelationshipInfo{
-			"root": {
-				Parameters: []elemental.ParameterDefinition{
-					{
-						Name: "propagated",
-						Type: "boolean",
-					},
-				},
-			},
-		},
+	relationshipsRegistry[NGFWGroupMetricIdentity] = &elemental.Relationship{
 		RetrieveMany: map[string]*elemental.RelationshipInfo{
 			"root": {
 				Parameters: []elemental.ParameterDefinition{
 					{
-						Name:     "q",
-						Type:     "string",
-						Multiple: true,
-					},
-					{
-						Name: "propagated",
-						Type: "boolean",
+						Name: "timerange",
+						Type: "enum",
+						AllowedChoices: []string{
+							"day",
+							"week",
+							"month",
+							"quarter",
+							"year",
+						},
 					},
 				},
 			},
@@ -3783,13 +3775,15 @@ func init() {
 			"root": {
 				Parameters: []elemental.ParameterDefinition{
 					{
-						Name:     "q",
-						Type:     "string",
-						Multiple: true,
-					},
-					{
-						Name: "propagated",
-						Type: "boolean",
+						Name: "timerange",
+						Type: "enum",
+						AllowedChoices: []string{
+							"day",
+							"week",
+							"month",
+							"quarter",
+							"year",
+						},
 					},
 				},
 			},

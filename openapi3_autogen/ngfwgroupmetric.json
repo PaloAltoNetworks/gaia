@@ -2,58 +2,58 @@
   "openapi": "3.0.3",
   "components": {
     "schemas": {
-      "ngfwmetricgroup": {
+      "ngfwgroupmetric": {
         "description": "Defines the Next-Generation Firewall (NGFW) group of metrics.",
         "properties": {
-          "ID": {
-            "description": "Identifier of the object.",
-            "readOnly": true,
-            "type": "string"
-          },
           "countCreditsConsumed": {
             "description": "The number of Prisma Cloud credits consumed.",
+            "readOnly": true,
             "type": "integer"
           },
           "countInstancesAdvancedLicense": {
             "description": "The number of instances with advanced licensing.",
+            "readOnly": true,
             "type": "integer"
           },
           "countInstancesBasicLicense": {
             "description": "The number of instances with basic licensing.",
+            "readOnly": true,
             "type": "integer"
           },
           "countInstancesNGFWMode": {
             "description": "The number of instances in NGFW mode.",
+            "readOnly": true,
             "type": "integer"
           },
           "countInstancesTAPLicense": {
             "description": "The number of instances with TAP licensing.",
+            "readOnly": true,
             "type": "integer"
           },
           "countInstancesTAPMode": {
             "description": "The number of instances in TAP mode.",
+            "readOnly": true,
             "type": "integer"
           },
           "countPoliciesAutoRemedyEnabled": {
             "description": "The number of NGFW policies with auto-remediation enabled.",
+            "readOnly": true,
             "type": "integer"
           },
           "countTenantsNGFWEnabled": {
             "description": "The number of tenants with NGFW enabled.",
+            "readOnly": true,
             "type": "integer"
           },
           "countThreatsBlocked": {
             "description": "The number of threats blocked.",
+            "readOnly": true,
             "type": "integer"
           },
           "countThreatsDetected": {
             "description": "The number of threats detected.",
-            "type": "integer"
-          },
-          "namespace": {
-            "description": "Namespace tag attached to an entity.",
             "readOnly": true,
-            "type": "string"
+            "type": "integer"
           }
         },
         "type": "object"
@@ -70,30 +70,27 @@
       "name": "TODO"
     },
     "termsOfService": "https://localhost/TODO",
-    "title": "ngfwmetricgroup",
+    "title": "ngfwgroupmetric",
     "version": "1.0"
   },
   "paths": {
-    "/ngfwmetricgroups": {
+    "/ngfwgroupmetrics": {
       "get": {
         "description": "Retrieves a list of NGFW group of metrics.",
-        "operationId": "get-all-ngfwmetricgroups",
+        "operationId": "get-all-ngfwgroupmetrics",
         "parameters": [
           {
-            "description": "Also retrieve the objects that propagate down.",
+            "description": "If set, query the metrics based on the specified time range.",
             "in": "query",
-            "name": "propagated",
+            "name": "timerange",
             "schema": {
-              "type": "boolean"
-            }
-          },
-          {
-            "description": "Filtering query. Consequent `q` parameters will form an or.",
-            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
-            "in": "query",
-            "name": "q",
-            "schema": {
-              "type": "string"
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "quarter",
+                "year"
+              ]
             }
           }
         ],
@@ -103,7 +100,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/ngfwmetricgroup"
+                    "$ref": "#/components/schemas/ngfwgroupmetric"
                   },
                   "type": "array"
                 }
@@ -117,48 +114,6 @@
           "placeholder"
         ]
       }
-    },
-    "/ngfwmetricgroups/{id}": {
-      "get": {
-        "description": "Retrieves the NGFW group of metrics with the given ID.",
-        "operationId": "get-ngfwmetricgroup-by-ID",
-        "parameters": [
-          {
-            "description": "Also retrieve the objects that propagate down.",
-            "in": "query",
-            "name": "propagated",
-            "schema": {
-              "type": "boolean"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ngfwmetricgroup"
-                }
-              }
-            },
-            "description": "n/a"
-          }
-        },
-        "tags": [
-          "placeholder",
-          "placeholder"
-        ]
-      },
-      "parameters": [
-        {
-          "in": "path",
-          "name": "id",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
     }
   },
   "tags": [
