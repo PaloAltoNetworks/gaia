@@ -62,6 +62,8 @@ attributes:
     - OutboundRule
     - FrontendIPConfiguration
     - DatabaseAccount
+    - FlexibleServer
+    - Server
     example_value: VirtualMachine
 
   - name: name
@@ -82,6 +84,7 @@ attributes:
     - MicrosoftCompute
     - MicrosoftNetwork
     - MicrosoftDocumentDB
+    - MicrosoftDBforMySQL
     example_value: MicrosoftCompute
 
   - name: resourceGroup
