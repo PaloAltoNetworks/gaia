@@ -15,6 +15,10 @@
             "readOnly": true,
             "type": "string"
           },
+          "RRN": {
+            "description": "Prisma Cloud RRN.",
+            "type": "string"
+          },
           "VPCID": {
             "description": "ID of the host VPC.",
             "example": "vpc-023419c5952374917",

@@ -90,6 +90,9 @@ type CloudScaleSet struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Prisma Cloud RRN.
+	RRN string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"rrn,omitempty" mapstructure:"RRN,omitempty"`
+
 	// ID of the host VPC.
 	VPCID string `json:"VPCID,omitempty" msgpack:"VPCID,omitempty" bson:"vpcid,omitempty" mapstructure:"VPCID,omitempty"`
 
@@ -213,6 +216,7 @@ func (o *CloudScaleSet) GetBSON() (interface{}, error) {
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
+	s.RRN = o.RRN
 	s.VPCID = o.VPCID
 	s.AccountID = o.AccountID
 	s.Annotations = o.Annotations
@@ -256,6 +260,7 @@ func (o *CloudScaleSet) SetBSON(raw bson.Raw) error {
 
 	o.APIID = s.APIID
 	o.ID = s.ID.Hex()
+	o.RRN = s.RRN
 	o.VPCID = s.VPCID
 	o.AccountID = s.AccountID
 	o.Annotations = s.Annotations
@@ -324,6 +329,18 @@ func (o *CloudScaleSet) GetAPIID() int {
 func (o *CloudScaleSet) SetAPIID(APIID int) {
 
 	o.APIID = APIID
+}
+
+// GetRRN returns the RRN of the receiver.
+func (o *CloudScaleSet) GetRRN() string {
+
+	return o.RRN
+}
+
+// SetRRN sets the property RRN of the receiver using the given value.
+func (o *CloudScaleSet) SetRRN(RRN string) {
+
+	o.RRN = RRN
 }
 
 // GetVPCID returns the VPCID of the receiver.
@@ -611,6 +628,7 @@ func (o *CloudScaleSet) ToSparse(fields ...string) elemental.SparseIdentifiable 
 		return &SparseCloudScaleSet{
 			APIID:                &o.APIID,
 			ID:                   &o.ID,
+			RRN:                  &o.RRN,
 			VPCID:                &o.VPCID,
 			AccountID:            &o.AccountID,
 			Annotations:          &o.Annotations,
@@ -645,6 +663,8 @@ func (o *CloudScaleSet) ToSparse(fields ...string) elemental.SparseIdentifiable 
 			sp.APIID = &(o.APIID)
 		case "ID":
 			sp.ID = &(o.ID)
+		case "RRN":
+			sp.RRN = &(o.RRN)
 		case "VPCID":
 			sp.VPCID = &(o.VPCID)
 		case "accountID":
@@ -711,6 +731,9 @@ func (o *CloudScaleSet) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.ID != nil {
 		o.ID = *so.ID
+	}
+	if so.RRN != nil {
+		o.RRN = *so.RRN
 	}
 	if so.VPCID != nil {
 		o.VPCID = *so.VPCID
@@ -881,6 +904,8 @@ func (o *CloudScaleSet) ValueForAttribute(name string) interface{} {
 		return o.APIID
 	case "ID":
 		return o.ID
+	case "RRN":
+		return o.RRN
 	case "VPCID":
 		return o.VPCID
 	case "accountID":
@@ -960,6 +985,18 @@ var CloudScaleSetAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"RRN": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "rrn",
+		ConvertedName:  "RRN",
+		Description:    `Prisma Cloud RRN.`,
+		Exposed:        true,
+		Getter:         true,
+		Name:           "RRN",
+		Setter:         true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1313,6 +1350,18 @@ var CloudScaleSetLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"rrn": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "rrn",
+		ConvertedName:  "RRN",
+		Description:    `Prisma Cloud RRN.`,
+		Exposed:        true,
+		Getter:         true,
+		Name:           "RRN",
+		Setter:         true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1709,6 +1758,9 @@ type SparseCloudScaleSet struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Prisma Cloud RRN.
+	RRN *string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"rrn,omitempty" mapstructure:"RRN,omitempty"`
+
 	// ID of the host VPC.
 	VPCID *string `json:"VPCID,omitempty" msgpack:"VPCID,omitempty" bson:"vpcid,omitempty" mapstructure:"VPCID,omitempty"`
 
@@ -1831,6 +1883,9 @@ func (o *SparseCloudScaleSet) GetBSON() (interface{}, error) {
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
 	}
+	if o.RRN != nil {
+		s.RRN = o.RRN
+	}
 	if o.VPCID != nil {
 		s.VPCID = o.VPCID
 	}
@@ -1925,6 +1980,9 @@ func (o *SparseCloudScaleSet) SetBSON(raw bson.Raw) error {
 	}
 	id := s.ID.Hex()
 	o.ID = &id
+	if s.RRN != nil {
+		o.RRN = s.RRN
+	}
 	if s.VPCID != nil {
 		o.VPCID = s.VPCID
 	}
@@ -2017,6 +2075,9 @@ func (o *SparseCloudScaleSet) ToPlain() elemental.PlainIdentifiable {
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
+	if o.RRN != nil {
+		out.RRN = *o.RRN
+	}
 	if o.VPCID != nil {
 		out.VPCID = *o.VPCID
 	}
@@ -2107,6 +2168,22 @@ func (o *SparseCloudScaleSet) GetAPIID() (out int) {
 func (o *SparseCloudScaleSet) SetAPIID(APIID int) {
 
 	o.APIID = &APIID
+}
+
+// GetRRN returns the RRN of the receiver.
+func (o *SparseCloudScaleSet) GetRRN() (out string) {
+
+	if o.RRN == nil {
+		return
+	}
+
+	return *o.RRN
+}
+
+// SetRRN sets the property RRN of the receiver using the address of the given value.
+func (o *SparseCloudScaleSet) SetRRN(RRN string) {
+
+	o.RRN = &RRN
 }
 
 // GetVPCID returns the VPCID of the receiver.
@@ -2504,6 +2581,7 @@ func (o *SparseCloudScaleSet) DeepCopyInto(out *SparseCloudScaleSet) {
 type mongoAttributesCloudScaleSet struct {
 	APIID                int                 `bson:"apiid,omitempty"`
 	ID                   bson.ObjectId       `bson:"_id,omitempty"`
+	RRN                  string              `bson:"rrn,omitempty"`
 	VPCID                string              `bson:"vpcid,omitempty"`
 	AccountID            string              `bson:"accountid,omitempty"`
 	Annotations          map[string][]string `bson:"annotations"`
@@ -2532,6 +2610,7 @@ type mongoAttributesCloudScaleSet struct {
 type mongoAttributesSparseCloudScaleSet struct {
 	APIID                *int                 `bson:"apiid,omitempty"`
 	ID                   bson.ObjectId        `bson:"_id,omitempty"`
+	RRN                  *string              `bson:"rrn,omitempty"`
 	VPCID                *string              `bson:"vpcid,omitempty"`
 	AccountID            *string              `bson:"accountid,omitempty"`
 	Annotations          *map[string][]string `bson:"annotations,omitempty"`

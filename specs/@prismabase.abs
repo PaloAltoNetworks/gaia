@@ -20,6 +20,15 @@ attributes:
     setter: true
     omit_empty: true
 
+  - name: RRN
+    description: Prisma Cloud RRN.
+    type: string
+    exposed: true
+    stored: true
+    getter: true
+    setter: true
+    omit_empty: true
+
   - name: VPCID
     description: ID of the host VPC.
     type: string

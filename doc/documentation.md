@@ -10491,6 +10491,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `RRN`
+
+Type: `string`
+
+Prisma Cloud RRN.
+
 ##### `VPCID`
 
 Type: `string`
@@ -11088,6 +11094,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `RRN`
+
+Type: `string`
+
+Prisma Cloud RRN.
+
 ##### `VPCID`
 
 Type: `string`
@@ -11312,6 +11324,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `RRN`
+
+Type: `string`
+
+Prisma Cloud RRN.
+
 ##### `VPCID`
 
 Type: `string`
@@ -11529,6 +11547,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `RRN`
+
+Type: `string`
+
+Prisma Cloud RRN.
+
 ##### `VPCID`
 
 Type: `string`
@@ -11740,6 +11764,12 @@ Prisma Cloud API ID (matches Prisma Cloud API ID).
 Type: `string`
 
 Identifier of the object.
+
+##### `RRN`
+
+Type: `string`
+
+Prisma Cloud RRN.
 
 ##### `VPCID`
 
@@ -12432,6 +12462,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `RRN`
+
+Type: `string`
+
+Prisma Cloud RRN.
+
 ##### `VPCID`
 
 Type: `string`
@@ -12643,6 +12679,12 @@ Prisma Cloud API ID (matches Prisma Cloud API ID).
 Type: `string`
 
 Identifier of the object.
+
+##### `RRN`
+
+Type: `string`
+
+Prisma Cloud RRN.
 
 ##### `VPCID`
 
@@ -13006,6 +13048,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `RRN`
+
+Type: `string`
+
+Prisma Cloud RRN.
+
 ##### `VPCID`
 
 Type: `string`
@@ -13290,6 +13338,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `RRN`
+
+Type: `string`
+
+Prisma Cloud RRN.
+
 ##### `VPCID`
 
 Type: `string`
@@ -13468,6 +13522,12 @@ Prisma Cloud API ID (matches Prisma Cloud API ID).
 Type: `string`
 
 Identifier of the object.
+
+##### `RRN`
+
+Type: `string`
+
+Prisma Cloud RRN.
 
 ##### `VPCID`
 
@@ -14010,6 +14070,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `RRN`
+
+Type: `string`
+
+Prisma Cloud RRN.
+
 ##### `VPCID`
 
 Type: `string`
@@ -14236,6 +14302,12 @@ Prisma Cloud API ID (matches Prisma Cloud API ID).
 Type: `string`
 
 Identifier of the object.
+
+##### `RRN`
+
+Type: `string`
+
+Prisma Cloud RRN.
 
 ##### `VPCID`
 
