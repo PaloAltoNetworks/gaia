@@ -17,6 +17,12 @@ attributes:
     exposed: true
     omit_empty: true
 
+  - name: cloudType
+    description: The cloud type of the query.
+    type: string
+    exposed: true
+    omit_empty: true
+
   - name: data
     description: The payload of the search results.
     type: ref

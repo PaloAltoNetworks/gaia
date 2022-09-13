@@ -86,6 +86,9 @@ type CNSSearch struct {
 	// ID of the search request.
 	ID string `json:"id,omitempty" msgpack:"id,omitempty" bson:"-" mapstructure:"id,omitempty"`
 
+	// The cloud type of the query.
+	CloudType string `json:"cloudType,omitempty" msgpack:"cloudType,omitempty" bson:"-" mapstructure:"cloudType,omitempty"`
+
 	// The payload of the search results.
 	Data *PCSearchResult `json:"data" msgpack:"data" bson:"-" mapstructure:"data,omitempty"`
 
@@ -223,6 +226,7 @@ func (o *CNSSearch) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		// nolint: goimports
 		return &SparseCNSSearch{
 			ID:            &o.ID,
+			CloudType:     &o.CloudType,
 			Data:          o.Data,
 			Description:   &o.Description,
 			EndAbsolute:   &o.EndAbsolute,
@@ -243,6 +247,8 @@ func (o *CNSSearch) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
+		case "cloudType":
+			sp.CloudType = &(o.CloudType)
 		case "data":
 			sp.Data = o.Data
 		case "description":
@@ -282,6 +288,9 @@ func (o *CNSSearch) Patch(sparse elemental.SparseIdentifiable) {
 	so := sparse.(*SparseCNSSearch)
 	if so.ID != nil {
 		o.ID = *so.ID
+	}
+	if so.CloudType != nil {
+		o.CloudType = *so.CloudType
 	}
 	if so.Data != nil {
 		o.Data = so.Data
@@ -405,6 +414,8 @@ func (o *CNSSearch) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "ID":
 		return o.ID
+	case "cloudType":
+		return o.CloudType
 	case "data":
 		return o.Data
 	case "description":
@@ -442,6 +453,14 @@ var CNSSearchAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `ID of the search request.`,
 		Exposed:        true,
 		Name:           "ID",
+		Type:           "string",
+	},
+	"CloudType": {
+		AllowedChoices: []string{},
+		ConvertedName:  "CloudType",
+		Description:    `The cloud type of the query.`,
+		Exposed:        true,
+		Name:           "cloudType",
 		Type:           "string",
 	},
 	"Data": {
@@ -558,6 +577,14 @@ var CNSSearchLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Description:    `ID of the search request.`,
 		Exposed:        true,
 		Name:           "ID",
+		Type:           "string",
+	},
+	"cloudtype": {
+		AllowedChoices: []string{},
+		ConvertedName:  "CloudType",
+		Description:    `The cloud type of the query.`,
+		Exposed:        true,
+		Name:           "cloudType",
 		Type:           "string",
 	},
 	"data": {
@@ -732,6 +759,9 @@ type SparseCNSSearch struct {
 	// ID of the search request.
 	ID *string `json:"id,omitempty" msgpack:"id,omitempty" bson:"-" mapstructure:"id,omitempty"`
 
+	// The cloud type of the query.
+	CloudType *string `json:"cloudType,omitempty" msgpack:"cloudType,omitempty" bson:"-" mapstructure:"cloudType,omitempty"`
+
 	// The payload of the search results.
 	Data *PCSearchResult `json:"data,omitempty" msgpack:"data,omitempty" bson:"-" mapstructure:"data,omitempty"`
 
@@ -835,6 +865,9 @@ func (o *SparseCNSSearch) ToPlain() elemental.PlainIdentifiable {
 	out := NewCNSSearch()
 	if o.ID != nil {
 		out.ID = *o.ID
+	}
+	if o.CloudType != nil {
+		out.CloudType = *o.CloudType
 	}
 	if o.Data != nil {
 		out.Data = o.Data
