@@ -9,6 +9,10 @@
             "description": "ID of the search request.",
             "type": "string"
           },
+          "cloudType": {
+            "description": "The cloud type of the query.",
+            "type": "string"
+          },
           "data": {
             "$ref": "./pcsearchresult#/components/schemas/pcsearchresult"
           },

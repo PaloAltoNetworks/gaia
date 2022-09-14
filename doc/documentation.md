@@ -7142,6 +7142,12 @@ Type: `string`
 
 ID of the search request.
 
+##### `cloudType`
+
+Type: `string`
+
+The cloud type of the query.
+
 ##### `data`
 
 Type: [`pcsearchresult`](#pcsearchresult)
