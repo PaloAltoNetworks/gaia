@@ -101,6 +101,7 @@ var (
 		"fileaccessreport":             FileAccessReportIdentity,
 		"filepath":                     FilePathIdentity,
 		"flowreport":                   FlowReportIdentity,
+		"gcpresource":                  GCPResourceIdentity,
 		"graphedge":                    GraphEdgeIdentity,
 
 		"graphnode":                GraphNodeIdentity,
@@ -315,6 +316,7 @@ var (
 		"fileaccessreports":              FileAccessReportIdentity,
 		"filepaths":                      FilePathIdentity,
 		"flowreports":                    FlowReportIdentity,
+		"gcpresources":                   GCPResourceIdentity,
 		"graphedges":                     GraphEdgeIdentity,
 
 		"graphnodes":                 GraphNodeIdentity,
@@ -1046,6 +1048,16 @@ var (
 			{"remotenamespace", "timestamp"},
 			{"sourceID"},
 		},
+		"gcpresource": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"namespace"},
+			{"namespace", "accountid"},
+			{"namespace", "nativeID"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "region"},
+			{"namespace", "selflink"},
+			{"namespace", "vpcid"},
+		},
 		"graphedge": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"firstSeen"},
@@ -1613,6 +1625,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewFilePath()
 	case FlowReportIdentity:
 		return NewFlowReport()
+	case GCPResourceIdentity:
+		return NewGCPResource()
 	case GraphEdgeIdentity:
 		return NewGraphEdge()
 	case GraphNodeIdentity:
@@ -1984,6 +1998,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseFilePath()
 	case FlowReportIdentity:
 		return NewSparseFlowReport()
+	case GCPResourceIdentity:
+		return NewSparseGCPResource()
 	case GraphEdgeIdentity:
 		return NewSparseGraphEdge()
 	case GraphNodeIdentity:
@@ -2363,6 +2379,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &FilePathsList{}
 	case FlowReportIdentity:
 		return &FlowReportsList{}
+	case GCPResourceIdentity:
+		return &GCPResourcesList{}
 	case GraphEdgeIdentity:
 		return &GraphEdgesList{}
 	case GraphNodeIdentity:
@@ -2732,6 +2750,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseFilePathsList{}
 	case FlowReportIdentity:
 		return &SparseFlowReportsList{}
+	case GCPResourceIdentity:
+		return &SparseGCPResourcesList{}
 	case GraphEdgeIdentity:
 		return &SparseGraphEdgesList{}
 	case GraphNodeIdentity:
@@ -3044,6 +3064,7 @@ func AllIdentities() []elemental.Identity {
 		FileAccessReportIdentity,
 		FilePathIdentity,
 		FlowReportIdentity,
+		GCPResourceIdentity,
 		GraphEdgeIdentity,
 		GraphNodeIdentity,
 		HealthCheckIdentity,
@@ -3366,6 +3387,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"fps",
 		}
 	case FlowReportIdentity:
+		return []string{}
+	case GCPResourceIdentity:
 		return []string{}
 	case GraphEdgeIdentity:
 		return []string{}

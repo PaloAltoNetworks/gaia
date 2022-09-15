@@ -2485,6 +2485,8 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[GCPResourceIdentity] = &elemental.Relationship{}
+
 	relationshipsRegistry[GraphEdgeIdentity] = &elemental.Relationship{
 		RetrieveMany: map[string]*elemental.RelationshipInfo{
 			"root": {

@@ -1,0 +1,111 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "gcpresource": {
+        "description": "Represents a GCP cloud resource such as a virtual machine.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "RRN": {
+            "description": "Prisma Cloud RRN.",
+            "type": "string"
+          },
+          "VPCID": {
+            "description": "The VPC ID of the object.",
+            "example": "https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc",
+            "type": "string"
+          },
+          "accountID": {
+            "description": "Cloud account ID associated with the resource.",
+            "example": "cna-dev-123456",
+            "type": "string"
+          },
+          "data": {
+            "description": "The json-encoded data that represents the resource.",
+            "example": "{\n  \"id\": \"12345\",\n  \"kind\": \"compute#instance\"\n  ...\n}",
+            "type": "string"
+          },
+          "kind": {
+            "description": "The specific kind of the resource.",
+            "enum": [
+              "Instance",
+              "Subnet",
+              "VirtualNetwork"
+            ],
+            "example": "Instance"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "nativeID": {
+            "description": "The ID of the object.",
+            "example": 1234567,
+            "type": "string"
+          },
+          "region": {
+            "description": "The region of the object.",
+            "example": "us-west1",
+            "type": "string"
+          },
+          "resourceID": {
+            "description": "The identifier of the resource as presented by Azure, which is a path.",
+            "example": "/subscriptions/a0a00a0a-0aaa-000a-a0a0-00a00aa00000/resourceGroups/my-deployment/providers/Microsoft.Compute/virtualMachines/vm-name",
+            "type": "string"
+          },
+          "selflink": {
+            "description": "The link to the object.",
+            "example": "https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc",
+            "type": "string"
+          },
+          "tags": {
+            "description": "Contextual values that can be used to narrow searching of resources if the\nresourceID is not known. For instance, it could be used to store a resource's\nlocation or public IP addresses to support cross-cloud analysis.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "VPCID",
+          "data",
+          "kind",
+          "nativeID",
+          "region",
+          "resourceID",
+          "selflink"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "gcpresource",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'pandemona'",
+      "name": "pandemona"
+    }
+  ]
+}
