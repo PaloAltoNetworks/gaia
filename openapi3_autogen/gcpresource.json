@@ -14,11 +14,6 @@
             "description": "Prisma Cloud RRN.",
             "type": "string"
           },
-          "VPCID": {
-            "description": "The VPC ID of the object.",
-            "example": "https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc",
-            "type": "string"
-          },
           "accountID": {
             "description": "Cloud account ID associated with the resource.",
             "example": "cna-dev-123456",
@@ -48,11 +43,6 @@
             "example": 1234567,
             "type": "string"
           },
-          "region": {
-            "description": "The region of the object.",
-            "example": "us-west1",
-            "type": "string"
-          },
           "resourceID": {
             "description": "The identifier of the resource as presented by Azure, which is a path.",
             "example": "/subscriptions/a0a00a0a-0aaa-000a-a0a0-00a00aa00000/resourceGroups/my-deployment/providers/Microsoft.Compute/virtualMachines/vm-name",
@@ -72,11 +62,9 @@
           }
         },
         "required": [
-          "VPCID",
           "data",
           "kind",
           "nativeID",
-          "region",
           "resourceID",
           "selflink"
         ],

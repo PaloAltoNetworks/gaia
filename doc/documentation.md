@@ -14505,7 +14505,6 @@ Represents a GCP cloud resource such as a virtual machine.
 
 ```json
 {
-  "VPCID": "https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc",
   "accountID": "cna-dev-123456",
   "data": "{
   \"id\": \"12345\",
@@ -14514,7 +14513,6 @@ Represents a GCP cloud resource such as a virtual machine.
 }",
   "kind": "Instance",
   "nativeID": 1234567,
-  "region": "us-west1",
   "resourceID": "/subscriptions/a0a00a0a-0aaa-000a-a0a0-00a00aa00000/resourceGroups/my-deployment/providers/Microsoft.Compute/virtualMachines/vm-name",
   "selflink": "https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc"
 }
@@ -14533,12 +14531,6 @@ Identifier of the object.
 Type: `string`
 
 Prisma Cloud RRN.
-
-##### `VPCID` [`required`]
-
-Type: `string`
-
-The VPC ID of the object.
 
 ##### `accountID`
 
@@ -14569,12 +14561,6 @@ Namespace tag attached to an entity.
 Type: `string`
 
 The ID of the object.
-
-##### `region` [`required`]
-
-Type: `string`
-
-The region of the object.
 
 ##### `resourceID` [`required`]
 

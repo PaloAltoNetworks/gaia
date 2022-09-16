@@ -103,9 +103,6 @@ type GCPResource struct {
 	// Prisma Cloud RRN.
 	RRN string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"-" mapstructure:"RRN,omitempty"`
 
-	// The VPC ID of the object.
-	VPCID string `json:"VPCID" msgpack:"VPCID" bson:"vpcid" mapstructure:"VPCID,omitempty"`
-
 	// Cloud account ID associated with the resource.
 	AccountID string `json:"accountId,omitempty" msgpack:"accountId,omitempty" bson:"accountid,omitempty" mapstructure:"accountId,omitempty"`
 
@@ -123,9 +120,6 @@ type GCPResource struct {
 
 	// The ID of the object.
 	NativeID string `json:"nativeID" msgpack:"nativeID" bson:"nativeid" mapstructure:"nativeID,omitempty"`
-
-	// The region of the object.
-	Region string `json:"region" msgpack:"region" bson:"region" mapstructure:"region,omitempty"`
 
 	// The identifier of the resource as presented by Azure, which is a path.
 	ResourceID string `json:"resourceID" msgpack:"resourceID" bson:"resourceid" mapstructure:"resourceID,omitempty"`
@@ -190,14 +184,12 @@ func (o *GCPResource) GetBSON() (interface{}, error) {
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
-	s.VPCID = o.VPCID
 	s.AccountID = o.AccountID
 	s.Data = o.Data
 	s.Kind = o.Kind
 	s.MigrationsLog = o.MigrationsLog
 	s.Namespace = o.Namespace
 	s.NativeID = o.NativeID
-	s.Region = o.Region
 	s.ResourceID = o.ResourceID
 	s.Selflink = o.Selflink
 	s.Tags = o.Tags
@@ -221,14 +213,12 @@ func (o *GCPResource) SetBSON(raw bson.Raw) error {
 	}
 
 	o.ID = s.ID.Hex()
-	o.VPCID = s.VPCID
 	o.AccountID = s.AccountID
 	o.Data = s.Data
 	o.Kind = s.Kind
 	o.MigrationsLog = s.MigrationsLog
 	o.Namespace = s.Namespace
 	o.NativeID = s.NativeID
-	o.Region = s.Region
 	o.ResourceID = s.ResourceID
 	o.Selflink = s.Selflink
 	o.Tags = s.Tags
@@ -324,14 +314,12 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		return &SparseGCPResource{
 			ID:            &o.ID,
 			RRN:           &o.RRN,
-			VPCID:         &o.VPCID,
 			AccountID:     &o.AccountID,
 			Data:          &o.Data,
 			Kind:          &o.Kind,
 			MigrationsLog: &o.MigrationsLog,
 			Namespace:     &o.Namespace,
 			NativeID:      &o.NativeID,
-			Region:        &o.Region,
 			ResourceID:    &o.ResourceID,
 			Selflink:      &o.Selflink,
 			Tags:          &o.Tags,
@@ -347,8 +335,6 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.ID = &(o.ID)
 		case "RRN":
 			sp.RRN = &(o.RRN)
-		case "VPCID":
-			sp.VPCID = &(o.VPCID)
 		case "accountID":
 			sp.AccountID = &(o.AccountID)
 		case "data":
@@ -361,8 +347,6 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Namespace = &(o.Namespace)
 		case "nativeID":
 			sp.NativeID = &(o.NativeID)
-		case "region":
-			sp.Region = &(o.Region)
 		case "resourceID":
 			sp.ResourceID = &(o.ResourceID)
 		case "selflink":
@@ -392,9 +376,6 @@ func (o *GCPResource) Patch(sparse elemental.SparseIdentifiable) {
 	if so.RRN != nil {
 		o.RRN = *so.RRN
 	}
-	if so.VPCID != nil {
-		o.VPCID = *so.VPCID
-	}
 	if so.AccountID != nil {
 		o.AccountID = *so.AccountID
 	}
@@ -412,9 +393,6 @@ func (o *GCPResource) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.NativeID != nil {
 		o.NativeID = *so.NativeID
-	}
-	if so.Region != nil {
-		o.Region = *so.Region
 	}
 	if so.ResourceID != nil {
 		o.ResourceID = *so.ResourceID
@@ -463,10 +441,6 @@ func (o *GCPResource) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if err := elemental.ValidateRequiredString("VPCID", o.VPCID); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
 	if err := elemental.ValidateRequiredExternal("data", o.Data); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
@@ -480,10 +454,6 @@ func (o *GCPResource) Validate() error {
 	}
 
 	if err := elemental.ValidateRequiredString("nativeID", o.NativeID); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
-	if err := elemental.ValidateRequiredString("region", o.Region); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
@@ -533,8 +503,6 @@ func (o *GCPResource) ValueForAttribute(name string) interface{} {
 		return o.ID
 	case "RRN":
 		return o.RRN
-	case "VPCID":
-		return o.VPCID
 	case "accountID":
 		return o.AccountID
 	case "data":
@@ -547,8 +515,6 @@ func (o *GCPResource) ValueForAttribute(name string) interface{} {
 		return o.Namespace
 	case "nativeID":
 		return o.NativeID
-	case "region":
-		return o.Region
 	case "resourceID":
 		return o.ResourceID
 	case "selflink":
@@ -587,17 +553,6 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `Prisma Cloud RRN.`,
 		Exposed:        true,
 		Name:           "RRN",
-		Type:           "string",
-	},
-	"VPCID": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "vpcid",
-		ConvertedName:  "VPCID",
-		Description:    `The VPC ID of the object.`,
-		Exposed:        true,
-		Name:           "VPCID",
-		Required:       true,
-		Stored:         true,
 		Type:           "string",
 	},
 	"AccountID": {
@@ -668,17 +623,6 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The ID of the object.`,
 		Exposed:        true,
 		Name:           "nativeID",
-		Required:       true,
-		Stored:         true,
-		Type:           "string",
-	},
-	"Region": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "region",
-		ConvertedName:  "Region",
-		Description:    `The region of the object.`,
-		Exposed:        true,
-		Name:           "region",
 		Required:       true,
 		Stored:         true,
 		Type:           "string",
@@ -773,17 +717,6 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Name:           "RRN",
 		Type:           "string",
 	},
-	"vpcid": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "vpcid",
-		ConvertedName:  "VPCID",
-		Description:    `The VPC ID of the object.`,
-		Exposed:        true,
-		Name:           "VPCID",
-		Required:       true,
-		Stored:         true,
-		Type:           "string",
-	},
 	"accountid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "accountid",
@@ -852,17 +785,6 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Description:    `The ID of the object.`,
 		Exposed:        true,
 		Name:           "nativeID",
-		Required:       true,
-		Stored:         true,
-		Type:           "string",
-	},
-	"region": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "region",
-		ConvertedName:  "Region",
-		Description:    `The region of the object.`,
-		Exposed:        true,
-		Name:           "region",
 		Required:       true,
 		Stored:         true,
 		Type:           "string",
@@ -1001,9 +923,6 @@ type SparseGCPResource struct {
 	// Prisma Cloud RRN.
 	RRN *string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"-" mapstructure:"RRN,omitempty"`
 
-	// The VPC ID of the object.
-	VPCID *string `json:"VPCID,omitempty" msgpack:"VPCID,omitempty" bson:"vpcid,omitempty" mapstructure:"VPCID,omitempty"`
-
 	// Cloud account ID associated with the resource.
 	AccountID *string `json:"accountId,omitempty" msgpack:"accountId,omitempty" bson:"accountid,omitempty" mapstructure:"accountId,omitempty"`
 
@@ -1021,9 +940,6 @@ type SparseGCPResource struct {
 
 	// The ID of the object.
 	NativeID *string `json:"nativeID,omitempty" msgpack:"nativeID,omitempty" bson:"nativeid,omitempty" mapstructure:"nativeID,omitempty"`
-
-	// The region of the object.
-	Region *string `json:"region,omitempty" msgpack:"region,omitempty" bson:"region,omitempty" mapstructure:"region,omitempty"`
 
 	// The identifier of the resource as presented by Azure, which is a path.
 	ResourceID *string `json:"resourceID,omitempty" msgpack:"resourceID,omitempty" bson:"resourceid,omitempty" mapstructure:"resourceID,omitempty"`
@@ -1089,9 +1005,6 @@ func (o *SparseGCPResource) GetBSON() (interface{}, error) {
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
 	}
-	if o.VPCID != nil {
-		s.VPCID = o.VPCID
-	}
 	if o.AccountID != nil {
 		s.AccountID = o.AccountID
 	}
@@ -1109,9 +1022,6 @@ func (o *SparseGCPResource) GetBSON() (interface{}, error) {
 	}
 	if o.NativeID != nil {
 		s.NativeID = o.NativeID
-	}
-	if o.Region != nil {
-		s.Region = o.Region
 	}
 	if o.ResourceID != nil {
 		s.ResourceID = o.ResourceID
@@ -1147,9 +1057,6 @@ func (o *SparseGCPResource) SetBSON(raw bson.Raw) error {
 
 	id := s.ID.Hex()
 	o.ID = &id
-	if s.VPCID != nil {
-		o.VPCID = s.VPCID
-	}
 	if s.AccountID != nil {
 		o.AccountID = s.AccountID
 	}
@@ -1167,9 +1074,6 @@ func (o *SparseGCPResource) SetBSON(raw bson.Raw) error {
 	}
 	if s.NativeID != nil {
 		o.NativeID = s.NativeID
-	}
-	if s.Region != nil {
-		o.Region = s.Region
 	}
 	if s.ResourceID != nil {
 		o.ResourceID = s.ResourceID
@@ -1206,9 +1110,6 @@ func (o *SparseGCPResource) ToPlain() elemental.PlainIdentifiable {
 	if o.RRN != nil {
 		out.RRN = *o.RRN
 	}
-	if o.VPCID != nil {
-		out.VPCID = *o.VPCID
-	}
 	if o.AccountID != nil {
 		out.AccountID = *o.AccountID
 	}
@@ -1226,9 +1127,6 @@ func (o *SparseGCPResource) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.NativeID != nil {
 		out.NativeID = *o.NativeID
-	}
-	if o.Region != nil {
-		out.Region = *o.Region
 	}
 	if o.ResourceID != nil {
 		out.ResourceID = *o.ResourceID
@@ -1339,14 +1237,12 @@ func (o *SparseGCPResource) DeepCopyInto(out *SparseGCPResource) {
 
 type mongoAttributesGCPResource struct {
 	ID            bson.ObjectId        `bson:"_id,omitempty"`
-	VPCID         string               `bson:"vpcid"`
 	AccountID     string               `bson:"accountid,omitempty"`
 	Data          []byte               `bson:"data"`
 	Kind          GCPResourceKindValue `bson:"kind"`
 	MigrationsLog map[string]string    `bson:"migrationslog,omitempty"`
 	Namespace     string               `bson:"namespace"`
 	NativeID      string               `bson:"nativeid"`
-	Region        string               `bson:"region"`
 	ResourceID    string               `bson:"resourceid"`
 	Selflink      string               `bson:"selflink"`
 	Tags          []string             `bson:"tags"`
@@ -1355,14 +1251,12 @@ type mongoAttributesGCPResource struct {
 }
 type mongoAttributesSparseGCPResource struct {
 	ID            bson.ObjectId         `bson:"_id,omitempty"`
-	VPCID         *string               `bson:"vpcid,omitempty"`
 	AccountID     *string               `bson:"accountid,omitempty"`
 	Data          *[]byte               `bson:"data,omitempty"`
 	Kind          *GCPResourceKindValue `bson:"kind,omitempty"`
 	MigrationsLog *map[string]string    `bson:"migrationslog,omitempty"`
 	Namespace     *string               `bson:"namespace,omitempty"`
 	NativeID      *string               `bson:"nativeid,omitempty"`
-	Region        *string               `bson:"region,omitempty"`
 	ResourceID    *string               `bson:"resourceid,omitempty"`
 	Selflink      *string               `bson:"selflink,omitempty"`
 	Tags          *[]string             `bson:"tags,omitempty"`

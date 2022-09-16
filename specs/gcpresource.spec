@@ -19,10 +19,6 @@ indexes:
 - - namespace
   - nativeID
 - - namespace
-  - vpcid
-- - namespace
-  - region
-- - namespace
   - accountid
 
 # Attributes
@@ -33,14 +29,6 @@ attributes:
     type: string
     exposed: true
     omit_empty: true
-
-  - name: VPCID
-    description: The VPC ID of the object.
-    type: string
-    exposed: true
-    stored: true
-    required: true
-    example_value: https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc
 
   - name: accountID
     exposed_name: accountId
@@ -84,14 +72,6 @@ attributes:
     stored: true
     required: true
     example_value: 1234567
-
-  - name: region
-    description: The region of the object.
-    type: string
-    exposed: true
-    stored: true
-    required: true
-    example_value: us-west1
 
   - name: resourceID
     description: The identifier of the resource as presented by Azure, which is a

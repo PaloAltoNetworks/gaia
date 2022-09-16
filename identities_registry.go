@@ -1054,9 +1054,7 @@ var (
 			{"namespace", "accountid"},
 			{"namespace", "nativeID"},
 			{"namespace", "normalizedTags"},
-			{"namespace", "region"},
 			{"namespace", "selflink"},
-			{"namespace", "vpcid"},
 		},
 		"graphedge": {
 			{":shard", ":unique", "zone", "zHash"},
