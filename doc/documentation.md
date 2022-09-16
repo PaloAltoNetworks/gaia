@@ -14505,7 +14505,6 @@ Represents a GCP cloud resource such as a virtual machine.
 
 ```json
 {
-  "accountID": "cna-dev-123456",
   "data": "{
   \"id\": \"12345\",
   \"kind\": \"compute#instance\"
@@ -14532,17 +14531,11 @@ Type: `string`
 
 Prisma Cloud RRN.
 
-##### `accountID`
-
-Type: `string`
-
-Cloud account ID associated with the resource.
-
 ##### `data` [`required`]
 
 Type: `[]byte`
 
-The json encoded data that represents the resource.
+The JSON-encoded data that represents the resource.
 
 ##### `kind` [`required`]
 

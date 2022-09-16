@@ -14,13 +14,8 @@
             "description": "Prisma Cloud RRN.",
             "type": "string"
           },
-          "accountID": {
-            "description": "Cloud account ID associated with the resource.",
-            "example": "cna-dev-123456",
-            "type": "string"
-          },
           "data": {
-            "description": "The json encoded data that represents the resource.",
+            "description": "The JSON-encoded data that represents the resource.",
             "example": "{\n  \"id\": \"12345\",\n  \"kind\": \"compute#instance\"\n  ...\n}",
             "type": "string"
           },

@@ -1051,7 +1051,6 @@ var (
 		"gcpresource": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
-			{"namespace", "accountid"},
 			{"namespace", "nativeID"},
 			{"namespace", "normalizedTags"},
 			{"namespace", "selflink"},

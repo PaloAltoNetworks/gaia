@@ -103,10 +103,7 @@ type GCPResource struct {
 	// Prisma Cloud RRN.
 	RRN string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"-" mapstructure:"RRN,omitempty"`
 
-	// Cloud account ID associated with the resource.
-	AccountID string `json:"accountId,omitempty" msgpack:"accountId,omitempty" bson:"accountid,omitempty" mapstructure:"accountId,omitempty"`
-
-	// The json encoded data that represents the resource.
+	// The JSON-encoded data that represents the resource.
 	Data []byte `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
 
 	// The specific kind of the resource.
@@ -184,7 +181,6 @@ func (o *GCPResource) GetBSON() (interface{}, error) {
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
-	s.AccountID = o.AccountID
 	s.Data = o.Data
 	s.Kind = o.Kind
 	s.MigrationsLog = o.MigrationsLog
@@ -213,7 +209,6 @@ func (o *GCPResource) SetBSON(raw bson.Raw) error {
 	}
 
 	o.ID = s.ID.Hex()
-	o.AccountID = s.AccountID
 	o.Data = s.Data
 	o.Kind = s.Kind
 	o.MigrationsLog = s.MigrationsLog
@@ -314,7 +309,6 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		return &SparseGCPResource{
 			ID:            &o.ID,
 			RRN:           &o.RRN,
-			AccountID:     &o.AccountID,
 			Data:          &o.Data,
 			Kind:          &o.Kind,
 			MigrationsLog: &o.MigrationsLog,
@@ -335,8 +329,6 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.ID = &(o.ID)
 		case "RRN":
 			sp.RRN = &(o.RRN)
-		case "accountID":
-			sp.AccountID = &(o.AccountID)
 		case "data":
 			sp.Data = &(o.Data)
 		case "kind":
@@ -375,9 +367,6 @@ func (o *GCPResource) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.RRN != nil {
 		o.RRN = *so.RRN
-	}
-	if so.AccountID != nil {
-		o.AccountID = *so.AccountID
 	}
 	if so.Data != nil {
 		o.Data = *so.Data
@@ -503,8 +492,6 @@ func (o *GCPResource) ValueForAttribute(name string) interface{} {
 		return o.ID
 	case "RRN":
 		return o.RRN
-	case "accountID":
-		return o.AccountID
 	case "data":
 		return o.Data
 	case "kind":
@@ -555,21 +542,11 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "RRN",
 		Type:           "string",
 	},
-	"AccountID": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "accountid",
-		ConvertedName:  "AccountID",
-		Description:    `Cloud account ID associated with the resource.`,
-		Exposed:        true,
-		Name:           "accountID",
-		Stored:         true,
-		Type:           "string",
-	},
 	"Data": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "data",
 		ConvertedName:  "Data",
-		Description:    `The json encoded data that represents the resource.`,
+		Description:    `The JSON-encoded data that represents the resource.`,
 		Exposed:        true,
 		Name:           "data",
 		Required:       true,
@@ -717,21 +694,11 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Name:           "RRN",
 		Type:           "string",
 	},
-	"accountid": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "accountid",
-		ConvertedName:  "AccountID",
-		Description:    `Cloud account ID associated with the resource.`,
-		Exposed:        true,
-		Name:           "accountID",
-		Stored:         true,
-		Type:           "string",
-	},
 	"data": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "data",
 		ConvertedName:  "Data",
-		Description:    `The json encoded data that represents the resource.`,
+		Description:    `The JSON-encoded data that represents the resource.`,
 		Exposed:        true,
 		Name:           "data",
 		Required:       true,
@@ -923,10 +890,7 @@ type SparseGCPResource struct {
 	// Prisma Cloud RRN.
 	RRN *string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"-" mapstructure:"RRN,omitempty"`
 
-	// Cloud account ID associated with the resource.
-	AccountID *string `json:"accountId,omitempty" msgpack:"accountId,omitempty" bson:"accountid,omitempty" mapstructure:"accountId,omitempty"`
-
-	// The json encoded data that represents the resource.
+	// The JSON-encoded data that represents the resource.
 	Data *[]byte `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
 
 	// The specific kind of the resource.
@@ -1005,9 +969,6 @@ func (o *SparseGCPResource) GetBSON() (interface{}, error) {
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
 	}
-	if o.AccountID != nil {
-		s.AccountID = o.AccountID
-	}
 	if o.Data != nil {
 		s.Data = o.Data
 	}
@@ -1057,9 +1018,6 @@ func (o *SparseGCPResource) SetBSON(raw bson.Raw) error {
 
 	id := s.ID.Hex()
 	o.ID = &id
-	if s.AccountID != nil {
-		o.AccountID = s.AccountID
-	}
 	if s.Data != nil {
 		o.Data = s.Data
 	}
@@ -1109,9 +1067,6 @@ func (o *SparseGCPResource) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.RRN != nil {
 		out.RRN = *o.RRN
-	}
-	if o.AccountID != nil {
-		out.AccountID = *o.AccountID
 	}
 	if o.Data != nil {
 		out.Data = *o.Data
@@ -1237,7 +1192,6 @@ func (o *SparseGCPResource) DeepCopyInto(out *SparseGCPResource) {
 
 type mongoAttributesGCPResource struct {
 	ID            bson.ObjectId        `bson:"_id,omitempty"`
-	AccountID     string               `bson:"accountid,omitempty"`
 	Data          []byte               `bson:"data"`
 	Kind          GCPResourceKindValue `bson:"kind"`
 	MigrationsLog map[string]string    `bson:"migrationslog,omitempty"`
@@ -1251,7 +1205,6 @@ type mongoAttributesGCPResource struct {
 }
 type mongoAttributesSparseGCPResource struct {
 	ID            bson.ObjectId         `bson:"_id,omitempty"`
-	AccountID     *string               `bson:"accountid,omitempty"`
 	Data          *[]byte               `bson:"data,omitempty"`
 	Kind          *GCPResourceKindValue `bson:"kind,omitempty"`
 	MigrationsLog *map[string]string    `bson:"migrationslog,omitempty"`

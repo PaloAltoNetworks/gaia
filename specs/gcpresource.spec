@@ -18,8 +18,6 @@ indexes:
   - selflink
 - - namespace
   - nativeID
-- - namespace
-  - accountid
 
 # Attributes
 attributes:
@@ -30,17 +28,8 @@ attributes:
     exposed: true
     omit_empty: true
 
-  - name: accountID
-    exposed_name: accountId
-    description: Cloud account ID associated with the resource.
-    type: string
-    exposed: true
-    stored: true
-    example_value: cna-dev-123456
-    omit_empty: true
-
   - name: data
-    description: The json encoded data that represents the resource.
+    description: The JSON-encoded data that represents the resource.
     type: external
     exposed: true
     subtype: '[]byte'
