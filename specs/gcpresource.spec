@@ -17,17 +17,11 @@ indexes:
 - - namespace
   - selflink
 - - namespace
-  - nativeID
+  - numericID
 
 # Attributes
 attributes:
   v1:
-  - name: RRN
-    description: Prisma Cloud RRN.
-    type: string
-    exposed: true
-    omit_empty: true
-
   - name: data
     description: The JSON-encoded data that represents the resource.
     type: external
@@ -49,30 +43,28 @@ attributes:
     stored: true
     required: true
     allowed_choices:
-    - Instance
-    - Subnet
-    - VirtualNetwork
-    example_value: Instance
+    - ComputeInstance
+    - ComputeSubnetwork
+    - ComputeNetwork
+    example_value: ComputeInstance
 
-  - name: nativeID
-    description: The ID of the object.
+  - name: numericID
+    description: A numeric resource ID that will mainly be used in RQL queries.
     type: string
     exposed: true
     stored: true
     required: true
     example_value: 1234567
 
-  - name: resourceID
-    description: The identifier of the resource as presented by Azure, which is a
-      path.
+  - name: prismaCloudRRN
+    description: The identifier used by Prisma Cloud to locate the same resource.
     type: string
     exposed: true
     stored: true
-    required: true
-    example_value: /subscriptions/a0a00a0a-0aaa-000a-a0a0-00a00aa00000/resourceGroups/my-deployment/providers/Microsoft.Compute/virtualMachines/vm-name
+    omit_empty: true
 
   - name: selflink
-    description: The link to the object.
+    description: The identifier of the resource as presented by GCP, which is a URL.
     type: string
     exposed: true
     stored: true

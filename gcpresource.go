@@ -15,14 +15,14 @@ import (
 type GCPResourceKindValue string
 
 const (
-	// GCPResourceKindInstance represents the value Instance.
-	GCPResourceKindInstance GCPResourceKindValue = "Instance"
+	// GCPResourceKindComputeInstance represents the value ComputeInstance.
+	GCPResourceKindComputeInstance GCPResourceKindValue = "ComputeInstance"
 
-	// GCPResourceKindSubnet represents the value Subnet.
-	GCPResourceKindSubnet GCPResourceKindValue = "Subnet"
+	// GCPResourceKindComputeNetwork represents the value ComputeNetwork.
+	GCPResourceKindComputeNetwork GCPResourceKindValue = "ComputeNetwork"
 
-	// GCPResourceKindVirtualNetwork represents the value VirtualNetwork.
-	GCPResourceKindVirtualNetwork GCPResourceKindValue = "VirtualNetwork"
+	// GCPResourceKindComputeSubnetwork represents the value ComputeSubnetwork.
+	GCPResourceKindComputeSubnetwork GCPResourceKindValue = "ComputeSubnetwork"
 )
 
 // GCPResourceIdentity represents the Identity of the object.
@@ -100,9 +100,6 @@ type GCPResource struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
-	// Prisma Cloud RRN.
-	RRN string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"-" mapstructure:"RRN,omitempty"`
-
 	// The JSON-encoded data that represents the resource.
 	Data []byte `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
 
@@ -115,13 +112,13 @@ type GCPResource struct {
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
 
-	// The ID of the object.
-	NativeID string `json:"nativeID" msgpack:"nativeID" bson:"nativeid" mapstructure:"nativeID,omitempty"`
+	// A numeric resource ID that will mainly be used in RQL queries.
+	NumericID string `json:"numericID" msgpack:"numericID" bson:"numericid" mapstructure:"numericID,omitempty"`
 
-	// The identifier of the resource as presented by Azure, which is a path.
-	ResourceID string `json:"resourceID" msgpack:"resourceID" bson:"resourceid" mapstructure:"resourceID,omitempty"`
+	// The identifier used by Prisma Cloud to locate the same resource.
+	PrismaCloudRRN string `json:"prismaCloudRRN,omitempty" msgpack:"prismaCloudRRN,omitempty" bson:"prismacloudrrn,omitempty" mapstructure:"prismaCloudRRN,omitempty"`
 
-	// The link to the object.
+	// The identifier of the resource as presented by GCP, which is a URL.
 	Selflink string `json:"selflink" msgpack:"selflink" bson:"selflink" mapstructure:"selflink,omitempty"`
 
 	// Contextual values that can be used to narrow searching of resources if the
@@ -185,8 +182,8 @@ func (o *GCPResource) GetBSON() (interface{}, error) {
 	s.Kind = o.Kind
 	s.MigrationsLog = o.MigrationsLog
 	s.Namespace = o.Namespace
-	s.NativeID = o.NativeID
-	s.ResourceID = o.ResourceID
+	s.NumericID = o.NumericID
+	s.PrismaCloudRRN = o.PrismaCloudRRN
 	s.Selflink = o.Selflink
 	s.Tags = o.Tags
 	s.ZHash = o.ZHash
@@ -213,8 +210,8 @@ func (o *GCPResource) SetBSON(raw bson.Raw) error {
 	o.Kind = s.Kind
 	o.MigrationsLog = s.MigrationsLog
 	o.Namespace = s.Namespace
-	o.NativeID = s.NativeID
-	o.ResourceID = s.ResourceID
+	o.NumericID = s.NumericID
+	o.PrismaCloudRRN = s.PrismaCloudRRN
 	o.Selflink = s.Selflink
 	o.Tags = s.Tags
 	o.ZHash = s.ZHash
@@ -307,18 +304,17 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseGCPResource{
-			ID:            &o.ID,
-			RRN:           &o.RRN,
-			Data:          &o.Data,
-			Kind:          &o.Kind,
-			MigrationsLog: &o.MigrationsLog,
-			Namespace:     &o.Namespace,
-			NativeID:      &o.NativeID,
-			ResourceID:    &o.ResourceID,
-			Selflink:      &o.Selflink,
-			Tags:          &o.Tags,
-			ZHash:         &o.ZHash,
-			Zone:          &o.Zone,
+			ID:             &o.ID,
+			Data:           &o.Data,
+			Kind:           &o.Kind,
+			MigrationsLog:  &o.MigrationsLog,
+			Namespace:      &o.Namespace,
+			NumericID:      &o.NumericID,
+			PrismaCloudRRN: &o.PrismaCloudRRN,
+			Selflink:       &o.Selflink,
+			Tags:           &o.Tags,
+			ZHash:          &o.ZHash,
+			Zone:           &o.Zone,
 		}
 	}
 
@@ -327,8 +323,6 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
-		case "RRN":
-			sp.RRN = &(o.RRN)
 		case "data":
 			sp.Data = &(o.Data)
 		case "kind":
@@ -337,10 +331,10 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.MigrationsLog = &(o.MigrationsLog)
 		case "namespace":
 			sp.Namespace = &(o.Namespace)
-		case "nativeID":
-			sp.NativeID = &(o.NativeID)
-		case "resourceID":
-			sp.ResourceID = &(o.ResourceID)
+		case "numericID":
+			sp.NumericID = &(o.NumericID)
+		case "prismaCloudRRN":
+			sp.PrismaCloudRRN = &(o.PrismaCloudRRN)
 		case "selflink":
 			sp.Selflink = &(o.Selflink)
 		case "tags":
@@ -365,9 +359,6 @@ func (o *GCPResource) Patch(sparse elemental.SparseIdentifiable) {
 	if so.ID != nil {
 		o.ID = *so.ID
 	}
-	if so.RRN != nil {
-		o.RRN = *so.RRN
-	}
 	if so.Data != nil {
 		o.Data = *so.Data
 	}
@@ -380,11 +371,11 @@ func (o *GCPResource) Patch(sparse elemental.SparseIdentifiable) {
 	if so.Namespace != nil {
 		o.Namespace = *so.Namespace
 	}
-	if so.NativeID != nil {
-		o.NativeID = *so.NativeID
+	if so.NumericID != nil {
+		o.NumericID = *so.NumericID
 	}
-	if so.ResourceID != nil {
-		o.ResourceID = *so.ResourceID
+	if so.PrismaCloudRRN != nil {
+		o.PrismaCloudRRN = *so.PrismaCloudRRN
 	}
 	if so.Selflink != nil {
 		o.Selflink = *so.Selflink
@@ -438,15 +429,11 @@ func (o *GCPResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Instance", "Subnet", "VirtualNetwork"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateRequiredString("nativeID", o.NativeID); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
-	if err := elemental.ValidateRequiredString("resourceID", o.ResourceID); err != nil {
+	if err := elemental.ValidateRequiredString("numericID", o.NumericID); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
@@ -490,8 +477,6 @@ func (o *GCPResource) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "ID":
 		return o.ID
-	case "RRN":
-		return o.RRN
 	case "data":
 		return o.Data
 	case "kind":
@@ -500,10 +485,10 @@ func (o *GCPResource) ValueForAttribute(name string) interface{} {
 		return o.MigrationsLog
 	case "namespace":
 		return o.Namespace
-	case "nativeID":
-		return o.NativeID
-	case "resourceID":
-		return o.ResourceID
+	case "numericID":
+		return o.NumericID
+	case "prismaCloudRRN":
+		return o.PrismaCloudRRN
 	case "selflink":
 		return o.Selflink
 	case "tags":
@@ -534,14 +519,6 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		Type:           "string",
 	},
-	"RRN": {
-		AllowedChoices: []string{},
-		ConvertedName:  "RRN",
-		Description:    `Prisma Cloud RRN.`,
-		Exposed:        true,
-		Name:           "RRN",
-		Type:           "string",
-	},
 	"Data": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "data",
@@ -555,7 +532,7 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "external",
 	},
 	"Kind": {
-		AllowedChoices: []string{"Instance", "Subnet", "VirtualNetwork"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,
@@ -593,25 +570,24 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		Type:           "string",
 	},
-	"NativeID": {
+	"NumericID": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "nativeid",
-		ConvertedName:  "NativeID",
-		Description:    `The ID of the object.`,
+		BSONFieldName:  "numericid",
+		ConvertedName:  "NumericID",
+		Description:    `A numeric resource ID that will mainly be used in RQL queries.`,
 		Exposed:        true,
-		Name:           "nativeID",
+		Name:           "numericID",
 		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
-	"ResourceID": {
+	"PrismaCloudRRN": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "resourceid",
-		ConvertedName:  "ResourceID",
-		Description:    `The identifier of the resource as presented by Azure, which is a path.`,
+		BSONFieldName:  "prismacloudrrn",
+		ConvertedName:  "PrismaCloudRRN",
+		Description:    `The identifier used by Prisma Cloud to locate the same resource.`,
 		Exposed:        true,
-		Name:           "resourceID",
-		Required:       true,
+		Name:           "prismaCloudRRN",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -619,7 +595,7 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		AllowedChoices: []string{},
 		BSONFieldName:  "selflink",
 		ConvertedName:  "Selflink",
-		Description:    `The link to the object.`,
+		Description:    `The identifier of the resource as presented by GCP, which is a URL.`,
 		Exposed:        true,
 		Name:           "selflink",
 		Required:       true,
@@ -686,14 +662,6 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Stored:         true,
 		Type:           "string",
 	},
-	"rrn": {
-		AllowedChoices: []string{},
-		ConvertedName:  "RRN",
-		Description:    `Prisma Cloud RRN.`,
-		Exposed:        true,
-		Name:           "RRN",
-		Type:           "string",
-	},
 	"data": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "data",
@@ -707,7 +675,7 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Type:           "external",
 	},
 	"kind": {
-		AllowedChoices: []string{"Instance", "Subnet", "VirtualNetwork"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,
@@ -745,25 +713,24 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Stored:         true,
 		Type:           "string",
 	},
-	"nativeid": {
+	"numericid": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "nativeid",
-		ConvertedName:  "NativeID",
-		Description:    `The ID of the object.`,
+		BSONFieldName:  "numericid",
+		ConvertedName:  "NumericID",
+		Description:    `A numeric resource ID that will mainly be used in RQL queries.`,
 		Exposed:        true,
-		Name:           "nativeID",
+		Name:           "numericID",
 		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
-	"resourceid": {
+	"prismacloudrrn": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "resourceid",
-		ConvertedName:  "ResourceID",
-		Description:    `The identifier of the resource as presented by Azure, which is a path.`,
+		BSONFieldName:  "prismacloudrrn",
+		ConvertedName:  "PrismaCloudRRN",
+		Description:    `The identifier used by Prisma Cloud to locate the same resource.`,
 		Exposed:        true,
-		Name:           "resourceID",
-		Required:       true,
+		Name:           "prismaCloudRRN",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -771,7 +738,7 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		AllowedChoices: []string{},
 		BSONFieldName:  "selflink",
 		ConvertedName:  "Selflink",
-		Description:    `The link to the object.`,
+		Description:    `The identifier of the resource as presented by GCP, which is a URL.`,
 		Exposed:        true,
 		Name:           "selflink",
 		Required:       true,
@@ -887,9 +854,6 @@ type SparseGCPResource struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
-	// Prisma Cloud RRN.
-	RRN *string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"-" mapstructure:"RRN,omitempty"`
-
 	// The JSON-encoded data that represents the resource.
 	Data *[]byte `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
 
@@ -902,13 +866,13 @@ type SparseGCPResource struct {
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
 
-	// The ID of the object.
-	NativeID *string `json:"nativeID,omitempty" msgpack:"nativeID,omitempty" bson:"nativeid,omitempty" mapstructure:"nativeID,omitempty"`
+	// A numeric resource ID that will mainly be used in RQL queries.
+	NumericID *string `json:"numericID,omitempty" msgpack:"numericID,omitempty" bson:"numericid,omitempty" mapstructure:"numericID,omitempty"`
 
-	// The identifier of the resource as presented by Azure, which is a path.
-	ResourceID *string `json:"resourceID,omitempty" msgpack:"resourceID,omitempty" bson:"resourceid,omitempty" mapstructure:"resourceID,omitempty"`
+	// The identifier used by Prisma Cloud to locate the same resource.
+	PrismaCloudRRN *string `json:"prismaCloudRRN,omitempty" msgpack:"prismaCloudRRN,omitempty" bson:"prismacloudrrn,omitempty" mapstructure:"prismaCloudRRN,omitempty"`
 
-	// The link to the object.
+	// The identifier of the resource as presented by GCP, which is a URL.
 	Selflink *string `json:"selflink,omitempty" msgpack:"selflink,omitempty" bson:"selflink,omitempty" mapstructure:"selflink,omitempty"`
 
 	// Contextual values that can be used to narrow searching of resources if the
@@ -981,11 +945,11 @@ func (o *SparseGCPResource) GetBSON() (interface{}, error) {
 	if o.Namespace != nil {
 		s.Namespace = o.Namespace
 	}
-	if o.NativeID != nil {
-		s.NativeID = o.NativeID
+	if o.NumericID != nil {
+		s.NumericID = o.NumericID
 	}
-	if o.ResourceID != nil {
-		s.ResourceID = o.ResourceID
+	if o.PrismaCloudRRN != nil {
+		s.PrismaCloudRRN = o.PrismaCloudRRN
 	}
 	if o.Selflink != nil {
 		s.Selflink = o.Selflink
@@ -1030,11 +994,11 @@ func (o *SparseGCPResource) SetBSON(raw bson.Raw) error {
 	if s.Namespace != nil {
 		o.Namespace = s.Namespace
 	}
-	if s.NativeID != nil {
-		o.NativeID = s.NativeID
+	if s.NumericID != nil {
+		o.NumericID = s.NumericID
 	}
-	if s.ResourceID != nil {
-		o.ResourceID = s.ResourceID
+	if s.PrismaCloudRRN != nil {
+		o.PrismaCloudRRN = s.PrismaCloudRRN
 	}
 	if s.Selflink != nil {
 		o.Selflink = s.Selflink
@@ -1065,9 +1029,6 @@ func (o *SparseGCPResource) ToPlain() elemental.PlainIdentifiable {
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
-	if o.RRN != nil {
-		out.RRN = *o.RRN
-	}
 	if o.Data != nil {
 		out.Data = *o.Data
 	}
@@ -1080,11 +1041,11 @@ func (o *SparseGCPResource) ToPlain() elemental.PlainIdentifiable {
 	if o.Namespace != nil {
 		out.Namespace = *o.Namespace
 	}
-	if o.NativeID != nil {
-		out.NativeID = *o.NativeID
+	if o.NumericID != nil {
+		out.NumericID = *o.NumericID
 	}
-	if o.ResourceID != nil {
-		out.ResourceID = *o.ResourceID
+	if o.PrismaCloudRRN != nil {
+		out.PrismaCloudRRN = *o.PrismaCloudRRN
 	}
 	if o.Selflink != nil {
 		out.Selflink = *o.Selflink
@@ -1191,28 +1152,28 @@ func (o *SparseGCPResource) DeepCopyInto(out *SparseGCPResource) {
 }
 
 type mongoAttributesGCPResource struct {
-	ID            bson.ObjectId        `bson:"_id,omitempty"`
-	Data          []byte               `bson:"data"`
-	Kind          GCPResourceKindValue `bson:"kind"`
-	MigrationsLog map[string]string    `bson:"migrationslog,omitempty"`
-	Namespace     string               `bson:"namespace"`
-	NativeID      string               `bson:"nativeid"`
-	ResourceID    string               `bson:"resourceid"`
-	Selflink      string               `bson:"selflink"`
-	Tags          []string             `bson:"tags"`
-	ZHash         int                  `bson:"zhash"`
-	Zone          int                  `bson:"zone"`
+	ID             bson.ObjectId        `bson:"_id,omitempty"`
+	Data           []byte               `bson:"data"`
+	Kind           GCPResourceKindValue `bson:"kind"`
+	MigrationsLog  map[string]string    `bson:"migrationslog,omitempty"`
+	Namespace      string               `bson:"namespace"`
+	NumericID      string               `bson:"numericid"`
+	PrismaCloudRRN string               `bson:"prismacloudrrn,omitempty"`
+	Selflink       string               `bson:"selflink"`
+	Tags           []string             `bson:"tags"`
+	ZHash          int                  `bson:"zhash"`
+	Zone           int                  `bson:"zone"`
 }
 type mongoAttributesSparseGCPResource struct {
-	ID            bson.ObjectId         `bson:"_id,omitempty"`
-	Data          *[]byte               `bson:"data,omitempty"`
-	Kind          *GCPResourceKindValue `bson:"kind,omitempty"`
-	MigrationsLog *map[string]string    `bson:"migrationslog,omitempty"`
-	Namespace     *string               `bson:"namespace,omitempty"`
-	NativeID      *string               `bson:"nativeid,omitempty"`
-	ResourceID    *string               `bson:"resourceid,omitempty"`
-	Selflink      *string               `bson:"selflink,omitempty"`
-	Tags          *[]string             `bson:"tags,omitempty"`
-	ZHash         *int                  `bson:"zhash,omitempty"`
-	Zone          *int                  `bson:"zone,omitempty"`
+	ID             bson.ObjectId         `bson:"_id,omitempty"`
+	Data           *[]byte               `bson:"data,omitempty"`
+	Kind           *GCPResourceKindValue `bson:"kind,omitempty"`
+	MigrationsLog  *map[string]string    `bson:"migrationslog,omitempty"`
+	Namespace      *string               `bson:"namespace,omitempty"`
+	NumericID      *string               `bson:"numericid,omitempty"`
+	PrismaCloudRRN *string               `bson:"prismacloudrrn,omitempty"`
+	Selflink       *string               `bson:"selflink,omitempty"`
+	Tags           *[]string             `bson:"tags,omitempty"`
+	ZHash          *int                  `bson:"zhash,omitempty"`
+	Zone           *int                  `bson:"zone,omitempty"`
 }

@@ -14510,9 +14510,8 @@ Represents a GCP cloud resource such as a virtual machine.
   \"kind\": \"compute#instance\"
   ...
 }",
-  "kind": "Instance",
-  "nativeID": 1234567,
-  "resourceID": "/subscriptions/a0a00a0a-0aaa-000a-a0a0-00a00aa00000/resourceGroups/my-deployment/providers/Microsoft.Compute/virtualMachines/vm-name",
+  "kind": "ComputeInstance",
+  "numericID": 1234567,
   "selflink": "https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc"
 }
 ```
@@ -14525,12 +14524,6 @@ Type: `string`
 
 Identifier of the object.
 
-##### `RRN`
-
-Type: `string`
-
-Prisma Cloud RRN.
-
 ##### `data` [`required`]
 
 Type: `[]byte`
@@ -14539,7 +14532,7 @@ The JSON-encoded data that represents the resource.
 
 ##### `kind` [`required`]
 
-Type: `enum(Instance | Subnet | VirtualNetwork)`
+Type: `enum(ComputeInstance | ComputeSubnetwork | ComputeNetwork)`
 
 The specific kind of the resource.
 
@@ -14549,23 +14542,23 @@ Type: `string`
 
 Namespace tag attached to an entity.
 
-##### `nativeID` [`required`]
+##### `numericID` [`required`]
 
 Type: `string`
 
-The ID of the object.
+A numeric resource ID that will mainly be used in RQL queries.
 
-##### `resourceID` [`required`]
+##### `prismaCloudRRN`
 
 Type: `string`
 
-The identifier of the resource as presented by Azure, which is a path.
+The identifier used by Prisma Cloud to locate the same resource.
 
 ##### `selflink` [`required`]
 
 Type: `string`
 
-The link to the object.
+The identifier of the resource as presented by GCP, which is a URL.
 
 ##### `tags`
 
