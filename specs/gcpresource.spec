@@ -52,7 +52,7 @@ attributes:
     omit_empty: true
 
   - name: data
-    description: The json-encoded data that represents the resource.
+    description: The json encoded data that represents the resource.
     type: external
     exposed: true
     subtype: '[]byte'

@@ -109,7 +109,7 @@ type GCPResource struct {
 	// Cloud account ID associated with the resource.
 	AccountID string `json:"accountId,omitempty" msgpack:"accountId,omitempty" bson:"accountid,omitempty" mapstructure:"accountId,omitempty"`
 
-	// The json-encoded data that represents the resource.
+	// The json encoded data that represents the resource.
 	Data []byte `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
 
 	// The specific kind of the resource.
@@ -614,7 +614,7 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		AllowedChoices: []string{},
 		BSONFieldName:  "data",
 		ConvertedName:  "Data",
-		Description:    `The json-encoded data that represents the resource.`,
+		Description:    `The json encoded data that represents the resource.`,
 		Exposed:        true,
 		Name:           "data",
 		Required:       true,
@@ -798,7 +798,7 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		AllowedChoices: []string{},
 		BSONFieldName:  "data",
 		ConvertedName:  "Data",
-		Description:    `The json-encoded data that represents the resource.`,
+		Description:    `The json encoded data that represents the resource.`,
 		Exposed:        true,
 		Name:           "data",
 		Required:       true,
@@ -1007,7 +1007,7 @@ type SparseGCPResource struct {
 	// Cloud account ID associated with the resource.
 	AccountID *string `json:"accountId,omitempty" msgpack:"accountId,omitempty" bson:"accountid,omitempty" mapstructure:"accountId,omitempty"`
 
-	// The json-encoded data that represents the resource.
+	// The json encoded data that represents the resource.
 	Data *[]byte `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
 
 	// The specific kind of the resource.

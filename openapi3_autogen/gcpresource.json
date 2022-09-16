@@ -25,7 +25,7 @@
             "type": "string"
           },
           "data": {
-            "description": "The json-encoded data that represents the resource.",
+            "description": "The json encoded data that represents the resource.",
             "example": "{\n  \"id\": \"12345\",\n  \"kind\": \"compute#instance\"\n  ...\n}",
             "type": "string"
           },

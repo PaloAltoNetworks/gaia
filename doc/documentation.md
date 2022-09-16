@@ -14550,7 +14550,7 @@ Cloud account ID associated with the resource.
 
 Type: `[]byte`
 
-The json-encoded data that represents the resource.
+The json encoded data that represents the resource.
 
 ##### `kind` [`required`]
 
