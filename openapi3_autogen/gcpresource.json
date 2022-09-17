@@ -12,7 +12,7 @@
           },
           "data": {
             "description": "The JSON-encoded data that represents the resource.",
-            "example": "{\n  \"id\": \"12345\",\n  \"kind\": \"compute#instance\"\n  ...\n}",
+            "example": "{\n  \"id\": \"0000000000000000000\",\n  \"kind\": \"compute#instance\"\n  ...\n}",
             "type": "string"
           },
           "kind": {
@@ -31,7 +31,7 @@
           },
           "numericID": {
             "description": "A numeric resource ID that will mainly be used in RQL queries.",
-            "example": 0,
+            "example": "0000000000000000000",
             "type": "string"
           },
           "prismaCloudRRN": {

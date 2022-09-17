@@ -14506,12 +14506,12 @@ Represents a GCP cloud resource such as a virtual machine.
 ```json
 {
   "data": "{
-  \"id\": \"12345\",
+  \"id\": \"0000000000000000000\",
   \"kind\": \"compute#instance\"
   ...
 }",
   "kind": "ComputeInstance",
-  "numericID": 0,
+  "numericID": "0000000000000000000",
   "selflink": "https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc"
 }
 ```
