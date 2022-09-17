@@ -54,7 +54,7 @@ attributes:
     exposed: true
     stored: true
     required: true
-    example_value: 1234567
+    example_value: 0
 
   - name: prismaCloudRRN
     description: The identifier used by Prisma Cloud to locate the same resource.

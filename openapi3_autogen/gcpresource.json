@@ -31,7 +31,7 @@
           },
           "numericID": {
             "description": "A numeric resource ID that will mainly be used in RQL queries.",
-            "example": 1234567,
+            "example": 0,
             "type": "string"
           },
           "prismaCloudRRN": {
