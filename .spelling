@@ -217,6 +217,7 @@ FreeBSD
 FullMatch
 georedundancy
 georedundancy
+GCPResource
 GitLab
 Golang
 Grafana
@@ -268,6 +269,7 @@ iSCSI
 iSCSI
 IsolationProfile
 IterationID
+json
 JSON-encoded
 JWKS
 JWKS_URI
@@ -469,6 +471,7 @@ reprovision
 requestee
 requestee
 resourceType
+resourceID
 ResponseTypesSupported
 Rexray
 rql
