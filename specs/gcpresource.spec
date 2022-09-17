@@ -31,7 +31,7 @@ attributes:
     required: true
     example_value: |-
       {
-        "id": "12345",
+        "id": "0000000000000000000",
         "kind": "compute#instance"
         ...
       }
@@ -54,7 +54,7 @@ attributes:
     exposed: true
     stored: true
     required: true
-    example_value: 0
+    example_value: "0000000000000000000"
 
   - name: prismaCloudRRN
     description: The identifier used by Prisma Cloud to locate the same resource.
