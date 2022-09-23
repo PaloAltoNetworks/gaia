@@ -5,7 +5,10 @@ model:
   entity_name: AzureResource
   package: pandemona
   group: pcn/infrastructure
-  description: Represents an Azure cloud resource such as virtualMachines and subnets.
+  description: |-
+    Represents an Azure cloud resource such as virtualMachines and subnets. Only
+    required attributes need to be set when creating the resource. Optional
+    attributes will be ignored as they are set by the processor.
   private: true
   extends:
   - '@identifiable-stored'
@@ -44,8 +47,8 @@ attributes:
     type: enum
     exposed: true
     stored: true
-    required: true
     allowed_choices:
+    - Pending
     - VirtualMachine
     - NetworkInterface
     - Subnet
@@ -64,6 +67,7 @@ attributes:
     - DatabaseAccount
     - FlexibleServer
     - Server
+    default_value: Pending
     example_value: VirtualMachine
 
   - name: name
@@ -71,7 +75,6 @@ attributes:
     type: string
     exposed: true
     stored: true
-    required: true
     example_value: vm-name
 
   - name: provider
@@ -79,12 +82,13 @@ attributes:
     type: enum
     exposed: true
     stored: true
-    required: true
     allowed_choices:
+    - Pending
     - MicrosoftCompute
     - MicrosoftNetwork
     - MicrosoftDocumentDB
     - MicrosoftDBforMySQL
+    default_value: Pending
     example_value: MicrosoftCompute
 
   - name: resourceGroup
@@ -92,7 +96,6 @@ attributes:
     type: string
     exposed: true
     stored: true
-    required: true
     example_value: my-deployment
 
   - name: resourceID
@@ -101,7 +104,6 @@ attributes:
     type: string
     exposed: true
     stored: true
-    required: true
     example_value: /subscriptions/a0a00a0a-0aaa-000a-a0a0-00a00aa00000/resourceGroups/my-deployment/providers/Microsoft.Compute/virtualMachines/vm-name
 
   - name: subscriptionID
@@ -109,7 +111,6 @@ attributes:
     type: string
     exposed: true
     stored: true
-    required: true
     example_value: a0a00a0a-0aaa-000a-a0a0-00a00aa00000
 
   - name: tags
