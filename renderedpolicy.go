@@ -189,25 +189,25 @@ type RenderedPolicy struct {
 func NewRenderedPolicy() *RenderedPolicy {
 
 	return &RenderedPolicy{
-		ModelVersion:                   1,
-		DefaultPUIncomingTrafficAction: RenderedPolicyDefaultPUIncomingTrafficActionReject,
+		ModelVersion: 1,
+		IngressPolicies: map[string]PolicyRulesList{
+			string(constants.RenderedPolicyTypeNetwork):   {},
+			string(constants.RenderedPolicyTypeFile):      {},
+			string(constants.RenderedPolicyTypeIsolation): {},
+		},
+		MatchingTags:                   []string{},
 		DefaultPUOutgoingTrafficAction: RenderedPolicyDefaultPUOutgoingTrafficActionReject,
 		EgressPolicies: map[string]PolicyRulesList{
 			string(constants.RenderedPolicyTypeNetwork):   {},
 			string(constants.RenderedPolicyTypeFile):      {},
 			string(constants.RenderedPolicyTypeIsolation): {},
 		},
-		HashedTags: map[string]string{},
-		IngressPolicies: map[string]PolicyRulesList{
-			string(constants.RenderedPolicyTypeNetwork):   {},
-			string(constants.RenderedPolicyTypeFile):      {},
-			string(constants.RenderedPolicyTypeIsolation): {},
-		},
-		MatchingTags:       []string{},
-		ProcessingUnitTags: []string{},
-		RuleSetPolicies:    PolicyRulesList{},
-		Scopes:             []string{},
-		WireTags:           []string{},
+		HashedTags:                     map[string]string{},
+		DefaultPUIncomingTrafficAction: RenderedPolicyDefaultPUIncomingTrafficActionReject,
+		ProcessingUnitTags:             []string{},
+		RuleSetPolicies:                PolicyRulesList{},
+		Scopes:                         []string{},
+		WireTags:                       []string{},
 	}
 }
 

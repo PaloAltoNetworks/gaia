@@ -156,8 +156,8 @@ func NewHTTPResourceSpec() *HTTPResourceSpec {
 		Annotations:    map[string][]string{},
 		AssociatedTags: []string{},
 		Endpoints:      []*Endpoint{},
-		Metadata:       []string{},
 		MigrationsLog:  map[string]string{},
+		Metadata:       []string{},
 		NormalizedTags: []string{},
 	}
 }

@@ -304,9 +304,9 @@ func NewCachedFlowReport() *CachedFlowReport {
 
 	return &CachedFlowReport{
 		ModelVersion:   1,
-		MigrationsLog:  map[string]string{},
 		ObservedAction: CachedFlowReportObservedActionNotApplicable,
 		ServiceType:    CachedFlowReportServiceTypeNotApplicable,
+		MigrationsLog:  map[string]string{},
 	}
 }
 

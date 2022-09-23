@@ -174,13 +174,13 @@ func NewCloudRouteTable() *CloudRouteTable {
 
 	return &CloudRouteTable{
 		ModelVersion:     1,
+		MigrationsLog:    map[string]string{},
+		CloudTags:        []string{},
 		Annotations:      map[string][]string{},
 		AssociatedTags:   []string{},
-		CloudTags:        []string{},
-		MigrationsLog:    map[string]string{},
-		NormalizedTags:   []string{},
 		Parameters:       NewCloudRouteData(),
 		PolicyReferences: []string{},
+		NormalizedTags:   []string{},
 	}
 }
 

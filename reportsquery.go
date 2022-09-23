@@ -147,8 +147,8 @@ func NewReportsQuery() *ReportsQuery {
 
 	return &ReportsQuery{
 		ModelVersion:               1,
-		DNSLookupReports:           DNSLookupReportsList{},
 		AccessReports:              AccessReportsList{},
+		DNSLookupReports:           DNSLookupReportsList{},
 		ConnectionExceptionReports: ConnectionExceptionReportsList{},
 		CounterReports:             CounterReportsList{},
 		EnforcerReports:            EnforcerReportsList{},

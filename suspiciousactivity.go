@@ -179,9 +179,9 @@ func NewSuspiciousActivity() *SuspiciousActivity {
 		Annotations:    map[string][]string{},
 		AssociatedTags: []string{},
 		Categories:     []int{},
-		MigrationsLog:  map[string]string{},
 		NormalizedTags: []string{},
 		Risk:           SuspiciousActivityRiskUnknown,
+		MigrationsLog:  map[string]string{},
 	}
 }
 

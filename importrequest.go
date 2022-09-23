@@ -188,10 +188,10 @@ func NewImportRequest() *ImportRequest {
 		AssociatedTags:  []string{},
 		CommentFeed:     []*Comment{},
 		Data:            map[string][]map[string]interface{}{},
-		MigrationsLog:   map[string]string{},
 		NormalizedTags:  []string{},
-		RequesterClaims: []string{},
 		Status:          ImportRequestStatusDraft,
+		RequesterClaims: []string{},
+		MigrationsLog:   map[string]string{},
 	}
 }
 

@@ -250,21 +250,21 @@ func NewEnforcerProfile() *EnforcerProfile {
 	return &EnforcerProfile{
 		ModelVersion:                1,
 		Annotations:                 map[string][]string{},
-		AssociatedTags:              []string{},
 		ExcludedInterfaces:          []string{},
-		ExcludedNetworks:            []string{},
+		AssociatedTags:              []string{},
 		FlowReportInterval:          "30m",
+		ExcludedNetworks:            []string{},
 		IgnoreExpression:            [][]string{},
-		KubernetesMetadataExtractor: EnforcerProfileKubernetesMetadataExtractorPodAtomic,
-		Metadata:                    []string{},
 		MetadataExtractor:           EnforcerProfileMetadataExtractorDocker,
-		MigrationsLog:               map[string]string{},
-		NormalizedTags:              []string{},
 		SyslogFacility:              1,
 		SyslogFormat:                EnforcerProfileSyslogFormatAuto,
+		NormalizedTags:              []string{},
 		TargetNetworks:              []string{},
-		TargetUDPNetworks:           []string{},
 		TrustedCAs:                  []string{},
+		TargetUDPNetworks:           []string{},
+		MigrationsLog:               map[string]string{},
+		KubernetesMetadataExtractor: EnforcerProfileKubernetesMetadataExtractorPodAtomic,
+		Metadata:                    []string{},
 	}
 }
 

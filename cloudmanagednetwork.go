@@ -205,13 +205,13 @@ func NewCloudManagedNetwork() *CloudManagedNetwork {
 
 	return &CloudManagedNetwork{
 		ModelVersion:     1,
+		MigrationsLog:    map[string]string{},
+		CloudTags:        []string{},
 		Annotations:      map[string][]string{},
 		AssociatedTags:   []string{},
-		CloudTags:        []string{},
 		Entries:          []string{},
-		MigrationsLog:    map[string]string{},
-		NormalizedTags:   []string{},
 		PolicyReferences: []string{},
+		NormalizedTags:   []string{},
 		StoredEntries:    []*net.IPNet{},
 		Type:             CloudManagedNetworkTypeEnterprise,
 	}

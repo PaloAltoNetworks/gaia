@@ -167,9 +167,9 @@ func NewDNSLookupReport() *DNSLookupReport {
 
 	return &DNSLookupReport{
 		ModelVersion:   1,
-		MigrationsLog:  map[string]string{},
-		ResolvedCNAMEs: []string{},
 		ResolvedIPs:    []string{},
+		ResolvedCNAMEs: []string{},
+		MigrationsLog:  map[string]string{},
 	}
 }
 

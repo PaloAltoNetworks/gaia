@@ -134,8 +134,8 @@ func NewCNSSearch() *CNSSearch {
 
 	return &CNSSearch{
 		ModelVersion:  1,
-		Data:          NewPCSearchResult(),
 		EndAbsolute:   0,
+		Data:          NewPCSearchResult(),
 		Limit:         100,
 		ParsedQuery:   map[string]interface{}{},
 		StartAbsolute: 0,
