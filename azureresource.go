@@ -321,7 +321,9 @@ func (o *AzureResource) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *AzureResource) Doc() string {
 
-	return `Represents an Azure cloud resource such as virtualMachines and subnets. Only required attributes need to be set when creating the resource. Optional attributes will be ignored as they are set by the processor.`
+	return `Represents an Azure cloud resource such as virtualMachines and subnets. Only
+required attributes need to be set when creating the resource. Optional
+attributes will be ignored as they are set by the processor.`
 }
 
 func (o *AzureResource) String() string {
