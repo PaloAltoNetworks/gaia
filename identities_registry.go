@@ -681,11 +681,11 @@ var (
 			{"updateIdempotencyKey"},
 		},
 		"azureresource": {
-			{":shard", ":unique", "zone", "zHash"},
-			{"namespace"},
-			{"namespace", "normalizedTags"},
 			{"namespace", "resourceID"},
 			{"namespace", "subscriptionID", "kind"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+			{":shard", ":unique", "zone", "zHash"},
 		},
 		"cachedflowreport": {
 			{":shard", "zone", "zHash", "_id"},
