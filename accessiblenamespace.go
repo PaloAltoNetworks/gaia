@@ -14,7 +14,7 @@ import (
 // AccessibleNamespaceIdentity represents the Identity of the object.
 var AccessibleNamespaceIdentity = elemental.Identity{
 	Name:     "accessiblenamespace",
-	Category: "accessiblenamespaces",
+	Category: "a ccessiblenamespaces",
 	Package:  "squall",
 	Private:  false,
 }
