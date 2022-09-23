@@ -166,12 +166,12 @@ func NewKubernetesCluster() *KubernetesCluster {
 	return &KubernetesCluster{
 		ModelVersion:          1,
 		APIServerServiceFQDNs: []string{},
-		Metadata:              []string{},
-		Annotations:           map[string][]string{},
-		AssociatedTags:        []string{},
-		MigrationsLog:         map[string]string{},
 		APIServerServiceIPs:   []string{},
 		APIServerVersions:     []string{},
+		Annotations:           map[string][]string{},
+		AssociatedTags:        []string{},
+		Metadata:              []string{},
+		MigrationsLog:         map[string]string{},
 		NormalizedTags:        []string{},
 	}
 }

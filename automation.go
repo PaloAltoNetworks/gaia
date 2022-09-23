@@ -225,8 +225,8 @@ func NewAutomation() *Automation {
 		Errors:         []string{},
 		Events:         map[string][]elemental.EventType{},
 		MigrationsLog:  map[string]string{},
-		Parameters:     map[string]interface{}{},
 		NormalizedTags: []string{},
+		Parameters:     map[string]interface{}{},
 		Trigger:        AutomationTriggerTime,
 	}
 }

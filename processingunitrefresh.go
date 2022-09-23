@@ -160,8 +160,8 @@ func NewProcessingUnitRefresh() *ProcessingUnitRefresh {
 
 	return &ProcessingUnitRefresh{
 		ModelVersion:   1,
-		PingMode:       ProcessingUnitRefreshPingModeAuto,
 		PingIterations: 1,
+		PingMode:       ProcessingUnitRefreshPingModeAuto,
 		TraceDuration:  "10s",
 	}
 }

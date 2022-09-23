@@ -174,13 +174,13 @@ func NewCloudPublicIPAddress() *CloudPublicIPAddress {
 
 	return &CloudPublicIPAddress{
 		ModelVersion:     1,
-		MigrationsLog:    map[string]string{},
-		CloudTags:        []string{},
 		Annotations:      map[string][]string{},
 		AssociatedTags:   []string{},
+		CloudTags:        []string{},
+		MigrationsLog:    map[string]string{},
+		NormalizedTags:   []string{},
 		Parameters:       NewCloudAddress(),
 		PolicyReferences: []string{},
-		NormalizedTags:   []string{},
 	}
 }
 
