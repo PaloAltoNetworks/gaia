@@ -47,6 +47,13 @@ attributes:
     - ComputeNetwork
     example_value: ComputeInstance
 
+  - name: name
+    description: The name of the resource.
+    type: string
+    exposed: true
+    stored: true
+    example_value: abc
+
   - name: numericID
     description: A numeric resource ID that will mainly be used in RQL queries.
     type: string
