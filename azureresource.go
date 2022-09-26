@@ -45,6 +45,9 @@ const (
 	// AzureResourceKindOutboundRule represents the value OutboundRule.
 	AzureResourceKindOutboundRule AzureResourceKindValue = "OutboundRule"
 
+	// AzureResourceKindPending represents the value Pending.
+	AzureResourceKindPending AzureResourceKindValue = "Pending"
+
 	// AzureResourceKindPublicIPAddress represents the value PublicIPAddress.
 	AzureResourceKindPublicIPAddress AzureResourceKindValue = "PublicIPAddress"
 
@@ -85,6 +88,9 @@ const (
 
 	// AzureResourceProviderMicrosoftNetwork represents the value MicrosoftNetwork.
 	AzureResourceProviderMicrosoftNetwork AzureResourceProviderValue = "MicrosoftNetwork"
+
+	// AzureResourceProviderPending represents the value Pending.
+	AzureResourceProviderPending AzureResourceProviderValue = "Pending"
 )
 
 // AzureResourceIdentity represents the Identity of the object.
@@ -210,7 +216,9 @@ func NewAzureResource() *AzureResource {
 	return &AzureResource{
 		ModelVersion:  1,
 		Data:          []byte{},
+		Kind:          AzureResourceKindPending,
 		MigrationsLog: map[string]string{},
+		Provider:      AzureResourceProviderPending,
 		Tags:          []string{},
 	}
 }
@@ -313,7 +321,9 @@ func (o *AzureResource) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *AzureResource) Doc() string {
 
-	return `Represents an Azure cloud resource such as virtualMachines and subnets.`
+	return `Represents an Azure cloud resource such as virtualMachines and subnets. Only
+required attributes need to be set when creating the resource. Optional
+attributes will be ignored as they are set by the processor.`
 }
 
 func (o *AzureResource) String() string {
@@ -509,36 +519,12 @@ func (o *AzureResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateRequiredString("kind", string(o.Kind)); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration", "DatabaseAccount", "FlexibleServer", "Server"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Pending", "VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration", "DatabaseAccount", "FlexibleServer", "Server"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateRequiredString("name", o.Name); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
-	if err := elemental.ValidateRequiredString("provider", string(o.Provider)); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
-	if err := elemental.ValidateStringInList("provider", string(o.Provider), []string{"MicrosoftCompute", "MicrosoftNetwork", "MicrosoftDocumentDB", "MicrosoftDBforMySQL"}, false); err != nil {
+	if err := elemental.ValidateStringInList("provider", string(o.Provider), []string{"Pending", "MicrosoftCompute", "MicrosoftNetwork", "MicrosoftDocumentDB", "MicrosoftDBforMySQL"}, false); err != nil {
 		errors = errors.Append(err)
-	}
-
-	if err := elemental.ValidateRequiredString("resourceGroup", o.ResourceGroup); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
-	if err := elemental.ValidateRequiredString("resourceID", o.ResourceID); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
-	if err := elemental.ValidateRequiredString("subscriptionID", o.SubscriptionID); err != nil {
-		requiredErrors = requiredErrors.Append(err)
 	}
 
 	if len(requiredErrors) > 0 {
@@ -636,13 +622,13 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "external",
 	},
 	"Kind": {
-		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration", "DatabaseAccount", "FlexibleServer", "Server"},
+		AllowedChoices: []string{"Pending", "VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration", "DatabaseAccount", "FlexibleServer", "Server"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
+		DefaultValue:   AzureResourceKindPending,
 		Description:    `The specific kind of the resource.`,
 		Exposed:        true,
 		Name:           "kind",
-		Required:       true,
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -665,7 +651,6 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The name of this resource.`,
 		Exposed:        true,
 		Name:           "name",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -686,13 +671,13 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "string",
 	},
 	"Provider": {
-		AllowedChoices: []string{"MicrosoftCompute", "MicrosoftNetwork", "MicrosoftDocumentDB", "MicrosoftDBforMySQL"},
+		AllowedChoices: []string{"Pending", "MicrosoftCompute", "MicrosoftNetwork", "MicrosoftDocumentDB", "MicrosoftDBforMySQL"},
 		BSONFieldName:  "provider",
 		ConvertedName:  "Provider",
+		DefaultValue:   AzureResourceProviderPending,
 		Description:    `The major type of the resource.`,
 		Exposed:        true,
 		Name:           "provider",
-		Required:       true,
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -703,7 +688,6 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The name of the logical subcontainer of cloud resources.`,
 		Exposed:        true,
 		Name:           "resourceGroup",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -714,7 +698,6 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The identifier of the resource as presented by Azure, which is a path.`,
 		Exposed:        true,
 		Name:           "resourceID",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -725,7 +708,6 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The logical ID of the container which contains the cloud resources.`,
 		Exposed:        true,
 		Name:           "subscriptionID",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -802,13 +784,13 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Type:           "external",
 	},
 	"kind": {
-		AllowedChoices: []string{"VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration", "DatabaseAccount", "FlexibleServer", "Server"},
+		AllowedChoices: []string{"Pending", "VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration", "DatabaseAccount", "FlexibleServer", "Server"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
+		DefaultValue:   AzureResourceKindPending,
 		Description:    `The specific kind of the resource.`,
 		Exposed:        true,
 		Name:           "kind",
-		Required:       true,
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -831,7 +813,6 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Description:    `The name of this resource.`,
 		Exposed:        true,
 		Name:           "name",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -852,13 +833,13 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Type:           "string",
 	},
 	"provider": {
-		AllowedChoices: []string{"MicrosoftCompute", "MicrosoftNetwork", "MicrosoftDocumentDB", "MicrosoftDBforMySQL"},
+		AllowedChoices: []string{"Pending", "MicrosoftCompute", "MicrosoftNetwork", "MicrosoftDocumentDB", "MicrosoftDBforMySQL"},
 		BSONFieldName:  "provider",
 		ConvertedName:  "Provider",
+		DefaultValue:   AzureResourceProviderPending,
 		Description:    `The major type of the resource.`,
 		Exposed:        true,
 		Name:           "provider",
-		Required:       true,
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -869,7 +850,6 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Description:    `The name of the logical subcontainer of cloud resources.`,
 		Exposed:        true,
 		Name:           "resourceGroup",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -880,7 +860,6 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Description:    `The identifier of the resource as presented by Azure, which is a path.`,
 		Exposed:        true,
 		Name:           "resourceID",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -891,7 +870,6 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Description:    `The logical ID of the container which contains the cloud resources.`,
 		Exposed:        true,
 		Name:           "subscriptionID",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},

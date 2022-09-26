@@ -188,6 +188,14 @@ relations:
   create:
     description: Creates a new automation condition.
 
+- rest_name: azureresource
+  get:
+    description: Retrieves the list of stored azure resources.
+    global_parameters:
+    - $filtering
+  create:
+    description: creates a new azure resource from field 'data'.
+
 - rest_name: cachedflowreport
   create:
     description: Create a cached flow statistics report.
