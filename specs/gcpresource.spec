@@ -41,7 +41,6 @@ attributes:
     type: enum
     exposed: true
     stored: true
-    required: true
     allowed_choices:
     - ComputeInstance
     - ComputeSubnetwork
@@ -53,7 +52,6 @@ attributes:
     type: string
     exposed: true
     stored: true
-    required: true
     example_value: "0000000000000000000"
 
   - name: prismaCloudRRN
@@ -68,7 +66,6 @@ attributes:
     type: string
     exposed: true
     stored: true
-    required: true
     example_value: https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc
 
   - name: tags
