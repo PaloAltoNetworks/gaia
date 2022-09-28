@@ -24,6 +24,11 @@
             ],
             "example": "ComputeInstance"
           },
+          "name": {
+            "description": "The name of the resource.",
+            "example": "abc",
+            "type": "string"
+          },
           "namespace": {
             "description": "Namespace tag attached to an entity.",
             "readOnly": true,
@@ -52,10 +57,7 @@
           }
         },
         "required": [
-          "data",
-          "kind",
-          "numericID",
-          "selflink"
+          "data"
         ],
         "type": "object"
       }

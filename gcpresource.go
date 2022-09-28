@@ -109,6 +109,9 @@ type GCPResource struct {
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
+	// The name of the resource.
+	Name string `json:"name" msgpack:"name" bson:"name" mapstructure:"name,omitempty"`
+
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
 
@@ -181,6 +184,7 @@ func (o *GCPResource) GetBSON() (interface{}, error) {
 	s.Data = o.Data
 	s.Kind = o.Kind
 	s.MigrationsLog = o.MigrationsLog
+	s.Name = o.Name
 	s.Namespace = o.Namespace
 	s.NumericID = o.NumericID
 	s.PrismaCloudRRN = o.PrismaCloudRRN
@@ -209,6 +213,7 @@ func (o *GCPResource) SetBSON(raw bson.Raw) error {
 	o.Data = s.Data
 	o.Kind = s.Kind
 	o.MigrationsLog = s.MigrationsLog
+	o.Name = s.Name
 	o.Namespace = s.Namespace
 	o.NumericID = s.NumericID
 	o.PrismaCloudRRN = s.PrismaCloudRRN
@@ -308,6 +313,7 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			Data:           &o.Data,
 			Kind:           &o.Kind,
 			MigrationsLog:  &o.MigrationsLog,
+			Name:           &o.Name,
 			Namespace:      &o.Namespace,
 			NumericID:      &o.NumericID,
 			PrismaCloudRRN: &o.PrismaCloudRRN,
@@ -329,6 +335,8 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Kind = &(o.Kind)
 		case "migrationsLog":
 			sp.MigrationsLog = &(o.MigrationsLog)
+		case "name":
+			sp.Name = &(o.Name)
 		case "namespace":
 			sp.Namespace = &(o.Namespace)
 		case "numericID":
@@ -367,6 +375,9 @@ func (o *GCPResource) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.MigrationsLog != nil {
 		o.MigrationsLog = *so.MigrationsLog
+	}
+	if so.Name != nil {
+		o.Name = *so.Name
 	}
 	if so.Namespace != nil {
 		o.Namespace = *so.Namespace
@@ -425,20 +436,8 @@ func (o *GCPResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateRequiredString("kind", string(o.Kind)); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
 	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork"}, false); err != nil {
 		errors = errors.Append(err)
-	}
-
-	if err := elemental.ValidateRequiredString("numericID", o.NumericID); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
-	if err := elemental.ValidateRequiredString("selflink", o.Selflink); err != nil {
-		requiredErrors = requiredErrors.Append(err)
 	}
 
 	if len(requiredErrors) > 0 {
@@ -483,6 +482,8 @@ func (o *GCPResource) ValueForAttribute(name string) interface{} {
 		return o.Kind
 	case "migrationsLog":
 		return o.MigrationsLog
+	case "name":
+		return o.Name
 	case "namespace":
 		return o.Namespace
 	case "numericID":
@@ -538,7 +539,6 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The specific kind of the resource.`,
 		Exposed:        true,
 		Name:           "kind",
-		Required:       true,
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -553,6 +553,16 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		SubType:        "map[string]string",
 		Type:           "external",
+	},
+	"Name": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "name",
+		ConvertedName:  "Name",
+		Description:    `The name of the resource.`,
+		Exposed:        true,
+		Name:           "name",
+		Stored:         true,
+		Type:           "string",
 	},
 	"Namespace": {
 		AllowedChoices: []string{},
@@ -577,7 +587,6 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `A numeric resource ID that will mainly be used in RQL queries.`,
 		Exposed:        true,
 		Name:           "numericID",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -598,7 +607,6 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The identifier of the resource as presented by GCP, which is a URL.`,
 		Exposed:        true,
 		Name:           "selflink",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -681,7 +689,6 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Description:    `The specific kind of the resource.`,
 		Exposed:        true,
 		Name:           "kind",
-		Required:       true,
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -696,6 +703,16 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Stored:         true,
 		SubType:        "map[string]string",
 		Type:           "external",
+	},
+	"name": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "name",
+		ConvertedName:  "Name",
+		Description:    `The name of the resource.`,
+		Exposed:        true,
+		Name:           "name",
+		Stored:         true,
+		Type:           "string",
 	},
 	"namespace": {
 		AllowedChoices: []string{},
@@ -720,7 +737,6 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Description:    `A numeric resource ID that will mainly be used in RQL queries.`,
 		Exposed:        true,
 		Name:           "numericID",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -741,7 +757,6 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Description:    `The identifier of the resource as presented by GCP, which is a URL.`,
 		Exposed:        true,
 		Name:           "selflink",
-		Required:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -863,6 +878,9 @@ type SparseGCPResource struct {
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
+	// The name of the resource.
+	Name *string `json:"name,omitempty" msgpack:"name,omitempty" bson:"name,omitempty" mapstructure:"name,omitempty"`
+
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
 
@@ -942,6 +960,9 @@ func (o *SparseGCPResource) GetBSON() (interface{}, error) {
 	if o.MigrationsLog != nil {
 		s.MigrationsLog = o.MigrationsLog
 	}
+	if o.Name != nil {
+		s.Name = o.Name
+	}
 	if o.Namespace != nil {
 		s.Namespace = o.Namespace
 	}
@@ -991,6 +1012,9 @@ func (o *SparseGCPResource) SetBSON(raw bson.Raw) error {
 	if s.MigrationsLog != nil {
 		o.MigrationsLog = s.MigrationsLog
 	}
+	if s.Name != nil {
+		o.Name = s.Name
+	}
 	if s.Namespace != nil {
 		o.Namespace = s.Namespace
 	}
@@ -1037,6 +1061,9 @@ func (o *SparseGCPResource) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.MigrationsLog != nil {
 		out.MigrationsLog = *o.MigrationsLog
+	}
+	if o.Name != nil {
+		out.Name = *o.Name
 	}
 	if o.Namespace != nil {
 		out.Namespace = *o.Namespace
@@ -1156,6 +1183,7 @@ type mongoAttributesGCPResource struct {
 	Data           []byte               `bson:"data"`
 	Kind           GCPResourceKindValue `bson:"kind"`
 	MigrationsLog  map[string]string    `bson:"migrationslog,omitempty"`
+	Name           string               `bson:"name"`
 	Namespace      string               `bson:"namespace"`
 	NumericID      string               `bson:"numericid"`
 	PrismaCloudRRN string               `bson:"prismacloudrrn,omitempty"`
@@ -1169,6 +1197,7 @@ type mongoAttributesSparseGCPResource struct {
 	Data           *[]byte               `bson:"data,omitempty"`
 	Kind           *GCPResourceKindValue `bson:"kind,omitempty"`
 	MigrationsLog  *map[string]string    `bson:"migrationslog,omitempty"`
+	Name           *string               `bson:"name,omitempty"`
 	Namespace      *string               `bson:"namespace,omitempty"`
 	NumericID      *string               `bson:"numericid,omitempty"`
 	PrismaCloudRRN *string               `bson:"prismacloudrrn,omitempty"`

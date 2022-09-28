@@ -41,19 +41,24 @@ attributes:
     type: enum
     exposed: true
     stored: true
-    required: true
     allowed_choices:
     - ComputeInstance
     - ComputeSubnetwork
     - ComputeNetwork
     example_value: ComputeInstance
 
+  - name: name
+    description: The name of the resource.
+    type: string
+    exposed: true
+    stored: true
+    example_value: abc
+
   - name: numericID
     description: A numeric resource ID that will mainly be used in RQL queries.
     type: string
     exposed: true
     stored: true
-    required: true
     example_value: "0000000000000000000"
 
   - name: prismaCloudRRN
@@ -68,7 +73,6 @@ attributes:
     type: string
     exposed: true
     stored: true
-    required: true
     example_value: https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc
 
   - name: tags
