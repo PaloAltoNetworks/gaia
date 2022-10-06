@@ -10780,7 +10780,7 @@ parameters.
 
 Parameters:
 
-- `neocna` (`boolean`): If set to true, neocna will be used regardless of whether tenant is onboarded to use neocna.
+- `neocna` (`boolean`): If set to true, neocna will be used regardless of whether tenant is set to use neocna.
 
 ##### `GET /cloudnetworkqueries/:id/cloudgraphs`
 

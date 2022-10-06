@@ -254,7 +254,7 @@ relations:
       entries:
       - name: neocna
         description: If set to true, neocna will be used regardless of whether tenant
-          is onboarded to use neocna.
+          is set to use neocna.
         type: boolean
 
 - rest_name: cloudloadbalancer

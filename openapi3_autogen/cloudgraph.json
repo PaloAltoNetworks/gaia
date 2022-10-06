@@ -77,7 +77,7 @@
         "operationId": "create-a-new-cloudgraph",
         "parameters": [
           {
-            "description": "If set to true, neocna will be used regardless of whether tenant is onboarded to use neocna.",
+            "description": "If set to true, neocna will be used regardless of whether tenant is set to use neocna.",
             "in": "query",
             "name": "neocna",
             "schema": {
