@@ -10778,6 +10778,10 @@ connections in a particular namespace.
 Creates a cloud dependency graph based on ingested data and the required
 parameters.
 
+Parameters:
+
+- `neocna` (`boolean`): If set to true, neocna will be used regardless of whether tenant is onboarded to use neocna.
+
 ##### `GET /cloudnetworkqueries/:id/cloudgraphs`
 
 Initiates a calculation of the query and retrieves the results in CloudGraph.

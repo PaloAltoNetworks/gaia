@@ -1052,7 +1052,14 @@ func init() {
 
 	relationshipsRegistry[CloudGraphIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
-			"root": {},
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "neocna",
+						Type: "boolean",
+					},
+				},
+			},
 		},
 		RetrieveMany: map[string]*elemental.RelationshipInfo{
 			"cloudnetworkquery": {},
