@@ -171,6 +171,12 @@ type AzureResource struct {
 	// The json-encoded data that represents the resource.
 	Data []byte `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
 
+	// Values that can be used to narrow searching of resources if the
+	// resourceID is not known. For instance, it could be used to store a resource's
+	// location or public IP addresses to support cross-cloud analysis. Each value
+	// should be formatted as 'key=value'.
+	DenormedFields []string `json:"denormedFields" msgpack:"denormedFields" bson:"denormedfields" mapstructure:"denormedFields,omitempty"`
+
 	// The specific kind of the resource.
 	Kind AzureResourceKindValue `json:"kind" msgpack:"kind" bson:"kind" mapstructure:"kind,omitempty"`
 
@@ -192,16 +198,8 @@ type AzureResource struct {
 	// The identifier of the resource as presented by Azure, which is a path.
 	ResourceID string `json:"resourceID" msgpack:"resourceID" bson:"resourceid" mapstructure:"resourceID,omitempty"`
 
-	// Field 'tags' inside the Azure resource.
-	ResourceTags map[string]string `json:"resourceTags" msgpack:"resourceTags" bson:"resourcetags" mapstructure:"resourceTags,omitempty"`
-
 	// The logical ID of the container which contains the cloud resources.
 	SubscriptionID string `json:"subscriptionID" msgpack:"subscriptionID" bson:"subscriptionid" mapstructure:"subscriptionID,omitempty"`
-
-	// Contextual values that can be used to narrow searching of resources if the
-	// resourceID is not known. For instance, it could be used to store a resource's
-	// location or public IP addresses to support cross-cloud analysis.
-	Tags []string `json:"tags" msgpack:"tags" bson:"tags" mapstructure:"tags,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -217,13 +215,12 @@ type AzureResource struct {
 func NewAzureResource() *AzureResource {
 
 	return &AzureResource{
-		ModelVersion:  1,
-		Data:          []byte{},
-		Kind:          AzureResourceKindPending,
-		MigrationsLog: map[string]string{},
-		Provider:      AzureResourceProviderPending,
-		ResourceTags:  map[string]string{},
-		Tags:          []string{},
+		ModelVersion:   1,
+		Data:           []byte{},
+		DenormedFields: []string{},
+		Kind:           AzureResourceKindPending,
+		MigrationsLog:  map[string]string{},
+		Provider:       AzureResourceProviderPending,
 	}
 }
 
@@ -259,6 +256,7 @@ func (o *AzureResource) GetBSON() (interface{}, error) {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
 	s.Data = o.Data
+	s.DenormedFields = o.DenormedFields
 	s.Kind = o.Kind
 	s.MigrationsLog = o.MigrationsLog
 	s.Name = o.Name
@@ -266,9 +264,7 @@ func (o *AzureResource) GetBSON() (interface{}, error) {
 	s.Provider = o.Provider
 	s.ResourceGroup = o.ResourceGroup
 	s.ResourceID = o.ResourceID
-	s.ResourceTags = o.ResourceTags
 	s.SubscriptionID = o.SubscriptionID
-	s.Tags = o.Tags
 	s.ZHash = o.ZHash
 	s.Zone = o.Zone
 
@@ -290,6 +286,7 @@ func (o *AzureResource) SetBSON(raw bson.Raw) error {
 
 	o.ID = s.ID.Hex()
 	o.Data = s.Data
+	o.DenormedFields = s.DenormedFields
 	o.Kind = s.Kind
 	o.MigrationsLog = s.MigrationsLog
 	o.Name = s.Name
@@ -297,9 +294,7 @@ func (o *AzureResource) SetBSON(raw bson.Raw) error {
 	o.Provider = s.Provider
 	o.ResourceGroup = s.ResourceGroup
 	o.ResourceID = s.ResourceID
-	o.ResourceTags = s.ResourceTags
 	o.SubscriptionID = s.SubscriptionID
-	o.Tags = s.Tags
 	o.ZHash = s.ZHash
 	o.Zone = s.Zone
 
@@ -394,6 +389,7 @@ func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable 
 		return &SparseAzureResource{
 			ID:             &o.ID,
 			Data:           &o.Data,
+			DenormedFields: &o.DenormedFields,
 			Kind:           &o.Kind,
 			MigrationsLog:  &o.MigrationsLog,
 			Name:           &o.Name,
@@ -401,9 +397,7 @@ func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable 
 			Provider:       &o.Provider,
 			ResourceGroup:  &o.ResourceGroup,
 			ResourceID:     &o.ResourceID,
-			ResourceTags:   &o.ResourceTags,
 			SubscriptionID: &o.SubscriptionID,
-			Tags:           &o.Tags,
 			ZHash:          &o.ZHash,
 			Zone:           &o.Zone,
 		}
@@ -416,6 +410,8 @@ func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable 
 			sp.ID = &(o.ID)
 		case "data":
 			sp.Data = &(o.Data)
+		case "denormedFields":
+			sp.DenormedFields = &(o.DenormedFields)
 		case "kind":
 			sp.Kind = &(o.Kind)
 		case "migrationsLog":
@@ -430,12 +426,8 @@ func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable 
 			sp.ResourceGroup = &(o.ResourceGroup)
 		case "resourceID":
 			sp.ResourceID = &(o.ResourceID)
-		case "resourceTags":
-			sp.ResourceTags = &(o.ResourceTags)
 		case "subscriptionID":
 			sp.SubscriptionID = &(o.SubscriptionID)
-		case "tags":
-			sp.Tags = &(o.Tags)
 		case "zHash":
 			sp.ZHash = &(o.ZHash)
 		case "zone":
@@ -459,6 +451,9 @@ func (o *AzureResource) Patch(sparse elemental.SparseIdentifiable) {
 	if so.Data != nil {
 		o.Data = *so.Data
 	}
+	if so.DenormedFields != nil {
+		o.DenormedFields = *so.DenormedFields
+	}
 	if so.Kind != nil {
 		o.Kind = *so.Kind
 	}
@@ -480,14 +475,8 @@ func (o *AzureResource) Patch(sparse elemental.SparseIdentifiable) {
 	if so.ResourceID != nil {
 		o.ResourceID = *so.ResourceID
 	}
-	if so.ResourceTags != nil {
-		o.ResourceTags = *so.ResourceTags
-	}
 	if so.SubscriptionID != nil {
 		o.SubscriptionID = *so.SubscriptionID
-	}
-	if so.Tags != nil {
-		o.Tags = *so.Tags
 	}
 	if so.ZHash != nil {
 		o.ZHash = *so.ZHash
@@ -577,6 +566,8 @@ func (o *AzureResource) ValueForAttribute(name string) interface{} {
 		return o.ID
 	case "data":
 		return o.Data
+	case "denormedFields":
+		return o.DenormedFields
 	case "kind":
 		return o.Kind
 	case "migrationsLog":
@@ -591,12 +582,8 @@ func (o *AzureResource) ValueForAttribute(name string) interface{} {
 		return o.ResourceGroup
 	case "resourceID":
 		return o.ResourceID
-	case "resourceTags":
-		return o.ResourceTags
 	case "subscriptionID":
 		return o.SubscriptionID
-	case "tags":
-		return o.Tags
 	case "zHash":
 		return o.ZHash
 	case "zone":
@@ -634,6 +621,22 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		SubType:        "[]byte",
 		Type:           "external",
+	},
+	"DenormedFields": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "denormedfields",
+		ConvertedName:  "DenormedFields",
+		Description: `Values that can be used to narrow searching of resources if the
+resourceID is not known. For instance, it could be used to store a resource's
+location or public IP addresses to support cross-cloud analysis. Each value
+should be formatted as 'key=value'.`,
+		Exposed:  true,
+		Name:     "denormedFields",
+		ReadOnly: true,
+		Stored:   true,
+		SubType:  "string",
+		Type:     "list",
 	},
 	"Kind": {
 		AllowedChoices: []string{"Pending", "VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration", "DatabaseAccount", "FlexibleServer", "Server"},
@@ -725,19 +728,6 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		Type:           "string",
 	},
-	"ResourceTags": {
-		AllowedChoices: []string{},
-		Autogenerated:  true,
-		BSONFieldName:  "resourcetags",
-		ConvertedName:  "ResourceTags",
-		Description:    `Field 'tags' inside the Azure resource.`,
-		Exposed:        true,
-		Name:           "resourceTags",
-		ReadOnly:       true,
-		Stored:         true,
-		SubType:        "map[string]string",
-		Type:           "external",
-	},
 	"SubscriptionID": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -749,20 +739,6 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
-	},
-	"Tags": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "tags",
-		ConvertedName:  "Tags",
-		Description: `Contextual values that can be used to narrow searching of resources if the
-resourceID is not known. For instance, it could be used to store a resource's
-location or public IP addresses to support cross-cloud analysis.`,
-		Exposed:  true,
-		Name:     "tags",
-		ReadOnly: true,
-		Stored:   true,
-		SubType:  "string",
-		Type:     "list",
 	},
 	"ZHash": {
 		AllowedChoices: []string{},
@@ -822,6 +798,22 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Stored:         true,
 		SubType:        "[]byte",
 		Type:           "external",
+	},
+	"denormedfields": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "denormedfields",
+		ConvertedName:  "DenormedFields",
+		Description: `Values that can be used to narrow searching of resources if the
+resourceID is not known. For instance, it could be used to store a resource's
+location or public IP addresses to support cross-cloud analysis. Each value
+should be formatted as 'key=value'.`,
+		Exposed:  true,
+		Name:     "denormedFields",
+		ReadOnly: true,
+		Stored:   true,
+		SubType:  "string",
+		Type:     "list",
 	},
 	"kind": {
 		AllowedChoices: []string{"Pending", "VirtualMachine", "NetworkInterface", "Subnet", "IPConfiguration", "VirtualNetwork", "NetworkSecurityGroup", "NATGateway", "PublicIPAddress", "PublicIPPrefix", "VirtualMachineScaleSet", "VirtualMachineScaleSetVM", "LoadBalancer", "BackendAddressPool", "OutboundRule", "FrontendIPConfiguration", "DatabaseAccount", "FlexibleServer", "Server"},
@@ -913,19 +905,6 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Stored:         true,
 		Type:           "string",
 	},
-	"resourcetags": {
-		AllowedChoices: []string{},
-		Autogenerated:  true,
-		BSONFieldName:  "resourcetags",
-		ConvertedName:  "ResourceTags",
-		Description:    `Field 'tags' inside the Azure resource.`,
-		Exposed:        true,
-		Name:           "resourceTags",
-		ReadOnly:       true,
-		Stored:         true,
-		SubType:        "map[string]string",
-		Type:           "external",
-	},
 	"subscriptionid": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -937,20 +916,6 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
-	},
-	"tags": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "tags",
-		ConvertedName:  "Tags",
-		Description: `Contextual values that can be used to narrow searching of resources if the
-resourceID is not known. For instance, it could be used to store a resource's
-location or public IP addresses to support cross-cloud analysis.`,
-		Exposed:  true,
-		Name:     "tags",
-		ReadOnly: true,
-		Stored:   true,
-		SubType:  "string",
-		Type:     "list",
 	},
 	"zhash": {
 		AllowedChoices: []string{},
@@ -1051,6 +1016,12 @@ type SparseAzureResource struct {
 	// The json-encoded data that represents the resource.
 	Data *[]byte `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
 
+	// Values that can be used to narrow searching of resources if the
+	// resourceID is not known. For instance, it could be used to store a resource's
+	// location or public IP addresses to support cross-cloud analysis. Each value
+	// should be formatted as 'key=value'.
+	DenormedFields *[]string `json:"denormedFields,omitempty" msgpack:"denormedFields,omitempty" bson:"denormedfields,omitempty" mapstructure:"denormedFields,omitempty"`
+
 	// The specific kind of the resource.
 	Kind *AzureResourceKindValue `json:"kind,omitempty" msgpack:"kind,omitempty" bson:"kind,omitempty" mapstructure:"kind,omitempty"`
 
@@ -1072,16 +1043,8 @@ type SparseAzureResource struct {
 	// The identifier of the resource as presented by Azure, which is a path.
 	ResourceID *string `json:"resourceID,omitempty" msgpack:"resourceID,omitempty" bson:"resourceid,omitempty" mapstructure:"resourceID,omitempty"`
 
-	// Field 'tags' inside the Azure resource.
-	ResourceTags *map[string]string `json:"resourceTags,omitempty" msgpack:"resourceTags,omitempty" bson:"resourcetags,omitempty" mapstructure:"resourceTags,omitempty"`
-
 	// The logical ID of the container which contains the cloud resources.
 	SubscriptionID *string `json:"subscriptionID,omitempty" msgpack:"subscriptionID,omitempty" bson:"subscriptionid,omitempty" mapstructure:"subscriptionID,omitempty"`
-
-	// Contextual values that can be used to narrow searching of resources if the
-	// resourceID is not known. For instance, it could be used to store a resource's
-	// location or public IP addresses to support cross-cloud analysis.
-	Tags *[]string `json:"tags,omitempty" msgpack:"tags,omitempty" bson:"tags,omitempty" mapstructure:"tags,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -1139,6 +1102,9 @@ func (o *SparseAzureResource) GetBSON() (interface{}, error) {
 	if o.Data != nil {
 		s.Data = o.Data
 	}
+	if o.DenormedFields != nil {
+		s.DenormedFields = o.DenormedFields
+	}
 	if o.Kind != nil {
 		s.Kind = o.Kind
 	}
@@ -1160,14 +1126,8 @@ func (o *SparseAzureResource) GetBSON() (interface{}, error) {
 	if o.ResourceID != nil {
 		s.ResourceID = o.ResourceID
 	}
-	if o.ResourceTags != nil {
-		s.ResourceTags = o.ResourceTags
-	}
 	if o.SubscriptionID != nil {
 		s.SubscriptionID = o.SubscriptionID
-	}
-	if o.Tags != nil {
-		s.Tags = o.Tags
 	}
 	if o.ZHash != nil {
 		s.ZHash = o.ZHash
@@ -1197,6 +1157,9 @@ func (o *SparseAzureResource) SetBSON(raw bson.Raw) error {
 	if s.Data != nil {
 		o.Data = s.Data
 	}
+	if s.DenormedFields != nil {
+		o.DenormedFields = s.DenormedFields
+	}
 	if s.Kind != nil {
 		o.Kind = s.Kind
 	}
@@ -1218,14 +1181,8 @@ func (o *SparseAzureResource) SetBSON(raw bson.Raw) error {
 	if s.ResourceID != nil {
 		o.ResourceID = s.ResourceID
 	}
-	if s.ResourceTags != nil {
-		o.ResourceTags = s.ResourceTags
-	}
 	if s.SubscriptionID != nil {
 		o.SubscriptionID = s.SubscriptionID
-	}
-	if s.Tags != nil {
-		o.Tags = s.Tags
 	}
 	if s.ZHash != nil {
 		o.ZHash = s.ZHash
@@ -1253,6 +1210,9 @@ func (o *SparseAzureResource) ToPlain() elemental.PlainIdentifiable {
 	if o.Data != nil {
 		out.Data = *o.Data
 	}
+	if o.DenormedFields != nil {
+		out.DenormedFields = *o.DenormedFields
+	}
 	if o.Kind != nil {
 		out.Kind = *o.Kind
 	}
@@ -1274,14 +1234,8 @@ func (o *SparseAzureResource) ToPlain() elemental.PlainIdentifiable {
 	if o.ResourceID != nil {
 		out.ResourceID = *o.ResourceID
 	}
-	if o.ResourceTags != nil {
-		out.ResourceTags = *o.ResourceTags
-	}
 	if o.SubscriptionID != nil {
 		out.SubscriptionID = *o.SubscriptionID
-	}
-	if o.Tags != nil {
-		out.Tags = *o.Tags
 	}
 	if o.ZHash != nil {
 		out.ZHash = *o.ZHash
@@ -1384,6 +1338,7 @@ func (o *SparseAzureResource) DeepCopyInto(out *SparseAzureResource) {
 type mongoAttributesAzureResource struct {
 	ID             bson.ObjectId              `bson:"_id,omitempty"`
 	Data           []byte                     `bson:"data"`
+	DenormedFields []string                   `bson:"denormedfields"`
 	Kind           AzureResourceKindValue     `bson:"kind"`
 	MigrationsLog  map[string]string          `bson:"migrationslog,omitempty"`
 	Name           string                     `bson:"name"`
@@ -1391,15 +1346,14 @@ type mongoAttributesAzureResource struct {
 	Provider       AzureResourceProviderValue `bson:"provider"`
 	ResourceGroup  string                     `bson:"resourcegroup"`
 	ResourceID     string                     `bson:"resourceid"`
-	ResourceTags   map[string]string          `bson:"resourcetags"`
 	SubscriptionID string                     `bson:"subscriptionid"`
-	Tags           []string                   `bson:"tags"`
 	ZHash          int                        `bson:"zhash"`
 	Zone           int                        `bson:"zone"`
 }
 type mongoAttributesSparseAzureResource struct {
 	ID             bson.ObjectId               `bson:"_id,omitempty"`
 	Data           *[]byte                     `bson:"data,omitempty"`
+	DenormedFields *[]string                   `bson:"denormedfields,omitempty"`
 	Kind           *AzureResourceKindValue     `bson:"kind,omitempty"`
 	MigrationsLog  *map[string]string          `bson:"migrationslog,omitempty"`
 	Name           *string                     `bson:"name,omitempty"`
@@ -1407,9 +1361,7 @@ type mongoAttributesSparseAzureResource struct {
 	Provider       *AzureResourceProviderValue `bson:"provider,omitempty"`
 	ResourceGroup  *string                     `bson:"resourcegroup,omitempty"`
 	ResourceID     *string                     `bson:"resourceid,omitempty"`
-	ResourceTags   *map[string]string          `bson:"resourcetags,omitempty"`
 	SubscriptionID *string                     `bson:"subscriptionid,omitempty"`
-	Tags           *[]string                   `bson:"tags,omitempty"`
 	ZHash          *int                        `bson:"zhash,omitempty"`
 	Zone           *int                        `bson:"zone,omitempty"`
 }
