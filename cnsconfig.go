@@ -114,6 +114,14 @@ type CNSConfig struct {
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
 
+	// Indicates if CNA send all alerts found from policy scans or only alert rules
+	// matching alerts.
+	NonMatchingAlertsRaisingEnabled bool `json:"nonMatchingAlertsRaisingEnabled" msgpack:"nonMatchingAlertsRaisingEnabled" bson:"nonmatchingalertsraisingenabled" mapstructure:"nonMatchingAlertsRaisingEnabled,omitempty"`
+
+	// Indicates if CNA scans all cloud accounts under the tenant or only alert rules
+	// matching accounts.
+	NonMatchingCloudAccountScanEnabled bool `json:"nonMatchingCloudAccountScanEnabled" msgpack:"nonMatchingCloudAccountScanEnabled" bson:"nonmatchingcloudaccountscanenabled" mapstructure:"nonMatchingCloudAccountScanEnabled,omitempty"`
+
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags []string `json:"normalizedTags" msgpack:"normalizedTags" bson:"normalizedtags" mapstructure:"normalizedTags,omitempty"`
 
@@ -191,6 +199,8 @@ func (o *CNSConfig) GetBSON() (interface{}, error) {
 	s.EnableNetworkSecurity = o.EnableNetworkSecurity
 	s.MigrationsLog = o.MigrationsLog
 	s.Namespace = o.Namespace
+	s.NonMatchingAlertsRaisingEnabled = o.NonMatchingAlertsRaisingEnabled
+	s.NonMatchingCloudAccountScanEnabled = o.NonMatchingCloudAccountScanEnabled
 	s.NormalizedTags = o.NormalizedTags
 	s.PrismaID = o.PrismaID
 	s.Protected = o.Protected
@@ -225,6 +235,8 @@ func (o *CNSConfig) SetBSON(raw bson.Raw) error {
 	o.EnableNetworkSecurity = s.EnableNetworkSecurity
 	o.MigrationsLog = s.MigrationsLog
 	o.Namespace = s.Namespace
+	o.NonMatchingAlertsRaisingEnabled = s.NonMatchingAlertsRaisingEnabled
+	o.NonMatchingCloudAccountScanEnabled = s.NonMatchingCloudAccountScanEnabled
 	o.NormalizedTags = s.NormalizedTags
 	o.PrismaID = s.PrismaID
 	o.Protected = s.Protected
@@ -428,23 +440,25 @@ func (o *CNSConfig) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseCNSConfig{
-			ID:                            &o.ID,
-			Annotations:                   &o.Annotations,
-			AssociatedTags:                &o.AssociatedTags,
-			CreateIdempotencyKey:          &o.CreateIdempotencyKey,
-			CreateTime:                    &o.CreateTime,
-			Disabled:                      &o.Disabled,
-			EnableNetEffectivePermissions: &o.EnableNetEffectivePermissions,
-			EnableNetworkSecurity:         &o.EnableNetworkSecurity,
-			MigrationsLog:                 &o.MigrationsLog,
-			Namespace:                     &o.Namespace,
-			NormalizedTags:                &o.NormalizedTags,
-			PrismaID:                      &o.PrismaID,
-			Protected:                     &o.Protected,
-			UpdateIdempotencyKey:          &o.UpdateIdempotencyKey,
-			UpdateTime:                    &o.UpdateTime,
-			ZHash:                         &o.ZHash,
-			Zone:                          &o.Zone,
+			ID:                                 &o.ID,
+			Annotations:                        &o.Annotations,
+			AssociatedTags:                     &o.AssociatedTags,
+			CreateIdempotencyKey:               &o.CreateIdempotencyKey,
+			CreateTime:                         &o.CreateTime,
+			Disabled:                           &o.Disabled,
+			EnableNetEffectivePermissions:      &o.EnableNetEffectivePermissions,
+			EnableNetworkSecurity:              &o.EnableNetworkSecurity,
+			MigrationsLog:                      &o.MigrationsLog,
+			Namespace:                          &o.Namespace,
+			NonMatchingAlertsRaisingEnabled:    &o.NonMatchingAlertsRaisingEnabled,
+			NonMatchingCloudAccountScanEnabled: &o.NonMatchingCloudAccountScanEnabled,
+			NormalizedTags:                     &o.NormalizedTags,
+			PrismaID:                           &o.PrismaID,
+			Protected:                          &o.Protected,
+			UpdateIdempotencyKey:               &o.UpdateIdempotencyKey,
+			UpdateTime:                         &o.UpdateTime,
+			ZHash:                              &o.ZHash,
+			Zone:                               &o.Zone,
 		}
 	}
 
@@ -471,6 +485,10 @@ func (o *CNSConfig) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.MigrationsLog = &(o.MigrationsLog)
 		case "namespace":
 			sp.Namespace = &(o.Namespace)
+		case "nonMatchingAlertsRaisingEnabled":
+			sp.NonMatchingAlertsRaisingEnabled = &(o.NonMatchingAlertsRaisingEnabled)
+		case "nonMatchingCloudAccountScanEnabled":
+			sp.NonMatchingCloudAccountScanEnabled = &(o.NonMatchingCloudAccountScanEnabled)
 		case "normalizedTags":
 			sp.NormalizedTags = &(o.NormalizedTags)
 		case "prismaID":
@@ -527,6 +545,12 @@ func (o *CNSConfig) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Namespace != nil {
 		o.Namespace = *so.Namespace
+	}
+	if so.NonMatchingAlertsRaisingEnabled != nil {
+		o.NonMatchingAlertsRaisingEnabled = *so.NonMatchingAlertsRaisingEnabled
+	}
+	if so.NonMatchingCloudAccountScanEnabled != nil {
+		o.NonMatchingCloudAccountScanEnabled = *so.NonMatchingCloudAccountScanEnabled
 	}
 	if so.NormalizedTags != nil {
 		o.NormalizedTags = *so.NormalizedTags
@@ -639,6 +663,10 @@ func (o *CNSConfig) ValueForAttribute(name string) interface{} {
 		return o.MigrationsLog
 	case "namespace":
 		return o.Namespace
+	case "nonMatchingAlertsRaisingEnabled":
+		return o.NonMatchingAlertsRaisingEnabled
+	case "nonMatchingCloudAccountScanEnabled":
+		return o.NonMatchingCloudAccountScanEnabled
 	case "normalizedTags":
 		return o.NormalizedTags
 	case "prismaID":
@@ -789,6 +817,28 @@ var CNSConfigAttributesMap = map[string]elemental.AttributeSpecification{
 		Setter:         true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"NonMatchingAlertsRaisingEnabled": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "nonmatchingalertsraisingenabled",
+		ConvertedName:  "NonMatchingAlertsRaisingEnabled",
+		Description: `Indicates if CNA send all alerts found from policy scans or only alert rules
+matching alerts.`,
+		Exposed: true,
+		Name:    "nonMatchingAlertsRaisingEnabled",
+		Stored:  true,
+		Type:    "boolean",
+	},
+	"NonMatchingCloudAccountScanEnabled": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "nonmatchingcloudaccountscanenabled",
+		ConvertedName:  "NonMatchingCloudAccountScanEnabled",
+		Description: `Indicates if CNA scans all cloud accounts under the tenant or only alert rules
+matching accounts.`,
+		Exposed: true,
+		Name:    "nonMatchingCloudAccountScanEnabled",
+		Stored:  true,
+		Type:    "boolean",
 	},
 	"NormalizedTags": {
 		AllowedChoices: []string{},
@@ -1020,6 +1070,28 @@ var CNSConfigLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Stored:         true,
 		Type:           "string",
 	},
+	"nonmatchingalertsraisingenabled": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "nonmatchingalertsraisingenabled",
+		ConvertedName:  "NonMatchingAlertsRaisingEnabled",
+		Description: `Indicates if CNA send all alerts found from policy scans or only alert rules
+matching alerts.`,
+		Exposed: true,
+		Name:    "nonMatchingAlertsRaisingEnabled",
+		Stored:  true,
+		Type:    "boolean",
+	},
+	"nonmatchingcloudaccountscanenabled": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "nonmatchingcloudaccountscanenabled",
+		ConvertedName:  "NonMatchingCloudAccountScanEnabled",
+		Description: `Indicates if CNA scans all cloud accounts under the tenant or only alert rules
+matching accounts.`,
+		Exposed: true,
+		Name:    "nonMatchingCloudAccountScanEnabled",
+		Stored:  true,
+		Type:    "boolean",
+	},
 	"normalizedtags": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -1211,6 +1283,14 @@ type SparseCNSConfig struct {
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
 
+	// Indicates if CNA send all alerts found from policy scans or only alert rules
+	// matching alerts.
+	NonMatchingAlertsRaisingEnabled *bool `json:"nonMatchingAlertsRaisingEnabled,omitempty" msgpack:"nonMatchingAlertsRaisingEnabled,omitempty" bson:"nonmatchingalertsraisingenabled,omitempty" mapstructure:"nonMatchingAlertsRaisingEnabled,omitempty"`
+
+	// Indicates if CNA scans all cloud accounts under the tenant or only alert rules
+	// matching accounts.
+	NonMatchingCloudAccountScanEnabled *bool `json:"nonMatchingCloudAccountScanEnabled,omitempty" msgpack:"nonMatchingCloudAccountScanEnabled,omitempty" bson:"nonmatchingcloudaccountscanenabled,omitempty" mapstructure:"nonMatchingCloudAccountScanEnabled,omitempty"`
+
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags *[]string `json:"normalizedTags,omitempty" msgpack:"normalizedTags,omitempty" bson:"normalizedtags,omitempty" mapstructure:"normalizedTags,omitempty"`
 
@@ -1306,6 +1386,12 @@ func (o *SparseCNSConfig) GetBSON() (interface{}, error) {
 	if o.Namespace != nil {
 		s.Namespace = o.Namespace
 	}
+	if o.NonMatchingAlertsRaisingEnabled != nil {
+		s.NonMatchingAlertsRaisingEnabled = o.NonMatchingAlertsRaisingEnabled
+	}
+	if o.NonMatchingCloudAccountScanEnabled != nil {
+		s.NonMatchingCloudAccountScanEnabled = o.NonMatchingCloudAccountScanEnabled
+	}
 	if o.NormalizedTags != nil {
 		s.NormalizedTags = o.NormalizedTags
 	}
@@ -1373,6 +1459,12 @@ func (o *SparseCNSConfig) SetBSON(raw bson.Raw) error {
 	if s.Namespace != nil {
 		o.Namespace = s.Namespace
 	}
+	if s.NonMatchingAlertsRaisingEnabled != nil {
+		o.NonMatchingAlertsRaisingEnabled = s.NonMatchingAlertsRaisingEnabled
+	}
+	if s.NonMatchingCloudAccountScanEnabled != nil {
+		o.NonMatchingCloudAccountScanEnabled = s.NonMatchingCloudAccountScanEnabled
+	}
 	if s.NormalizedTags != nil {
 		o.NormalizedTags = s.NormalizedTags
 	}
@@ -1437,6 +1529,12 @@ func (o *SparseCNSConfig) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Namespace != nil {
 		out.Namespace = *o.Namespace
+	}
+	if o.NonMatchingAlertsRaisingEnabled != nil {
+		out.NonMatchingAlertsRaisingEnabled = *o.NonMatchingAlertsRaisingEnabled
+	}
+	if o.NonMatchingCloudAccountScanEnabled != nil {
+		out.NonMatchingCloudAccountScanEnabled = *o.NonMatchingCloudAccountScanEnabled
 	}
 	if o.NormalizedTags != nil {
 		out.NormalizedTags = *o.NormalizedTags
@@ -1696,40 +1794,44 @@ func (o *SparseCNSConfig) DeepCopyInto(out *SparseCNSConfig) {
 }
 
 type mongoAttributesCNSConfig struct {
-	ID                            bson.ObjectId       `bson:"_id,omitempty"`
-	Annotations                   map[string][]string `bson:"annotations"`
-	AssociatedTags                []string            `bson:"associatedtags"`
-	CreateIdempotencyKey          string              `bson:"createidempotencykey"`
-	CreateTime                    time.Time           `bson:"createtime"`
-	Disabled                      bool                `bson:"disabled"`
-	EnableNetEffectivePermissions bool                `bson:"enableneteffectivepermissions"`
-	EnableNetworkSecurity         bool                `bson:"enablenetworksecurity"`
-	MigrationsLog                 map[string]string   `bson:"migrationslog,omitempty"`
-	Namespace                     string              `bson:"namespace"`
-	NormalizedTags                []string            `bson:"normalizedtags"`
-	PrismaID                      string              `bson:"prismaid"`
-	Protected                     bool                `bson:"protected"`
-	UpdateIdempotencyKey          string              `bson:"updateidempotencykey"`
-	UpdateTime                    time.Time           `bson:"updatetime"`
-	ZHash                         int                 `bson:"zhash"`
-	Zone                          int                 `bson:"zone"`
+	ID                                 bson.ObjectId       `bson:"_id,omitempty"`
+	Annotations                        map[string][]string `bson:"annotations"`
+	AssociatedTags                     []string            `bson:"associatedtags"`
+	CreateIdempotencyKey               string              `bson:"createidempotencykey"`
+	CreateTime                         time.Time           `bson:"createtime"`
+	Disabled                           bool                `bson:"disabled"`
+	EnableNetEffectivePermissions      bool                `bson:"enableneteffectivepermissions"`
+	EnableNetworkSecurity              bool                `bson:"enablenetworksecurity"`
+	MigrationsLog                      map[string]string   `bson:"migrationslog,omitempty"`
+	Namespace                          string              `bson:"namespace"`
+	NonMatchingAlertsRaisingEnabled    bool                `bson:"nonmatchingalertsraisingenabled"`
+	NonMatchingCloudAccountScanEnabled bool                `bson:"nonmatchingcloudaccountscanenabled"`
+	NormalizedTags                     []string            `bson:"normalizedtags"`
+	PrismaID                           string              `bson:"prismaid"`
+	Protected                          bool                `bson:"protected"`
+	UpdateIdempotencyKey               string              `bson:"updateidempotencykey"`
+	UpdateTime                         time.Time           `bson:"updatetime"`
+	ZHash                              int                 `bson:"zhash"`
+	Zone                               int                 `bson:"zone"`
 }
 type mongoAttributesSparseCNSConfig struct {
-	ID                            bson.ObjectId        `bson:"_id,omitempty"`
-	Annotations                   *map[string][]string `bson:"annotations,omitempty"`
-	AssociatedTags                *[]string            `bson:"associatedtags,omitempty"`
-	CreateIdempotencyKey          *string              `bson:"createidempotencykey,omitempty"`
-	CreateTime                    *time.Time           `bson:"createtime,omitempty"`
-	Disabled                      *bool                `bson:"disabled,omitempty"`
-	EnableNetEffectivePermissions *bool                `bson:"enableneteffectivepermissions,omitempty"`
-	EnableNetworkSecurity         *bool                `bson:"enablenetworksecurity,omitempty"`
-	MigrationsLog                 *map[string]string   `bson:"migrationslog,omitempty"`
-	Namespace                     *string              `bson:"namespace,omitempty"`
-	NormalizedTags                *[]string            `bson:"normalizedtags,omitempty"`
-	PrismaID                      *string              `bson:"prismaid,omitempty"`
-	Protected                     *bool                `bson:"protected,omitempty"`
-	UpdateIdempotencyKey          *string              `bson:"updateidempotencykey,omitempty"`
-	UpdateTime                    *time.Time           `bson:"updatetime,omitempty"`
-	ZHash                         *int                 `bson:"zhash,omitempty"`
-	Zone                          *int                 `bson:"zone,omitempty"`
+	ID                                 bson.ObjectId        `bson:"_id,omitempty"`
+	Annotations                        *map[string][]string `bson:"annotations,omitempty"`
+	AssociatedTags                     *[]string            `bson:"associatedtags,omitempty"`
+	CreateIdempotencyKey               *string              `bson:"createidempotencykey,omitempty"`
+	CreateTime                         *time.Time           `bson:"createtime,omitempty"`
+	Disabled                           *bool                `bson:"disabled,omitempty"`
+	EnableNetEffectivePermissions      *bool                `bson:"enableneteffectivepermissions,omitempty"`
+	EnableNetworkSecurity              *bool                `bson:"enablenetworksecurity,omitempty"`
+	MigrationsLog                      *map[string]string   `bson:"migrationslog,omitempty"`
+	Namespace                          *string              `bson:"namespace,omitempty"`
+	NonMatchingAlertsRaisingEnabled    *bool                `bson:"nonmatchingalertsraisingenabled,omitempty"`
+	NonMatchingCloudAccountScanEnabled *bool                `bson:"nonmatchingcloudaccountscanenabled,omitempty"`
+	NormalizedTags                     *[]string            `bson:"normalizedtags,omitempty"`
+	PrismaID                           *string              `bson:"prismaid,omitempty"`
+	Protected                          *bool                `bson:"protected,omitempty"`
+	UpdateIdempotencyKey               *string              `bson:"updateidempotencykey,omitempty"`
+	UpdateTime                         *time.Time           `bson:"updatetime,omitempty"`
+	ZHash                              *int                 `bson:"zhash,omitempty"`
+	Zone                               *int                 `bson:"zone,omitempty"`
 }

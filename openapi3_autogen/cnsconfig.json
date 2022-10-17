@@ -50,6 +50,14 @@
             "readOnly": true,
             "type": "string"
           },
+          "nonMatchingAlertsRaisingEnabled": {
+            "description": "Indicates if CNA send all alerts found from policy scans or only alert rules\nmatching alerts.",
+            "type": "boolean"
+          },
+          "nonMatchingCloudAccountScanEnabled": {
+            "description": "Indicates if CNA scans all cloud accounts under the tenant or only alert rules\nmatching accounts.",
+            "type": "boolean"
+          },
           "normalizedTags": {
             "description": "Contains the list of normalized tags of the entities.",
             "items": {

@@ -126,8 +126,10 @@ CloudSubnetData
 CloudTopology
 CloudVPC
 CloudVPCData
+CNA
+cna
 cns
-CNs
+CNS
 CNSConfig
 CNSRQLQuery
 CNSSearch
