@@ -101,6 +101,15 @@ attributes:
     stored: true
     example_value: rrn:azure:instance:eastus:00000000-0000-0000-0000-000000000000:0000000000000000000000000000000000000000:/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/Group1/providers/Microsoft.Compute/virtualMachineScaleSets/my-vmss/virtualMachines/0
 
+  - name: prismaRegion
+    description: |-
+      The region this resource exists in according to PrismaCloud. Note that the
+      resource may exists in a different region as described by Azure.
+    type: string
+    exposed: true
+    stored: true
+    example_value: us-east-1
+
   - name: provider
     description: The major type of the resource.
     type: enum
