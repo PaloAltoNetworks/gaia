@@ -104,8 +104,8 @@ type GCPResource struct {
 	Data []byte `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
 
 	// Contextual values that can be used to narrow searching of resources if the
-	// resourceID is not known. For instance, it could be used to store a resource's
-	// location or public IP addresses to support cross-cloud analysis.
+	// numericID or selflink are not known. For instance, it could be used to store
+	// a resource's location or public IP addresses to support cross-cloud analysis.
 	DenormedFields []string `json:"denormedFields" msgpack:"denormedFields" bson:"denormedfields" mapstructure:"denormedFields,omitempty"`
 
 	// The specific kind of the resource.
@@ -537,8 +537,8 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		BSONFieldName:  "denormedfields",
 		ConvertedName:  "DenormedFields",
 		Description: `Contextual values that can be used to narrow searching of resources if the
-resourceID is not known. For instance, it could be used to store a resource's
-location or public IP addresses to support cross-cloud analysis.`,
+numericID or selflink are not known. For instance, it could be used to store
+a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Exposed: true,
 		Name:    "denormedFields",
 		Stored:  true,
@@ -687,8 +687,8 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		BSONFieldName:  "denormedfields",
 		ConvertedName:  "DenormedFields",
 		Description: `Contextual values that can be used to narrow searching of resources if the
-resourceID is not known. For instance, it could be used to store a resource's
-location or public IP addresses to support cross-cloud analysis.`,
+numericID or selflink are not known. For instance, it could be used to store
+a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Exposed: true,
 		Name:    "denormedFields",
 		Stored:  true,
@@ -873,8 +873,8 @@ type SparseGCPResource struct {
 	Data *[]byte `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
 
 	// Contextual values that can be used to narrow searching of resources if the
-	// resourceID is not known. For instance, it could be used to store a resource's
-	// location or public IP addresses to support cross-cloud analysis.
+	// numericID or selflink are not known. For instance, it could be used to store
+	// a resource's location or public IP addresses to support cross-cloud analysis.
 	DenormedFields *[]string `json:"denormedFields,omitempty" msgpack:"denormedFields,omitempty" bson:"denormedfields,omitempty" mapstructure:"denormedFields,omitempty"`
 
 	// The specific kind of the resource.
