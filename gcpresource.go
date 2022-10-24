@@ -103,6 +103,11 @@ type GCPResource struct {
 	// The JSON-encoded data that represents the resource.
 	Data []byte `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
 
+	// Contextual values that can be used to narrow searching of resources if the
+	// numericID or selflink are not known. For instance, it could be used to store
+	// a resource's location or public IP addresses to support cross-cloud analysis.
+	DenormedFields []string `json:"denormedFields" msgpack:"denormedFields" bson:"denormedfields" mapstructure:"denormedFields,omitempty"`
+
 	// The specific kind of the resource.
 	Kind GCPResourceKindValue `json:"kind" msgpack:"kind" bson:"kind" mapstructure:"kind,omitempty"`
 
@@ -124,11 +129,6 @@ type GCPResource struct {
 	// The identifier of the resource as presented by GCP, which is a URL.
 	Selflink string `json:"selflink" msgpack:"selflink" bson:"selflink" mapstructure:"selflink,omitempty"`
 
-	// Contextual values that can be used to narrow searching of resources if the
-	// resourceID is not known. For instance, it could be used to store a resource's
-	// location or public IP addresses to support cross-cloud analysis.
-	Tags []string `json:"tags" msgpack:"tags" bson:"tags" mapstructure:"tags,omitempty"`
-
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
 	ZHash int `json:"-" msgpack:"-" bson:"zhash" mapstructure:"-,omitempty"`
@@ -143,10 +143,10 @@ type GCPResource struct {
 func NewGCPResource() *GCPResource {
 
 	return &GCPResource{
-		ModelVersion:  1,
-		Data:          []byte{},
-		MigrationsLog: map[string]string{},
-		Tags:          []string{},
+		ModelVersion:   1,
+		Data:           []byte{},
+		DenormedFields: []string{},
+		MigrationsLog:  map[string]string{},
 	}
 }
 
@@ -182,6 +182,7 @@ func (o *GCPResource) GetBSON() (interface{}, error) {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
 	s.Data = o.Data
+	s.DenormedFields = o.DenormedFields
 	s.Kind = o.Kind
 	s.MigrationsLog = o.MigrationsLog
 	s.Name = o.Name
@@ -189,7 +190,6 @@ func (o *GCPResource) GetBSON() (interface{}, error) {
 	s.NumericID = o.NumericID
 	s.PrismaCloudRRN = o.PrismaCloudRRN
 	s.Selflink = o.Selflink
-	s.Tags = o.Tags
 	s.ZHash = o.ZHash
 	s.Zone = o.Zone
 
@@ -211,6 +211,7 @@ func (o *GCPResource) SetBSON(raw bson.Raw) error {
 
 	o.ID = s.ID.Hex()
 	o.Data = s.Data
+	o.DenormedFields = s.DenormedFields
 	o.Kind = s.Kind
 	o.MigrationsLog = s.MigrationsLog
 	o.Name = s.Name
@@ -218,7 +219,6 @@ func (o *GCPResource) SetBSON(raw bson.Raw) error {
 	o.NumericID = s.NumericID
 	o.PrismaCloudRRN = s.PrismaCloudRRN
 	o.Selflink = s.Selflink
-	o.Tags = s.Tags
 	o.ZHash = s.ZHash
 	o.Zone = s.Zone
 
@@ -311,6 +311,7 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		return &SparseGCPResource{
 			ID:             &o.ID,
 			Data:           &o.Data,
+			DenormedFields: &o.DenormedFields,
 			Kind:           &o.Kind,
 			MigrationsLog:  &o.MigrationsLog,
 			Name:           &o.Name,
@@ -318,7 +319,6 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			NumericID:      &o.NumericID,
 			PrismaCloudRRN: &o.PrismaCloudRRN,
 			Selflink:       &o.Selflink,
-			Tags:           &o.Tags,
 			ZHash:          &o.ZHash,
 			Zone:           &o.Zone,
 		}
@@ -331,6 +331,8 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.ID = &(o.ID)
 		case "data":
 			sp.Data = &(o.Data)
+		case "denormedFields":
+			sp.DenormedFields = &(o.DenormedFields)
 		case "kind":
 			sp.Kind = &(o.Kind)
 		case "migrationsLog":
@@ -345,8 +347,6 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.PrismaCloudRRN = &(o.PrismaCloudRRN)
 		case "selflink":
 			sp.Selflink = &(o.Selflink)
-		case "tags":
-			sp.Tags = &(o.Tags)
 		case "zHash":
 			sp.ZHash = &(o.ZHash)
 		case "zone":
@@ -370,6 +370,9 @@ func (o *GCPResource) Patch(sparse elemental.SparseIdentifiable) {
 	if so.Data != nil {
 		o.Data = *so.Data
 	}
+	if so.DenormedFields != nil {
+		o.DenormedFields = *so.DenormedFields
+	}
 	if so.Kind != nil {
 		o.Kind = *so.Kind
 	}
@@ -390,9 +393,6 @@ func (o *GCPResource) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Selflink != nil {
 		o.Selflink = *so.Selflink
-	}
-	if so.Tags != nil {
-		o.Tags = *so.Tags
 	}
 	if so.ZHash != nil {
 		o.ZHash = *so.ZHash
@@ -478,6 +478,8 @@ func (o *GCPResource) ValueForAttribute(name string) interface{} {
 		return o.ID
 	case "data":
 		return o.Data
+	case "denormedFields":
+		return o.DenormedFields
 	case "kind":
 		return o.Kind
 	case "migrationsLog":
@@ -492,8 +494,6 @@ func (o *GCPResource) ValueForAttribute(name string) interface{} {
 		return o.PrismaCloudRRN
 	case "selflink":
 		return o.Selflink
-	case "tags":
-		return o.Tags
 	case "zHash":
 		return o.ZHash
 	case "zone":
@@ -531,6 +531,19 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		SubType:        "[]byte",
 		Type:           "external",
+	},
+	"DenormedFields": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "denormedfields",
+		ConvertedName:  "DenormedFields",
+		Description: `Contextual values that can be used to narrow searching of resources if the
+numericID or selflink are not known. For instance, it could be used to store
+a resource's location or public IP addresses to support cross-cloud analysis.`,
+		Exposed: true,
+		Name:    "denormedFields",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
 	},
 	"Kind": {
 		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork"},
@@ -610,19 +623,6 @@ var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		Type:           "string",
 	},
-	"Tags": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "tags",
-		ConvertedName:  "Tags",
-		Description: `Contextual values that can be used to narrow searching of resources if the
-resourceID is not known. For instance, it could be used to store a resource's
-location or public IP addresses to support cross-cloud analysis.`,
-		Exposed: true,
-		Name:    "tags",
-		Stored:  true,
-		SubType: "string",
-		Type:    "list",
-	},
 	"ZHash": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -681,6 +681,19 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Stored:         true,
 		SubType:        "[]byte",
 		Type:           "external",
+	},
+	"denormedfields": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "denormedfields",
+		ConvertedName:  "DenormedFields",
+		Description: `Contextual values that can be used to narrow searching of resources if the
+numericID or selflink are not known. For instance, it could be used to store
+a resource's location or public IP addresses to support cross-cloud analysis.`,
+		Exposed: true,
+		Name:    "denormedFields",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
 	},
 	"kind": {
 		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork"},
@@ -759,19 +772,6 @@ var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Name:           "selflink",
 		Stored:         true,
 		Type:           "string",
-	},
-	"tags": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "tags",
-		ConvertedName:  "Tags",
-		Description: `Contextual values that can be used to narrow searching of resources if the
-resourceID is not known. For instance, it could be used to store a resource's
-location or public IP addresses to support cross-cloud analysis.`,
-		Exposed: true,
-		Name:    "tags",
-		Stored:  true,
-		SubType: "string",
-		Type:    "list",
 	},
 	"zhash": {
 		AllowedChoices: []string{},
@@ -872,6 +872,11 @@ type SparseGCPResource struct {
 	// The JSON-encoded data that represents the resource.
 	Data *[]byte `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
 
+	// Contextual values that can be used to narrow searching of resources if the
+	// numericID or selflink are not known. For instance, it could be used to store
+	// a resource's location or public IP addresses to support cross-cloud analysis.
+	DenormedFields *[]string `json:"denormedFields,omitempty" msgpack:"denormedFields,omitempty" bson:"denormedfields,omitempty" mapstructure:"denormedFields,omitempty"`
+
 	// The specific kind of the resource.
 	Kind *GCPResourceKindValue `json:"kind,omitempty" msgpack:"kind,omitempty" bson:"kind,omitempty" mapstructure:"kind,omitempty"`
 
@@ -892,11 +897,6 @@ type SparseGCPResource struct {
 
 	// The identifier of the resource as presented by GCP, which is a URL.
 	Selflink *string `json:"selflink,omitempty" msgpack:"selflink,omitempty" bson:"selflink,omitempty" mapstructure:"selflink,omitempty"`
-
-	// Contextual values that can be used to narrow searching of resources if the
-	// resourceID is not known. For instance, it could be used to store a resource's
-	// location or public IP addresses to support cross-cloud analysis.
-	Tags *[]string `json:"tags,omitempty" msgpack:"tags,omitempty" bson:"tags,omitempty" mapstructure:"tags,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -954,6 +954,9 @@ func (o *SparseGCPResource) GetBSON() (interface{}, error) {
 	if o.Data != nil {
 		s.Data = o.Data
 	}
+	if o.DenormedFields != nil {
+		s.DenormedFields = o.DenormedFields
+	}
 	if o.Kind != nil {
 		s.Kind = o.Kind
 	}
@@ -974,9 +977,6 @@ func (o *SparseGCPResource) GetBSON() (interface{}, error) {
 	}
 	if o.Selflink != nil {
 		s.Selflink = o.Selflink
-	}
-	if o.Tags != nil {
-		s.Tags = o.Tags
 	}
 	if o.ZHash != nil {
 		s.ZHash = o.ZHash
@@ -1006,6 +1006,9 @@ func (o *SparseGCPResource) SetBSON(raw bson.Raw) error {
 	if s.Data != nil {
 		o.Data = s.Data
 	}
+	if s.DenormedFields != nil {
+		o.DenormedFields = s.DenormedFields
+	}
 	if s.Kind != nil {
 		o.Kind = s.Kind
 	}
@@ -1026,9 +1029,6 @@ func (o *SparseGCPResource) SetBSON(raw bson.Raw) error {
 	}
 	if s.Selflink != nil {
 		o.Selflink = s.Selflink
-	}
-	if s.Tags != nil {
-		o.Tags = s.Tags
 	}
 	if s.ZHash != nil {
 		o.ZHash = s.ZHash
@@ -1056,6 +1056,9 @@ func (o *SparseGCPResource) ToPlain() elemental.PlainIdentifiable {
 	if o.Data != nil {
 		out.Data = *o.Data
 	}
+	if o.DenormedFields != nil {
+		out.DenormedFields = *o.DenormedFields
+	}
 	if o.Kind != nil {
 		out.Kind = *o.Kind
 	}
@@ -1076,9 +1079,6 @@ func (o *SparseGCPResource) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Selflink != nil {
 		out.Selflink = *o.Selflink
-	}
-	if o.Tags != nil {
-		out.Tags = *o.Tags
 	}
 	if o.ZHash != nil {
 		out.ZHash = *o.ZHash
@@ -1181,6 +1181,7 @@ func (o *SparseGCPResource) DeepCopyInto(out *SparseGCPResource) {
 type mongoAttributesGCPResource struct {
 	ID             bson.ObjectId        `bson:"_id,omitempty"`
 	Data           []byte               `bson:"data"`
+	DenormedFields []string             `bson:"denormedfields"`
 	Kind           GCPResourceKindValue `bson:"kind"`
 	MigrationsLog  map[string]string    `bson:"migrationslog,omitempty"`
 	Name           string               `bson:"name"`
@@ -1188,13 +1189,13 @@ type mongoAttributesGCPResource struct {
 	NumericID      string               `bson:"numericid"`
 	PrismaCloudRRN string               `bson:"prismacloudrrn,omitempty"`
 	Selflink       string               `bson:"selflink"`
-	Tags           []string             `bson:"tags"`
 	ZHash          int                  `bson:"zhash"`
 	Zone           int                  `bson:"zone"`
 }
 type mongoAttributesSparseGCPResource struct {
 	ID             bson.ObjectId         `bson:"_id,omitempty"`
 	Data           *[]byte               `bson:"data,omitempty"`
+	DenormedFields *[]string             `bson:"denormedfields,omitempty"`
 	Kind           *GCPResourceKindValue `bson:"kind,omitempty"`
 	MigrationsLog  *map[string]string    `bson:"migrationslog,omitempty"`
 	Name           *string               `bson:"name,omitempty"`
@@ -1202,7 +1203,6 @@ type mongoAttributesSparseGCPResource struct {
 	NumericID      *string               `bson:"numericid,omitempty"`
 	PrismaCloudRRN *string               `bson:"prismacloudrrn,omitempty"`
 	Selflink       *string               `bson:"selflink,omitempty"`
-	Tags           *[]string             `bson:"tags,omitempty"`
 	ZHash          *int                  `bson:"zhash,omitempty"`
 	Zone           *int                  `bson:"zone,omitempty"`
 }
