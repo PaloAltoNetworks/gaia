@@ -350,6 +350,7 @@ NICs
 nip.io
 nip.io
 NodePort
+numericID
 OAuth
 OAuth2
 OAUTHInfo
@@ -486,6 +487,7 @@ SAMLProvider
 ScopesSupported
 searchable
 searchable
+selflink
 SerialNumber
 ServiceCertificate
 ServiceDependencyPolicy
