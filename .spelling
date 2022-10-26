@@ -217,6 +217,7 @@ FreeBSD
 FullMatch
 georedundancy
 georedundancy
+gcp
 GCPResource
 GitLab
 Golang

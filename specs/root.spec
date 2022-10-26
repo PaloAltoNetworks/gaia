@@ -574,7 +574,7 @@ relations:
     global_parameters:
     - $filtering
   create:
-    description: creates a new gpc resource from field 'data'.
+    description: creates a new gcp resource from field 'data'.
 
 - rest_name: graphedge
   get:

@@ -14533,7 +14533,7 @@ Parameters:
 
 ##### `POST /gcpresources`
 
-creates a new gpc resource from field 'data'.
+creates a new gcp resource from field 'data'.
 
 #### Attributes
 
