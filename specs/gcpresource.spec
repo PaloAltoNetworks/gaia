@@ -55,7 +55,8 @@ attributes:
     - ComputeInstance
     - ComputeSubnetwork
     - ComputeNetwork
-    example_value: ComputeInstance
+    - Pending
+    default_value: Pending
 
   - name: name
     description: The name of the resource.

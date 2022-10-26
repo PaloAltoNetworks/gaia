@@ -23,13 +23,14 @@
             "type": "array"
           },
           "kind": {
+            "default": "Pending",
             "description": "The specific kind of the resource.",
             "enum": [
               "ComputeInstance",
               "ComputeSubnetwork",
-              "ComputeNetwork"
-            ],
-            "example": "ComputeInstance"
+              "ComputeNetwork",
+              "Pending"
+            ]
           },
           "name": {
             "description": "The name of the resource.",
@@ -76,7 +77,73 @@
     "title": "gcpresource",
     "version": "1.0"
   },
-  "paths": {},
+  "paths": {
+    "/gcpresources": {
+      "get": {
+        "description": "Retrieves the list of stored gcp resources.",
+        "operationId": "get-all-gcpresources",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/gcpresource"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "pandemona"
+        ]
+      },
+      "post": {
+        "description": "creates a new gpc resource from field 'data'.",
+        "operationId": "create-a-new-gcpresource",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/gcpresource"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/gcpresource"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "pandemona"
+        ]
+      }
+    }
+  },
   "tags": [
     {
       "description": "This tag is for group 'pcn/infrastructure'",

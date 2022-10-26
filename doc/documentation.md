@@ -14514,12 +14514,26 @@ Represents a GCP cloud resource such as a virtual machine.
   \"kind\": \"compute#instance\"
   ...
 }",
-  "kind": "ComputeInstance",
+  "kind": "Pending",
   "name": "abc",
   "numericID": "0000000000000000000",
   "selflink": "https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc"
 }
 ```
+
+#### Relations
+
+##### `GET /gcpresources`
+
+Retrieves the list of stored gcp resources.
+
+Parameters:
+
+- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
+
+##### `POST /gcpresources`
+
+creates a new gpc resource from field 'data'.
 
 #### Attributes
 
@@ -14545,9 +14559,15 @@ a resource's location or public IP addresses to support cross-cloud analysis.
 
 ##### `kind`
 
-Type: `enum(ComputeInstance | ComputeSubnetwork | ComputeNetwork)`
+Type: `enum(ComputeInstance | ComputeSubnetwork | ComputeNetwork | Pending)`
 
 The specific kind of the resource.
+
+Default value:
+
+```json
+"Pending"
+```
 
 ##### `name`
 
