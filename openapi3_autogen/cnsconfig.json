@@ -51,11 +51,11 @@
             "type": "string"
           },
           "nonMatchingAlertsRaisingEnabled": {
-            "description": "Indicates if CNA send all alerts found from policy scans or only alert rules\nmatching alerts.",
+            "description": "Indicates if CNA should send all alerts found from policy scans or only alert\nrules\nmatching alerts.",
             "type": "boolean"
           },
           "nonMatchingCloudAccountScanEnabled": {
-            "description": "Indicates if CNA scans all cloud accounts under the tenant or only alert rules\nmatching accounts.",
+            "description": "Indicates if CNA should scan all cloud accounts under the tenant or only alert\nrules\nmatching accounts.",
             "type": "boolean"
           },
           "normalizedTags": {

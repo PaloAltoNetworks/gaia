@@ -46,7 +46,8 @@ attributes:
 
   - name: nonMatchingAlertsRaisingEnabled
     description: |-
-      Indicates if CNA send all alerts found from policy scans or only alert rules
+      Indicates if CNA should send all alerts found from policy scans or only alert
+      rules
       matching alerts.
     type: boolean
     exposed: true
@@ -54,7 +55,8 @@ attributes:
 
   - name: nonMatchingCloudAccountScanEnabled
     description: |-
-      Indicates if CNA scans all cloud accounts under the tenant or only alert rules
+      Indicates if CNA should scan all cloud accounts under the tenant or only alert
+      rules
       matching accounts.
     type: boolean
     exposed: true

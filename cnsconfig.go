@@ -114,11 +114,13 @@ type CNSConfig struct {
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
 
-	// Indicates if CNA send all alerts found from policy scans or only alert rules
+	// Indicates if CNA should send all alerts found from policy scans or only alert
+	// rules
 	// matching alerts.
 	NonMatchingAlertsRaisingEnabled bool `json:"nonMatchingAlertsRaisingEnabled" msgpack:"nonMatchingAlertsRaisingEnabled" bson:"nonmatchingalertsraisingenabled" mapstructure:"nonMatchingAlertsRaisingEnabled,omitempty"`
 
-	// Indicates if CNA scans all cloud accounts under the tenant or only alert rules
+	// Indicates if CNA should scan all cloud accounts under the tenant or only alert
+	// rules
 	// matching accounts.
 	NonMatchingCloudAccountScanEnabled bool `json:"nonMatchingCloudAccountScanEnabled" msgpack:"nonMatchingCloudAccountScanEnabled" bson:"nonmatchingcloudaccountscanenabled" mapstructure:"nonMatchingCloudAccountScanEnabled,omitempty"`
 
@@ -822,7 +824,8 @@ var CNSConfigAttributesMap = map[string]elemental.AttributeSpecification{
 		AllowedChoices: []string{},
 		BSONFieldName:  "nonmatchingalertsraisingenabled",
 		ConvertedName:  "NonMatchingAlertsRaisingEnabled",
-		Description: `Indicates if CNA send all alerts found from policy scans or only alert rules
+		Description: `Indicates if CNA should send all alerts found from policy scans or only alert
+rules
 matching alerts.`,
 		Exposed: true,
 		Name:    "nonMatchingAlertsRaisingEnabled",
@@ -833,7 +836,8 @@ matching alerts.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "nonmatchingcloudaccountscanenabled",
 		ConvertedName:  "NonMatchingCloudAccountScanEnabled",
-		Description: `Indicates if CNA scans all cloud accounts under the tenant or only alert rules
+		Description: `Indicates if CNA should scan all cloud accounts under the tenant or only alert
+rules
 matching accounts.`,
 		Exposed: true,
 		Name:    "nonMatchingCloudAccountScanEnabled",
@@ -1074,7 +1078,8 @@ var CNSConfigLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		AllowedChoices: []string{},
 		BSONFieldName:  "nonmatchingalertsraisingenabled",
 		ConvertedName:  "NonMatchingAlertsRaisingEnabled",
-		Description: `Indicates if CNA send all alerts found from policy scans or only alert rules
+		Description: `Indicates if CNA should send all alerts found from policy scans or only alert
+rules
 matching alerts.`,
 		Exposed: true,
 		Name:    "nonMatchingAlertsRaisingEnabled",
@@ -1085,7 +1090,8 @@ matching alerts.`,
 		AllowedChoices: []string{},
 		BSONFieldName:  "nonmatchingcloudaccountscanenabled",
 		ConvertedName:  "NonMatchingCloudAccountScanEnabled",
-		Description: `Indicates if CNA scans all cloud accounts under the tenant or only alert rules
+		Description: `Indicates if CNA should scan all cloud accounts under the tenant or only alert
+rules
 matching accounts.`,
 		Exposed: true,
 		Name:    "nonMatchingCloudAccountScanEnabled",
@@ -1283,11 +1289,13 @@ type SparseCNSConfig struct {
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
 
-	// Indicates if CNA send all alerts found from policy scans or only alert rules
+	// Indicates if CNA should send all alerts found from policy scans or only alert
+	// rules
 	// matching alerts.
 	NonMatchingAlertsRaisingEnabled *bool `json:"nonMatchingAlertsRaisingEnabled,omitempty" msgpack:"nonMatchingAlertsRaisingEnabled,omitempty" bson:"nonmatchingalertsraisingenabled,omitempty" mapstructure:"nonMatchingAlertsRaisingEnabled,omitempty"`
 
-	// Indicates if CNA scans all cloud accounts under the tenant or only alert rules
+	// Indicates if CNA should scan all cloud accounts under the tenant or only alert
+	// rules
 	// matching accounts.
 	NonMatchingCloudAccountScanEnabled *bool `json:"nonMatchingCloudAccountScanEnabled,omitempty" msgpack:"nonMatchingCloudAccountScanEnabled,omitempty" bson:"nonmatchingcloudaccountscanenabled,omitempty" mapstructure:"nonMatchingCloudAccountScanEnabled,omitempty"`
 
