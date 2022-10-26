@@ -14514,7 +14514,7 @@ Represents a GCP cloud resource such as a virtual machine.
   \"kind\": \"compute#instance\"
   ...
 }",
-  "kind": "Pending",
+  "kind": "ComputeInstance",
   "name": "abc",
   "numericID": "0000000000000000000",
   "selflink": "https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc"

@@ -30,7 +30,8 @@
               "ComputeSubnetwork",
               "ComputeNetwork",
               "Pending"
-            ]
+            ],
+            "example": "ComputeInstance"
           },
           "name": {
             "description": "The name of the resource.",
