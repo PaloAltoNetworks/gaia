@@ -14553,6 +14553,14 @@ Type: `[]byte`
 
 The JSON-encoded data that represents the resource.
 
+##### `denormedFields`
+
+Type: `[]string`
+
+Contextual values that can be used to narrow searching of resources if the
+numericID or selflink are not known. For instance, it could be used to store
+a resource's location or public IP addresses to support cross-cloud analysis.
+
 ##### `kind`
 
 Type: `enum(ComputeInstance | ComputeSubnetwork | ComputeNetwork)`
@@ -14588,14 +14596,6 @@ The identifier used by Prisma Cloud to locate the same resource.
 Type: `string`
 
 The identifier of the resource as presented by GCP, which is a URL.
-
-##### `tags`
-
-Type: `[]string`
-
-Contextual values that can be used to narrow searching of resources if the
-resourceID is not known. For instance, it could be used to store a resource's
-location or public IP addresses to support cross-cloud analysis.
 
 ### PollAccount
 

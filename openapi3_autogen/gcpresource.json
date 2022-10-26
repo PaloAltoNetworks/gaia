@@ -15,6 +15,13 @@
             "example": "{\n  \"id\": \"0000000000000000000\",\n  \"kind\": \"compute#instance\"\n  ...\n}",
             "type": "string"
           },
+          "denormedFields": {
+            "description": "Contextual values that can be used to narrow searching of resources if the\nnumericID or selflink are not known. For instance, it could be used to store\na resource's location or public IP addresses to support cross-cloud analysis.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "kind": {
             "description": "The specific kind of the resource.",
             "enum": [
@@ -47,13 +54,6 @@
             "description": "The identifier of the resource as presented by GCP, which is a URL.",
             "example": "https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc",
             "type": "string"
-          },
-          "tags": {
-            "description": "Contextual values that can be used to narrow searching of resources if the\nresourceID is not known. For instance, it could be used to store a resource's\nlocation or public IP addresses to support cross-cloud analysis.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
           }
         },
         "required": [

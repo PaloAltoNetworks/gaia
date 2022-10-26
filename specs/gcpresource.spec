@@ -36,6 +36,16 @@ attributes:
         ...
       }
 
+  - name: denormedFields
+    description: |-
+      Contextual values that can be used to narrow searching of resources if the
+      numericID or selflink are not known. For instance, it could be used to store
+      a resource's location or public IP addresses to support cross-cloud analysis.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+
   - name: kind
     description: The specific kind of the resource.
     type: enum
@@ -74,13 +84,3 @@ attributes:
     exposed: true
     stored: true
     example_value: https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc
-
-  - name: tags
-    description: |-
-      Contextual values that can be used to narrow searching of resources if the
-      resourceID is not known. For instance, it could be used to store a resource's
-      location or public IP addresses to support cross-cloud analysis.
-    type: list
-    exposed: true
-    subtype: string
-    stored: true
