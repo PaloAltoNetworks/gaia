@@ -1053,6 +1053,7 @@ var (
 			{"namespace"},
 			{"namespace", "normalizedTags"},
 			{"namespace", "numericID"},
+			{"namespace", "projectID", "kind"},
 			{"namespace", "selflink"},
 		},
 		"graphedge": {
