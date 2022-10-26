@@ -19,7 +19,6 @@ indexes:
 - - namespace
   - numericID
 - - namespace
-  - projectID
   - kind
 
 # Attributes
