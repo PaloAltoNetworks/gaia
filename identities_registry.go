@@ -1051,9 +1051,9 @@ var (
 		"gcpresource": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
+			{"namespace", "kind"},
 			{"namespace", "normalizedTags"},
 			{"namespace", "numericID"},
-			{"namespace", "projectID", "kind"},
 			{"namespace", "selflink"},
 		},
 		"graphedge": {
