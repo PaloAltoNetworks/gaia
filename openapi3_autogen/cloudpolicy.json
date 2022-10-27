@@ -71,6 +71,11 @@
             "description": "Reference to the corresponding Prisma Cloud Policy ID.",
             "type": "string"
           },
+          "prismaCloudPolicyLastModifiedOn": {
+            "default": 0,
+            "description": "Result of the last modified time of the prisma cloud policy.",
+            "type": "integer"
+          },
           "prismaCloudQueryID": {
             "description": "The query ID that this policy refers to. This is auto-calculated since it is\nderived from the parent.",
             "readOnly": true,

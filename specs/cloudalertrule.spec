@@ -50,6 +50,13 @@ attributes:
     subtype: string
     stored: true
 
+  - name: prismaCloudAlertRuleScopeLastChangedOn
+    description: Result of the last changed time to the prisma cloud alert rule.
+    type: integer
+    exposed: true
+    stored: true
+    default_value: 0
+
   - name: prismaCloudPolicyIDs
     description: List of Policy IDs associated to an Alert rule.
     type: list

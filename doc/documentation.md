@@ -10136,6 +10136,9 @@ associated to an alert rule.
 {
   "cloudType": "AWS",
   "name": "the name",
+  "prismaCloudAlertRuleMatched": false,
+  "prismaCloudAlertRuleScopeLastChangedOn": 0,
+  "prismaCloudPolicyLastModifiedOn": 0,
   "protected": false,
   "published": false
 }
@@ -10253,11 +10256,47 @@ Type: `string`
 
 Prisma Cloud Alert Rule which generated the Alert Record.
 
+##### `prismaCloudAlertRuleMatched`
+
+Type: `boolean`
+
+Indicates if the alert matches an alert rule.
+
+Default value:
+
+```json
+false
+```
+
+##### `prismaCloudAlertRuleScopeLastChangedOn`
+
+Type: `integer`
+
+Result of the last changed time to the prisma cloud alert rule.
+
+Default value:
+
+```json
+0
+```
+
 ##### `prismaCloudPolicyID`
 
 Type: `string`
 
 Policy ID which generated the Alert Record.
+
+##### `prismaCloudPolicyLastModifiedOn`
+
+Type: `integer`
+
+Result of the last modified time of the prisma cloud policy.
+
+Default value:
+
+```json
+0
+```
 
 ##### `protected`
 
@@ -10319,6 +10358,7 @@ with the Alert rule.
 {
   "enabled": false,
   "name": "the name",
+  "prismaCloudAlertRuleScopeLastChangedOn": 0,
   "protected": false
 }
 ```
@@ -10414,6 +10454,18 @@ Contains the list of normalized tags of the entities.
 Type: `string`
 
 Prisma Cloud Alert Rule id.
+
+##### `prismaCloudAlertRuleScopeLastChangedOn`
+
+Type: `integer`
+
+Result of the last changed time to the prisma cloud alert rule.
+
+Default value:
+
+```json
+0
+```
 
 ##### `prismaCloudPolicyIDs`
 
@@ -12868,6 +12920,7 @@ Creates a Prisma Cloud policy and corresponding alert rules.
 {
   "enabled": false,
   "name": "the name",
+  "prismaCloudPolicyLastModifiedOn": 0,
   "protected": false,
   "severity": "Low"
 }
@@ -12985,6 +13038,18 @@ Contains the list of normalized tags of the entities.
 Type: `string`
 
 Reference to the corresponding Prisma Cloud Policy ID.
+
+##### `prismaCloudPolicyLastModifiedOn`
+
+Type: `integer`
+
+Result of the last modified time of the prisma cloud policy.
+
+Default value:
+
+```json
+0
+```
 
 ##### `prismaCloudQueryID` [`read_only`]
 

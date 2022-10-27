@@ -146,6 +146,9 @@ type CloudPolicy struct {
 	// Reference to the corresponding Prisma Cloud Policy ID.
 	PrismaCloudPolicyID string `json:"prismaCloudPolicyID" msgpack:"prismaCloudPolicyID" bson:"prismacloudpolicyid" mapstructure:"prismaCloudPolicyID,omitempty"`
 
+	// Result of the last modified time of the prisma cloud policy.
+	PrismaCloudPolicyLastModifiedOn int `json:"prismaCloudPolicyLastModifiedOn" msgpack:"prismaCloudPolicyLastModifiedOn" bson:"prismacloudpolicylastmodifiedon" mapstructure:"prismaCloudPolicyLastModifiedOn,omitempty"`
+
 	// The query ID that this policy refers to. This is auto-calculated since it is
 	// derived from the parent.
 	PrismaCloudQueryID string `json:"prismaCloudQueryID" msgpack:"prismaCloudQueryID" bson:"-" mapstructure:"prismaCloudQueryID,omitempty"`
@@ -176,11 +179,12 @@ type CloudPolicy struct {
 func NewCloudPolicy() *CloudPolicy {
 
 	return &CloudPolicy{
-		ModelVersion:   1,
-		Annotations:    map[string][]string{},
-		AssociatedTags: []string{},
-		MigrationsLog:  map[string]string{},
-		NormalizedTags: []string{},
+		ModelVersion:                    1,
+		Annotations:                     map[string][]string{},
+		AssociatedTags:                  []string{},
+		MigrationsLog:                   map[string]string{},
+		NormalizedTags:                  []string{},
+		PrismaCloudPolicyLastModifiedOn: 0,
 	}
 }
 
@@ -228,6 +232,7 @@ func (o *CloudPolicy) GetBSON() (interface{}, error) {
 	s.Namespace = o.Namespace
 	s.NormalizedTags = o.NormalizedTags
 	s.PrismaCloudPolicyID = o.PrismaCloudPolicyID
+	s.PrismaCloudPolicyLastModifiedOn = o.PrismaCloudPolicyLastModifiedOn
 	s.Protected = o.Protected
 	s.Severity = o.Severity
 	s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
@@ -265,6 +270,7 @@ func (o *CloudPolicy) SetBSON(raw bson.Raw) error {
 	o.Namespace = s.Namespace
 	o.NormalizedTags = s.NormalizedTags
 	o.PrismaCloudPolicyID = s.PrismaCloudPolicyID
+	o.PrismaCloudPolicyLastModifiedOn = s.PrismaCloudPolicyLastModifiedOn
 	o.Protected = s.Protected
 	o.Severity = s.Severity
 	o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
@@ -481,27 +487,28 @@ func (o *CloudPolicy) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseCloudPolicy{
-			ID:                   &o.ID,
-			RQLQuery:             &o.RQLQuery,
-			Annotations:          &o.Annotations,
-			AssociatedTags:       &o.AssociatedTags,
-			CreateIdempotencyKey: &o.CreateIdempotencyKey,
-			CreateTime:           &o.CreateTime,
-			Description:          &o.Description,
-			Enabled:              &o.Enabled,
-			Key:                  &o.Key,
-			MigrationsLog:        &o.MigrationsLog,
-			Name:                 &o.Name,
-			Namespace:            &o.Namespace,
-			NormalizedTags:       &o.NormalizedTags,
-			PrismaCloudPolicyID:  &o.PrismaCloudPolicyID,
-			PrismaCloudQueryID:   &o.PrismaCloudQueryID,
-			Protected:            &o.Protected,
-			Severity:             &o.Severity,
-			UpdateIdempotencyKey: &o.UpdateIdempotencyKey,
-			UpdateTime:           &o.UpdateTime,
-			ZHash:                &o.ZHash,
-			Zone:                 &o.Zone,
+			ID:                              &o.ID,
+			RQLQuery:                        &o.RQLQuery,
+			Annotations:                     &o.Annotations,
+			AssociatedTags:                  &o.AssociatedTags,
+			CreateIdempotencyKey:            &o.CreateIdempotencyKey,
+			CreateTime:                      &o.CreateTime,
+			Description:                     &o.Description,
+			Enabled:                         &o.Enabled,
+			Key:                             &o.Key,
+			MigrationsLog:                   &o.MigrationsLog,
+			Name:                            &o.Name,
+			Namespace:                       &o.Namespace,
+			NormalizedTags:                  &o.NormalizedTags,
+			PrismaCloudPolicyID:             &o.PrismaCloudPolicyID,
+			PrismaCloudPolicyLastModifiedOn: &o.PrismaCloudPolicyLastModifiedOn,
+			PrismaCloudQueryID:              &o.PrismaCloudQueryID,
+			Protected:                       &o.Protected,
+			Severity:                        &o.Severity,
+			UpdateIdempotencyKey:            &o.UpdateIdempotencyKey,
+			UpdateTime:                      &o.UpdateTime,
+			ZHash:                           &o.ZHash,
+			Zone:                            &o.Zone,
 		}
 	}
 
@@ -536,6 +543,8 @@ func (o *CloudPolicy) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.NormalizedTags = &(o.NormalizedTags)
 		case "prismaCloudPolicyID":
 			sp.PrismaCloudPolicyID = &(o.PrismaCloudPolicyID)
+		case "prismaCloudPolicyLastModifiedOn":
+			sp.PrismaCloudPolicyLastModifiedOn = &(o.PrismaCloudPolicyLastModifiedOn)
 		case "prismaCloudQueryID":
 			sp.PrismaCloudQueryID = &(o.PrismaCloudQueryID)
 		case "protected":
@@ -604,6 +613,9 @@ func (o *CloudPolicy) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.PrismaCloudPolicyID != nil {
 		o.PrismaCloudPolicyID = *so.PrismaCloudPolicyID
+	}
+	if so.PrismaCloudPolicyLastModifiedOn != nil {
+		o.PrismaCloudPolicyLastModifiedOn = *so.PrismaCloudPolicyLastModifiedOn
 	}
 	if so.PrismaCloudQueryID != nil {
 		o.PrismaCloudQueryID = *so.PrismaCloudQueryID
@@ -744,6 +756,8 @@ func (o *CloudPolicy) ValueForAttribute(name string) interface{} {
 		return o.NormalizedTags
 	case "prismaCloudPolicyID":
 		return o.PrismaCloudPolicyID
+	case "prismaCloudPolicyLastModifiedOn":
+		return o.PrismaCloudPolicyLastModifiedOn
 	case "prismaCloudQueryID":
 		return o.PrismaCloudQueryID
 	case "protected":
@@ -948,6 +962,16 @@ policy.`,
 		Name:           "prismaCloudPolicyID",
 		Stored:         true,
 		Type:           "string",
+	},
+	"PrismaCloudPolicyLastModifiedOn": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismacloudpolicylastmodifiedon",
+		ConvertedName:  "PrismaCloudPolicyLastModifiedOn",
+		Description:    `Result of the last modified time of the prisma cloud policy.`,
+		Exposed:        true,
+		Name:           "prismaCloudPolicyLastModifiedOn",
+		Stored:         true,
+		Type:           "integer",
 	},
 	"PrismaCloudQueryID": {
 		AllowedChoices: []string{},
@@ -1227,6 +1251,16 @@ policy.`,
 		Stored:         true,
 		Type:           "string",
 	},
+	"prismacloudpolicylastmodifiedon": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismacloudpolicylastmodifiedon",
+		ConvertedName:  "PrismaCloudPolicyLastModifiedOn",
+		Description:    `Result of the last modified time of the prisma cloud policy.`,
+		Exposed:        true,
+		Name:           "prismaCloudPolicyLastModifiedOn",
+		Stored:         true,
+		Type:           "integer",
+	},
 	"prismacloudqueryid": {
 		AllowedChoices: []string{},
 		ConvertedName:  "PrismaCloudQueryID",
@@ -1427,6 +1461,9 @@ type SparseCloudPolicy struct {
 	// Reference to the corresponding Prisma Cloud Policy ID.
 	PrismaCloudPolicyID *string `json:"prismaCloudPolicyID,omitempty" msgpack:"prismaCloudPolicyID,omitempty" bson:"prismacloudpolicyid,omitempty" mapstructure:"prismaCloudPolicyID,omitempty"`
 
+	// Result of the last modified time of the prisma cloud policy.
+	PrismaCloudPolicyLastModifiedOn *int `json:"prismaCloudPolicyLastModifiedOn,omitempty" msgpack:"prismaCloudPolicyLastModifiedOn,omitempty" bson:"prismacloudpolicylastmodifiedon,omitempty" mapstructure:"prismaCloudPolicyLastModifiedOn,omitempty"`
+
 	// The query ID that this policy refers to. This is auto-calculated since it is
 	// derived from the parent.
 	PrismaCloudQueryID *string `json:"prismaCloudQueryID,omitempty" msgpack:"prismaCloudQueryID,omitempty" bson:"-" mapstructure:"prismaCloudQueryID,omitempty"`
@@ -1535,6 +1572,9 @@ func (o *SparseCloudPolicy) GetBSON() (interface{}, error) {
 	if o.PrismaCloudPolicyID != nil {
 		s.PrismaCloudPolicyID = o.PrismaCloudPolicyID
 	}
+	if o.PrismaCloudPolicyLastModifiedOn != nil {
+		s.PrismaCloudPolicyLastModifiedOn = o.PrismaCloudPolicyLastModifiedOn
+	}
 	if o.Protected != nil {
 		s.Protected = o.Protected
 	}
@@ -1611,6 +1651,9 @@ func (o *SparseCloudPolicy) SetBSON(raw bson.Raw) error {
 	if s.PrismaCloudPolicyID != nil {
 		o.PrismaCloudPolicyID = s.PrismaCloudPolicyID
 	}
+	if s.PrismaCloudPolicyLastModifiedOn != nil {
+		o.PrismaCloudPolicyLastModifiedOn = s.PrismaCloudPolicyLastModifiedOn
+	}
 	if s.Protected != nil {
 		o.Protected = s.Protected
 	}
@@ -1684,6 +1727,9 @@ func (o *SparseCloudPolicy) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.PrismaCloudPolicyID != nil {
 		out.PrismaCloudPolicyID = *o.PrismaCloudPolicyID
+	}
+	if o.PrismaCloudPolicyLastModifiedOn != nil {
+		out.PrismaCloudPolicyLastModifiedOn = *o.PrismaCloudPolicyLastModifiedOn
 	}
 	if o.PrismaCloudQueryID != nil {
 		out.PrismaCloudQueryID = *o.PrismaCloudQueryID
@@ -1959,46 +2005,48 @@ func (o *SparseCloudPolicy) DeepCopyInto(out *SparseCloudPolicy) {
 }
 
 type mongoAttributesCloudPolicy struct {
-	ID                   bson.ObjectId            `bson:"_id,omitempty"`
-	RQLQuery             string                   `bson:"rqlquery"`
-	Annotations          map[string][]string      `bson:"annotations"`
-	AssociatedTags       []string                 `bson:"associatedtags"`
-	CreateIdempotencyKey string                   `bson:"createidempotencykey"`
-	CreateTime           time.Time                `bson:"createtime"`
-	Description          string                   `bson:"description"`
-	Enabled              bool                     `bson:"enabled"`
-	Key                  string                   `bson:"key"`
-	MigrationsLog        map[string]string        `bson:"migrationslog,omitempty"`
-	Name                 string                   `bson:"name"`
-	Namespace            string                   `bson:"namespace"`
-	NormalizedTags       []string                 `bson:"normalizedtags"`
-	PrismaCloudPolicyID  string                   `bson:"prismacloudpolicyid"`
-	Protected            bool                     `bson:"protected"`
-	Severity             CloudPolicySeverityValue `bson:"severity"`
-	UpdateIdempotencyKey string                   `bson:"updateidempotencykey"`
-	UpdateTime           time.Time                `bson:"updatetime"`
-	ZHash                int                      `bson:"zhash"`
-	Zone                 int                      `bson:"zone"`
+	ID                              bson.ObjectId            `bson:"_id,omitempty"`
+	RQLQuery                        string                   `bson:"rqlquery"`
+	Annotations                     map[string][]string      `bson:"annotations"`
+	AssociatedTags                  []string                 `bson:"associatedtags"`
+	CreateIdempotencyKey            string                   `bson:"createidempotencykey"`
+	CreateTime                      time.Time                `bson:"createtime"`
+	Description                     string                   `bson:"description"`
+	Enabled                         bool                     `bson:"enabled"`
+	Key                             string                   `bson:"key"`
+	MigrationsLog                   map[string]string        `bson:"migrationslog,omitempty"`
+	Name                            string                   `bson:"name"`
+	Namespace                       string                   `bson:"namespace"`
+	NormalizedTags                  []string                 `bson:"normalizedtags"`
+	PrismaCloudPolicyID             string                   `bson:"prismacloudpolicyid"`
+	PrismaCloudPolicyLastModifiedOn int                      `bson:"prismacloudpolicylastmodifiedon"`
+	Protected                       bool                     `bson:"protected"`
+	Severity                        CloudPolicySeverityValue `bson:"severity"`
+	UpdateIdempotencyKey            string                   `bson:"updateidempotencykey"`
+	UpdateTime                      time.Time                `bson:"updatetime"`
+	ZHash                           int                      `bson:"zhash"`
+	Zone                            int                      `bson:"zone"`
 }
 type mongoAttributesSparseCloudPolicy struct {
-	ID                   bson.ObjectId             `bson:"_id,omitempty"`
-	RQLQuery             *string                   `bson:"rqlquery,omitempty"`
-	Annotations          *map[string][]string      `bson:"annotations,omitempty"`
-	AssociatedTags       *[]string                 `bson:"associatedtags,omitempty"`
-	CreateIdempotencyKey *string                   `bson:"createidempotencykey,omitempty"`
-	CreateTime           *time.Time                `bson:"createtime,omitempty"`
-	Description          *string                   `bson:"description,omitempty"`
-	Enabled              *bool                     `bson:"enabled,omitempty"`
-	Key                  *string                   `bson:"key,omitempty"`
-	MigrationsLog        *map[string]string        `bson:"migrationslog,omitempty"`
-	Name                 *string                   `bson:"name,omitempty"`
-	Namespace            *string                   `bson:"namespace,omitempty"`
-	NormalizedTags       *[]string                 `bson:"normalizedtags,omitempty"`
-	PrismaCloudPolicyID  *string                   `bson:"prismacloudpolicyid,omitempty"`
-	Protected            *bool                     `bson:"protected,omitempty"`
-	Severity             *CloudPolicySeverityValue `bson:"severity,omitempty"`
-	UpdateIdempotencyKey *string                   `bson:"updateidempotencykey,omitempty"`
-	UpdateTime           *time.Time                `bson:"updatetime,omitempty"`
-	ZHash                *int                      `bson:"zhash,omitempty"`
-	Zone                 *int                      `bson:"zone,omitempty"`
+	ID                              bson.ObjectId             `bson:"_id,omitempty"`
+	RQLQuery                        *string                   `bson:"rqlquery,omitempty"`
+	Annotations                     *map[string][]string      `bson:"annotations,omitempty"`
+	AssociatedTags                  *[]string                 `bson:"associatedtags,omitempty"`
+	CreateIdempotencyKey            *string                   `bson:"createidempotencykey,omitempty"`
+	CreateTime                      *time.Time                `bson:"createtime,omitempty"`
+	Description                     *string                   `bson:"description,omitempty"`
+	Enabled                         *bool                     `bson:"enabled,omitempty"`
+	Key                             *string                   `bson:"key,omitempty"`
+	MigrationsLog                   *map[string]string        `bson:"migrationslog,omitempty"`
+	Name                            *string                   `bson:"name,omitempty"`
+	Namespace                       *string                   `bson:"namespace,omitempty"`
+	NormalizedTags                  *[]string                 `bson:"normalizedtags,omitempty"`
+	PrismaCloudPolicyID             *string                   `bson:"prismacloudpolicyid,omitempty"`
+	PrismaCloudPolicyLastModifiedOn *int                      `bson:"prismacloudpolicylastmodifiedon,omitempty"`
+	Protected                       *bool                     `bson:"protected,omitempty"`
+	Severity                        *CloudPolicySeverityValue `bson:"severity,omitempty"`
+	UpdateIdempotencyKey            *string                   `bson:"updateidempotencykey,omitempty"`
+	UpdateTime                      *time.Time                `bson:"updatetime,omitempty"`
+	ZHash                           *int                      `bson:"zhash,omitempty"`
+	Zone                            *int                      `bson:"zone,omitempty"`
 }

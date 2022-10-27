@@ -76,9 +76,24 @@
             "description": "Prisma Cloud Alert Rule which generated the Alert Record.",
             "type": "string"
           },
+          "prismaCloudAlertRuleMatched": {
+            "default": false,
+            "description": "Indicates if the alert matches an alert rule.",
+            "type": "boolean"
+          },
+          "prismaCloudAlertRuleScopeLastChangedOn": {
+            "default": 0,
+            "description": "Result of the last changed time to the prisma cloud alert rule.",
+            "type": "integer"
+          },
           "prismaCloudPolicyID": {
             "description": "Policy ID which generated the Alert Record.",
             "type": "string"
+          },
+          "prismaCloudPolicyLastModifiedOn": {
+            "default": 0,
+            "description": "Result of the last modified time of the prisma cloud policy.",
+            "type": "integer"
           },
           "protected": {
             "description": "Defines if the object is protected.",
