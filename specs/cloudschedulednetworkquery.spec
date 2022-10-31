@@ -57,6 +57,11 @@ attributes:
     stored: true
     orderable: true
 
+  - name: neoCNA
+    description: If set to true, neocna will be used regardless of tenant onbording.
+    type: boolean
+    exposed: true
+
   - name: prismaCloudAlertRuleID
     description: Prisma Cloud Alert Rule ID.
     type: string
