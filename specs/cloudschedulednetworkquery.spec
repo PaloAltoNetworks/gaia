@@ -58,7 +58,7 @@ attributes:
     orderable: true
 
   - name: neoCNA
-    description: If set to true, neocna will be used regardless of tenant onbording.
+    description: If set to true, neocna will be used regardless of tenant onboarding.
     type: boolean
     exposed: true
 

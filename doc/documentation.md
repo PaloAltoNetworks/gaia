@@ -13766,7 +13766,7 @@ Namespace tag attached to an entity.
 
 Type: `boolean`
 
-If set to true, neocna will be used regardless of tenant onbording.
+If set to true, neocna will be used regardless of tenant onboarding.
 
 ##### `prismaCloudAlertRuleID`
 

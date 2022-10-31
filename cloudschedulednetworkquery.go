@@ -113,7 +113,7 @@ type CloudScheduledNetworkQuery struct {
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
 
-	// If set to true, neocna will be used regardless of tenant onbording.
+	// If set to true, neocna will be used regardless of tenant onboarding.
 	NeoCNA bool `json:"neoCNA" msgpack:"neoCNA" bson:"-" mapstructure:"neoCNA,omitempty"`
 
 	// Prisma Cloud Alert Rule ID.
@@ -731,7 +731,7 @@ var CloudScheduledNetworkQueryAttributesMap = map[string]elemental.AttributeSpec
 	"NeoCNA": {
 		AllowedChoices: []string{},
 		ConvertedName:  "NeoCNA",
-		Description:    `If set to true, neocna will be used regardless of tenant onbording.`,
+		Description:    `If set to true, neocna will be used regardless of tenant onboarding.`,
 		Exposed:        true,
 		Name:           "neoCNA",
 		Type:           "boolean",
@@ -957,7 +957,7 @@ var CloudScheduledNetworkQueryLowerCaseAttributesMap = map[string]elemental.Attr
 	"neocna": {
 		AllowedChoices: []string{},
 		ConvertedName:  "NeoCNA",
-		Description:    `If set to true, neocna will be used regardless of tenant onbording.`,
+		Description:    `If set to true, neocna will be used regardless of tenant onboarding.`,
 		Exposed:        true,
 		Name:           "neoCNA",
 		Type:           "boolean",
@@ -1155,7 +1155,7 @@ type SparseCloudScheduledNetworkQuery struct {
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
 
-	// If set to true, neocna will be used regardless of tenant onbording.
+	// If set to true, neocna will be used regardless of tenant onboarding.
 	NeoCNA *bool `json:"neoCNA,omitempty" msgpack:"neoCNA,omitempty" bson:"-" mapstructure:"neoCNA,omitempty"`
 
 	// Prisma Cloud Alert Rule ID.
