@@ -23,6 +23,12 @@ const (
 
 	// GCPResourceKindComputeSubnetwork represents the value ComputeSubnetwork.
 	GCPResourceKindComputeSubnetwork GCPResourceKindValue = "ComputeSubnetwork"
+
+	// GCPResourceKindResourceFolder represents the value ResourceFolder.
+	GCPResourceKindResourceFolder GCPResourceKindValue = "ResourceFolder"
+
+	// GCPResourceKindResourceProject represents the value ResourceProject.
+	GCPResourceKindResourceProject GCPResourceKindValue = "ResourceProject"
 )
 
 // GCPResourceIdentity represents the Identity of the object.
@@ -471,7 +477,7 @@ func (o *GCPResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ResourceFolder", "ResourceProject"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -587,7 +593,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Type:    "list",
 	},
 	"Kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ResourceFolder", "ResourceProject"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,
@@ -771,7 +777,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Type:    "list",
 	},
 	"kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ResourceFolder", "ResourceProject"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,

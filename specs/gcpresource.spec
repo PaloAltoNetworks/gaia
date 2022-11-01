@@ -57,6 +57,8 @@ attributes:
     - ComputeInstance
     - ComputeSubnetwork
     - ComputeNetwork
+    - ResourceFolder
+    - ResourceProject
     example_value: ComputeInstance
 
   - name: name

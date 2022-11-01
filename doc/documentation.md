@@ -14546,7 +14546,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.
 
 ##### `kind`
 
-Type: `enum(ComputeInstance | ComputeSubnetwork | ComputeNetwork)`
+Type: `enum(ComputeInstance | ComputeSubnetwork | ComputeNetwork | ResourceFolder | ResourceProject)`
 
 The specific kind of the resource.
 
