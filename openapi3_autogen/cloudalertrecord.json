@@ -131,6 +131,16 @@
             "format": "date-time",
             "readOnly": true,
             "type": "string"
+          },
+          "verdict": {
+            "description": "Policy verdict of the resource.",
+            "enum": [
+              "PASS",
+              "FAIL"
+            ],
+            "example": [
+              "FAIL"
+            ]
           }
         },
         "required": [

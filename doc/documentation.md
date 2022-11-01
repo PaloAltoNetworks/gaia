@@ -10140,7 +10140,10 @@ associated to an alert rule.
   "prismaCloudAlertRuleScopeLastChangedOn": 0,
   "prismaCloudPolicyLastModifiedOn": 0,
   "protected": false,
-  "published": false
+  "published": false,
+  "verdict": [
+    "FAIL"
+  ]
 }
 ```
 
@@ -10346,6 +10349,12 @@ Returns the type of the resource on which alert was raised.
 Type: `time`
 
 Last update date of the object.
+
+##### `verdict`
+
+Type: `enum(PASS | FAIL)`
+
+Policy verdict of the resource.
 
 ### CloudAlertRule
 
