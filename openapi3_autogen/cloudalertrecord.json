@@ -133,6 +133,7 @@
             "type": "string"
           },
           "verdict": {
+            "default": "FAIL",
             "description": "Policy verdict of the resource.",
             "enum": [
               "PASS",

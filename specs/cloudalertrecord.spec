@@ -160,5 +160,6 @@ attributes:
     allowed_choices:
     - PASS
     - FAIL
+    default_value: FAIL
     example_value:
     - FAIL

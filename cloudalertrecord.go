@@ -229,6 +229,7 @@ func NewCloudAlertRecord() *CloudAlertRecord {
 		PrismaCloudAlertRuleScopeLastChangedOn: 0,
 		PrismaCloudPolicyLastModifiedOn:        0,
 		Published:                              false,
+		Verdict:                                CloudAlertRecordVerdictFAIL,
 	}
 }
 
@@ -1178,6 +1179,7 @@ raised.`,
 		AllowedChoices: []string{"PASS", "FAIL"},
 		BSONFieldName:  "verdict",
 		ConvertedName:  "Verdict",
+		DefaultValue:   CloudAlertRecordVerdictFAIL,
 		Description:    `Policy verdict of the resource.`,
 		Exposed:        true,
 		Name:           "verdict",
@@ -1533,6 +1535,7 @@ raised.`,
 		AllowedChoices: []string{"PASS", "FAIL"},
 		BSONFieldName:  "verdict",
 		ConvertedName:  "Verdict",
+		DefaultValue:   CloudAlertRecordVerdictFAIL,
 		Description:    `Policy verdict of the resource.`,
 		Exposed:        true,
 		Name:           "verdict",

@@ -10356,6 +10356,12 @@ Type: `enum(PASS | FAIL)`
 
 Policy verdict of the resource.
 
+Default value:
+
+```json
+"FAIL"
+```
+
 ### CloudAlertRule
 
 Represents an Alert rule along with policies and accounts associated
