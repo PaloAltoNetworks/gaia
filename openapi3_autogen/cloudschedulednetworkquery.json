@@ -42,6 +42,10 @@
             "readOnly": true,
             "type": "string"
           },
+          "neoCNA": {
+            "description": "If set to true, neocna will be used regardless of tenant onboarding.",
+            "type": "boolean"
+          },
           "prismaCloudAlertRuleID": {
             "description": "Prisma Cloud Alert Rule ID.",
             "type": "string"

@@ -5,6 +5,7 @@ package gaia
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/globalsign/mgo/bson"
 	"github.com/mitchellh/copystructure"
@@ -168,6 +169,9 @@ type AzureResource struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Creation date of the object.
+	CreateTime time.Time `json:"createTime" msgpack:"createTime" bson:"createtime" mapstructure:"createTime,omitempty"`
+
 	// The json-encoded data that represents the resource.
 	Data []byte `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
 
@@ -210,6 +214,9 @@ type AzureResource struct {
 
 	// User-defined key-value pairs inside the azure resource.
 	Tags map[string]string `json:"tags" msgpack:"tags" bson:"tags" mapstructure:"tags,omitempty"`
+
+	// Last update date of the object.
+	UpdateTime time.Time `json:"updateTime" msgpack:"updateTime" bson:"updatetime" mapstructure:"updateTime,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -266,6 +273,7 @@ func (o *AzureResource) GetBSON() (interface{}, error) {
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
+	s.CreateTime = o.CreateTime
 	s.Data = o.Data
 	s.DenormedFields = o.DenormedFields
 	s.Kind = o.Kind
@@ -279,6 +287,7 @@ func (o *AzureResource) GetBSON() (interface{}, error) {
 	s.ResourceID = o.ResourceID
 	s.SubscriptionID = o.SubscriptionID
 	s.Tags = o.Tags
+	s.UpdateTime = o.UpdateTime
 	s.ZHash = o.ZHash
 	s.Zone = o.Zone
 
@@ -299,6 +308,7 @@ func (o *AzureResource) SetBSON(raw bson.Raw) error {
 	}
 
 	o.ID = s.ID.Hex()
+	o.CreateTime = s.CreateTime
 	o.Data = s.Data
 	o.DenormedFields = s.DenormedFields
 	o.Kind = s.Kind
@@ -312,6 +322,7 @@ func (o *AzureResource) SetBSON(raw bson.Raw) error {
 	o.ResourceID = s.ResourceID
 	o.SubscriptionID = s.SubscriptionID
 	o.Tags = s.Tags
+	o.UpdateTime = s.UpdateTime
 	o.ZHash = s.ZHash
 	o.Zone = s.Zone
 
@@ -349,6 +360,18 @@ func (o *AzureResource) String() string {
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
+// GetCreateTime returns the CreateTime of the receiver.
+func (o *AzureResource) GetCreateTime() time.Time {
+
+	return o.CreateTime
+}
+
+// SetCreateTime sets the property CreateTime of the receiver using the given value.
+func (o *AzureResource) SetCreateTime(createTime time.Time) {
+
+	o.CreateTime = createTime
+}
+
 // GetMigrationsLog returns the MigrationsLog of the receiver.
 func (o *AzureResource) GetMigrationsLog() map[string]string {
 
@@ -371,6 +394,18 @@ func (o *AzureResource) GetNamespace() string {
 func (o *AzureResource) SetNamespace(namespace string) {
 
 	o.Namespace = namespace
+}
+
+// GetUpdateTime returns the UpdateTime of the receiver.
+func (o *AzureResource) GetUpdateTime() time.Time {
+
+	return o.UpdateTime
+}
+
+// SetUpdateTime sets the property UpdateTime of the receiver using the given value.
+func (o *AzureResource) SetUpdateTime(updateTime time.Time) {
+
+	o.UpdateTime = updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
@@ -405,6 +440,7 @@ func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable 
 		// nolint: goimports
 		return &SparseAzureResource{
 			ID:             &o.ID,
+			CreateTime:     &o.CreateTime,
 			Data:           &o.Data,
 			DenormedFields: &o.DenormedFields,
 			Kind:           &o.Kind,
@@ -418,6 +454,7 @@ func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable 
 			ResourceID:     &o.ResourceID,
 			SubscriptionID: &o.SubscriptionID,
 			Tags:           &o.Tags,
+			UpdateTime:     &o.UpdateTime,
 			ZHash:          &o.ZHash,
 			Zone:           &o.Zone,
 		}
@@ -428,6 +465,8 @@ func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable 
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
+		case "createTime":
+			sp.CreateTime = &(o.CreateTime)
 		case "data":
 			sp.Data = &(o.Data)
 		case "denormedFields":
@@ -454,6 +493,8 @@ func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable 
 			sp.SubscriptionID = &(o.SubscriptionID)
 		case "tags":
 			sp.Tags = &(o.Tags)
+		case "updateTime":
+			sp.UpdateTime = &(o.UpdateTime)
 		case "zHash":
 			sp.ZHash = &(o.ZHash)
 		case "zone":
@@ -473,6 +514,9 @@ func (o *AzureResource) Patch(sparse elemental.SparseIdentifiable) {
 	so := sparse.(*SparseAzureResource)
 	if so.ID != nil {
 		o.ID = *so.ID
+	}
+	if so.CreateTime != nil {
+		o.CreateTime = *so.CreateTime
 	}
 	if so.Data != nil {
 		o.Data = *so.Data
@@ -512,6 +556,9 @@ func (o *AzureResource) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Tags != nil {
 		o.Tags = *so.Tags
+	}
+	if so.UpdateTime != nil {
+		o.UpdateTime = *so.UpdateTime
 	}
 	if so.ZHash != nil {
 		o.ZHash = *so.ZHash
@@ -599,6 +646,8 @@ func (o *AzureResource) ValueForAttribute(name string) interface{} {
 	switch name {
 	case "ID":
 		return o.ID
+	case "createTime":
+		return o.CreateTime
 	case "data":
 		return o.Data
 	case "denormedFields":
@@ -625,6 +674,8 @@ func (o *AzureResource) ValueForAttribute(name string) interface{} {
 		return o.SubscriptionID
 	case "tags":
 		return o.Tags
+	case "updateTime":
+		return o.UpdateTime
 	case "zHash":
 		return o.ZHash
 	case "zone":
@@ -650,6 +701,21 @@ var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"CreateTime": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "createtime",
+		ConvertedName:  "CreateTime",
+		Description:    `Creation date of the object.`,
+		Exposed:        true,
+		Getter:         true,
+		Name:           "createTime",
+		Orderable:      true,
+		ReadOnly:       true,
+		Setter:         true,
+		Stored:         true,
+		Type:           "time",
 	},
 	"Data": {
 		AllowedChoices: []string{},
@@ -815,6 +881,21 @@ resource may exists in a different region as described by Azure.`,
 		SubType:        "map[string]string",
 		Type:           "external",
 	},
+	"UpdateTime": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "updatetime",
+		ConvertedName:  "UpdateTime",
+		Description:    `Last update date of the object.`,
+		Exposed:        true,
+		Getter:         true,
+		Name:           "updateTime",
+		Orderable:      true,
+		ReadOnly:       true,
+		Setter:         true,
+		Stored:         true,
+		Type:           "time",
+	},
 	"ZHash": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -861,6 +942,21 @@ var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"createtime": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "createtime",
+		ConvertedName:  "CreateTime",
+		Description:    `Creation date of the object.`,
+		Exposed:        true,
+		Getter:         true,
+		Name:           "createTime",
+		Orderable:      true,
+		ReadOnly:       true,
+		Setter:         true,
+		Stored:         true,
+		Type:           "time",
 	},
 	"data": {
 		AllowedChoices: []string{},
@@ -1026,6 +1122,21 @@ resource may exists in a different region as described by Azure.`,
 		SubType:        "map[string]string",
 		Type:           "external",
 	},
+	"updatetime": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "updatetime",
+		ConvertedName:  "UpdateTime",
+		Description:    `Last update date of the object.`,
+		Exposed:        true,
+		Getter:         true,
+		Name:           "updateTime",
+		Orderable:      true,
+		ReadOnly:       true,
+		Setter:         true,
+		Stored:         true,
+		Type:           "time",
+	},
 	"zhash": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -1122,6 +1233,9 @@ type SparseAzureResource struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Creation date of the object.
+	CreateTime *time.Time `json:"createTime,omitempty" msgpack:"createTime,omitempty" bson:"createtime,omitempty" mapstructure:"createTime,omitempty"`
+
 	// The json-encoded data that represents the resource.
 	Data *[]byte `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
 
@@ -1164,6 +1278,9 @@ type SparseAzureResource struct {
 
 	// User-defined key-value pairs inside the azure resource.
 	Tags *map[string]string `json:"tags,omitempty" msgpack:"tags,omitempty" bson:"tags,omitempty" mapstructure:"tags,omitempty"`
+
+	// Last update date of the object.
+	UpdateTime *time.Time `json:"updateTime,omitempty" msgpack:"updateTime,omitempty" bson:"updatetime,omitempty" mapstructure:"updateTime,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -1218,6 +1335,9 @@ func (o *SparseAzureResource) GetBSON() (interface{}, error) {
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
 	}
+	if o.CreateTime != nil {
+		s.CreateTime = o.CreateTime
+	}
 	if o.Data != nil {
 		s.Data = o.Data
 	}
@@ -1257,6 +1377,9 @@ func (o *SparseAzureResource) GetBSON() (interface{}, error) {
 	if o.Tags != nil {
 		s.Tags = o.Tags
 	}
+	if o.UpdateTime != nil {
+		s.UpdateTime = o.UpdateTime
+	}
 	if o.ZHash != nil {
 		s.ZHash = o.ZHash
 	}
@@ -1282,6 +1405,9 @@ func (o *SparseAzureResource) SetBSON(raw bson.Raw) error {
 
 	id := s.ID.Hex()
 	o.ID = &id
+	if s.CreateTime != nil {
+		o.CreateTime = s.CreateTime
+	}
 	if s.Data != nil {
 		o.Data = s.Data
 	}
@@ -1321,6 +1447,9 @@ func (o *SparseAzureResource) SetBSON(raw bson.Raw) error {
 	if s.Tags != nil {
 		o.Tags = s.Tags
 	}
+	if s.UpdateTime != nil {
+		o.UpdateTime = s.UpdateTime
+	}
 	if s.ZHash != nil {
 		o.ZHash = s.ZHash
 	}
@@ -1343,6 +1472,9 @@ func (o *SparseAzureResource) ToPlain() elemental.PlainIdentifiable {
 	out := NewAzureResource()
 	if o.ID != nil {
 		out.ID = *o.ID
+	}
+	if o.CreateTime != nil {
+		out.CreateTime = *o.CreateTime
 	}
 	if o.Data != nil {
 		out.Data = *o.Data
@@ -1383,6 +1515,9 @@ func (o *SparseAzureResource) ToPlain() elemental.PlainIdentifiable {
 	if o.Tags != nil {
 		out.Tags = *o.Tags
 	}
+	if o.UpdateTime != nil {
+		out.UpdateTime = *o.UpdateTime
+	}
 	if o.ZHash != nil {
 		out.ZHash = *o.ZHash
 	}
@@ -1391,6 +1526,22 @@ func (o *SparseAzureResource) ToPlain() elemental.PlainIdentifiable {
 	}
 
 	return out
+}
+
+// GetCreateTime returns the CreateTime of the receiver.
+func (o *SparseAzureResource) GetCreateTime() (out time.Time) {
+
+	if o.CreateTime == nil {
+		return
+	}
+
+	return *o.CreateTime
+}
+
+// SetCreateTime sets the property CreateTime of the receiver using the address of the given value.
+func (o *SparseAzureResource) SetCreateTime(createTime time.Time) {
+
+	o.CreateTime = &createTime
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
@@ -1423,6 +1574,22 @@ func (o *SparseAzureResource) GetNamespace() (out string) {
 func (o *SparseAzureResource) SetNamespace(namespace string) {
 
 	o.Namespace = &namespace
+}
+
+// GetUpdateTime returns the UpdateTime of the receiver.
+func (o *SparseAzureResource) GetUpdateTime() (out time.Time) {
+
+	if o.UpdateTime == nil {
+		return
+	}
+
+	return *o.UpdateTime
+}
+
+// SetUpdateTime sets the property UpdateTime of the receiver using the address of the given value.
+func (o *SparseAzureResource) SetUpdateTime(updateTime time.Time) {
+
+	o.UpdateTime = &updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
@@ -1483,6 +1650,7 @@ func (o *SparseAzureResource) DeepCopyInto(out *SparseAzureResource) {
 
 type mongoAttributesAzureResource struct {
 	ID             bson.ObjectId              `bson:"_id,omitempty"`
+	CreateTime     time.Time                  `bson:"createtime"`
 	Data           []byte                     `bson:"data"`
 	DenormedFields []string                   `bson:"denormedfields"`
 	Kind           AzureResourceKindValue     `bson:"kind"`
@@ -1496,11 +1664,13 @@ type mongoAttributesAzureResource struct {
 	ResourceID     string                     `bson:"resourceid"`
 	SubscriptionID string                     `bson:"subscriptionid"`
 	Tags           map[string]string          `bson:"tags"`
+	UpdateTime     time.Time                  `bson:"updatetime"`
 	ZHash          int                        `bson:"zhash"`
 	Zone           int                        `bson:"zone"`
 }
 type mongoAttributesSparseAzureResource struct {
 	ID             bson.ObjectId               `bson:"_id,omitempty"`
+	CreateTime     *time.Time                  `bson:"createtime,omitempty"`
 	Data           *[]byte                     `bson:"data,omitempty"`
 	DenormedFields *[]string                   `bson:"denormedfields,omitempty"`
 	Kind           *AzureResourceKindValue     `bson:"kind,omitempty"`
@@ -1514,6 +1684,7 @@ type mongoAttributesSparseAzureResource struct {
 	ResourceID     *string                     `bson:"resourceid,omitempty"`
 	SubscriptionID *string                     `bson:"subscriptionid,omitempty"`
 	Tags           *map[string]string          `bson:"tags,omitempty"`
+	UpdateTime     *time.Time                  `bson:"updatetime,omitempty"`
 	ZHash          *int                        `bson:"zhash,omitempty"`
 	Zone           *int                        `bson:"zone,omitempty"`
 }
