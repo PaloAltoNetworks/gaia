@@ -13790,7 +13790,8 @@ scheduled periodically.
 ```json
 {
   "disabled": false,
-  "name": "the name"
+  "name": "the name",
+  "neoCNA": false
 }
 ```
 
@@ -13858,6 +13859,12 @@ Name of the entity.
 Type: `string`
 
 Namespace tag attached to an entity.
+
+##### `neoCNA`
+
+Type: `boolean`
+
+If set to true, neocna will be used regardless of tenant onboarding.
 
 ##### `prismaCloudAlertRuleID`
 
