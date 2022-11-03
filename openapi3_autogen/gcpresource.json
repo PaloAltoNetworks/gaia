@@ -27,7 +27,9 @@
             "enum": [
               "ComputeInstance",
               "ComputeSubnetwork",
-              "ComputeNetwork"
+              "ComputeNetwork",
+              "ResourceFolder",
+              "ResourceProject"
             ],
             "example": "ComputeInstance"
           },
