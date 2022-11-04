@@ -1,0 +1,194 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "azureasset": {
+        "description": "Represents a read-only Azure cloud resource such as virtualMachines and subnets.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "data": {
+            "description": "The json-encoded data that represents the resource.",
+            "example": "{\n  \"id\": \"/subscriptions/.../subnets/default\",\n  \"name\": \"default\",\n  \"routeTableId\": \"/subscriptions/.../Microsoft.Network/routeTables/my-table\",\n  ...\n}",
+            "type": "string"
+          },
+          "denormedFields": {
+            "description": "Values that can be used to narrow searching of resources if the\nresourceID is not known. For instance, it could be used to store a resource's\nlocation or public IP addresses to support cross-cloud analysis. Each value\nshould be formatted as 'key=value'.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "kind": {
+            "default": "Pending",
+            "description": "The specific kind of the resource.",
+            "enum": [
+              "Pending",
+              "VirtualMachine",
+              "NetworkInterface",
+              "Subnet",
+              "IPConfiguration",
+              "VirtualNetwork",
+              "NetworkSecurityGroup",
+              "NATGateway",
+              "PublicIPAddress",
+              "PublicIPPrefix",
+              "VirtualMachineScaleSet",
+              "VirtualMachineScaleSetVM",
+              "LoadBalancer",
+              "BackendAddressPool",
+              "OutboundRule",
+              "FrontendIPConfiguration",
+              "DatabaseAccount",
+              "FlexibleServer",
+              "Server"
+            ],
+            "example": "VirtualMachine",
+            "readOnly": true
+          },
+          "name": {
+            "description": "The name of this resource.",
+            "example": "vm-name",
+            "readOnly": true,
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "prismaRRN": {
+            "description": "The resource identifier in PrismaCloud.",
+            "example": "rrn:azure:instance:eastus:00000000-0000-0000-0000-000000000000:0000000000000000000000000000000000000000:/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/Group1/providers/Microsoft.Compute/virtualMachineScaleSets/my-vmss/virtualMachines/0",
+            "type": "string"
+          },
+          "prismaRegion": {
+            "description": "The region this resource exists in according to PrismaCloud. Note that the\nresource may exists in a different region as described by Azure.",
+            "example": "us-east-1",
+            "type": "string"
+          },
+          "provider": {
+            "default": "Pending",
+            "description": "The major type of the resource.",
+            "enum": [
+              "Pending",
+              "MicrosoftCompute",
+              "MicrosoftNetwork",
+              "MicrosoftDocumentDB",
+              "MicrosoftDBforMySQL"
+            ],
+            "example": "MicrosoftCompute",
+            "readOnly": true
+          },
+          "resourceGroup": {
+            "description": "The name of the logical subcontainer of cloud resources.",
+            "example": "my-deployment",
+            "readOnly": true,
+            "type": "string"
+          },
+          "resourceID": {
+            "description": "The identifier of the resource as presented by Azure, which is a path.",
+            "example": "/subscriptions/a0a00a0a-0aaa-000a-a0a0-00a00aa00000/resourceGroups/my-deployment/providers/Microsoft.Compute/virtualMachines/vm-name",
+            "readOnly": true,
+            "type": "string"
+          },
+          "subscriptionID": {
+            "description": "The logical ID of the container which contains the cloud resources.",
+            "example": "a0a00a0a-0aaa-000a-a0a0-00a00aa00000",
+            "readOnly": true,
+            "type": "string"
+          },
+          "tags": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "User-defined key-value pairs inside the azure resource.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "azureasset",
+    "version": "1.0"
+  },
+  "paths": {
+    "/azureassets": {
+      "get": {
+        "description": "Retrieves the list of stored azure resources.",
+        "operationId": "get-all-azureassets",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/azureasset"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "pandemona"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'pandemona'",
+      "name": "pandemona"
+    }
+  ]
+}
