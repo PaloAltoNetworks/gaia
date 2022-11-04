@@ -27,6 +27,7 @@ var (
 		"automation":                AutomationIdentity,
 		"automationaction":          AutomationActionIdentity,
 		"automationcondition":       AutomationConditionIdentity,
+		"azureasset":                AzureAssetIdentity,
 		"azureresource":             AzureResourceIdentity,
 		"cachedflowreport":          CachedFlowReportIdentity,
 		"category":                  CategoryIdentity,
@@ -242,6 +243,7 @@ var (
 		"automations":                 AutomationIdentity,
 		"automationactions":           AutomationActionIdentity,
 		"automationconditions":        AutomationConditionIdentity,
+		"azureassets":                 AzureAssetIdentity,
 		"azureresources":              AzureResourceIdentity,
 		"cachedflowreports":           CachedFlowReportIdentity,
 		"categories":                  CategoryIdentity,
@@ -679,6 +681,11 @@ var (
 			{"namespace", "normalizedTags"},
 			{"propagate"},
 			{"updateIdempotencyKey"},
+		},
+		"azureasset": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
 		},
 		"azureresource": {
 			{":shard", ":unique", "zone", "zHash"},
@@ -1511,6 +1518,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewAutomationAction()
 	case AutomationConditionIdentity:
 		return NewAutomationCondition()
+	case AzureAssetIdentity:
+		return NewAzureAsset()
 	case AzureResourceIdentity:
 		return NewAzureResource()
 	case CachedFlowReportIdentity:
@@ -1884,6 +1893,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseAutomationAction()
 	case AutomationConditionIdentity:
 		return NewSparseAutomationCondition()
+	case AzureAssetIdentity:
+		return NewSparseAzureAsset()
 	case AzureResourceIdentity:
 		return NewSparseAzureResource()
 	case CachedFlowReportIdentity:
@@ -2265,6 +2276,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &AutomationActionsList{}
 	case AutomationConditionIdentity:
 		return &AutomationConditionsList{}
+	case AzureAssetIdentity:
+		return &AzureAssetsList{}
 	case AzureResourceIdentity:
 		return &AzureResourcesList{}
 	case CachedFlowReportIdentity:
@@ -2636,6 +2649,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseAutomationActionsList{}
 	case AutomationConditionIdentity:
 		return &SparseAutomationConditionsList{}
+	case AzureAssetIdentity:
+		return &SparseAzureAssetsList{}
 	case AzureResourceIdentity:
 		return &SparseAzureResourcesList{}
 	case CachedFlowReportIdentity:
@@ -3006,6 +3021,7 @@ func AllIdentities() []elemental.Identity {
 		AutomationIdentity,
 		AutomationActionIdentity,
 		AutomationConditionIdentity,
+		AzureAssetIdentity,
 		AzureResourceIdentity,
 		CachedFlowReportIdentity,
 		CategoryIdentity,
@@ -3237,6 +3253,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"autocon",
 		}
+	case AzureAssetIdentity:
+		return []string{}
 	case AzureResourceIdentity:
 		return []string{}
 	case CachedFlowReportIdentity:
