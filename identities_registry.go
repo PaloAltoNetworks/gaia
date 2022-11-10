@@ -102,6 +102,7 @@ var (
 		"fileaccessreport":             FileAccessReportIdentity,
 		"filepath":                     FilePathIdentity,
 		"flowreport":                   FlowReportIdentity,
+		"gcpasset":                     GCPAssetIdentity,
 		"gcpresource":                  GCPResourceIdentity,
 		"graphedge":                    GraphEdgeIdentity,
 
@@ -318,6 +319,7 @@ var (
 		"fileaccessreports":              FileAccessReportIdentity,
 		"filepaths":                      FilePathIdentity,
 		"flowreports":                    FlowReportIdentity,
+		"gcpassets":                      GCPAssetIdentity,
 		"gcpresources":                   GCPResourceIdentity,
 		"graphedges":                     GraphEdgeIdentity,
 
@@ -1055,6 +1057,11 @@ var (
 			{"remotenamespace", "timestamp"},
 			{"sourceID"},
 		},
+		"gcpasset": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+		},
 		"gcpresource": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
@@ -1632,6 +1639,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewFilePath()
 	case FlowReportIdentity:
 		return NewFlowReport()
+	case GCPAssetIdentity:
+		return NewGCPAsset()
 	case GCPResourceIdentity:
 		return NewGCPResource()
 	case GraphEdgeIdentity:
@@ -2007,6 +2016,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseFilePath()
 	case FlowReportIdentity:
 		return NewSparseFlowReport()
+	case GCPAssetIdentity:
+		return NewSparseGCPAsset()
 	case GCPResourceIdentity:
 		return NewSparseGCPResource()
 	case GraphEdgeIdentity:
@@ -2390,6 +2401,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &FilePathsList{}
 	case FlowReportIdentity:
 		return &FlowReportsList{}
+	case GCPAssetIdentity:
+		return &GCPAssetsList{}
 	case GCPResourceIdentity:
 		return &GCPResourcesList{}
 	case GraphEdgeIdentity:
@@ -2763,6 +2776,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseFilePathsList{}
 	case FlowReportIdentity:
 		return &SparseFlowReportsList{}
+	case GCPAssetIdentity:
+		return &SparseGCPAssetsList{}
 	case GCPResourceIdentity:
 		return &SparseGCPResourcesList{}
 	case GraphEdgeIdentity:
@@ -3078,6 +3093,7 @@ func AllIdentities() []elemental.Identity {
 		FileAccessReportIdentity,
 		FilePathIdentity,
 		FlowReportIdentity,
+		GCPAssetIdentity,
 		GCPResourceIdentity,
 		GraphEdgeIdentity,
 		GraphNodeIdentity,
@@ -3403,6 +3419,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"fps",
 		}
 	case FlowReportIdentity:
+		return []string{}
+	case GCPAssetIdentity:
 		return []string{}
 	case GCPResourceIdentity:
 		return []string{}
