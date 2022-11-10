@@ -218,6 +218,7 @@ FullMatch
 georedundancy
 georedundancy
 gcp
+GCPAsset
 GCPResource
 GitLab
 Golang

@@ -14653,7 +14653,7 @@ Whether the response to request is valid.
 
 ### GCPAsset
 
-Represents a read-only jkGCP cloud resource such as a virtual machine.
+Represents a read-only GCP cloud resource such as a virtual machine.
 
 #### Example
 

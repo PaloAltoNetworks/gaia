@@ -3,7 +3,7 @@
   "components": {
     "schemas": {
       "gcpasset": {
-        "description": "Represents a read-only jkGCP cloud resource such as a virtual machine.",
+        "description": "Represents a read-only GCP cloud resource such as a virtual machine.",
         "properties": {
           "ID": {
             "description": "Identifier of the object.",
@@ -57,6 +57,10 @@
             "description": "A numeric resource ID that will mainly be used in RQL queries.",
             "example": "0000000000000000000",
             "type": "string"
+          },
+          "prismaAPIID": {
+            "description": "The APIID of PrismaCloud resource.",
+            "type": "integer"
           },
           "prismaRRN": {
             "description": "The resource identifier in PrismaCloud.",

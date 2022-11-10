@@ -5,7 +5,7 @@ model:
   entity_name: GCPAsset
   package: pandemona
   group: pcn/infrastructure
-  description: Represents a read-only jkGCP cloud resource such as a virtual machine.
+  description: Represents a read-only GCP cloud resource such as a virtual machine.
   extends:
   - '@identifiable-stored'
   - '@migratable'

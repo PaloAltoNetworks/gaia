@@ -293,7 +293,7 @@ func (o *GCPAsset) DefaultOrder() []string {
 // Doc returns the documentation for the object
 func (o *GCPAsset) Doc() string {
 
-	return `Represents a read-only jkGCP cloud resource such as a virtual machine.`
+	return `Represents a read-only GCP cloud resource such as a virtual machine.`
 }
 
 func (o *GCPAsset) String() string {
