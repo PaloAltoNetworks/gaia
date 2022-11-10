@@ -15,6 +15,12 @@ import (
 type GCPResourceKindValue string
 
 const (
+	// GCPResourceKindComputeFirewall represents the value ComputeFirewall.
+	GCPResourceKindComputeFirewall GCPResourceKindValue = "ComputeFirewall"
+
+	// GCPResourceKindComputeFirewallPolicy represents the value ComputeFirewallPolicy.
+	GCPResourceKindComputeFirewallPolicy GCPResourceKindValue = "ComputeFirewallPolicy"
+
 	// GCPResourceKindComputeInstance represents the value ComputeInstance.
 	GCPResourceKindComputeInstance GCPResourceKindValue = "ComputeInstance"
 
@@ -26,6 +32,12 @@ const (
 
 	// GCPResourceKindPending represents the value Pending.
 	GCPResourceKindPending GCPResourceKindValue = "Pending"
+
+	// GCPResourceKindResourceFolder represents the value ResourceFolder.
+	GCPResourceKindResourceFolder GCPResourceKindValue = "ResourceFolder"
+
+	// GCPResourceKindResourceProject represents the value ResourceProject.
+	GCPResourceKindResourceProject GCPResourceKindValue = "ResourceProject"
 )
 
 // GCPResourceIdentity represents the Identity of the object.
@@ -126,11 +138,21 @@ type GCPResource struct {
 	// A numeric resource ID that will mainly be used in RQL queries.
 	NumericID string `json:"numericID" msgpack:"numericID" bson:"numericid" mapstructure:"numericID,omitempty"`
 
-	// The identifier used by Prisma Cloud to locate the same resource.
-	PrismaCloudRRN string `json:"prismaCloudRRN,omitempty" msgpack:"prismaCloudRRN,omitempty" bson:"prismacloudrrn,omitempty" mapstructure:"prismaCloudRRN,omitempty"`
+	// The resource identifier in PrismaCloud.
+	PrismaRRN string `json:"prismaRRN,omitempty" msgpack:"prismaRRN,omitempty" bson:"prismarrn,omitempty" mapstructure:"prismaRRN,omitempty"`
+
+	// The region this resource exists in according to PrismaCloud. Note that the
+	// resource may exists in a different region as described by GCP.
+	PrismaRegion string `json:"prismaRegion" msgpack:"prismaRegion" bson:"prismaregion" mapstructure:"prismaRegion,omitempty"`
+
+	// The ID of the project the resource belongs to in GCP.
+	ProjectID string `json:"projectID,omitempty" msgpack:"projectID,omitempty" bson:"projectid,omitempty" mapstructure:"projectID,omitempty"`
 
 	// The identifier of the resource as presented by GCP, which is a URL.
 	Selflink string `json:"selflink" msgpack:"selflink" bson:"selflink" mapstructure:"selflink,omitempty"`
+
+	// User-defined key-value pairs inside the GCP resource.
+	Tags map[string]string `json:"tags" msgpack:"tags" bson:"tags" mapstructure:"tags,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -151,6 +173,7 @@ func NewGCPResource() *GCPResource {
 		DenormedFields: []string{},
 		Kind:           GCPResourceKindPending,
 		MigrationsLog:  map[string]string{},
+		Tags:           map[string]string{},
 	}
 }
 
@@ -192,8 +215,11 @@ func (o *GCPResource) GetBSON() (interface{}, error) {
 	s.Name = o.Name
 	s.Namespace = o.Namespace
 	s.NumericID = o.NumericID
-	s.PrismaCloudRRN = o.PrismaCloudRRN
+	s.PrismaRRN = o.PrismaRRN
+	s.PrismaRegion = o.PrismaRegion
+	s.ProjectID = o.ProjectID
 	s.Selflink = o.Selflink
+	s.Tags = o.Tags
 	s.ZHash = o.ZHash
 	s.Zone = o.Zone
 
@@ -221,8 +247,11 @@ func (o *GCPResource) SetBSON(raw bson.Raw) error {
 	o.Name = s.Name
 	o.Namespace = s.Namespace
 	o.NumericID = s.NumericID
-	o.PrismaCloudRRN = s.PrismaCloudRRN
+	o.PrismaRRN = s.PrismaRRN
+	o.PrismaRegion = s.PrismaRegion
+	o.ProjectID = s.ProjectID
 	o.Selflink = s.Selflink
+	o.Tags = s.Tags
 	o.ZHash = s.ZHash
 	o.Zone = s.Zone
 
@@ -321,8 +350,11 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			Name:           &o.Name,
 			Namespace:      &o.Namespace,
 			NumericID:      &o.NumericID,
-			PrismaCloudRRN: &o.PrismaCloudRRN,
+			PrismaRRN:      &o.PrismaRRN,
+			PrismaRegion:   &o.PrismaRegion,
+			ProjectID:      &o.ProjectID,
 			Selflink:       &o.Selflink,
+			Tags:           &o.Tags,
 			ZHash:          &o.ZHash,
 			Zone:           &o.Zone,
 		}
@@ -347,10 +379,16 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Namespace = &(o.Namespace)
 		case "numericID":
 			sp.NumericID = &(o.NumericID)
-		case "prismaCloudRRN":
-			sp.PrismaCloudRRN = &(o.PrismaCloudRRN)
+		case "prismaRRN":
+			sp.PrismaRRN = &(o.PrismaRRN)
+		case "prismaRegion":
+			sp.PrismaRegion = &(o.PrismaRegion)
+		case "projectID":
+			sp.ProjectID = &(o.ProjectID)
 		case "selflink":
 			sp.Selflink = &(o.Selflink)
+		case "tags":
+			sp.Tags = &(o.Tags)
 		case "zHash":
 			sp.ZHash = &(o.ZHash)
 		case "zone":
@@ -392,11 +430,20 @@ func (o *GCPResource) Patch(sparse elemental.SparseIdentifiable) {
 	if so.NumericID != nil {
 		o.NumericID = *so.NumericID
 	}
-	if so.PrismaCloudRRN != nil {
-		o.PrismaCloudRRN = *so.PrismaCloudRRN
+	if so.PrismaRRN != nil {
+		o.PrismaRRN = *so.PrismaRRN
+	}
+	if so.PrismaRegion != nil {
+		o.PrismaRegion = *so.PrismaRegion
+	}
+	if so.ProjectID != nil {
+		o.ProjectID = *so.ProjectID
 	}
 	if so.Selflink != nil {
 		o.Selflink = *so.Selflink
+	}
+	if so.Tags != nil {
+		o.Tags = *so.Tags
 	}
 	if so.ZHash != nil {
 		o.ZHash = *so.ZHash
@@ -440,7 +487,7 @@ func (o *GCPResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "Pending"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ResourceFolder", "ResourceProject", "Pending"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -494,10 +541,16 @@ func (o *GCPResource) ValueForAttribute(name string) interface{} {
 		return o.Namespace
 	case "numericID":
 		return o.NumericID
-	case "prismaCloudRRN":
-		return o.PrismaCloudRRN
+	case "prismaRRN":
+		return o.PrismaRRN
+	case "prismaRegion":
+		return o.PrismaRegion
+	case "projectID":
+		return o.ProjectID
 	case "selflink":
 		return o.Selflink
+	case "tags":
+		return o.Tags
 	case "zHash":
 		return o.ZHash
 	case "zone":
@@ -550,7 +603,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Type:    "list",
 	},
 	"Kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "Pending"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ResourceFolder", "ResourceProject", "Pending"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   GCPResourceKindPending,
@@ -608,13 +661,34 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Stored:         true,
 		Type:           "string",
 	},
-	"PrismaCloudRRN": {
+	"PrismaRRN": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "prismacloudrrn",
-		ConvertedName:  "PrismaCloudRRN",
-		Description:    `The identifier used by Prisma Cloud to locate the same resource.`,
+		BSONFieldName:  "prismarrn",
+		ConvertedName:  "PrismaRRN",
+		Description:    `The resource identifier in PrismaCloud.`,
 		Exposed:        true,
-		Name:           "prismaCloudRRN",
+		Name:           "prismaRRN",
+		Stored:         true,
+		Type:           "string",
+	},
+	"PrismaRegion": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismaregion",
+		ConvertedName:  "PrismaRegion",
+		Description: `The region this resource exists in according to PrismaCloud. Note that the
+resource may exists in a different region as described by GCP.`,
+		Exposed: true,
+		Name:    "prismaRegion",
+		Stored:  true,
+		Type:    "string",
+	},
+	"ProjectID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "projectid",
+		ConvertedName:  "ProjectID",
+		Description:    `The ID of the project the resource belongs to in GCP.`,
+		Exposed:        true,
+		Name:           "projectID",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -627,6 +701,19 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Name:           "selflink",
 		Stored:         true,
 		Type:           "string",
+	},
+	"Tags": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "tags",
+		ConvertedName:  "Tags",
+		Description:    `User-defined key-value pairs inside the GCP resource.`,
+		Exposed:        true,
+		Name:           "tags",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "map[string]string",
+		Type:           "external",
 	},
 	"ZHash": {
 		AllowedChoices: []string{},
@@ -701,7 +788,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Type:    "list",
 	},
 	"kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "Pending"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ResourceFolder", "ResourceProject", "Pending"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   GCPResourceKindPending,
@@ -759,13 +846,34 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Stored:         true,
 		Type:           "string",
 	},
-	"prismacloudrrn": {
+	"prismarrn": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "prismacloudrrn",
-		ConvertedName:  "PrismaCloudRRN",
-		Description:    `The identifier used by Prisma Cloud to locate the same resource.`,
+		BSONFieldName:  "prismarrn",
+		ConvertedName:  "PrismaRRN",
+		Description:    `The resource identifier in PrismaCloud.`,
 		Exposed:        true,
-		Name:           "prismaCloudRRN",
+		Name:           "prismaRRN",
+		Stored:         true,
+		Type:           "string",
+	},
+	"prismaregion": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismaregion",
+		ConvertedName:  "PrismaRegion",
+		Description: `The region this resource exists in according to PrismaCloud. Note that the
+resource may exists in a different region as described by GCP.`,
+		Exposed: true,
+		Name:    "prismaRegion",
+		Stored:  true,
+		Type:    "string",
+	},
+	"projectid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "projectid",
+		ConvertedName:  "ProjectID",
+		Description:    `The ID of the project the resource belongs to in GCP.`,
+		Exposed:        true,
+		Name:           "projectID",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -778,6 +886,19 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Name:           "selflink",
 		Stored:         true,
 		Type:           "string",
+	},
+	"tags": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "tags",
+		ConvertedName:  "Tags",
+		Description:    `User-defined key-value pairs inside the GCP resource.`,
+		Exposed:        true,
+		Name:           "tags",
+		ReadOnly:       true,
+		Stored:         true,
+		SubType:        "map[string]string",
+		Type:           "external",
 	},
 	"zhash": {
 		AllowedChoices: []string{},
@@ -898,11 +1019,21 @@ type SparseGCPResource struct {
 	// A numeric resource ID that will mainly be used in RQL queries.
 	NumericID *string `json:"numericID,omitempty" msgpack:"numericID,omitempty" bson:"numericid,omitempty" mapstructure:"numericID,omitempty"`
 
-	// The identifier used by Prisma Cloud to locate the same resource.
-	PrismaCloudRRN *string `json:"prismaCloudRRN,omitempty" msgpack:"prismaCloudRRN,omitempty" bson:"prismacloudrrn,omitempty" mapstructure:"prismaCloudRRN,omitempty"`
+	// The resource identifier in PrismaCloud.
+	PrismaRRN *string `json:"prismaRRN,omitempty" msgpack:"prismaRRN,omitempty" bson:"prismarrn,omitempty" mapstructure:"prismaRRN,omitempty"`
+
+	// The region this resource exists in according to PrismaCloud. Note that the
+	// resource may exists in a different region as described by GCP.
+	PrismaRegion *string `json:"prismaRegion,omitempty" msgpack:"prismaRegion,omitempty" bson:"prismaregion,omitempty" mapstructure:"prismaRegion,omitempty"`
+
+	// The ID of the project the resource belongs to in GCP.
+	ProjectID *string `json:"projectID,omitempty" msgpack:"projectID,omitempty" bson:"projectid,omitempty" mapstructure:"projectID,omitempty"`
 
 	// The identifier of the resource as presented by GCP, which is a URL.
 	Selflink *string `json:"selflink,omitempty" msgpack:"selflink,omitempty" bson:"selflink,omitempty" mapstructure:"selflink,omitempty"`
+
+	// User-defined key-value pairs inside the GCP resource.
+	Tags *map[string]string `json:"tags,omitempty" msgpack:"tags,omitempty" bson:"tags,omitempty" mapstructure:"tags,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -978,11 +1109,20 @@ func (o *SparseGCPResource) GetBSON() (interface{}, error) {
 	if o.NumericID != nil {
 		s.NumericID = o.NumericID
 	}
-	if o.PrismaCloudRRN != nil {
-		s.PrismaCloudRRN = o.PrismaCloudRRN
+	if o.PrismaRRN != nil {
+		s.PrismaRRN = o.PrismaRRN
+	}
+	if o.PrismaRegion != nil {
+		s.PrismaRegion = o.PrismaRegion
+	}
+	if o.ProjectID != nil {
+		s.ProjectID = o.ProjectID
 	}
 	if o.Selflink != nil {
 		s.Selflink = o.Selflink
+	}
+	if o.Tags != nil {
+		s.Tags = o.Tags
 	}
 	if o.ZHash != nil {
 		s.ZHash = o.ZHash
@@ -1030,11 +1170,20 @@ func (o *SparseGCPResource) SetBSON(raw bson.Raw) error {
 	if s.NumericID != nil {
 		o.NumericID = s.NumericID
 	}
-	if s.PrismaCloudRRN != nil {
-		o.PrismaCloudRRN = s.PrismaCloudRRN
+	if s.PrismaRRN != nil {
+		o.PrismaRRN = s.PrismaRRN
+	}
+	if s.PrismaRegion != nil {
+		o.PrismaRegion = s.PrismaRegion
+	}
+	if s.ProjectID != nil {
+		o.ProjectID = s.ProjectID
 	}
 	if s.Selflink != nil {
 		o.Selflink = s.Selflink
+	}
+	if s.Tags != nil {
+		o.Tags = s.Tags
 	}
 	if s.ZHash != nil {
 		o.ZHash = s.ZHash
@@ -1080,11 +1229,20 @@ func (o *SparseGCPResource) ToPlain() elemental.PlainIdentifiable {
 	if o.NumericID != nil {
 		out.NumericID = *o.NumericID
 	}
-	if o.PrismaCloudRRN != nil {
-		out.PrismaCloudRRN = *o.PrismaCloudRRN
+	if o.PrismaRRN != nil {
+		out.PrismaRRN = *o.PrismaRRN
+	}
+	if o.PrismaRegion != nil {
+		out.PrismaRegion = *o.PrismaRegion
+	}
+	if o.ProjectID != nil {
+		out.ProjectID = *o.ProjectID
 	}
 	if o.Selflink != nil {
 		out.Selflink = *o.Selflink
+	}
+	if o.Tags != nil {
+		out.Tags = *o.Tags
 	}
 	if o.ZHash != nil {
 		out.ZHash = *o.ZHash
@@ -1193,8 +1351,11 @@ type mongoAttributesGCPResource struct {
 	Name           string               `bson:"name"`
 	Namespace      string               `bson:"namespace"`
 	NumericID      string               `bson:"numericid"`
-	PrismaCloudRRN string               `bson:"prismacloudrrn,omitempty"`
+	PrismaRRN      string               `bson:"prismarrn,omitempty"`
+	PrismaRegion   string               `bson:"prismaregion"`
+	ProjectID      string               `bson:"projectid,omitempty"`
 	Selflink       string               `bson:"selflink"`
+	Tags           map[string]string    `bson:"tags"`
 	ZHash          int                  `bson:"zhash"`
 	Zone           int                  `bson:"zone"`
 }
@@ -1207,8 +1368,11 @@ type mongoAttributesSparseGCPResource struct {
 	Name           *string               `bson:"name,omitempty"`
 	Namespace      *string               `bson:"namespace,omitempty"`
 	NumericID      *string               `bson:"numericid,omitempty"`
-	PrismaCloudRRN *string               `bson:"prismacloudrrn,omitempty"`
+	PrismaRRN      *string               `bson:"prismarrn,omitempty"`
+	PrismaRegion   *string               `bson:"prismaregion,omitempty"`
+	ProjectID      *string               `bson:"projectid,omitempty"`
 	Selflink       *string               `bson:"selflink,omitempty"`
+	Tags           *map[string]string    `bson:"tags,omitempty"`
 	ZHash          *int                  `bson:"zhash,omitempty"`
 	Zone           *int                  `bson:"zone,omitempty"`
 }

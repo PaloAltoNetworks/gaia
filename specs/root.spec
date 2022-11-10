@@ -188,6 +188,12 @@ relations:
   create:
     description: Creates a new automation condition.
 
+- rest_name: azureasset
+  get:
+    description: Retrieves the list of stored azure resources.
+    global_parameters:
+    - $filtering
+
 - rest_name: azureresource
   get:
     description: Retrieves the list of stored azure resources.

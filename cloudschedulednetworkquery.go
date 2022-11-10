@@ -113,6 +113,9 @@ type CloudScheduledNetworkQuery struct {
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
 
+	// If set to true, neocna will be used regardless of tenant onboarding.
+	NeoCNA bool `json:"neoCNA" msgpack:"neoCNA" bson:"-" mapstructure:"neoCNA,omitempty"`
+
 	// Prisma Cloud Alert Rule ID.
 	PrismaCloudAlertRuleID string `json:"prismaCloudAlertRuleID" msgpack:"prismaCloudAlertRuleID" bson:"prismacloudalertruleid" mapstructure:"prismaCloudAlertRuleID,omitempty"`
 
@@ -368,6 +371,7 @@ func (o *CloudScheduledNetworkQuery) ToSparse(fields ...string) elemental.Sparse
 			MigrationsLog:                   &o.MigrationsLog,
 			Name:                            &o.Name,
 			Namespace:                       &o.Namespace,
+			NeoCNA:                          &o.NeoCNA,
 			PrismaCloudAlertRuleID:          &o.PrismaCloudAlertRuleID,
 			PrismaCloudPolicyID:             &o.PrismaCloudPolicyID,
 			SuccessfulExecutionTimestamp:    &o.SuccessfulExecutionTimestamp,
@@ -400,6 +404,8 @@ func (o *CloudScheduledNetworkQuery) ToSparse(fields ...string) elemental.Sparse
 			sp.Name = &(o.Name)
 		case "namespace":
 			sp.Namespace = &(o.Namespace)
+		case "neoCNA":
+			sp.NeoCNA = &(o.NeoCNA)
 		case "prismaCloudAlertRuleID":
 			sp.PrismaCloudAlertRuleID = &(o.PrismaCloudAlertRuleID)
 		case "prismaCloudPolicyID":
@@ -455,6 +461,9 @@ func (o *CloudScheduledNetworkQuery) Patch(sparse elemental.SparseIdentifiable) 
 	}
 	if so.Namespace != nil {
 		o.Namespace = *so.Namespace
+	}
+	if so.NeoCNA != nil {
+		o.NeoCNA = *so.NeoCNA
 	}
 	if so.PrismaCloudAlertRuleID != nil {
 		o.PrismaCloudAlertRuleID = *so.PrismaCloudAlertRuleID
@@ -579,6 +588,8 @@ func (o *CloudScheduledNetworkQuery) ValueForAttribute(name string) interface{} 
 		return o.Name
 	case "namespace":
 		return o.Namespace
+	case "neoCNA":
+		return o.NeoCNA
 	case "prismaCloudAlertRuleID":
 		return o.PrismaCloudAlertRuleID
 	case "prismaCloudPolicyID":
@@ -716,6 +727,14 @@ var CloudScheduledNetworkQueryAttributesMap = map[string]elemental.AttributeSpec
 		Setter:         true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"NeoCNA": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NeoCNA",
+		Description:    `If set to true, neocna will be used regardless of tenant onboarding.`,
+		Exposed:        true,
+		Name:           "neoCNA",
+		Type:           "boolean",
 	},
 	"PrismaCloudAlertRuleID": {
 		AllowedChoices: []string{},
@@ -935,6 +954,14 @@ var CloudScheduledNetworkQueryLowerCaseAttributesMap = map[string]elemental.Attr
 		Stored:         true,
 		Type:           "string",
 	},
+	"neocna": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NeoCNA",
+		Description:    `If set to true, neocna will be used regardless of tenant onboarding.`,
+		Exposed:        true,
+		Name:           "neoCNA",
+		Type:           "boolean",
+	},
 	"prismacloudalertruleid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "prismacloudalertruleid",
@@ -1127,6 +1154,9 @@ type SparseCloudScheduledNetworkQuery struct {
 
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
+
+	// If set to true, neocna will be used regardless of tenant onboarding.
+	NeoCNA *bool `json:"neoCNA,omitempty" msgpack:"neoCNA,omitempty" bson:"-" mapstructure:"neoCNA,omitempty"`
 
 	// Prisma Cloud Alert Rule ID.
 	PrismaCloudAlertRuleID *string `json:"prismaCloudAlertRuleID,omitempty" msgpack:"prismaCloudAlertRuleID,omitempty" bson:"prismacloudalertruleid,omitempty" mapstructure:"prismaCloudAlertRuleID,omitempty"`
@@ -1349,6 +1379,9 @@ func (o *SparseCloudScheduledNetworkQuery) ToPlain() elemental.PlainIdentifiable
 	}
 	if o.Namespace != nil {
 		out.Namespace = *o.Namespace
+	}
+	if o.NeoCNA != nil {
+		out.NeoCNA = *o.NeoCNA
 	}
 	if o.PrismaCloudAlertRuleID != nil {
 		out.PrismaCloudAlertRuleID = *o.PrismaCloudAlertRuleID

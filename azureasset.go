@@ -12,125 +12,125 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// AzureResourceKindValue represents the possible values for attribute "kind".
-type AzureResourceKindValue string
+// AzureAssetKindValue represents the possible values for attribute "kind".
+type AzureAssetKindValue string
 
 const (
-	// AzureResourceKindBackendAddressPool represents the value BackendAddressPool.
-	AzureResourceKindBackendAddressPool AzureResourceKindValue = "BackendAddressPool"
+	// AzureAssetKindBackendAddressPool represents the value BackendAddressPool.
+	AzureAssetKindBackendAddressPool AzureAssetKindValue = "BackendAddressPool"
 
-	// AzureResourceKindDatabaseAccount represents the value DatabaseAccount.
-	AzureResourceKindDatabaseAccount AzureResourceKindValue = "DatabaseAccount"
+	// AzureAssetKindDatabaseAccount represents the value DatabaseAccount.
+	AzureAssetKindDatabaseAccount AzureAssetKindValue = "DatabaseAccount"
 
-	// AzureResourceKindFlexibleServer represents the value FlexibleServer.
-	AzureResourceKindFlexibleServer AzureResourceKindValue = "FlexibleServer"
+	// AzureAssetKindFlexibleServer represents the value FlexibleServer.
+	AzureAssetKindFlexibleServer AzureAssetKindValue = "FlexibleServer"
 
-	// AzureResourceKindFrontendIPConfiguration represents the value FrontendIPConfiguration.
-	AzureResourceKindFrontendIPConfiguration AzureResourceKindValue = "FrontendIPConfiguration"
+	// AzureAssetKindFrontendIPConfiguration represents the value FrontendIPConfiguration.
+	AzureAssetKindFrontendIPConfiguration AzureAssetKindValue = "FrontendIPConfiguration"
 
-	// AzureResourceKindIPConfiguration represents the value IPConfiguration.
-	AzureResourceKindIPConfiguration AzureResourceKindValue = "IPConfiguration"
+	// AzureAssetKindIPConfiguration represents the value IPConfiguration.
+	AzureAssetKindIPConfiguration AzureAssetKindValue = "IPConfiguration"
 
-	// AzureResourceKindLoadBalancer represents the value LoadBalancer.
-	AzureResourceKindLoadBalancer AzureResourceKindValue = "LoadBalancer"
+	// AzureAssetKindLoadBalancer represents the value LoadBalancer.
+	AzureAssetKindLoadBalancer AzureAssetKindValue = "LoadBalancer"
 
-	// AzureResourceKindNATGateway represents the value NATGateway.
-	AzureResourceKindNATGateway AzureResourceKindValue = "NATGateway"
+	// AzureAssetKindNATGateway represents the value NATGateway.
+	AzureAssetKindNATGateway AzureAssetKindValue = "NATGateway"
 
-	// AzureResourceKindNetworkInterface represents the value NetworkInterface.
-	AzureResourceKindNetworkInterface AzureResourceKindValue = "NetworkInterface"
+	// AzureAssetKindNetworkInterface represents the value NetworkInterface.
+	AzureAssetKindNetworkInterface AzureAssetKindValue = "NetworkInterface"
 
-	// AzureResourceKindNetworkSecurityGroup represents the value NetworkSecurityGroup.
-	AzureResourceKindNetworkSecurityGroup AzureResourceKindValue = "NetworkSecurityGroup"
+	// AzureAssetKindNetworkSecurityGroup represents the value NetworkSecurityGroup.
+	AzureAssetKindNetworkSecurityGroup AzureAssetKindValue = "NetworkSecurityGroup"
 
-	// AzureResourceKindOutboundRule represents the value OutboundRule.
-	AzureResourceKindOutboundRule AzureResourceKindValue = "OutboundRule"
+	// AzureAssetKindOutboundRule represents the value OutboundRule.
+	AzureAssetKindOutboundRule AzureAssetKindValue = "OutboundRule"
 
-	// AzureResourceKindPending represents the value Pending.
-	AzureResourceKindPending AzureResourceKindValue = "Pending"
+	// AzureAssetKindPending represents the value Pending.
+	AzureAssetKindPending AzureAssetKindValue = "Pending"
 
-	// AzureResourceKindPublicIPAddress represents the value PublicIPAddress.
-	AzureResourceKindPublicIPAddress AzureResourceKindValue = "PublicIPAddress"
+	// AzureAssetKindPublicIPAddress represents the value PublicIPAddress.
+	AzureAssetKindPublicIPAddress AzureAssetKindValue = "PublicIPAddress"
 
-	// AzureResourceKindPublicIPPrefix represents the value PublicIPPrefix.
-	AzureResourceKindPublicIPPrefix AzureResourceKindValue = "PublicIPPrefix"
+	// AzureAssetKindPublicIPPrefix represents the value PublicIPPrefix.
+	AzureAssetKindPublicIPPrefix AzureAssetKindValue = "PublicIPPrefix"
 
-	// AzureResourceKindServer represents the value Server.
-	AzureResourceKindServer AzureResourceKindValue = "Server"
+	// AzureAssetKindServer represents the value Server.
+	AzureAssetKindServer AzureAssetKindValue = "Server"
 
-	// AzureResourceKindSubnet represents the value Subnet.
-	AzureResourceKindSubnet AzureResourceKindValue = "Subnet"
+	// AzureAssetKindSubnet represents the value Subnet.
+	AzureAssetKindSubnet AzureAssetKindValue = "Subnet"
 
-	// AzureResourceKindVirtualMachine represents the value VirtualMachine.
-	AzureResourceKindVirtualMachine AzureResourceKindValue = "VirtualMachine"
+	// AzureAssetKindVirtualMachine represents the value VirtualMachine.
+	AzureAssetKindVirtualMachine AzureAssetKindValue = "VirtualMachine"
 
-	// AzureResourceKindVirtualMachineScaleSet represents the value VirtualMachineScaleSet.
-	AzureResourceKindVirtualMachineScaleSet AzureResourceKindValue = "VirtualMachineScaleSet"
+	// AzureAssetKindVirtualMachineScaleSet represents the value VirtualMachineScaleSet.
+	AzureAssetKindVirtualMachineScaleSet AzureAssetKindValue = "VirtualMachineScaleSet"
 
-	// AzureResourceKindVirtualMachineScaleSetVM represents the value VirtualMachineScaleSetVM.
-	AzureResourceKindVirtualMachineScaleSetVM AzureResourceKindValue = "VirtualMachineScaleSetVM"
+	// AzureAssetKindVirtualMachineScaleSetVM represents the value VirtualMachineScaleSetVM.
+	AzureAssetKindVirtualMachineScaleSetVM AzureAssetKindValue = "VirtualMachineScaleSetVM"
 
-	// AzureResourceKindVirtualNetwork represents the value VirtualNetwork.
-	AzureResourceKindVirtualNetwork AzureResourceKindValue = "VirtualNetwork"
+	// AzureAssetKindVirtualNetwork represents the value VirtualNetwork.
+	AzureAssetKindVirtualNetwork AzureAssetKindValue = "VirtualNetwork"
 )
 
-// AzureResourceProviderValue represents the possible values for attribute "provider".
-type AzureResourceProviderValue string
+// AzureAssetProviderValue represents the possible values for attribute "provider".
+type AzureAssetProviderValue string
 
 const (
-	// AzureResourceProviderMicrosoftCompute represents the value MicrosoftCompute.
-	AzureResourceProviderMicrosoftCompute AzureResourceProviderValue = "MicrosoftCompute"
+	// AzureAssetProviderMicrosoftCompute represents the value MicrosoftCompute.
+	AzureAssetProviderMicrosoftCompute AzureAssetProviderValue = "MicrosoftCompute"
 
-	// AzureResourceProviderMicrosoftDBforMySQL represents the value MicrosoftDBforMySQL.
-	AzureResourceProviderMicrosoftDBforMySQL AzureResourceProviderValue = "MicrosoftDBforMySQL"
+	// AzureAssetProviderMicrosoftDBforMySQL represents the value MicrosoftDBforMySQL.
+	AzureAssetProviderMicrosoftDBforMySQL AzureAssetProviderValue = "MicrosoftDBforMySQL"
 
-	// AzureResourceProviderMicrosoftDocumentDB represents the value MicrosoftDocumentDB.
-	AzureResourceProviderMicrosoftDocumentDB AzureResourceProviderValue = "MicrosoftDocumentDB"
+	// AzureAssetProviderMicrosoftDocumentDB represents the value MicrosoftDocumentDB.
+	AzureAssetProviderMicrosoftDocumentDB AzureAssetProviderValue = "MicrosoftDocumentDB"
 
-	// AzureResourceProviderMicrosoftNetwork represents the value MicrosoftNetwork.
-	AzureResourceProviderMicrosoftNetwork AzureResourceProviderValue = "MicrosoftNetwork"
+	// AzureAssetProviderMicrosoftNetwork represents the value MicrosoftNetwork.
+	AzureAssetProviderMicrosoftNetwork AzureAssetProviderValue = "MicrosoftNetwork"
 
-	// AzureResourceProviderPending represents the value Pending.
-	AzureResourceProviderPending AzureResourceProviderValue = "Pending"
+	// AzureAssetProviderPending represents the value Pending.
+	AzureAssetProviderPending AzureAssetProviderValue = "Pending"
 )
 
-// AzureResourceIdentity represents the Identity of the object.
-var AzureResourceIdentity = elemental.Identity{
-	Name:     "azureresource",
-	Category: "azureresources",
+// AzureAssetIdentity represents the Identity of the object.
+var AzureAssetIdentity = elemental.Identity{
+	Name:     "azureasset",
+	Category: "azureassets",
 	Package:  "pandemona",
-	Private:  true,
+	Private:  false,
 }
 
-// AzureResourcesList represents a list of AzureResources
-type AzureResourcesList []*AzureResource
+// AzureAssetsList represents a list of AzureAssets
+type AzureAssetsList []*AzureAsset
 
 // Identity returns the identity of the objects in the list.
-func (o AzureResourcesList) Identity() elemental.Identity {
+func (o AzureAssetsList) Identity() elemental.Identity {
 
-	return AzureResourceIdentity
+	return AzureAssetIdentity
 }
 
-// Copy returns a pointer to a copy the AzureResourcesList.
-func (o AzureResourcesList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the AzureAssetsList.
+func (o AzureAssetsList) Copy() elemental.Identifiables {
 
-	copy := append(AzureResourcesList{}, o...)
+	copy := append(AzureAssetsList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the AzureResourcesList.
-func (o AzureResourcesList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the AzureAssetsList.
+func (o AzureAssetsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(AzureResourcesList{}, o...)
+	out := append(AzureAssetsList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*AzureResource))
+		out = append(out, obj.(*AzureAsset))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o AzureResourcesList) List() elemental.IdentifiablesList {
+func (o AzureAssetsList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -141,31 +141,31 @@ func (o AzureResourcesList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o AzureResourcesList) DefaultOrder() []string {
+func (o AzureAssetsList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToSparse returns the AzureResourcesList converted to SparseAzureResourcesList.
+// ToSparse returns the AzureAssetsList converted to SparseAzureAssetsList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o AzureResourcesList) ToSparse(fields ...string) elemental.Identifiables {
+func (o AzureAssetsList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseAzureResourcesList, len(o))
+	out := make(SparseAzureAssetsList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseAzureResource)
+		out[i] = o[i].ToSparse(fields...).(*SparseAzureAsset)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o AzureResourcesList) Version() int {
+func (o AzureAssetsList) Version() int {
 
 	return 1
 }
 
-// AzureResource represents the model of a azureresource
-type AzureResource struct {
+// AzureAsset represents the model of a azureasset
+type AzureAsset struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
@@ -182,7 +182,7 @@ type AzureResource struct {
 	DenormedFields []string `json:"denormedFields" msgpack:"denormedFields" bson:"denormedfields" mapstructure:"denormedFields,omitempty"`
 
 	// The specific kind of the resource.
-	Kind AzureResourceKindValue `json:"kind" msgpack:"kind" bson:"kind" mapstructure:"kind,omitempty"`
+	Kind AzureAssetKindValue `json:"kind" msgpack:"kind" bson:"kind" mapstructure:"kind,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -201,7 +201,7 @@ type AzureResource struct {
 	PrismaRegion string `json:"prismaRegion" msgpack:"prismaRegion" bson:"prismaregion" mapstructure:"prismaRegion,omitempty"`
 
 	// The major type of the resource.
-	Provider AzureResourceProviderValue `json:"provider" msgpack:"provider" bson:"provider" mapstructure:"provider,omitempty"`
+	Provider AzureAssetProviderValue `json:"provider" msgpack:"provider" bson:"provider" mapstructure:"provider,omitempty"`
 
 	// The name of the logical subcontainer of cloud resources.
 	ResourceGroup string `json:"resourceGroup" msgpack:"resourceGroup" bson:"resourcegroup" mapstructure:"resourceGroup,omitempty"`
@@ -228,47 +228,47 @@ type AzureResource struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewAzureResource returns a new *AzureResource
-func NewAzureResource() *AzureResource {
+// NewAzureAsset returns a new *AzureAsset
+func NewAzureAsset() *AzureAsset {
 
-	return &AzureResource{
+	return &AzureAsset{
 		ModelVersion:   1,
 		Data:           []byte{},
 		DenormedFields: []string{},
-		Kind:           AzureResourceKindPending,
+		Kind:           AzureAssetKindPending,
 		MigrationsLog:  map[string]string{},
-		Provider:       AzureResourceProviderPending,
+		Provider:       AzureAssetProviderPending,
 		Tags:           map[string]string{},
 	}
 }
 
 // Identity returns the Identity of the object.
-func (o *AzureResource) Identity() elemental.Identity {
+func (o *AzureAsset) Identity() elemental.Identity {
 
-	return AzureResourceIdentity
+	return AzureAssetIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *AzureResource) Identifier() string {
+func (o *AzureAsset) Identifier() string {
 
 	return o.ID
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *AzureResource) SetIdentifier(id string) {
+func (o *AzureAsset) SetIdentifier(id string) {
 
 	o.ID = id
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *AzureResource) GetBSON() (interface{}, error) {
+func (o *AzureAsset) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesAzureResource{}
+	s := &mongoAttributesAzureAsset{}
 
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
@@ -296,13 +296,13 @@ func (o *AzureResource) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *AzureResource) SetBSON(raw bson.Raw) error {
+func (o *AzureAsset) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesAzureResource{}
+	s := &mongoAttributesAzureAsset{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -330,115 +330,113 @@ func (o *AzureResource) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *AzureResource) Version() int {
+func (o *AzureAsset) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *AzureResource) BleveType() string {
+func (o *AzureAsset) BleveType() string {
 
-	return "azureresource"
+	return "azureasset"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *AzureResource) DefaultOrder() []string {
+func (o *AzureAsset) DefaultOrder() []string {
 
 	return []string{}
 }
 
 // Doc returns the documentation for the object
-func (o *AzureResource) Doc() string {
+func (o *AzureAsset) Doc() string {
 
-	return `Represents an Azure cloud resource such as virtualMachines and subnets. Only
-required attributes need to be set when creating the resource. Optional
-attributes will be ignored as they are set by the processor.`
+	return `Represents a read-only Azure cloud resource such as virtualMachines and subnets.`
 }
 
-func (o *AzureResource) String() string {
+func (o *AzureAsset) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *AzureResource) GetCreateTime() time.Time {
+func (o *AzureAsset) GetCreateTime() time.Time {
 
 	return o.CreateTime
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the given value.
-func (o *AzureResource) SetCreateTime(createTime time.Time) {
+func (o *AzureAsset) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = createTime
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *AzureResource) GetMigrationsLog() map[string]string {
+func (o *AzureAsset) GetMigrationsLog() map[string]string {
 
 	return o.MigrationsLog
 }
 
 // SetMigrationsLog sets the property MigrationsLog of the receiver using the given value.
-func (o *AzureResource) SetMigrationsLog(migrationsLog map[string]string) {
+func (o *AzureAsset) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = migrationsLog
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *AzureResource) GetNamespace() string {
+func (o *AzureAsset) GetNamespace() string {
 
 	return o.Namespace
 }
 
 // SetNamespace sets the property Namespace of the receiver using the given value.
-func (o *AzureResource) SetNamespace(namespace string) {
+func (o *AzureAsset) SetNamespace(namespace string) {
 
 	o.Namespace = namespace
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *AzureResource) GetUpdateTime() time.Time {
+func (o *AzureAsset) GetUpdateTime() time.Time {
 
 	return o.UpdateTime
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the given value.
-func (o *AzureResource) SetUpdateTime(updateTime time.Time) {
+func (o *AzureAsset) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *AzureResource) GetZHash() int {
+func (o *AzureAsset) GetZHash() int {
 
 	return o.ZHash
 }
 
 // SetZHash sets the property ZHash of the receiver using the given value.
-func (o *AzureResource) SetZHash(zHash int) {
+func (o *AzureAsset) SetZHash(zHash int) {
 
 	o.ZHash = zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *AzureResource) GetZone() int {
+func (o *AzureAsset) GetZone() int {
 
 	return o.Zone
 }
 
 // SetZone sets the property Zone of the receiver using the given value.
-func (o *AzureResource) SetZone(zone int) {
+func (o *AzureAsset) SetZone(zone int) {
 
 	o.Zone = zone
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *AzureAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseAzureResource{
+		return &SparseAzureAsset{
 			ID:             &o.ID,
 			CreateTime:     &o.CreateTime,
 			Data:           &o.Data,
@@ -460,7 +458,7 @@ func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable 
 		}
 	}
 
-	sp := &SparseAzureResource{}
+	sp := &SparseAzureAsset{}
 	for _, f := range fields {
 		switch f {
 		case "ID":
@@ -505,13 +503,13 @@ func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable 
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseAzureResource to the object.
-func (o *AzureResource) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseAzureAsset to the object.
+func (o *AzureAsset) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseAzureResource)
+	so := sparse.(*SparseAzureAsset)
 	if so.ID != nil {
 		o.ID = *so.ID
 	}
@@ -568,32 +566,32 @@ func (o *AzureResource) Patch(sparse elemental.SparseIdentifiable) {
 	}
 }
 
-// DeepCopy returns a deep copy if the AzureResource.
-func (o *AzureResource) DeepCopy() *AzureResource {
+// DeepCopy returns a deep copy if the AzureAsset.
+func (o *AzureAsset) DeepCopy() *AzureAsset {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &AzureResource{}
+	out := &AzureAsset{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *AzureResource.
-func (o *AzureResource) DeepCopyInto(out *AzureResource) {
+// DeepCopyInto copies the receiver into the given *AzureAsset.
+func (o *AzureAsset) DeepCopyInto(out *AzureAsset) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy AzureResource: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy AzureAsset: %s", err))
 	}
 
-	*out = *target.(*AzureResource)
+	*out = *target.(*AzureAsset)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *AzureResource) Validate() error {
+func (o *AzureAsset) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -622,26 +620,26 @@ func (o *AzureResource) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*AzureResource) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*AzureAsset) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := AzureResourceAttributesMap[name]; ok {
+	if v, ok := AzureAssetAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return AzureResourceLowerCaseAttributesMap[name]
+	return AzureAssetLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*AzureResource) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*AzureAsset) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return AzureResourceAttributesMap
+	return AzureAssetAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *AzureResource) ValueForAttribute(name string) interface{} {
+func (o *AzureAsset) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -685,8 +683,8 @@ func (o *AzureResource) ValueForAttribute(name string) interface{} {
 	return nil
 }
 
-// AzureResourceAttributesMap represents the map of attribute for AzureResource.
-var AzureResourceAttributesMap = map[string]elemental.AttributeSpecification{
+// AzureAssetAttributesMap represents the map of attribute for AzureAsset.
+var AzureAssetAttributesMap = map[string]elemental.AttributeSpecification{
 	"ID": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -750,7 +748,7 @@ should be formatted as 'key=value'.`,
 		Autogenerated:  true,
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
-		DefaultValue:   AzureResourceKindPending,
+		DefaultValue:   AzureAssetKindPending,
 		Description:    `The specific kind of the resource.`,
 		Exposed:        true,
 		Name:           "kind",
@@ -824,7 +822,7 @@ resource may exists in a different region as described by Azure.`,
 		Autogenerated:  true,
 		BSONFieldName:  "provider",
 		ConvertedName:  "Provider",
-		DefaultValue:   AzureResourceProviderPending,
+		DefaultValue:   AzureAssetProviderPending,
 		Description:    `The major type of the resource.`,
 		Exposed:        true,
 		Name:           "provider",
@@ -926,8 +924,8 @@ georedundancy.`,
 	},
 }
 
-// AzureResourceLowerCaseAttributesMap represents the map of attribute for AzureResource.
-var AzureResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// AzureAssetLowerCaseAttributesMap represents the map of attribute for AzureAsset.
+var AzureAssetLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"id": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -991,7 +989,7 @@ should be formatted as 'key=value'.`,
 		Autogenerated:  true,
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
-		DefaultValue:   AzureResourceKindPending,
+		DefaultValue:   AzureAssetKindPending,
 		Description:    `The specific kind of the resource.`,
 		Exposed:        true,
 		Name:           "kind",
@@ -1065,7 +1063,7 @@ resource may exists in a different region as described by Azure.`,
 		Autogenerated:  true,
 		BSONFieldName:  "provider",
 		ConvertedName:  "Provider",
-		DefaultValue:   AzureResourceProviderPending,
+		DefaultValue:   AzureAssetProviderPending,
 		Description:    `The major type of the resource.`,
 		Exposed:        true,
 		Name:           "provider",
@@ -1167,35 +1165,35 @@ georedundancy.`,
 	},
 }
 
-// SparseAzureResourcesList represents a list of SparseAzureResources
-type SparseAzureResourcesList []*SparseAzureResource
+// SparseAzureAssetsList represents a list of SparseAzureAssets
+type SparseAzureAssetsList []*SparseAzureAsset
 
 // Identity returns the identity of the objects in the list.
-func (o SparseAzureResourcesList) Identity() elemental.Identity {
+func (o SparseAzureAssetsList) Identity() elemental.Identity {
 
-	return AzureResourceIdentity
+	return AzureAssetIdentity
 }
 
-// Copy returns a pointer to a copy the SparseAzureResourcesList.
-func (o SparseAzureResourcesList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseAzureAssetsList.
+func (o SparseAzureAssetsList) Copy() elemental.Identifiables {
 
-	copy := append(SparseAzureResourcesList{}, o...)
+	copy := append(SparseAzureAssetsList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseAzureResourcesList.
-func (o SparseAzureResourcesList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseAzureAssetsList.
+func (o SparseAzureAssetsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseAzureResourcesList{}, o...)
+	out := append(SparseAzureAssetsList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseAzureResource))
+		out = append(out, obj.(*SparseAzureAsset))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseAzureResourcesList) List() elemental.IdentifiablesList {
+func (o SparseAzureAssetsList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -1206,13 +1204,13 @@ func (o SparseAzureResourcesList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseAzureResourcesList) DefaultOrder() []string {
+func (o SparseAzureAssetsList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToPlain returns the SparseAzureResourcesList converted to AzureResourcesList.
-func (o SparseAzureResourcesList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseAzureAssetsList converted to AzureAssetsList.
+func (o SparseAzureAssetsList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -1223,13 +1221,13 @@ func (o SparseAzureResourcesList) ToPlain() elemental.IdentifiablesList {
 }
 
 // Version returns the version of the content.
-func (o SparseAzureResourcesList) Version() int {
+func (o SparseAzureAssetsList) Version() int {
 
 	return 1
 }
 
-// SparseAzureResource represents the sparse version of a azureresource.
-type SparseAzureResource struct {
+// SparseAzureAsset represents the sparse version of a azureasset.
+type SparseAzureAsset struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
@@ -1246,7 +1244,7 @@ type SparseAzureResource struct {
 	DenormedFields *[]string `json:"denormedFields,omitempty" msgpack:"denormedFields,omitempty" bson:"denormedfields,omitempty" mapstructure:"denormedFields,omitempty"`
 
 	// The specific kind of the resource.
-	Kind *AzureResourceKindValue `json:"kind,omitempty" msgpack:"kind,omitempty" bson:"kind,omitempty" mapstructure:"kind,omitempty"`
+	Kind *AzureAssetKindValue `json:"kind,omitempty" msgpack:"kind,omitempty" bson:"kind,omitempty" mapstructure:"kind,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -1265,7 +1263,7 @@ type SparseAzureResource struct {
 	PrismaRegion *string `json:"prismaRegion,omitempty" msgpack:"prismaRegion,omitempty" bson:"prismaregion,omitempty" mapstructure:"prismaRegion,omitempty"`
 
 	// The major type of the resource.
-	Provider *AzureResourceProviderValue `json:"provider,omitempty" msgpack:"provider,omitempty" bson:"provider,omitempty" mapstructure:"provider,omitempty"`
+	Provider *AzureAssetProviderValue `json:"provider,omitempty" msgpack:"provider,omitempty" bson:"provider,omitempty" mapstructure:"provider,omitempty"`
 
 	// The name of the logical subcontainer of cloud resources.
 	ResourceGroup *string `json:"resourceGroup,omitempty" msgpack:"resourceGroup,omitempty" bson:"resourcegroup,omitempty" mapstructure:"resourceGroup,omitempty"`
@@ -1292,19 +1290,19 @@ type SparseAzureResource struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseAzureResource returns a new  SparseAzureResource.
-func NewSparseAzureResource() *SparseAzureResource {
-	return &SparseAzureResource{}
+// NewSparseAzureAsset returns a new  SparseAzureAsset.
+func NewSparseAzureAsset() *SparseAzureAsset {
+	return &SparseAzureAsset{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseAzureResource) Identity() elemental.Identity {
+func (o *SparseAzureAsset) Identity() elemental.Identity {
 
-	return AzureResourceIdentity
+	return AzureAssetIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseAzureResource) Identifier() string {
+func (o *SparseAzureAsset) Identifier() string {
 
 	if o.ID == nil {
 		return ""
@@ -1313,7 +1311,7 @@ func (o *SparseAzureResource) Identifier() string {
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseAzureResource) SetIdentifier(id string) {
+func (o *SparseAzureAsset) SetIdentifier(id string) {
 
 	if id != "" {
 		o.ID = &id
@@ -1324,13 +1322,13 @@ func (o *SparseAzureResource) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAzureResource) GetBSON() (interface{}, error) {
+func (o *SparseAzureAsset) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseAzureResource{}
+	s := &mongoAttributesSparseAzureAsset{}
 
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
@@ -1392,13 +1390,13 @@ func (o *SparseAzureResource) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAzureResource) SetBSON(raw bson.Raw) error {
+func (o *SparseAzureAsset) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseAzureResource{}
+	s := &mongoAttributesSparseAzureAsset{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -1461,15 +1459,15 @@ func (o *SparseAzureResource) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseAzureResource) Version() int {
+func (o *SparseAzureAsset) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseAzureResource) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseAzureAsset) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewAzureResource()
+	out := NewAzureAsset()
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
@@ -1529,7 +1527,7 @@ func (o *SparseAzureResource) ToPlain() elemental.PlainIdentifiable {
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *SparseAzureResource) GetCreateTime() (out time.Time) {
+func (o *SparseAzureAsset) GetCreateTime() (out time.Time) {
 
 	if o.CreateTime == nil {
 		return
@@ -1539,13 +1537,13 @@ func (o *SparseAzureResource) GetCreateTime() (out time.Time) {
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the address of the given value.
-func (o *SparseAzureResource) SetCreateTime(createTime time.Time) {
+func (o *SparseAzureAsset) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = &createTime
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *SparseAzureResource) GetMigrationsLog() (out map[string]string) {
+func (o *SparseAzureAsset) GetMigrationsLog() (out map[string]string) {
 
 	if o.MigrationsLog == nil {
 		return
@@ -1555,13 +1553,13 @@ func (o *SparseAzureResource) GetMigrationsLog() (out map[string]string) {
 }
 
 // SetMigrationsLog sets the property MigrationsLog of the receiver using the address of the given value.
-func (o *SparseAzureResource) SetMigrationsLog(migrationsLog map[string]string) {
+func (o *SparseAzureAsset) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = &migrationsLog
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *SparseAzureResource) GetNamespace() (out string) {
+func (o *SparseAzureAsset) GetNamespace() (out string) {
 
 	if o.Namespace == nil {
 		return
@@ -1571,13 +1569,13 @@ func (o *SparseAzureResource) GetNamespace() (out string) {
 }
 
 // SetNamespace sets the property Namespace of the receiver using the address of the given value.
-func (o *SparseAzureResource) SetNamespace(namespace string) {
+func (o *SparseAzureAsset) SetNamespace(namespace string) {
 
 	o.Namespace = &namespace
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *SparseAzureResource) GetUpdateTime() (out time.Time) {
+func (o *SparseAzureAsset) GetUpdateTime() (out time.Time) {
 
 	if o.UpdateTime == nil {
 		return
@@ -1587,13 +1585,13 @@ func (o *SparseAzureResource) GetUpdateTime() (out time.Time) {
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the address of the given value.
-func (o *SparseAzureResource) SetUpdateTime(updateTime time.Time) {
+func (o *SparseAzureAsset) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = &updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *SparseAzureResource) GetZHash() (out int) {
+func (o *SparseAzureAsset) GetZHash() (out int) {
 
 	if o.ZHash == nil {
 		return
@@ -1603,13 +1601,13 @@ func (o *SparseAzureResource) GetZHash() (out int) {
 }
 
 // SetZHash sets the property ZHash of the receiver using the address of the given value.
-func (o *SparseAzureResource) SetZHash(zHash int) {
+func (o *SparseAzureAsset) SetZHash(zHash int) {
 
 	o.ZHash = &zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *SparseAzureResource) GetZone() (out int) {
+func (o *SparseAzureAsset) GetZone() (out int) {
 
 	if o.Zone == nil {
 		return
@@ -1619,72 +1617,72 @@ func (o *SparseAzureResource) GetZone() (out int) {
 }
 
 // SetZone sets the property Zone of the receiver using the address of the given value.
-func (o *SparseAzureResource) SetZone(zone int) {
+func (o *SparseAzureAsset) SetZone(zone int) {
 
 	o.Zone = &zone
 }
 
-// DeepCopy returns a deep copy if the SparseAzureResource.
-func (o *SparseAzureResource) DeepCopy() *SparseAzureResource {
+// DeepCopy returns a deep copy if the SparseAzureAsset.
+func (o *SparseAzureAsset) DeepCopy() *SparseAzureAsset {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseAzureResource{}
+	out := &SparseAzureAsset{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseAzureResource.
-func (o *SparseAzureResource) DeepCopyInto(out *SparseAzureResource) {
+// DeepCopyInto copies the receiver into the given *SparseAzureAsset.
+func (o *SparseAzureAsset) DeepCopyInto(out *SparseAzureAsset) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseAzureResource: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseAzureAsset: %s", err))
 	}
 
-	*out = *target.(*SparseAzureResource)
+	*out = *target.(*SparseAzureAsset)
 }
 
-type mongoAttributesAzureResource struct {
-	ID             bson.ObjectId              `bson:"_id,omitempty"`
-	CreateTime     time.Time                  `bson:"createtime"`
-	Data           []byte                     `bson:"data"`
-	DenormedFields []string                   `bson:"denormedfields"`
-	Kind           AzureResourceKindValue     `bson:"kind"`
-	MigrationsLog  map[string]string          `bson:"migrationslog,omitempty"`
-	Name           string                     `bson:"name"`
-	Namespace      string                     `bson:"namespace"`
-	PrismaRRN      string                     `bson:"prismarrn"`
-	PrismaRegion   string                     `bson:"prismaregion"`
-	Provider       AzureResourceProviderValue `bson:"provider"`
-	ResourceGroup  string                     `bson:"resourcegroup"`
-	ResourceID     string                     `bson:"resourceid"`
-	SubscriptionID string                     `bson:"subscriptionid"`
-	Tags           map[string]string          `bson:"tags"`
-	UpdateTime     time.Time                  `bson:"updatetime"`
-	ZHash          int                        `bson:"zhash"`
-	Zone           int                        `bson:"zone"`
+type mongoAttributesAzureAsset struct {
+	ID             bson.ObjectId           `bson:"_id,omitempty"`
+	CreateTime     time.Time               `bson:"createtime"`
+	Data           []byte                  `bson:"data"`
+	DenormedFields []string                `bson:"denormedfields"`
+	Kind           AzureAssetKindValue     `bson:"kind"`
+	MigrationsLog  map[string]string       `bson:"migrationslog,omitempty"`
+	Name           string                  `bson:"name"`
+	Namespace      string                  `bson:"namespace"`
+	PrismaRRN      string                  `bson:"prismarrn"`
+	PrismaRegion   string                  `bson:"prismaregion"`
+	Provider       AzureAssetProviderValue `bson:"provider"`
+	ResourceGroup  string                  `bson:"resourcegroup"`
+	ResourceID     string                  `bson:"resourceid"`
+	SubscriptionID string                  `bson:"subscriptionid"`
+	Tags           map[string]string       `bson:"tags"`
+	UpdateTime     time.Time               `bson:"updatetime"`
+	ZHash          int                     `bson:"zhash"`
+	Zone           int                     `bson:"zone"`
 }
-type mongoAttributesSparseAzureResource struct {
-	ID             bson.ObjectId               `bson:"_id,omitempty"`
-	CreateTime     *time.Time                  `bson:"createtime,omitempty"`
-	Data           *[]byte                     `bson:"data,omitempty"`
-	DenormedFields *[]string                   `bson:"denormedfields,omitempty"`
-	Kind           *AzureResourceKindValue     `bson:"kind,omitempty"`
-	MigrationsLog  *map[string]string          `bson:"migrationslog,omitempty"`
-	Name           *string                     `bson:"name,omitempty"`
-	Namespace      *string                     `bson:"namespace,omitempty"`
-	PrismaRRN      *string                     `bson:"prismarrn,omitempty"`
-	PrismaRegion   *string                     `bson:"prismaregion,omitempty"`
-	Provider       *AzureResourceProviderValue `bson:"provider,omitempty"`
-	ResourceGroup  *string                     `bson:"resourcegroup,omitempty"`
-	ResourceID     *string                     `bson:"resourceid,omitempty"`
-	SubscriptionID *string                     `bson:"subscriptionid,omitempty"`
-	Tags           *map[string]string          `bson:"tags,omitempty"`
-	UpdateTime     *time.Time                  `bson:"updatetime,omitempty"`
-	ZHash          *int                        `bson:"zhash,omitempty"`
-	Zone           *int                        `bson:"zone,omitempty"`
+type mongoAttributesSparseAzureAsset struct {
+	ID             bson.ObjectId            `bson:"_id,omitempty"`
+	CreateTime     *time.Time               `bson:"createtime,omitempty"`
+	Data           *[]byte                  `bson:"data,omitempty"`
+	DenormedFields *[]string                `bson:"denormedfields,omitempty"`
+	Kind           *AzureAssetKindValue     `bson:"kind,omitempty"`
+	MigrationsLog  *map[string]string       `bson:"migrationslog,omitempty"`
+	Name           *string                  `bson:"name,omitempty"`
+	Namespace      *string                  `bson:"namespace,omitempty"`
+	PrismaRRN      *string                  `bson:"prismarrn,omitempty"`
+	PrismaRegion   *string                  `bson:"prismaregion,omitempty"`
+	Provider       *AzureAssetProviderValue `bson:"provider,omitempty"`
+	ResourceGroup  *string                  `bson:"resourcegroup,omitempty"`
+	ResourceID     *string                  `bson:"resourceid,omitempty"`
+	SubscriptionID *string                  `bson:"subscriptionid,omitempty"`
+	Tags           *map[string]string       `bson:"tags,omitempty"`
+	UpdateTime     *time.Time               `bson:"updatetime,omitempty"`
+	ZHash          *int                     `bson:"zhash,omitempty"`
+	Zone           *int                     `bson:"zone,omitempty"`
 }
