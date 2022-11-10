@@ -57,6 +57,8 @@ attributes:
     - ComputeInstance
     - ComputeSubnetwork
     - ComputeNetwork
+    - ComputeFirewall
+    - ComputeFirewallPolicy
     - ResourceFolder
     - ResourceProject
     example_value: ComputeInstance
