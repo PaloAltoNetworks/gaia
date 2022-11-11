@@ -23,5 +23,5 @@ indexes:
 - - namespace
   - resourceID
 - - namespace
-  - subscriptionID
   - kind
+  - subscriptionID

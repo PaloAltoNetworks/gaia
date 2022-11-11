@@ -690,9 +690,9 @@ var (
 		"azureresource": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
+			{"namespace", "kind", "subscriptionID"},
 			{"namespace", "normalizedTags"},
 			{"namespace", "resourceID"},
-			{"namespace", "subscriptionID", "kind"},
 		},
 		"cachedflowreport": {
 			{":shard", "zone", "zHash", "_id"},

@@ -15,6 +15,12 @@ import (
 type GCPResourceKindValue string
 
 const (
+	// GCPResourceKindComputeFirewall represents the value ComputeFirewall.
+	GCPResourceKindComputeFirewall GCPResourceKindValue = "ComputeFirewall"
+
+	// GCPResourceKindComputeFirewallPolicy represents the value ComputeFirewallPolicy.
+	GCPResourceKindComputeFirewallPolicy GCPResourceKindValue = "ComputeFirewallPolicy"
+
 	// GCPResourceKindComputeInstance represents the value ComputeInstance.
 	GCPResourceKindComputeInstance GCPResourceKindValue = "ComputeInstance"
 
@@ -477,7 +483,7 @@ func (o *GCPResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ResourceFolder", "ResourceProject"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ResourceFolder", "ResourceProject"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -593,7 +599,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Type:    "list",
 	},
 	"Kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ResourceFolder", "ResourceProject"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ResourceFolder", "ResourceProject"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,
@@ -777,7 +783,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Type:    "list",
 	},
 	"kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ResourceFolder", "ResourceProject"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ResourceFolder", "ResourceProject"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the resource.`,

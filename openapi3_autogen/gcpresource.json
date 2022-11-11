@@ -28,6 +28,8 @@
               "ComputeInstance",
               "ComputeSubnetwork",
               "ComputeNetwork",
+              "ComputeFirewall",
+              "ComputeFirewallPolicy",
               "ResourceFolder",
               "ResourceProject"
             ],
