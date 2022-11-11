@@ -574,6 +574,20 @@ relations:
   create:
     description: Create a flow statistics report.
 
+- rest_name: gcpasset
+  get:
+    description: Retrieves the list of stored gcp resources.
+    global_parameters:
+    - $filtering
+
+- rest_name: gcpresource
+  get:
+    description: Retrieves the list of stored gcp resources.
+    global_parameters:
+    - $filtering
+  create:
+    description: creates a new gcp resource from field 'data'.
+
 - rest_name: graphedge
   get:
     description: Retrieves the graph edges.
