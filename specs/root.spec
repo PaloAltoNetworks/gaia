@@ -971,6 +971,10 @@ relations:
   create:
     description: Creates a new PCC provider.
 
+- rest_name: pctokenverifier
+  create:
+    description: Verifies a PC token and returns its claims.
+
 - rest_name: pingrequest
   create:
     description: Initiate a new the ping request.

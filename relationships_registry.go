@@ -4296,6 +4296,12 @@ func init() {
 
 	relationshipsRegistry[PCTimeRangeIdentity] = &elemental.Relationship{}
 
+	relationshipsRegistry[PCTokenVerifierIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
 	relationshipsRegistry[PUTrafficActionIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
