@@ -102,6 +102,7 @@ var (
 		"fileaccessreport":             FileAccessReportIdentity,
 		"filepath":                     FilePathIdentity,
 		"flowreport":                   FlowReportIdentity,
+		"gcpasset":                     GCPAssetIdentity,
 		"gcpresource":                  GCPResourceIdentity,
 		"graphedge":                    GraphEdgeIdentity,
 
@@ -149,6 +150,7 @@ var (
 		"pccprovider":            PCCProviderIdentity,
 		"pcsearchresult":         PCSearchResultIdentity,
 		"pctimerange":            PCTimeRangeIdentity,
+		"pctokenverifier":        PCTokenVerifierIdentity,
 
 		"pingprobe":   PingProbeIdentity,
 		"pingrequest": PingRequestIdentity,
@@ -318,6 +320,7 @@ var (
 		"fileaccessreports":              FileAccessReportIdentity,
 		"filepaths":                      FilePathIdentity,
 		"flowreports":                    FlowReportIdentity,
+		"gcpassets":                      GCPAssetIdentity,
 		"gcpresources":                   GCPResourceIdentity,
 		"graphedges":                     GraphEdgeIdentity,
 
@@ -365,6 +368,7 @@ var (
 		"pccproviders":           PCCProviderIdentity,
 		"pcsearchresults":        PCSearchResultIdentity,
 		"pctimeranges":           PCTimeRangeIdentity,
+		"pctokenverifiers":       PCTokenVerifierIdentity,
 
 		"pingprobes":   PingProbeIdentity,
 		"pingrequests": PingRequestIdentity,
@@ -1055,6 +1059,11 @@ var (
 			{"remotenamespace", "timestamp"},
 			{"sourceID"},
 		},
+		"gcpasset": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+		},
 		"gcpresource": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
@@ -1226,8 +1235,9 @@ var (
 			{"namespace", "normalizedTags"},
 			{"updateIdempotencyKey"},
 		},
-		"pcsearchresult": nil,
-		"pctimerange":    nil,
+		"pcsearchresult":  nil,
+		"pctimerange":     nil,
+		"pctokenverifier": nil,
 		"pingprobe": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
@@ -1632,6 +1642,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewFilePath()
 	case FlowReportIdentity:
 		return NewFlowReport()
+	case GCPAssetIdentity:
+		return NewGCPAsset()
 	case GCPResourceIdentity:
 		return NewGCPResource()
 	case GraphEdgeIdentity:
@@ -1718,6 +1730,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewPCSearchResult()
 	case PCTimeRangeIdentity:
 		return NewPCTimeRange()
+	case PCTokenVerifierIdentity:
+		return NewPCTokenVerifier()
 	case PingProbeIdentity:
 		return NewPingProbe()
 	case PingRequestIdentity:
@@ -2007,6 +2021,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseFilePath()
 	case FlowReportIdentity:
 		return NewSparseFlowReport()
+	case GCPAssetIdentity:
+		return NewSparseGCPAsset()
 	case GCPResourceIdentity:
 		return NewSparseGCPResource()
 	case GraphEdgeIdentity:
@@ -2093,6 +2109,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparsePCSearchResult()
 	case PCTimeRangeIdentity:
 		return NewSparsePCTimeRange()
+	case PCTokenVerifierIdentity:
+		return NewSparsePCTokenVerifier()
 	case PingProbeIdentity:
 		return NewSparsePingProbe()
 	case PingRequestIdentity:
@@ -2390,6 +2408,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &FilePathsList{}
 	case FlowReportIdentity:
 		return &FlowReportsList{}
+	case GCPAssetIdentity:
+		return &GCPAssetsList{}
 	case GCPResourceIdentity:
 		return &GCPResourcesList{}
 	case GraphEdgeIdentity:
@@ -2476,6 +2496,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &PCSearchResultsList{}
 	case PCTimeRangeIdentity:
 		return &PCTimeRangesList{}
+	case PCTokenVerifierIdentity:
+		return &PCTokenVerifiersList{}
 	case PingProbeIdentity:
 		return &PingProbesList{}
 	case PingRequestIdentity:
@@ -2763,6 +2785,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseFilePathsList{}
 	case FlowReportIdentity:
 		return &SparseFlowReportsList{}
+	case GCPAssetIdentity:
+		return &SparseGCPAssetsList{}
 	case GCPResourceIdentity:
 		return &SparseGCPResourcesList{}
 	case GraphEdgeIdentity:
@@ -2849,6 +2873,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparsePCSearchResultsList{}
 	case PCTimeRangeIdentity:
 		return &SparsePCTimeRangesList{}
+	case PCTokenVerifierIdentity:
+		return &SparsePCTokenVerifiersList{}
 	case PingProbeIdentity:
 		return &SparsePingProbesList{}
 	case PingRequestIdentity:
@@ -3078,6 +3104,7 @@ func AllIdentities() []elemental.Identity {
 		FileAccessReportIdentity,
 		FilePathIdentity,
 		FlowReportIdentity,
+		GCPAssetIdentity,
 		GCPResourceIdentity,
 		GraphEdgeIdentity,
 		GraphNodeIdentity,
@@ -3121,6 +3148,7 @@ func AllIdentities() []elemental.Identity {
 		PCCProviderIdentity,
 		PCSearchResultIdentity,
 		PCTimeRangeIdentity,
+		PCTokenVerifierIdentity,
 		PingProbeIdentity,
 		PingRequestIdentity,
 		PingResultIdentity,
@@ -3404,6 +3432,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		}
 	case FlowReportIdentity:
 		return []string{}
+	case GCPAssetIdentity:
+		return []string{}
 	case GCPResourceIdentity:
 		return []string{}
 	case GraphEdgeIdentity:
@@ -3550,6 +3580,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case PCSearchResultIdentity:
 		return []string{}
 	case PCTimeRangeIdentity:
+		return []string{}
+	case PCTokenVerifierIdentity:
 		return []string{}
 	case PingProbeIdentity:
 		return []string{}

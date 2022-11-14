@@ -12,72 +12,72 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// GCPResourceKindValue represents the possible values for attribute "kind".
-type GCPResourceKindValue string
+// GCPAssetKindValue represents the possible values for attribute "kind".
+type GCPAssetKindValue string
 
 const (
-	// GCPResourceKindComputeFirewall represents the value ComputeFirewall.
-	GCPResourceKindComputeFirewall GCPResourceKindValue = "ComputeFirewall"
+	// GCPAssetKindComputeFirewall represents the value ComputeFirewall.
+	GCPAssetKindComputeFirewall GCPAssetKindValue = "ComputeFirewall"
 
-	// GCPResourceKindComputeFirewallPolicy represents the value ComputeFirewallPolicy.
-	GCPResourceKindComputeFirewallPolicy GCPResourceKindValue = "ComputeFirewallPolicy"
+	// GCPAssetKindComputeFirewallPolicy represents the value ComputeFirewallPolicy.
+	GCPAssetKindComputeFirewallPolicy GCPAssetKindValue = "ComputeFirewallPolicy"
 
-	// GCPResourceKindComputeInstance represents the value ComputeInstance.
-	GCPResourceKindComputeInstance GCPResourceKindValue = "ComputeInstance"
+	// GCPAssetKindComputeInstance represents the value ComputeInstance.
+	GCPAssetKindComputeInstance GCPAssetKindValue = "ComputeInstance"
 
-	// GCPResourceKindComputeNetwork represents the value ComputeNetwork.
-	GCPResourceKindComputeNetwork GCPResourceKindValue = "ComputeNetwork"
+	// GCPAssetKindComputeNetwork represents the value ComputeNetwork.
+	GCPAssetKindComputeNetwork GCPAssetKindValue = "ComputeNetwork"
 
-	// GCPResourceKindComputeSubnetwork represents the value ComputeSubnetwork.
-	GCPResourceKindComputeSubnetwork GCPResourceKindValue = "ComputeSubnetwork"
+	// GCPAssetKindComputeSubnetwork represents the value ComputeSubnetwork.
+	GCPAssetKindComputeSubnetwork GCPAssetKindValue = "ComputeSubnetwork"
 
-	// GCPResourceKindPending represents the value Pending.
-	GCPResourceKindPending GCPResourceKindValue = "Pending"
+	// GCPAssetKindPending represents the value Pending.
+	GCPAssetKindPending GCPAssetKindValue = "Pending"
 
-	// GCPResourceKindResourceFolder represents the value ResourceFolder.
-	GCPResourceKindResourceFolder GCPResourceKindValue = "ResourceFolder"
+	// GCPAssetKindResourceFolder represents the value ResourceFolder.
+	GCPAssetKindResourceFolder GCPAssetKindValue = "ResourceFolder"
 
-	// GCPResourceKindResourceProject represents the value ResourceProject.
-	GCPResourceKindResourceProject GCPResourceKindValue = "ResourceProject"
+	// GCPAssetKindResourceProject represents the value ResourceProject.
+	GCPAssetKindResourceProject GCPAssetKindValue = "ResourceProject"
 )
 
-// GCPResourceIdentity represents the Identity of the object.
-var GCPResourceIdentity = elemental.Identity{
-	Name:     "gcpresource",
-	Category: "gcpresources",
+// GCPAssetIdentity represents the Identity of the object.
+var GCPAssetIdentity = elemental.Identity{
+	Name:     "gcpasset",
+	Category: "gcpassets",
 	Package:  "pandemona",
-	Private:  true,
+	Private:  false,
 }
 
-// GCPResourcesList represents a list of GCPResources
-type GCPResourcesList []*GCPResource
+// GCPAssetsList represents a list of GCPAssets
+type GCPAssetsList []*GCPAsset
 
 // Identity returns the identity of the objects in the list.
-func (o GCPResourcesList) Identity() elemental.Identity {
+func (o GCPAssetsList) Identity() elemental.Identity {
 
-	return GCPResourceIdentity
+	return GCPAssetIdentity
 }
 
-// Copy returns a pointer to a copy the GCPResourcesList.
-func (o GCPResourcesList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the GCPAssetsList.
+func (o GCPAssetsList) Copy() elemental.Identifiables {
 
-	copy := append(GCPResourcesList{}, o...)
+	copy := append(GCPAssetsList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the GCPResourcesList.
-func (o GCPResourcesList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the GCPAssetsList.
+func (o GCPAssetsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(GCPResourcesList{}, o...)
+	out := append(GCPAssetsList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*GCPResource))
+		out = append(out, obj.(*GCPAsset))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o GCPResourcesList) List() elemental.IdentifiablesList {
+func (o GCPAssetsList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -88,31 +88,31 @@ func (o GCPResourcesList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o GCPResourcesList) DefaultOrder() []string {
+func (o GCPAssetsList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToSparse returns the GCPResourcesList converted to SparseGCPResourcesList.
+// ToSparse returns the GCPAssetsList converted to SparseGCPAssetsList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o GCPResourcesList) ToSparse(fields ...string) elemental.Identifiables {
+func (o GCPAssetsList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseGCPResourcesList, len(o))
+	out := make(SparseGCPAssetsList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseGCPResource)
+		out[i] = o[i].ToSparse(fields...).(*SparseGCPAsset)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o GCPResourcesList) Version() int {
+func (o GCPAssetsList) Version() int {
 
 	return 1
 }
 
-// GCPResource represents the model of a gcpresource
-type GCPResource struct {
+// GCPAsset represents the model of a gcpasset
+type GCPAsset struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
@@ -128,7 +128,7 @@ type GCPResource struct {
 	DenormedFields []string `json:"denormedFields" msgpack:"denormedFields" bson:"denormedfields" mapstructure:"denormedFields,omitempty"`
 
 	// The specific kind of the resource.
-	Kind GCPResourceKindValue `json:"kind" msgpack:"kind" bson:"kind" mapstructure:"kind,omitempty"`
+	Kind GCPAssetKindValue `json:"kind" msgpack:"kind" bson:"kind" mapstructure:"kind,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -174,46 +174,46 @@ type GCPResource struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewGCPResource returns a new *GCPResource
-func NewGCPResource() *GCPResource {
+// NewGCPAsset returns a new *GCPAsset
+func NewGCPAsset() *GCPAsset {
 
-	return &GCPResource{
+	return &GCPAsset{
 		ModelVersion:   1,
 		Data:           []byte{},
 		DenormedFields: []string{},
-		Kind:           GCPResourceKindPending,
+		Kind:           GCPAssetKindPending,
 		MigrationsLog:  map[string]string{},
 		Tags:           map[string]string{},
 	}
 }
 
 // Identity returns the Identity of the object.
-func (o *GCPResource) Identity() elemental.Identity {
+func (o *GCPAsset) Identity() elemental.Identity {
 
-	return GCPResourceIdentity
+	return GCPAssetIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *GCPResource) Identifier() string {
+func (o *GCPAsset) Identifier() string {
 
 	return o.ID
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *GCPResource) SetIdentifier(id string) {
+func (o *GCPAsset) SetIdentifier(id string) {
 
 	o.ID = id
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *GCPResource) GetBSON() (interface{}, error) {
+func (o *GCPAsset) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesGCPResource{}
+	s := &mongoAttributesGCPAsset{}
 
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
@@ -240,13 +240,13 @@ func (o *GCPResource) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *GCPResource) SetBSON(raw bson.Raw) error {
+func (o *GCPAsset) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesGCPResource{}
+	s := &mongoAttributesGCPAsset{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -273,113 +273,113 @@ func (o *GCPResource) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *GCPResource) Version() int {
+func (o *GCPAsset) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *GCPResource) BleveType() string {
+func (o *GCPAsset) BleveType() string {
 
-	return "gcpresource"
+	return "gcpasset"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *GCPResource) DefaultOrder() []string {
+func (o *GCPAsset) DefaultOrder() []string {
 
 	return []string{}
 }
 
 // Doc returns the documentation for the object
-func (o *GCPResource) Doc() string {
+func (o *GCPAsset) Doc() string {
 
-	return `Represents a GCP cloud resource such as a virtual machine.`
+	return `Represents a read-only GCP cloud resource such as a virtual machine.`
 }
 
-func (o *GCPResource) String() string {
+func (o *GCPAsset) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *GCPResource) GetCreateTime() time.Time {
+func (o *GCPAsset) GetCreateTime() time.Time {
 
 	return o.CreateTime
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the given value.
-func (o *GCPResource) SetCreateTime(createTime time.Time) {
+func (o *GCPAsset) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = createTime
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *GCPResource) GetMigrationsLog() map[string]string {
+func (o *GCPAsset) GetMigrationsLog() map[string]string {
 
 	return o.MigrationsLog
 }
 
 // SetMigrationsLog sets the property MigrationsLog of the receiver using the given value.
-func (o *GCPResource) SetMigrationsLog(migrationsLog map[string]string) {
+func (o *GCPAsset) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = migrationsLog
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *GCPResource) GetNamespace() string {
+func (o *GCPAsset) GetNamespace() string {
 
 	return o.Namespace
 }
 
 // SetNamespace sets the property Namespace of the receiver using the given value.
-func (o *GCPResource) SetNamespace(namespace string) {
+func (o *GCPAsset) SetNamespace(namespace string) {
 
 	o.Namespace = namespace
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *GCPResource) GetUpdateTime() time.Time {
+func (o *GCPAsset) GetUpdateTime() time.Time {
 
 	return o.UpdateTime
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the given value.
-func (o *GCPResource) SetUpdateTime(updateTime time.Time) {
+func (o *GCPAsset) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *GCPResource) GetZHash() int {
+func (o *GCPAsset) GetZHash() int {
 
 	return o.ZHash
 }
 
 // SetZHash sets the property ZHash of the receiver using the given value.
-func (o *GCPResource) SetZHash(zHash int) {
+func (o *GCPAsset) SetZHash(zHash int) {
 
 	o.ZHash = zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *GCPResource) GetZone() int {
+func (o *GCPAsset) GetZone() int {
 
 	return o.Zone
 }
 
 // SetZone sets the property Zone of the receiver using the given value.
-func (o *GCPResource) SetZone(zone int) {
+func (o *GCPAsset) SetZone(zone int) {
 
 	o.Zone = zone
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *GCPAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseGCPResource{
+		return &SparseGCPAsset{
 			ID:             &o.ID,
 			CreateTime:     &o.CreateTime,
 			Data:           &o.Data,
@@ -401,7 +401,7 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		}
 	}
 
-	sp := &SparseGCPResource{}
+	sp := &SparseGCPAsset{}
 	for _, f := range fields {
 		switch f {
 		case "ID":
@@ -446,13 +446,13 @@ func (o *GCPResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseGCPResource to the object.
-func (o *GCPResource) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseGCPAsset to the object.
+func (o *GCPAsset) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseGCPResource)
+	so := sparse.(*SparseGCPAsset)
 	if so.ID != nil {
 		o.ID = *so.ID
 	}
@@ -509,32 +509,32 @@ func (o *GCPResource) Patch(sparse elemental.SparseIdentifiable) {
 	}
 }
 
-// DeepCopy returns a deep copy if the GCPResource.
-func (o *GCPResource) DeepCopy() *GCPResource {
+// DeepCopy returns a deep copy if the GCPAsset.
+func (o *GCPAsset) DeepCopy() *GCPAsset {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &GCPResource{}
+	out := &GCPAsset{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *GCPResource.
-func (o *GCPResource) DeepCopyInto(out *GCPResource) {
+// DeepCopyInto copies the receiver into the given *GCPAsset.
+func (o *GCPAsset) DeepCopyInto(out *GCPAsset) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy GCPResource: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy GCPAsset: %s", err))
 	}
 
-	*out = *target.(*GCPResource)
+	*out = *target.(*GCPAsset)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *GCPResource) Validate() error {
+func (o *GCPAsset) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -559,26 +559,26 @@ func (o *GCPResource) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*GCPResource) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*GCPAsset) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := GCPResourceAttributesMap[name]; ok {
+	if v, ok := GCPAssetAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return GCPResourceLowerCaseAttributesMap[name]
+	return GCPAssetLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*GCPResource) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*GCPAsset) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return GCPResourceAttributesMap
+	return GCPAssetAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *GCPResource) ValueForAttribute(name string) interface{} {
+func (o *GCPAsset) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -622,8 +622,8 @@ func (o *GCPResource) ValueForAttribute(name string) interface{} {
 	return nil
 }
 
-// GCPResourceAttributesMap represents the map of attribute for GCPResource.
-var GCPResourceAttributesMap = map[string]elemental.AttributeSpecification{
+// GCPAssetAttributesMap represents the map of attribute for GCPAsset.
+var GCPAssetAttributesMap = map[string]elemental.AttributeSpecification{
 	"ID": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -683,7 +683,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ResourceFolder", "ResourceProject", "Pending"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
-		DefaultValue:   GCPResourceKindPending,
+		DefaultValue:   GCPAssetKindPending,
 		Description:    `The specific kind of the resource.`,
 		Exposed:        true,
 		Name:           "kind",
@@ -845,8 +845,8 @@ georedundancy.`,
 	},
 }
 
-// GCPResourceLowerCaseAttributesMap represents the map of attribute for GCPResource.
-var GCPResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// GCPAssetLowerCaseAttributesMap represents the map of attribute for GCPAsset.
+var GCPAssetLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"id": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -906,7 +906,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ResourceFolder", "ResourceProject", "Pending"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
-		DefaultValue:   GCPResourceKindPending,
+		DefaultValue:   GCPAssetKindPending,
 		Description:    `The specific kind of the resource.`,
 		Exposed:        true,
 		Name:           "kind",
@@ -1068,35 +1068,35 @@ georedundancy.`,
 	},
 }
 
-// SparseGCPResourcesList represents a list of SparseGCPResources
-type SparseGCPResourcesList []*SparseGCPResource
+// SparseGCPAssetsList represents a list of SparseGCPAssets
+type SparseGCPAssetsList []*SparseGCPAsset
 
 // Identity returns the identity of the objects in the list.
-func (o SparseGCPResourcesList) Identity() elemental.Identity {
+func (o SparseGCPAssetsList) Identity() elemental.Identity {
 
-	return GCPResourceIdentity
+	return GCPAssetIdentity
 }
 
-// Copy returns a pointer to a copy the SparseGCPResourcesList.
-func (o SparseGCPResourcesList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseGCPAssetsList.
+func (o SparseGCPAssetsList) Copy() elemental.Identifiables {
 
-	copy := append(SparseGCPResourcesList{}, o...)
+	copy := append(SparseGCPAssetsList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseGCPResourcesList.
-func (o SparseGCPResourcesList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseGCPAssetsList.
+func (o SparseGCPAssetsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseGCPResourcesList{}, o...)
+	out := append(SparseGCPAssetsList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseGCPResource))
+		out = append(out, obj.(*SparseGCPAsset))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseGCPResourcesList) List() elemental.IdentifiablesList {
+func (o SparseGCPAssetsList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -1107,13 +1107,13 @@ func (o SparseGCPResourcesList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseGCPResourcesList) DefaultOrder() []string {
+func (o SparseGCPAssetsList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToPlain returns the SparseGCPResourcesList converted to GCPResourcesList.
-func (o SparseGCPResourcesList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseGCPAssetsList converted to GCPAssetsList.
+func (o SparseGCPAssetsList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -1124,13 +1124,13 @@ func (o SparseGCPResourcesList) ToPlain() elemental.IdentifiablesList {
 }
 
 // Version returns the version of the content.
-func (o SparseGCPResourcesList) Version() int {
+func (o SparseGCPAssetsList) Version() int {
 
 	return 1
 }
 
-// SparseGCPResource represents the sparse version of a gcpresource.
-type SparseGCPResource struct {
+// SparseGCPAsset represents the sparse version of a gcpasset.
+type SparseGCPAsset struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
@@ -1146,7 +1146,7 @@ type SparseGCPResource struct {
 	DenormedFields *[]string `json:"denormedFields,omitempty" msgpack:"denormedFields,omitempty" bson:"denormedfields,omitempty" mapstructure:"denormedFields,omitempty"`
 
 	// The specific kind of the resource.
-	Kind *GCPResourceKindValue `json:"kind,omitempty" msgpack:"kind,omitempty" bson:"kind,omitempty" mapstructure:"kind,omitempty"`
+	Kind *GCPAssetKindValue `json:"kind,omitempty" msgpack:"kind,omitempty" bson:"kind,omitempty" mapstructure:"kind,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -1192,19 +1192,19 @@ type SparseGCPResource struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseGCPResource returns a new  SparseGCPResource.
-func NewSparseGCPResource() *SparseGCPResource {
-	return &SparseGCPResource{}
+// NewSparseGCPAsset returns a new  SparseGCPAsset.
+func NewSparseGCPAsset() *SparseGCPAsset {
+	return &SparseGCPAsset{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseGCPResource) Identity() elemental.Identity {
+func (o *SparseGCPAsset) Identity() elemental.Identity {
 
-	return GCPResourceIdentity
+	return GCPAssetIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseGCPResource) Identifier() string {
+func (o *SparseGCPAsset) Identifier() string {
 
 	if o.ID == nil {
 		return ""
@@ -1213,7 +1213,7 @@ func (o *SparseGCPResource) Identifier() string {
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseGCPResource) SetIdentifier(id string) {
+func (o *SparseGCPAsset) SetIdentifier(id string) {
 
 	if id != "" {
 		o.ID = &id
@@ -1224,13 +1224,13 @@ func (o *SparseGCPResource) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseGCPResource) GetBSON() (interface{}, error) {
+func (o *SparseGCPAsset) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseGCPResource{}
+	s := &mongoAttributesSparseGCPAsset{}
 
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
@@ -1289,13 +1289,13 @@ func (o *SparseGCPResource) GetBSON() (interface{}, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseGCPResource) SetBSON(raw bson.Raw) error {
+func (o *SparseGCPAsset) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseGCPResource{}
+	s := &mongoAttributesSparseGCPAsset{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -1355,15 +1355,15 @@ func (o *SparseGCPResource) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseGCPResource) Version() int {
+func (o *SparseGCPAsset) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseGCPResource) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseGCPAsset) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewGCPResource()
+	out := NewGCPAsset()
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
@@ -1423,7 +1423,7 @@ func (o *SparseGCPResource) ToPlain() elemental.PlainIdentifiable {
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *SparseGCPResource) GetCreateTime() (out time.Time) {
+func (o *SparseGCPAsset) GetCreateTime() (out time.Time) {
 
 	if o.CreateTime == nil {
 		return
@@ -1433,13 +1433,13 @@ func (o *SparseGCPResource) GetCreateTime() (out time.Time) {
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the address of the given value.
-func (o *SparseGCPResource) SetCreateTime(createTime time.Time) {
+func (o *SparseGCPAsset) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = &createTime
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *SparseGCPResource) GetMigrationsLog() (out map[string]string) {
+func (o *SparseGCPAsset) GetMigrationsLog() (out map[string]string) {
 
 	if o.MigrationsLog == nil {
 		return
@@ -1449,13 +1449,13 @@ func (o *SparseGCPResource) GetMigrationsLog() (out map[string]string) {
 }
 
 // SetMigrationsLog sets the property MigrationsLog of the receiver using the address of the given value.
-func (o *SparseGCPResource) SetMigrationsLog(migrationsLog map[string]string) {
+func (o *SparseGCPAsset) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = &migrationsLog
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *SparseGCPResource) GetNamespace() (out string) {
+func (o *SparseGCPAsset) GetNamespace() (out string) {
 
 	if o.Namespace == nil {
 		return
@@ -1465,13 +1465,13 @@ func (o *SparseGCPResource) GetNamespace() (out string) {
 }
 
 // SetNamespace sets the property Namespace of the receiver using the address of the given value.
-func (o *SparseGCPResource) SetNamespace(namespace string) {
+func (o *SparseGCPAsset) SetNamespace(namespace string) {
 
 	o.Namespace = &namespace
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *SparseGCPResource) GetUpdateTime() (out time.Time) {
+func (o *SparseGCPAsset) GetUpdateTime() (out time.Time) {
 
 	if o.UpdateTime == nil {
 		return
@@ -1481,13 +1481,13 @@ func (o *SparseGCPResource) GetUpdateTime() (out time.Time) {
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the address of the given value.
-func (o *SparseGCPResource) SetUpdateTime(updateTime time.Time) {
+func (o *SparseGCPAsset) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = &updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *SparseGCPResource) GetZHash() (out int) {
+func (o *SparseGCPAsset) GetZHash() (out int) {
 
 	if o.ZHash == nil {
 		return
@@ -1497,13 +1497,13 @@ func (o *SparseGCPResource) GetZHash() (out int) {
 }
 
 // SetZHash sets the property ZHash of the receiver using the address of the given value.
-func (o *SparseGCPResource) SetZHash(zHash int) {
+func (o *SparseGCPAsset) SetZHash(zHash int) {
 
 	o.ZHash = &zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *SparseGCPResource) GetZone() (out int) {
+func (o *SparseGCPAsset) GetZone() (out int) {
 
 	if o.Zone == nil {
 		return
@@ -1513,70 +1513,70 @@ func (o *SparseGCPResource) GetZone() (out int) {
 }
 
 // SetZone sets the property Zone of the receiver using the address of the given value.
-func (o *SparseGCPResource) SetZone(zone int) {
+func (o *SparseGCPAsset) SetZone(zone int) {
 
 	o.Zone = &zone
 }
 
-// DeepCopy returns a deep copy if the SparseGCPResource.
-func (o *SparseGCPResource) DeepCopy() *SparseGCPResource {
+// DeepCopy returns a deep copy if the SparseGCPAsset.
+func (o *SparseGCPAsset) DeepCopy() *SparseGCPAsset {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseGCPResource{}
+	out := &SparseGCPAsset{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseGCPResource.
-func (o *SparseGCPResource) DeepCopyInto(out *SparseGCPResource) {
+// DeepCopyInto copies the receiver into the given *SparseGCPAsset.
+func (o *SparseGCPAsset) DeepCopyInto(out *SparseGCPAsset) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseGCPResource: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseGCPAsset: %s", err))
 	}
 
-	*out = *target.(*SparseGCPResource)
+	*out = *target.(*SparseGCPAsset)
 }
 
-type mongoAttributesGCPResource struct {
-	ID             bson.ObjectId        `bson:"_id,omitempty"`
-	CreateTime     time.Time            `bson:"createtime"`
-	Data           []byte               `bson:"data"`
-	DenormedFields []string             `bson:"denormedfields"`
-	Kind           GCPResourceKindValue `bson:"kind"`
-	MigrationsLog  map[string]string    `bson:"migrationslog,omitempty"`
-	Name           string               `bson:"name"`
-	Namespace      string               `bson:"namespace"`
-	NumericID      string               `bson:"numericid"`
-	PrismaRRN      string               `bson:"prismarrn,omitempty"`
-	PrismaRegion   string               `bson:"prismaregion"`
-	ProjectID      string               `bson:"projectid,omitempty"`
-	Selflink       string               `bson:"selflink"`
-	Tags           map[string]string    `bson:"tags"`
-	UpdateTime     time.Time            `bson:"updatetime"`
-	ZHash          int                  `bson:"zhash"`
-	Zone           int                  `bson:"zone"`
+type mongoAttributesGCPAsset struct {
+	ID             bson.ObjectId     `bson:"_id,omitempty"`
+	CreateTime     time.Time         `bson:"createtime"`
+	Data           []byte            `bson:"data"`
+	DenormedFields []string          `bson:"denormedfields"`
+	Kind           GCPAssetKindValue `bson:"kind"`
+	MigrationsLog  map[string]string `bson:"migrationslog,omitempty"`
+	Name           string            `bson:"name"`
+	Namespace      string            `bson:"namespace"`
+	NumericID      string            `bson:"numericid"`
+	PrismaRRN      string            `bson:"prismarrn,omitempty"`
+	PrismaRegion   string            `bson:"prismaregion"`
+	ProjectID      string            `bson:"projectid,omitempty"`
+	Selflink       string            `bson:"selflink"`
+	Tags           map[string]string `bson:"tags"`
+	UpdateTime     time.Time         `bson:"updatetime"`
+	ZHash          int               `bson:"zhash"`
+	Zone           int               `bson:"zone"`
 }
-type mongoAttributesSparseGCPResource struct {
-	ID             bson.ObjectId         `bson:"_id,omitempty"`
-	CreateTime     *time.Time            `bson:"createtime,omitempty"`
-	Data           *[]byte               `bson:"data,omitempty"`
-	DenormedFields *[]string             `bson:"denormedfields,omitempty"`
-	Kind           *GCPResourceKindValue `bson:"kind,omitempty"`
-	MigrationsLog  *map[string]string    `bson:"migrationslog,omitempty"`
-	Name           *string               `bson:"name,omitempty"`
-	Namespace      *string               `bson:"namespace,omitempty"`
-	NumericID      *string               `bson:"numericid,omitempty"`
-	PrismaRRN      *string               `bson:"prismarrn,omitempty"`
-	PrismaRegion   *string               `bson:"prismaregion,omitempty"`
-	ProjectID      *string               `bson:"projectid,omitempty"`
-	Selflink       *string               `bson:"selflink,omitempty"`
-	Tags           *map[string]string    `bson:"tags,omitempty"`
-	UpdateTime     *time.Time            `bson:"updatetime,omitempty"`
-	ZHash          *int                  `bson:"zhash,omitempty"`
-	Zone           *int                  `bson:"zone,omitempty"`
+type mongoAttributesSparseGCPAsset struct {
+	ID             bson.ObjectId      `bson:"_id,omitempty"`
+	CreateTime     *time.Time         `bson:"createtime,omitempty"`
+	Data           *[]byte            `bson:"data,omitempty"`
+	DenormedFields *[]string          `bson:"denormedfields,omitempty"`
+	Kind           *GCPAssetKindValue `bson:"kind,omitempty"`
+	MigrationsLog  *map[string]string `bson:"migrationslog,omitempty"`
+	Name           *string            `bson:"name,omitempty"`
+	Namespace      *string            `bson:"namespace,omitempty"`
+	NumericID      *string            `bson:"numericid,omitempty"`
+	PrismaRRN      *string            `bson:"prismarrn,omitempty"`
+	PrismaRegion   *string            `bson:"prismaregion,omitempty"`
+	ProjectID      *string            `bson:"projectid,omitempty"`
+	Selflink       *string            `bson:"selflink,omitempty"`
+	Tags           *map[string]string `bson:"tags,omitempty"`
+	UpdateTime     *time.Time         `bson:"updatetime,omitempty"`
+	ZHash          *int               `bson:"zhash,omitempty"`
+	Zone           *int               `bson:"zone,omitempty"`
 }
