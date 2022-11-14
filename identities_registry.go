@@ -150,6 +150,7 @@ var (
 		"pccprovider":            PCCProviderIdentity,
 		"pcsearchresult":         PCSearchResultIdentity,
 		"pctimerange":            PCTimeRangeIdentity,
+		"pctokenverifier":        PCTokenVerifierIdentity,
 
 		"pingprobe":   PingProbeIdentity,
 		"pingrequest": PingRequestIdentity,
@@ -367,6 +368,7 @@ var (
 		"pccproviders":           PCCProviderIdentity,
 		"pcsearchresults":        PCSearchResultIdentity,
 		"pctimeranges":           PCTimeRangeIdentity,
+		"pctokenverifiers":       PCTokenVerifierIdentity,
 
 		"pingprobes":   PingProbeIdentity,
 		"pingrequests": PingRequestIdentity,
@@ -1233,8 +1235,9 @@ var (
 			{"namespace", "normalizedTags"},
 			{"updateIdempotencyKey"},
 		},
-		"pcsearchresult": nil,
-		"pctimerange":    nil,
+		"pcsearchresult":  nil,
+		"pctimerange":     nil,
+		"pctokenverifier": nil,
 		"pingprobe": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
@@ -1727,6 +1730,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewPCSearchResult()
 	case PCTimeRangeIdentity:
 		return NewPCTimeRange()
+	case PCTokenVerifierIdentity:
+		return NewPCTokenVerifier()
 	case PingProbeIdentity:
 		return NewPingProbe()
 	case PingRequestIdentity:
@@ -2104,6 +2109,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparsePCSearchResult()
 	case PCTimeRangeIdentity:
 		return NewSparsePCTimeRange()
+	case PCTokenVerifierIdentity:
+		return NewSparsePCTokenVerifier()
 	case PingProbeIdentity:
 		return NewSparsePingProbe()
 	case PingRequestIdentity:
@@ -2489,6 +2496,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &PCSearchResultsList{}
 	case PCTimeRangeIdentity:
 		return &PCTimeRangesList{}
+	case PCTokenVerifierIdentity:
+		return &PCTokenVerifiersList{}
 	case PingProbeIdentity:
 		return &PingProbesList{}
 	case PingRequestIdentity:
@@ -2864,6 +2873,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparsePCSearchResultsList{}
 	case PCTimeRangeIdentity:
 		return &SparsePCTimeRangesList{}
+	case PCTokenVerifierIdentity:
+		return &SparsePCTokenVerifiersList{}
 	case PingProbeIdentity:
 		return &SparsePingProbesList{}
 	case PingRequestIdentity:
@@ -3137,6 +3148,7 @@ func AllIdentities() []elemental.Identity {
 		PCCProviderIdentity,
 		PCSearchResultIdentity,
 		PCTimeRangeIdentity,
+		PCTokenVerifierIdentity,
 		PingProbeIdentity,
 		PingRequestIdentity,
 		PingResultIdentity,
@@ -3568,6 +3580,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case PCSearchResultIdentity:
 		return []string{}
 	case PCTimeRangeIdentity:
+		return []string{}
+	case PCTokenVerifierIdentity:
 		return []string{}
 	case PingProbeIdentity:
 		return []string{}
