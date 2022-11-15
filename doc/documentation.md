@@ -14810,7 +14810,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.
 
 ##### `kind`
 
-Type: `enum(ComputeInstance | ComputeSubnetwork | ComputeNetwork | ComputeFirewall | ComputeFirewallPolicy | ResourceFolder | ResourceProject | Pending)`
+Type: `enum(ComputeInstance | ComputeSubnetwork | ComputeNetwork | ComputeFirewall | ComputeFirewallPolicy | ComputeForwardingRule | ResourceFolder | ResourceProject | Pending)`
 
 The specific kind of the resource.
 
