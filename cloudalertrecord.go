@@ -40,6 +40,17 @@ const (
 	CloudAlertRecordResourceTypeVPC CloudAlertRecordResourceTypeValue = "VPC"
 )
 
+// CloudAlertRecordVerdictValue represents the possible values for attribute "verdict".
+type CloudAlertRecordVerdictValue string
+
+const (
+	// CloudAlertRecordVerdictFAIL represents the value FAIL.
+	CloudAlertRecordVerdictFAIL CloudAlertRecordVerdictValue = "FAIL"
+
+	// CloudAlertRecordVerdictPASS represents the value PASS.
+	CloudAlertRecordVerdictPASS CloudAlertRecordVerdictValue = "PASS"
+)
+
 // CloudAlertRecordIdentity represents the Identity of the object.
 var CloudAlertRecordIdentity = elemental.Identity{
 	Name:     "cloudalertrecord",
@@ -155,8 +166,17 @@ type CloudAlertRecord struct {
 	// Prisma Cloud Alert Rule which generated the Alert Record.
 	PrismaCloudAlertRuleID string `json:"prismaCloudAlertRuleID" msgpack:"prismaCloudAlertRuleID" bson:"prismacloudalertruleid" mapstructure:"prismaCloudAlertRuleID,omitempty"`
 
+	// Indicates if the alert matches an alert rule.
+	PrismaCloudAlertRuleMatched bool `json:"prismaCloudAlertRuleMatched" msgpack:"prismaCloudAlertRuleMatched" bson:"prismacloudalertrulematched" mapstructure:"prismaCloudAlertRuleMatched,omitempty"`
+
+	// Result of the last changed time to the prisma cloud alert rule.
+	PrismaCloudAlertRuleScopeLastChangedOn int `json:"prismaCloudAlertRuleScopeLastChangedOn" msgpack:"prismaCloudAlertRuleScopeLastChangedOn" bson:"prismacloudalertrulescopelastchangedon" mapstructure:"prismaCloudAlertRuleScopeLastChangedOn,omitempty"`
+
 	// Policy ID which generated the Alert Record.
 	PrismaCloudPolicyID string `json:"prismaCloudPolicyID" msgpack:"prismaCloudPolicyID" bson:"prismacloudpolicyid" mapstructure:"prismaCloudPolicyID,omitempty"`
+
+	// Result of the last modified time of the prisma cloud policy.
+	PrismaCloudPolicyLastModifiedOn int `json:"prismaCloudPolicyLastModifiedOn" msgpack:"prismaCloudPolicyLastModifiedOn" bson:"prismacloudpolicylastmodifiedon" mapstructure:"prismaCloudPolicyLastModifiedOn,omitempty"`
 
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
@@ -183,6 +203,9 @@ type CloudAlertRecord struct {
 	// Last update date of the object.
 	UpdateTime time.Time `json:"updateTime" msgpack:"updateTime" bson:"updatetime" mapstructure:"updateTime,omitempty"`
 
+	// Policy verdict of the resource.
+	Verdict CloudAlertRecordVerdictValue `json:"verdict" msgpack:"verdict" bson:"verdict" mapstructure:"verdict,omitempty"`
+
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
 	ZHash int `json:"-" msgpack:"-" bson:"zhash" mapstructure:"-,omitempty"`
@@ -197,12 +220,16 @@ type CloudAlertRecord struct {
 func NewCloudAlertRecord() *CloudAlertRecord {
 
 	return &CloudAlertRecord{
-		ModelVersion:   1,
-		Annotations:    map[string][]string{},
-		AssociatedTags: []string{},
-		CloudType:      CloudAlertRecordCloudTypeAWS,
-		NormalizedTags: []string{},
-		Published:      false,
+		ModelVersion:                           1,
+		Annotations:                            map[string][]string{},
+		AssociatedTags:                         []string{},
+		CloudType:                              CloudAlertRecordCloudTypeAWS,
+		NormalizedTags:                         []string{},
+		PrismaCloudAlertRuleMatched:            false,
+		PrismaCloudAlertRuleScopeLastChangedOn: 0,
+		PrismaCloudPolicyLastModifiedOn:        0,
+		Published:                              false,
+		Verdict:                                CloudAlertRecordVerdictFAIL,
 	}
 }
 
@@ -249,7 +276,10 @@ func (o *CloudAlertRecord) GetBSON() (interface{}, error) {
 	s.Namespace = o.Namespace
 	s.NormalizedTags = o.NormalizedTags
 	s.PrismaCloudAlertRuleID = o.PrismaCloudAlertRuleID
+	s.PrismaCloudAlertRuleMatched = o.PrismaCloudAlertRuleMatched
+	s.PrismaCloudAlertRuleScopeLastChangedOn = o.PrismaCloudAlertRuleScopeLastChangedOn
 	s.PrismaCloudPolicyID = o.PrismaCloudPolicyID
+	s.PrismaCloudPolicyLastModifiedOn = o.PrismaCloudPolicyLastModifiedOn
 	s.Protected = o.Protected
 	s.Published = o.Published
 	s.Region = o.Region
@@ -258,6 +288,7 @@ func (o *CloudAlertRecord) GetBSON() (interface{}, error) {
 	s.ResourceType = o.ResourceType
 	s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
 	s.UpdateTime = o.UpdateTime
+	s.Verdict = o.Verdict
 	s.ZHash = o.ZHash
 	s.Zone = o.Zone
 
@@ -290,7 +321,10 @@ func (o *CloudAlertRecord) SetBSON(raw bson.Raw) error {
 	o.Namespace = s.Namespace
 	o.NormalizedTags = s.NormalizedTags
 	o.PrismaCloudAlertRuleID = s.PrismaCloudAlertRuleID
+	o.PrismaCloudAlertRuleMatched = s.PrismaCloudAlertRuleMatched
+	o.PrismaCloudAlertRuleScopeLastChangedOn = s.PrismaCloudAlertRuleScopeLastChangedOn
 	o.PrismaCloudPolicyID = s.PrismaCloudPolicyID
+	o.PrismaCloudPolicyLastModifiedOn = s.PrismaCloudPolicyLastModifiedOn
 	o.Protected = s.Protected
 	o.Published = s.Published
 	o.Region = s.Region
@@ -299,6 +333,7 @@ func (o *CloudAlertRecord) SetBSON(raw bson.Raw) error {
 	o.ResourceType = s.ResourceType
 	o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
 	o.UpdateTime = s.UpdateTime
+	o.Verdict = s.Verdict
 	o.ZHash = s.ZHash
 	o.Zone = s.Zone
 
@@ -488,30 +523,34 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseCloudAlertRecord{
-			ID:                     &o.ID,
-			AccountID:              &o.AccountID,
-			Annotations:            &o.Annotations,
-			AssociatedTags:         &o.AssociatedTags,
-			CloudType:              &o.CloudType,
-			CreateIdempotencyKey:   &o.CreateIdempotencyKey,
-			CreateTime:             &o.CreateTime,
-			LastExecutionTimestamp: &o.LastExecutionTimestamp,
-			MetadataHash:           &o.MetadataHash,
-			Name:                   &o.Name,
-			Namespace:              &o.Namespace,
-			NormalizedTags:         &o.NormalizedTags,
-			PrismaCloudAlertRuleID: &o.PrismaCloudAlertRuleID,
-			PrismaCloudPolicyID:    &o.PrismaCloudPolicyID,
-			Protected:              &o.Protected,
-			Published:              &o.Published,
-			Region:                 &o.Region,
-			ResourceCount:          &o.ResourceCount,
-			ResourceID:             &o.ResourceID,
-			ResourceType:           &o.ResourceType,
-			UpdateIdempotencyKey:   &o.UpdateIdempotencyKey,
-			UpdateTime:             &o.UpdateTime,
-			ZHash:                  &o.ZHash,
-			Zone:                   &o.Zone,
+			ID:                                     &o.ID,
+			AccountID:                              &o.AccountID,
+			Annotations:                            &o.Annotations,
+			AssociatedTags:                         &o.AssociatedTags,
+			CloudType:                              &o.CloudType,
+			CreateIdempotencyKey:                   &o.CreateIdempotencyKey,
+			CreateTime:                             &o.CreateTime,
+			LastExecutionTimestamp:                 &o.LastExecutionTimestamp,
+			MetadataHash:                           &o.MetadataHash,
+			Name:                                   &o.Name,
+			Namespace:                              &o.Namespace,
+			NormalizedTags:                         &o.NormalizedTags,
+			PrismaCloudAlertRuleID:                 &o.PrismaCloudAlertRuleID,
+			PrismaCloudAlertRuleMatched:            &o.PrismaCloudAlertRuleMatched,
+			PrismaCloudAlertRuleScopeLastChangedOn: &o.PrismaCloudAlertRuleScopeLastChangedOn,
+			PrismaCloudPolicyID:                    &o.PrismaCloudPolicyID,
+			PrismaCloudPolicyLastModifiedOn:        &o.PrismaCloudPolicyLastModifiedOn,
+			Protected:                              &o.Protected,
+			Published:                              &o.Published,
+			Region:                                 &o.Region,
+			ResourceCount:                          &o.ResourceCount,
+			ResourceID:                             &o.ResourceID,
+			ResourceType:                           &o.ResourceType,
+			UpdateIdempotencyKey:                   &o.UpdateIdempotencyKey,
+			UpdateTime:                             &o.UpdateTime,
+			Verdict:                                &o.Verdict,
+			ZHash:                                  &o.ZHash,
+			Zone:                                   &o.Zone,
 		}
 	}
 
@@ -544,8 +583,14 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.NormalizedTags = &(o.NormalizedTags)
 		case "prismaCloudAlertRuleID":
 			sp.PrismaCloudAlertRuleID = &(o.PrismaCloudAlertRuleID)
+		case "prismaCloudAlertRuleMatched":
+			sp.PrismaCloudAlertRuleMatched = &(o.PrismaCloudAlertRuleMatched)
+		case "prismaCloudAlertRuleScopeLastChangedOn":
+			sp.PrismaCloudAlertRuleScopeLastChangedOn = &(o.PrismaCloudAlertRuleScopeLastChangedOn)
 		case "prismaCloudPolicyID":
 			sp.PrismaCloudPolicyID = &(o.PrismaCloudPolicyID)
+		case "prismaCloudPolicyLastModifiedOn":
+			sp.PrismaCloudPolicyLastModifiedOn = &(o.PrismaCloudPolicyLastModifiedOn)
 		case "protected":
 			sp.Protected = &(o.Protected)
 		case "published":
@@ -562,6 +607,8 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.UpdateIdempotencyKey = &(o.UpdateIdempotencyKey)
 		case "updateTime":
 			sp.UpdateTime = &(o.UpdateTime)
+		case "verdict":
+			sp.Verdict = &(o.Verdict)
 		case "zHash":
 			sp.ZHash = &(o.ZHash)
 		case "zone":
@@ -618,8 +665,17 @@ func (o *CloudAlertRecord) Patch(sparse elemental.SparseIdentifiable) {
 	if so.PrismaCloudAlertRuleID != nil {
 		o.PrismaCloudAlertRuleID = *so.PrismaCloudAlertRuleID
 	}
+	if so.PrismaCloudAlertRuleMatched != nil {
+		o.PrismaCloudAlertRuleMatched = *so.PrismaCloudAlertRuleMatched
+	}
+	if so.PrismaCloudAlertRuleScopeLastChangedOn != nil {
+		o.PrismaCloudAlertRuleScopeLastChangedOn = *so.PrismaCloudAlertRuleScopeLastChangedOn
+	}
 	if so.PrismaCloudPolicyID != nil {
 		o.PrismaCloudPolicyID = *so.PrismaCloudPolicyID
+	}
+	if so.PrismaCloudPolicyLastModifiedOn != nil {
+		o.PrismaCloudPolicyLastModifiedOn = *so.PrismaCloudPolicyLastModifiedOn
 	}
 	if so.Protected != nil {
 		o.Protected = *so.Protected
@@ -644,6 +700,9 @@ func (o *CloudAlertRecord) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.UpdateTime != nil {
 		o.UpdateTime = *so.UpdateTime
+	}
+	if so.Verdict != nil {
+		o.Verdict = *so.Verdict
 	}
 	if so.ZHash != nil {
 		o.ZHash = *so.ZHash
@@ -700,6 +759,10 @@ func (o *CloudAlertRecord) Validate() error {
 	}
 
 	if err := elemental.ValidateStringInList("resourceType", string(o.ResourceType), []string{"Interface", "Instance", "VPC", "Subnet"}, true); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := elemental.ValidateStringInList("verdict", string(o.Verdict), []string{"PASS", "FAIL"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -763,8 +826,14 @@ func (o *CloudAlertRecord) ValueForAttribute(name string) interface{} {
 		return o.NormalizedTags
 	case "prismaCloudAlertRuleID":
 		return o.PrismaCloudAlertRuleID
+	case "prismaCloudAlertRuleMatched":
+		return o.PrismaCloudAlertRuleMatched
+	case "prismaCloudAlertRuleScopeLastChangedOn":
+		return o.PrismaCloudAlertRuleScopeLastChangedOn
 	case "prismaCloudPolicyID":
 		return o.PrismaCloudPolicyID
+	case "prismaCloudPolicyLastModifiedOn":
+		return o.PrismaCloudPolicyLastModifiedOn
 	case "protected":
 		return o.Protected
 	case "published":
@@ -781,6 +850,8 @@ func (o *CloudAlertRecord) ValueForAttribute(name string) interface{} {
 		return o.UpdateIdempotencyKey
 	case "updateTime":
 		return o.UpdateTime
+	case "verdict":
+		return o.Verdict
 	case "zHash":
 		return o.ZHash
 	case "zone":
@@ -966,6 +1037,26 @@ resource.`,
 		SubType:        "string",
 		Type:           "string",
 	},
+	"PrismaCloudAlertRuleMatched": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismacloudalertrulematched",
+		ConvertedName:  "PrismaCloudAlertRuleMatched",
+		Description:    `Indicates if the alert matches an alert rule.`,
+		Exposed:        true,
+		Name:           "prismaCloudAlertRuleMatched",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"PrismaCloudAlertRuleScopeLastChangedOn": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismacloudalertrulescopelastchangedon",
+		ConvertedName:  "PrismaCloudAlertRuleScopeLastChangedOn",
+		Description:    `Result of the last changed time to the prisma cloud alert rule.`,
+		Exposed:        true,
+		Name:           "prismaCloudAlertRuleScopeLastChangedOn",
+		Stored:         true,
+		Type:           "integer",
+	},
 	"PrismaCloudPolicyID": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "prismacloudpolicyid",
@@ -976,6 +1067,16 @@ resource.`,
 		Stored:         true,
 		SubType:        "string",
 		Type:           "string",
+	},
+	"PrismaCloudPolicyLastModifiedOn": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismacloudpolicylastmodifiedon",
+		ConvertedName:  "PrismaCloudPolicyLastModifiedOn",
+		Description:    `Result of the last modified time of the prisma cloud policy.`,
+		Exposed:        true,
+		Name:           "prismaCloudPolicyLastModifiedOn",
+		Stored:         true,
+		Type:           "integer",
 	},
 	"Protected": {
 		AllowedChoices: []string{},
@@ -1073,6 +1174,18 @@ raised.`,
 		Setter:         true,
 		Stored:         true,
 		Type:           "time",
+	},
+	"Verdict": {
+		AllowedChoices: []string{"PASS", "FAIL"},
+		BSONFieldName:  "verdict",
+		ConvertedName:  "Verdict",
+		DefaultValue:   CloudAlertRecordVerdictFAIL,
+		Description:    `Policy verdict of the resource.`,
+		Exposed:        true,
+		Name:           "verdict",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "enum",
 	},
 	"ZHash": {
 		AllowedChoices: []string{},
@@ -1280,6 +1393,26 @@ resource.`,
 		SubType:        "string",
 		Type:           "string",
 	},
+	"prismacloudalertrulematched": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismacloudalertrulematched",
+		ConvertedName:  "PrismaCloudAlertRuleMatched",
+		Description:    `Indicates if the alert matches an alert rule.`,
+		Exposed:        true,
+		Name:           "prismaCloudAlertRuleMatched",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"prismacloudalertrulescopelastchangedon": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismacloudalertrulescopelastchangedon",
+		ConvertedName:  "PrismaCloudAlertRuleScopeLastChangedOn",
+		Description:    `Result of the last changed time to the prisma cloud alert rule.`,
+		Exposed:        true,
+		Name:           "prismaCloudAlertRuleScopeLastChangedOn",
+		Stored:         true,
+		Type:           "integer",
+	},
 	"prismacloudpolicyid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "prismacloudpolicyid",
@@ -1290,6 +1423,16 @@ resource.`,
 		Stored:         true,
 		SubType:        "string",
 		Type:           "string",
+	},
+	"prismacloudpolicylastmodifiedon": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismacloudpolicylastmodifiedon",
+		ConvertedName:  "PrismaCloudPolicyLastModifiedOn",
+		Description:    `Result of the last modified time of the prisma cloud policy.`,
+		Exposed:        true,
+		Name:           "prismaCloudPolicyLastModifiedOn",
+		Stored:         true,
+		Type:           "integer",
 	},
 	"protected": {
 		AllowedChoices: []string{},
@@ -1387,6 +1530,18 @@ raised.`,
 		Setter:         true,
 		Stored:         true,
 		Type:           "time",
+	},
+	"verdict": {
+		AllowedChoices: []string{"PASS", "FAIL"},
+		BSONFieldName:  "verdict",
+		ConvertedName:  "Verdict",
+		DefaultValue:   CloudAlertRecordVerdictFAIL,
+		Description:    `Policy verdict of the resource.`,
+		Exposed:        true,
+		Name:           "verdict",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "enum",
 	},
 	"zhash": {
 		AllowedChoices: []string{},
@@ -1524,8 +1679,17 @@ type SparseCloudAlertRecord struct {
 	// Prisma Cloud Alert Rule which generated the Alert Record.
 	PrismaCloudAlertRuleID *string `json:"prismaCloudAlertRuleID,omitempty" msgpack:"prismaCloudAlertRuleID,omitempty" bson:"prismacloudalertruleid,omitempty" mapstructure:"prismaCloudAlertRuleID,omitempty"`
 
+	// Indicates if the alert matches an alert rule.
+	PrismaCloudAlertRuleMatched *bool `json:"prismaCloudAlertRuleMatched,omitempty" msgpack:"prismaCloudAlertRuleMatched,omitempty" bson:"prismacloudalertrulematched,omitempty" mapstructure:"prismaCloudAlertRuleMatched,omitempty"`
+
+	// Result of the last changed time to the prisma cloud alert rule.
+	PrismaCloudAlertRuleScopeLastChangedOn *int `json:"prismaCloudAlertRuleScopeLastChangedOn,omitempty" msgpack:"prismaCloudAlertRuleScopeLastChangedOn,omitempty" bson:"prismacloudalertrulescopelastchangedon,omitempty" mapstructure:"prismaCloudAlertRuleScopeLastChangedOn,omitempty"`
+
 	// Policy ID which generated the Alert Record.
 	PrismaCloudPolicyID *string `json:"prismaCloudPolicyID,omitempty" msgpack:"prismaCloudPolicyID,omitempty" bson:"prismacloudpolicyid,omitempty" mapstructure:"prismaCloudPolicyID,omitempty"`
+
+	// Result of the last modified time of the prisma cloud policy.
+	PrismaCloudPolicyLastModifiedOn *int `json:"prismaCloudPolicyLastModifiedOn,omitempty" msgpack:"prismaCloudPolicyLastModifiedOn,omitempty" bson:"prismacloudpolicylastmodifiedon,omitempty" mapstructure:"prismaCloudPolicyLastModifiedOn,omitempty"`
 
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
@@ -1551,6 +1715,9 @@ type SparseCloudAlertRecord struct {
 
 	// Last update date of the object.
 	UpdateTime *time.Time `json:"updateTime,omitempty" msgpack:"updateTime,omitempty" bson:"updatetime,omitempty" mapstructure:"updateTime,omitempty"`
+
+	// Policy verdict of the resource.
+	Verdict *CloudAlertRecordVerdictValue `json:"verdict,omitempty" msgpack:"verdict,omitempty" bson:"verdict,omitempty" mapstructure:"verdict,omitempty"`
 
 	// geographical hash of the data. This is used for sharding and
 	// georedundancy.
@@ -1641,8 +1808,17 @@ func (o *SparseCloudAlertRecord) GetBSON() (interface{}, error) {
 	if o.PrismaCloudAlertRuleID != nil {
 		s.PrismaCloudAlertRuleID = o.PrismaCloudAlertRuleID
 	}
+	if o.PrismaCloudAlertRuleMatched != nil {
+		s.PrismaCloudAlertRuleMatched = o.PrismaCloudAlertRuleMatched
+	}
+	if o.PrismaCloudAlertRuleScopeLastChangedOn != nil {
+		s.PrismaCloudAlertRuleScopeLastChangedOn = o.PrismaCloudAlertRuleScopeLastChangedOn
+	}
 	if o.PrismaCloudPolicyID != nil {
 		s.PrismaCloudPolicyID = o.PrismaCloudPolicyID
+	}
+	if o.PrismaCloudPolicyLastModifiedOn != nil {
+		s.PrismaCloudPolicyLastModifiedOn = o.PrismaCloudPolicyLastModifiedOn
 	}
 	if o.Protected != nil {
 		s.Protected = o.Protected
@@ -1667,6 +1843,9 @@ func (o *SparseCloudAlertRecord) GetBSON() (interface{}, error) {
 	}
 	if o.UpdateTime != nil {
 		s.UpdateTime = o.UpdateTime
+	}
+	if o.Verdict != nil {
+		s.Verdict = o.Verdict
 	}
 	if o.ZHash != nil {
 		s.ZHash = o.ZHash
@@ -1729,8 +1908,17 @@ func (o *SparseCloudAlertRecord) SetBSON(raw bson.Raw) error {
 	if s.PrismaCloudAlertRuleID != nil {
 		o.PrismaCloudAlertRuleID = s.PrismaCloudAlertRuleID
 	}
+	if s.PrismaCloudAlertRuleMatched != nil {
+		o.PrismaCloudAlertRuleMatched = s.PrismaCloudAlertRuleMatched
+	}
+	if s.PrismaCloudAlertRuleScopeLastChangedOn != nil {
+		o.PrismaCloudAlertRuleScopeLastChangedOn = s.PrismaCloudAlertRuleScopeLastChangedOn
+	}
 	if s.PrismaCloudPolicyID != nil {
 		o.PrismaCloudPolicyID = s.PrismaCloudPolicyID
+	}
+	if s.PrismaCloudPolicyLastModifiedOn != nil {
+		o.PrismaCloudPolicyLastModifiedOn = s.PrismaCloudPolicyLastModifiedOn
 	}
 	if s.Protected != nil {
 		o.Protected = s.Protected
@@ -1755,6 +1943,9 @@ func (o *SparseCloudAlertRecord) SetBSON(raw bson.Raw) error {
 	}
 	if s.UpdateTime != nil {
 		o.UpdateTime = s.UpdateTime
+	}
+	if s.Verdict != nil {
+		o.Verdict = s.Verdict
 	}
 	if s.ZHash != nil {
 		o.ZHash = s.ZHash
@@ -1815,8 +2006,17 @@ func (o *SparseCloudAlertRecord) ToPlain() elemental.PlainIdentifiable {
 	if o.PrismaCloudAlertRuleID != nil {
 		out.PrismaCloudAlertRuleID = *o.PrismaCloudAlertRuleID
 	}
+	if o.PrismaCloudAlertRuleMatched != nil {
+		out.PrismaCloudAlertRuleMatched = *o.PrismaCloudAlertRuleMatched
+	}
+	if o.PrismaCloudAlertRuleScopeLastChangedOn != nil {
+		out.PrismaCloudAlertRuleScopeLastChangedOn = *o.PrismaCloudAlertRuleScopeLastChangedOn
+	}
 	if o.PrismaCloudPolicyID != nil {
 		out.PrismaCloudPolicyID = *o.PrismaCloudPolicyID
+	}
+	if o.PrismaCloudPolicyLastModifiedOn != nil {
+		out.PrismaCloudPolicyLastModifiedOn = *o.PrismaCloudPolicyLastModifiedOn
 	}
 	if o.Protected != nil {
 		out.Protected = *o.Protected
@@ -1841,6 +2041,9 @@ func (o *SparseCloudAlertRecord) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.UpdateTime != nil {
 		out.UpdateTime = *o.UpdateTime
+	}
+	if o.Verdict != nil {
+		out.Verdict = *o.Verdict
 	}
 	if o.ZHash != nil {
 		out.ZHash = *o.ZHash
@@ -2069,54 +2272,62 @@ func (o *SparseCloudAlertRecord) DeepCopyInto(out *SparseCloudAlertRecord) {
 }
 
 type mongoAttributesCloudAlertRecord struct {
-	ID                     bson.ObjectId                     `bson:"_id,omitempty"`
-	AccountID              string                            `bson:"accountid"`
-	Annotations            map[string][]string               `bson:"annotations"`
-	AssociatedTags         []string                          `bson:"associatedtags"`
-	CloudType              CloudAlertRecordCloudTypeValue    `bson:"cloudtype"`
-	CreateIdempotencyKey   string                            `bson:"createidempotencykey"`
-	CreateTime             time.Time                         `bson:"createtime"`
-	LastExecutionTimestamp time.Time                         `bson:"lastexecutiontimestamp"`
-	MetadataHash           int                               `bson:"metadatahash"`
-	Name                   string                            `bson:"name"`
-	Namespace              string                            `bson:"namespace"`
-	NormalizedTags         []string                          `bson:"normalizedtags"`
-	PrismaCloudAlertRuleID string                            `bson:"prismacloudalertruleid"`
-	PrismaCloudPolicyID    string                            `bson:"prismacloudpolicyid"`
-	Protected              bool                              `bson:"protected"`
-	Published              bool                              `bson:"published"`
-	Region                 string                            `bson:"region"`
-	ResourceCount          int                               `bson:"resourcecount"`
-	ResourceID             string                            `bson:"resourceid"`
-	ResourceType           CloudAlertRecordResourceTypeValue `bson:"resourcetype"`
-	UpdateIdempotencyKey   string                            `bson:"updateidempotencykey"`
-	UpdateTime             time.Time                         `bson:"updatetime"`
-	ZHash                  int                               `bson:"zhash"`
-	Zone                   int                               `bson:"zone"`
+	ID                                     bson.ObjectId                     `bson:"_id,omitempty"`
+	AccountID                              string                            `bson:"accountid"`
+	Annotations                            map[string][]string               `bson:"annotations"`
+	AssociatedTags                         []string                          `bson:"associatedtags"`
+	CloudType                              CloudAlertRecordCloudTypeValue    `bson:"cloudtype"`
+	CreateIdempotencyKey                   string                            `bson:"createidempotencykey"`
+	CreateTime                             time.Time                         `bson:"createtime"`
+	LastExecutionTimestamp                 time.Time                         `bson:"lastexecutiontimestamp"`
+	MetadataHash                           int                               `bson:"metadatahash"`
+	Name                                   string                            `bson:"name"`
+	Namespace                              string                            `bson:"namespace"`
+	NormalizedTags                         []string                          `bson:"normalizedtags"`
+	PrismaCloudAlertRuleID                 string                            `bson:"prismacloudalertruleid"`
+	PrismaCloudAlertRuleMatched            bool                              `bson:"prismacloudalertrulematched"`
+	PrismaCloudAlertRuleScopeLastChangedOn int                               `bson:"prismacloudalertrulescopelastchangedon"`
+	PrismaCloudPolicyID                    string                            `bson:"prismacloudpolicyid"`
+	PrismaCloudPolicyLastModifiedOn        int                               `bson:"prismacloudpolicylastmodifiedon"`
+	Protected                              bool                              `bson:"protected"`
+	Published                              bool                              `bson:"published"`
+	Region                                 string                            `bson:"region"`
+	ResourceCount                          int                               `bson:"resourcecount"`
+	ResourceID                             string                            `bson:"resourceid"`
+	ResourceType                           CloudAlertRecordResourceTypeValue `bson:"resourcetype"`
+	UpdateIdempotencyKey                   string                            `bson:"updateidempotencykey"`
+	UpdateTime                             time.Time                         `bson:"updatetime"`
+	Verdict                                CloudAlertRecordVerdictValue      `bson:"verdict"`
+	ZHash                                  int                               `bson:"zhash"`
+	Zone                                   int                               `bson:"zone"`
 }
 type mongoAttributesSparseCloudAlertRecord struct {
-	ID                     bson.ObjectId                      `bson:"_id,omitempty"`
-	AccountID              *string                            `bson:"accountid,omitempty"`
-	Annotations            *map[string][]string               `bson:"annotations,omitempty"`
-	AssociatedTags         *[]string                          `bson:"associatedtags,omitempty"`
-	CloudType              *CloudAlertRecordCloudTypeValue    `bson:"cloudtype,omitempty"`
-	CreateIdempotencyKey   *string                            `bson:"createidempotencykey,omitempty"`
-	CreateTime             *time.Time                         `bson:"createtime,omitempty"`
-	LastExecutionTimestamp *time.Time                         `bson:"lastexecutiontimestamp,omitempty"`
-	MetadataHash           *int                               `bson:"metadatahash,omitempty"`
-	Name                   *string                            `bson:"name,omitempty"`
-	Namespace              *string                            `bson:"namespace,omitempty"`
-	NormalizedTags         *[]string                          `bson:"normalizedtags,omitempty"`
-	PrismaCloudAlertRuleID *string                            `bson:"prismacloudalertruleid,omitempty"`
-	PrismaCloudPolicyID    *string                            `bson:"prismacloudpolicyid,omitempty"`
-	Protected              *bool                              `bson:"protected,omitempty"`
-	Published              *bool                              `bson:"published,omitempty"`
-	Region                 *string                            `bson:"region,omitempty"`
-	ResourceCount          *int                               `bson:"resourcecount,omitempty"`
-	ResourceID             *string                            `bson:"resourceid,omitempty"`
-	ResourceType           *CloudAlertRecordResourceTypeValue `bson:"resourcetype,omitempty"`
-	UpdateIdempotencyKey   *string                            `bson:"updateidempotencykey,omitempty"`
-	UpdateTime             *time.Time                         `bson:"updatetime,omitempty"`
-	ZHash                  *int                               `bson:"zhash,omitempty"`
-	Zone                   *int                               `bson:"zone,omitempty"`
+	ID                                     bson.ObjectId                      `bson:"_id,omitempty"`
+	AccountID                              *string                            `bson:"accountid,omitempty"`
+	Annotations                            *map[string][]string               `bson:"annotations,omitempty"`
+	AssociatedTags                         *[]string                          `bson:"associatedtags,omitempty"`
+	CloudType                              *CloudAlertRecordCloudTypeValue    `bson:"cloudtype,omitempty"`
+	CreateIdempotencyKey                   *string                            `bson:"createidempotencykey,omitempty"`
+	CreateTime                             *time.Time                         `bson:"createtime,omitempty"`
+	LastExecutionTimestamp                 *time.Time                         `bson:"lastexecutiontimestamp,omitempty"`
+	MetadataHash                           *int                               `bson:"metadatahash,omitempty"`
+	Name                                   *string                            `bson:"name,omitempty"`
+	Namespace                              *string                            `bson:"namespace,omitempty"`
+	NormalizedTags                         *[]string                          `bson:"normalizedtags,omitempty"`
+	PrismaCloudAlertRuleID                 *string                            `bson:"prismacloudalertruleid,omitempty"`
+	PrismaCloudAlertRuleMatched            *bool                              `bson:"prismacloudalertrulematched,omitempty"`
+	PrismaCloudAlertRuleScopeLastChangedOn *int                               `bson:"prismacloudalertrulescopelastchangedon,omitempty"`
+	PrismaCloudPolicyID                    *string                            `bson:"prismacloudpolicyid,omitempty"`
+	PrismaCloudPolicyLastModifiedOn        *int                               `bson:"prismacloudpolicylastmodifiedon,omitempty"`
+	Protected                              *bool                              `bson:"protected,omitempty"`
+	Published                              *bool                              `bson:"published,omitempty"`
+	Region                                 *string                            `bson:"region,omitempty"`
+	ResourceCount                          *int                               `bson:"resourcecount,omitempty"`
+	ResourceID                             *string                            `bson:"resourceid,omitempty"`
+	ResourceType                           *CloudAlertRecordResourceTypeValue `bson:"resourcetype,omitempty"`
+	UpdateIdempotencyKey                   *string                            `bson:"updateidempotencykey,omitempty"`
+	UpdateTime                             *time.Time                         `bson:"updatetime,omitempty"`
+	Verdict                                *CloudAlertRecordVerdictValue      `bson:"verdict,omitempty"`
+	ZHash                                  *int                               `bson:"zhash,omitempty"`
+	Zone                                   *int                               `bson:"zone,omitempty"`
 }

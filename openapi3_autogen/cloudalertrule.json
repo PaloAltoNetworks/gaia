@@ -63,6 +63,11 @@
             "description": "Prisma Cloud Alert Rule id.",
             "type": "string"
           },
+          "prismaCloudAlertRuleScopeLastChangedOn": {
+            "default": 0,
+            "description": "Result of the last changed time to the prisma cloud alert rule.",
+            "type": "integer"
+          },
           "prismaCloudPolicyIDs": {
             "description": "List of Policy IDs associated to an Alert rule.",
             "items": {

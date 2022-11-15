@@ -44,6 +44,24 @@ attributes:
     exposed: true
     stored: true
 
+  - name: nonMatchingAlertsRaisingEnabled
+    description: |-
+      Indicates if CNA should send all alerts found from policy scans or only alert
+      rules
+      matching alerts.
+    type: boolean
+    exposed: true
+    stored: true
+
+  - name: nonMatchingCloudAccountScanEnabled
+    description: |-
+      Indicates if CNA should scan all cloud accounts under the tenant or only alert
+      rules
+      matching accounts.
+    type: boolean
+    exposed: true
+    stored: true
+
   - name: prismaID
     description: Unique Prisma ID identifying the CNS configuration.
     type: string

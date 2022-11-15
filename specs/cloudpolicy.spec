@@ -61,6 +61,13 @@ attributes:
     exposed: true
     stored: true
 
+  - name: prismaCloudPolicyLastModifiedOn
+    description: Result of the last modified time of the prisma cloud policy.
+    type: integer
+    exposed: true
+    stored: true
+    default_value: 0
+
   - name: prismaCloudQueryID
     description: |-
       The query ID that this policy refers to. This is auto-calculated since it is
