@@ -22,6 +22,9 @@ const (
 	// GCPAssetKindComputeFirewallPolicy represents the value ComputeFirewallPolicy.
 	GCPAssetKindComputeFirewallPolicy GCPAssetKindValue = "ComputeFirewallPolicy"
 
+	// GCPAssetKindComputeForwardingRule represents the value ComputeForwardingRule.
+	GCPAssetKindComputeForwardingRule GCPAssetKindValue = "ComputeForwardingRule"
+
 	// GCPAssetKindComputeInstance represents the value ComputeInstance.
 	GCPAssetKindComputeInstance GCPAssetKindValue = "ComputeInstance"
 
@@ -543,7 +546,7 @@ func (o *GCPAsset) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ResourceFolder", "ResourceProject", "Pending"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ResourceFolder", "ResourceProject", "Pending"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -680,7 +683,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Type:    "list",
 	},
 	"Kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ResourceFolder", "ResourceProject", "Pending"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ResourceFolder", "ResourceProject", "Pending"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   GCPAssetKindPending,
@@ -903,7 +906,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Type:    "list",
 	},
 	"kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ResourceFolder", "ResourceProject", "Pending"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ResourceFolder", "ResourceProject", "Pending"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   GCPAssetKindPending,

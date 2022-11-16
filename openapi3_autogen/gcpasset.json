@@ -37,6 +37,7 @@
               "ComputeNetwork",
               "ComputeFirewall",
               "ComputeFirewallPolicy",
+              "ComputeForwardingRule",
               "ResourceFolder",
               "ResourceProject",
               "Pending"
