@@ -37,6 +37,7 @@ attributes:
     - ComputeFirewall
     - ComputeFirewallPolicy
     - ComputeForwardingRule
+    - ComputeBackendService
     - ResourceFolder
     - ResourceProject
     - Pending
