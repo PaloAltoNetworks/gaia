@@ -10396,11 +10396,11 @@ Type: `[]string`
 
 Contains the list of normalized tags of the entities.
 
-##### `prismaCloudAlertRuleID`
+##### `prismaCloudAlertRuleIDs`
 
-Type: `string`
+Type: `[]string`
 
-Prisma Cloud Alert Rule which generated the Alert Record.
+Prisma Cloud Alert Rules which generated the Alert Record.
 
 ##### `prismaCloudAlertRuleMatched`
 
@@ -14008,12 +14008,6 @@ Namespace tag attached to an entity.
 Type: `boolean`
 
 If set to true, neocna will be used regardless of tenant onboarding.
-
-##### `prismaCloudAlertRuleID`
-
-Type: `string`
-
-Prisma Cloud Alert Rule ID.
 
 ##### `prismaCloudPolicyID`
 

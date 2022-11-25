@@ -886,8 +886,7 @@ var (
 			{"namespace"},
 			{"namespace", "name"},
 			{"namespace", "normalizedTags"},
-			{"namespace", "prismacloudalertruleid"},
-			{"namespace", "prismacloudalertruleid", "prismacloudpolicyid"},
+			{"namespace", "prismacloudpolicyid"},
 		},
 		"cloudservicetag": {
 			{":shard", ":unique", "zone", "zHash"},
