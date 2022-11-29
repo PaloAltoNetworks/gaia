@@ -1,0 +1,48 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudalertruletargettag": {
+        "description": "Represents an alert rule target resource tag.",
+        "properties": {
+          "key": {
+            "description": "Alert Rule target tag key.",
+            "type": "string"
+          },
+          "values": {
+            "description": "List of Alert Rule target tag values.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudalertruletargettag",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'vargid'",
+      "name": "vargid"
+    }
+  ]
+}

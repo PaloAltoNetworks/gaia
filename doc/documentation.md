@@ -10521,7 +10521,7 @@ with the Alert rule.
 
 #### Relations
 
-##### `GET /cloudalertsrule`
+##### `GET /cloudalertrules`
 
 Retrieves the list of cloud alert rules.
 
@@ -10529,15 +10529,15 @@ Parameters:
 
 - `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
 
-##### `POST /cloudalertsrule`
+##### `POST /cloudalertrules`
 
 Creates a cloud alert rule.
 
-##### `DELETE /cloudalertsrule/:id`
+##### `DELETE /cloudalertrules/:id`
 
 Deletes the Alert Rule with a given id.
 
-##### `GET /cloudalertsrule/:id`
+##### `GET /cloudalertrules/:id`
 
 Retrieves the Alert Rule with a given id.
 
@@ -10545,7 +10545,7 @@ Parameters:
 
 - `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
 
-##### `PUT /cloudalertsrule/:id`
+##### `PUT /cloudalertrules/:id`
 
 Updates the Alert Rule with a given id.
 
@@ -10647,6 +10647,12 @@ Type: `[]string`
 
 List of accounts associated to an Alert rule.
 
+##### `targetTags`
+
+Type: [`[]cloudalertruletargettag`](#cloudalertruletargettag)
+
+List of target resource tags associated to an Alert rule.
+
 ##### `tenantPrismaID`
 
 Type: `string`
@@ -10658,6 +10664,24 @@ Prisma ID of the tenant in which the Alert Rule is created.
 Type: `time`
 
 Last update date of the object.
+
+### CloudAlertRuleTargetTag
+
+Represents an alert rule target resource tag.
+
+#### Attributes
+
+##### `key`
+
+Type: `string`
+
+Alert Rule target tag key.
+
+##### `values`
+
+Type: `[]string`
+
+List of Alert Rule target tag values.
 
 ### CloudEndpoint
 

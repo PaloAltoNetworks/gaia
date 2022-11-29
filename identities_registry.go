@@ -39,7 +39,8 @@ var (
 		"cloudalert":       CloudAlertIdentity,
 		"cloudalertrecord": CloudAlertRecordIdentity,
 		"cloudalertrule":   CloudAlertRuleIdentity,
-		"cloudendpoint":    CloudEndpointIdentity,
+
+		"cloudendpoint": CloudEndpointIdentity,
 
 		"cloudgraph": CloudGraphIdentity,
 
@@ -256,8 +257,9 @@ var (
 
 		"cloudalerts":       CloudAlertIdentity,
 		"cloudalertrecords": CloudAlertRecordIdentity,
-		"cloudalertsrule":   CloudAlertRuleIdentity,
-		"cloudendpoints":    CloudEndpointIdentity,
+		"cloudalertrules":   CloudAlertRuleIdentity,
+
+		"cloudendpoints": CloudEndpointIdentity,
 
 		"cloudgraphs": CloudGraphIdentity,
 

@@ -15,7 +15,7 @@ import (
 // CloudAlertRuleIdentity represents the Identity of the object.
 var CloudAlertRuleIdentity = elemental.Identity{
 	Name:     "cloudalertrule",
-	Category: "cloudalertsrule",
+	Category: "cloudalertrules",
 	Package:  "vargid",
 	Private:  false,
 }
@@ -137,6 +137,9 @@ type CloudAlertRule struct {
 	// List of accounts associated to an Alert rule.
 	TargetAccountIDs []string `json:"targetAccountIDs" msgpack:"targetAccountIDs" bson:"targetaccountids" mapstructure:"targetAccountIDs,omitempty"`
 
+	// List of target resource tags associated to an Alert rule.
+	TargetTags []*CloudAlertRuleTargetTag `json:"targetTags" msgpack:"targetTags" bson:"targettags" mapstructure:"targetTags,omitempty"`
+
 	// Prisma ID of the tenant in which the Alert Rule is created.
 	TenantPrismaID string `json:"tenantPrismaID" msgpack:"tenantPrismaID" bson:"tenantprismaid" mapstructure:"tenantPrismaID,omitempty"`
 
@@ -169,6 +172,7 @@ func NewCloudAlertRule() *CloudAlertRule {
 		PrismaCloudPolicyIDs:                   []string{},
 		Regions:                                []string{},
 		TargetAccountIDs:                       []string{},
+		TargetTags:                             []*CloudAlertRuleTargetTag{},
 	}
 }
 
@@ -219,6 +223,7 @@ func (o *CloudAlertRule) GetBSON() (interface{}, error) {
 	s.Protected = o.Protected
 	s.Regions = o.Regions
 	s.TargetAccountIDs = o.TargetAccountIDs
+	s.TargetTags = o.TargetTags
 	s.TenantPrismaID = o.TenantPrismaID
 	s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
 	s.UpdateTime = o.UpdateTime
@@ -258,6 +263,7 @@ func (o *CloudAlertRule) SetBSON(raw bson.Raw) error {
 	o.Protected = s.Protected
 	o.Regions = s.Regions
 	o.TargetAccountIDs = s.TargetAccountIDs
+	o.TargetTags = s.TargetTags
 	o.TenantPrismaID = s.TenantPrismaID
 	o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
 	o.UpdateTime = s.UpdateTime
@@ -491,6 +497,7 @@ func (o *CloudAlertRule) ToSparse(fields ...string) elemental.SparseIdentifiable
 			Protected:                              &o.Protected,
 			Regions:                                &o.Regions,
 			TargetAccountIDs:                       &o.TargetAccountIDs,
+			TargetTags:                             &o.TargetTags,
 			TenantPrismaID:                         &o.TenantPrismaID,
 			UpdateIdempotencyKey:                   &o.UpdateIdempotencyKey,
 			UpdateTime:                             &o.UpdateTime,
@@ -536,6 +543,8 @@ func (o *CloudAlertRule) ToSparse(fields ...string) elemental.SparseIdentifiable
 			sp.Regions = &(o.Regions)
 		case "targetAccountIDs":
 			sp.TargetAccountIDs = &(o.TargetAccountIDs)
+		case "targetTags":
+			sp.TargetTags = &(o.TargetTags)
 		case "tenantPrismaID":
 			sp.TenantPrismaID = &(o.TenantPrismaID)
 		case "updateIdempotencyKey":
@@ -610,6 +619,9 @@ func (o *CloudAlertRule) Patch(sparse elemental.SparseIdentifiable) {
 	if so.TargetAccountIDs != nil {
 		o.TargetAccountIDs = *so.TargetAccountIDs
 	}
+	if so.TargetTags != nil {
+		o.TargetTags = *so.TargetTags
+	}
 	if so.TenantPrismaID != nil {
 		o.TenantPrismaID = *so.TenantPrismaID
 	}
@@ -671,6 +683,16 @@ func (o *CloudAlertRule) Validate() error {
 
 	if err := elemental.ValidateMaximumLength("name", o.Name, 256, false); err != nil {
 		errors = errors.Append(err)
+	}
+
+	for _, sub := range o.TargetTags {
+		if sub == nil {
+			continue
+		}
+		elemental.ResetDefaultForZeroValues(sub)
+		if err := sub.Validate(); err != nil {
+			errors = errors.Append(err)
+		}
 	}
 
 	if len(requiredErrors) > 0 {
@@ -741,6 +763,8 @@ func (o *CloudAlertRule) ValueForAttribute(name string) interface{} {
 		return o.Regions
 	case "targetAccountIDs":
 		return o.TargetAccountIDs
+	case "targetTags":
+		return o.TargetTags
 	case "tenantPrismaID":
 		return o.TenantPrismaID
 	case "updateIdempotencyKey":
@@ -978,6 +1002,17 @@ var CloudAlertRuleAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
+	},
+	"TargetTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "targettags",
+		ConvertedName:  "TargetTags",
+		Description:    `List of target resource tags associated to an Alert rule.`,
+		Exposed:        true,
+		Name:           "targetTags",
+		Stored:         true,
+		SubType:        "cloudalertruletargettag",
+		Type:           "refList",
 	},
 	"TenantPrismaID": {
 		AllowedChoices: []string{},
@@ -1271,6 +1306,17 @@ var CloudAlertRuleLowerCaseAttributesMap = map[string]elemental.AttributeSpecifi
 		SubType:        "string",
 		Type:           "list",
 	},
+	"targettags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "targettags",
+		ConvertedName:  "TargetTags",
+		Description:    `List of target resource tags associated to an Alert rule.`,
+		Exposed:        true,
+		Name:           "targetTags",
+		Stored:         true,
+		SubType:        "cloudalertruletargettag",
+		Type:           "refList",
+	},
 	"tenantprismaid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "tenantprismaid",
@@ -1456,6 +1502,9 @@ type SparseCloudAlertRule struct {
 	// List of accounts associated to an Alert rule.
 	TargetAccountIDs *[]string `json:"targetAccountIDs,omitempty" msgpack:"targetAccountIDs,omitempty" bson:"targetaccountids,omitempty" mapstructure:"targetAccountIDs,omitempty"`
 
+	// List of target resource tags associated to an Alert rule.
+	TargetTags *[]*CloudAlertRuleTargetTag `json:"targetTags,omitempty" msgpack:"targetTags,omitempty" bson:"targettags,omitempty" mapstructure:"targetTags,omitempty"`
+
 	// Prisma ID of the tenant in which the Alert Rule is created.
 	TenantPrismaID *string `json:"tenantPrismaID,omitempty" msgpack:"tenantPrismaID,omitempty" bson:"tenantprismaid,omitempty" mapstructure:"tenantPrismaID,omitempty"`
 
@@ -1566,6 +1615,9 @@ func (o *SparseCloudAlertRule) GetBSON() (interface{}, error) {
 	if o.TargetAccountIDs != nil {
 		s.TargetAccountIDs = o.TargetAccountIDs
 	}
+	if o.TargetTags != nil {
+		s.TargetTags = o.TargetTags
+	}
 	if o.TenantPrismaID != nil {
 		s.TenantPrismaID = o.TenantPrismaID
 	}
@@ -1648,6 +1700,9 @@ func (o *SparseCloudAlertRule) SetBSON(raw bson.Raw) error {
 	if s.TargetAccountIDs != nil {
 		o.TargetAccountIDs = s.TargetAccountIDs
 	}
+	if s.TargetTags != nil {
+		o.TargetTags = s.TargetTags
+	}
 	if s.TenantPrismaID != nil {
 		o.TenantPrismaID = s.TenantPrismaID
 	}
@@ -1727,6 +1782,9 @@ func (o *SparseCloudAlertRule) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.TargetAccountIDs != nil {
 		out.TargetAccountIDs = *o.TargetAccountIDs
+	}
+	if o.TargetTags != nil {
+		out.TargetTags = *o.TargetTags
 	}
 	if o.TenantPrismaID != nil {
 		out.TenantPrismaID = *o.TenantPrismaID
@@ -1996,50 +2054,52 @@ func (o *SparseCloudAlertRule) DeepCopyInto(out *SparseCloudAlertRule) {
 }
 
 type mongoAttributesCloudAlertRule struct {
-	ID                                     bson.ObjectId       `bson:"_id,omitempty"`
-	Annotations                            map[string][]string `bson:"annotations"`
-	AssociatedTags                         []string            `bson:"associatedtags"`
-	CreateIdempotencyKey                   string              `bson:"createidempotencykey"`
-	CreateTime                             time.Time           `bson:"createtime"`
-	Description                            string              `bson:"description"`
-	Enabled                                bool                `bson:"enabled"`
-	MigrationsLog                          map[string]string   `bson:"migrationslog,omitempty"`
-	Name                                   string              `bson:"name"`
-	Namespace                              string              `bson:"namespace"`
-	NormalizedTags                         []string            `bson:"normalizedtags"`
-	PrismaCloudAlertRuleID                 string              `bson:"prismacloudalertruleid"`
-	PrismaCloudAlertRuleScopeLastChangedOn int                 `bson:"prismacloudalertrulescopelastchangedon"`
-	PrismaCloudPolicyIDs                   []string            `bson:"prismacloudpolicyids"`
-	Protected                              bool                `bson:"protected"`
-	Regions                                []string            `bson:"regions"`
-	TargetAccountIDs                       []string            `bson:"targetaccountids"`
-	TenantPrismaID                         string              `bson:"tenantprismaid"`
-	UpdateIdempotencyKey                   string              `bson:"updateidempotencykey"`
-	UpdateTime                             time.Time           `bson:"updatetime"`
-	ZHash                                  int                 `bson:"zhash"`
-	Zone                                   int                 `bson:"zone"`
+	ID                                     bson.ObjectId              `bson:"_id,omitempty"`
+	Annotations                            map[string][]string        `bson:"annotations"`
+	AssociatedTags                         []string                   `bson:"associatedtags"`
+	CreateIdempotencyKey                   string                     `bson:"createidempotencykey"`
+	CreateTime                             time.Time                  `bson:"createtime"`
+	Description                            string                     `bson:"description"`
+	Enabled                                bool                       `bson:"enabled"`
+	MigrationsLog                          map[string]string          `bson:"migrationslog,omitempty"`
+	Name                                   string                     `bson:"name"`
+	Namespace                              string                     `bson:"namespace"`
+	NormalizedTags                         []string                   `bson:"normalizedtags"`
+	PrismaCloudAlertRuleID                 string                     `bson:"prismacloudalertruleid"`
+	PrismaCloudAlertRuleScopeLastChangedOn int                        `bson:"prismacloudalertrulescopelastchangedon"`
+	PrismaCloudPolicyIDs                   []string                   `bson:"prismacloudpolicyids"`
+	Protected                              bool                       `bson:"protected"`
+	Regions                                []string                   `bson:"regions"`
+	TargetAccountIDs                       []string                   `bson:"targetaccountids"`
+	TargetTags                             []*CloudAlertRuleTargetTag `bson:"targettags"`
+	TenantPrismaID                         string                     `bson:"tenantprismaid"`
+	UpdateIdempotencyKey                   string                     `bson:"updateidempotencykey"`
+	UpdateTime                             time.Time                  `bson:"updatetime"`
+	ZHash                                  int                        `bson:"zhash"`
+	Zone                                   int                        `bson:"zone"`
 }
 type mongoAttributesSparseCloudAlertRule struct {
-	ID                                     bson.ObjectId        `bson:"_id,omitempty"`
-	Annotations                            *map[string][]string `bson:"annotations,omitempty"`
-	AssociatedTags                         *[]string            `bson:"associatedtags,omitempty"`
-	CreateIdempotencyKey                   *string              `bson:"createidempotencykey,omitempty"`
-	CreateTime                             *time.Time           `bson:"createtime,omitempty"`
-	Description                            *string              `bson:"description,omitempty"`
-	Enabled                                *bool                `bson:"enabled,omitempty"`
-	MigrationsLog                          *map[string]string   `bson:"migrationslog,omitempty"`
-	Name                                   *string              `bson:"name,omitempty"`
-	Namespace                              *string              `bson:"namespace,omitempty"`
-	NormalizedTags                         *[]string            `bson:"normalizedtags,omitempty"`
-	PrismaCloudAlertRuleID                 *string              `bson:"prismacloudalertruleid,omitempty"`
-	PrismaCloudAlertRuleScopeLastChangedOn *int                 `bson:"prismacloudalertrulescopelastchangedon,omitempty"`
-	PrismaCloudPolicyIDs                   *[]string            `bson:"prismacloudpolicyids,omitempty"`
-	Protected                              *bool                `bson:"protected,omitempty"`
-	Regions                                *[]string            `bson:"regions,omitempty"`
-	TargetAccountIDs                       *[]string            `bson:"targetaccountids,omitempty"`
-	TenantPrismaID                         *string              `bson:"tenantprismaid,omitempty"`
-	UpdateIdempotencyKey                   *string              `bson:"updateidempotencykey,omitempty"`
-	UpdateTime                             *time.Time           `bson:"updatetime,omitempty"`
-	ZHash                                  *int                 `bson:"zhash,omitempty"`
-	Zone                                   *int                 `bson:"zone,omitempty"`
+	ID                                     bson.ObjectId               `bson:"_id,omitempty"`
+	Annotations                            *map[string][]string        `bson:"annotations,omitempty"`
+	AssociatedTags                         *[]string                   `bson:"associatedtags,omitempty"`
+	CreateIdempotencyKey                   *string                     `bson:"createidempotencykey,omitempty"`
+	CreateTime                             *time.Time                  `bson:"createtime,omitempty"`
+	Description                            *string                     `bson:"description,omitempty"`
+	Enabled                                *bool                       `bson:"enabled,omitempty"`
+	MigrationsLog                          *map[string]string          `bson:"migrationslog,omitempty"`
+	Name                                   *string                     `bson:"name,omitempty"`
+	Namespace                              *string                     `bson:"namespace,omitempty"`
+	NormalizedTags                         *[]string                   `bson:"normalizedtags,omitempty"`
+	PrismaCloudAlertRuleID                 *string                     `bson:"prismacloudalertruleid,omitempty"`
+	PrismaCloudAlertRuleScopeLastChangedOn *int                        `bson:"prismacloudalertrulescopelastchangedon,omitempty"`
+	PrismaCloudPolicyIDs                   *[]string                   `bson:"prismacloudpolicyids,omitempty"`
+	Protected                              *bool                       `bson:"protected,omitempty"`
+	Regions                                *[]string                   `bson:"regions,omitempty"`
+	TargetAccountIDs                       *[]string                   `bson:"targetaccountids,omitempty"`
+	TargetTags                             *[]*CloudAlertRuleTargetTag `bson:"targettags,omitempty"`
+	TenantPrismaID                         *string                     `bson:"tenantprismaid,omitempty"`
+	UpdateIdempotencyKey                   *string                     `bson:"updateidempotencykey,omitempty"`
+	UpdateTime                             *time.Time                  `bson:"updatetime,omitempty"`
+	ZHash                                  *int                        `bson:"zhash,omitempty"`
+	Zone                                   *int                        `bson:"zone,omitempty"`
 }

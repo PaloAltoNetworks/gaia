@@ -93,6 +93,13 @@
             },
             "type": "array"
           },
+          "targetTags": {
+            "description": "List of target resource tags associated to an Alert rule.",
+            "items": {
+              "$ref": "./cloudalertruletargettag#/components/schemas/cloudalertruletargettag"
+            },
+            "type": "array"
+          },
           "tenantPrismaID": {
             "description": "Prisma ID of the tenant in which the Alert Rule is created.",
             "type": "string"
@@ -125,10 +132,10 @@
     "version": "1.0"
   },
   "paths": {
-    "/cloudalertsrule": {
+    "/cloudalertrules": {
       "get": {
         "description": "Retrieves the list of cloud alert rules.",
-        "operationId": "get-all-cloudalertsrule",
+        "operationId": "get-all-cloudalertrules",
         "parameters": [
           {
             "description": "Filtering query. Consequent `q` parameters will form an or.",
@@ -190,7 +197,7 @@
         ]
       }
     },
-    "/cloudalertsrule/{id}": {
+    "/cloudalertrules/{id}": {
       "delete": {
         "description": "Deletes the Alert Rule with a given id.",
         "operationId": "delete-cloudalertrule-by-ID",

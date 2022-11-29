@@ -86,6 +86,7 @@ CloudAddress
 CloudAlert
 CloudAlertRecord
 CloudAlertRule
+CloudAlertRuleTargetTag
 CloudAttachment
 CloudEndpoint
 CloudEndpointData
