@@ -14762,6 +14762,7 @@ Represents a read-only GCP cloud resource such as a virtual machine.
   \"kind\": \"compute#instance\"
   ...
 }",
+  "geoScope": "Zone",
   "kind": "ComputeInstance",
   "name": "abc",
   "numericID": "0000000000000000000",
@@ -14808,9 +14809,21 @@ Contextual values that can be used to narrow searching of resources if the
 numericID or selflink are not known. For instance, it could be used to store
 a resource's location or public IP addresses to support cross-cloud analysis.
 
+##### `geoScope`
+
+Type: `enum(Zone | Region | Global | NotApplicable | Pending)`
+
+The kind of geographic availability area where the resource is located.
+
+Default value:
+
+```json
+"Pending"
+```
+
 ##### `kind`
 
-Type: `enum(ComputeInstance | ComputeSubnetwork | ComputeNetwork | ComputeFirewall | ComputeFirewallPolicy | ComputeForwardingRule | ComputeBackendService | ResourceFolder | ResourceProject | Pending)`
+Type: `enum(ComputeInstance | ComputeSubnetwork | ComputeNetwork | ComputeFirewall | ComputeFirewallPolicy | ComputeForwardingRule | ComputeBackendService | ComputeRegion | ComputeZone | ResourceFolder | ResourceProject | Pending)`
 
 The specific kind of the resource.
 

@@ -12,6 +12,26 @@ import (
 	"go.aporeto.io/elemental"
 )
 
+// GCPAssetGeoScopeValue represents the possible values for attribute "geoScope".
+type GCPAssetGeoScopeValue string
+
+const (
+	// GCPAssetGeoScopeGlobal represents the value Global.
+	GCPAssetGeoScopeGlobal GCPAssetGeoScopeValue = "Global"
+
+	// GCPAssetGeoScopeNotApplicable represents the value NotApplicable.
+	GCPAssetGeoScopeNotApplicable GCPAssetGeoScopeValue = "NotApplicable"
+
+	// GCPAssetGeoScopePending represents the value Pending.
+	GCPAssetGeoScopePending GCPAssetGeoScopeValue = "Pending"
+
+	// GCPAssetGeoScopeRegion represents the value Region.
+	GCPAssetGeoScopeRegion GCPAssetGeoScopeValue = "Region"
+
+	// GCPAssetGeoScopeZone represents the value Zone.
+	GCPAssetGeoScopeZone GCPAssetGeoScopeValue = "Zone"
+)
+
 // GCPAssetKindValue represents the possible values for attribute "kind".
 type GCPAssetKindValue string
 
@@ -34,8 +54,14 @@ const (
 	// GCPAssetKindComputeNetwork represents the value ComputeNetwork.
 	GCPAssetKindComputeNetwork GCPAssetKindValue = "ComputeNetwork"
 
+	// GCPAssetKindComputeRegion represents the value ComputeRegion.
+	GCPAssetKindComputeRegion GCPAssetKindValue = "ComputeRegion"
+
 	// GCPAssetKindComputeSubnetwork represents the value ComputeSubnetwork.
 	GCPAssetKindComputeSubnetwork GCPAssetKindValue = "ComputeSubnetwork"
+
+	// GCPAssetKindComputeZone represents the value ComputeZone.
+	GCPAssetKindComputeZone GCPAssetKindValue = "ComputeZone"
 
 	// GCPAssetKindPending represents the value Pending.
 	GCPAssetKindPending GCPAssetKindValue = "Pending"
@@ -133,6 +159,9 @@ type GCPAsset struct {
 	// a resource's location or public IP addresses to support cross-cloud analysis.
 	DenormedFields []string `json:"denormedFields" msgpack:"denormedFields" bson:"denormedfields" mapstructure:"denormedFields,omitempty"`
 
+	// The kind of geographic availability area where the resource is located.
+	GeoScope GCPAssetGeoScopeValue `json:"geoScope" msgpack:"geoScope" bson:"geoscope" mapstructure:"geoScope,omitempty"`
+
 	// The specific kind of the resource.
 	Kind GCPAssetKindValue `json:"kind" msgpack:"kind" bson:"kind" mapstructure:"kind,omitempty"`
 
@@ -187,6 +216,7 @@ func NewGCPAsset() *GCPAsset {
 		ModelVersion:   1,
 		Data:           []byte{},
 		DenormedFields: []string{},
+		GeoScope:       GCPAssetGeoScopePending,
 		Kind:           GCPAssetKindPending,
 		MigrationsLog:  map[string]string{},
 		Tags:           map[string]string{},
@@ -227,6 +257,7 @@ func (o *GCPAsset) GetBSON() (interface{}, error) {
 	s.CreateTime = o.CreateTime
 	s.Data = o.Data
 	s.DenormedFields = o.DenormedFields
+	s.GeoScope = o.GeoScope
 	s.Kind = o.Kind
 	s.MigrationsLog = o.MigrationsLog
 	s.Name = o.Name
@@ -261,6 +292,7 @@ func (o *GCPAsset) SetBSON(raw bson.Raw) error {
 	o.CreateTime = s.CreateTime
 	o.Data = s.Data
 	o.DenormedFields = s.DenormedFields
+	o.GeoScope = s.GeoScope
 	o.Kind = s.Kind
 	o.MigrationsLog = s.MigrationsLog
 	o.Name = s.Name
@@ -390,6 +422,7 @@ func (o *GCPAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			CreateTime:     &o.CreateTime,
 			Data:           &o.Data,
 			DenormedFields: &o.DenormedFields,
+			GeoScope:       &o.GeoScope,
 			Kind:           &o.Kind,
 			MigrationsLog:  &o.MigrationsLog,
 			Name:           &o.Name,
@@ -418,6 +451,8 @@ func (o *GCPAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Data = &(o.Data)
 		case "denormedFields":
 			sp.DenormedFields = &(o.DenormedFields)
+		case "geoScope":
+			sp.GeoScope = &(o.GeoScope)
 		case "kind":
 			sp.Kind = &(o.Kind)
 		case "migrationsLog":
@@ -470,6 +505,9 @@ func (o *GCPAsset) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.DenormedFields != nil {
 		o.DenormedFields = *so.DenormedFields
+	}
+	if so.GeoScope != nil {
+		o.GeoScope = *so.GeoScope
 	}
 	if so.Kind != nil {
 		o.Kind = *so.Kind
@@ -549,7 +587,11 @@ func (o *GCPAsset) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ResourceFolder", "ResourceProject", "Pending"}, false); err != nil {
+	if err := elemental.ValidateStringInList("geoScope", string(o.GeoScope), []string{"Zone", "Region", "Global", "NotApplicable", "Pending"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeRegion", "ComputeZone", "ResourceFolder", "ResourceProject", "Pending"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -595,6 +637,8 @@ func (o *GCPAsset) ValueForAttribute(name string) interface{} {
 		return o.Data
 	case "denormedFields":
 		return o.DenormedFields
+	case "geoScope":
+		return o.GeoScope
 	case "kind":
 		return o.Kind
 	case "migrationsLog":
@@ -685,8 +729,19 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		SubType: "string",
 		Type:    "list",
 	},
+	"GeoScope": {
+		AllowedChoices: []string{"Zone", "Region", "Global", "NotApplicable", "Pending"},
+		BSONFieldName:  "geoscope",
+		ConvertedName:  "GeoScope",
+		DefaultValue:   GCPAssetGeoScopePending,
+		Description:    `The kind of geographic availability area where the resource is located.`,
+		Exposed:        true,
+		Name:           "geoScope",
+		Stored:         true,
+		Type:           "enum",
+	},
 	"Kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ResourceFolder", "ResourceProject", "Pending"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeRegion", "ComputeZone", "ResourceFolder", "ResourceProject", "Pending"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   GCPAssetKindPending,
@@ -908,8 +963,19 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		SubType: "string",
 		Type:    "list",
 	},
+	"geoscope": {
+		AllowedChoices: []string{"Zone", "Region", "Global", "NotApplicable", "Pending"},
+		BSONFieldName:  "geoscope",
+		ConvertedName:  "GeoScope",
+		DefaultValue:   GCPAssetGeoScopePending,
+		Description:    `The kind of geographic availability area where the resource is located.`,
+		Exposed:        true,
+		Name:           "geoScope",
+		Stored:         true,
+		Type:           "enum",
+	},
 	"kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ResourceFolder", "ResourceProject", "Pending"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeRegion", "ComputeZone", "ResourceFolder", "ResourceProject", "Pending"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   GCPAssetKindPending,
@@ -1151,6 +1217,9 @@ type SparseGCPAsset struct {
 	// a resource's location or public IP addresses to support cross-cloud analysis.
 	DenormedFields *[]string `json:"denormedFields,omitempty" msgpack:"denormedFields,omitempty" bson:"denormedfields,omitempty" mapstructure:"denormedFields,omitempty"`
 
+	// The kind of geographic availability area where the resource is located.
+	GeoScope *GCPAssetGeoScopeValue `json:"geoScope,omitempty" msgpack:"geoScope,omitempty" bson:"geoscope,omitempty" mapstructure:"geoScope,omitempty"`
+
 	// The specific kind of the resource.
 	Kind *GCPAssetKindValue `json:"kind,omitempty" msgpack:"kind,omitempty" bson:"kind,omitempty" mapstructure:"kind,omitempty"`
 
@@ -1250,6 +1319,9 @@ func (o *SparseGCPAsset) GetBSON() (interface{}, error) {
 	if o.DenormedFields != nil {
 		s.DenormedFields = o.DenormedFields
 	}
+	if o.GeoScope != nil {
+		s.GeoScope = o.GeoScope
+	}
 	if o.Kind != nil {
 		s.Kind = o.Kind
 	}
@@ -1317,6 +1389,9 @@ func (o *SparseGCPAsset) SetBSON(raw bson.Raw) error {
 	if s.DenormedFields != nil {
 		o.DenormedFields = s.DenormedFields
 	}
+	if s.GeoScope != nil {
+		o.GeoScope = s.GeoScope
+	}
 	if s.Kind != nil {
 		o.Kind = s.Kind
 	}
@@ -1381,6 +1456,9 @@ func (o *SparseGCPAsset) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.DenormedFields != nil {
 		out.DenormedFields = *o.DenormedFields
+	}
+	if o.GeoScope != nil {
+		out.GeoScope = *o.GeoScope
 	}
 	if o.Kind != nil {
 		out.Kind = *o.Kind
@@ -1549,40 +1627,42 @@ func (o *SparseGCPAsset) DeepCopyInto(out *SparseGCPAsset) {
 }
 
 type mongoAttributesGCPAsset struct {
-	ID             bson.ObjectId     `bson:"_id,omitempty"`
-	CreateTime     time.Time         `bson:"createtime"`
-	Data           []byte            `bson:"data"`
-	DenormedFields []string          `bson:"denormedfields"`
-	Kind           GCPAssetKindValue `bson:"kind"`
-	MigrationsLog  map[string]string `bson:"migrationslog,omitempty"`
-	Name           string            `bson:"name"`
-	Namespace      string            `bson:"namespace"`
-	NumericID      string            `bson:"numericid"`
-	PrismaRRN      string            `bson:"prismarrn,omitempty"`
-	PrismaRegion   string            `bson:"prismaregion"`
-	ProjectID      string            `bson:"projectid,omitempty"`
-	Selflink       string            `bson:"selflink"`
-	Tags           map[string]string `bson:"tags"`
-	UpdateTime     time.Time         `bson:"updatetime"`
-	ZHash          int               `bson:"zhash"`
-	Zone           int               `bson:"zone"`
+	ID             bson.ObjectId         `bson:"_id,omitempty"`
+	CreateTime     time.Time             `bson:"createtime"`
+	Data           []byte                `bson:"data"`
+	DenormedFields []string              `bson:"denormedfields"`
+	GeoScope       GCPAssetGeoScopeValue `bson:"geoscope"`
+	Kind           GCPAssetKindValue     `bson:"kind"`
+	MigrationsLog  map[string]string     `bson:"migrationslog,omitempty"`
+	Name           string                `bson:"name"`
+	Namespace      string                `bson:"namespace"`
+	NumericID      string                `bson:"numericid"`
+	PrismaRRN      string                `bson:"prismarrn,omitempty"`
+	PrismaRegion   string                `bson:"prismaregion"`
+	ProjectID      string                `bson:"projectid,omitempty"`
+	Selflink       string                `bson:"selflink"`
+	Tags           map[string]string     `bson:"tags"`
+	UpdateTime     time.Time             `bson:"updatetime"`
+	ZHash          int                   `bson:"zhash"`
+	Zone           int                   `bson:"zone"`
 }
 type mongoAttributesSparseGCPAsset struct {
-	ID             bson.ObjectId      `bson:"_id,omitempty"`
-	CreateTime     *time.Time         `bson:"createtime,omitempty"`
-	Data           *[]byte            `bson:"data,omitempty"`
-	DenormedFields *[]string          `bson:"denormedfields,omitempty"`
-	Kind           *GCPAssetKindValue `bson:"kind,omitempty"`
-	MigrationsLog  *map[string]string `bson:"migrationslog,omitempty"`
-	Name           *string            `bson:"name,omitempty"`
-	Namespace      *string            `bson:"namespace,omitempty"`
-	NumericID      *string            `bson:"numericid,omitempty"`
-	PrismaRRN      *string            `bson:"prismarrn,omitempty"`
-	PrismaRegion   *string            `bson:"prismaregion,omitempty"`
-	ProjectID      *string            `bson:"projectid,omitempty"`
-	Selflink       *string            `bson:"selflink,omitempty"`
-	Tags           *map[string]string `bson:"tags,omitempty"`
-	UpdateTime     *time.Time         `bson:"updatetime,omitempty"`
-	ZHash          *int               `bson:"zhash,omitempty"`
-	Zone           *int               `bson:"zone,omitempty"`
+	ID             bson.ObjectId          `bson:"_id,omitempty"`
+	CreateTime     *time.Time             `bson:"createtime,omitempty"`
+	Data           *[]byte                `bson:"data,omitempty"`
+	DenormedFields *[]string              `bson:"denormedfields,omitempty"`
+	GeoScope       *GCPAssetGeoScopeValue `bson:"geoscope,omitempty"`
+	Kind           *GCPAssetKindValue     `bson:"kind,omitempty"`
+	MigrationsLog  *map[string]string     `bson:"migrationslog,omitempty"`
+	Name           *string                `bson:"name,omitempty"`
+	Namespace      *string                `bson:"namespace,omitempty"`
+	NumericID      *string                `bson:"numericid,omitempty"`
+	PrismaRRN      *string                `bson:"prismarrn,omitempty"`
+	PrismaRegion   *string                `bson:"prismaregion,omitempty"`
+	ProjectID      *string                `bson:"projectid,omitempty"`
+	Selflink       *string                `bson:"selflink,omitempty"`
+	Tags           *map[string]string     `bson:"tags,omitempty"`
+	UpdateTime     *time.Time             `bson:"updatetime,omitempty"`
+	ZHash          *int                   `bson:"zhash,omitempty"`
+	Zone           *int                   `bson:"zone,omitempty"`
 }

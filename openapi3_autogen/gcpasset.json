@@ -28,6 +28,18 @@
             },
             "type": "array"
           },
+          "geoScope": {
+            "default": "Pending",
+            "description": "The kind of geographic availability area where the resource is located.",
+            "enum": [
+              "Zone",
+              "Region",
+              "Global",
+              "NotApplicable",
+              "Pending"
+            ],
+            "example": "Zone"
+          },
           "kind": {
             "default": "Pending",
             "description": "The specific kind of the resource.",
@@ -39,6 +51,8 @@
               "ComputeFirewallPolicy",
               "ComputeForwardingRule",
               "ComputeBackendService",
+              "ComputeRegion",
+              "ComputeZone",
               "ResourceFolder",
               "ResourceProject",
               "Pending"
