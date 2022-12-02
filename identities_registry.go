@@ -738,7 +738,6 @@ var (
 		},
 		"cloudalertrule": {
 			{":shard", ":unique", "zone", "zHash"},
-			{":unique", "prismaCloudAlertRuleID"},
 			{"createIdempotencyKey"},
 			{"name"},
 			{"namespace"},
