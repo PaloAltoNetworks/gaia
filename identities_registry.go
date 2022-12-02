@@ -842,7 +842,6 @@ var (
 		"cloudpolicy": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"createIdempotencyKey"},
-			{"key"},
 			{"name"},
 			{"namespace"},
 			{"namespace", "name"},

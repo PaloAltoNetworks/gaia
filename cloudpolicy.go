@@ -127,10 +127,6 @@ type CloudPolicy struct {
 	// Defines whether the Policy is enabled.
 	Enabled bool `json:"enabled" msgpack:"enabled" bson:"enabled" mapstructure:"enabled,omitempty"`
 
-	// Unique key which is a combination of tenant id and policy id to identify the
-	// policy.
-	Key string `json:"key" msgpack:"key" bson:"key" mapstructure:"key,omitempty"`
-
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
@@ -226,7 +222,6 @@ func (o *CloudPolicy) GetBSON() (interface{}, error) {
 	s.CreateTime = o.CreateTime
 	s.Description = o.Description
 	s.Enabled = o.Enabled
-	s.Key = o.Key
 	s.MigrationsLog = o.MigrationsLog
 	s.Name = o.Name
 	s.Namespace = o.Namespace
@@ -264,7 +259,6 @@ func (o *CloudPolicy) SetBSON(raw bson.Raw) error {
 	o.CreateTime = s.CreateTime
 	o.Description = s.Description
 	o.Enabled = s.Enabled
-	o.Key = s.Key
 	o.MigrationsLog = s.MigrationsLog
 	o.Name = s.Name
 	o.Namespace = s.Namespace
@@ -495,7 +489,6 @@ func (o *CloudPolicy) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			CreateTime:                      &o.CreateTime,
 			Description:                     &o.Description,
 			Enabled:                         &o.Enabled,
-			Key:                             &o.Key,
 			MigrationsLog:                   &o.MigrationsLog,
 			Name:                            &o.Name,
 			Namespace:                       &o.Namespace,
@@ -531,8 +524,6 @@ func (o *CloudPolicy) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Description = &(o.Description)
 		case "enabled":
 			sp.Enabled = &(o.Enabled)
-		case "key":
-			sp.Key = &(o.Key)
 		case "migrationsLog":
 			sp.MigrationsLog = &(o.MigrationsLog)
 		case "name":
@@ -595,9 +586,6 @@ func (o *CloudPolicy) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Enabled != nil {
 		o.Enabled = *so.Enabled
-	}
-	if so.Key != nil {
-		o.Key = *so.Key
 	}
 	if so.MigrationsLog != nil {
 		o.MigrationsLog = *so.MigrationsLog
@@ -744,8 +732,6 @@ func (o *CloudPolicy) ValueForAttribute(name string) interface{} {
 		return o.Description
 	case "enabled":
 		return o.Enabled
-	case "key":
-		return o.Key
 	case "migrationsLog":
 		return o.MigrationsLog
 	case "name":
@@ -881,17 +867,6 @@ var CloudPolicyAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "enabled",
 		Stored:         true,
 		Type:           "boolean",
-	},
-	"Key": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "key",
-		ConvertedName:  "Key",
-		Description: `Unique key which is a combination of tenant id and policy id to identify the
-policy.`,
-		Exposed: true,
-		Name:    "key",
-		Stored:  true,
-		Type:    "string",
 	},
 	"MigrationsLog": {
 		AllowedChoices: []string{},
@@ -1170,17 +1145,6 @@ var CloudPolicyLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Stored:         true,
 		Type:           "boolean",
 	},
-	"key": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "key",
-		ConvertedName:  "Key",
-		Description: `Unique key which is a combination of tenant id and policy id to identify the
-policy.`,
-		Exposed: true,
-		Name:    "key",
-		Stored:  true,
-		Type:    "string",
-	},
 	"migrationslog": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "migrationslog",
@@ -1442,10 +1406,6 @@ type SparseCloudPolicy struct {
 	// Defines whether the Policy is enabled.
 	Enabled *bool `json:"enabled,omitempty" msgpack:"enabled,omitempty" bson:"enabled,omitempty" mapstructure:"enabled,omitempty"`
 
-	// Unique key which is a combination of tenant id and policy id to identify the
-	// policy.
-	Key *string `json:"key,omitempty" msgpack:"key,omitempty" bson:"key,omitempty" mapstructure:"key,omitempty"`
-
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
@@ -1554,9 +1514,6 @@ func (o *SparseCloudPolicy) GetBSON() (interface{}, error) {
 	if o.Enabled != nil {
 		s.Enabled = o.Enabled
 	}
-	if o.Key != nil {
-		s.Key = o.Key
-	}
 	if o.MigrationsLog != nil {
 		s.MigrationsLog = o.MigrationsLog
 	}
@@ -1633,9 +1590,6 @@ func (o *SparseCloudPolicy) SetBSON(raw bson.Raw) error {
 	if s.Enabled != nil {
 		o.Enabled = s.Enabled
 	}
-	if s.Key != nil {
-		o.Key = s.Key
-	}
 	if s.MigrationsLog != nil {
 		o.MigrationsLog = s.MigrationsLog
 	}
@@ -1709,9 +1663,6 @@ func (o *SparseCloudPolicy) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Enabled != nil {
 		out.Enabled = *o.Enabled
-	}
-	if o.Key != nil {
-		out.Key = *o.Key
 	}
 	if o.MigrationsLog != nil {
 		out.MigrationsLog = *o.MigrationsLog
@@ -2013,7 +1964,6 @@ type mongoAttributesCloudPolicy struct {
 	CreateTime                      time.Time                `bson:"createtime"`
 	Description                     string                   `bson:"description"`
 	Enabled                         bool                     `bson:"enabled"`
-	Key                             string                   `bson:"key"`
 	MigrationsLog                   map[string]string        `bson:"migrationslog,omitempty"`
 	Name                            string                   `bson:"name"`
 	Namespace                       string                   `bson:"namespace"`
@@ -2036,7 +1986,6 @@ type mongoAttributesSparseCloudPolicy struct {
 	CreateTime                      *time.Time                `bson:"createtime,omitempty"`
 	Description                     *string                   `bson:"description,omitempty"`
 	Enabled                         *bool                     `bson:"enabled,omitempty"`
-	Key                             *string                   `bson:"key,omitempty"`
 	MigrationsLog                   *map[string]string        `bson:"migrationslog,omitempty"`
 	Name                            *string                   `bson:"name,omitempty"`
 	Namespace                       *string                   `bson:"namespace,omitempty"`
