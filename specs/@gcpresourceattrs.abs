@@ -25,6 +25,20 @@ attributes:
     subtype: string
     stored: true
 
+  - name: geoScope
+    description: The kind of geographic availability area where the resource is located.
+    type: enum
+    exposed: true
+    stored: true
+    allowed_choices:
+    - Zone
+    - Region
+    - Global
+    - NotApplicable
+    - Pending
+    default_value: Pending
+    example_value: Zone
+
   - name: kind
     description: The specific kind of the resource.
     type: enum
@@ -38,6 +52,8 @@ attributes:
     - ComputeFirewallPolicy
     - ComputeForwardingRule
     - ComputeBackendService
+    - ComputeRegion
+    - ComputeZone
     - ResourceFolder
     - ResourceProject
     - Pending
