@@ -19,12 +19,9 @@ model:
 # Indexes
 indexes:
 - - namespace
-  - prismacloudalertruleid
+  - prismacloudpolicyid
 - - disabled
   - lastexecutiontimestamp
-- - namespace
-  - prismacloudalertruleid
-  - prismacloudpolicyid
 
 # Attributes
 attributes:
@@ -61,13 +58,6 @@ attributes:
     description: If set to true, neocna will be used regardless of tenant onboarding.
     type: boolean
     exposed: true
-
-  - name: prismaCloudAlertRuleID
-    description: Prisma Cloud Alert Rule ID.
-    type: string
-    exposed: true
-    subtype: string
-    stored: true
 
   - name: prismaCloudPolicyID
     description: Prisma Cloud Policy ID.

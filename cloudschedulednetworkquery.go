@@ -116,9 +116,6 @@ type CloudScheduledNetworkQuery struct {
 	// If set to true, neocna will be used regardless of tenant onboarding.
 	NeoCNA bool `json:"neoCNA" msgpack:"neoCNA" bson:"-" mapstructure:"neoCNA,omitempty"`
 
-	// Prisma Cloud Alert Rule ID.
-	PrismaCloudAlertRuleID string `json:"prismaCloudAlertRuleID" msgpack:"prismaCloudAlertRuleID" bson:"prismacloudalertruleid" mapstructure:"prismaCloudAlertRuleID,omitempty"`
-
 	// Prisma Cloud Policy ID.
 	PrismaCloudPolicyID string `json:"prismaCloudPolicyID" msgpack:"prismaCloudPolicyID" bson:"prismacloudpolicyid" mapstructure:"prismaCloudPolicyID,omitempty"`
 
@@ -194,7 +191,6 @@ func (o *CloudScheduledNetworkQuery) GetBSON() (interface{}, error) {
 	s.MigrationsLog = o.MigrationsLog
 	s.Name = o.Name
 	s.Namespace = o.Namespace
-	s.PrismaCloudAlertRuleID = o.PrismaCloudAlertRuleID
 	s.PrismaCloudPolicyID = o.PrismaCloudPolicyID
 	s.SuccessfulExecutionTimestamp = o.SuccessfulExecutionTimestamp
 	s.SuccessfulExecutionTimestampMap = o.SuccessfulExecutionTimestampMap
@@ -227,7 +223,6 @@ func (o *CloudScheduledNetworkQuery) SetBSON(raw bson.Raw) error {
 	o.MigrationsLog = s.MigrationsLog
 	o.Name = s.Name
 	o.Namespace = s.Namespace
-	o.PrismaCloudAlertRuleID = s.PrismaCloudAlertRuleID
 	o.PrismaCloudPolicyID = s.PrismaCloudPolicyID
 	o.SuccessfulExecutionTimestamp = s.SuccessfulExecutionTimestamp
 	o.SuccessfulExecutionTimestampMap = s.SuccessfulExecutionTimestampMap
@@ -372,7 +367,6 @@ func (o *CloudScheduledNetworkQuery) ToSparse(fields ...string) elemental.Sparse
 			Name:                            &o.Name,
 			Namespace:                       &o.Namespace,
 			NeoCNA:                          &o.NeoCNA,
-			PrismaCloudAlertRuleID:          &o.PrismaCloudAlertRuleID,
 			PrismaCloudPolicyID:             &o.PrismaCloudPolicyID,
 			SuccessfulExecutionTimestamp:    &o.SuccessfulExecutionTimestamp,
 			SuccessfulExecutionTimestampMap: &o.SuccessfulExecutionTimestampMap,
@@ -406,8 +400,6 @@ func (o *CloudScheduledNetworkQuery) ToSparse(fields ...string) elemental.Sparse
 			sp.Namespace = &(o.Namespace)
 		case "neoCNA":
 			sp.NeoCNA = &(o.NeoCNA)
-		case "prismaCloudAlertRuleID":
-			sp.PrismaCloudAlertRuleID = &(o.PrismaCloudAlertRuleID)
 		case "prismaCloudPolicyID":
 			sp.PrismaCloudPolicyID = &(o.PrismaCloudPolicyID)
 		case "successfulExecutionTimestamp":
@@ -464,9 +456,6 @@ func (o *CloudScheduledNetworkQuery) Patch(sparse elemental.SparseIdentifiable) 
 	}
 	if so.NeoCNA != nil {
 		o.NeoCNA = *so.NeoCNA
-	}
-	if so.PrismaCloudAlertRuleID != nil {
-		o.PrismaCloudAlertRuleID = *so.PrismaCloudAlertRuleID
 	}
 	if so.PrismaCloudPolicyID != nil {
 		o.PrismaCloudPolicyID = *so.PrismaCloudPolicyID
@@ -590,8 +579,6 @@ func (o *CloudScheduledNetworkQuery) ValueForAttribute(name string) interface{} 
 		return o.Namespace
 	case "neoCNA":
 		return o.NeoCNA
-	case "prismaCloudAlertRuleID":
-		return o.PrismaCloudAlertRuleID
 	case "prismaCloudPolicyID":
 		return o.PrismaCloudPolicyID
 	case "successfulExecutionTimestamp":
@@ -735,17 +722,6 @@ var CloudScheduledNetworkQueryAttributesMap = map[string]elemental.AttributeSpec
 		Exposed:        true,
 		Name:           "neoCNA",
 		Type:           "boolean",
-	},
-	"PrismaCloudAlertRuleID": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "prismacloudalertruleid",
-		ConvertedName:  "PrismaCloudAlertRuleID",
-		Description:    `Prisma Cloud Alert Rule ID.`,
-		Exposed:        true,
-		Name:           "prismaCloudAlertRuleID",
-		Stored:         true,
-		SubType:        "string",
-		Type:           "string",
 	},
 	"PrismaCloudPolicyID": {
 		AllowedChoices: []string{},
@@ -962,17 +938,6 @@ var CloudScheduledNetworkQueryLowerCaseAttributesMap = map[string]elemental.Attr
 		Name:           "neoCNA",
 		Type:           "boolean",
 	},
-	"prismacloudalertruleid": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "prismacloudalertruleid",
-		ConvertedName:  "PrismaCloudAlertRuleID",
-		Description:    `Prisma Cloud Alert Rule ID.`,
-		Exposed:        true,
-		Name:           "prismaCloudAlertRuleID",
-		Stored:         true,
-		SubType:        "string",
-		Type:           "string",
-	},
 	"prismacloudpolicyid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "prismacloudpolicyid",
@@ -1158,9 +1123,6 @@ type SparseCloudScheduledNetworkQuery struct {
 	// If set to true, neocna will be used regardless of tenant onboarding.
 	NeoCNA *bool `json:"neoCNA,omitempty" msgpack:"neoCNA,omitempty" bson:"-" mapstructure:"neoCNA,omitempty"`
 
-	// Prisma Cloud Alert Rule ID.
-	PrismaCloudAlertRuleID *string `json:"prismaCloudAlertRuleID,omitempty" msgpack:"prismaCloudAlertRuleID,omitempty" bson:"prismacloudalertruleid,omitempty" mapstructure:"prismaCloudAlertRuleID,omitempty"`
-
 	// Prisma Cloud Policy ID.
 	PrismaCloudPolicyID *string `json:"prismaCloudPolicyID,omitempty" msgpack:"prismaCloudPolicyID,omitempty" bson:"prismacloudpolicyid,omitempty" mapstructure:"prismaCloudPolicyID,omitempty"`
 
@@ -1251,9 +1213,6 @@ func (o *SparseCloudScheduledNetworkQuery) GetBSON() (interface{}, error) {
 	if o.Namespace != nil {
 		s.Namespace = o.Namespace
 	}
-	if o.PrismaCloudAlertRuleID != nil {
-		s.PrismaCloudAlertRuleID = o.PrismaCloudAlertRuleID
-	}
 	if o.PrismaCloudPolicyID != nil {
 		s.PrismaCloudPolicyID = o.PrismaCloudPolicyID
 	}
@@ -1314,9 +1273,6 @@ func (o *SparseCloudScheduledNetworkQuery) SetBSON(raw bson.Raw) error {
 	}
 	if s.Namespace != nil {
 		o.Namespace = s.Namespace
-	}
-	if s.PrismaCloudAlertRuleID != nil {
-		o.PrismaCloudAlertRuleID = s.PrismaCloudAlertRuleID
 	}
 	if s.PrismaCloudPolicyID != nil {
 		o.PrismaCloudPolicyID = s.PrismaCloudPolicyID
@@ -1382,9 +1338,6 @@ func (o *SparseCloudScheduledNetworkQuery) ToPlain() elemental.PlainIdentifiable
 	}
 	if o.NeoCNA != nil {
 		out.NeoCNA = *o.NeoCNA
-	}
-	if o.PrismaCloudAlertRuleID != nil {
-		out.PrismaCloudAlertRuleID = *o.PrismaCloudAlertRuleID
 	}
 	if o.PrismaCloudPolicyID != nil {
 		out.PrismaCloudPolicyID = *o.PrismaCloudPolicyID
@@ -1556,7 +1509,6 @@ type mongoAttributesCloudScheduledNetworkQuery struct {
 	MigrationsLog                   map[string]string    `bson:"migrationslog,omitempty"`
 	Name                            string               `bson:"name"`
 	Namespace                       string               `bson:"namespace"`
-	PrismaCloudAlertRuleID          string               `bson:"prismacloudalertruleid"`
 	PrismaCloudPolicyID             string               `bson:"prismacloudpolicyid"`
 	SuccessfulExecutionTimestamp    time.Time            `bson:"successfulexecutiontimestamp"`
 	SuccessfulExecutionTimestampMap map[string]time.Time `bson:"successfulexecutiontimestampmap"`
@@ -1574,7 +1526,6 @@ type mongoAttributesSparseCloudScheduledNetworkQuery struct {
 	MigrationsLog                   *map[string]string    `bson:"migrationslog,omitempty"`
 	Name                            *string               `bson:"name,omitempty"`
 	Namespace                       *string               `bson:"namespace,omitempty"`
-	PrismaCloudAlertRuleID          *string               `bson:"prismacloudalertruleid,omitempty"`
 	PrismaCloudPolicyID             *string               `bson:"prismacloudpolicyid,omitempty"`
 	SuccessfulExecutionTimestamp    *time.Time            `bson:"successfulexecutiontimestamp,omitempty"`
 	SuccessfulExecutionTimestampMap *map[string]time.Time `bson:"successfulexecutiontimestampmap,omitempty"`

@@ -73,9 +73,9 @@ attributes:
     subtype: integer
     stored: true
 
-  - name: prismaCloudAlertRuleID
-    description: Prisma Cloud Alert Rule which generated the Alert Record.
-    type: string
+  - name: prismaCloudAlertRuleIDs
+    description: Prisma Cloud Alert Rules which generated the Alert Record.
+    type: list
     exposed: true
     subtype: string
     stored: true

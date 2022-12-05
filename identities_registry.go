@@ -39,7 +39,8 @@ var (
 		"cloudalert":       CloudAlertIdentity,
 		"cloudalertrecord": CloudAlertRecordIdentity,
 		"cloudalertrule":   CloudAlertRuleIdentity,
-		"cloudendpoint":    CloudEndpointIdentity,
+
+		"cloudendpoint": CloudEndpointIdentity,
 
 		"cloudgraph": CloudGraphIdentity,
 
@@ -256,8 +257,9 @@ var (
 
 		"cloudalerts":       CloudAlertIdentity,
 		"cloudalertrecords": CloudAlertRecordIdentity,
-		"cloudalertsrule":   CloudAlertRuleIdentity,
-		"cloudendpoints":    CloudEndpointIdentity,
+		"cloudalertrules":   CloudAlertRuleIdentity,
+
+		"cloudendpoints": CloudEndpointIdentity,
 
 		"cloudgraphs": CloudGraphIdentity,
 
@@ -736,7 +738,6 @@ var (
 		},
 		"cloudalertrule": {
 			{":shard", ":unique", "zone", "zHash"},
-			{":unique", "prismaCloudAlertRuleID"},
 			{"createIdempotencyKey"},
 			{"name"},
 			{"namespace"},
@@ -840,7 +841,6 @@ var (
 		"cloudpolicy": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"createIdempotencyKey"},
-			{"key"},
 			{"name"},
 			{"namespace"},
 			{"namespace", "name"},
@@ -886,8 +886,7 @@ var (
 			{"namespace"},
 			{"namespace", "name"},
 			{"namespace", "normalizedTags"},
-			{"namespace", "prismacloudalertruleid"},
-			{"namespace", "prismacloudalertruleid", "prismacloudpolicyid"},
+			{"namespace", "prismacloudpolicyid"},
 		},
 		"cloudservicetag": {
 			{":shard", ":unique", "zone", "zHash"},

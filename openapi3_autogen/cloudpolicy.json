@@ -45,10 +45,6 @@
             "description": "Defines whether the Policy is enabled.",
             "type": "boolean"
           },
-          "key": {
-            "description": "Unique key which is a combination of tenant id and policy id to identify the\npolicy.",
-            "type": "string"
-          },
           "name": {
             "description": "Name of the entity.",
             "example": "the name",

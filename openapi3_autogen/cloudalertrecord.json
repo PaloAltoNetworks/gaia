@@ -72,9 +72,12 @@
             "readOnly": true,
             "type": "array"
           },
-          "prismaCloudAlertRuleID": {
-            "description": "Prisma Cloud Alert Rule which generated the Alert Record.",
-            "type": "string"
+          "prismaCloudAlertRuleIDs": {
+            "description": "Prisma Cloud Alert Rules which generated the Alert Record.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           },
           "prismaCloudAlertRuleMatched": {
             "default": false,

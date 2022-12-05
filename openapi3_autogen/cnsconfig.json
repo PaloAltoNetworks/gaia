@@ -54,10 +54,6 @@
             "description": "Indicates if CNA should send all alerts found from policy scans or only alert\nrules\nmatching alerts.",
             "type": "boolean"
           },
-          "nonMatchingCloudAccountScanEnabled": {
-            "description": "Indicates if CNA should scan all cloud accounts under the tenant or only alert\nrules\nmatching accounts.",
-            "type": "boolean"
-          },
           "normalizedTags": {
             "description": "Contains the list of normalized tags of the entities.",
             "items": {
@@ -73,6 +69,15 @@
           "protected": {
             "description": "Defines if the object is protected.",
             "type": "boolean"
+          },
+          "reRaisePublishedAlerts": {
+            "description": "Indicates if CNA should re-raise already published alerts.",
+            "type": "boolean"
+          },
+          "reRaisePublishedAlertsTime": {
+            "description": "Contains the time when tenant was set to re-raise published alerts.",
+            "format": "date-time",
+            "type": "string"
           },
           "updateTime": {
             "description": "Last update date of the object.",
