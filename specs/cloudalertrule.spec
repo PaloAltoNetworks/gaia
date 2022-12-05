@@ -1,7 +1,7 @@
 # Model
 model:
   rest_name: cloudalertrule
-  resource_name: cloudalertsrule
+  resource_name: cloudalertrules
   entity_name: CloudAlertRule
   package: vargid
   group: pcn/infrastructure
@@ -29,8 +29,6 @@ model:
 # Indexes
 indexes:
 - - namespace
-  - prismaCloudAlertRuleID
-- - :unique
   - prismaCloudAlertRuleID
 
 # Attributes
@@ -77,6 +75,15 @@ attributes:
     exposed: true
     subtype: string
     stored: true
+
+  - name: targetTags
+    description: List of target resource tags associated to an Alert rule.
+    type: refList
+    exposed: true
+    subtype: cloudalertruletargettag
+    stored: true
+    extensions:
+      refMode: pointer
 
   - name: tenantPrismaID
     description: Prisma ID of the tenant in which the Alert Rule is created.

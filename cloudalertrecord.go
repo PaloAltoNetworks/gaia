@@ -163,8 +163,8 @@ type CloudAlertRecord struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags []string `json:"normalizedTags" msgpack:"normalizedTags" bson:"normalizedtags" mapstructure:"normalizedTags,omitempty"`
 
-	// Prisma Cloud Alert Rule which generated the Alert Record.
-	PrismaCloudAlertRuleID string `json:"prismaCloudAlertRuleID" msgpack:"prismaCloudAlertRuleID" bson:"prismacloudalertruleid" mapstructure:"prismaCloudAlertRuleID,omitempty"`
+	// Prisma Cloud Alert Rules which generated the Alert Record.
+	PrismaCloudAlertRuleIDs []string `json:"prismaCloudAlertRuleIDs" msgpack:"prismaCloudAlertRuleIDs" bson:"prismacloudalertruleids" mapstructure:"prismaCloudAlertRuleIDs,omitempty"`
 
 	// Indicates if the alert matches an alert rule.
 	PrismaCloudAlertRuleMatched bool `json:"prismaCloudAlertRuleMatched" msgpack:"prismaCloudAlertRuleMatched" bson:"prismacloudalertrulematched" mapstructure:"prismaCloudAlertRuleMatched,omitempty"`
@@ -225,6 +225,7 @@ func NewCloudAlertRecord() *CloudAlertRecord {
 		AssociatedTags:                         []string{},
 		CloudType:                              CloudAlertRecordCloudTypeAWS,
 		NormalizedTags:                         []string{},
+		PrismaCloudAlertRuleIDs:                []string{},
 		PrismaCloudAlertRuleMatched:            false,
 		PrismaCloudAlertRuleScopeLastChangedOn: 0,
 		PrismaCloudPolicyLastModifiedOn:        0,
@@ -275,7 +276,7 @@ func (o *CloudAlertRecord) GetBSON() (interface{}, error) {
 	s.Name = o.Name
 	s.Namespace = o.Namespace
 	s.NormalizedTags = o.NormalizedTags
-	s.PrismaCloudAlertRuleID = o.PrismaCloudAlertRuleID
+	s.PrismaCloudAlertRuleIDs = o.PrismaCloudAlertRuleIDs
 	s.PrismaCloudAlertRuleMatched = o.PrismaCloudAlertRuleMatched
 	s.PrismaCloudAlertRuleScopeLastChangedOn = o.PrismaCloudAlertRuleScopeLastChangedOn
 	s.PrismaCloudPolicyID = o.PrismaCloudPolicyID
@@ -320,7 +321,7 @@ func (o *CloudAlertRecord) SetBSON(raw bson.Raw) error {
 	o.Name = s.Name
 	o.Namespace = s.Namespace
 	o.NormalizedTags = s.NormalizedTags
-	o.PrismaCloudAlertRuleID = s.PrismaCloudAlertRuleID
+	o.PrismaCloudAlertRuleIDs = s.PrismaCloudAlertRuleIDs
 	o.PrismaCloudAlertRuleMatched = s.PrismaCloudAlertRuleMatched
 	o.PrismaCloudAlertRuleScopeLastChangedOn = s.PrismaCloudAlertRuleScopeLastChangedOn
 	o.PrismaCloudPolicyID = s.PrismaCloudPolicyID
@@ -535,7 +536,7 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			Name:                                   &o.Name,
 			Namespace:                              &o.Namespace,
 			NormalizedTags:                         &o.NormalizedTags,
-			PrismaCloudAlertRuleID:                 &o.PrismaCloudAlertRuleID,
+			PrismaCloudAlertRuleIDs:                &o.PrismaCloudAlertRuleIDs,
 			PrismaCloudAlertRuleMatched:            &o.PrismaCloudAlertRuleMatched,
 			PrismaCloudAlertRuleScopeLastChangedOn: &o.PrismaCloudAlertRuleScopeLastChangedOn,
 			PrismaCloudPolicyID:                    &o.PrismaCloudPolicyID,
@@ -581,8 +582,8 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.Namespace = &(o.Namespace)
 		case "normalizedTags":
 			sp.NormalizedTags = &(o.NormalizedTags)
-		case "prismaCloudAlertRuleID":
-			sp.PrismaCloudAlertRuleID = &(o.PrismaCloudAlertRuleID)
+		case "prismaCloudAlertRuleIDs":
+			sp.PrismaCloudAlertRuleIDs = &(o.PrismaCloudAlertRuleIDs)
 		case "prismaCloudAlertRuleMatched":
 			sp.PrismaCloudAlertRuleMatched = &(o.PrismaCloudAlertRuleMatched)
 		case "prismaCloudAlertRuleScopeLastChangedOn":
@@ -662,8 +663,8 @@ func (o *CloudAlertRecord) Patch(sparse elemental.SparseIdentifiable) {
 	if so.NormalizedTags != nil {
 		o.NormalizedTags = *so.NormalizedTags
 	}
-	if so.PrismaCloudAlertRuleID != nil {
-		o.PrismaCloudAlertRuleID = *so.PrismaCloudAlertRuleID
+	if so.PrismaCloudAlertRuleIDs != nil {
+		o.PrismaCloudAlertRuleIDs = *so.PrismaCloudAlertRuleIDs
 	}
 	if so.PrismaCloudAlertRuleMatched != nil {
 		o.PrismaCloudAlertRuleMatched = *so.PrismaCloudAlertRuleMatched
@@ -824,8 +825,8 @@ func (o *CloudAlertRecord) ValueForAttribute(name string) interface{} {
 		return o.Namespace
 	case "normalizedTags":
 		return o.NormalizedTags
-	case "prismaCloudAlertRuleID":
-		return o.PrismaCloudAlertRuleID
+	case "prismaCloudAlertRuleIDs":
+		return o.PrismaCloudAlertRuleIDs
 	case "prismaCloudAlertRuleMatched":
 		return o.PrismaCloudAlertRuleMatched
 	case "prismaCloudAlertRuleScopeLastChangedOn":
@@ -1026,16 +1027,16 @@ resource.`,
 		Transient:      true,
 		Type:           "list",
 	},
-	"PrismaCloudAlertRuleID": {
+	"PrismaCloudAlertRuleIDs": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "prismacloudalertruleid",
-		ConvertedName:  "PrismaCloudAlertRuleID",
-		Description:    `Prisma Cloud Alert Rule which generated the Alert Record.`,
+		BSONFieldName:  "prismacloudalertruleids",
+		ConvertedName:  "PrismaCloudAlertRuleIDs",
+		Description:    `Prisma Cloud Alert Rules which generated the Alert Record.`,
 		Exposed:        true,
-		Name:           "prismaCloudAlertRuleID",
+		Name:           "prismaCloudAlertRuleIDs",
 		Stored:         true,
 		SubType:        "string",
-		Type:           "string",
+		Type:           "list",
 	},
 	"PrismaCloudAlertRuleMatched": {
 		AllowedChoices: []string{},
@@ -1382,16 +1383,16 @@ resource.`,
 		Transient:      true,
 		Type:           "list",
 	},
-	"prismacloudalertruleid": {
+	"prismacloudalertruleids": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "prismacloudalertruleid",
-		ConvertedName:  "PrismaCloudAlertRuleID",
-		Description:    `Prisma Cloud Alert Rule which generated the Alert Record.`,
+		BSONFieldName:  "prismacloudalertruleids",
+		ConvertedName:  "PrismaCloudAlertRuleIDs",
+		Description:    `Prisma Cloud Alert Rules which generated the Alert Record.`,
 		Exposed:        true,
-		Name:           "prismaCloudAlertRuleID",
+		Name:           "prismaCloudAlertRuleIDs",
 		Stored:         true,
 		SubType:        "string",
-		Type:           "string",
+		Type:           "list",
 	},
 	"prismacloudalertrulematched": {
 		AllowedChoices: []string{},
@@ -1676,8 +1677,8 @@ type SparseCloudAlertRecord struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags *[]string `json:"normalizedTags,omitempty" msgpack:"normalizedTags,omitempty" bson:"normalizedtags,omitempty" mapstructure:"normalizedTags,omitempty"`
 
-	// Prisma Cloud Alert Rule which generated the Alert Record.
-	PrismaCloudAlertRuleID *string `json:"prismaCloudAlertRuleID,omitempty" msgpack:"prismaCloudAlertRuleID,omitempty" bson:"prismacloudalertruleid,omitempty" mapstructure:"prismaCloudAlertRuleID,omitempty"`
+	// Prisma Cloud Alert Rules which generated the Alert Record.
+	PrismaCloudAlertRuleIDs *[]string `json:"prismaCloudAlertRuleIDs,omitempty" msgpack:"prismaCloudAlertRuleIDs,omitempty" bson:"prismacloudalertruleids,omitempty" mapstructure:"prismaCloudAlertRuleIDs,omitempty"`
 
 	// Indicates if the alert matches an alert rule.
 	PrismaCloudAlertRuleMatched *bool `json:"prismaCloudAlertRuleMatched,omitempty" msgpack:"prismaCloudAlertRuleMatched,omitempty" bson:"prismacloudalertrulematched,omitempty" mapstructure:"prismaCloudAlertRuleMatched,omitempty"`
@@ -1805,8 +1806,8 @@ func (o *SparseCloudAlertRecord) GetBSON() (interface{}, error) {
 	if o.NormalizedTags != nil {
 		s.NormalizedTags = o.NormalizedTags
 	}
-	if o.PrismaCloudAlertRuleID != nil {
-		s.PrismaCloudAlertRuleID = o.PrismaCloudAlertRuleID
+	if o.PrismaCloudAlertRuleIDs != nil {
+		s.PrismaCloudAlertRuleIDs = o.PrismaCloudAlertRuleIDs
 	}
 	if o.PrismaCloudAlertRuleMatched != nil {
 		s.PrismaCloudAlertRuleMatched = o.PrismaCloudAlertRuleMatched
@@ -1905,8 +1906,8 @@ func (o *SparseCloudAlertRecord) SetBSON(raw bson.Raw) error {
 	if s.NormalizedTags != nil {
 		o.NormalizedTags = s.NormalizedTags
 	}
-	if s.PrismaCloudAlertRuleID != nil {
-		o.PrismaCloudAlertRuleID = s.PrismaCloudAlertRuleID
+	if s.PrismaCloudAlertRuleIDs != nil {
+		o.PrismaCloudAlertRuleIDs = s.PrismaCloudAlertRuleIDs
 	}
 	if s.PrismaCloudAlertRuleMatched != nil {
 		o.PrismaCloudAlertRuleMatched = s.PrismaCloudAlertRuleMatched
@@ -2003,8 +2004,8 @@ func (o *SparseCloudAlertRecord) ToPlain() elemental.PlainIdentifiable {
 	if o.NormalizedTags != nil {
 		out.NormalizedTags = *o.NormalizedTags
 	}
-	if o.PrismaCloudAlertRuleID != nil {
-		out.PrismaCloudAlertRuleID = *o.PrismaCloudAlertRuleID
+	if o.PrismaCloudAlertRuleIDs != nil {
+		out.PrismaCloudAlertRuleIDs = *o.PrismaCloudAlertRuleIDs
 	}
 	if o.PrismaCloudAlertRuleMatched != nil {
 		out.PrismaCloudAlertRuleMatched = *o.PrismaCloudAlertRuleMatched
@@ -2284,7 +2285,7 @@ type mongoAttributesCloudAlertRecord struct {
 	Name                                   string                            `bson:"name"`
 	Namespace                              string                            `bson:"namespace"`
 	NormalizedTags                         []string                          `bson:"normalizedtags"`
-	PrismaCloudAlertRuleID                 string                            `bson:"prismacloudalertruleid"`
+	PrismaCloudAlertRuleIDs                []string                          `bson:"prismacloudalertruleids"`
 	PrismaCloudAlertRuleMatched            bool                              `bson:"prismacloudalertrulematched"`
 	PrismaCloudAlertRuleScopeLastChangedOn int                               `bson:"prismacloudalertrulescopelastchangedon"`
 	PrismaCloudPolicyID                    string                            `bson:"prismacloudpolicyid"`
@@ -2314,7 +2315,7 @@ type mongoAttributesSparseCloudAlertRecord struct {
 	Name                                   *string                            `bson:"name,omitempty"`
 	Namespace                              *string                            `bson:"namespace,omitempty"`
 	NormalizedTags                         *[]string                          `bson:"normalizedtags,omitempty"`
-	PrismaCloudAlertRuleID                 *string                            `bson:"prismacloudalertruleid,omitempty"`
+	PrismaCloudAlertRuleIDs                *[]string                          `bson:"prismacloudalertruleids,omitempty"`
 	PrismaCloudAlertRuleMatched            *bool                              `bson:"prismacloudalertrulematched,omitempty"`
 	PrismaCloudAlertRuleScopeLastChangedOn *int                               `bson:"prismacloudalertrulescopelastchangedon,omitempty"`
 	PrismaCloudPolicyID                    *string                            `bson:"prismacloudpolicyid,omitempty"`

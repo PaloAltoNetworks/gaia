@@ -119,11 +119,6 @@ type CNSConfig struct {
 	// matching alerts.
 	NonMatchingAlertsRaisingEnabled bool `json:"nonMatchingAlertsRaisingEnabled" msgpack:"nonMatchingAlertsRaisingEnabled" bson:"nonmatchingalertsraisingenabled" mapstructure:"nonMatchingAlertsRaisingEnabled,omitempty"`
 
-	// Indicates if CNA should scan all cloud accounts under the tenant or only alert
-	// rules
-	// matching accounts.
-	NonMatchingCloudAccountScanEnabled bool `json:"nonMatchingCloudAccountScanEnabled" msgpack:"nonMatchingCloudAccountScanEnabled" bson:"nonmatchingcloudaccountscanenabled" mapstructure:"nonMatchingCloudAccountScanEnabled,omitempty"`
-
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags []string `json:"normalizedTags" msgpack:"normalizedTags" bson:"normalizedtags" mapstructure:"normalizedTags,omitempty"`
 
@@ -132,6 +127,12 @@ type CNSConfig struct {
 
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
+
+	// Indicates if CNA should re-raise already published alerts.
+	ReRaisePublishedAlerts bool `json:"reRaisePublishedAlerts" msgpack:"reRaisePublishedAlerts" bson:"reraisepublishedalerts" mapstructure:"reRaisePublishedAlerts,omitempty"`
+
+	// Contains the time when tenant was set to re-raise published alerts.
+	ReRaisePublishedAlertsTime time.Time `json:"reRaisePublishedAlertsTime" msgpack:"reRaisePublishedAlertsTime" bson:"reraisepublishedalertstime" mapstructure:"reRaisePublishedAlertsTime,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey string `json:"-" msgpack:"-" bson:"updateidempotencykey" mapstructure:"-,omitempty"`
@@ -202,10 +203,11 @@ func (o *CNSConfig) GetBSON() (interface{}, error) {
 	s.MigrationsLog = o.MigrationsLog
 	s.Namespace = o.Namespace
 	s.NonMatchingAlertsRaisingEnabled = o.NonMatchingAlertsRaisingEnabled
-	s.NonMatchingCloudAccountScanEnabled = o.NonMatchingCloudAccountScanEnabled
 	s.NormalizedTags = o.NormalizedTags
 	s.PrismaID = o.PrismaID
 	s.Protected = o.Protected
+	s.ReRaisePublishedAlerts = o.ReRaisePublishedAlerts
+	s.ReRaisePublishedAlertsTime = o.ReRaisePublishedAlertsTime
 	s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
 	s.UpdateTime = o.UpdateTime
 	s.ZHash = o.ZHash
@@ -238,10 +240,11 @@ func (o *CNSConfig) SetBSON(raw bson.Raw) error {
 	o.MigrationsLog = s.MigrationsLog
 	o.Namespace = s.Namespace
 	o.NonMatchingAlertsRaisingEnabled = s.NonMatchingAlertsRaisingEnabled
-	o.NonMatchingCloudAccountScanEnabled = s.NonMatchingCloudAccountScanEnabled
 	o.NormalizedTags = s.NormalizedTags
 	o.PrismaID = s.PrismaID
 	o.Protected = s.Protected
+	o.ReRaisePublishedAlerts = s.ReRaisePublishedAlerts
+	o.ReRaisePublishedAlertsTime = s.ReRaisePublishedAlertsTime
 	o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
 	o.UpdateTime = s.UpdateTime
 	o.ZHash = s.ZHash
@@ -442,25 +445,26 @@ func (o *CNSConfig) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseCNSConfig{
-			ID:                                 &o.ID,
-			Annotations:                        &o.Annotations,
-			AssociatedTags:                     &o.AssociatedTags,
-			CreateIdempotencyKey:               &o.CreateIdempotencyKey,
-			CreateTime:                         &o.CreateTime,
-			Disabled:                           &o.Disabled,
-			EnableNetEffectivePermissions:      &o.EnableNetEffectivePermissions,
-			EnableNetworkSecurity:              &o.EnableNetworkSecurity,
-			MigrationsLog:                      &o.MigrationsLog,
-			Namespace:                          &o.Namespace,
-			NonMatchingAlertsRaisingEnabled:    &o.NonMatchingAlertsRaisingEnabled,
-			NonMatchingCloudAccountScanEnabled: &o.NonMatchingCloudAccountScanEnabled,
-			NormalizedTags:                     &o.NormalizedTags,
-			PrismaID:                           &o.PrismaID,
-			Protected:                          &o.Protected,
-			UpdateIdempotencyKey:               &o.UpdateIdempotencyKey,
-			UpdateTime:                         &o.UpdateTime,
-			ZHash:                              &o.ZHash,
-			Zone:                               &o.Zone,
+			ID:                              &o.ID,
+			Annotations:                     &o.Annotations,
+			AssociatedTags:                  &o.AssociatedTags,
+			CreateIdempotencyKey:            &o.CreateIdempotencyKey,
+			CreateTime:                      &o.CreateTime,
+			Disabled:                        &o.Disabled,
+			EnableNetEffectivePermissions:   &o.EnableNetEffectivePermissions,
+			EnableNetworkSecurity:           &o.EnableNetworkSecurity,
+			MigrationsLog:                   &o.MigrationsLog,
+			Namespace:                       &o.Namespace,
+			NonMatchingAlertsRaisingEnabled: &o.NonMatchingAlertsRaisingEnabled,
+			NormalizedTags:                  &o.NormalizedTags,
+			PrismaID:                        &o.PrismaID,
+			Protected:                       &o.Protected,
+			ReRaisePublishedAlerts:          &o.ReRaisePublishedAlerts,
+			ReRaisePublishedAlertsTime:      &o.ReRaisePublishedAlertsTime,
+			UpdateIdempotencyKey:            &o.UpdateIdempotencyKey,
+			UpdateTime:                      &o.UpdateTime,
+			ZHash:                           &o.ZHash,
+			Zone:                            &o.Zone,
 		}
 	}
 
@@ -489,14 +493,16 @@ func (o *CNSConfig) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Namespace = &(o.Namespace)
 		case "nonMatchingAlertsRaisingEnabled":
 			sp.NonMatchingAlertsRaisingEnabled = &(o.NonMatchingAlertsRaisingEnabled)
-		case "nonMatchingCloudAccountScanEnabled":
-			sp.NonMatchingCloudAccountScanEnabled = &(o.NonMatchingCloudAccountScanEnabled)
 		case "normalizedTags":
 			sp.NormalizedTags = &(o.NormalizedTags)
 		case "prismaID":
 			sp.PrismaID = &(o.PrismaID)
 		case "protected":
 			sp.Protected = &(o.Protected)
+		case "reRaisePublishedAlerts":
+			sp.ReRaisePublishedAlerts = &(o.ReRaisePublishedAlerts)
+		case "reRaisePublishedAlertsTime":
+			sp.ReRaisePublishedAlertsTime = &(o.ReRaisePublishedAlertsTime)
 		case "updateIdempotencyKey":
 			sp.UpdateIdempotencyKey = &(o.UpdateIdempotencyKey)
 		case "updateTime":
@@ -551,9 +557,6 @@ func (o *CNSConfig) Patch(sparse elemental.SparseIdentifiable) {
 	if so.NonMatchingAlertsRaisingEnabled != nil {
 		o.NonMatchingAlertsRaisingEnabled = *so.NonMatchingAlertsRaisingEnabled
 	}
-	if so.NonMatchingCloudAccountScanEnabled != nil {
-		o.NonMatchingCloudAccountScanEnabled = *so.NonMatchingCloudAccountScanEnabled
-	}
 	if so.NormalizedTags != nil {
 		o.NormalizedTags = *so.NormalizedTags
 	}
@@ -562,6 +565,12 @@ func (o *CNSConfig) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.Protected != nil {
 		o.Protected = *so.Protected
+	}
+	if so.ReRaisePublishedAlerts != nil {
+		o.ReRaisePublishedAlerts = *so.ReRaisePublishedAlerts
+	}
+	if so.ReRaisePublishedAlertsTime != nil {
+		o.ReRaisePublishedAlertsTime = *so.ReRaisePublishedAlertsTime
 	}
 	if so.UpdateIdempotencyKey != nil {
 		o.UpdateIdempotencyKey = *so.UpdateIdempotencyKey
@@ -667,14 +676,16 @@ func (o *CNSConfig) ValueForAttribute(name string) interface{} {
 		return o.Namespace
 	case "nonMatchingAlertsRaisingEnabled":
 		return o.NonMatchingAlertsRaisingEnabled
-	case "nonMatchingCloudAccountScanEnabled":
-		return o.NonMatchingCloudAccountScanEnabled
 	case "normalizedTags":
 		return o.NormalizedTags
 	case "prismaID":
 		return o.PrismaID
 	case "protected":
 		return o.Protected
+	case "reRaisePublishedAlerts":
+		return o.ReRaisePublishedAlerts
+	case "reRaisePublishedAlertsTime":
+		return o.ReRaisePublishedAlertsTime
 	case "updateIdempotencyKey":
 		return o.UpdateIdempotencyKey
 	case "updateTime":
@@ -832,18 +843,6 @@ matching alerts.`,
 		Stored:  true,
 		Type:    "boolean",
 	},
-	"NonMatchingCloudAccountScanEnabled": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "nonmatchingcloudaccountscanenabled",
-		ConvertedName:  "NonMatchingCloudAccountScanEnabled",
-		Description: `Indicates if CNA should scan all cloud accounts under the tenant or only alert
-rules
-matching accounts.`,
-		Exposed: true,
-		Name:    "nonMatchingCloudAccountScanEnabled",
-		Stored:  true,
-		Type:    "boolean",
-	},
 	"NormalizedTags": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -883,6 +882,27 @@ matching accounts.`,
 		Setter:         true,
 		Stored:         true,
 		Type:           "boolean",
+	},
+	"ReRaisePublishedAlerts": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "reraisepublishedalerts",
+		ConvertedName:  "ReRaisePublishedAlerts",
+		Description:    `Indicates if CNA should re-raise already published alerts.`,
+		Exposed:        true,
+		Name:           "reRaisePublishedAlerts",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"ReRaisePublishedAlertsTime": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "reraisepublishedalertstime",
+		ConvertedName:  "ReRaisePublishedAlertsTime",
+		Description:    `Contains the time when tenant was set to re-raise published alerts.`,
+		Exposed:        true,
+		Name:           "reRaisePublishedAlertsTime",
+		Stored:         true,
+		Type:           "time",
 	},
 	"UpdateIdempotencyKey": {
 		AllowedChoices: []string{},
@@ -1086,18 +1106,6 @@ matching alerts.`,
 		Stored:  true,
 		Type:    "boolean",
 	},
-	"nonmatchingcloudaccountscanenabled": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "nonmatchingcloudaccountscanenabled",
-		ConvertedName:  "NonMatchingCloudAccountScanEnabled",
-		Description: `Indicates if CNA should scan all cloud accounts under the tenant or only alert
-rules
-matching accounts.`,
-		Exposed: true,
-		Name:    "nonMatchingCloudAccountScanEnabled",
-		Stored:  true,
-		Type:    "boolean",
-	},
 	"normalizedtags": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -1137,6 +1145,27 @@ matching accounts.`,
 		Setter:         true,
 		Stored:         true,
 		Type:           "boolean",
+	},
+	"reraisepublishedalerts": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "reraisepublishedalerts",
+		ConvertedName:  "ReRaisePublishedAlerts",
+		Description:    `Indicates if CNA should re-raise already published alerts.`,
+		Exposed:        true,
+		Name:           "reRaisePublishedAlerts",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"reraisepublishedalertstime": {
+		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "reraisepublishedalertstime",
+		ConvertedName:  "ReRaisePublishedAlertsTime",
+		Description:    `Contains the time when tenant was set to re-raise published alerts.`,
+		Exposed:        true,
+		Name:           "reRaisePublishedAlertsTime",
+		Stored:         true,
+		Type:           "time",
 	},
 	"updateidempotencykey": {
 		AllowedChoices: []string{},
@@ -1294,11 +1323,6 @@ type SparseCNSConfig struct {
 	// matching alerts.
 	NonMatchingAlertsRaisingEnabled *bool `json:"nonMatchingAlertsRaisingEnabled,omitempty" msgpack:"nonMatchingAlertsRaisingEnabled,omitempty" bson:"nonmatchingalertsraisingenabled,omitempty" mapstructure:"nonMatchingAlertsRaisingEnabled,omitempty"`
 
-	// Indicates if CNA should scan all cloud accounts under the tenant or only alert
-	// rules
-	// matching accounts.
-	NonMatchingCloudAccountScanEnabled *bool `json:"nonMatchingCloudAccountScanEnabled,omitempty" msgpack:"nonMatchingCloudAccountScanEnabled,omitempty" bson:"nonmatchingcloudaccountscanenabled,omitempty" mapstructure:"nonMatchingCloudAccountScanEnabled,omitempty"`
-
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags *[]string `json:"normalizedTags,omitempty" msgpack:"normalizedTags,omitempty" bson:"normalizedtags,omitempty" mapstructure:"normalizedTags,omitempty"`
 
@@ -1307,6 +1331,12 @@ type SparseCNSConfig struct {
 
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
+
+	// Indicates if CNA should re-raise already published alerts.
+	ReRaisePublishedAlerts *bool `json:"reRaisePublishedAlerts,omitempty" msgpack:"reRaisePublishedAlerts,omitempty" bson:"reraisepublishedalerts,omitempty" mapstructure:"reRaisePublishedAlerts,omitempty"`
+
+	// Contains the time when tenant was set to re-raise published alerts.
+	ReRaisePublishedAlertsTime *time.Time `json:"reRaisePublishedAlertsTime,omitempty" msgpack:"reRaisePublishedAlertsTime,omitempty" bson:"reraisepublishedalertstime,omitempty" mapstructure:"reRaisePublishedAlertsTime,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey *string `json:"-" msgpack:"-" bson:"updateidempotencykey,omitempty" mapstructure:"-,omitempty"`
@@ -1397,9 +1427,6 @@ func (o *SparseCNSConfig) GetBSON() (interface{}, error) {
 	if o.NonMatchingAlertsRaisingEnabled != nil {
 		s.NonMatchingAlertsRaisingEnabled = o.NonMatchingAlertsRaisingEnabled
 	}
-	if o.NonMatchingCloudAccountScanEnabled != nil {
-		s.NonMatchingCloudAccountScanEnabled = o.NonMatchingCloudAccountScanEnabled
-	}
 	if o.NormalizedTags != nil {
 		s.NormalizedTags = o.NormalizedTags
 	}
@@ -1408,6 +1435,12 @@ func (o *SparseCNSConfig) GetBSON() (interface{}, error) {
 	}
 	if o.Protected != nil {
 		s.Protected = o.Protected
+	}
+	if o.ReRaisePublishedAlerts != nil {
+		s.ReRaisePublishedAlerts = o.ReRaisePublishedAlerts
+	}
+	if o.ReRaisePublishedAlertsTime != nil {
+		s.ReRaisePublishedAlertsTime = o.ReRaisePublishedAlertsTime
 	}
 	if o.UpdateIdempotencyKey != nil {
 		s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
@@ -1470,9 +1503,6 @@ func (o *SparseCNSConfig) SetBSON(raw bson.Raw) error {
 	if s.NonMatchingAlertsRaisingEnabled != nil {
 		o.NonMatchingAlertsRaisingEnabled = s.NonMatchingAlertsRaisingEnabled
 	}
-	if s.NonMatchingCloudAccountScanEnabled != nil {
-		o.NonMatchingCloudAccountScanEnabled = s.NonMatchingCloudAccountScanEnabled
-	}
 	if s.NormalizedTags != nil {
 		o.NormalizedTags = s.NormalizedTags
 	}
@@ -1481,6 +1511,12 @@ func (o *SparseCNSConfig) SetBSON(raw bson.Raw) error {
 	}
 	if s.Protected != nil {
 		o.Protected = s.Protected
+	}
+	if s.ReRaisePublishedAlerts != nil {
+		o.ReRaisePublishedAlerts = s.ReRaisePublishedAlerts
+	}
+	if s.ReRaisePublishedAlertsTime != nil {
+		o.ReRaisePublishedAlertsTime = s.ReRaisePublishedAlertsTime
 	}
 	if s.UpdateIdempotencyKey != nil {
 		o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
@@ -1541,9 +1577,6 @@ func (o *SparseCNSConfig) ToPlain() elemental.PlainIdentifiable {
 	if o.NonMatchingAlertsRaisingEnabled != nil {
 		out.NonMatchingAlertsRaisingEnabled = *o.NonMatchingAlertsRaisingEnabled
 	}
-	if o.NonMatchingCloudAccountScanEnabled != nil {
-		out.NonMatchingCloudAccountScanEnabled = *o.NonMatchingCloudAccountScanEnabled
-	}
 	if o.NormalizedTags != nil {
 		out.NormalizedTags = *o.NormalizedTags
 	}
@@ -1552,6 +1585,12 @@ func (o *SparseCNSConfig) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.Protected != nil {
 		out.Protected = *o.Protected
+	}
+	if o.ReRaisePublishedAlerts != nil {
+		out.ReRaisePublishedAlerts = *o.ReRaisePublishedAlerts
+	}
+	if o.ReRaisePublishedAlertsTime != nil {
+		out.ReRaisePublishedAlertsTime = *o.ReRaisePublishedAlertsTime
 	}
 	if o.UpdateIdempotencyKey != nil {
 		out.UpdateIdempotencyKey = *o.UpdateIdempotencyKey
@@ -1802,44 +1841,46 @@ func (o *SparseCNSConfig) DeepCopyInto(out *SparseCNSConfig) {
 }
 
 type mongoAttributesCNSConfig struct {
-	ID                                 bson.ObjectId       `bson:"_id,omitempty"`
-	Annotations                        map[string][]string `bson:"annotations"`
-	AssociatedTags                     []string            `bson:"associatedtags"`
-	CreateIdempotencyKey               string              `bson:"createidempotencykey"`
-	CreateTime                         time.Time           `bson:"createtime"`
-	Disabled                           bool                `bson:"disabled"`
-	EnableNetEffectivePermissions      bool                `bson:"enableneteffectivepermissions"`
-	EnableNetworkSecurity              bool                `bson:"enablenetworksecurity"`
-	MigrationsLog                      map[string]string   `bson:"migrationslog,omitempty"`
-	Namespace                          string              `bson:"namespace"`
-	NonMatchingAlertsRaisingEnabled    bool                `bson:"nonmatchingalertsraisingenabled"`
-	NonMatchingCloudAccountScanEnabled bool                `bson:"nonmatchingcloudaccountscanenabled"`
-	NormalizedTags                     []string            `bson:"normalizedtags"`
-	PrismaID                           string              `bson:"prismaid"`
-	Protected                          bool                `bson:"protected"`
-	UpdateIdempotencyKey               string              `bson:"updateidempotencykey"`
-	UpdateTime                         time.Time           `bson:"updatetime"`
-	ZHash                              int                 `bson:"zhash"`
-	Zone                               int                 `bson:"zone"`
+	ID                              bson.ObjectId       `bson:"_id,omitempty"`
+	Annotations                     map[string][]string `bson:"annotations"`
+	AssociatedTags                  []string            `bson:"associatedtags"`
+	CreateIdempotencyKey            string              `bson:"createidempotencykey"`
+	CreateTime                      time.Time           `bson:"createtime"`
+	Disabled                        bool                `bson:"disabled"`
+	EnableNetEffectivePermissions   bool                `bson:"enableneteffectivepermissions"`
+	EnableNetworkSecurity           bool                `bson:"enablenetworksecurity"`
+	MigrationsLog                   map[string]string   `bson:"migrationslog,omitempty"`
+	Namespace                       string              `bson:"namespace"`
+	NonMatchingAlertsRaisingEnabled bool                `bson:"nonmatchingalertsraisingenabled"`
+	NormalizedTags                  []string            `bson:"normalizedtags"`
+	PrismaID                        string              `bson:"prismaid"`
+	Protected                       bool                `bson:"protected"`
+	ReRaisePublishedAlerts          bool                `bson:"reraisepublishedalerts"`
+	ReRaisePublishedAlertsTime      time.Time           `bson:"reraisepublishedalertstime"`
+	UpdateIdempotencyKey            string              `bson:"updateidempotencykey"`
+	UpdateTime                      time.Time           `bson:"updatetime"`
+	ZHash                           int                 `bson:"zhash"`
+	Zone                            int                 `bson:"zone"`
 }
 type mongoAttributesSparseCNSConfig struct {
-	ID                                 bson.ObjectId        `bson:"_id,omitempty"`
-	Annotations                        *map[string][]string `bson:"annotations,omitempty"`
-	AssociatedTags                     *[]string            `bson:"associatedtags,omitempty"`
-	CreateIdempotencyKey               *string              `bson:"createidempotencykey,omitempty"`
-	CreateTime                         *time.Time           `bson:"createtime,omitempty"`
-	Disabled                           *bool                `bson:"disabled,omitempty"`
-	EnableNetEffectivePermissions      *bool                `bson:"enableneteffectivepermissions,omitempty"`
-	EnableNetworkSecurity              *bool                `bson:"enablenetworksecurity,omitempty"`
-	MigrationsLog                      *map[string]string   `bson:"migrationslog,omitempty"`
-	Namespace                          *string              `bson:"namespace,omitempty"`
-	NonMatchingAlertsRaisingEnabled    *bool                `bson:"nonmatchingalertsraisingenabled,omitempty"`
-	NonMatchingCloudAccountScanEnabled *bool                `bson:"nonmatchingcloudaccountscanenabled,omitempty"`
-	NormalizedTags                     *[]string            `bson:"normalizedtags,omitempty"`
-	PrismaID                           *string              `bson:"prismaid,omitempty"`
-	Protected                          *bool                `bson:"protected,omitempty"`
-	UpdateIdempotencyKey               *string              `bson:"updateidempotencykey,omitempty"`
-	UpdateTime                         *time.Time           `bson:"updatetime,omitempty"`
-	ZHash                              *int                 `bson:"zhash,omitempty"`
-	Zone                               *int                 `bson:"zone,omitempty"`
+	ID                              bson.ObjectId        `bson:"_id,omitempty"`
+	Annotations                     *map[string][]string `bson:"annotations,omitempty"`
+	AssociatedTags                  *[]string            `bson:"associatedtags,omitempty"`
+	CreateIdempotencyKey            *string              `bson:"createidempotencykey,omitempty"`
+	CreateTime                      *time.Time           `bson:"createtime,omitempty"`
+	Disabled                        *bool                `bson:"disabled,omitempty"`
+	EnableNetEffectivePermissions   *bool                `bson:"enableneteffectivepermissions,omitempty"`
+	EnableNetworkSecurity           *bool                `bson:"enablenetworksecurity,omitempty"`
+	MigrationsLog                   *map[string]string   `bson:"migrationslog,omitempty"`
+	Namespace                       *string              `bson:"namespace,omitempty"`
+	NonMatchingAlertsRaisingEnabled *bool                `bson:"nonmatchingalertsraisingenabled,omitempty"`
+	NormalizedTags                  *[]string            `bson:"normalizedtags,omitempty"`
+	PrismaID                        *string              `bson:"prismaid,omitempty"`
+	Protected                       *bool                `bson:"protected,omitempty"`
+	ReRaisePublishedAlerts          *bool                `bson:"reraisepublishedalerts,omitempty"`
+	ReRaisePublishedAlertsTime      *time.Time           `bson:"reraisepublishedalertstime,omitempty"`
+	UpdateIdempotencyKey            *string              `bson:"updateidempotencykey,omitempty"`
+	UpdateTime                      *time.Time           `bson:"updatetime,omitempty"`
+	ZHash                           *int                 `bson:"zhash,omitempty"`
+	Zone                            *int                 `bson:"zone,omitempty"`
 }
