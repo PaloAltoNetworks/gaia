@@ -54,6 +54,7 @@ attributes:
     - ComputeBackendService
     - ComputeRegion
     - ComputeZone
+    - ComputeURLMap
     - ResourceFolder
     - ResourceProject
     - Pending
