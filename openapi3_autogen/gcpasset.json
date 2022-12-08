@@ -55,6 +55,7 @@
               "ComputeTargetHTTPSProxy",
               "ComputeRegion",
               "ComputeZone",
+              "ComputeURLMap",
               "ResourceFolder",
               "ResourceProject",
               "Pending"
