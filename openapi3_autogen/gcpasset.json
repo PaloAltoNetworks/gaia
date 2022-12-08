@@ -58,6 +58,7 @@
               "ComputeZone",
               "ComputeURLMap",
               "ComputeInstanceGroup",
+              "ComputeTargetInstance",
               "ResourceFolder",
               "ResourceProject",
               "Pending"
