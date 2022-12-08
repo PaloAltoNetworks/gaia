@@ -51,6 +51,9 @@ const (
 	// GCPAssetKindComputeInstance represents the value ComputeInstance.
 	GCPAssetKindComputeInstance GCPAssetKindValue = "ComputeInstance"
 
+	// GCPAssetKindComputeInstanceGroup represents the value ComputeInstanceGroup.
+	GCPAssetKindComputeInstanceGroup GCPAssetKindValue = "ComputeInstanceGroup"
+
 	// GCPAssetKindComputeNetwork represents the value ComputeNetwork.
 	GCPAssetKindComputeNetwork GCPAssetKindValue = "ComputeNetwork"
 
@@ -600,7 +603,7 @@ func (o *GCPAsset) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeTargetHTTPProxy", "ComputeTargetHTTPSProxy", "ComputeRegion", "ComputeZone", "ComputeURLMap", "ResourceFolder", "ResourceProject", "Pending"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeTargetHTTPProxy", "ComputeTargetHTTPSProxy", "ComputeRegion", "ComputeZone", "ComputeURLMap", "ComputeInstanceGroup", "ResourceFolder", "ResourceProject", "Pending"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -750,7 +753,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Type:           "enum",
 	},
 	"Kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeTargetHTTPProxy", "ComputeTargetHTTPSProxy", "ComputeRegion", "ComputeZone", "ComputeURLMap", "ResourceFolder", "ResourceProject", "Pending"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeTargetHTTPProxy", "ComputeTargetHTTPSProxy", "ComputeRegion", "ComputeZone", "ComputeURLMap", "ComputeInstanceGroup", "ResourceFolder", "ResourceProject", "Pending"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   GCPAssetKindPending,
@@ -984,7 +987,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Type:           "enum",
 	},
 	"kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeTargetHTTPProxy", "ComputeTargetHTTPSProxy", "ComputeRegion", "ComputeZone", "ComputeURLMap", "ResourceFolder", "ResourceProject", "Pending"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeTargetHTTPProxy", "ComputeTargetHTTPSProxy", "ComputeRegion", "ComputeZone", "ComputeURLMap", "ComputeInstanceGroup", "ResourceFolder", "ResourceProject", "Pending"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   GCPAssetKindPending,
