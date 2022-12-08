@@ -51,6 +51,8 @@
               "ComputeFirewallPolicy",
               "ComputeForwardingRule",
               "ComputeBackendService",
+              "ComputeTargetHTTPProxy",
+              "ComputeTargetHTTPSProxy",
               "ComputeRegion",
               "ComputeZone",
               "ComputeURLMap",
