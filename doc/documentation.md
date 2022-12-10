@@ -10497,6 +10497,12 @@ Type: `enum(Interface | Instance | VPC | Subnet)`
 
 Returns the type of the resource on which alert was raised.
 
+##### `rrn`
+
+Type: `string`
+
+RRN identifier for the resource.
+
 ##### `tags`
 
 Type: `[]string`
