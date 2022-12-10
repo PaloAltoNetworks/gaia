@@ -54,6 +54,7 @@ attributes:
     - ComputeBackendService
     - ComputeTargetHTTPProxy
     - ComputeTargetHTTPSProxy
+    - ComputeTargetPool
     - ComputeRegion
     - ComputeZone
     - ComputeURLMap
