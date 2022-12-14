@@ -58,6 +58,7 @@
               "ComputeZone",
               "ComputeURLMap",
               "ComputeInstanceGroup",
+              "ComputeNetworkEndpointGroup",
               "ComputeTargetInstance",
               "ResourceFolder",
               "ResourceProject",
