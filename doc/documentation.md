@@ -10353,7 +10353,7 @@ List of tags attached to an entity.
 
 ##### `cloudType`
 
-Type: `enum(AWS | AZURE)`
+Type: `enum(AWS | AZURE | GCP)`
 
 Cloud type of the entity.
 
