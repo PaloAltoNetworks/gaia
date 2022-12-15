@@ -129,6 +129,10 @@
             ],
             "readOnly": true
           },
+          "rrn": {
+            "description": "RRN identifier for the resource.",
+            "type": "string"
+          },
           "updateTime": {
             "description": "Last update date of the object.",
             "format": "date-time",
