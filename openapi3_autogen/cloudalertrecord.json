@@ -98,6 +98,10 @@
             "description": "Result of the last modified time of the prisma cloud policy.",
             "type": "integer"
           },
+          "prismaRRN": {
+            "description": "RRN identifier for the resource.",
+            "type": "string"
+          },
           "protected": {
             "description": "Defines if the object is protected.",
             "type": "boolean"
@@ -128,10 +132,6 @@
               "Subnet"
             ],
             "readOnly": true
-          },
-          "rrn": {
-            "description": "RRN identifier for the resource.",
-            "type": "string"
           },
           "updateTime": {
             "description": "Last update date of the object.",
