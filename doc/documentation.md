@@ -14838,7 +14838,7 @@ Default value:
 
 ##### `kind`
 
-Type: `enum(ComputeInstance | ComputeSubnetwork | ComputeNetwork | ComputeFirewall | ComputeFirewallPolicy | ComputeForwardingRule | ComputeBackendService | ComputeTargetHTTPProxy | ComputeTargetHTTPSProxy | ComputeTargetPool | ComputeRegion | ComputeZone | ComputeURLMap | ComputeInstanceGroup | ComputeTargetInstance | ResourceFolder | ResourceProject | Pending)`
+Type: `enum(ComputeInstance | ComputeSubnetwork | ComputeNetwork | ComputeFirewall | ComputeFirewallPolicy | ComputeForwardingRule | ComputeBackendService | ComputeTargetHTTPProxy | ComputeTargetHTTPSProxy | ComputeTargetPool | ComputeRegion | ComputeZone | ComputeURLMap | ComputeInstanceGroup | ComputeNetworkEndpointGroup | ComputeTargetInstance | ResourceFolder | ResourceProject | Pending)`
 
 The specific kind of the resource.
 
