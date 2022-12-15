@@ -155,7 +155,6 @@ attributes:
     description: RRN identifier for the resource.
     type: string
     exposed: true
-    subtype: string
     stored: true
 
   - name: verdict
