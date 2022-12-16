@@ -181,6 +181,9 @@ type CloudAlertRecord struct {
 	// Result of the last modified time of the prisma cloud policy.
 	PrismaCloudPolicyLastModifiedOn int `json:"prismaCloudPolicyLastModifiedOn" msgpack:"prismaCloudPolicyLastModifiedOn" bson:"prismacloudpolicylastmodifiedon" mapstructure:"prismaCloudPolicyLastModifiedOn,omitempty"`
 
+	// RRN identifier for the resource.
+	PrismaRRN string `json:"prismaRRN" msgpack:"prismaRRN" bson:"prismarrn" mapstructure:"prismaRRN,omitempty"`
+
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
@@ -284,6 +287,7 @@ func (o *CloudAlertRecord) GetBSON() (interface{}, error) {
 	s.PrismaCloudAlertRuleScopeLastChangedOn = o.PrismaCloudAlertRuleScopeLastChangedOn
 	s.PrismaCloudPolicyID = o.PrismaCloudPolicyID
 	s.PrismaCloudPolicyLastModifiedOn = o.PrismaCloudPolicyLastModifiedOn
+	s.PrismaRRN = o.PrismaRRN
 	s.Protected = o.Protected
 	s.Published = o.Published
 	s.Region = o.Region
@@ -329,6 +333,7 @@ func (o *CloudAlertRecord) SetBSON(raw bson.Raw) error {
 	o.PrismaCloudAlertRuleScopeLastChangedOn = s.PrismaCloudAlertRuleScopeLastChangedOn
 	o.PrismaCloudPolicyID = s.PrismaCloudPolicyID
 	o.PrismaCloudPolicyLastModifiedOn = s.PrismaCloudPolicyLastModifiedOn
+	o.PrismaRRN = s.PrismaRRN
 	o.Protected = s.Protected
 	o.Published = s.Published
 	o.Region = s.Region
@@ -544,6 +549,7 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			PrismaCloudAlertRuleScopeLastChangedOn: &o.PrismaCloudAlertRuleScopeLastChangedOn,
 			PrismaCloudPolicyID:                    &o.PrismaCloudPolicyID,
 			PrismaCloudPolicyLastModifiedOn:        &o.PrismaCloudPolicyLastModifiedOn,
+			PrismaRRN:                              &o.PrismaRRN,
 			Protected:                              &o.Protected,
 			Published:                              &o.Published,
 			Region:                                 &o.Region,
@@ -595,6 +601,8 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.PrismaCloudPolicyID = &(o.PrismaCloudPolicyID)
 		case "prismaCloudPolicyLastModifiedOn":
 			sp.PrismaCloudPolicyLastModifiedOn = &(o.PrismaCloudPolicyLastModifiedOn)
+		case "prismaRRN":
+			sp.PrismaRRN = &(o.PrismaRRN)
 		case "protected":
 			sp.Protected = &(o.Protected)
 		case "published":
@@ -680,6 +688,9 @@ func (o *CloudAlertRecord) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.PrismaCloudPolicyLastModifiedOn != nil {
 		o.PrismaCloudPolicyLastModifiedOn = *so.PrismaCloudPolicyLastModifiedOn
+	}
+	if so.PrismaRRN != nil {
+		o.PrismaRRN = *so.PrismaRRN
 	}
 	if so.Protected != nil {
 		o.Protected = *so.Protected
@@ -838,6 +849,8 @@ func (o *CloudAlertRecord) ValueForAttribute(name string) interface{} {
 		return o.PrismaCloudPolicyID
 	case "prismaCloudPolicyLastModifiedOn":
 		return o.PrismaCloudPolicyLastModifiedOn
+	case "prismaRRN":
+		return o.PrismaRRN
 	case "protected":
 		return o.Protected
 	case "published":
@@ -1081,6 +1094,16 @@ resource.`,
 		Name:           "prismaCloudPolicyLastModifiedOn",
 		Stored:         true,
 		Type:           "integer",
+	},
+	"PrismaRRN": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismarrn",
+		ConvertedName:  "PrismaRRN",
+		Description:    `RRN identifier for the resource.`,
+		Exposed:        true,
+		Name:           "prismaRRN",
+		Stored:         true,
+		Type:           "string",
 	},
 	"Protected": {
 		AllowedChoices: []string{},
@@ -1438,6 +1461,16 @@ resource.`,
 		Stored:         true,
 		Type:           "integer",
 	},
+	"prismarrn": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismarrn",
+		ConvertedName:  "PrismaRRN",
+		Description:    `RRN identifier for the resource.`,
+		Exposed:        true,
+		Name:           "prismaRRN",
+		Stored:         true,
+		Type:           "string",
+	},
 	"protected": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "protected",
@@ -1695,6 +1728,9 @@ type SparseCloudAlertRecord struct {
 	// Result of the last modified time of the prisma cloud policy.
 	PrismaCloudPolicyLastModifiedOn *int `json:"prismaCloudPolicyLastModifiedOn,omitempty" msgpack:"prismaCloudPolicyLastModifiedOn,omitempty" bson:"prismacloudpolicylastmodifiedon,omitempty" mapstructure:"prismaCloudPolicyLastModifiedOn,omitempty"`
 
+	// RRN identifier for the resource.
+	PrismaRRN *string `json:"prismaRRN,omitempty" msgpack:"prismaRRN,omitempty" bson:"prismarrn,omitempty" mapstructure:"prismaRRN,omitempty"`
+
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
@@ -1824,6 +1860,9 @@ func (o *SparseCloudAlertRecord) GetBSON() (interface{}, error) {
 	if o.PrismaCloudPolicyLastModifiedOn != nil {
 		s.PrismaCloudPolicyLastModifiedOn = o.PrismaCloudPolicyLastModifiedOn
 	}
+	if o.PrismaRRN != nil {
+		s.PrismaRRN = o.PrismaRRN
+	}
 	if o.Protected != nil {
 		s.Protected = o.Protected
 	}
@@ -1924,6 +1963,9 @@ func (o *SparseCloudAlertRecord) SetBSON(raw bson.Raw) error {
 	if s.PrismaCloudPolicyLastModifiedOn != nil {
 		o.PrismaCloudPolicyLastModifiedOn = s.PrismaCloudPolicyLastModifiedOn
 	}
+	if s.PrismaRRN != nil {
+		o.PrismaRRN = s.PrismaRRN
+	}
 	if s.Protected != nil {
 		o.Protected = s.Protected
 	}
@@ -2021,6 +2063,9 @@ func (o *SparseCloudAlertRecord) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.PrismaCloudPolicyLastModifiedOn != nil {
 		out.PrismaCloudPolicyLastModifiedOn = *o.PrismaCloudPolicyLastModifiedOn
+	}
+	if o.PrismaRRN != nil {
+		out.PrismaRRN = *o.PrismaRRN
 	}
 	if o.Protected != nil {
 		out.Protected = *o.Protected
@@ -2293,6 +2338,7 @@ type mongoAttributesCloudAlertRecord struct {
 	PrismaCloudAlertRuleScopeLastChangedOn int                               `bson:"prismacloudalertrulescopelastchangedon"`
 	PrismaCloudPolicyID                    string                            `bson:"prismacloudpolicyid"`
 	PrismaCloudPolicyLastModifiedOn        int                               `bson:"prismacloudpolicylastmodifiedon"`
+	PrismaRRN                              string                            `bson:"prismarrn"`
 	Protected                              bool                              `bson:"protected"`
 	Published                              bool                              `bson:"published"`
 	Region                                 string                            `bson:"region"`
@@ -2323,6 +2369,7 @@ type mongoAttributesSparseCloudAlertRecord struct {
 	PrismaCloudAlertRuleScopeLastChangedOn *int                               `bson:"prismacloudalertrulescopelastchangedon,omitempty"`
 	PrismaCloudPolicyID                    *string                            `bson:"prismacloudpolicyid,omitempty"`
 	PrismaCloudPolicyLastModifiedOn        *int                               `bson:"prismacloudpolicylastmodifiedon,omitempty"`
+	PrismaRRN                              *string                            `bson:"prismarrn,omitempty"`
 	Protected                              *bool                              `bson:"protected,omitempty"`
 	Published                              *bool                              `bson:"published,omitempty"`
 	Region                                 *string                            `bson:"region,omitempty"`

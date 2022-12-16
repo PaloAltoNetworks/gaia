@@ -10448,6 +10448,12 @@ Default value:
 0
 ```
 
+##### `prismaRRN`
+
+Type: `string`
+
+RRN identifier for the resource.
+
 ##### `protected`
 
 Type: `boolean`

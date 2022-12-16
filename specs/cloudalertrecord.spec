@@ -109,6 +109,12 @@ attributes:
     stored: true
     default_value: 0
 
+  - name: prismaRRN
+    description: RRN identifier for the resource.
+    type: string
+    exposed: true
+    stored: true
+
   - name: published
     description: Indicates if the alert is published to PC.
     type: boolean
