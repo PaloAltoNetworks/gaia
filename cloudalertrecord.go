@@ -21,6 +21,9 @@ const (
 
 	// CloudAlertRecordCloudTypeAZURE represents the value AZURE.
 	CloudAlertRecordCloudTypeAZURE CloudAlertRecordCloudTypeValue = "AZURE"
+
+	// CloudAlertRecordCloudTypeGCP represents the value GCP.
+	CloudAlertRecordCloudTypeGCP CloudAlertRecordCloudTypeValue = "GCP"
 )
 
 // CloudAlertRecordResourceTypeValue represents the possible values for attribute "resourceType".
@@ -747,7 +750,7 @@ func (o *CloudAlertRecord) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("cloudType", string(o.CloudType), []string{"AWS", "AZURE"}, false); err != nil {
+	if err := elemental.ValidateStringInList("cloudType", string(o.CloudType), []string{"AWS", "AZURE", "GCP"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -918,7 +921,7 @@ raised.`,
 		Type:           "list",
 	},
 	"CloudType": {
-		AllowedChoices: []string{"AWS", "AZURE"},
+		AllowedChoices: []string{"AWS", "AZURE", "GCP"},
 		BSONFieldName:  "cloudtype",
 		ConvertedName:  "CloudType",
 		DefaultValue:   CloudAlertRecordCloudTypeAWS,
@@ -1274,7 +1277,7 @@ raised.`,
 		Type:           "list",
 	},
 	"cloudtype": {
-		AllowedChoices: []string{"AWS", "AZURE"},
+		AllowedChoices: []string{"AWS", "AZURE", "GCP"},
 		BSONFieldName:  "cloudtype",
 		ConvertedName:  "CloudType",
 		DefaultValue:   CloudAlertRecordCloudTypeAWS,

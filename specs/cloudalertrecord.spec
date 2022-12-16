@@ -55,6 +55,7 @@ attributes:
     allowed_choices:
     - AWS
     - AZURE
+    - GCP
     default_value: AWS
 
   - name: lastExecutionTimestamp

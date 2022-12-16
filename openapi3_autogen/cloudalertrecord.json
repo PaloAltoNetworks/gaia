@@ -36,7 +36,8 @@
             "description": "Cloud type of the entity.",
             "enum": [
               "AWS",
-              "AZURE"
+              "AZURE",
+              "GCP"
             ]
           },
           "createTime": {
