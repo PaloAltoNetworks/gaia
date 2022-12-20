@@ -203,9 +203,6 @@ type CloudAlertRecord struct {
 	// Returns the type of the resource on which alert was raised.
 	ResourceType CloudAlertRecordResourceTypeValue `json:"resourceType" msgpack:"resourceType" bson:"resourcetype" mapstructure:"resourceType,omitempty"`
 
-	// RRN identifier for the resource.
-	Rrn string `json:"rrn" msgpack:"rrn" bson:"rrn" mapstructure:"rrn,omitempty"`
-
 	// The tags provided for the resource.
 	Tags []string `json:"tags" msgpack:"tags" bson:"tags" mapstructure:"tags,omitempty"`
 
@@ -301,7 +298,6 @@ func (o *CloudAlertRecord) GetBSON() (interface{}, error) {
 	s.ResourceCount = o.ResourceCount
 	s.ResourceID = o.ResourceID
 	s.ResourceType = o.ResourceType
-	s.Rrn = o.Rrn
 	s.Tags = o.Tags
 	s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
 	s.UpdateTime = o.UpdateTime
@@ -349,7 +345,6 @@ func (o *CloudAlertRecord) SetBSON(raw bson.Raw) error {
 	o.ResourceCount = s.ResourceCount
 	o.ResourceID = s.ResourceID
 	o.ResourceType = s.ResourceType
-	o.Rrn = s.Rrn
 	o.Tags = s.Tags
 	o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
 	o.UpdateTime = s.UpdateTime
@@ -567,7 +562,6 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			ResourceCount:                          &o.ResourceCount,
 			ResourceID:                             &o.ResourceID,
 			ResourceType:                           &o.ResourceType,
-			Rrn:                                    &o.Rrn,
 			Tags:                                   &o.Tags,
 			UpdateIdempotencyKey:                   &o.UpdateIdempotencyKey,
 			UpdateTime:                             &o.UpdateTime,
@@ -628,8 +622,6 @@ func (o *CloudAlertRecord) ToSparse(fields ...string) elemental.SparseIdentifiab
 			sp.ResourceID = &(o.ResourceID)
 		case "resourceType":
 			sp.ResourceType = &(o.ResourceType)
-		case "rrn":
-			sp.Rrn = &(o.Rrn)
 		case "tags":
 			sp.Tags = &(o.Tags)
 		case "updateIdempotencyKey":
@@ -726,9 +718,6 @@ func (o *CloudAlertRecord) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.ResourceType != nil {
 		o.ResourceType = *so.ResourceType
-	}
-	if so.Rrn != nil {
-		o.Rrn = *so.Rrn
 	}
 	if so.Tags != nil {
 		o.Tags = *so.Tags
@@ -886,8 +875,6 @@ func (o *CloudAlertRecord) ValueForAttribute(name string) interface{} {
 		return o.ResourceID
 	case "resourceType":
 		return o.ResourceType
-	case "rrn":
-		return o.Rrn
 	case "tags":
 		return o.Tags
 	case "updateIdempotencyKey":
@@ -1200,17 +1187,6 @@ raised.`,
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "enum",
-	},
-	"Rrn": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "rrn",
-		ConvertedName:  "Rrn",
-		Description:    `RRN identifier for the resource.`,
-		Exposed:        true,
-		Name:           "rrn",
-		Stored:         true,
-		SubType:        "string",
-		Type:           "string",
 	},
 	"Tags": {
 		AllowedChoices: []string{},
@@ -1589,17 +1565,6 @@ raised.`,
 		Stored:         true,
 		Type:           "enum",
 	},
-	"rrn": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "rrn",
-		ConvertedName:  "Rrn",
-		Description:    `RRN identifier for the resource.`,
-		Exposed:        true,
-		Name:           "rrn",
-		Stored:         true,
-		SubType:        "string",
-		Type:           "string",
-	},
 	"tags": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "tags",
@@ -1821,9 +1786,6 @@ type SparseCloudAlertRecord struct {
 	// Returns the type of the resource on which alert was raised.
 	ResourceType *CloudAlertRecordResourceTypeValue `json:"resourceType,omitempty" msgpack:"resourceType,omitempty" bson:"resourcetype,omitempty" mapstructure:"resourceType,omitempty"`
 
-	// RRN identifier for the resource.
-	Rrn *string `json:"rrn,omitempty" msgpack:"rrn,omitempty" bson:"rrn,omitempty" mapstructure:"rrn,omitempty"`
-
 	// The tags provided for the resource.
 	Tags *[]string `json:"tags,omitempty" msgpack:"tags,omitempty" bson:"tags,omitempty" mapstructure:"tags,omitempty"`
 
@@ -1958,9 +1920,6 @@ func (o *SparseCloudAlertRecord) GetBSON() (interface{}, error) {
 	if o.ResourceType != nil {
 		s.ResourceType = o.ResourceType
 	}
-	if o.Rrn != nil {
-		s.Rrn = o.Rrn
-	}
 	if o.Tags != nil {
 		s.Tags = o.Tags
 	}
@@ -2067,9 +2026,6 @@ func (o *SparseCloudAlertRecord) SetBSON(raw bson.Raw) error {
 	if s.ResourceType != nil {
 		o.ResourceType = s.ResourceType
 	}
-	if s.Rrn != nil {
-		o.Rrn = s.Rrn
-	}
 	if s.Tags != nil {
 		o.Tags = s.Tags
 	}
@@ -2173,9 +2129,6 @@ func (o *SparseCloudAlertRecord) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.ResourceType != nil {
 		out.ResourceType = *o.ResourceType
-	}
-	if o.Rrn != nil {
-		out.Rrn = *o.Rrn
 	}
 	if o.Tags != nil {
 		out.Tags = *o.Tags
@@ -2440,7 +2393,6 @@ type mongoAttributesCloudAlertRecord struct {
 	ResourceCount                          int                               `bson:"resourcecount"`
 	ResourceID                             string                            `bson:"resourceid"`
 	ResourceType                           CloudAlertRecordResourceTypeValue `bson:"resourcetype"`
-	Rrn                                    string                            `bson:"rrn"`
 	Tags                                   []string                          `bson:"tags"`
 	UpdateIdempotencyKey                   string                            `bson:"updateidempotencykey"`
 	UpdateTime                             time.Time                         `bson:"updatetime"`
@@ -2473,7 +2425,6 @@ type mongoAttributesSparseCloudAlertRecord struct {
 	ResourceCount                          *int                               `bson:"resourcecount,omitempty"`
 	ResourceID                             *string                            `bson:"resourceid,omitempty"`
 	ResourceType                           *CloudAlertRecordResourceTypeValue `bson:"resourcetype,omitempty"`
-	Rrn                                    *string                            `bson:"rrn,omitempty"`
 	Tags                                   *[]string                          `bson:"tags,omitempty"`
 	UpdateIdempotencyKey                   *string                            `bson:"updateidempotencykey,omitempty"`
 	UpdateTime                             *time.Time                         `bson:"updatetime,omitempty"`
