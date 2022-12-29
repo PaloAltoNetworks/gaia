@@ -134,6 +134,13 @@
             ],
             "readOnly": true
           },
+          "tags": {
+            "description": "The tags provided for the resource.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "updateTime": {
             "description": "Last update date of the object.",
             "format": "date-time",
