@@ -60,6 +60,8 @@
               "ComputeInstanceGroup",
               "ComputeNetworkEndpointGroup",
               "ComputeTargetInstance",
+              "ComputeTargetTCPProxy",
+              "ComputeTargetSSLProxy",
               "ResourceFolder",
               "ResourceProject",
               "Pending"
