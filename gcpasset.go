@@ -78,6 +78,12 @@ const (
 	// GCPAssetKindComputeTargetPool represents the value ComputeTargetPool.
 	GCPAssetKindComputeTargetPool GCPAssetKindValue = "ComputeTargetPool"
 
+	// GCPAssetKindComputeTargetSSLProxy represents the value ComputeTargetSSLProxy.
+	GCPAssetKindComputeTargetSSLProxy GCPAssetKindValue = "ComputeTargetSSLProxy"
+
+	// GCPAssetKindComputeTargetTCPProxy represents the value ComputeTargetTCPProxy.
+	GCPAssetKindComputeTargetTCPProxy GCPAssetKindValue = "ComputeTargetTCPProxy"
+
 	// GCPAssetKindComputeURLMap represents the value ComputeURLMap.
 	GCPAssetKindComputeURLMap GCPAssetKindValue = "ComputeURLMap"
 
@@ -612,7 +618,7 @@ func (o *GCPAsset) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeTargetHTTPProxy", "ComputeTargetHTTPSProxy", "ComputeTargetPool", "ComputeRegion", "ComputeZone", "ComputeURLMap", "ComputeInstanceGroup", "ComputeNetworkEndpointGroup", "ComputeTargetInstance", "ResourceFolder", "ResourceProject", "Pending"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeTargetHTTPProxy", "ComputeTargetHTTPSProxy", "ComputeTargetPool", "ComputeRegion", "ComputeZone", "ComputeURLMap", "ComputeInstanceGroup", "ComputeNetworkEndpointGroup", "ComputeTargetInstance", "ComputeTargetTCPProxy", "ComputeTargetSSLProxy", "ResourceFolder", "ResourceProject", "Pending"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -762,7 +768,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Type:           "enum",
 	},
 	"Kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeTargetHTTPProxy", "ComputeTargetHTTPSProxy", "ComputeTargetPool", "ComputeRegion", "ComputeZone", "ComputeURLMap", "ComputeInstanceGroup", "ComputeNetworkEndpointGroup", "ComputeTargetInstance", "ResourceFolder", "ResourceProject", "Pending"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeTargetHTTPProxy", "ComputeTargetHTTPSProxy", "ComputeTargetPool", "ComputeRegion", "ComputeZone", "ComputeURLMap", "ComputeInstanceGroup", "ComputeNetworkEndpointGroup", "ComputeTargetInstance", "ComputeTargetTCPProxy", "ComputeTargetSSLProxy", "ResourceFolder", "ResourceProject", "Pending"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   GCPAssetKindPending,
@@ -996,7 +1002,7 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 		Type:           "enum",
 	},
 	"kind": {
-		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeTargetHTTPProxy", "ComputeTargetHTTPSProxy", "ComputeTargetPool", "ComputeRegion", "ComputeZone", "ComputeURLMap", "ComputeInstanceGroup", "ComputeNetworkEndpointGroup", "ComputeTargetInstance", "ResourceFolder", "ResourceProject", "Pending"},
+		AllowedChoices: []string{"ComputeInstance", "ComputeSubnetwork", "ComputeNetwork", "ComputeFirewall", "ComputeFirewallPolicy", "ComputeForwardingRule", "ComputeBackendService", "ComputeTargetHTTPProxy", "ComputeTargetHTTPSProxy", "ComputeTargetPool", "ComputeRegion", "ComputeZone", "ComputeURLMap", "ComputeInstanceGroup", "ComputeNetworkEndpointGroup", "ComputeTargetInstance", "ComputeTargetTCPProxy", "ComputeTargetSSLProxy", "ResourceFolder", "ResourceProject", "Pending"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   GCPAssetKindPending,
