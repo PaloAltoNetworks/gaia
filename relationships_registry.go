@@ -6095,6 +6095,8 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[TestResourceIdentity] = &elemental.Relationship{}
+
 	relationshipsRegistry[TextIndexIdentity] = &elemental.Relationship{}
 
 	relationshipsRegistry[TokenIdentity] = &elemental.Relationship{

@@ -206,6 +206,7 @@ var (
 		"tagprefix":               TagPrefixIdentity,
 		"tagvalue":                TagValueIdentity,
 		"tenant":                  TenantIdentity,
+		"testresource":            TestResourceIdentity,
 		"textindex":               TextIndexIdentity,
 
 		"token":            TokenIdentity,
@@ -425,6 +426,7 @@ var (
 		"tagprefixes":               TagPrefixIdentity,
 		"tagvalues":                 TagValueIdentity,
 		"tenants":                   TenantIdentity,
+		"testresources":             TestResourceIdentity,
 		"textindexes":               TextIndexIdentity,
 
 		"tokens":             TokenIdentity,
@@ -1398,6 +1400,11 @@ var (
 		"tagprefix": nil,
 		"tagvalue":  nil,
 		"tenant":    nil,
+		"testresource": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+		},
 		"textindex": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"date"},
@@ -1831,6 +1838,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewTagValue()
 	case TenantIdentity:
 		return NewTenant()
+	case TestResourceIdentity:
+		return NewTestResource()
 	case TextIndexIdentity:
 		return NewTextIndex()
 	case TokenIdentity:
@@ -2208,6 +2217,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseTagValue()
 	case TenantIdentity:
 		return NewSparseTenant()
+	case TestResourceIdentity:
+		return NewSparseTestResource()
 	case TextIndexIdentity:
 		return NewSparseTextIndex()
 	case TokenIdentity:
@@ -2595,6 +2606,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &TagValuesList{}
 	case TenantIdentity:
 		return &TenantsList{}
+	case TestResourceIdentity:
+		return &TestResourcesList{}
 	case TextIndexIdentity:
 		return &TextIndexsList{}
 	case TokenIdentity:
@@ -2972,6 +2985,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseTagValuesList{}
 	case TenantIdentity:
 		return &SparseTenantsList{}
+	case TestResourceIdentity:
+		return &SparseTestResourcesList{}
 	case TextIndexIdentity:
 		return &SparseTextIndexsList{}
 	case TokenIdentity:
@@ -3198,6 +3213,7 @@ func AllIdentities() []elemental.Identity {
 		TagPrefixIdentity,
 		TagValueIdentity,
 		TenantIdentity,
+		TestResourceIdentity,
 		TextIndexIdentity,
 		TokenIdentity,
 		TokenScopePolicyIdentity,
@@ -3728,6 +3744,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case TagValueIdentity:
 		return []string{}
 	case TenantIdentity:
+		return []string{}
+	case TestResourceIdentity:
 		return []string{}
 	case TextIndexIdentity:
 		return []string{}
