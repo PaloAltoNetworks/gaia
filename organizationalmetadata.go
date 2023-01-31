@@ -120,7 +120,7 @@ func (o *OrganizationalMetadata) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *OrganizationalMetadata) GetBSON() (interface{}, error) {
+func (o *OrganizationalMetadata) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -295,7 +295,7 @@ func (*OrganizationalMetadata) AttributeSpecifications() map[string]elemental.At
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *OrganizationalMetadata) ValueForAttribute(name string) interface{} {
+func (o *OrganizationalMetadata) ValueForAttribute(name string) any {
 
 	switch name {
 	case "metadata":
@@ -465,7 +465,7 @@ func (o *SparseOrganizationalMetadata) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseOrganizationalMetadata) GetBSON() (interface{}, error) {
+func (o *SparseOrganizationalMetadata) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

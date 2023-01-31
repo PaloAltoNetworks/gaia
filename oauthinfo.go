@@ -149,7 +149,7 @@ func (o *OAUTHInfo) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *OAUTHInfo) GetBSON() (interface{}, error) {
+func (o *OAUTHInfo) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -349,7 +349,7 @@ func (*OAUTHInfo) AttributeSpecifications() map[string]elemental.AttributeSpecif
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *OAUTHInfo) ValueForAttribute(name string) interface{} {
+func (o *OAUTHInfo) ValueForAttribute(name string) any {
 
 	switch name {
 	case "IDTokenSigningAlgValuesSupported":
@@ -701,7 +701,7 @@ func (o *SparseOAUTHInfo) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseOAUTHInfo) GetBSON() (interface{}, error) {
+func (o *SparseOAUTHInfo) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

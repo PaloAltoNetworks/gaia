@@ -189,7 +189,7 @@ func (o *HostServiceMappingPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *HostServiceMappingPolicy) GetBSON() (interface{}, error) {
+func (o *HostServiceMappingPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -731,7 +731,7 @@ func (*HostServiceMappingPolicy) AttributeSpecifications() map[string]elemental.
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *HostServiceMappingPolicy) ValueForAttribute(name string) interface{} {
+func (o *HostServiceMappingPolicy) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1503,7 +1503,7 @@ func (o *SparseHostServiceMappingPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseHostServiceMappingPolicy) GetBSON() (interface{}, error) {
+func (o *SparseHostServiceMappingPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

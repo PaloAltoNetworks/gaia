@@ -89,7 +89,7 @@ func NewJWKS() *JWKS {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *JWKS) GetBSON() (interface{}, error) {
+func (o *JWKS) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -195,7 +195,7 @@ func (*JWKS) AttributeSpecifications() map[string]elemental.AttributeSpecificati
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *JWKS) ValueForAttribute(name string) interface{} {
+func (o *JWKS) ValueForAttribute(name string) any {
 
 	switch name {
 	case "alg":

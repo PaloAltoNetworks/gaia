@@ -193,7 +193,7 @@ func (o *IsolationProfile) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *IsolationProfile) GetBSON() (interface{}, error) {
+func (o *IsolationProfile) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -725,7 +725,7 @@ func (*IsolationProfile) AttributeSpecifications() map[string]elemental.Attribut
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *IsolationProfile) ValueForAttribute(name string) interface{} {
+func (o *IsolationProfile) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1530,7 +1530,7 @@ func (o *SparseIsolationProfile) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseIsolationProfile) GetBSON() (interface{}, error) {
+func (o *SparseIsolationProfile) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

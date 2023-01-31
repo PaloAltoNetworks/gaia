@@ -182,7 +182,7 @@ func (o *HTTPResourceSpec) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *HTTPResourceSpec) GetBSON() (interface{}, error) {
+func (o *HTTPResourceSpec) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -719,7 +719,7 @@ func (*HTTPResourceSpec) AttributeSpecifications() map[string]elemental.Attribut
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *HTTPResourceSpec) ValueForAttribute(name string) interface{} {
+func (o *HTTPResourceSpec) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1458,7 +1458,7 @@ func (o *SparseHTTPResourceSpec) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseHTTPResourceSpec) GetBSON() (interface{}, error) {
+func (o *SparseHTTPResourceSpec) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

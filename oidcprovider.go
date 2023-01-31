@@ -201,7 +201,7 @@ func (o *OIDCProvider) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *OIDCProvider) GetBSON() (interface{}, error) {
+func (o *OIDCProvider) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -765,7 +765,7 @@ func (*OIDCProvider) AttributeSpecifications() map[string]elemental.AttributeSpe
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *OIDCProvider) ValueForAttribute(name string) interface{} {
+func (o *OIDCProvider) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1645,7 +1645,7 @@ func (o *SparseOIDCProvider) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseOIDCProvider) GetBSON() (interface{}, error) {
+func (o *SparseOIDCProvider) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

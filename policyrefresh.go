@@ -122,7 +122,7 @@ func (o *PolicyRefresh) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PolicyRefresh) GetBSON() (interface{}, error) {
+func (o *PolicyRefresh) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -293,7 +293,7 @@ func (*PolicyRefresh) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PolicyRefresh) ValueForAttribute(name string) interface{} {
+func (o *PolicyRefresh) ValueForAttribute(name string) any {
 
 	switch name {
 	case "sourceID":
@@ -486,7 +486,7 @@ func (o *SparsePolicyRefresh) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePolicyRefresh) GetBSON() (interface{}, error) {
+func (o *SparsePolicyRefresh) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

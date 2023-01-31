@@ -270,7 +270,7 @@ func (o *GCPAsset) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *GCPAsset) GetBSON() (interface{}, error) {
+func (o *GCPAsset) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -653,7 +653,7 @@ func (*GCPAsset) AttributeSpecifications() map[string]elemental.AttributeSpecifi
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *GCPAsset) ValueForAttribute(name string) interface{} {
+func (o *GCPAsset) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1326,7 +1326,7 @@ func (o *SparseGCPAsset) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseGCPAsset) GetBSON() (interface{}, error) {
+func (o *SparseGCPAsset) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

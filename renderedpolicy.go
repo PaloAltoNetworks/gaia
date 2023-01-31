@@ -230,7 +230,7 @@ func (o *RenderedPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *RenderedPolicy) GetBSON() (interface{}, error) {
+func (o *RenderedPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -530,7 +530,7 @@ func (*RenderedPolicy) AttributeSpecifications() map[string]elemental.AttributeS
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *RenderedPolicy) ValueForAttribute(name string) interface{} {
+func (o *RenderedPolicy) ValueForAttribute(name string) any {
 
 	switch name {
 	case "certificate":
@@ -1112,7 +1112,7 @@ func (o *SparseRenderedPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseRenderedPolicy) GetBSON() (interface{}, error) {
+func (o *SparseRenderedPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

@@ -37,7 +37,7 @@ func NewNetworkRuleNet() *NetworkRuleNet {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *NetworkRuleNet) GetBSON() (interface{}, error) {
+func (o *NetworkRuleNet) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -131,7 +131,7 @@ func (*NetworkRuleNet) AttributeSpecifications() map[string]elemental.AttributeS
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *NetworkRuleNet) ValueForAttribute(name string) interface{} {
+func (o *NetworkRuleNet) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":

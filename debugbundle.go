@@ -126,7 +126,7 @@ func (o *DebugBundle) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *DebugBundle) GetBSON() (interface{}, error) {
+func (o *DebugBundle) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -311,7 +311,7 @@ func (*DebugBundle) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *DebugBundle) ValueForAttribute(name string) interface{} {
+func (o *DebugBundle) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -537,7 +537,7 @@ func (o *SparseDebugBundle) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseDebugBundle) GetBSON() (interface{}, error) {
+func (o *SparseDebugBundle) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

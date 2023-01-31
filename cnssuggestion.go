@@ -136,7 +136,7 @@ func (o *CNSSuggestion) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CNSSuggestion) GetBSON() (interface{}, error) {
+func (o *CNSSuggestion) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -317,7 +317,7 @@ func (*CNSSuggestion) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CNSSuggestion) ValueForAttribute(name string) interface{} {
+func (o *CNSSuggestion) ValueForAttribute(name string) any {
 
 	switch name {
 	case "needsOffsetUpdate":
@@ -555,7 +555,7 @@ func (o *SparseCNSSuggestion) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCNSSuggestion) GetBSON() (interface{}, error) {
+func (o *SparseCNSSuggestion) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

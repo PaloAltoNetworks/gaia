@@ -204,7 +204,7 @@ func (o *CloudLoadBalancerRoute) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudLoadBalancerRoute) GetBSON() (interface{}, error) {
+func (o *CloudLoadBalancerRoute) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -900,7 +900,7 @@ func (*CloudLoadBalancerRoute) AttributeSpecifications() map[string]elemental.At
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudLoadBalancerRoute) ValueForAttribute(name string) interface{} {
+func (o *CloudLoadBalancerRoute) ValueForAttribute(name string) any {
 
 	switch name {
 	case "APIID":
@@ -1872,7 +1872,7 @@ func (o *SparseCloudLoadBalancerRoute) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudLoadBalancerRoute) GetBSON() (interface{}, error) {
+func (o *SparseCloudLoadBalancerRoute) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

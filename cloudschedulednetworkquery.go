@@ -173,7 +173,7 @@ func (o *CloudScheduledNetworkQuery) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudScheduledNetworkQuery) GetBSON() (interface{}, error) {
+func (o *CloudScheduledNetworkQuery) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -556,7 +556,7 @@ func (*CloudScheduledNetworkQuery) AttributeSpecifications() map[string]elementa
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudScheduledNetworkQuery) ValueForAttribute(name string) interface{} {
+func (o *CloudScheduledNetworkQuery) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1181,7 +1181,7 @@ func (o *SparseCloudScheduledNetworkQuery) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudScheduledNetworkQuery) GetBSON() (interface{}, error) {
+func (o *SparseCloudScheduledNetworkQuery) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

@@ -188,7 +188,7 @@ func (o *ServiceDependencyPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ServiceDependencyPolicy) GetBSON() (interface{}, error) {
+func (o *ServiceDependencyPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -730,7 +730,7 @@ func (*ServiceDependencyPolicy) AttributeSpecifications() map[string]elemental.A
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ServiceDependencyPolicy) ValueForAttribute(name string) interface{} {
+func (o *ServiceDependencyPolicy) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1499,7 +1499,7 @@ func (o *SparseServiceDependencyPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseServiceDependencyPolicy) GetBSON() (interface{}, error) {
+func (o *SparseServiceDependencyPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

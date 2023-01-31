@@ -151,7 +151,7 @@ func (o *NamespacePolicyInfo) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *NamespacePolicyInfo) GetBSON() (interface{}, error) {
+func (o *NamespacePolicyInfo) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -322,7 +322,7 @@ func (*NamespacePolicyInfo) AttributeSpecifications() map[string]elemental.Attri
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *NamespacePolicyInfo) ValueForAttribute(name string) interface{} {
+func (o *NamespacePolicyInfo) ValueForAttribute(name string) any {
 
 	switch name {
 	case "PUIncomingTrafficAction":
@@ -505,7 +505,7 @@ func (o *SparseNamespacePolicyInfo) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseNamespacePolicyInfo) GetBSON() (interface{}, error) {
+func (o *SparseNamespacePolicyInfo) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

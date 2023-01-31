@@ -196,7 +196,7 @@ func (o *CloudAlertRule) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudAlertRule) GetBSON() (interface{}, error) {
+func (o *CloudAlertRule) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -726,7 +726,7 @@ func (*CloudAlertRule) AttributeSpecifications() map[string]elemental.AttributeS
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudAlertRule) ValueForAttribute(name string) interface{} {
+func (o *CloudAlertRule) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1556,7 +1556,7 @@ func (o *SparseCloudAlertRule) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudAlertRule) GetBSON() (interface{}, error) {
+func (o *SparseCloudAlertRule) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

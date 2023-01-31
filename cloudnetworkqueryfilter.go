@@ -125,7 +125,7 @@ func NewCloudNetworkQueryFilter() *CloudNetworkQueryFilter {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudNetworkQueryFilter) GetBSON() (interface{}, error) {
+func (o *CloudNetworkQueryFilter) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -263,7 +263,7 @@ func (*CloudNetworkQueryFilter) AttributeSpecifications() map[string]elemental.A
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudNetworkQueryFilter) ValueForAttribute(name string) interface{} {
+func (o *CloudNetworkQueryFilter) ValueForAttribute(name string) any {
 
 	switch name {
 	case "VPCIDs":

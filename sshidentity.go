@@ -123,7 +123,7 @@ func (o *SSHIdentity) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SSHIdentity) GetBSON() (interface{}, error) {
+func (o *SSHIdentity) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -292,7 +292,7 @@ func (*SSHIdentity) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *SSHIdentity) ValueForAttribute(name string) interface{} {
+func (o *SSHIdentity) ValueForAttribute(name string) any {
 
 	switch name {
 	case "certificate":
@@ -470,7 +470,7 @@ func (o *SparseSSHIdentity) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseSSHIdentity) GetBSON() (interface{}, error) {
+func (o *SparseSSHIdentity) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

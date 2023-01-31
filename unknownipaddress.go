@@ -173,7 +173,7 @@ func (o *UnknownIPAddress) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *UnknownIPAddress) GetBSON() (interface{}, error) {
+func (o *UnknownIPAddress) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -622,7 +622,7 @@ func (*UnknownIPAddress) AttributeSpecifications() map[string]elemental.Attribut
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *UnknownIPAddress) ValueForAttribute(name string) interface{} {
+func (o *UnknownIPAddress) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1297,7 +1297,7 @@ func (o *SparseUnknownIPAddress) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseUnknownIPAddress) GetBSON() (interface{}, error) {
+func (o *SparseUnknownIPAddress) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
