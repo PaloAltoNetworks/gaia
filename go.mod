@@ -1,6 +1,6 @@
 module go.aporeto.io/gaia
 
-go 1.17
+go 1.18
 
 // Aporeto
 require go.aporeto.io/elemental v1.100.1-0.20221006005537-c60097ab6232
