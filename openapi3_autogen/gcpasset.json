@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "gcpasset": {
@@ -140,6 +139,7 @@
     "title": "gcpasset",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/gcpassets": {
       "get": {

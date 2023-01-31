@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "recipe": {
@@ -160,6 +159,7 @@
     "title": "recipe",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/recipes": {
       "get": {

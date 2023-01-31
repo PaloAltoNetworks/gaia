@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "tenant": {
@@ -42,6 +41,7 @@
     "title": "tenant",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/tenants": {
       "post": {

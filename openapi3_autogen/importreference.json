@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "importreference": {
@@ -118,6 +117,7 @@
     "title": "importreference",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/importreferences": {
       "get": {

@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "cloudnetworkinterface": {
@@ -151,6 +150,7 @@
     "title": "cloudnetworkinterface",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/cloudnetworkinterfaces": {
       "get": {

@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "networkaccesspolicy": {
@@ -192,6 +191,7 @@
     "title": "networkaccesspolicy",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/networkaccesspolicies": {
       "get": {

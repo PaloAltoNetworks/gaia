@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "namespacetype": {
@@ -28,6 +27,7 @@
     "title": "namespacetype",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/namespacetypes": {
       "get": {

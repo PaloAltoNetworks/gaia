@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "accessreport": {
@@ -90,6 +89,7 @@
     "title": "accessreport",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/accessreports": {
       "post": {
