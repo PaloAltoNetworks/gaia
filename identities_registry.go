@@ -16,7 +16,6 @@ var (
 		"alarm":                     AlarmIdentity,
 		"apiauthorizationpolicy":    APIAuthorizationPolicyIdentity,
 		"apicheck":                  APICheckIdentity,
-		"app":                       AppIdentity,
 		"appcredential":             AppCredentialIdentity,
 		"auditprofile":              AuditProfileIdentity,
 		"auditprofilemappingpolicy": AuditProfileMappingPolicyIdentity,
@@ -30,7 +29,6 @@ var (
 		"azureasset":                AzureAssetIdentity,
 		"azureresource":             AzureResourceIdentity,
 		"cachedflowreport":          CachedFlowReportIdentity,
-		"category":                  CategoryIdentity,
 
 		"claims":              ClaimsIdentity,
 		"clausesmatch":        ClauseMatchIdentity,
@@ -118,7 +116,6 @@ var (
 		"importreference":          ImportReferenceIdentity,
 		"importrequest":            ImportRequestIdentity,
 		"infrastructurepolicy":     InfrastructurePolicyIdentity,
-		"installedapp":             InstalledAppIdentity,
 		"ipinfo":                   IPInfoIdentity,
 		"isolationprofile":         IsolationProfileIdentity,
 		"issue":                    IssueIdentity,
@@ -127,7 +124,6 @@ var (
 		"kubernetescluster": KubernetesClusterIdentity,
 		"ldapprovider":      LDAPProviderIdentity,
 		"localca":           LocalCAIdentity,
-		"log":               LogIdentity,
 		"logout":            LogoutIdentity,
 		"message":           MessageIdentity,
 		"metricsquery":      MetricsQueryIdentity,
@@ -236,7 +232,6 @@ var (
 		"alarms":                      AlarmIdentity,
 		"apiauthorizationpolicies":    APIAuthorizationPolicyIdentity,
 		"apichecks":                   APICheckIdentity,
-		"apps":                        AppIdentity,
 		"appcredentials":              AppCredentialIdentity,
 		"auditprofiles":               AuditProfileIdentity,
 		"auditprofilemappingpolicies": AuditProfileMappingPolicyIdentity,
@@ -250,7 +245,6 @@ var (
 		"azureassets":                 AzureAssetIdentity,
 		"azureresources":              AzureResourceIdentity,
 		"cachedflowreports":           CachedFlowReportIdentity,
-		"categories":                  CategoryIdentity,
 
 		"claims":              ClaimsIdentity,
 		"clausesmatches":      ClauseMatchIdentity,
@@ -338,7 +332,6 @@ var (
 		"importreferences":           ImportReferenceIdentity,
 		"importrequests":             ImportRequestIdentity,
 		"infrastructurepolicies":     InfrastructurePolicyIdentity,
-		"installedapps":              InstalledAppIdentity,
 		"ipinfos":                    IPInfoIdentity,
 		"isolationprofiles":          IsolationProfileIdentity,
 		"issue":                      IssueIdentity,
@@ -347,7 +340,6 @@ var (
 		"kubernetesclusters": KubernetesClusterIdentity,
 		"ldapproviders":      LDAPProviderIdentity,
 		"localcas":           LocalCAIdentity,
-		"logs":               LogIdentity,
 		"logout":             LogoutIdentity,
 		"messages":           MessageIdentity,
 		"metricsquery":       MetricsQueryIdentity,
@@ -503,8 +495,6 @@ var (
 		"ireqs":              ImportRequestIdentity,
 		"infrapol":           InfrastructurePolicyIdentity,
 		"infrapols":          InfrastructurePolicyIdentity,
-		"iapps":              InstalledAppIdentity,
-		"iapp":               InstalledAppIdentity,
 		"ip":                 IsolationProfileIdentity,
 		"k8scluster":         KubernetesClusterIdentity,
 		"k8sclusters":        KubernetesClusterIdentity,
@@ -624,7 +614,6 @@ var (
 			{"updateIdempotencyKey"},
 		},
 		"apicheck": nil,
-		"app":      nil,
 		"appcredential": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"createIdempotencyKey"},
@@ -708,7 +697,6 @@ var (
 			{"namespace", "timestamp"},
 			{"sourceID"},
 		},
-		"category": nil,
 		"claims": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
@@ -1135,16 +1123,7 @@ var (
 			{"updateIdempotencyKey"},
 		},
 		"infrastructurepolicy": nil,
-		"installedapp": {
-			{":shard", ":unique", "zone", "zHash"},
-			{"createIdempotencyKey"},
-			{"name"},
-			{"namespace"},
-			{"namespace", "name"},
-			{"namespace", "normalizedTags"},
-			{"updateIdempotencyKey"},
-		},
-		"ipinfo": nil,
+		"ipinfo":               nil,
 		"isolationprofile": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"createIdempotencyKey"},
@@ -1176,7 +1155,6 @@ var (
 			{"updateIdempotencyKey"},
 		},
 		"localca": nil,
-		"log":     nil,
 		"logout":  nil,
 		"message": {
 			{":shard", ":unique", "zone", "zHash"},
@@ -1512,8 +1490,6 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewAPIAuthorizationPolicy()
 	case APICheckIdentity:
 		return NewAPICheck()
-	case AppIdentity:
-		return NewApp()
 	case AppCredentialIdentity:
 		return NewAppCredential()
 	case AuditProfileIdentity:
@@ -1540,8 +1516,6 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewAzureResource()
 	case CachedFlowReportIdentity:
 		return NewCachedFlowReport()
-	case CategoryIdentity:
-		return NewCategory()
 	case ClaimsIdentity:
 		return NewClaims()
 	case ClauseMatchIdentity:
@@ -1676,8 +1650,6 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewImportRequest()
 	case InfrastructurePolicyIdentity:
 		return NewInfrastructurePolicy()
-	case InstalledAppIdentity:
-		return NewInstalledApp()
 	case IPInfoIdentity:
 		return NewIPInfo()
 	case IsolationProfileIdentity:
@@ -1692,8 +1664,6 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewLDAPProvider()
 	case LocalCAIdentity:
 		return NewLocalCA()
-	case LogIdentity:
-		return NewLog()
 	case LogoutIdentity:
 		return NewLogout()
 	case MessageIdentity:
@@ -1893,8 +1863,6 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseAPIAuthorizationPolicy()
 	case APICheckIdentity:
 		return NewSparseAPICheck()
-	case AppIdentity:
-		return NewSparseApp()
 	case AppCredentialIdentity:
 		return NewSparseAppCredential()
 	case AuditProfileIdentity:
@@ -1921,8 +1889,6 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseAzureResource()
 	case CachedFlowReportIdentity:
 		return NewSparseCachedFlowReport()
-	case CategoryIdentity:
-		return NewSparseCategory()
 	case ClaimsIdentity:
 		return NewSparseClaims()
 	case ClauseMatchIdentity:
@@ -2057,8 +2023,6 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseImportRequest()
 	case InfrastructurePolicyIdentity:
 		return NewSparseInfrastructurePolicy()
-	case InstalledAppIdentity:
-		return NewSparseInstalledApp()
 	case IPInfoIdentity:
 		return NewSparseIPInfo()
 	case IsolationProfileIdentity:
@@ -2073,8 +2037,6 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseLDAPProvider()
 	case LocalCAIdentity:
 		return NewSparseLocalCA()
-	case LogIdentity:
-		return NewSparseLog()
 	case LogoutIdentity:
 		return NewSparseLogout()
 	case MessageIdentity:
@@ -2282,8 +2244,6 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &APIAuthorizationPoliciesList{}
 	case APICheckIdentity:
 		return &APIChecksList{}
-	case AppIdentity:
-		return &AppsList{}
 	case AppCredentialIdentity:
 		return &AppCredentialsList{}
 	case AuditProfileIdentity:
@@ -2310,8 +2270,6 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &AzureResourcesList{}
 	case CachedFlowReportIdentity:
 		return &CachedFlowReportsList{}
-	case CategoryIdentity:
-		return &CategoriesList{}
 	case ClaimsIdentity:
 		return &ClaimsList{}
 	case ClauseMatchIdentity:
@@ -2446,8 +2404,6 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &ImportRequestsList{}
 	case InfrastructurePolicyIdentity:
 		return &InfrastructurePoliciesList{}
-	case InstalledAppIdentity:
-		return &InstalledAppsList{}
 	case IPInfoIdentity:
 		return &IPInfosList{}
 	case IsolationProfileIdentity:
@@ -2462,8 +2418,6 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &LDAPProvidersList{}
 	case LocalCAIdentity:
 		return &LocalCAsList{}
-	case LogIdentity:
-		return &LogsList{}
 	case LogoutIdentity:
 		return &LogoutsList{}
 	case MessageIdentity:
@@ -2661,8 +2615,6 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseAPIAuthorizationPoliciesList{}
 	case APICheckIdentity:
 		return &SparseAPIChecksList{}
-	case AppIdentity:
-		return &SparseAppsList{}
 	case AppCredentialIdentity:
 		return &SparseAppCredentialsList{}
 	case AuditProfileIdentity:
@@ -2689,8 +2641,6 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseAzureResourcesList{}
 	case CachedFlowReportIdentity:
 		return &SparseCachedFlowReportsList{}
-	case CategoryIdentity:
-		return &SparseCategoriesList{}
 	case ClaimsIdentity:
 		return &SparseClaimsList{}
 	case ClauseMatchIdentity:
@@ -2825,8 +2775,6 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseImportRequestsList{}
 	case InfrastructurePolicyIdentity:
 		return &SparseInfrastructurePoliciesList{}
-	case InstalledAppIdentity:
-		return &SparseInstalledAppsList{}
 	case IPInfoIdentity:
 		return &SparseIPInfosList{}
 	case IsolationProfileIdentity:
@@ -2841,8 +2789,6 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseLDAPProvidersList{}
 	case LocalCAIdentity:
 		return &SparseLocalCAsList{}
-	case LogIdentity:
-		return &SparseLogsList{}
 	case LogoutIdentity:
 		return &SparseLogoutsList{}
 	case MessageIdentity:
@@ -3050,7 +2996,6 @@ func AllIdentities() []elemental.Identity {
 		AlarmIdentity,
 		APIAuthorizationPolicyIdentity,
 		APICheckIdentity,
-		AppIdentity,
 		AppCredentialIdentity,
 		AuditProfileIdentity,
 		AuditProfileMappingPolicyIdentity,
@@ -3064,7 +3009,6 @@ func AllIdentities() []elemental.Identity {
 		AzureAssetIdentity,
 		AzureResourceIdentity,
 		CachedFlowReportIdentity,
-		CategoryIdentity,
 		ClaimsIdentity,
 		ClauseMatchIdentity,
 		CloudAccountCleanerIdentity,
@@ -3132,7 +3076,6 @@ func AllIdentities() []elemental.Identity {
 		ImportReferenceIdentity,
 		ImportRequestIdentity,
 		InfrastructurePolicyIdentity,
-		InstalledAppIdentity,
 		IPInfoIdentity,
 		IsolationProfileIdentity,
 		IssueIdentity,
@@ -3140,7 +3083,6 @@ func AllIdentities() []elemental.Identity {
 		KubernetesClusterIdentity,
 		LDAPProviderIdentity,
 		LocalCAIdentity,
-		LogIdentity,
 		LogoutIdentity,
 		MessageIdentity,
 		MetricsQueryIdentity,
@@ -3257,8 +3199,6 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		}
 	case APICheckIdentity:
 		return []string{}
-	case AppIdentity:
-		return []string{}
 	case AppCredentialIdentity:
 		return []string{
 			"appcred",
@@ -3301,8 +3241,6 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case AzureResourceIdentity:
 		return []string{}
 	case CachedFlowReportIdentity:
-		return []string{}
-	case CategoryIdentity:
 		return []string{}
 	case ClaimsIdentity:
 		return []string{}
@@ -3501,11 +3439,6 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"infrapol",
 			"infrapols",
 		}
-	case InstalledAppIdentity:
-		return []string{
-			"iapps",
-			"iapp",
-		}
 	case IPInfoIdentity:
 		return []string{}
 	case IsolationProfileIdentity:
@@ -3524,8 +3457,6 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case LDAPProviderIdentity:
 		return []string{}
 	case LocalCAIdentity:
-		return []string{}
-	case LogIdentity:
 		return []string{}
 	case LogoutIdentity:
 		return []string{}

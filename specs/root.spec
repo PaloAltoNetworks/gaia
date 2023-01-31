@@ -92,18 +92,6 @@ relations:
   create:
     description: Verifies the authorizations on various identities for a given token.
 
-- rest_name: app
-  get:
-    description: Retrieves the list of apps.
-    global_parameters:
-    - $filtering
-    parameters:
-      entries:
-      - name: name
-        description: internal parameter.
-        type: string
-        example_value: claire
-
 - rest_name: appcredential
   get:
     description: Retrieves the list of app credentials.
@@ -719,21 +707,6 @@ relations:
     - $filtering
   create:
     description: Creates a new infrastructure policy.
-
-- rest_name: installedapp
-  get:
-    description: Retrieves the list of installed apps.
-    global_parameters:
-    - $filtering
-    parameters:
-      entries:
-      - name: tag
-        description: List of tags to filter on. This parameter is deprecated.
-        type: string
-        multiple: true
-        example_value: a=a
-  create:
-    description: Installs a new app.
 
 - rest_name: ipinfo
   get:

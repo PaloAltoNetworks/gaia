@@ -299,39 +299,6 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[AppIdentity] = &elemental.Relationship{
-		RetrieveMany: map[string]*elemental.RelationshipInfo{
-			"root": {
-				Parameters: []elemental.ParameterDefinition{
-					{
-						Name: "name",
-						Type: "string",
-					},
-					{
-						Name:     "q",
-						Type:     "string",
-						Multiple: true,
-					},
-				},
-			},
-		},
-		Info: map[string]*elemental.RelationshipInfo{
-			"root": {
-				Parameters: []elemental.ParameterDefinition{
-					{
-						Name: "name",
-						Type: "string",
-					},
-					{
-						Name:     "q",
-						Type:     "string",
-						Multiple: true,
-					},
-				},
-			},
-		},
-	}
-
 	relationshipsRegistry[AppCredentialIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -870,8 +837,6 @@ func init() {
 			"root": {},
 		},
 	}
-
-	relationshipsRegistry[CategoryIdentity] = &elemental.Relationship{}
 
 	relationshipsRegistry[ClaimsIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
@@ -3417,64 +3382,6 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[InstalledAppIdentity] = &elemental.Relationship{
-		Create: map[string]*elemental.RelationshipInfo{
-			"root": {},
-		},
-		Update: map[string]*elemental.RelationshipInfo{
-			"root": {},
-		},
-		Patch: map[string]*elemental.RelationshipInfo{
-			"root": {},
-		},
-		Delete: map[string]*elemental.RelationshipInfo{
-			"root": {
-				Parameters: []elemental.ParameterDefinition{
-					{
-						Name:     "q",
-						Type:     "string",
-						Multiple: true,
-					},
-				},
-			},
-		},
-		Retrieve: map[string]*elemental.RelationshipInfo{
-			"root": {},
-		},
-		RetrieveMany: map[string]*elemental.RelationshipInfo{
-			"root": {
-				Parameters: []elemental.ParameterDefinition{
-					{
-						Name:     "tag",
-						Type:     "string",
-						Multiple: true,
-					},
-					{
-						Name:     "q",
-						Type:     "string",
-						Multiple: true,
-					},
-				},
-			},
-		},
-		Info: map[string]*elemental.RelationshipInfo{
-			"root": {
-				Parameters: []elemental.ParameterDefinition{
-					{
-						Name:     "tag",
-						Type:     "string",
-						Multiple: true,
-					},
-					{
-						Name:     "q",
-						Type:     "string",
-						Multiple: true,
-					},
-				},
-			},
-		},
-	}
-
 	relationshipsRegistry[IsolationProfileIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -3660,15 +3567,6 @@ func init() {
 		},
 		Info: map[string]*elemental.RelationshipInfo{
 			"root": {},
-		},
-	}
-
-	relationshipsRegistry[LogIdentity] = &elemental.Relationship{
-		RetrieveMany: map[string]*elemental.RelationshipInfo{
-			"installedapp": {},
-		},
-		Info: map[string]*elemental.RelationshipInfo{
-			"installedapp": {},
 		},
 	}
 
