@@ -117,6 +117,8 @@ CloudPublicIPAddress
 CloudRoute
 CloudRouteData
 CloudRouteTable
+CloudScaleGroup
+CloudScaleGroupData
 CloudScaleSet
 CloudScaleSetData
 CloudScheduledNetworkQuery

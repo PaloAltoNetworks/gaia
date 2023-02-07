@@ -1,0 +1,59 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudscalegroupdata": {
+        "description": "Manages the properties associated to a Auto Scaling Group.",
+        "properties": {
+          "availabilityZones": {
+            "description": "Availability Zones for the scale group.",
+            "example": [
+              "us-east-2b",
+              "us-east-2c"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "instances": {
+            "description": "ID of associated instances with this scale group.",
+            "example": [
+              "i-abcd1234",
+              "i-abcd1235"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudscalegroupdata",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}
