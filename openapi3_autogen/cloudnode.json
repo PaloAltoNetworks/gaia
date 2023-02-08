@@ -162,7 +162,8 @@
               "LoadBalancer",
               "LoadBalancerRoute",
               "PublicIPAddress",
-              "ScaleSet"
+              "ScaleSet",
+              "ScaleGroup"
             ],
             "example": "Endpoint"
           },

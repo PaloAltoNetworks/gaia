@@ -152,6 +152,71 @@
     "version": "1.0"
   },
   "paths": {
+    "/cloudscalegroups": {
+      "get": {
+        "description": "Retrieves the list of Scale Groups.",
+        "operationId": "get-all-cloudscalegroups",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/cloudscalegroup"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      },
+      "post": {
+        "description": "Creates a cloud scale group.",
+        "operationId": "create-a-new-cloudscalegroup",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudscalegroup"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudscalegroup"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      }
+    },
     "/cloudscalegroups/{id}": {
       "delete": {
         "description": "Deletes the object with the given ID.",

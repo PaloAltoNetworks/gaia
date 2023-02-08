@@ -13321,7 +13321,7 @@ The sub-type of the object as found in the parameters. Used for indexing.
 
 ##### `type` [`required`]
 
-Type: `enum(Endpoint | Subnet | VPC | Interface | RouteTable | NetworkRuleSet | LoadBalancer | LoadBalancerRoute | PublicIPAddress | ScaleSet)`
+Type: `enum(Endpoint | Subnet | VPC | Interface | RouteTable | NetworkRuleSet | LoadBalancer | LoadBalancerRoute | PublicIPAddress | ScaleSet | ScaleGroup)`
 
 Type of the endpoint.
 
@@ -13991,6 +13991,18 @@ down based on the load.
 ```
 
 #### Relations
+
+##### `GET /cloudscalegroups`
+
+Retrieves the list of Scale Groups.
+
+Parameters:
+
+- `q` (`string`): Filtering query. Consequent `q` parameters will form an or.
+
+##### `POST /cloudscalegroups`
+
+Creates a cloud scale group.
 
 ##### `DELETE /cloudscalegroups/:id`
 
