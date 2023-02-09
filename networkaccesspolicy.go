@@ -288,7 +288,7 @@ func (o *NetworkAccessPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *NetworkAccessPolicy) GetBSON() (interface{}, error) {
+func (o *NetworkAccessPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -947,7 +947,7 @@ func (*NetworkAccessPolicy) AttributeSpecifications() map[string]elemental.Attri
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *NetworkAccessPolicy) ValueForAttribute(name string) interface{} {
+func (o *NetworkAccessPolicy) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -2055,7 +2055,7 @@ func (o *SparseNetworkAccessPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseNetworkAccessPolicy) GetBSON() (interface{}, error) {
+func (o *SparseNetworkAccessPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

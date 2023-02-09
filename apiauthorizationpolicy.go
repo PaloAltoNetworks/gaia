@@ -224,7 +224,7 @@ func (o *APIAuthorizationPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *APIAuthorizationPolicy) GetBSON() (interface{}, error) {
+func (o *APIAuthorizationPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -914,7 +914,7 @@ func (*APIAuthorizationPolicy) AttributeSpecifications() map[string]elemental.At
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *APIAuthorizationPolicy) ValueForAttribute(name string) interface{} {
+func (o *APIAuthorizationPolicy) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1968,7 +1968,7 @@ func (o *SparseAPIAuthorizationPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAPIAuthorizationPolicy) GetBSON() (interface{}, error) {
+func (o *SparseAPIAuthorizationPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

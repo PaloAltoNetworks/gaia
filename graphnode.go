@@ -208,7 +208,7 @@ func (o *GraphNode) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *GraphNode) GetBSON() (interface{}, error) {
+func (o *GraphNode) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -463,7 +463,7 @@ func (*GraphNode) AttributeSpecifications() map[string]elemental.AttributeSpecif
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *GraphNode) ValueForAttribute(name string) interface{} {
+func (o *GraphNode) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -898,7 +898,7 @@ func (o *SparseGraphNode) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseGraphNode) GetBSON() (interface{}, error) {
+func (o *SparseGraphNode) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

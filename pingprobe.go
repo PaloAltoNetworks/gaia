@@ -299,7 +299,7 @@ func (o *PingProbe) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PingProbe) GetBSON() (interface{}, error) {
+func (o *PingProbe) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -909,7 +909,7 @@ func (*PingProbe) AttributeSpecifications() map[string]elemental.AttributeSpecif
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PingProbe) ValueForAttribute(name string) interface{} {
+func (o *PingProbe) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ACLPolicyAction":
@@ -2162,7 +2162,7 @@ func (o *SparsePingProbe) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePingProbe) GetBSON() (interface{}, error) {
+func (o *SparsePingProbe) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

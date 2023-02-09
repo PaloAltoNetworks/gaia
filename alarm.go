@@ -229,7 +229,7 @@ func (o *Alarm) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Alarm) GetBSON() (interface{}, error) {
+func (o *Alarm) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -762,7 +762,7 @@ func (*Alarm) AttributeSpecifications() map[string]elemental.AttributeSpecificat
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Alarm) ValueForAttribute(name string) interface{} {
+func (o *Alarm) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1606,7 +1606,7 @@ func (o *SparseAlarm) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAlarm) GetBSON() (interface{}, error) {
+func (o *SparseAlarm) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

@@ -216,7 +216,7 @@ func (o *AppCredential) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *AppCredential) GetBSON() (interface{}, error) {
+func (o *AppCredential) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -795,7 +795,7 @@ func (*AppCredential) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *AppCredential) ValueForAttribute(name string) interface{} {
+func (o *AppCredential) ValueForAttribute(name string) any {
 
 	switch name {
 	case "CSR":
@@ -1754,7 +1754,7 @@ func (o *SparseAppCredential) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAppCredential) GetBSON() (interface{}, error) {
+func (o *SparseAppCredential) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

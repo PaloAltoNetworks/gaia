@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "cloudvpc": {
@@ -151,6 +150,7 @@
     "title": "cloudvpc",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/cloudvpcs": {
       "get": {

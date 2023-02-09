@@ -330,7 +330,7 @@ func (o *CachedFlowReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CachedFlowReport) GetBSON() (interface{}, error) {
+func (o *CachedFlowReport) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -936,7 +936,7 @@ func (*CachedFlowReport) AttributeSpecifications() map[string]elemental.Attribut
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CachedFlowReport) ValueForAttribute(name string) interface{} {
+func (o *CachedFlowReport) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -2254,7 +2254,7 @@ func (o *SparseCachedFlowReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCachedFlowReport) GetBSON() (interface{}, error) {
+func (o *SparseCachedFlowReport) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

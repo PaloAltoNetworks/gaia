@@ -193,7 +193,7 @@ func (o *AutomationCondition) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *AutomationCondition) GetBSON() (interface{}, error) {
+func (o *AutomationCondition) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -742,7 +742,7 @@ func (*AutomationCondition) AttributeSpecifications() map[string]elemental.Attri
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *AutomationCondition) ValueForAttribute(name string) interface{} {
+func (o *AutomationCondition) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1560,7 +1560,7 @@ func (o *SparseAutomationCondition) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAutomationCondition) GetBSON() (interface{}, error) {
+func (o *SparseAutomationCondition) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

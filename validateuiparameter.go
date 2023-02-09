@@ -125,7 +125,7 @@ func (o *ValidateUIParameter) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ValidateUIParameter) GetBSON() (interface{}, error) {
+func (o *ValidateUIParameter) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -302,7 +302,7 @@ func (*ValidateUIParameter) AttributeSpecifications() map[string]elemental.Attri
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ValidateUIParameter) ValueForAttribute(name string) interface{} {
+func (o *ValidateUIParameter) ValueForAttribute(name string) any {
 
 	switch name {
 	case "errors":
@@ -481,7 +481,7 @@ func (o *SparseValidateUIParameter) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseValidateUIParameter) GetBSON() (interface{}, error) {
+func (o *SparseValidateUIParameter) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

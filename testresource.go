@@ -145,7 +145,7 @@ func (o *TestResource) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *TestResource) GetBSON() (interface{}, error) {
+func (o *TestResource) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -442,7 +442,7 @@ func (*TestResource) AttributeSpecifications() map[string]elemental.AttributeSpe
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *TestResource) ValueForAttribute(name string) interface{} {
+func (o *TestResource) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -848,7 +848,7 @@ func (o *SparseTestResource) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseTestResource) GetBSON() (interface{}, error) {
+func (o *SparseTestResource) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

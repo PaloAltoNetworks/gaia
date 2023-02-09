@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "hostservicemappingpolicy": {
@@ -133,6 +132,7 @@
     "title": "hostservicemappingpolicy",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/hostservicemappingpolicies": {
       "get": {

@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "validaterql": {
@@ -55,6 +54,7 @@
     "title": "validaterql",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/validaterql": {
       "post": {

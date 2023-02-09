@@ -41,7 +41,7 @@ func NewRecipeOptions() *RecipeOptions {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *RecipeOptions) GetBSON() (interface{}, error) {
+func (o *RecipeOptions) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -143,7 +143,7 @@ func (*RecipeOptions) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *RecipeOptions) ValueForAttribute(name string) interface{} {
+func (o *RecipeOptions) ValueForAttribute(name string) any {
 
 	switch name {
 	case "appCrendentialFormat":

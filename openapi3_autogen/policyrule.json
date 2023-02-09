@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "policyrule": {
@@ -135,6 +134,7 @@
     "title": "policyrule",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/policyrules/{id}": {
       "get": {

@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "account": {
@@ -131,6 +130,7 @@
     "title": "account",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/accounts": {
       "get": {

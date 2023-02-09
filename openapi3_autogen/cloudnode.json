@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "cloudnode": {
@@ -195,6 +194,7 @@
     "title": "cloudnode",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/cloudnodes": {
       "get": {

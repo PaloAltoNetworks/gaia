@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "tag": {
@@ -46,6 +45,7 @@
     "title": "tag",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/tags": {
       "get": {

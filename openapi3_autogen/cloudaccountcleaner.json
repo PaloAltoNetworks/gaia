@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "cloudaccountcleaner": {
@@ -32,6 +31,7 @@
     "title": "cloudaccountcleaner",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/cloudaccountcleaner": {
       "post": {

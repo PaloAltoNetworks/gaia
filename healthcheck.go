@@ -167,7 +167,7 @@ func (o *HealthCheck) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *HealthCheck) GetBSON() (interface{}, error) {
+func (o *HealthCheck) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -352,7 +352,7 @@ func (*HealthCheck) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *HealthCheck) ValueForAttribute(name string) interface{} {
+func (o *HealthCheck) ValueForAttribute(name string) any {
 
 	switch name {
 	case "alerts":
@@ -588,7 +588,7 @@ func (o *SparseHealthCheck) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseHealthCheck) GetBSON() (interface{}, error) {
+func (o *SparseHealthCheck) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

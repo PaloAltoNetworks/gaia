@@ -84,7 +84,7 @@ func (o SearchesList) Version() int {
 // Search represents the model of a search
 type Search struct {
 	// Contains the matched object.
-	Object interface{} `json:"object" msgpack:"object" bson:"-" mapstructure:"object,omitempty"`
+	Object any `json:"object" msgpack:"object" bson:"-" mapstructure:"object,omitempty"`
 
 	// Contains the ID of the match.
 	ObjectID string `json:"objectID" msgpack:"objectID" bson:"-" mapstructure:"objectID,omitempty"`
@@ -128,7 +128,7 @@ func (o *Search) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Search) GetBSON() (interface{}, error) {
+func (o *Search) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -303,7 +303,7 @@ func (*Search) AttributeSpecifications() map[string]elemental.AttributeSpecifica
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Search) ValueForAttribute(name string) interface{} {
+func (o *Search) ValueForAttribute(name string) any {
 
 	switch name {
 	case "object":
@@ -493,7 +493,7 @@ func (o SparseSearchesList) Version() int {
 // SparseSearch represents the sparse version of a search.
 type SparseSearch struct {
 	// Contains the matched object.
-	Object *interface{} `json:"object,omitempty" msgpack:"object,omitempty" bson:"-" mapstructure:"object,omitempty"`
+	Object *any `json:"object,omitempty" msgpack:"object,omitempty" bson:"-" mapstructure:"object,omitempty"`
 
 	// Contains the ID of the match.
 	ObjectID *string `json:"objectID,omitempty" msgpack:"objectID,omitempty" bson:"-" mapstructure:"objectID,omitempty"`
@@ -534,7 +534,7 @@ func (o *SparseSearch) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseSearch) GetBSON() (interface{}, error) {
+func (o *SparseSearch) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

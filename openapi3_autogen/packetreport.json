@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "packetreport": {
@@ -132,6 +131,7 @@
     "title": "packetreport",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/packetreports": {
       "post": {
