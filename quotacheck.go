@@ -127,7 +127,7 @@ func (o *QuotaCheck) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *QuotaCheck) GetBSON() (interface{}, error) {
+func (o *QuotaCheck) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -301,7 +301,7 @@ func (*QuotaCheck) AttributeSpecifications() map[string]elemental.AttributeSpeci
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *QuotaCheck) ValueForAttribute(name string) interface{} {
+func (o *QuotaCheck) ValueForAttribute(name string) any {
 
 	switch name {
 	case "quota":
@@ -506,7 +506,7 @@ func (o *SparseQuotaCheck) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseQuotaCheck) GetBSON() (interface{}, error) {
+func (o *SparseQuotaCheck) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

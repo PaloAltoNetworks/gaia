@@ -350,7 +350,7 @@ func (o *Enforcer) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Enforcer) GetBSON() (interface{}, error) {
+func (o *Enforcer) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -1093,7 +1093,7 @@ func (*Enforcer) AttributeSpecifications() map[string]elemental.AttributeSpecifi
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Enforcer) ValueForAttribute(name string) interface{} {
+func (o *Enforcer) ValueForAttribute(name string) any {
 
 	switch name {
 	case "FQDN":
@@ -2598,7 +2598,7 @@ func (o *SparseEnforcer) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseEnforcer) GetBSON() (interface{}, error) {
+func (o *SparseEnforcer) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

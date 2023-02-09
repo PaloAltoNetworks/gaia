@@ -148,7 +148,7 @@ func (o *PUTrafficAction) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PUTrafficAction) GetBSON() (interface{}, error) {
+func (o *PUTrafficAction) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -313,7 +313,7 @@ func (*PUTrafficAction) AttributeSpecifications() map[string]elemental.Attribute
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PUTrafficAction) ValueForAttribute(name string) interface{} {
+func (o *PUTrafficAction) ValueForAttribute(name string) any {
 
 	switch name {
 	case "Incoming":
@@ -462,7 +462,7 @@ func (o *SparsePUTrafficAction) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePUTrafficAction) GetBSON() (interface{}, error) {
+func (o *SparsePUTrafficAction) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

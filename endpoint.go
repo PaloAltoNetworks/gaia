@@ -44,7 +44,7 @@ func NewEndpoint() *Endpoint {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Endpoint) GetBSON() (interface{}, error) {
+func (o *Endpoint) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -152,7 +152,7 @@ func (*Endpoint) AttributeSpecifications() map[string]elemental.AttributeSpecifi
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Endpoint) ValueForAttribute(name string) interface{} {
+func (o *Endpoint) ValueForAttribute(name string) any {
 
 	switch name {
 	case "URI":

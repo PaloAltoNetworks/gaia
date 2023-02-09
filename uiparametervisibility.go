@@ -49,7 +49,7 @@ type UIParameterVisibility struct {
 	Operator UIParameterVisibilityOperatorValue `json:"operator" msgpack:"operator" bson:"operator" mapstructure:"operator,omitempty"`
 
 	// Values that must match the key.
-	Value interface{} `json:"value" msgpack:"value" bson:"value" mapstructure:"value,omitempty"`
+	Value any `json:"value" msgpack:"value" bson:"value" mapstructure:"value,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -64,7 +64,7 @@ func NewUIParameterVisibility() *UIParameterVisibility {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *UIParameterVisibility) GetBSON() (interface{}, error) {
+func (o *UIParameterVisibility) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -174,7 +174,7 @@ func (*UIParameterVisibility) AttributeSpecifications() map[string]elemental.Att
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *UIParameterVisibility) ValueForAttribute(name string) interface{} {
+func (o *UIParameterVisibility) ValueForAttribute(name string) any {
 
 	switch name {
 	case "key":
@@ -263,5 +263,5 @@ var UIParameterVisibilityLowerCaseAttributesMap = map[string]elemental.Attribute
 type mongoAttributesUIParameterVisibility struct {
 	Key      string                             `bson:"key"`
 	Operator UIParameterVisibilityOperatorValue `bson:"operator"`
-	Value    interface{}                        `bson:"value"`
+	Value    any                                `bson:"value"`
 }

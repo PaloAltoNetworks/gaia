@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "auditreport": {
@@ -196,6 +195,7 @@
     "title": "auditreport",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/auditreports": {
       "post": {

@@ -147,7 +147,7 @@ func (o *PolicyGraph) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PolicyGraph) GetBSON() (interface{}, error) {
+func (o *PolicyGraph) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -335,7 +335,7 @@ func (*PolicyGraph) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PolicyGraph) ValueForAttribute(name string) interface{} {
+func (o *PolicyGraph) ValueForAttribute(name string) any {
 
 	switch name {
 	case "PUIdentity":
@@ -545,7 +545,7 @@ func (o *SparsePolicyGraph) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePolicyGraph) GetBSON() (interface{}, error) {
+func (o *SparsePolicyGraph) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

@@ -139,7 +139,7 @@ func (o *Import) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Import) GetBSON() (interface{}, error) {
+func (o *Import) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -307,7 +307,7 @@ func (*Import) AttributeSpecifications() map[string]elemental.AttributeSpecifica
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Import) ValueForAttribute(name string) interface{} {
+func (o *Import) ValueForAttribute(name string) any {
 
 	switch name {
 	case "data":
@@ -473,7 +473,7 @@ func (o *SparseImport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseImport) GetBSON() (interface{}, error) {
+func (o *SparseImport) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

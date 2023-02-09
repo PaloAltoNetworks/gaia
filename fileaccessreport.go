@@ -169,7 +169,7 @@ func (o *FileAccessReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *FileAccessReport) GetBSON() (interface{}, error) {
+func (o *FileAccessReport) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -476,7 +476,7 @@ func (*FileAccessReport) AttributeSpecifications() map[string]elemental.Attribut
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *FileAccessReport) ValueForAttribute(name string) interface{} {
+func (o *FileAccessReport) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -920,7 +920,7 @@ func (o *SparseFileAccessReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseFileAccessReport) GetBSON() (interface{}, error) {
+func (o *SparseFileAccessReport) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

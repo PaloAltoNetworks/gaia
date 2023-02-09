@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "oauthinfo": {
@@ -86,6 +85,7 @@
     "title": "oauthinfo",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/oauthinfo/{id}": {
       "get": {

@@ -125,7 +125,7 @@ func (o *Sandbox) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Sandbox) GetBSON() (interface{}, error) {
+func (o *Sandbox) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -297,7 +297,7 @@ func (*Sandbox) AttributeSpecifications() map[string]elemental.AttributeSpecific
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Sandbox) ValueForAttribute(name string) interface{} {
+func (o *Sandbox) ValueForAttribute(name string) any {
 
 	switch name {
 	case "URL":
@@ -509,7 +509,7 @@ func (o *SparseSandbox) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseSandbox) GetBSON() (interface{}, error) {
+func (o *SparseSandbox) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

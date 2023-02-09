@@ -117,7 +117,7 @@ func (o *CloudAccountCleaner) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudAccountCleaner) GetBSON() (interface{}, error) {
+func (o *CloudAccountCleaner) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -273,7 +273,7 @@ func (*CloudAccountCleaner) AttributeSpecifications() map[string]elemental.Attri
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudAccountCleaner) ValueForAttribute(name string) interface{} {
+func (o *CloudAccountCleaner) ValueForAttribute(name string) any {
 
 	switch name {
 	case "date":
@@ -402,7 +402,7 @@ func (o *SparseCloudAccountCleaner) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudAccountCleaner) GetBSON() (interface{}, error) {
+func (o *SparseCloudAccountCleaner) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

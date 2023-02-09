@@ -207,7 +207,7 @@ func (o *TokenScopePolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *TokenScopePolicy) GetBSON() (interface{}, error) {
+func (o *TokenScopePolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -796,7 +796,7 @@ func (*TokenScopePolicy) AttributeSpecifications() map[string]elemental.Attribut
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *TokenScopePolicy) ValueForAttribute(name string) interface{} {
+func (o *TokenScopePolicy) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1702,7 +1702,7 @@ func (o *SparseTokenScopePolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseTokenScopePolicy) GetBSON() (interface{}, error) {
+func (o *SparseTokenScopePolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

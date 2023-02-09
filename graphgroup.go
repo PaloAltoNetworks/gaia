@@ -42,7 +42,7 @@ func NewGraphGroup() *GraphGroup {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *GraphGroup) GetBSON() (interface{}, error) {
+func (o *GraphGroup) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -136,7 +136,7 @@ func (*GraphGroup) AttributeSpecifications() map[string]elemental.AttributeSpeci
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *GraphGroup) ValueForAttribute(name string) interface{} {
+func (o *GraphGroup) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":

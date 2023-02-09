@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "authn": {
@@ -90,6 +89,7 @@
     "title": "authn",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/authn": {
       "get": {

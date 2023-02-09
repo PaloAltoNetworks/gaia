@@ -32,7 +32,7 @@ func NewCloudEndpointDataProductInfo() *CloudEndpointDataProductInfo {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudEndpointDataProductInfo) GetBSON() (interface{}, error) {
+func (o *CloudEndpointDataProductInfo) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -132,7 +132,7 @@ func (*CloudEndpointDataProductInfo) AttributeSpecifications() map[string]elemen
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudEndpointDataProductInfo) ValueForAttribute(name string) interface{} {
+func (o *CloudEndpointDataProductInfo) ValueForAttribute(name string) any {
 
 	switch name {
 	case "productID":

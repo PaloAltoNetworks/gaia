@@ -129,7 +129,7 @@ func (o *DependencyMap) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *DependencyMap) GetBSON() (interface{}, error) {
+func (o *DependencyMap) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -335,7 +335,7 @@ func (*DependencyMap) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *DependencyMap) ValueForAttribute(name string) interface{} {
+func (o *DependencyMap) ValueForAttribute(name string) any {
 
 	switch name {
 	case "edges":
@@ -541,7 +541,7 @@ func (o *SparseDependencyMap) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseDependencyMap) GetBSON() (interface{}, error) {
+func (o *SparseDependencyMap) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

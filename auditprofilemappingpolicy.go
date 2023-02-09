@@ -189,7 +189,7 @@ func (o *AuditProfileMappingPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *AuditProfileMappingPolicy) GetBSON() (interface{}, error) {
+func (o *AuditProfileMappingPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -729,7 +729,7 @@ func (*AuditProfileMappingPolicy) AttributeSpecifications() map[string]elemental
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *AuditProfileMappingPolicy) ValueForAttribute(name string) interface{} {
+func (o *AuditProfileMappingPolicy) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1497,7 +1497,7 @@ func (o *SparseAuditProfileMappingPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAuditProfileMappingPolicy) GetBSON() (interface{}, error) {
+func (o *SparseAuditProfileMappingPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

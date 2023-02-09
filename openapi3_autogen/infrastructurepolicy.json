@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "infrastructurepolicy": {
@@ -146,6 +145,7 @@
     "title": "infrastructurepolicy",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/infrastructurepolicies": {
       "get": {

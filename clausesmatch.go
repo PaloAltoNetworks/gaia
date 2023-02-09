@@ -129,7 +129,7 @@ func (o *ClauseMatch) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ClauseMatch) GetBSON() (interface{}, error) {
+func (o *ClauseMatch) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -319,7 +319,7 @@ func (*ClauseMatch) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ClauseMatch) ValueForAttribute(name string) interface{} {
+func (o *ClauseMatch) ValueForAttribute(name string) any {
 
 	switch name {
 	case "archived":
@@ -528,7 +528,7 @@ func (o *SparseClauseMatch) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseClauseMatch) GetBSON() (interface{}, error) {
+func (o *SparseClauseMatch) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

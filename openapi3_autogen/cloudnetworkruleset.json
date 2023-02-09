@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "cloudnetworkruleset": {
@@ -151,6 +150,7 @@
     "title": "cloudnetworkruleset",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/cloudnetworkrulesets": {
       "get": {

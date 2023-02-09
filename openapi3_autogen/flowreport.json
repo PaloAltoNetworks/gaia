@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "flowreport": {
@@ -240,6 +239,7 @@
     "title": "flowreport",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/flowreports": {
       "post": {

@@ -120,7 +120,7 @@ func (o *NamespaceRenderer) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *NamespaceRenderer) GetBSON() (interface{}, error) {
+func (o *NamespaceRenderer) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -282,7 +282,7 @@ func (*NamespaceRenderer) AttributeSpecifications() map[string]elemental.Attribu
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *NamespaceRenderer) ValueForAttribute(name string) interface{} {
+func (o *NamespaceRenderer) ValueForAttribute(name string) any {
 
 	switch name {
 	case "namespace":
@@ -438,7 +438,7 @@ func (o *SparseNamespaceRenderer) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseNamespaceRenderer) GetBSON() (interface{}, error) {
+func (o *SparseNamespaceRenderer) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

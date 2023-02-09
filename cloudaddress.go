@@ -69,7 +69,7 @@ func NewCloudAddress() *CloudAddress {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudAddress) GetBSON() (interface{}, error) {
+func (o *CloudAddress) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -199,7 +199,7 @@ func (*CloudAddress) AttributeSpecifications() map[string]elemental.AttributeSpe
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudAddress) ValueForAttribute(name string) interface{} {
+func (o *CloudAddress) ValueForAttribute(name string) any {
 
 	switch name {
 	case "IPVersion":

@@ -238,7 +238,7 @@ func (o *LDAPProvider) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *LDAPProvider) GetBSON() (interface{}, error) {
+func (o *LDAPProvider) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -802,7 +802,7 @@ func (*LDAPProvider) AttributeSpecifications() map[string]elemental.AttributeSpe
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *LDAPProvider) ValueForAttribute(name string) interface{} {
+func (o *LDAPProvider) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1805,7 +1805,7 @@ func (o *SparseLDAPProvider) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseLDAPProvider) GetBSON() (interface{}, error) {
+func (o *SparseLDAPProvider) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

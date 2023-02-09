@@ -140,7 +140,7 @@ func (o *CloudGraph) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudGraph) GetBSON() (interface{}, error) {
+func (o *CloudGraph) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -359,7 +359,7 @@ func (*CloudGraph) AttributeSpecifications() map[string]elemental.AttributeSpeci
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudGraph) ValueForAttribute(name string) interface{} {
+func (o *CloudGraph) ValueForAttribute(name string) any {
 
 	switch name {
 	case "internalEdges":
@@ -632,7 +632,7 @@ func (o *SparseCloudGraph) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudGraph) GetBSON() (interface{}, error) {
+func (o *SparseCloudGraph) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

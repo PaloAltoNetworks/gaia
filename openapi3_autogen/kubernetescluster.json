@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "kubernetescluster": {
@@ -126,6 +125,7 @@
     "title": "kubernetescluster",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/kubernetesclusters": {
       "get": {

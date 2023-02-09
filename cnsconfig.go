@@ -182,7 +182,7 @@ func (o *CNSConfig) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CNSConfig) GetBSON() (interface{}, error) {
+func (o *CNSConfig) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -651,7 +651,7 @@ func (*CNSConfig) AttributeSpecifications() map[string]elemental.AttributeSpecif
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CNSConfig) ValueForAttribute(name string) interface{} {
+func (o *CNSConfig) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1386,7 +1386,7 @@ func (o *SparseCNSConfig) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCNSConfig) GetBSON() (interface{}, error) {
+func (o *SparseCNSConfig) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
