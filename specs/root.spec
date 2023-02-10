@@ -332,6 +332,14 @@ relations:
   create:
     description: Creates a new routing table.
 
+- rest_name: cloudscalegroup
+  get:
+    description: Retrieves the list of Scale Groups.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a cloud scale group.
+
 - rest_name: cloudscaleset
   get:
     description: Retrieves the list of Scale Sets.

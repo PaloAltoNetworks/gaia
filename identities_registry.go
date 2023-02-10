@@ -59,7 +59,9 @@ var (
 		"cloudpublicipaddress": CloudPublicIPAddressIdentity,
 
 		"cloudroutetable": CloudRouteTableIdentity,
-		"cloudscaleset":   CloudScaleSetIdentity,
+		"cloudscalegroup": CloudScaleGroupIdentity,
+
+		"cloudscaleset": CloudScaleSetIdentity,
 
 		"cloudschedulednetworkquery": CloudScheduledNetworkQueryIdentity,
 		"cloudservicetag":            CloudServiceTagIdentity,
@@ -275,7 +277,9 @@ var (
 		"cloudpublicipaddresses": CloudPublicIPAddressIdentity,
 
 		"cloudroutetables": CloudRouteTableIdentity,
-		"cloudscalesets":   CloudScaleSetIdentity,
+		"cloudscalegroups": CloudScaleGroupIdentity,
+
+		"cloudscalesets": CloudScaleSetIdentity,
 
 		"cloudschedulednetworkqueries": CloudScheduledNetworkQueryIdentity,
 		"cloudserviceta":               CloudServiceTagIdentity,
@@ -459,6 +463,8 @@ var (
 		"crules":             CloudNetworkRuleSetIdentity,
 		"publicipaddress":    CloudPublicIPAddressIdentity,
 		"publicipaddresses":  CloudPublicIPAddressIdentity,
+		"scalegroup":         CloudScaleGroupIdentity,
+		"scalegroups":        CloudScaleGroupIdentity,
 		"scaleset":           CloudScaleSetIdentity,
 		"scalesets":          CloudScaleSetIdentity,
 		"vpc":                CloudVPCIdentity,
@@ -850,6 +856,16 @@ var (
 			{"updateIdempotencyKey"},
 		},
 		"cloudroutetable": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"createIdempotencyKey"},
+			{"namespace"},
+			{"namespace", "accountid"},
+			{"namespace", "nativeID"},
+			{"namespace", "normalizedTags"},
+			{"namespace", "vpcid"},
+			{"updateIdempotencyKey"},
+		},
+		"cloudscalegroup": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"createIdempotencyKey"},
 			{"namespace"},
@@ -1552,6 +1568,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudPublicIPAddress()
 	case CloudRouteTableIdentity:
 		return NewCloudRouteTable()
+	case CloudScaleGroupIdentity:
+		return NewCloudScaleGroup()
 	case CloudScaleSetIdentity:
 		return NewCloudScaleSet()
 	case CloudScheduledNetworkQueryIdentity:
@@ -1925,6 +1943,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudPublicIPAddress()
 	case CloudRouteTableIdentity:
 		return NewSparseCloudRouteTable()
+	case CloudScaleGroupIdentity:
+		return NewSparseCloudScaleGroup()
 	case CloudScaleSetIdentity:
 		return NewSparseCloudScaleSet()
 	case CloudScheduledNetworkQueryIdentity:
@@ -2306,6 +2326,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudPublicIPAddressList{}
 	case CloudRouteTableIdentity:
 		return &CloudRouteTablesList{}
+	case CloudScaleGroupIdentity:
+		return &CloudScaleGroupsList{}
 	case CloudScaleSetIdentity:
 		return &CloudScaleSetsList{}
 	case CloudScheduledNetworkQueryIdentity:
@@ -2677,6 +2699,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudPublicIPAddressList{}
 	case CloudRouteTableIdentity:
 		return &SparseCloudRouteTablesList{}
+	case CloudScaleGroupIdentity:
+		return &SparseCloudScaleGroupsList{}
 	case CloudScaleSetIdentity:
 		return &SparseCloudScaleSetsList{}
 	case CloudScheduledNetworkQueryIdentity:
@@ -3027,6 +3051,7 @@ func AllIdentities() []elemental.Identity {
 		CloudPolicyIdentity,
 		CloudPublicIPAddressIdentity,
 		CloudRouteTableIdentity,
+		CloudScaleGroupIdentity,
 		CloudScaleSetIdentity,
 		CloudScheduledNetworkQueryIdentity,
 		CloudServiceTagIdentity,
@@ -3289,6 +3314,11 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		}
 	case CloudRouteTableIdentity:
 		return []string{}
+	case CloudScaleGroupIdentity:
+		return []string{
+			"scalegroup",
+			"scalegroups",
+		}
 	case CloudScaleSetIdentity:
 		return []string{
 			"scaleset",
