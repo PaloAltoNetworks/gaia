@@ -204,7 +204,7 @@ func (o *CloudScaleGroup) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudScaleGroup) GetBSON() (interface{}, error) {
+func (o *CloudScaleGroup) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -897,7 +897,7 @@ func (*CloudScaleGroup) AttributeSpecifications() map[string]elemental.Attribute
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudScaleGroup) ValueForAttribute(name string) interface{} {
+func (o *CloudScaleGroup) ValueForAttribute(name string) any {
 
 	switch name {
 	case "APIID":
@@ -1869,7 +1869,7 @@ func (o *SparseCloudScaleGroup) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudScaleGroup) GetBSON() (interface{}, error) {
+func (o *SparseCloudScaleGroup) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
