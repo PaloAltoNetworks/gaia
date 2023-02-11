@@ -3240,49 +3240,6 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[IPInfoIdentity] = &elemental.Relationship{
-		RetrieveMany: map[string]*elemental.RelationshipInfo{
-			"root": {
-				RequiredParameters: elemental.NewParametersRequirement(
-					[][][]string{
-						{
-							{
-								"ip",
-							},
-						},
-					},
-				),
-				Parameters: []elemental.ParameterDefinition{
-					{
-						Name:     "ip",
-						Type:     "string",
-						Multiple: true,
-					},
-				},
-			},
-		},
-		Info: map[string]*elemental.RelationshipInfo{
-			"root": {
-				RequiredParameters: elemental.NewParametersRequirement(
-					[][][]string{
-						{
-							{
-								"ip",
-							},
-						},
-					},
-				),
-				Parameters: []elemental.ParameterDefinition{
-					{
-						Name:     "ip",
-						Type:     "string",
-						Multiple: true,
-					},
-				},
-			},
-		},
-	}
-
 	relationshipsRegistry[ImportIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -5295,53 +5252,6 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[SandboxIdentity] = &elemental.Relationship{
-		Create: map[string]*elemental.RelationshipInfo{
-			"root": {},
-		},
-	}
-
-	relationshipsRegistry[SearchIdentity] = &elemental.Relationship{
-		RetrieveMany: map[string]*elemental.RelationshipInfo{
-			"root": {
-				RequiredParameters: elemental.NewParametersRequirement(
-					[][][]string{
-						{
-							{
-								"q",
-							},
-						},
-					},
-				),
-				Parameters: []elemental.ParameterDefinition{
-					{
-						Name: "q",
-						Type: "string",
-					},
-				},
-			},
-		},
-		Info: map[string]*elemental.RelationshipInfo{
-			"root": {
-				RequiredParameters: elemental.NewParametersRequirement(
-					[][][]string{
-						{
-							{
-								"q",
-							},
-						},
-					},
-				),
-				Parameters: []elemental.ParameterDefinition{
-					{
-						Name: "q",
-						Type: "string",
-					},
-				},
-			},
-		},
-	}
-
 	relationshipsRegistry[ServiceIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
@@ -6034,8 +5944,6 @@ func init() {
 	}
 
 	relationshipsRegistry[TestResourceIdentity] = &elemental.Relationship{}
-
-	relationshipsRegistry[TextIndexIdentity] = &elemental.Relationship{}
 
 	relationshipsRegistry[TokenIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
