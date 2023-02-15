@@ -716,19 +716,6 @@ relations:
   create:
     description: Creates a new infrastructure policy.
 
-- rest_name: ipinfo
-  get:
-    description: Returns information about an IP address given as parameters.
-    parameters:
-      required:
-      - - - ip
-      entries:
-      - name: ip
-        description: List of IPs to resolve.
-        type: string
-        multiple: true
-        example_value: 1.2.3.4
-
 - rest_name: isolationprofile
   get:
     description: Retrieves the list of isolation profiles.
@@ -1104,22 +1091,6 @@ relations:
     - $filtering
   create:
     description: Creates a new LDAP provider.
-
-- rest_name: sandbox
-  create:
-    description: Creates a temporary api sandbox.
-
-- rest_name: search
-  get:
-    description: Perform a full text search on the database.
-    parameters:
-      required:
-      - - - q
-      entries:
-      - name: q
-        description: search query.
-        type: string
-        example_value: my enforcer
 
 - rest_name: service
   get:

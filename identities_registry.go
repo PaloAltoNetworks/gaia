@@ -118,7 +118,6 @@ var (
 		"importreference":          ImportReferenceIdentity,
 		"importrequest":            ImportRequestIdentity,
 		"infrastructurepolicy":     InfrastructurePolicyIdentity,
-		"ipinfo":                   IPInfoIdentity,
 		"isolationprofile":         IsolationProfileIdentity,
 		"issue":                    IssueIdentity,
 		"issueservicetoken":        IssueServiceTokenIdentity,
@@ -183,8 +182,6 @@ var (
 		"role":                    RoleIdentity,
 		"root":                    RootIdentity,
 		"samlprovider":            SAMLProviderIdentity,
-		"sandbox":                 SandboxIdentity,
-		"search":                  SearchIdentity,
 		"service":                 ServiceIdentity,
 		"servicecertificate":      ServiceCertificateIdentity,
 		"servicedependencypolicy": ServiceDependencyPolicyIdentity,
@@ -205,7 +202,6 @@ var (
 		"tagvalue":                TagValueIdentity,
 		"tenant":                  TenantIdentity,
 		"testresource":            TestResourceIdentity,
-		"textindex":               TextIndexIdentity,
 
 		"token":            TokenIdentity,
 		"tokenscopepolicy": TokenScopePolicyIdentity,
@@ -336,7 +332,6 @@ var (
 		"importreferences":           ImportReferenceIdentity,
 		"importrequests":             ImportRequestIdentity,
 		"infrastructurepolicies":     InfrastructurePolicyIdentity,
-		"ipinfos":                    IPInfoIdentity,
 		"isolationprofiles":          IsolationProfileIdentity,
 		"issue":                      IssueIdentity,
 		"issueservicetokens":         IssueServiceTokenIdentity,
@@ -401,8 +396,6 @@ var (
 		"roles":                     RoleIdentity,
 		"root":                      RootIdentity,
 		"samlproviders":             SAMLProviderIdentity,
-		"sandboxes":                 SandboxIdentity,
-		"search":                    SearchIdentity,
 		"services":                  ServiceIdentity,
 		"servicecertificates":       ServiceCertificateIdentity,
 		"servicedependencypolicies": ServiceDependencyPolicyIdentity,
@@ -423,7 +416,6 @@ var (
 		"tagvalues":                 TagValueIdentity,
 		"tenants":                   TenantIdentity,
 		"testresources":             TestResourceIdentity,
-		"textindexes":               TextIndexIdentity,
 
 		"tokens":             TokenIdentity,
 		"tokenscopepolicies": TokenScopePolicyIdentity,
@@ -1139,7 +1131,6 @@ var (
 			{"updateIdempotencyKey"},
 		},
 		"infrastructurepolicy": nil,
-		"ipinfo":               nil,
 		"isolationprofile": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"createIdempotencyKey"},
@@ -1330,8 +1321,6 @@ var (
 			{"namespace", "normalizedTags"},
 			{"updateIdempotencyKey"},
 		},
-		"sandbox": nil,
-		"search":  nil,
 		"service": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"allAPITags"},
@@ -1398,14 +1387,6 @@ var (
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
 			{"namespace", "normalizedTags"},
-		},
-		"textindex": {
-			{":shard", ":unique", "zone", "zHash"},
-			{"date"},
-			{"objectID"},
-			{"objectIdentity"},
-			{"objectNamespace"},
-			{"objectNamespace", "objectIdentity", "objectID"},
 		},
 		"token":            nil,
 		"tokenscopepolicy": nil,
@@ -1668,8 +1649,6 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewImportRequest()
 	case InfrastructurePolicyIdentity:
 		return NewInfrastructurePolicy()
-	case IPInfoIdentity:
-		return NewIPInfo()
 	case IsolationProfileIdentity:
 		return NewIsolationProfile()
 	case IssueIdentity:
@@ -1784,10 +1763,6 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewRoot()
 	case SAMLProviderIdentity:
 		return NewSAMLProvider()
-	case SandboxIdentity:
-		return NewSandbox()
-	case SearchIdentity:
-		return NewSearch()
 	case ServiceIdentity:
 		return NewService()
 	case ServiceCertificateIdentity:
@@ -1828,8 +1803,6 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewTenant()
 	case TestResourceIdentity:
 		return NewTestResource()
-	case TextIndexIdentity:
-		return NewTextIndex()
 	case TokenIdentity:
 		return NewToken()
 	case TokenScopePolicyIdentity:
@@ -2043,8 +2016,6 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseImportRequest()
 	case InfrastructurePolicyIdentity:
 		return NewSparseInfrastructurePolicy()
-	case IPInfoIdentity:
-		return NewSparseIPInfo()
 	case IsolationProfileIdentity:
 		return NewSparseIsolationProfile()
 	case IssueIdentity:
@@ -2157,10 +2128,6 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseRole()
 	case SAMLProviderIdentity:
 		return NewSparseSAMLProvider()
-	case SandboxIdentity:
-		return NewSparseSandbox()
-	case SearchIdentity:
-		return NewSparseSearch()
 	case ServiceIdentity:
 		return NewSparseService()
 	case ServiceCertificateIdentity:
@@ -2201,8 +2168,6 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseTenant()
 	case TestResourceIdentity:
 		return NewSparseTestResource()
-	case TextIndexIdentity:
-		return NewSparseTextIndex()
 	case TokenIdentity:
 		return NewSparseToken()
 	case TokenScopePolicyIdentity:
@@ -2426,8 +2391,6 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &ImportRequestsList{}
 	case InfrastructurePolicyIdentity:
 		return &InfrastructurePoliciesList{}
-	case IPInfoIdentity:
-		return &IPInfosList{}
 	case IsolationProfileIdentity:
 		return &IsolationProfilesList{}
 	case IssueIdentity:
@@ -2540,10 +2503,6 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &RolesList{}
 	case SAMLProviderIdentity:
 		return &SAMLProvidersList{}
-	case SandboxIdentity:
-		return &SandboxsList{}
-	case SearchIdentity:
-		return &SearchesList{}
 	case ServiceIdentity:
 		return &ServicesList{}
 	case ServiceCertificateIdentity:
@@ -2584,8 +2543,6 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &TenantsList{}
 	case TestResourceIdentity:
 		return &TestResourcesList{}
-	case TextIndexIdentity:
-		return &TextIndexsList{}
 	case TokenIdentity:
 		return &TokensList{}
 	case TokenScopePolicyIdentity:
@@ -2799,8 +2756,6 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseImportRequestsList{}
 	case InfrastructurePolicyIdentity:
 		return &SparseInfrastructurePoliciesList{}
-	case IPInfoIdentity:
-		return &SparseIPInfosList{}
 	case IsolationProfileIdentity:
 		return &SparseIsolationProfilesList{}
 	case IssueIdentity:
@@ -2913,10 +2868,6 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseRolesList{}
 	case SAMLProviderIdentity:
 		return &SparseSAMLProvidersList{}
-	case SandboxIdentity:
-		return &SparseSandboxsList{}
-	case SearchIdentity:
-		return &SparseSearchesList{}
 	case ServiceIdentity:
 		return &SparseServicesList{}
 	case ServiceCertificateIdentity:
@@ -2957,8 +2908,6 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseTenantsList{}
 	case TestResourceIdentity:
 		return &SparseTestResourcesList{}
-	case TextIndexIdentity:
-		return &SparseTextIndexsList{}
 	case TokenIdentity:
 		return &SparseTokensList{}
 	case TokenScopePolicyIdentity:
@@ -3101,7 +3050,6 @@ func AllIdentities() []elemental.Identity {
 		ImportReferenceIdentity,
 		ImportRequestIdentity,
 		InfrastructurePolicyIdentity,
-		IPInfoIdentity,
 		IsolationProfileIdentity,
 		IssueIdentity,
 		IssueServiceTokenIdentity,
@@ -3159,8 +3107,6 @@ func AllIdentities() []elemental.Identity {
 		RoleIdentity,
 		RootIdentity,
 		SAMLProviderIdentity,
-		SandboxIdentity,
-		SearchIdentity,
 		ServiceIdentity,
 		ServiceCertificateIdentity,
 		ServiceDependencyPolicyIdentity,
@@ -3181,7 +3127,6 @@ func AllIdentities() []elemental.Identity {
 		TagValueIdentity,
 		TenantIdentity,
 		TestResourceIdentity,
-		TextIndexIdentity,
 		TokenIdentity,
 		TokenScopePolicyIdentity,
 		TriggerIdentity,
@@ -3469,8 +3414,6 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"infrapol",
 			"infrapols",
 		}
-	case IPInfoIdentity:
-		return []string{}
 	case IsolationProfileIdentity:
 		return []string{
 			"ip",
@@ -3645,10 +3588,6 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{}
 	case SAMLProviderIdentity:
 		return []string{}
-	case SandboxIdentity:
-		return []string{}
-	case SearchIdentity:
-		return []string{}
 	case ServiceIdentity:
 		return []string{
 			"srv",
@@ -3707,8 +3646,6 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case TenantIdentity:
 		return []string{}
 	case TestResourceIdentity:
-		return []string{}
-	case TextIndexIdentity:
 		return []string{}
 	case TokenIdentity:
 		return []string{}
