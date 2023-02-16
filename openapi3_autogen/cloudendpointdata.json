@@ -4,6 +4,13 @@
       "cloudendpointdata": {
         "description": "Parameters associated with a cloud endpoint.",
         "properties": {
+          "SubnetAttachments": {
+            "description": "The list of Subnets that this endpoint is directly attached to.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "VPCAttached": {
             "description": "Indicates that the endpoint is directly attached to the VPC. In this case the\nattachedInterfaces is empty. In general this is only valid for endpoint type\nGateway and Peering Connection.",
             "type": "boolean"
@@ -44,6 +51,14 @@
             },
             "type": "array"
           },
+          "availabilityZone": {
+            "description": "The availabilityZone of the endpoint. Available for instances. This can be the\nplacement in AWS or availability zone  or Azure.",
+            "example": [
+              "us-east-2a",
+              2
+            ],
+            "type": "string"
+          },
           "forwardingEnabled": {
             "description": "If the endpoint has multiple connections and forwarding can be enabled between\nthem.",
             "type": "boolean"
@@ -54,6 +69,14 @@
           },
           "imageID": {
             "description": "The imageID of running in the endpoint. Available for instances and\npotentially other 3rd parties. This can be the AMI ID in AWS or corresponding\ninstance imageID in other clouds.",
+            "type": "string"
+          },
+          "instanceType": {
+            "description": "The instanceType of the endpoint. Available for instances. This can be the\ninstance type in AWS or vm size in Azure.",
+            "example": [
+              "t2.micro",
+              "Standard_F8s_v2"
+            ],
             "type": "string"
           },
           "productInfo": {

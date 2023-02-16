@@ -73,6 +73,9 @@ const (
 
 // CloudEndpointData represents the model of a cloudendpointdata
 type CloudEndpointData struct {
+	// The list of Subnets that this endpoint is directly attached to.
+	SubnetAttachments []string `json:"SubnetAttachments" msgpack:"SubnetAttachments" bson:"subnetattachments" mapstructure:"SubnetAttachments,omitempty"`
+
 	// Indicates that the endpoint is directly attached to the VPC. In this case the
 	// attachedInterfaces is empty. In general this is only valid for endpoint type
 	// Gateway and Peering Connection.
@@ -92,6 +95,10 @@ type CloudEndpointData struct {
 	// have more than one interface.
 	AttachedInterfaces []string `json:"attachedInterfaces" msgpack:"attachedInterfaces" bson:"attachedinterfaces" mapstructure:"attachedInterfaces,omitempty"`
 
+	// The availabilityZone of the endpoint. Available for instances. This can be the
+	// placement in AWS or availability zone  or Azure.
+	AvailabilityZone string `json:"availabilityZone,omitempty" msgpack:"availabilityZone,omitempty" bson:"availabilityzone,omitempty" mapstructure:"availabilityZone,omitempty"`
+
 	// If the endpoint has multiple connections and forwarding can be enabled between
 	// them.
 	ForwardingEnabled bool `json:"forwardingEnabled" msgpack:"forwardingEnabled" bson:"forwardingenabled" mapstructure:"forwardingEnabled,omitempty"`
@@ -103,6 +110,10 @@ type CloudEndpointData struct {
 	// potentially other 3rd parties. This can be the AMI ID in AWS or corresponding
 	// instance imageID in other clouds.
 	ImageID string `json:"imageID,omitempty" msgpack:"imageID,omitempty" bson:"imageid,omitempty" mapstructure:"imageID,omitempty"`
+
+	// The instanceType of the endpoint. Available for instances. This can be the
+	// instance type in AWS or virtual machine size in Azure.
+	InstanceType string `json:"instanceType,omitempty" msgpack:"instanceType,omitempty" bson:"instancetype,omitempty" mapstructure:"instanceType,omitempty"`
 
 	// Product related metadata associated with this endpoint.
 	ProductInfo []*CloudEndpointDataProductInfo `json:"productInfo,omitempty" msgpack:"productInfo,omitempty" bson:"productinfo,omitempty" mapstructure:"productInfo,omitempty"`
@@ -131,6 +142,7 @@ func NewCloudEndpointData() *CloudEndpointData {
 
 	return &CloudEndpointData{
 		ModelVersion:          1,
+		SubnetAttachments:     []string{},
 		VPCAttachments:        []string{},
 		AssociatedRouteTables: []string{},
 		AttachedEntities:      []string{},
@@ -152,14 +164,17 @@ func (o *CloudEndpointData) GetBSON() (any, error) {
 
 	s := &mongoAttributesCloudEndpointData{}
 
+	s.SubnetAttachments = o.SubnetAttachments
 	s.VPCAttached = o.VPCAttached
 	s.VPCAttachments = o.VPCAttachments
 	s.AssociatedRouteTables = o.AssociatedRouteTables
 	s.AttachedEntities = o.AttachedEntities
 	s.AttachedInterfaces = o.AttachedInterfaces
+	s.AvailabilityZone = o.AvailabilityZone
 	s.ForwardingEnabled = o.ForwardingEnabled
 	s.HasPublicIP = o.HasPublicIP
 	s.ImageID = o.ImageID
+	s.InstanceType = o.InstanceType
 	s.ProductInfo = o.ProductInfo
 	s.PublicIPAddresses = o.PublicIPAddresses
 	s.ResourceStatus = o.ResourceStatus
@@ -183,14 +198,17 @@ func (o *CloudEndpointData) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	o.SubnetAttachments = s.SubnetAttachments
 	o.VPCAttached = s.VPCAttached
 	o.VPCAttachments = s.VPCAttachments
 	o.AssociatedRouteTables = s.AssociatedRouteTables
 	o.AttachedEntities = s.AttachedEntities
 	o.AttachedInterfaces = s.AttachedInterfaces
+	o.AvailabilityZone = s.AvailabilityZone
 	o.ForwardingEnabled = s.ForwardingEnabled
 	o.HasPublicIP = s.HasPublicIP
 	o.ImageID = s.ImageID
+	o.InstanceType = s.InstanceType
 	o.ProductInfo = s.ProductInfo
 	o.PublicIPAddresses = s.PublicIPAddresses
 	o.ResourceStatus = s.ResourceStatus
@@ -297,6 +315,8 @@ func (*CloudEndpointData) AttributeSpecifications() map[string]elemental.Attribu
 func (o *CloudEndpointData) ValueForAttribute(name string) any {
 
 	switch name {
+	case "SubnetAttachments":
+		return o.SubnetAttachments
 	case "VPCAttached":
 		return o.VPCAttached
 	case "VPCAttachments":
@@ -307,12 +327,16 @@ func (o *CloudEndpointData) ValueForAttribute(name string) any {
 		return o.AttachedEntities
 	case "attachedInterfaces":
 		return o.AttachedInterfaces
+	case "availabilityZone":
+		return o.AvailabilityZone
 	case "forwardingEnabled":
 		return o.ForwardingEnabled
 	case "hasPublicIP":
 		return o.HasPublicIP
 	case "imageID":
 		return o.ImageID
+	case "instanceType":
+		return o.InstanceType
 	case "productInfo":
 		return o.ProductInfo
 	case "publicIPAddresses":
@@ -332,6 +356,17 @@ func (o *CloudEndpointData) ValueForAttribute(name string) any {
 
 // CloudEndpointDataAttributesMap represents the map of attribute for CloudEndpointData.
 var CloudEndpointDataAttributesMap = map[string]elemental.AttributeSpecification{
+	"SubnetAttachments": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "subnetattachments",
+		ConvertedName:  "SubnetAttachments",
+		Description:    `The list of Subnets that this endpoint is directly attached to.`,
+		Exposed:        true,
+		Name:           "SubnetAttachments",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"VPCAttached": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "vpcattached",
@@ -390,6 +425,17 @@ have more than one interface.`,
 		SubType: "string",
 		Type:    "list",
 	},
+	"AvailabilityZone": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "availabilityzone",
+		ConvertedName:  "AvailabilityZone",
+		Description: `The availabilityZone of the endpoint. Available for instances. This can be the
+placement in AWS or availability zone  or Azure.`,
+		Exposed: true,
+		Name:    "availabilityZone",
+		Stored:  true,
+		Type:    "string",
+	},
 	"ForwardingEnabled": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "forwardingenabled",
@@ -420,6 +466,17 @@ potentially other 3rd parties. This can be the AMI ID in AWS or corresponding
 instance imageID in other clouds.`,
 		Exposed: true,
 		Name:    "imageID",
+		Stored:  true,
+		Type:    "string",
+	},
+	"InstanceType": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "instancetype",
+		ConvertedName:  "InstanceType",
+		Description: `The instanceType of the endpoint. Available for instances. This can be the
+instance type in AWS or virtual machine size in Azure.`,
+		Exposed: true,
+		Name:    "instanceType",
 		Stored:  true,
 		Type:    "string",
 	},
@@ -493,6 +550,17 @@ Balancer).`,
 
 // CloudEndpointDataLowerCaseAttributesMap represents the map of attribute for CloudEndpointData.
 var CloudEndpointDataLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"subnetattachments": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "subnetattachments",
+		ConvertedName:  "SubnetAttachments",
+		Description:    `The list of Subnets that this endpoint is directly attached to.`,
+		Exposed:        true,
+		Name:           "SubnetAttachments",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"vpcattached": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "vpcattached",
@@ -551,6 +619,17 @@ have more than one interface.`,
 		SubType: "string",
 		Type:    "list",
 	},
+	"availabilityzone": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "availabilityzone",
+		ConvertedName:  "AvailabilityZone",
+		Description: `The availabilityZone of the endpoint. Available for instances. This can be the
+placement in AWS or availability zone  or Azure.`,
+		Exposed: true,
+		Name:    "availabilityZone",
+		Stored:  true,
+		Type:    "string",
+	},
 	"forwardingenabled": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "forwardingenabled",
@@ -581,6 +660,17 @@ potentially other 3rd parties. This can be the AMI ID in AWS or corresponding
 instance imageID in other clouds.`,
 		Exposed: true,
 		Name:    "imageID",
+		Stored:  true,
+		Type:    "string",
+	},
+	"instancetype": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "instancetype",
+		ConvertedName:  "InstanceType",
+		Description: `The instanceType of the endpoint. Available for instances. This can be the
+instance type in AWS or virtual machine size in Azure.`,
+		Exposed: true,
+		Name:    "instanceType",
 		Stored:  true,
 		Type:    "string",
 	},
@@ -653,14 +743,17 @@ Balancer).`,
 }
 
 type mongoAttributesCloudEndpointData struct {
+	SubnetAttachments     []string                             `bson:"subnetattachments"`
 	VPCAttached           bool                                 `bson:"vpcattached"`
 	VPCAttachments        []string                             `bson:"vpcattachments"`
 	AssociatedRouteTables []string                             `bson:"associatedroutetables"`
 	AttachedEntities      []string                             `bson:"attachedentities"`
 	AttachedInterfaces    []string                             `bson:"attachedinterfaces"`
+	AvailabilityZone      string                               `bson:"availabilityzone,omitempty"`
 	ForwardingEnabled     bool                                 `bson:"forwardingenabled"`
 	HasPublicIP           bool                                 `bson:"haspublicip,omitempty"`
 	ImageID               string                               `bson:"imageid,omitempty"`
+	InstanceType          string                               `bson:"instancetype,omitempty"`
 	ProductInfo           []*CloudEndpointDataProductInfo      `bson:"productinfo,omitempty"`
 	PublicIPAddresses     []string                             `bson:"publicipaddresses"`
 	ResourceStatus        CloudEndpointDataResourceStatusValue `bson:"resourcestatus"`
