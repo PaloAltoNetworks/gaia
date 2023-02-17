@@ -72,7 +72,7 @@
             "type": "string"
           },
           "instanceType": {
-            "description": "The instanceType of the endpoint. Available for instances. This can be the\ninstance type in AWS or vm size in Azure.",
+            "description": "The instanceType of the endpoint. Available for instances. This can be the\ninstance type in AWS or virtual machine size in Azure.",
             "example": [
               "t2.micro",
               "Standard_F8s_v2"
