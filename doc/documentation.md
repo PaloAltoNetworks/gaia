@@ -10740,8 +10740,16 @@ Parameters associated with a cloud endpoint.
     "eni-12344",
     "eni-33333"
   ],
+  "availabilityZone": [
+    "us-east-2a",
+    2
+  ],
   "forwardingEnabled": false,
   "hasPublicIP": false,
+  "instanceType": [
+    "t2.micro",
+    "Standard_F8s_v2"
+  ],
   "resourceStatus": "Active",
   "serviceType": "NotApplicable",
   "type": "Instance"
@@ -10749,6 +10757,12 @@ Parameters associated with a cloud endpoint.
 ```
 
 #### Attributes
+
+##### `SubnetAttachments`
+
+Type: `[]string`
+
+The list of Subnets that this endpoint is directly attached to.
 
 ##### `VPCAttached`
 
@@ -10784,6 +10798,13 @@ Type: `[]string`
 A list of interfaces attached with the endpoint. In some cases endpoints can
 have more than one interface.
 
+##### `availabilityZone`
+
+Type: `string`
+
+The availabilityZone of the endpoint. Available for instances. This can be the
+placement in AWS or availability zone  or Azure.
+
 ##### `forwardingEnabled`
 
 Type: `boolean`
@@ -10804,6 +10825,13 @@ Type: `string`
 The imageID of running in the endpoint. Available for instances and
 potentially other 3rd parties. This can be the AMI ID in AWS or corresponding
 instance imageID in other clouds.
+
+##### `instanceType`
+
+Type: `string`
+
+The instanceType of the endpoint. Available for instances. This can be the
+instance type in AWS or virtual machine size in Azure.
 
 ##### `productInfo`
 
