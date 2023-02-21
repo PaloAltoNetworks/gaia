@@ -11,6 +11,13 @@ model:
 # Attributes
 attributes:
   v1:
+  - name: SubnetAttachments
+    description: The list of Subnets that this endpoint is directly attached to.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+
   - name: VPCAttached
     description: |-
       Indicates that the endpoint is directly attached to the VPC. In this case the
@@ -58,6 +65,18 @@ attributes:
     - eni-12344
     - eni-33333
 
+  - name: availabilityZone
+    description: |-
+      The availabilityZone of the endpoint. Available for instances. This can be the
+      placement in AWS or availability zone  or Azure.
+    type: string
+    exposed: true
+    stored: true
+    example_value:
+    - us-east-2a
+    - 2
+    omit_empty: true
+
   - name: forwardingEnabled
     description: |-
       If the endpoint has multiple connections and forwarding can be enabled between
@@ -81,6 +100,18 @@ attributes:
     type: string
     exposed: true
     stored: true
+    omit_empty: true
+
+  - name: instanceType
+    description: |-
+      The instanceType of the endpoint. Available for instances. This can be the
+      instance type in AWS or virtual machine size in Azure.
+    type: string
+    exposed: true
+    stored: true
+    example_value:
+    - t2.micro
+    - Standard_F8s_v2
     omit_empty: true
 
   - name: productInfo
