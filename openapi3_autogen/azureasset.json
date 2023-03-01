@@ -84,7 +84,8 @@
               "MicrosoftCompute",
               "MicrosoftNetwork",
               "MicrosoftDocumentDB",
-              "MicrosoftDBforMySQL"
+              "MicrosoftDBforMySQL",
+              "MicrosoftSQL"
             ],
             "example": "MicrosoftCompute",
             "readOnly": true
