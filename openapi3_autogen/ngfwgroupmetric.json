@@ -1,0 +1,129 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "ngfwgroupmetric": {
+        "description": "Defines the Next-Generation Firewall (NGFW) group of metrics.",
+        "properties": {
+          "countCreditsConsumed": {
+            "description": "The number of Prisma Cloud credits consumed.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "countInstancesAdvancedLicense": {
+            "description": "The number of instances with advanced licensing.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "countInstancesBasicLicense": {
+            "description": "The number of instances with basic licensing.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "countInstancesNGFWMode": {
+            "description": "The number of instances in NGFW mode.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "countInstancesTAPLicense": {
+            "description": "The number of instances with TAP licensing.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "countInstancesTAPMode": {
+            "description": "The number of instances in TAP mode.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "countPoliciesAutoRemedyEnabled": {
+            "description": "The number of NGFW policies with auto-remediation enabled.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "countTenantsNGFWEnabled": {
+            "description": "The number of tenants with NGFW enabled.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "countThreatsBlocked": {
+            "description": "The number of threats blocked.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "countThreatsDetected": {
+            "description": "The number of threats detected.",
+            "readOnly": true,
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "ngfwgroupmetric",
+    "version": "1.0"
+  },
+  "paths": {
+    "/ngfwgroupmetrics": {
+      "get": {
+        "description": "Retrieves a list of NGFW group of metrics.",
+        "operationId": "get-all-ngfwgroupmetrics",
+        "parameters": [
+          {
+            "description": "If set, query the metrics based on the specified time range.",
+            "in": "query",
+            "name": "timerange",
+            "schema": {
+              "enum": [
+                "day",
+                "week",
+                "month",
+                "quarter",
+                "year"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ngfwgroupmetric"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "placeholder",
+          "placeholder"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'placeholder'",
+      "name": "placeholder"
+    },
+    {
+      "description": "This tag is for package 'placeholder'",
+      "name": "placeholder"
+    }
+  ]
+}

@@ -3759,6 +3759,43 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[NGFWGroupMetricIdentity] = &elemental.Relationship{
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "timerange",
+						Type: "enum",
+						AllowedChoices: []string{
+							"day",
+							"week",
+							"month",
+							"quarter",
+							"year",
+						},
+					},
+				},
+			},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "timerange",
+						Type: "enum",
+						AllowedChoices: []string{
+							"day",
+							"week",
+							"month",
+							"quarter",
+							"year",
+						},
+					},
+				},
+			},
+		},
+	}
+
 	relationshipsRegistry[NamespaceIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
