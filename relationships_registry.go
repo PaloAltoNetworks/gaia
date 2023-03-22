@@ -881,6 +881,8 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[CloudAccountPolicyExecutionStatusIdentity] = &elemental.Relationship{}
+
 	relationshipsRegistry[CloudAlertIdentity] = &elemental.Relationship{
 		Update: map[string]*elemental.RelationshipInfo{
 			"root": {},
