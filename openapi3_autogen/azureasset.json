@@ -76,6 +76,12 @@
             "example": "us-east-1",
             "type": "string"
           },
+          "prismaResourceID": {
+            "description": "The identifier of the resource as presented by Prisma Cloud, which is a path.",
+            "example": "/subscriptions/a0a00a0a-0aaa-000a-a0a0-00a00aa00000/resourceGroups/my-Deployment/providers/Microsoft.Compute/virtualMachines/vm-name",
+            "readOnly": true,
+            "type": "string"
+          },
           "provider": {
             "default": "Pending",
             "description": "The major type of the resource.",
