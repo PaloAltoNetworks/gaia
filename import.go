@@ -45,8 +45,8 @@ func (o ImportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ImportsList.
 func (o ImportsList) Copy() elemental.Identifiables {
 
-	copy := append(ImportsList{}, o...)
-	return &copy
+	out := append(ImportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ImportsList.

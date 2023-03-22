@@ -32,8 +32,8 @@ func (o CloudPublicIPAddressList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudPublicIPAddressList.
 func (o CloudPublicIPAddressList) Copy() elemental.Identifiables {
 
-	copy := append(CloudPublicIPAddressList{}, o...)
-	return &copy
+	out := append(CloudPublicIPAddressList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudPublicIPAddressList.

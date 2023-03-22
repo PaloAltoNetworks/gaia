@@ -32,8 +32,8 @@ func (o CloudNetworkInterfacesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudNetworkInterfacesList.
 func (o CloudNetworkInterfacesList) Copy() elemental.Identifiables {
 
-	copy := append(CloudNetworkInterfacesList{}, o...)
-	return &copy
+	out := append(CloudNetworkInterfacesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudNetworkInterfacesList.

@@ -59,8 +59,8 @@ func (o NamespacePolicyInfosList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the NamespacePolicyInfosList.
 func (o NamespacePolicyInfosList) Copy() elemental.Identifiables {
 
-	copy := append(NamespacePolicyInfosList{}, o...)
-	return &copy
+	out := append(NamespacePolicyInfosList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the NamespacePolicyInfosList.

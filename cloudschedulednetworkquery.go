@@ -32,8 +32,8 @@ func (o CloudScheduledNetworkQueriesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudScheduledNetworkQueriesList.
 func (o CloudScheduledNetworkQueriesList) Copy() elemental.Identifiables {
 
-	copy := append(CloudScheduledNetworkQueriesList{}, o...)
-	return &copy
+	out := append(CloudScheduledNetworkQueriesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudScheduledNetworkQueriesList.

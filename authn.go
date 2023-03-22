@@ -32,8 +32,8 @@ func (o AuthnsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AuthnsList.
 func (o AuthnsList) Copy() elemental.Identifiables {
 
-	copy := append(AuthnsList{}, o...)
-	return &copy
+	out := append(AuthnsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AuthnsList.

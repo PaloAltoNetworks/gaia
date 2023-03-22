@@ -32,8 +32,8 @@ func (o TrustedNamespacesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the TrustedNamespacesList.
 func (o TrustedNamespacesList) Copy() elemental.Identifiables {
 
-	copy := append(TrustedNamespacesList{}, o...)
-	return &copy
+	out := append(TrustedNamespacesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the TrustedNamespacesList.

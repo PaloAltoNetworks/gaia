@@ -31,8 +31,8 @@ func (o CNSSearchesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CNSSearchesList.
 func (o CNSSearchesList) Copy() elemental.Identifiables {
 
-	copy := append(CNSSearchesList{}, o...)
-	return &copy
+	out := append(CNSSearchesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CNSSearchesList.

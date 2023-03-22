@@ -31,8 +31,8 @@ func (o ReputationsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ReputationsList.
 func (o ReputationsList) Copy() elemental.Identifiables {
 
-	copy := append(ReputationsList{}, o...)
-	return &copy
+	out := append(ReputationsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ReputationsList.

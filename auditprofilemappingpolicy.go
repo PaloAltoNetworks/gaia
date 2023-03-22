@@ -32,8 +32,8 @@ func (o AuditProfileMappingPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AuditProfileMappingPoliciesList.
 func (o AuditProfileMappingPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(AuditProfileMappingPoliciesList{}, o...)
-	return &copy
+	out := append(AuditProfileMappingPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AuditProfileMappingPoliciesList.

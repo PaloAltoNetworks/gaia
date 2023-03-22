@@ -97,8 +97,8 @@ func (o NamespacesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the NamespacesList.
 func (o NamespacesList) Copy() elemental.Identifiables {
 
-	copy := append(NamespacesList{}, o...)
-	return &copy
+	out := append(NamespacesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the NamespacesList.

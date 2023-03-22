@@ -31,8 +31,8 @@ func (o PlansList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PlansList.
 func (o PlansList) Copy() elemental.Identifiables {
 
-	copy := append(PlansList{}, o...)
-	return &copy
+	out := append(PlansList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PlansList.

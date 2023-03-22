@@ -45,8 +45,8 @@ func (o CloudSnapshotAccountsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudSnapshotAccountsList.
 func (o CloudSnapshotAccountsList) Copy() elemental.Identifiables {
 
-	copy := append(CloudSnapshotAccountsList{}, o...)
-	return &copy
+	out := append(CloudSnapshotAccountsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudSnapshotAccountsList.

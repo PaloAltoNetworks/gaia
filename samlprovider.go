@@ -32,8 +32,8 @@ func (o SAMLProvidersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the SAMLProvidersList.
 func (o SAMLProvidersList) Copy() elemental.Identifiables {
 
-	copy := append(SAMLProvidersList{}, o...)
-	return &copy
+	out := append(SAMLProvidersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the SAMLProvidersList.

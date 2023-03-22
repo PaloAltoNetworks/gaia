@@ -68,8 +68,8 @@ func (o RenderedPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RenderedPoliciesList.
 func (o RenderedPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(RenderedPoliciesList{}, o...)
-	return &copy
+	out := append(RenderedPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the RenderedPoliciesList.

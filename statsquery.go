@@ -72,8 +72,8 @@ func (o StatsQueriesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the StatsQueriesList.
 func (o StatsQueriesList) Copy() elemental.Identifiables {
 
-	copy := append(StatsQueriesList{}, o...)
-	return &copy
+	out := append(StatsQueriesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the StatsQueriesList.

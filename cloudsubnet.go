@@ -32,8 +32,8 @@ func (o CloudSubnetsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudSubnetsList.
 func (o CloudSubnetsList) Copy() elemental.Identifiables {
 
-	copy := append(CloudSubnetsList{}, o...)
-	return &copy
+	out := append(CloudSubnetsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudSubnetsList.

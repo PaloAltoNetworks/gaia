@@ -31,8 +31,8 @@ func (o PCSearchResultsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PCSearchResultsList.
 func (o PCSearchResultsList) Copy() elemental.Identifiables {
 
-	copy := append(PCSearchResultsList{}, o...)
-	return &copy
+	out := append(PCSearchResultsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PCSearchResultsList.

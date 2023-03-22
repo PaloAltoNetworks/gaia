@@ -31,8 +31,8 @@ func (o ConnectionsResultsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ConnectionsResultsList.
 func (o ConnectionsResultsList) Copy() elemental.Identifiables {
 
-	copy := append(ConnectionsResultsList{}, o...)
-	return &copy
+	out := append(ConnectionsResultsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ConnectionsResultsList.

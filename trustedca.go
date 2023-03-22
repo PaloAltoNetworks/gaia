@@ -45,8 +45,8 @@ func (o TrustedCAsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the TrustedCAsList.
 func (o TrustedCAsList) Copy() elemental.Identifiables {
 
-	copy := append(TrustedCAsList{}, o...)
-	return &copy
+	out := append(TrustedCAsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the TrustedCAsList.

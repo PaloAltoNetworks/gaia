@@ -32,8 +32,8 @@ func (o HostServicesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the HostServicesList.
 func (o HostServicesList) Copy() elemental.Identifiables {
 
-	copy := append(HostServicesList{}, o...)
-	return &copy
+	out := append(HostServicesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the HostServicesList.

@@ -31,8 +31,8 @@ func (o X509CertificateChecksList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the X509CertificateChecksList.
 func (o X509CertificateChecksList) Copy() elemental.Identifiables {
 
-	copy := append(X509CertificateChecksList{}, o...)
-	return &copy
+	out := append(X509CertificateChecksList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the X509CertificateChecksList.

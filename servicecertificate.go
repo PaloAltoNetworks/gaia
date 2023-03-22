@@ -32,8 +32,8 @@ func (o ServiceCertificatesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ServiceCertificatesList.
 func (o ServiceCertificatesList) Copy() elemental.Identifiables {
 
-	copy := append(ServiceCertificatesList{}, o...)
-	return &copy
+	out := append(ServiceCertificatesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ServiceCertificatesList.

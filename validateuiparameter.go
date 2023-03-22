@@ -31,8 +31,8 @@ func (o ValidateUIParametersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ValidateUIParametersList.
 func (o ValidateUIParametersList) Copy() elemental.Identifiables {
 
-	copy := append(ValidateUIParametersList{}, o...)
-	return &copy
+	out := append(ValidateUIParametersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ValidateUIParametersList.

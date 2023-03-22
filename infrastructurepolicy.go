@@ -54,8 +54,8 @@ func (o InfrastructurePoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the InfrastructurePoliciesList.
 func (o InfrastructurePoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(InfrastructurePoliciesList{}, o...)
-	return &copy
+	out := append(InfrastructurePoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the InfrastructurePoliciesList.

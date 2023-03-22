@@ -32,8 +32,8 @@ func (o AutomationConditionsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AutomationConditionsList.
 func (o AutomationConditionsList) Copy() elemental.Identifiables {
 
-	copy := append(AutomationConditionsList{}, o...)
-	return &copy
+	out := append(AutomationConditionsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AutomationConditionsList.

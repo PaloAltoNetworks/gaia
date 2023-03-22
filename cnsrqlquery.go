@@ -31,8 +31,8 @@ func (o CNSRQLQueriesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CNSRQLQueriesList.
 func (o CNSRQLQueriesList) Copy() elemental.Identifiables {
 
-	copy := append(CNSRQLQueriesList{}, o...)
-	return &copy
+	out := append(CNSRQLQueriesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CNSRQLQueriesList.

@@ -32,8 +32,8 @@ func (o PCCProvidersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PCCProvidersList.
 func (o PCCProvidersList) Copy() elemental.Identifiables {
 
-	copy := append(PCCProvidersList{}, o...)
-	return &copy
+	out := append(PCCProvidersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PCCProvidersList.

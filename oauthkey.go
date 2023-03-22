@@ -31,8 +31,8 @@ func (o OAUTHKeysList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the OAUTHKeysList.
 func (o OAUTHKeysList) Copy() elemental.Identifiables {
 
-	copy := append(OAUTHKeysList{}, o...)
-	return &copy
+	out := append(OAUTHKeysList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the OAUTHKeysList.

@@ -57,8 +57,8 @@ func (o APIChecksList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the APIChecksList.
 func (o APIChecksList) Copy() elemental.Identifiables {
 
-	copy := append(APIChecksList{}, o...)
-	return &copy
+	out := append(APIChecksList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the APIChecksList.

@@ -31,8 +31,8 @@ func (o PingRequestsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PingRequestsList.
 func (o PingRequestsList) Copy() elemental.Identifiables {
 
-	copy := append(PingRequestsList{}, o...)
-	return &copy
+	out := append(PingRequestsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PingRequestsList.

@@ -31,8 +31,8 @@ func (o DefaultEnforcerVersionsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the DefaultEnforcerVersionsList.
 func (o DefaultEnforcerVersionsList) Copy() elemental.Identifiables {
 
-	copy := append(DefaultEnforcerVersionsList{}, o...)
-	return &copy
+	out := append(DefaultEnforcerVersionsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the DefaultEnforcerVersionsList.

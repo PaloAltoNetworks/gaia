@@ -43,8 +43,8 @@ func (o CloudServiceTagsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudServiceTagsList.
 func (o CloudServiceTagsList) Copy() elemental.Identifiables {
 
-	copy := append(CloudServiceTagsList{}, o...)
-	return &copy
+	out := append(CloudServiceTagsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudServiceTagsList.

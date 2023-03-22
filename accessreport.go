@@ -60,8 +60,8 @@ func (o AccessReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AccessReportsList.
 func (o AccessReportsList) Copy() elemental.Identifiables {
 
-	copy := append(AccessReportsList{}, o...)
-	return &copy
+	out := append(AccessReportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AccessReportsList.

@@ -32,8 +32,8 @@ func (o ClaimsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ClaimsList.
 func (o ClaimsList) Copy() elemental.Identifiables {
 
-	copy := append(ClaimsList{}, o...)
-	return &copy
+	out := append(ClaimsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ClaimsList.

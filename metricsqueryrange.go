@@ -31,8 +31,8 @@ func (o MetricsQueryRangesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the MetricsQueryRangesList.
 func (o MetricsQueryRangesList) Copy() elemental.Identifiables {
 
-	copy := append(MetricsQueryRangesList{}, o...)
-	return &copy
+	out := append(MetricsQueryRangesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the MetricsQueryRangesList.

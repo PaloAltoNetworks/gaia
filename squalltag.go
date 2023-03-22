@@ -31,8 +31,8 @@ func (o SquallTagsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the SquallTagsList.
 func (o SquallTagsList) Copy() elemental.Identifiables {
 
-	copy := append(SquallTagsList{}, o...)
-	return &copy
+	out := append(SquallTagsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the SquallTagsList.

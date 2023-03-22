@@ -49,8 +49,8 @@ func (o AccountsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AccountsList.
 func (o AccountsList) Copy() elemental.Identifiables {
 
-	copy := append(AccountsList{}, o...)
-	return &copy
+	out := append(AccountsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AccountsList.

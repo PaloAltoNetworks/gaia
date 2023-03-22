@@ -70,8 +70,8 @@ func (o IssuesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the IssuesList.
 func (o IssuesList) Copy() elemental.Identifiables {
 
-	copy := append(IssuesList{}, o...)
-	return &copy
+	out := append(IssuesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the IssuesList.

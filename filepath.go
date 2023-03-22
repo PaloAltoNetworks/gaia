@@ -32,8 +32,8 @@ func (o FilePathsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the FilePathsList.
 func (o FilePathsList) Copy() elemental.Identifiables {
 
-	copy := append(FilePathsList{}, o...)
-	return &copy
+	out := append(FilePathsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the FilePathsList.

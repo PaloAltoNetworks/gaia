@@ -71,8 +71,8 @@ func (o NetworkAccessPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the NetworkAccessPoliciesList.
 func (o NetworkAccessPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(NetworkAccessPoliciesList{}, o...)
-	return &copy
+	out := append(NetworkAccessPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the NetworkAccessPoliciesList.

@@ -85,8 +85,8 @@ func (o GraphNodesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the GraphNodesList.
 func (o GraphNodesList) Copy() elemental.Identifiables {
 
-	copy := append(GraphNodesList{}, o...)
-	return &copy
+	out := append(GraphNodesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the GraphNodesList.

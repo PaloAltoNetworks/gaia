@@ -42,8 +42,8 @@ func (o SSHCertificatesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the SSHCertificatesList.
 func (o SSHCertificatesList) Copy() elemental.Identifiables {
 
-	copy := append(SSHCertificatesList{}, o...)
-	return &copy
+	out := append(SSHCertificatesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the SSHCertificatesList.
