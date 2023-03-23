@@ -681,11 +681,7 @@ func ValidateHostServices(hs *HostService) error {
 		return makeValidationError("services", "Host service must have either HostModeEnabled or must declare services")
 	}
 
-	if err := ValidateHostServicesNonOverlapPorts(hs.Services); err != nil {
-		return err
-	}
-
-	return nil
+	return ValidateHostServicesNonOverlapPorts(hs.Services)
 }
 
 // ValidateHostServicesNonOverlapPorts validates a list of processing unit services has no overlap with any given parameter.
@@ -859,7 +855,7 @@ func isNumberBetween(attribute string, protocol string, s string, min int, max i
 }
 
 // ValidateAudience validates an audience string.
-func ValidateAudience(attribute string, audience string) error {
+func ValidateAudience(_ string, _ string) error {
 	// TODO: not liking the idea of importing addedeffect here
 	return nil
 }
