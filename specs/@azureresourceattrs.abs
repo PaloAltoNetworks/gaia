@@ -84,9 +84,8 @@ attributes:
     stored: true
     example_value: us-east-1
 
-  - name: prismaResourceID
-    description: The identifier of the resource as presented by Prisma Cloud, which
-      is a path.
+  - name: prismaURN
+    description: The unique resource name of the resource as presented by Prisma Cloud.
     type: string
     exposed: true
     stored: true
