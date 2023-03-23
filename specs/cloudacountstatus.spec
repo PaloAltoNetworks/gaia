@@ -1,13 +1,17 @@
 # Model
 model:
-  rest_name: cloudacountpolicyexecutionstatus
-  resource_name: cloudacountpolicyexecutionstatuses
-  entity_name: CloudAccountPolicyExecutionStatus
+  rest_name: cloudacountstatus
+  resource_name: cloudacountstatuses
+  entity_name: CloudAccountStatus
   package: vargid
   group: pcn/infrastructure
-  description: |-
-    CloudAccountPolicyExecutionStatus represents the execution status of cloud
-    policies relates to the cloud account.
+  description: CloudAccountStatus represents the status for a cloud account.
+  get:
+    description: Retrieve the cloud account status with the given ID.
+  update:
+    description: Updates the cloud account status with the given ID.
+  delete:
+    description: Deletes the cloud account status with the given ID.
   extends:
   - '@zoned'
   - '@migratable'

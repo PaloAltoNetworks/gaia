@@ -12,43 +12,43 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// CloudAccountPolicyExecutionStatusIdentity represents the Identity of the object.
-var CloudAccountPolicyExecutionStatusIdentity = elemental.Identity{
-	Name:     "cloudacountpolicyexecutionstatus",
-	Category: "cloudacountpolicyexecutionstatuses",
+// CloudAccountStatusIdentity represents the Identity of the object.
+var CloudAccountStatusIdentity = elemental.Identity{
+	Name:     "cloudacountstatus",
+	Category: "cloudacountstatuses",
 	Package:  "vargid",
 	Private:  false,
 }
 
-// CloudAccountPolicyExecutionStatusList represents a list of CloudAccountPolicyExecutionStatus
-type CloudAccountPolicyExecutionStatusList []*CloudAccountPolicyExecutionStatus
+// CloudAccountStatusList represents a list of CloudAccountStatus
+type CloudAccountStatusList []*CloudAccountStatus
 
 // Identity returns the identity of the objects in the list.
-func (o CloudAccountPolicyExecutionStatusList) Identity() elemental.Identity {
+func (o CloudAccountStatusList) Identity() elemental.Identity {
 
-	return CloudAccountPolicyExecutionStatusIdentity
+	return CloudAccountStatusIdentity
 }
 
-// Copy returns a pointer to a copy the CloudAccountPolicyExecutionStatusList.
-func (o CloudAccountPolicyExecutionStatusList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the CloudAccountStatusList.
+func (o CloudAccountStatusList) Copy() elemental.Identifiables {
 
-	out := append(CloudAccountPolicyExecutionStatusList{}, o...)
+	out := append(CloudAccountStatusList{}, o...)
 	return &out
 }
 
-// Append appends the objects to the a new copy of the CloudAccountPolicyExecutionStatusList.
-func (o CloudAccountPolicyExecutionStatusList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the CloudAccountStatusList.
+func (o CloudAccountStatusList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(CloudAccountPolicyExecutionStatusList{}, o...)
+	out := append(CloudAccountStatusList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*CloudAccountPolicyExecutionStatus))
+		out = append(out, obj.(*CloudAccountStatus))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o CloudAccountPolicyExecutionStatusList) List() elemental.IdentifiablesList {
+func (o CloudAccountStatusList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -59,33 +59,33 @@ func (o CloudAccountPolicyExecutionStatusList) List() elemental.IdentifiablesLis
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o CloudAccountPolicyExecutionStatusList) DefaultOrder() []string {
+func (o CloudAccountStatusList) DefaultOrder() []string {
 
 	return []string{
 		"name",
 	}
 }
 
-// ToSparse returns the CloudAccountPolicyExecutionStatusList converted to SparseCloudAccountPolicyExecutionStatusList.
+// ToSparse returns the CloudAccountStatusList converted to SparseCloudAccountStatusList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o CloudAccountPolicyExecutionStatusList) ToSparse(fields ...string) elemental.Identifiables {
+func (o CloudAccountStatusList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseCloudAccountPolicyExecutionStatusList, len(o))
+	out := make(SparseCloudAccountStatusList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseCloudAccountPolicyExecutionStatus)
+		out[i] = o[i].ToSparse(fields...).(*SparseCloudAccountStatus)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o CloudAccountPolicyExecutionStatusList) Version() int {
+func (o CloudAccountStatusList) Version() int {
 
 	return 1
 }
 
-// CloudAccountPolicyExecutionStatus represents the model of a cloudacountpolicyexecutionstatus
-type CloudAccountPolicyExecutionStatus struct {
+// CloudAccountStatus represents the model of a cloudacountstatus
+type CloudAccountStatus struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
@@ -120,10 +120,10 @@ type CloudAccountPolicyExecutionStatus struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewCloudAccountPolicyExecutionStatus returns a new *CloudAccountPolicyExecutionStatus
-func NewCloudAccountPolicyExecutionStatus() *CloudAccountPolicyExecutionStatus {
+// NewCloudAccountStatus returns a new *CloudAccountStatus
+func NewCloudAccountStatus() *CloudAccountStatus {
 
-	return &CloudAccountPolicyExecutionStatus{
+	return &CloudAccountStatus{
 		ModelVersion:                          1,
 		MigrationsLog:                         map[string]string{},
 		SuccessfulPolicyExecutionTimestampMap: map[string]time.Time{},
@@ -131,32 +131,32 @@ func NewCloudAccountPolicyExecutionStatus() *CloudAccountPolicyExecutionStatus {
 }
 
 // Identity returns the Identity of the object.
-func (o *CloudAccountPolicyExecutionStatus) Identity() elemental.Identity {
+func (o *CloudAccountStatus) Identity() elemental.Identity {
 
-	return CloudAccountPolicyExecutionStatusIdentity
+	return CloudAccountStatusIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *CloudAccountPolicyExecutionStatus) Identifier() string {
+func (o *CloudAccountStatus) Identifier() string {
 
 	return o.ID
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *CloudAccountPolicyExecutionStatus) SetIdentifier(id string) {
+func (o *CloudAccountStatus) SetIdentifier(id string) {
 
 	o.ID = id
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudAccountPolicyExecutionStatus) GetBSON() (any, error) {
+func (o *CloudAccountStatus) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesCloudAccountPolicyExecutionStatus{}
+	s := &mongoAttributesCloudAccountStatus{}
 
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
@@ -176,13 +176,13 @@ func (o *CloudAccountPolicyExecutionStatus) GetBSON() (any, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudAccountPolicyExecutionStatus) SetBSON(raw bson.Raw) error {
+func (o *CloudAccountStatus) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesCloudAccountPolicyExecutionStatus{}
+	s := &mongoAttributesCloudAccountStatus{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -202,19 +202,19 @@ func (o *CloudAccountPolicyExecutionStatus) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *CloudAccountPolicyExecutionStatus) Version() int {
+func (o *CloudAccountStatus) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *CloudAccountPolicyExecutionStatus) BleveType() string {
+func (o *CloudAccountStatus) BleveType() string {
 
-	return "cloudacountpolicyexecutionstatus"
+	return "cloudacountstatus"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *CloudAccountPolicyExecutionStatus) DefaultOrder() []string {
+func (o *CloudAccountStatus) DefaultOrder() []string {
 
 	return []string{
 		"name",
@@ -222,108 +222,107 @@ func (o *CloudAccountPolicyExecutionStatus) DefaultOrder() []string {
 }
 
 // Doc returns the documentation for the object
-func (o *CloudAccountPolicyExecutionStatus) Doc() string {
+func (o *CloudAccountStatus) Doc() string {
 
-	return `CloudAccountPolicyExecutionStatus represents the execution status of cloud
-policies relates to the cloud account.`
+	return `CloudAccountStatus represents the status for a cloud account.`
 }
 
-func (o *CloudAccountPolicyExecutionStatus) String() string {
+func (o *CloudAccountStatus) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *CloudAccountPolicyExecutionStatus) GetCreateTime() time.Time {
+func (o *CloudAccountStatus) GetCreateTime() time.Time {
 
 	return o.CreateTime
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the given value.
-func (o *CloudAccountPolicyExecutionStatus) SetCreateTime(createTime time.Time) {
+func (o *CloudAccountStatus) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = createTime
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *CloudAccountPolicyExecutionStatus) GetMigrationsLog() map[string]string {
+func (o *CloudAccountStatus) GetMigrationsLog() map[string]string {
 
 	return o.MigrationsLog
 }
 
 // SetMigrationsLog sets the property MigrationsLog of the receiver using the given value.
-func (o *CloudAccountPolicyExecutionStatus) SetMigrationsLog(migrationsLog map[string]string) {
+func (o *CloudAccountStatus) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = migrationsLog
 }
 
 // GetName returns the Name of the receiver.
-func (o *CloudAccountPolicyExecutionStatus) GetName() string {
+func (o *CloudAccountStatus) GetName() string {
 
 	return o.Name
 }
 
 // SetName sets the property Name of the receiver using the given value.
-func (o *CloudAccountPolicyExecutionStatus) SetName(name string) {
+func (o *CloudAccountStatus) SetName(name string) {
 
 	o.Name = name
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *CloudAccountPolicyExecutionStatus) GetNamespace() string {
+func (o *CloudAccountStatus) GetNamespace() string {
 
 	return o.Namespace
 }
 
 // SetNamespace sets the property Namespace of the receiver using the given value.
-func (o *CloudAccountPolicyExecutionStatus) SetNamespace(namespace string) {
+func (o *CloudAccountStatus) SetNamespace(namespace string) {
 
 	o.Namespace = namespace
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *CloudAccountPolicyExecutionStatus) GetUpdateTime() time.Time {
+func (o *CloudAccountStatus) GetUpdateTime() time.Time {
 
 	return o.UpdateTime
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the given value.
-func (o *CloudAccountPolicyExecutionStatus) SetUpdateTime(updateTime time.Time) {
+func (o *CloudAccountStatus) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *CloudAccountPolicyExecutionStatus) GetZHash() int {
+func (o *CloudAccountStatus) GetZHash() int {
 
 	return o.ZHash
 }
 
 // SetZHash sets the property ZHash of the receiver using the given value.
-func (o *CloudAccountPolicyExecutionStatus) SetZHash(zHash int) {
+func (o *CloudAccountStatus) SetZHash(zHash int) {
 
 	o.ZHash = zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *CloudAccountPolicyExecutionStatus) GetZone() int {
+func (o *CloudAccountStatus) GetZone() int {
 
 	return o.Zone
 }
 
 // SetZone sets the property Zone of the receiver using the given value.
-func (o *CloudAccountPolicyExecutionStatus) SetZone(zone int) {
+func (o *CloudAccountStatus) SetZone(zone int) {
 
 	o.Zone = zone
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *CloudAccountPolicyExecutionStatus) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *CloudAccountStatus) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseCloudAccountPolicyExecutionStatus{
+		return &SparseCloudAccountStatus{
 			ID:                                    &o.ID,
 			AccountID:                             &o.AccountID,
 			CreateTime:                            &o.CreateTime,
@@ -337,7 +336,7 @@ func (o *CloudAccountPolicyExecutionStatus) ToSparse(fields ...string) elemental
 		}
 	}
 
-	sp := &SparseCloudAccountPolicyExecutionStatus{}
+	sp := &SparseCloudAccountStatus{}
 	for _, f := range fields {
 		switch f {
 		case "ID":
@@ -366,13 +365,13 @@ func (o *CloudAccountPolicyExecutionStatus) ToSparse(fields ...string) elemental
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseCloudAccountPolicyExecutionStatus to the object.
-func (o *CloudAccountPolicyExecutionStatus) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseCloudAccountStatus to the object.
+func (o *CloudAccountStatus) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseCloudAccountPolicyExecutionStatus)
+	so := sparse.(*SparseCloudAccountStatus)
 	if so.ID != nil {
 		o.ID = *so.ID
 	}
@@ -405,32 +404,32 @@ func (o *CloudAccountPolicyExecutionStatus) Patch(sparse elemental.SparseIdentif
 	}
 }
 
-// DeepCopy returns a deep copy if the CloudAccountPolicyExecutionStatus.
-func (o *CloudAccountPolicyExecutionStatus) DeepCopy() *CloudAccountPolicyExecutionStatus {
+// DeepCopy returns a deep copy if the CloudAccountStatus.
+func (o *CloudAccountStatus) DeepCopy() *CloudAccountStatus {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &CloudAccountPolicyExecutionStatus{}
+	out := &CloudAccountStatus{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *CloudAccountPolicyExecutionStatus.
-func (o *CloudAccountPolicyExecutionStatus) DeepCopyInto(out *CloudAccountPolicyExecutionStatus) {
+// DeepCopyInto copies the receiver into the given *CloudAccountStatus.
+func (o *CloudAccountStatus) DeepCopyInto(out *CloudAccountStatus) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy CloudAccountPolicyExecutionStatus: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy CloudAccountStatus: %s", err))
 	}
 
-	*out = *target.(*CloudAccountPolicyExecutionStatus)
+	*out = *target.(*CloudAccountStatus)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *CloudAccountPolicyExecutionStatus) Validate() error {
+func (o *CloudAccountStatus) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -455,26 +454,26 @@ func (o *CloudAccountPolicyExecutionStatus) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*CloudAccountPolicyExecutionStatus) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*CloudAccountStatus) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := CloudAccountPolicyExecutionStatusAttributesMap[name]; ok {
+	if v, ok := CloudAccountStatusAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return CloudAccountPolicyExecutionStatusLowerCaseAttributesMap[name]
+	return CloudAccountStatusLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*CloudAccountPolicyExecutionStatus) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*CloudAccountStatus) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return CloudAccountPolicyExecutionStatusAttributesMap
+	return CloudAccountStatusAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudAccountPolicyExecutionStatus) ValueForAttribute(name string) any {
+func (o *CloudAccountStatus) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -502,8 +501,8 @@ func (o *CloudAccountPolicyExecutionStatus) ValueForAttribute(name string) any {
 	return nil
 }
 
-// CloudAccountPolicyExecutionStatusAttributesMap represents the map of attribute for CloudAccountPolicyExecutionStatus.
-var CloudAccountPolicyExecutionStatusAttributesMap = map[string]elemental.AttributeSpecification{
+// CloudAccountStatusAttributesMap represents the map of attribute for CloudAccountStatus.
+var CloudAccountStatusAttributesMap = map[string]elemental.AttributeSpecification{
 	"ID": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -644,8 +643,8 @@ georedundancy.`,
 	},
 }
 
-// CloudAccountPolicyExecutionStatusLowerCaseAttributesMap represents the map of attribute for CloudAccountPolicyExecutionStatus.
-var CloudAccountPolicyExecutionStatusLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// CloudAccountStatusLowerCaseAttributesMap represents the map of attribute for CloudAccountStatus.
+var CloudAccountStatusLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"id": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -786,35 +785,35 @@ georedundancy.`,
 	},
 }
 
-// SparseCloudAccountPolicyExecutionStatusList represents a list of SparseCloudAccountPolicyExecutionStatus
-type SparseCloudAccountPolicyExecutionStatusList []*SparseCloudAccountPolicyExecutionStatus
+// SparseCloudAccountStatusList represents a list of SparseCloudAccountStatus
+type SparseCloudAccountStatusList []*SparseCloudAccountStatus
 
 // Identity returns the identity of the objects in the list.
-func (o SparseCloudAccountPolicyExecutionStatusList) Identity() elemental.Identity {
+func (o SparseCloudAccountStatusList) Identity() elemental.Identity {
 
-	return CloudAccountPolicyExecutionStatusIdentity
+	return CloudAccountStatusIdentity
 }
 
-// Copy returns a pointer to a copy the SparseCloudAccountPolicyExecutionStatusList.
-func (o SparseCloudAccountPolicyExecutionStatusList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseCloudAccountStatusList.
+func (o SparseCloudAccountStatusList) Copy() elemental.Identifiables {
 
-	copy := append(SparseCloudAccountPolicyExecutionStatusList{}, o...)
+	copy := append(SparseCloudAccountStatusList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseCloudAccountPolicyExecutionStatusList.
-func (o SparseCloudAccountPolicyExecutionStatusList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseCloudAccountStatusList.
+func (o SparseCloudAccountStatusList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseCloudAccountPolicyExecutionStatusList{}, o...)
+	out := append(SparseCloudAccountStatusList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseCloudAccountPolicyExecutionStatus))
+		out = append(out, obj.(*SparseCloudAccountStatus))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseCloudAccountPolicyExecutionStatusList) List() elemental.IdentifiablesList {
+func (o SparseCloudAccountStatusList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -825,15 +824,15 @@ func (o SparseCloudAccountPolicyExecutionStatusList) List() elemental.Identifiab
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseCloudAccountPolicyExecutionStatusList) DefaultOrder() []string {
+func (o SparseCloudAccountStatusList) DefaultOrder() []string {
 
 	return []string{
 		"name",
 	}
 }
 
-// ToPlain returns the SparseCloudAccountPolicyExecutionStatusList converted to CloudAccountPolicyExecutionStatusList.
-func (o SparseCloudAccountPolicyExecutionStatusList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseCloudAccountStatusList converted to CloudAccountStatusList.
+func (o SparseCloudAccountStatusList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -844,13 +843,13 @@ func (o SparseCloudAccountPolicyExecutionStatusList) ToPlain() elemental.Identif
 }
 
 // Version returns the version of the content.
-func (o SparseCloudAccountPolicyExecutionStatusList) Version() int {
+func (o SparseCloudAccountStatusList) Version() int {
 
 	return 1
 }
 
-// SparseCloudAccountPolicyExecutionStatus represents the sparse version of a cloudacountpolicyexecutionstatus.
-type SparseCloudAccountPolicyExecutionStatus struct {
+// SparseCloudAccountStatus represents the sparse version of a cloudacountstatus.
+type SparseCloudAccountStatus struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
@@ -885,19 +884,19 @@ type SparseCloudAccountPolicyExecutionStatus struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseCloudAccountPolicyExecutionStatus returns a new  SparseCloudAccountPolicyExecutionStatus.
-func NewSparseCloudAccountPolicyExecutionStatus() *SparseCloudAccountPolicyExecutionStatus {
-	return &SparseCloudAccountPolicyExecutionStatus{}
+// NewSparseCloudAccountStatus returns a new  SparseCloudAccountStatus.
+func NewSparseCloudAccountStatus() *SparseCloudAccountStatus {
+	return &SparseCloudAccountStatus{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseCloudAccountPolicyExecutionStatus) Identity() elemental.Identity {
+func (o *SparseCloudAccountStatus) Identity() elemental.Identity {
 
-	return CloudAccountPolicyExecutionStatusIdentity
+	return CloudAccountStatusIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseCloudAccountPolicyExecutionStatus) Identifier() string {
+func (o *SparseCloudAccountStatus) Identifier() string {
 
 	if o.ID == nil {
 		return ""
@@ -906,7 +905,7 @@ func (o *SparseCloudAccountPolicyExecutionStatus) Identifier() string {
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseCloudAccountPolicyExecutionStatus) SetIdentifier(id string) {
+func (o *SparseCloudAccountStatus) SetIdentifier(id string) {
 
 	if id != "" {
 		o.ID = &id
@@ -917,13 +916,13 @@ func (o *SparseCloudAccountPolicyExecutionStatus) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudAccountPolicyExecutionStatus) GetBSON() (any, error) {
+func (o *SparseCloudAccountStatus) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseCloudAccountPolicyExecutionStatus{}
+	s := &mongoAttributesSparseCloudAccountStatus{}
 
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
@@ -961,13 +960,13 @@ func (o *SparseCloudAccountPolicyExecutionStatus) GetBSON() (any, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudAccountPolicyExecutionStatus) SetBSON(raw bson.Raw) error {
+func (o *SparseCloudAccountStatus) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseCloudAccountPolicyExecutionStatus{}
+	s := &mongoAttributesSparseCloudAccountStatus{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -1006,15 +1005,15 @@ func (o *SparseCloudAccountPolicyExecutionStatus) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseCloudAccountPolicyExecutionStatus) Version() int {
+func (o *SparseCloudAccountStatus) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseCloudAccountPolicyExecutionStatus) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseCloudAccountStatus) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewCloudAccountPolicyExecutionStatus()
+	out := NewCloudAccountStatus()
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
@@ -1050,7 +1049,7 @@ func (o *SparseCloudAccountPolicyExecutionStatus) ToPlain() elemental.PlainIdent
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *SparseCloudAccountPolicyExecutionStatus) GetCreateTime() (out time.Time) {
+func (o *SparseCloudAccountStatus) GetCreateTime() (out time.Time) {
 
 	if o.CreateTime == nil {
 		return
@@ -1060,13 +1059,13 @@ func (o *SparseCloudAccountPolicyExecutionStatus) GetCreateTime() (out time.Time
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the address of the given value.
-func (o *SparseCloudAccountPolicyExecutionStatus) SetCreateTime(createTime time.Time) {
+func (o *SparseCloudAccountStatus) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = &createTime
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *SparseCloudAccountPolicyExecutionStatus) GetMigrationsLog() (out map[string]string) {
+func (o *SparseCloudAccountStatus) GetMigrationsLog() (out map[string]string) {
 
 	if o.MigrationsLog == nil {
 		return
@@ -1076,13 +1075,13 @@ func (o *SparseCloudAccountPolicyExecutionStatus) GetMigrationsLog() (out map[st
 }
 
 // SetMigrationsLog sets the property MigrationsLog of the receiver using the address of the given value.
-func (o *SparseCloudAccountPolicyExecutionStatus) SetMigrationsLog(migrationsLog map[string]string) {
+func (o *SparseCloudAccountStatus) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = &migrationsLog
 }
 
 // GetName returns the Name of the receiver.
-func (o *SparseCloudAccountPolicyExecutionStatus) GetName() (out string) {
+func (o *SparseCloudAccountStatus) GetName() (out string) {
 
 	if o.Name == nil {
 		return
@@ -1092,13 +1091,13 @@ func (o *SparseCloudAccountPolicyExecutionStatus) GetName() (out string) {
 }
 
 // SetName sets the property Name of the receiver using the address of the given value.
-func (o *SparseCloudAccountPolicyExecutionStatus) SetName(name string) {
+func (o *SparseCloudAccountStatus) SetName(name string) {
 
 	o.Name = &name
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *SparseCloudAccountPolicyExecutionStatus) GetNamespace() (out string) {
+func (o *SparseCloudAccountStatus) GetNamespace() (out string) {
 
 	if o.Namespace == nil {
 		return
@@ -1108,13 +1107,13 @@ func (o *SparseCloudAccountPolicyExecutionStatus) GetNamespace() (out string) {
 }
 
 // SetNamespace sets the property Namespace of the receiver using the address of the given value.
-func (o *SparseCloudAccountPolicyExecutionStatus) SetNamespace(namespace string) {
+func (o *SparseCloudAccountStatus) SetNamespace(namespace string) {
 
 	o.Namespace = &namespace
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *SparseCloudAccountPolicyExecutionStatus) GetUpdateTime() (out time.Time) {
+func (o *SparseCloudAccountStatus) GetUpdateTime() (out time.Time) {
 
 	if o.UpdateTime == nil {
 		return
@@ -1124,13 +1123,13 @@ func (o *SparseCloudAccountPolicyExecutionStatus) GetUpdateTime() (out time.Time
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the address of the given value.
-func (o *SparseCloudAccountPolicyExecutionStatus) SetUpdateTime(updateTime time.Time) {
+func (o *SparseCloudAccountStatus) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = &updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *SparseCloudAccountPolicyExecutionStatus) GetZHash() (out int) {
+func (o *SparseCloudAccountStatus) GetZHash() (out int) {
 
 	if o.ZHash == nil {
 		return
@@ -1140,13 +1139,13 @@ func (o *SparseCloudAccountPolicyExecutionStatus) GetZHash() (out int) {
 }
 
 // SetZHash sets the property ZHash of the receiver using the address of the given value.
-func (o *SparseCloudAccountPolicyExecutionStatus) SetZHash(zHash int) {
+func (o *SparseCloudAccountStatus) SetZHash(zHash int) {
 
 	o.ZHash = &zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *SparseCloudAccountPolicyExecutionStatus) GetZone() (out int) {
+func (o *SparseCloudAccountStatus) GetZone() (out int) {
 
 	if o.Zone == nil {
 		return
@@ -1156,36 +1155,36 @@ func (o *SparseCloudAccountPolicyExecutionStatus) GetZone() (out int) {
 }
 
 // SetZone sets the property Zone of the receiver using the address of the given value.
-func (o *SparseCloudAccountPolicyExecutionStatus) SetZone(zone int) {
+func (o *SparseCloudAccountStatus) SetZone(zone int) {
 
 	o.Zone = &zone
 }
 
-// DeepCopy returns a deep copy if the SparseCloudAccountPolicyExecutionStatus.
-func (o *SparseCloudAccountPolicyExecutionStatus) DeepCopy() *SparseCloudAccountPolicyExecutionStatus {
+// DeepCopy returns a deep copy if the SparseCloudAccountStatus.
+func (o *SparseCloudAccountStatus) DeepCopy() *SparseCloudAccountStatus {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseCloudAccountPolicyExecutionStatus{}
+	out := &SparseCloudAccountStatus{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseCloudAccountPolicyExecutionStatus.
-func (o *SparseCloudAccountPolicyExecutionStatus) DeepCopyInto(out *SparseCloudAccountPolicyExecutionStatus) {
+// DeepCopyInto copies the receiver into the given *SparseCloudAccountStatus.
+func (o *SparseCloudAccountStatus) DeepCopyInto(out *SparseCloudAccountStatus) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseCloudAccountPolicyExecutionStatus: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseCloudAccountStatus: %s", err))
 	}
 
-	*out = *target.(*SparseCloudAccountPolicyExecutionStatus)
+	*out = *target.(*SparseCloudAccountStatus)
 }
 
-type mongoAttributesCloudAccountPolicyExecutionStatus struct {
+type mongoAttributesCloudAccountStatus struct {
 	ID                                    bson.ObjectId        `bson:"_id,omitempty"`
 	AccountID                             string               `bson:"accountid"`
 	CreateTime                            time.Time            `bson:"createtime"`
@@ -1197,7 +1196,7 @@ type mongoAttributesCloudAccountPolicyExecutionStatus struct {
 	ZHash                                 int                  `bson:"zhash"`
 	Zone                                  int                  `bson:"zone"`
 }
-type mongoAttributesSparseCloudAccountPolicyExecutionStatus struct {
+type mongoAttributesSparseCloudAccountStatus struct {
 	ID                                    bson.ObjectId         `bson:"_id,omitempty"`
 	AccountID                             *string               `bson:"accountid,omitempty"`
 	CreateTime                            *time.Time            `bson:"createtime,omitempty"`

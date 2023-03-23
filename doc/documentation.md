@@ -9935,10 +9935,9 @@ Type: `time`
 
 The date after which objects must be cleaned.
 
-### CloudAccountPolicyExecutionStatus
+### CloudAccountStatus
 
-CloudAccountPolicyExecutionStatus represents the execution status of cloud
-policies relates to the cloud account.
+CloudAccountStatus represents the status for a cloud account.
 
 #### Example
 
@@ -9947,6 +9946,20 @@ policies relates to the cloud account.
   "name": "the name"
 }
 ```
+
+#### Relations
+
+##### `DELETE /cloudacountstatuses/:id`
+
+Deletes the cloud account status with the given ID.
+
+##### `GET /cloudacountstatuses/:id`
+
+Retrieve the cloud account status with the given ID.
+
+##### `PUT /cloudacountstatuses/:id`
+
+Updates the cloud account status with the given ID.
 
 #### Attributes
 
