@@ -46,8 +46,8 @@ func (o PacketReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PacketReportsList.
 func (o PacketReportsList) Copy() elemental.Identifiables {
 
-	copy := append(PacketReportsList{}, o...)
-	return &copy
+	out := append(PacketReportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PacketReportsList.

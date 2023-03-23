@@ -31,8 +31,8 @@ func (o ValidateRQLsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ValidateRQLsList.
 func (o ValidateRQLsList) Copy() elemental.Identifiables {
 
-	copy := append(ValidateRQLsList{}, o...)
-	return &copy
+	out := append(ValidateRQLsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ValidateRQLsList.

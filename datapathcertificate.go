@@ -48,8 +48,8 @@ func (o DataPathCertificatesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the DataPathCertificatesList.
 func (o DataPathCertificatesList) Copy() elemental.Identifiables {
 
-	copy := append(DataPathCertificatesList{}, o...)
-	return &copy
+	out := append(DataPathCertificatesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the DataPathCertificatesList.

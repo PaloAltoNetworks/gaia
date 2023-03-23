@@ -45,8 +45,8 @@ func (o PolicyGraphsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PolicyGraphsList.
 func (o PolicyGraphsList) Copy() elemental.Identifiables {
 
-	copy := append(PolicyGraphsList{}, o...)
-	return &copy
+	out := append(PolicyGraphsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PolicyGraphsList.

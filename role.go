@@ -31,8 +31,8 @@ func (o RolesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RolesList.
 func (o RolesList) Copy() elemental.Identifiables {
 
-	copy := append(RolesList{}, o...)
-	return &copy
+	out := append(RolesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the RolesList.

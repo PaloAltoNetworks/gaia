@@ -31,8 +31,8 @@ func (o IssueServiceTokensList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the IssueServiceTokensList.
 func (o IssueServiceTokensList) Copy() elemental.Identifiables {
 
-	copy := append(IssueServiceTokensList{}, o...)
-	return &copy
+	out := append(IssueServiceTokensList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the IssueServiceTokensList.

@@ -32,8 +32,8 @@ func (o UserAccessPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the UserAccessPoliciesList.
 func (o UserAccessPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(UserAccessPoliciesList{}, o...)
-	return &copy
+	out := append(UserAccessPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the UserAccessPoliciesList.

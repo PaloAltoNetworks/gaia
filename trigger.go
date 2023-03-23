@@ -31,8 +31,8 @@ func (o TriggersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the TriggersList.
 func (o TriggersList) Copy() elemental.Identifiables {
 
-	copy := append(TriggersList{}, o...)
-	return &copy
+	out := append(TriggersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the TriggersList.

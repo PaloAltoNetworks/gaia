@@ -32,8 +32,8 @@ func (o CloudRouteTablesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudRouteTablesList.
 func (o CloudRouteTablesList) Copy() elemental.Identifiables {
 
-	copy := append(CloudRouteTablesList{}, o...)
-	return &copy
+	out := append(CloudRouteTablesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudRouteTablesList.

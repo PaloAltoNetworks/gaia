@@ -63,8 +63,8 @@ func (o AlarmsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AlarmsList.
 func (o AlarmsList) Copy() elemental.Identifiables {
 
-	copy := append(AlarmsList{}, o...)
-	return &copy
+	out := append(AlarmsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AlarmsList.

@@ -102,8 +102,8 @@ func (o FlowReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the FlowReportsList.
 func (o FlowReportsList) Copy() elemental.Identifiables {
 
-	copy := append(FlowReportsList{}, o...)
-	return &copy
+	out := append(FlowReportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the FlowReportsList.

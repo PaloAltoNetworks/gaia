@@ -46,8 +46,8 @@ func (o MessagesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the MessagesList.
 func (o MessagesList) Copy() elemental.Identifiables {
 
-	copy := append(MessagesList{}, o...)
-	return &copy
+	out := append(MessagesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the MessagesList.

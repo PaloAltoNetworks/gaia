@@ -31,8 +31,8 @@ func (o LogoutsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the LogoutsList.
 func (o LogoutsList) Copy() elemental.Identifiables {
 
-	copy := append(LogoutsList{}, o...)
-	return &copy
+	out := append(LogoutsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the LogoutsList.

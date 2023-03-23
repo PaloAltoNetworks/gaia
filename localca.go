@@ -31,8 +31,8 @@ func (o LocalCAsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the LocalCAsList.
 func (o LocalCAsList) Copy() elemental.Identifiables {
 
-	copy := append(LocalCAsList{}, o...)
-	return &copy
+	out := append(LocalCAsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the LocalCAsList.

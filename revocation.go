@@ -32,8 +32,8 @@ func (o RevocationsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RevocationsList.
 func (o RevocationsList) Copy() elemental.Identifiables {
 
-	copy := append(RevocationsList{}, o...)
-	return &copy
+	out := append(RevocationsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the RevocationsList.

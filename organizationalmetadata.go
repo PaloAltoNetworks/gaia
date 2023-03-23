@@ -31,8 +31,8 @@ func (o OrganizationalMetadatasList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the OrganizationalMetadatasList.
 func (o OrganizationalMetadatasList) Copy() elemental.Identifiables {
 
-	copy := append(OrganizationalMetadatasList{}, o...)
-	return &copy
+	out := append(OrganizationalMetadatasList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the OrganizationalMetadatasList.

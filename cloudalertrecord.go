@@ -74,8 +74,8 @@ func (o CloudAlertRecordsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudAlertRecordsList.
 func (o CloudAlertRecordsList) Copy() elemental.Identifiables {
 
-	copy := append(CloudAlertRecordsList{}, o...)
-	return &copy
+	out := append(CloudAlertRecordsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudAlertRecordsList.

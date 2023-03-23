@@ -117,8 +117,8 @@ func (o AzureResourcesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AzureResourcesList.
 func (o AzureResourcesList) Copy() elemental.Identifiables {
 
-	copy := append(AzureResourcesList{}, o...)
-	return &copy
+	out := append(AzureResourcesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AzureResourcesList.

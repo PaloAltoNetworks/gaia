@@ -102,8 +102,8 @@ func (o CachedFlowReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CachedFlowReportsList.
 func (o CachedFlowReportsList) Copy() elemental.Identifiables {
 
-	copy := append(CachedFlowReportsList{}, o...)
-	return &copy
+	out := append(CachedFlowReportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CachedFlowReportsList.

@@ -43,8 +43,8 @@ func (o LDAPProvidersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the LDAPProvidersList.
 func (o LDAPProvidersList) Copy() elemental.Identifiables {
 
-	copy := append(LDAPProvidersList{}, o...)
-	return &copy
+	out := append(LDAPProvidersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the LDAPProvidersList.

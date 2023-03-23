@@ -31,8 +31,8 @@ func (o TagValuesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the TagValuesList.
 func (o TagValuesList) Copy() elemental.Identifiables {
 
-	copy := append(TagValuesList{}, o...)
-	return &copy
+	out := append(TagValuesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the TagValuesList.

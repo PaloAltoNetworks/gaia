@@ -32,8 +32,8 @@ func (o AppCredentialsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AppCredentialsList.
 func (o AppCredentialsList) Copy() elemental.Identifiables {
 
-	copy := append(AppCredentialsList{}, o...)
-	return &copy
+	out := append(AppCredentialsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AppCredentialsList.

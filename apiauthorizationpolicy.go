@@ -32,8 +32,8 @@ func (o APIAuthorizationPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the APIAuthorizationPoliciesList.
 func (o APIAuthorizationPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(APIAuthorizationPoliciesList{}, o...)
-	return &copy
+	out := append(APIAuthorizationPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the APIAuthorizationPoliciesList.

@@ -31,8 +31,8 @@ func (o DependencyMapsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the DependencyMapsList.
 func (o DependencyMapsList) Copy() elemental.Identifiables {
 
-	copy := append(DependencyMapsList{}, o...)
-	return &copy
+	out := append(DependencyMapsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the DependencyMapsList.

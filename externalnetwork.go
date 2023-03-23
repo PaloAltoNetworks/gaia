@@ -52,8 +52,8 @@ func (o ExternalNetworksList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ExternalNetworksList.
 func (o ExternalNetworksList) Copy() elemental.Identifiables {
 
-	copy := append(ExternalNetworksList{}, o...)
-	return &copy
+	out := append(ExternalNetworksList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ExternalNetworksList.

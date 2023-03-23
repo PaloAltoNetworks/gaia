@@ -32,8 +32,8 @@ func (o CloudAlertRulesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudAlertRulesList.
 func (o CloudAlertRulesList) Copy() elemental.Identifiables {
 
-	copy := append(CloudAlertRulesList{}, o...)
-	return &copy
+	out := append(CloudAlertRulesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudAlertRulesList.

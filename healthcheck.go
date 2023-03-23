@@ -68,8 +68,8 @@ func (o HealthChecksList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the HealthChecksList.
 func (o HealthChecksList) Copy() elemental.Identifiables {
 
-	copy := append(HealthChecksList{}, o...)
-	return &copy
+	out := append(HealthChecksList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the HealthChecksList.

@@ -31,8 +31,8 @@ func (o DiscoveryModesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the DiscoveryModesList.
 func (o DiscoveryModesList) Copy() elemental.Identifiables {
 
-	copy := append(DiscoveryModesList{}, o...)
-	return &copy
+	out := append(DiscoveryModesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the DiscoveryModesList.

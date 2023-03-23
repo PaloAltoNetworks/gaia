@@ -60,8 +60,8 @@ func (o ReportsQueriesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ReportsQueriesList.
 func (o ReportsQueriesList) Copy() elemental.Identifiables {
 
-	copy := append(ReportsQueriesList{}, o...)
-	return &copy
+	out := append(ReportsQueriesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ReportsQueriesList.

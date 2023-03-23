@@ -78,8 +78,8 @@ func (o ConnectionExceptionReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ConnectionExceptionReportsList.
 func (o ConnectionExceptionReportsList) Copy() elemental.Identifiables {
 
-	copy := append(ConnectionExceptionReportsList{}, o...)
-	return &copy
+	out := append(ConnectionExceptionReportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ConnectionExceptionReportsList.

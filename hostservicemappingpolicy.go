@@ -32,8 +32,8 @@ func (o HostServiceMappingPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the HostServiceMappingPoliciesList.
 func (o HostServiceMappingPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(HostServiceMappingPoliciesList{}, o...)
-	return &copy
+	out := append(HostServiceMappingPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the HostServiceMappingPoliciesList.

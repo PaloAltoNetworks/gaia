@@ -32,8 +32,8 @@ func (o KubernetesClustersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the KubernetesClustersList.
 func (o KubernetesClustersList) Copy() elemental.Identifiables {
 
-	copy := append(KubernetesClustersList{}, o...)
-	return &copy
+	out := append(KubernetesClustersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the KubernetesClustersList.

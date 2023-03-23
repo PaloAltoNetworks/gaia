@@ -65,8 +65,8 @@ func (o EnforcerRefreshsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the EnforcerRefreshsList.
 func (o EnforcerRefreshsList) Copy() elemental.Identifiables {
 
-	copy := append(EnforcerRefreshsList{}, o...)
-	return &copy
+	out := append(EnforcerRefreshsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the EnforcerRefreshsList.

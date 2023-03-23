@@ -59,8 +59,8 @@ func (o PUTrafficActionsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PUTrafficActionsList.
 func (o PUTrafficActionsList) Copy() elemental.Identifiables {
 
-	copy := append(PUTrafficActionsList{}, o...)
-	return &copy
+	out := append(PUTrafficActionsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PUTrafficActionsList.

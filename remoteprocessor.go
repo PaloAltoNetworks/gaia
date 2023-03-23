@@ -43,8 +43,8 @@ func (o RemoteProcessorsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RemoteProcessorsList.
 func (o RemoteProcessorsList) Copy() elemental.Identifiables {
 
-	copy := append(RemoteProcessorsList{}, o...)
-	return &copy
+	out := append(RemoteProcessorsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the RemoteProcessorsList.

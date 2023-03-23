@@ -33,8 +33,8 @@ func (o IsolationProfilesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the IsolationProfilesList.
 func (o IsolationProfilesList) Copy() elemental.Identifiables {
 
-	copy := append(IsolationProfilesList{}, o...)
-	return &copy
+	out := append(IsolationProfilesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the IsolationProfilesList.

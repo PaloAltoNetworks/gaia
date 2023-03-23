@@ -31,8 +31,8 @@ func (o ActivatesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ActivatesList.
 func (o ActivatesList) Copy() elemental.Identifiables {
 
-	copy := append(ActivatesList{}, o...)
-	return &copy
+	out := append(ActivatesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ActivatesList.

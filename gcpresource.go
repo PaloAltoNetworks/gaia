@@ -120,8 +120,8 @@ func (o GCPResourcesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the GCPResourcesList.
 func (o GCPResourcesList) Copy() elemental.Identifiables {
 
-	copy := append(GCPResourcesList{}, o...)
-	return &copy
+	out := append(GCPResourcesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the GCPResourcesList.

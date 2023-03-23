@@ -32,8 +32,8 @@ func (o CloudNetworkRuleSetsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudNetworkRuleSetsList.
 func (o CloudNetworkRuleSetsList) Copy() elemental.Identifiables {
 
-	copy := append(CloudNetworkRuleSetsList{}, o...)
-	return &copy
+	out := append(CloudNetworkRuleSetsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudNetworkRuleSetsList.

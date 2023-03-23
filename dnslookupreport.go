@@ -49,8 +49,8 @@ func (o DNSLookupReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the DNSLookupReportsList.
 func (o DNSLookupReportsList) Copy() elemental.Identifiables {
 
-	copy := append(DNSLookupReportsList{}, o...)
-	return &copy
+	out := append(DNSLookupReportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the DNSLookupReportsList.

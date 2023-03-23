@@ -31,8 +31,8 @@ func (o AccessibleNamespacesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AccessibleNamespacesList.
 func (o AccessibleNamespacesList) Copy() elemental.Identifiables {
 
-	copy := append(AccessibleNamespacesList{}, o...)
-	return &copy
+	out := append(AccessibleNamespacesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AccessibleNamespacesList.

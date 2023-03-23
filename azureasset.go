@@ -117,8 +117,8 @@ func (o AzureAssetsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AzureAssetsList.
 func (o AzureAssetsList) Copy() elemental.Identifiables {
 
-	copy := append(AzureAssetsList{}, o...)
-	return &copy
+	out := append(AzureAssetsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AzureAssetsList.

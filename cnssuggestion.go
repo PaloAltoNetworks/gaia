@@ -31,8 +31,8 @@ func (o CNSSuggestionsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CNSSuggestionsList.
 func (o CNSSuggestionsList) Copy() elemental.Identifiables {
 
-	copy := append(CNSSuggestionsList{}, o...)
-	return &copy
+	out := append(CNSSuggestionsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CNSSuggestionsList.

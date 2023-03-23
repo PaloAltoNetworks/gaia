@@ -49,8 +49,8 @@ func (o SuspiciousActivitiesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the SuspiciousActivitiesList.
 func (o SuspiciousActivitiesList) Copy() elemental.Identifiables {
 
-	copy := append(SuspiciousActivitiesList{}, o...)
-	return &copy
+	out := append(SuspiciousActivitiesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the SuspiciousActivitiesList.

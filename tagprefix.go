@@ -31,8 +31,8 @@ func (o TagPrefixsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the TagPrefixsList.
 func (o TagPrefixsList) Copy() elemental.Identifiables {
 
-	copy := append(TagPrefixsList{}, o...)
-	return &copy
+	out := append(TagPrefixsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the TagPrefixsList.

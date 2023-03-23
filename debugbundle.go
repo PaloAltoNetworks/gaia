@@ -31,8 +31,8 @@ func (o DebugBundlesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the DebugBundlesList.
 func (o DebugBundlesList) Copy() elemental.Identifiables {
 
-	copy := append(DebugBundlesList{}, o...)
-	return &copy
+	out := append(DebugBundlesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the DebugBundlesList.

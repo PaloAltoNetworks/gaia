@@ -72,8 +72,8 @@ func (o ProcessingUnitPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ProcessingUnitPoliciesList.
 func (o ProcessingUnitPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(ProcessingUnitPoliciesList{}, o...)
-	return &copy
+	out := append(ProcessingUnitPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ProcessingUnitPoliciesList.

@@ -31,8 +31,8 @@ func (o PCTimeRangesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PCTimeRangesList.
 func (o PCTimeRangesList) Copy() elemental.Identifiables {
 
-	copy := append(PCTimeRangesList{}, o...)
-	return &copy
+	out := append(PCTimeRangesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PCTimeRangesList.

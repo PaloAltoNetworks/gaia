@@ -32,8 +32,8 @@ func (o ServiceDependencyPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ServiceDependencyPoliciesList.
 func (o ServiceDependencyPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(ServiceDependencyPoliciesList{}, o...)
-	return &copy
+	out := append(ServiceDependencyPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ServiceDependencyPoliciesList.
