@@ -1,7 +1,7 @@
 # Model
 model:
-  rest_name: cloudacountstatus
-  resource_name: cloudacountstatuses
+  rest_name: cloudaccountstatus
+  resource_name: cloudaccountstatuses
   entity_name: CloudAccountStatus
   package: vargid
   group: pcn/infrastructure
@@ -15,10 +15,10 @@ model:
   extends:
   - '@zoned'
   - '@migratable'
+  - '@base'
   - '@namespaced'
   - '@identifiable-stored'
   - '@timeable'
-  - '@named'
 
 # Indexes
 indexes:

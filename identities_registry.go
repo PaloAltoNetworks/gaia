@@ -33,7 +33,7 @@ var (
 		"claims":              ClaimsIdentity,
 		"clausesmatch":        ClauseMatchIdentity,
 		"cloudaccountcleaner": CloudAccountCleanerIdentity,
-		"cloudacountstatus":   CloudAccountStatusIdentity,
+		"cloudaccountstatus":  CloudAccountStatusIdentity,
 
 		"cloudalert":       CloudAlertIdentity,
 		"cloudalertrecord": CloudAlertRecordIdentity,
@@ -245,10 +245,10 @@ var (
 		"azureresources":              AzureResourceIdentity,
 		"cachedflowreports":           CachedFlowReportIdentity,
 
-		"claims":              ClaimsIdentity,
-		"clausesmatches":      ClauseMatchIdentity,
-		"cloudaccountcleaner": CloudAccountCleanerIdentity,
-		"cloudacountstatuses": CloudAccountStatusIdentity,
+		"claims":               ClaimsIdentity,
+		"clausesmatches":       ClauseMatchIdentity,
+		"cloudaccountcleaner":  CloudAccountCleanerIdentity,
+		"cloudaccountstatuses": CloudAccountStatusIdentity,
 
 		"cloudalerts":       CloudAlertIdentity,
 		"cloudalertrecords": CloudAlertRecordIdentity,
@@ -705,13 +705,13 @@ var (
 		},
 		"clausesmatch":        nil,
 		"cloudaccountcleaner": nil,
-		"cloudacountstatus": {
+		"cloudaccountstatus": {
 			{":shard", ":unique", "zone", "zHash"},
-			{"name"},
+			{"createIdempotencyKey"},
 			{"namespace"},
 			{"namespace", "accountID"},
-			{"namespace", "name"},
 			{"namespace", "normalizedTags"},
+			{"updateIdempotencyKey"},
 		},
 		"cloudalert": {
 			{":shard", ":unique", "zone", "zHash"},

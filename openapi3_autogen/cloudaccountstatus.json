@@ -1,7 +1,7 @@
 {
   "components": {
     "schemas": {
-      "cloudacountstatus": {
+      "cloudaccountstatus": {
         "description": "CloudAccountStatus represents the status for a cloud account.",
         "properties": {
           "ID": {
@@ -13,21 +13,45 @@
             "description": "Cloud account ID of the account.",
             "type": "string"
           },
+          "annotations": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "description": "Stores additional information about an entity.",
+            "type": "object"
+          },
+          "associatedTags": {
+            "description": "List of tags attached to an entity.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "createTime": {
             "description": "Creation date of the object.",
             "format": "date-time",
             "readOnly": true,
             "type": "string"
           },
-          "name": {
-            "description": "Name of the entity.",
-            "example": "the name",
-            "type": "string"
-          },
           "namespace": {
             "description": "Namespace tag attached to an entity.",
             "readOnly": true,
             "type": "string"
+          },
+          "normalizedTags": {
+            "description": "Contains the list of normalized tags of the entities.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "protected": {
+            "description": "Defines if the object is protected.",
+            "type": "boolean"
           },
           "successfulPolicyExecutionTimestampMap": {
             "additionalProperties": {
@@ -43,9 +67,6 @@
             "type": "string"
           }
         },
-        "required": [
-          "name"
-        ],
         "type": "object"
       }
     }
@@ -60,21 +81,86 @@
       "name": "TODO"
     },
     "termsOfService": "https://localhost/TODO",
-    "title": "cloudacountstatus",
+    "title": "cloudaccountstatus",
     "version": "1.0"
   },
   "openapi": "3.0.3",
   "paths": {
-    "/cloudacountstatuses/{id}": {
-      "delete": {
-        "description": "Deletes the cloud account status with the given ID.",
-        "operationId": "delete-cloudacountstatus-by-ID",
+    "/cloudaccountstatuses": {
+      "get": {
+        "description": "Retrieves the list of the cloud account status objects.",
+        "operationId": "get-all-cloudaccountstatuses",
+        "parameters": [
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/cloudacountstatus"
+                  "items": {
+                    "$ref": "#/components/schemas/cloudaccountstatus"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      },
+      "post": {
+        "description": "Creates a cloud account status object for the specified namespace.",
+        "operationId": "create-a-new-cloudaccountstatus",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudaccountstatus"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudaccountstatus"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      }
+    },
+    "/cloudaccountstatuses/{id}": {
+      "delete": {
+        "description": "Deletes the cloud account status with the given ID.",
+        "operationId": "delete-cloudaccountstatus-by-ID",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudaccountstatus"
                 }
               }
             },
@@ -88,13 +174,13 @@
       },
       "get": {
         "description": "Retrieve the cloud account status with the given ID.",
-        "operationId": "get-cloudacountstatus-by-ID",
+        "operationId": "get-cloudaccountstatus-by-ID",
         "responses": {
           "200": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/cloudacountstatus"
+                  "$ref": "#/components/schemas/cloudaccountstatus"
                 }
               }
             },
@@ -118,12 +204,12 @@
       ],
       "put": {
         "description": "Updates the cloud account status with the given ID.",
-        "operationId": "update-cloudacountstatus-by-ID",
+        "operationId": "update-cloudaccountstatus-by-ID",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/cloudacountstatus"
+                "$ref": "#/components/schemas/cloudaccountstatus"
               }
             }
           }
@@ -133,7 +219,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/cloudacountstatus"
+                  "$ref": "#/components/schemas/cloudaccountstatus"
                 }
               }
             },
