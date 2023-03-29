@@ -1,0 +1,59 @@
+{
+  "components": {
+    "schemas": {
+      "floodnodemakerconfig": {
+        "description": "Configurations to adjust the behaviour of nodemakers registered within a cached\nmux.",
+        "properties": {
+          "cloudTypes": {
+            "description": "A list of cloud types involved in flooding.",
+            "example": "gcp",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "optionIgnoreIPRulesForGivenAddresses": {
+            "description": "A list of addresses which nodemakers will ignore when evaluating IP rules.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "optionSelectIPRulesWithFullCoverage": {
+            "description": "If set, IP rule evaluation will only be considered if the target address is\nfully covered by the IP rule.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "cloudTypes"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "floodnodemakerconfig",
+    "version": "1.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "components": {
+    "schemas": {
+      "detacheddecoy": {
+        "description": "Represents a Decoy, partially, suitable for over-the-wire transmission. WARNING:\nthis will eventually go away as we should transmit the tree. We keep it this way\nfor backwards compatibility with existing code for the sake of speed.",
+        "properties": {
+          "hasErrNotPermitted": {
+            "description": "Indicates whether the decoy experienced ErrNotPermitted.",
+            "type": "boolean"
+          },
+          "nodeUID": {
+            "$ref": "./nodeuid#/components/schemas/nodeuid"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "detacheddecoy",
+    "version": "1.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "components": {
+    "schemas": {
+      "payload": {
+        "description": "Represents a neocna Payload.",
+        "properties": {
+          "Content": {
+            "description": "The raw content of the payload.",
+            "type": "string"
+          },
+          "DestinationPortEnd": {
+            "description": "The end of the destination port range.",
+            "type": "integer"
+          },
+          "DestinationPortStart": {
+            "description": "The start of the destination port range.",
+            "type": "integer"
+          },
+          "SourcePortEnd": {
+            "description": "The end of the source port range.",
+            "type": "integer"
+          },
+          "SourcePortStart": {
+            "description": "The start of the source port range.",
+            "type": "integer"
+          },
+          "protocol": {
+            "description": "The protocol that is used for flooding.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "payload",
+    "version": "1.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

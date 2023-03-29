@@ -1,0 +1,61 @@
+{
+  "components": {
+    "schemas": {
+      "floodresult": {
+        "description": "The results of flooding.",
+        "properties": {
+          "errors": {
+            "description": "Errors that were encountered while flooding.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "pathExists": {
+            "description": "Set if flooder found at least one trail.",
+            "readOnly": true,
+            "type": "boolean"
+          },
+          "trails": {
+            "description": "A list of trails the flooder found. WARNING: this will eventually go away as we\nshould transmit the tree. We keep it this way for backwards compatibility with\nexisting code for the sake of speed.",
+            "items": {
+              "items": {
+                "type": "object"
+              },
+              "type": "array"
+            },
+            "readOnly": true,
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "floodresult",
+    "version": "1.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "components": {
+    "schemas": {
+      "floodparam": {
+        "description": "Parameters to start a flooder.",
+        "properties": {
+          "destination": {
+            "$ref": "./nodeuid#/components/schemas/nodeuid"
+          },
+          "optionContinueOnErrNotPermitted": {
+            "description": "If set, the flooder will continue if a node returns ErrNotPermitted.",
+            "type": "boolean"
+          },
+          "optionOnlyReportResultsWithErrNotPermitted": {
+            "description": "If set, only denied paths will be reported. This will also force-set\noptionContinueOnErrNotPermitted.",
+            "type": "boolean"
+          },
+          "payload": {
+            "$ref": "./payload#/components/schemas/payload"
+          },
+          "source": {
+            "$ref": "./nodeuid#/components/schemas/nodeuid"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "floodparam",
+    "version": "1.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

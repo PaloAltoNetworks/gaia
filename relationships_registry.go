@@ -4979,6 +4979,12 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[RemoteFlooderIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
 	relationshipsRegistry[RemoteProcessorIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
