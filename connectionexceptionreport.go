@@ -78,8 +78,8 @@ func (o ConnectionExceptionReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ConnectionExceptionReportsList.
 func (o ConnectionExceptionReportsList) Copy() elemental.Identifiables {
 
-	out := append(ConnectionExceptionReportsList{}, o...)
-	return &out
+	copy := append(ConnectionExceptionReportsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the ConnectionExceptionReportsList.
@@ -226,7 +226,7 @@ func (o *ConnectionExceptionReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ConnectionExceptionReport) GetBSON() (any, error) {
+func (o *ConnectionExceptionReport) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -616,7 +616,7 @@ func (*ConnectionExceptionReport) AttributeSpecifications() map[string]elemental
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ConnectionExceptionReport) ValueForAttribute(name string) any {
+func (o *ConnectionExceptionReport) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1295,7 +1295,7 @@ func (o *SparseConnectionExceptionReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseConnectionExceptionReport) GetBSON() (any, error) {
+func (o *SparseConnectionExceptionReport) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

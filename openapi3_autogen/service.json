@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "service": {
@@ -282,7 +283,6 @@
     "title": "service",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/services": {
       "get": {

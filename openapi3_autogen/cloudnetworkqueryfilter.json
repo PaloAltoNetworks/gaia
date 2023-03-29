@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "cloudnetworkqueryfilter": {
@@ -149,7 +150,6 @@
     "title": "cloudnetworkqueryfilter",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {},
   "tags": [
     {

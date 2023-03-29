@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "suspiciousactivity": {
@@ -139,7 +140,6 @@
     "title": "suspiciousactivity",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/suspiciousactivities": {
       "get": {

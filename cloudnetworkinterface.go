@@ -32,8 +32,8 @@ func (o CloudNetworkInterfacesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudNetworkInterfacesList.
 func (o CloudNetworkInterfacesList) Copy() elemental.Identifiables {
 
-	out := append(CloudNetworkInterfacesList{}, o...)
-	return &out
+	copy := append(CloudNetworkInterfacesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the CloudNetworkInterfacesList.
@@ -204,7 +204,7 @@ func (o *CloudNetworkInterface) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudNetworkInterface) GetBSON() (any, error) {
+func (o *CloudNetworkInterface) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -896,7 +896,7 @@ func (*CloudNetworkInterface) AttributeSpecifications() map[string]elemental.Att
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudNetworkInterface) ValueForAttribute(name string) any {
+func (o *CloudNetworkInterface) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "APIID":
@@ -1870,7 +1870,7 @@ func (o *SparseCloudNetworkInterface) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudNetworkInterface) GetBSON() (any, error) {
+func (o *SparseCloudNetworkInterface) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

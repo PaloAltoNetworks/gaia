@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "cloudloadbalancer": {
@@ -150,7 +151,6 @@
     "title": "cloudloadbalancer",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/cloudloadbalancers": {
       "get": {

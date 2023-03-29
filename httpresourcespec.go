@@ -32,8 +32,8 @@ func (o HTTPResourceSpecsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the HTTPResourceSpecsList.
 func (o HTTPResourceSpecsList) Copy() elemental.Identifiables {
 
-	out := append(HTTPResourceSpecsList{}, o...)
-	return &out
+	copy := append(HTTPResourceSpecsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the HTTPResourceSpecsList.
@@ -182,7 +182,7 @@ func (o *HTTPResourceSpec) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *HTTPResourceSpec) GetBSON() (any, error) {
+func (o *HTTPResourceSpec) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -719,7 +719,7 @@ func (*HTTPResourceSpec) AttributeSpecifications() map[string]elemental.Attribut
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *HTTPResourceSpec) ValueForAttribute(name string) any {
+func (o *HTTPResourceSpec) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1458,7 +1458,7 @@ func (o *SparseHTTPResourceSpec) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseHTTPResourceSpec) GetBSON() (any, error) {
+func (o *SparseHTTPResourceSpec) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

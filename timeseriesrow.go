@@ -41,7 +41,7 @@ func NewTimeSeriesRow() *TimeSeriesRow {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *TimeSeriesRow) GetBSON() (any, error) {
+func (o *TimeSeriesRow) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -135,7 +135,7 @@ func (*TimeSeriesRow) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *TimeSeriesRow) ValueForAttribute(name string) any {
+func (o *TimeSeriesRow) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "columns":

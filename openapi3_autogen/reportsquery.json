@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "reportsquery": {
@@ -92,7 +93,6 @@
     "title": "reportsquery",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/reportsqueries": {
       "post": {

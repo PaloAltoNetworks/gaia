@@ -33,8 +33,8 @@ func (o AuditProfilesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AuditProfilesList.
 func (o AuditProfilesList) Copy() elemental.Identifiables {
 
-	out := append(AuditProfilesList{}, o...)
-	return &out
+	copy := append(AuditProfilesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the AuditProfilesList.
@@ -180,7 +180,7 @@ func (o *AuditProfile) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *AuditProfile) GetBSON() (any, error) {
+func (o *AuditProfile) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -688,7 +688,7 @@ func (*AuditProfile) AttributeSpecifications() map[string]elemental.AttributeSpe
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *AuditProfile) ValueForAttribute(name string) any {
+func (o *AuditProfile) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1400,7 +1400,7 @@ func (o *SparseAuditProfile) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAuditProfile) GetBSON() (any, error) {
+func (o *SparseAuditProfile) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

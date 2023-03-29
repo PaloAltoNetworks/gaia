@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "auditprofilemappingpolicy": {
@@ -132,7 +133,6 @@
     "title": "auditprofilemappingpolicy",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/auditprofilemappingpolicies": {
       "get": {

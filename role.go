@@ -31,8 +31,8 @@ func (o RolesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RolesList.
 func (o RolesList) Copy() elemental.Identifiables {
 
-	out := append(RolesList{}, o...)
-	return &out
+	copy := append(RolesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the RolesList.
@@ -129,7 +129,7 @@ func (o *Role) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Role) GetBSON() (any, error) {
+func (o *Role) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -304,7 +304,7 @@ func (*Role) AttributeSpecifications() map[string]elemental.AttributeSpecificati
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Role) ValueForAttribute(name string) any {
+func (o *Role) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "authorizations":
@@ -537,7 +537,7 @@ func (o *SparseRole) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseRole) GetBSON() (any, error) {
+func (o *SparseRole) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

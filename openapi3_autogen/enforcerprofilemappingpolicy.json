@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "enforcerprofilemappingpolicy": {
@@ -142,7 +143,6 @@
     "title": "enforcerprofilemappingpolicy",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/enforcerprofilemappingpolicies": {
       "get": {

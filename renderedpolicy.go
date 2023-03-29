@@ -68,8 +68,8 @@ func (o RenderedPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RenderedPoliciesList.
 func (o RenderedPoliciesList) Copy() elemental.Identifiables {
 
-	out := append(RenderedPoliciesList{}, o...)
-	return &out
+	copy := append(RenderedPoliciesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the RenderedPoliciesList.
@@ -230,7 +230,7 @@ func (o *RenderedPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *RenderedPolicy) GetBSON() (any, error) {
+func (o *RenderedPolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -530,7 +530,7 @@ func (*RenderedPolicy) AttributeSpecifications() map[string]elemental.AttributeS
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *RenderedPolicy) ValueForAttribute(name string) any {
+func (o *RenderedPolicy) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "certificate":
@@ -1112,7 +1112,7 @@ func (o *SparseRenderedPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseRenderedPolicy) GetBSON() (any, error) {
+func (o *SparseRenderedPolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

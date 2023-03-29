@@ -46,7 +46,7 @@ func NewCurrentConnection() *CurrentConnection {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CurrentConnection) GetBSON() (any, error) {
+func (o *CurrentConnection) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -161,7 +161,7 @@ func (*CurrentConnection) AttributeSpecifications() map[string]elemental.Attribu
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CurrentConnection) ValueForAttribute(name string) any {
+func (o *CurrentConnection) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":

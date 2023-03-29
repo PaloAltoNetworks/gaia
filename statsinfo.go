@@ -69,8 +69,8 @@ func (o StatsInfosList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the StatsInfosList.
 func (o StatsInfosList) Copy() elemental.Identifiables {
 
-	out := append(StatsInfosList{}, o...)
-	return &out
+	copy := append(StatsInfosList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the StatsInfosList.
@@ -163,7 +163,7 @@ func (o *StatsInfo) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *StatsInfo) GetBSON() (any, error) {
+func (o *StatsInfo) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -330,7 +330,7 @@ func (*StatsInfo) AttributeSpecifications() map[string]elemental.AttributeSpecif
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *StatsInfo) ValueForAttribute(name string) any {
+func (o *StatsInfo) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "fields":
@@ -513,7 +513,7 @@ func (o *SparseStatsInfo) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseStatsInfo) GetBSON() (any, error) {
+func (o *SparseStatsInfo) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

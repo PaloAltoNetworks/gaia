@@ -31,8 +31,8 @@ func (o DependencyMapsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the DependencyMapsList.
 func (o DependencyMapsList) Copy() elemental.Identifiables {
 
-	out := append(DependencyMapsList{}, o...)
-	return &out
+	copy := append(DependencyMapsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the DependencyMapsList.
@@ -129,7 +129,7 @@ func (o *DependencyMap) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *DependencyMap) GetBSON() (any, error) {
+func (o *DependencyMap) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -335,7 +335,7 @@ func (*DependencyMap) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *DependencyMap) ValueForAttribute(name string) any {
+func (o *DependencyMap) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "edges":
@@ -541,7 +541,7 @@ func (o *SparseDependencyMap) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseDependencyMap) GetBSON() (any, error) {
+func (o *SparseDependencyMap) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

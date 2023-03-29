@@ -32,8 +32,8 @@ func (o CloudNetworkRuleSetsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudNetworkRuleSetsList.
 func (o CloudNetworkRuleSetsList) Copy() elemental.Identifiables {
 
-	out := append(CloudNetworkRuleSetsList{}, o...)
-	return &out
+	copy := append(CloudNetworkRuleSetsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the CloudNetworkRuleSetsList.
@@ -207,7 +207,7 @@ func (o *CloudNetworkRuleSet) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudNetworkRuleSet) GetBSON() (any, error) {
+func (o *CloudNetworkRuleSet) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -908,7 +908,7 @@ func (*CloudNetworkRuleSet) AttributeSpecifications() map[string]elemental.Attri
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudNetworkRuleSet) ValueForAttribute(name string) any {
+func (o *CloudNetworkRuleSet) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "APIID":
@@ -1903,7 +1903,7 @@ func (o *SparseCloudNetworkRuleSet) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudNetworkRuleSet) GetBSON() (any, error) {
+func (o *SparseCloudNetworkRuleSet) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

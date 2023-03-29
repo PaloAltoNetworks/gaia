@@ -32,8 +32,8 @@ func (o ActivitiesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ActivitiesList.
 func (o ActivitiesList) Copy() elemental.Identifiables {
 
-	out := append(ActivitiesList{}, o...)
-	return &out
+	copy := append(ActivitiesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the ActivitiesList.
@@ -88,10 +88,10 @@ type Activity struct {
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
 	// Claims of the user who performed the operation.
-	Claims any `json:"claims" msgpack:"claims" bson:"claims" mapstructure:"claims,omitempty"`
+	Claims interface{} `json:"claims" msgpack:"claims" bson:"claims" mapstructure:"claims,omitempty"`
 
 	// This is deprecated in favor of `diff`.
-	Data any `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
+	Data interface{} `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
 
 	// Time-date stamp of the notification.
 	Date time.Time `json:"date" msgpack:"date" bson:"date" mapstructure:"date,omitempty"`
@@ -100,7 +100,7 @@ type Activity struct {
 	Diff string `json:"diff" msgpack:"diff" bson:"diff" mapstructure:"diff,omitempty"`
 
 	// Contains the error.
-	Error any `json:"error" msgpack:"error" bson:"error" mapstructure:"error,omitempty"`
+	Error interface{} `json:"error" msgpack:"error" bson:"error" mapstructure:"error,omitempty"`
 
 	// Message of the notification.
 	Message string `json:"message" msgpack:"message" bson:"message" mapstructure:"message,omitempty"`
@@ -115,7 +115,7 @@ type Activity struct {
 	Operation string `json:"operation" msgpack:"operation" bson:"operation" mapstructure:"operation,omitempty"`
 
 	// This is deprecated in favor of `diff`.
-	OriginalData any `json:"originalData" msgpack:"originalData" bson:"originaldata" mapstructure:"originalData,omitempty"`
+	OriginalData interface{} `json:"originalData" msgpack:"originalData" bson:"originaldata" mapstructure:"originalData,omitempty"`
 
 	// Contains meta information about the source.
 	Source string `json:"source" msgpack:"source" bson:"source" mapstructure:"source,omitempty"`
@@ -162,7 +162,7 @@ func (o *Activity) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Activity) GetBSON() (any, error) {
+func (o *Activity) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -483,7 +483,7 @@ func (*Activity) AttributeSpecifications() map[string]elemental.AttributeSpecifi
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Activity) ValueForAttribute(name string) any {
+func (o *Activity) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1000,10 +1000,10 @@ type SparseActivity struct {
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
 	// Claims of the user who performed the operation.
-	Claims *any `json:"claims,omitempty" msgpack:"claims,omitempty" bson:"claims,omitempty" mapstructure:"claims,omitempty"`
+	Claims *interface{} `json:"claims,omitempty" msgpack:"claims,omitempty" bson:"claims,omitempty" mapstructure:"claims,omitempty"`
 
 	// This is deprecated in favor of `diff`.
-	Data *any `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
+	Data *interface{} `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
 
 	// Time-date stamp of the notification.
 	Date *time.Time `json:"date,omitempty" msgpack:"date,omitempty" bson:"date,omitempty" mapstructure:"date,omitempty"`
@@ -1012,7 +1012,7 @@ type SparseActivity struct {
 	Diff *string `json:"diff,omitempty" msgpack:"diff,omitempty" bson:"diff,omitempty" mapstructure:"diff,omitempty"`
 
 	// Contains the error.
-	Error *any `json:"error,omitempty" msgpack:"error,omitempty" bson:"error,omitempty" mapstructure:"error,omitempty"`
+	Error *interface{} `json:"error,omitempty" msgpack:"error,omitempty" bson:"error,omitempty" mapstructure:"error,omitempty"`
 
 	// Message of the notification.
 	Message *string `json:"message,omitempty" msgpack:"message,omitempty" bson:"message,omitempty" mapstructure:"message,omitempty"`
@@ -1027,7 +1027,7 @@ type SparseActivity struct {
 	Operation *string `json:"operation,omitempty" msgpack:"operation,omitempty" bson:"operation,omitempty" mapstructure:"operation,omitempty"`
 
 	// This is deprecated in favor of `diff`.
-	OriginalData *any `json:"originalData,omitempty" msgpack:"originalData,omitempty" bson:"originaldata,omitempty" mapstructure:"originalData,omitempty"`
+	OriginalData *interface{} `json:"originalData,omitempty" msgpack:"originalData,omitempty" bson:"originaldata,omitempty" mapstructure:"originalData,omitempty"`
 
 	// Contains meta information about the source.
 	Source *string `json:"source,omitempty" msgpack:"source,omitempty" bson:"source,omitempty" mapstructure:"source,omitempty"`
@@ -1077,7 +1077,7 @@ func (o *SparseActivity) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseActivity) GetBSON() (any, error) {
+func (o *SparseActivity) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -1344,16 +1344,16 @@ func (o *SparseActivity) DeepCopyInto(out *SparseActivity) {
 
 type mongoAttributesActivity struct {
 	ID             bson.ObjectId     `bson:"_id,omitempty"`
-	Claims         any               `bson:"claims"`
-	Data           any               `bson:"data"`
+	Claims         interface{}       `bson:"claims"`
+	Data           interface{}       `bson:"data"`
 	Date           time.Time         `bson:"date"`
 	Diff           string            `bson:"diff"`
-	Error          any               `bson:"error"`
+	Error          interface{}       `bson:"error"`
 	Message        string            `bson:"message"`
 	MigrationsLog  map[string]string `bson:"migrationslog,omitempty"`
 	Namespace      string            `bson:"namespace"`
 	Operation      string            `bson:"operation"`
-	OriginalData   any               `bson:"originaldata"`
+	OriginalData   interface{}       `bson:"originaldata"`
 	Source         string            `bson:"source"`
 	TargetIdentity string            `bson:"targetidentity"`
 	ZHash          int               `bson:"zhash"`
@@ -1361,16 +1361,16 @@ type mongoAttributesActivity struct {
 }
 type mongoAttributesSparseActivity struct {
 	ID             bson.ObjectId      `bson:"_id,omitempty"`
-	Claims         *any               `bson:"claims,omitempty"`
-	Data           *any               `bson:"data,omitempty"`
+	Claims         *interface{}       `bson:"claims,omitempty"`
+	Data           *interface{}       `bson:"data,omitempty"`
 	Date           *time.Time         `bson:"date,omitempty"`
 	Diff           *string            `bson:"diff,omitempty"`
-	Error          *any               `bson:"error,omitempty"`
+	Error          *interface{}       `bson:"error,omitempty"`
 	Message        *string            `bson:"message,omitempty"`
 	MigrationsLog  *map[string]string `bson:"migrationslog,omitempty"`
 	Namespace      *string            `bson:"namespace,omitempty"`
 	Operation      *string            `bson:"operation,omitempty"`
-	OriginalData   *any               `bson:"originaldata,omitempty"`
+	OriginalData   *interface{}       `bson:"originaldata,omitempty"`
 	Source         *string            `bson:"source,omitempty"`
 	TargetIdentity *string            `bson:"targetidentity,omitempty"`
 	ZHash          *int               `bson:"zhash,omitempty"`

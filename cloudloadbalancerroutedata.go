@@ -35,7 +35,7 @@ func NewCloudLoadBalancerRouteData() *CloudLoadBalancerRouteData {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudLoadBalancerRouteData) GetBSON() (any, error) {
+func (o *CloudLoadBalancerRouteData) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -135,7 +135,7 @@ func (*CloudLoadBalancerRouteData) AttributeSpecifications() map[string]elementa
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudLoadBalancerRouteData) ValueForAttribute(name string) any {
+func (o *CloudLoadBalancerRouteData) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "port":

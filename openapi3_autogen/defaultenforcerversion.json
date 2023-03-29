@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "defaultenforcerversion": {
@@ -26,7 +27,6 @@
     "title": "defaultenforcerversion",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/defaultenforcerversion": {
       "get": {

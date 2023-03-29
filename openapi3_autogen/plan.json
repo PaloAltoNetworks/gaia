@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "plan": {
@@ -37,7 +38,6 @@
     "title": "plan",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/plans": {
       "get": {

@@ -32,8 +32,8 @@ func (o CloudScaleGroupsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudScaleGroupsList.
 func (o CloudScaleGroupsList) Copy() elemental.Identifiables {
 
-	out := append(CloudScaleGroupsList{}, o...)
-	return &out
+	copy := append(CloudScaleGroupsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the CloudScaleGroupsList.
@@ -204,7 +204,7 @@ func (o *CloudScaleGroup) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudScaleGroup) GetBSON() (any, error) {
+func (o *CloudScaleGroup) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -897,7 +897,7 @@ func (*CloudScaleGroup) AttributeSpecifications() map[string]elemental.Attribute
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudScaleGroup) ValueForAttribute(name string) any {
+func (o *CloudScaleGroup) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "APIID":
@@ -1869,7 +1869,7 @@ func (o *SparseCloudScaleGroup) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudScaleGroup) GetBSON() (any, error) {
+func (o *SparseCloudScaleGroup) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

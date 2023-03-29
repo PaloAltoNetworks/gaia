@@ -46,8 +46,8 @@ func (o PacketReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PacketReportsList.
 func (o PacketReportsList) Copy() elemental.Identifiables {
 
-	out := append(PacketReportsList{}, o...)
-	return &out
+	copy := append(PacketReportsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the PacketReportsList.
@@ -209,7 +209,7 @@ func (o *PacketReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PacketReport) GetBSON() (any, error) {
+func (o *PacketReport) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -624,7 +624,7 @@ func (*PacketReport) AttributeSpecifications() map[string]elemental.AttributeSpe
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PacketReport) ValueForAttribute(name string) any {
+func (o *PacketReport) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1402,7 +1402,7 @@ func (o *SparsePacketReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePacketReport) GetBSON() (any, error) {
+func (o *SparsePacketReport) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

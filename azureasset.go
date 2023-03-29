@@ -117,8 +117,8 @@ func (o AzureAssetsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AzureAssetsList.
 func (o AzureAssetsList) Copy() elemental.Identifiables {
 
-	out := append(AzureAssetsList{}, o...)
-	return &out
+	copy := append(AzureAssetsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the AzureAssetsList.
@@ -268,7 +268,7 @@ func (o *AzureAsset) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *AzureAsset) GetBSON() (any, error) {
+func (o *AzureAsset) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -653,7 +653,7 @@ func (*AzureAsset) AttributeSpecifications() map[string]elemental.AttributeSpeci
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *AzureAsset) ValueForAttribute(name string) any {
+func (o *AzureAsset) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1361,7 +1361,7 @@ func (o *SparseAzureAsset) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAzureAsset) GetBSON() (any, error) {
+func (o *SparseAzureAsset) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

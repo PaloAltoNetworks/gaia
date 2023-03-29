@@ -31,8 +31,8 @@ func (o TagInjectsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the TagInjectsList.
 func (o TagInjectsList) Copy() elemental.Identifiables {
 
-	out := append(TagInjectsList{}, o...)
-	return &out
+	copy := append(TagInjectsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the TagInjectsList.
@@ -124,7 +124,7 @@ func (o *TagInject) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *TagInject) GetBSON() (any, error) {
+func (o *TagInject) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -291,7 +291,7 @@ func (*TagInject) AttributeSpecifications() map[string]elemental.AttributeSpecif
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *TagInject) ValueForAttribute(name string) any {
+func (o *TagInject) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "addedTags":
@@ -466,7 +466,7 @@ func (o *SparseTagInject) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseTagInject) GetBSON() (any, error) {
+func (o *SparseTagInject) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

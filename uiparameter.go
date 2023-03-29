@@ -100,10 +100,10 @@ type UIParameter struct {
 	AllowedChoices map[string]string `json:"allowedChoices" msgpack:"allowedChoices" bson:"allowedchoices" mapstructure:"allowedChoices,omitempty"`
 
 	// List of values that can be used.
-	AllowedValues []any `json:"allowedValues" msgpack:"allowedValues" bson:"allowedvalues" mapstructure:"allowedValues,omitempty"`
+	AllowedValues []interface{} `json:"allowedValues" msgpack:"allowedValues" bson:"allowedvalues" mapstructure:"allowedValues,omitempty"`
 
 	// Default value of the parameter.
-	DefaultValue any `json:"defaultValue" msgpack:"defaultValue" bson:"defaultvalue" mapstructure:"defaultValue,omitempty"`
+	DefaultValue interface{} `json:"defaultValue" msgpack:"defaultValue" bson:"defaultvalue" mapstructure:"defaultValue,omitempty"`
 
 	// Description of the parameter.
 	Description string `json:"description" msgpack:"description" bson:"description" mapstructure:"description,omitempty"`
@@ -130,7 +130,7 @@ type UIParameter struct {
 	ValidationFunction string `json:"validationFunction" msgpack:"validationFunction" bson:"validationfunction" mapstructure:"validationFunction,omitempty"`
 
 	// Value of the parameter.
-	Value any `json:"value" msgpack:"value" bson:"value" mapstructure:"value,omitempty"`
+	Value interface{} `json:"value" msgpack:"value" bson:"value" mapstructure:"value,omitempty"`
 
 	// A logical expression consisting of one or more
 	// [UIParameterVisibility](#uiparametervisibility)
@@ -151,7 +151,7 @@ func NewUIParameter() *UIParameter {
 	return &UIParameter{
 		ModelVersion:        1,
 		AllowedChoices:      map[string]string{},
-		AllowedValues:       []any{},
+		AllowedValues:       []interface{}{},
 		VisibilityCondition: [][]*UIParameterVisibility{},
 		Width:               "100%",
 	}
@@ -159,7 +159,7 @@ func NewUIParameter() *UIParameter {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *UIParameter) GetBSON() (any, error) {
+func (o *UIParameter) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -302,7 +302,7 @@ func (*UIParameter) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *UIParameter) ValueForAttribute(name string) any {
+func (o *UIParameter) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "advanced":
@@ -673,8 +673,8 @@ the parameter is displayed to the user.`,
 type mongoAttributesUIParameter struct {
 	Advanced            bool                       `bson:"advanced"`
 	AllowedChoices      map[string]string          `bson:"allowedchoices"`
-	AllowedValues       []any                      `bson:"allowedvalues"`
-	DefaultValue        any                        `bson:"defaultvalue"`
+	AllowedValues       []interface{}              `bson:"allowedvalues"`
+	DefaultValue        interface{}                `bson:"defaultvalue"`
 	Description         string                     `bson:"description"`
 	Key                 string                     `bson:"key"`
 	LongDescription     string                     `bson:"longdescription"`
@@ -683,7 +683,7 @@ type mongoAttributesUIParameter struct {
 	Subtype             string                     `bson:"subtype"`
 	Type                UIParameterTypeValue       `bson:"type"`
 	ValidationFunction  string                     `bson:"validationfunction"`
-	Value               any                        `bson:"value"`
+	Value               interface{}                `bson:"value"`
 	VisibilityCondition [][]*UIParameterVisibility `bson:"visibilitycondition"`
 	Width               string                     `bson:"width"`
 }

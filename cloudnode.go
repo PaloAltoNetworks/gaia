@@ -70,8 +70,8 @@ func (o CloudNodesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudNodesList.
 func (o CloudNodesList) Copy() elemental.Identifiables {
 
-	out := append(CloudNodesList{}, o...)
-	return &out
+	copy := append(CloudNodesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the CloudNodesList.
@@ -262,7 +262,7 @@ func (o *CloudNode) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudNode) GetBSON() (any, error) {
+func (o *CloudNode) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -1027,7 +1027,7 @@ func (*CloudNode) AttributeSpecifications() map[string]elemental.AttributeSpecif
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudNode) ValueForAttribute(name string) any {
+func (o *CloudNode) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "APIID":
@@ -2161,7 +2161,7 @@ func (o *SparseCloudNode) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudNode) GetBSON() (any, error) {
+func (o *SparseCloudNode) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

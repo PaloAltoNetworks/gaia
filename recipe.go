@@ -46,8 +46,8 @@ func (o RecipesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RecipesList.
 func (o RecipesList) Copy() elemental.Identifiables {
 
-	out := append(RecipesList{}, o...)
-	return &out
+	copy := append(RecipesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the RecipesList.
@@ -230,7 +230,7 @@ func (o *Recipe) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Recipe) GetBSON() (any, error) {
+func (o *Recipe) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -846,7 +846,7 @@ func (*Recipe) AttributeSpecifications() map[string]elemental.AttributeSpecifica
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Recipe) ValueForAttribute(name string) any {
+func (o *Recipe) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1835,7 +1835,7 @@ func (o *SparseRecipe) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseRecipe) GetBSON() (any, error) {
+func (o *SparseRecipe) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

@@ -31,8 +31,8 @@ func (o NamespaceRenderersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the NamespaceRenderersList.
 func (o NamespaceRenderersList) Copy() elemental.Identifiables {
 
-	out := append(NamespaceRenderersList{}, o...)
-	return &out
+	copy := append(NamespaceRenderersList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the NamespaceRenderersList.
@@ -120,7 +120,7 @@ func (o *NamespaceRenderer) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *NamespaceRenderer) GetBSON() (any, error) {
+func (o *NamespaceRenderer) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -282,7 +282,7 @@ func (*NamespaceRenderer) AttributeSpecifications() map[string]elemental.Attribu
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *NamespaceRenderer) ValueForAttribute(name string) any {
+func (o *NamespaceRenderer) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "namespace":
@@ -438,7 +438,7 @@ func (o *SparseNamespaceRenderer) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseNamespaceRenderer) GetBSON() (any, error) {
+func (o *SparseNamespaceRenderer) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

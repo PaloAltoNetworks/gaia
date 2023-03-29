@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "cloudalertrule": {
@@ -130,7 +131,6 @@
     "title": "cloudalertrule",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/cloudalertrules": {
       "get": {

@@ -37,7 +37,7 @@ func NewCloudPathElement() *CloudPathElement {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudPathElement) GetBSON() (any, error) {
+func (o *CloudPathElement) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -138,7 +138,7 @@ func (*CloudPathElement) AttributeSpecifications() map[string]elemental.Attribut
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudPathElement) ValueForAttribute(name string) any {
+func (o *CloudPathElement) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "nativeID":

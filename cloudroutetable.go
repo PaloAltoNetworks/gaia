@@ -32,8 +32,8 @@ func (o CloudRouteTablesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudRouteTablesList.
 func (o CloudRouteTablesList) Copy() elemental.Identifiables {
 
-	out := append(CloudRouteTablesList{}, o...)
-	return &out
+	copy := append(CloudRouteTablesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the CloudRouteTablesList.
@@ -204,7 +204,7 @@ func (o *CloudRouteTable) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudRouteTable) GetBSON() (any, error) {
+func (o *CloudRouteTable) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -896,7 +896,7 @@ func (*CloudRouteTable) AttributeSpecifications() map[string]elemental.Attribute
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudRouteTable) ValueForAttribute(name string) any {
+func (o *CloudRouteTable) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "APIID":
@@ -1868,7 +1868,7 @@ func (o *SparseCloudRouteTable) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudRouteTable) GetBSON() (any, error) {
+func (o *SparseCloudRouteTable) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

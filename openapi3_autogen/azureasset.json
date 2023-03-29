@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "azureasset": {
@@ -148,7 +149,6 @@
     "title": "azureasset",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/azureassets": {
       "get": {

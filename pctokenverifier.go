@@ -31,8 +31,8 @@ func (o PCTokenVerifiersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PCTokenVerifiersList.
 func (o PCTokenVerifiersList) Copy() elemental.Identifiables {
 
-	out := append(PCTokenVerifiersList{}, o...)
-	return &out
+	copy := append(PCTokenVerifiersList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the PCTokenVerifiersList.
@@ -116,7 +116,7 @@ func (o *PCTokenVerifier) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PCTokenVerifier) GetBSON() (any, error) {
+func (o *PCTokenVerifier) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -272,7 +272,7 @@ func (*PCTokenVerifier) AttributeSpecifications() map[string]elemental.Attribute
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PCTokenVerifier) ValueForAttribute(name string) any {
+func (o *PCTokenVerifier) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "password":
@@ -401,7 +401,7 @@ func (o *SparsePCTokenVerifier) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePCTokenVerifier) GetBSON() (any, error) {
+func (o *SparsePCTokenVerifier) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

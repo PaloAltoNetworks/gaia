@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "claims": {
@@ -53,7 +54,6 @@
     "title": "claims",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/claims": {
       "get": {

@@ -59,8 +59,8 @@ func (o NamespaceInfosList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the NamespaceInfosList.
 func (o NamespaceInfosList) Copy() elemental.Identifiables {
 
-	out := append(NamespaceInfosList{}, o...)
-	return &out
+	copy := append(NamespaceInfosList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the NamespaceInfosList.
@@ -162,7 +162,7 @@ func (o *NamespaceInfo) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *NamespaceInfo) GetBSON() (any, error) {
+func (o *NamespaceInfo) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -353,7 +353,7 @@ func (*NamespaceInfo) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *NamespaceInfo) ValueForAttribute(name string) any {
+func (o *NamespaceInfo) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "PUIncomingTrafficAction":
@@ -609,7 +609,7 @@ func (o *SparseNamespaceInfo) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseNamespaceInfo) GetBSON() (any, error) {
+func (o *SparseNamespaceInfo) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

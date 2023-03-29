@@ -44,7 +44,7 @@ func NewTraceMode() *TraceMode {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *TraceMode) GetBSON() (any, error) {
+func (o *TraceMode) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -148,7 +148,7 @@ func (*TraceMode) AttributeSpecifications() map[string]elemental.AttributeSpecif
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *TraceMode) ValueForAttribute(name string) any {
+func (o *TraceMode) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "IPTables":

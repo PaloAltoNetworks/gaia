@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "cloudpublicipaddress": {
@@ -150,7 +151,6 @@
     "title": "cloudpublicipaddress",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/cloudpublicipaddresses": {
       "get": {

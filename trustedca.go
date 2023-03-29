@@ -45,8 +45,8 @@ func (o TrustedCAsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the TrustedCAsList.
 func (o TrustedCAsList) Copy() elemental.Identifiables {
 
-	out := append(TrustedCAsList{}, o...)
-	return &out
+	copy := append(TrustedCAsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the TrustedCAsList.
@@ -146,7 +146,7 @@ func (o *TrustedCA) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *TrustedCA) GetBSON() (any, error) {
+func (o *TrustedCA) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -331,7 +331,7 @@ func (*TrustedCA) AttributeSpecifications() map[string]elemental.AttributeSpecif
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *TrustedCA) ValueForAttribute(name string) any {
+func (o *TrustedCA) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "certificate":
@@ -590,7 +590,7 @@ func (o *SparseTrustedCA) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseTrustedCA) GetBSON() (any, error) {
+func (o *SparseTrustedCA) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

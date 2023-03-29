@@ -1,0 +1,90 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "remoteflooder": {
+        "description": "Starts a flooder for a given source/destination/payload triplet.",
+        "properties": {
+          "FloodParams": {
+            "$ref": "./floodparam#/components/schemas/floodparam"
+          },
+          "NodeMakerConfigs": {
+            "$ref": "./floodnodemakerconfig#/components/schemas/floodnodemakerconfig"
+          },
+          "Results": {
+            "$ref": "./floodresult#/components/schemas/floodresult"
+          },
+          "optionResultOmitTrails": {
+            "description": "If set, trails will be omitted from the results.",
+            "type": "boolean"
+          },
+          "sessionID": {
+            "description": "a unique random string that is used to associate a cached mux nodemaker with\nsuccessive requests.",
+            "example": "47a0479900504cb3ab4a1f626d174d2d",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sessionID"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "remoteflooder",
+    "version": "1.0"
+  },
+  "paths": {
+    "/remoteflooders": {
+      "post": {
+        "description": "Starts a new flood request.",
+        "operationId": "create-a-new-remoteflooder",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/remoteflooder"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/remoteflooder"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

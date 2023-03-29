@@ -32,8 +32,8 @@ func (o HostServicesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the HostServicesList.
 func (o HostServicesList) Copy() elemental.Identifiables {
 
-	out := append(HostServicesList{}, o...)
-	return &out
+	copy := append(HostServicesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the HostServicesList.
@@ -194,7 +194,7 @@ func (o *HostService) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *HostService) GetBSON() (any, error) {
+func (o *HostService) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -734,7 +734,7 @@ func (*HostService) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *HostService) ValueForAttribute(name string) any {
+func (o *HostService) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1527,7 +1527,7 @@ func (o *SparseHostService) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseHostService) GetBSON() (any, error) {
+func (o *SparseHostService) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

@@ -32,8 +32,8 @@ func (o KubernetesClustersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the KubernetesClustersList.
 func (o KubernetesClustersList) Copy() elemental.Identifiables {
 
-	out := append(KubernetesClustersList{}, o...)
-	return &out
+	copy := append(KubernetesClustersList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the KubernetesClustersList.
@@ -196,7 +196,7 @@ func (o *KubernetesCluster) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *KubernetesCluster) GetBSON() (any, error) {
+func (o *KubernetesCluster) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -727,7 +727,7 @@ func (*KubernetesCluster) AttributeSpecifications() map[string]elemental.Attribu
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *KubernetesCluster) ValueForAttribute(name string) any {
+func (o *KubernetesCluster) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "APIServerServiceFQDNs":
@@ -1548,7 +1548,7 @@ func (o *SparseKubernetesCluster) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseKubernetesCluster) GetBSON() (any, error) {
+func (o *SparseKubernetesCluster) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

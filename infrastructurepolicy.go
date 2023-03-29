@@ -54,8 +54,8 @@ func (o InfrastructurePoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the InfrastructurePoliciesList.
 func (o InfrastructurePoliciesList) Copy() elemental.Identifiables {
 
-	out := append(InfrastructurePoliciesList{}, o...)
-	return &out
+	copy := append(InfrastructurePoliciesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the InfrastructurePoliciesList.
@@ -215,7 +215,7 @@ func (o *InfrastructurePolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *InfrastructurePolicy) GetBSON() (any, error) {
+func (o *InfrastructurePolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -758,7 +758,7 @@ func (*InfrastructurePolicy) AttributeSpecifications() map[string]elemental.Attr
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *InfrastructurePolicy) ValueForAttribute(name string) any {
+func (o *InfrastructurePolicy) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1544,7 +1544,7 @@ func (o *SparseInfrastructurePolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseInfrastructurePolicy) GetBSON() (any, error) {
+func (o *SparseInfrastructurePolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "datapathcertificate": {
@@ -66,7 +67,6 @@
     "title": "datapathcertificate",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/datapathcertificates": {
       "post": {

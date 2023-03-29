@@ -31,8 +31,8 @@ func (o PasswordResetsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PasswordResetsList.
 func (o PasswordResetsList) Copy() elemental.Identifiables {
 
-	out := append(PasswordResetsList{}, o...)
-	return &out
+	copy := append(PasswordResetsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the PasswordResetsList.
@@ -119,7 +119,7 @@ func (o *PasswordReset) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PasswordReset) GetBSON() (any, error) {
+func (o *PasswordReset) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -284,7 +284,7 @@ func (*PasswordReset) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PasswordReset) ValueForAttribute(name string) any {
+func (o *PasswordReset) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "password":
@@ -436,7 +436,7 @@ func (o *SparsePasswordReset) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePasswordReset) GetBSON() (any, error) {
+func (o *SparsePasswordReset) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

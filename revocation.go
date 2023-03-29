@@ -32,8 +32,8 @@ func (o RevocationsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RevocationsList.
 func (o RevocationsList) Copy() elemental.Identifiables {
 
-	out := append(RevocationsList{}, o...)
-	return &out
+	copy := append(RevocationsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the RevocationsList.
@@ -142,7 +142,7 @@ func (o *Revocation) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Revocation) GetBSON() (any, error) {
+func (o *Revocation) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -391,7 +391,7 @@ func (*Revocation) AttributeSpecifications() map[string]elemental.AttributeSpeci
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Revocation) ValueForAttribute(name string) any {
+func (o *Revocation) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -739,7 +739,7 @@ func (o *SparseRevocation) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseRevocation) GetBSON() (any, error) {
+func (o *SparseRevocation) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

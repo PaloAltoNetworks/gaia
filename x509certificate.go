@@ -60,8 +60,8 @@ func (o X509CertificatesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the X509CertificatesList.
 func (o X509CertificatesList) Copy() elemental.Identifiables {
 
-	out := append(X509CertificatesList{}, o...)
-	return &out
+	copy := append(X509CertificatesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the X509CertificatesList.
@@ -180,7 +180,7 @@ func (o *X509Certificate) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *X509Certificate) GetBSON() (any, error) {
+func (o *X509Certificate) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -404,7 +404,7 @@ func (*X509Certificate) AttributeSpecifications() map[string]elemental.Attribute
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *X509Certificate) ValueForAttribute(name string) any {
+func (o *X509Certificate) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "CSR":
@@ -769,7 +769,7 @@ func (o *SparseX509Certificate) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseX509Certificate) GetBSON() (any, error) {
+func (o *SparseX509Certificate) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

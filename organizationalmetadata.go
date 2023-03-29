@@ -31,8 +31,8 @@ func (o OrganizationalMetadatasList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the OrganizationalMetadatasList.
 func (o OrganizationalMetadatasList) Copy() elemental.Identifiables {
 
-	out := append(OrganizationalMetadatasList{}, o...)
-	return &out
+	copy := append(OrganizationalMetadatasList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the OrganizationalMetadatasList.
@@ -120,7 +120,7 @@ func (o *OrganizationalMetadata) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *OrganizationalMetadata) GetBSON() (any, error) {
+func (o *OrganizationalMetadata) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -295,7 +295,7 @@ func (*OrganizationalMetadata) AttributeSpecifications() map[string]elemental.At
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *OrganizationalMetadata) ValueForAttribute(name string) any {
+func (o *OrganizationalMetadata) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "metadata":
@@ -465,7 +465,7 @@ func (o *SparseOrganizationalMetadata) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseOrganizationalMetadata) GetBSON() (any, error) {
+func (o *SparseOrganizationalMetadata) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

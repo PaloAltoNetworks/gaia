@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "hit": {
@@ -45,7 +46,6 @@
     "title": "hit",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/hits": {
       "get": {

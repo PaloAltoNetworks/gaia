@@ -31,8 +31,8 @@ func (o TagValuesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the TagValuesList.
 func (o TagValuesList) Copy() elemental.Identifiables {
 
-	out := append(TagValuesList{}, o...)
-	return &out
+	copy := append(TagValuesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the TagValuesList.
@@ -120,7 +120,7 @@ func (o *TagValue) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *TagValue) GetBSON() (any, error) {
+func (o *TagValue) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -277,7 +277,7 @@ func (*TagValue) AttributeSpecifications() map[string]elemental.AttributeSpecifi
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *TagValue) ValueForAttribute(name string) any {
+func (o *TagValue) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "key":
@@ -435,7 +435,7 @@ func (o *SparseTagValue) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseTagValue) GetBSON() (any, error) {
+func (o *SparseTagValue) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

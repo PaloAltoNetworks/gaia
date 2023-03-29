@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "cloudmanagednetwork": {
@@ -166,7 +167,6 @@
     "title": "cloudmanagednetwork",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/cloudmanagednetworks": {
       "get": {

@@ -32,8 +32,8 @@ func (o SSHAuthorizationPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the SSHAuthorizationPoliciesList.
 func (o SSHAuthorizationPoliciesList) Copy() elemental.Identifiables {
 
-	out := append(SSHAuthorizationPoliciesList{}, o...)
-	return &out
+	copy := append(SSHAuthorizationPoliciesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the SSHAuthorizationPoliciesList.
@@ -235,7 +235,7 @@ func (o *SSHAuthorizationPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SSHAuthorizationPolicy) GetBSON() (any, error) {
+func (o *SSHAuthorizationPolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -845,7 +845,7 @@ func (*SSHAuthorizationPolicy) AttributeSpecifications() map[string]elemental.At
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *SSHAuthorizationPolicy) ValueForAttribute(name string) any {
+func (o *SSHAuthorizationPolicy) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1847,7 +1847,7 @@ func (o *SparseSSHAuthorizationPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseSSHAuthorizationPolicy) GetBSON() (any, error) {
+func (o *SparseSSHAuthorizationPolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

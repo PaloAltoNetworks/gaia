@@ -32,8 +32,8 @@ func (o PolicyRulesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PolicyRulesList.
 func (o PolicyRulesList) Copy() elemental.Identifiables {
 
-	out := append(PolicyRulesList{}, o...)
-	return &out
+	copy := append(PolicyRulesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the PolicyRulesList.
@@ -167,7 +167,7 @@ func (o *PolicyRule) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PolicyRule) GetBSON() (any, error) {
+func (o *PolicyRule) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -518,7 +518,7 @@ func (*PolicyRule) AttributeSpecifications() map[string]elemental.AttributeSpeci
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PolicyRule) ValueForAttribute(name string) any {
+func (o *PolicyRule) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1024,7 +1024,7 @@ func (o *SparsePolicyRule) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePolicyRule) GetBSON() (any, error) {
+func (o *SparsePolicyRule) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

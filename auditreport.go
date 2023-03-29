@@ -32,8 +32,8 @@ func (o AuditReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AuditReportsList.
 func (o AuditReportsList) Copy() elemental.Identifiables {
 
-	out := append(AuditReportsList{}, o...)
-	return &out
+	copy := append(AuditReportsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the AuditReportsList.
@@ -234,7 +234,7 @@ func (o *AuditReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *AuditReport) GetBSON() (any, error) {
+func (o *AuditReport) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -757,7 +757,7 @@ func (*AuditReport) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *AuditReport) ValueForAttribute(name string) any {
+func (o *AuditReport) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "AUID":
@@ -1874,7 +1874,7 @@ func (o *SparseAuditReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAuditReport) GetBSON() (any, error) {
+func (o *SparseAuditReport) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

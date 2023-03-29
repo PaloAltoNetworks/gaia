@@ -32,8 +32,8 @@ func (o ServiceDependencyPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ServiceDependencyPoliciesList.
 func (o ServiceDependencyPoliciesList) Copy() elemental.Identifiables {
 
-	out := append(ServiceDependencyPoliciesList{}, o...)
-	return &out
+	copy := append(ServiceDependencyPoliciesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the ServiceDependencyPoliciesList.
@@ -188,7 +188,7 @@ func (o *ServiceDependencyPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ServiceDependencyPolicy) GetBSON() (any, error) {
+func (o *ServiceDependencyPolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -730,7 +730,7 @@ func (*ServiceDependencyPolicy) AttributeSpecifications() map[string]elemental.A
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ServiceDependencyPolicy) ValueForAttribute(name string) any {
+func (o *ServiceDependencyPolicy) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1499,7 +1499,7 @@ func (o *SparseServiceDependencyPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseServiceDependencyPolicy) GetBSON() (any, error) {
+func (o *SparseServiceDependencyPolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

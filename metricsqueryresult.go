@@ -39,7 +39,7 @@ func NewMetricsQueryResult() *MetricsQueryResult {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *MetricsQueryResult) GetBSON() (any, error) {
+func (o *MetricsQueryResult) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -133,7 +133,7 @@ func (*MetricsQueryResult) AttributeSpecifications() map[string]elemental.Attrib
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *MetricsQueryResult) ValueForAttribute(name string) any {
+func (o *MetricsQueryResult) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "data":

@@ -31,8 +31,8 @@ func (o PCSearchResultsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PCSearchResultsList.
 func (o PCSearchResultsList) Copy() elemental.Identifiables {
 
-	out := append(PCSearchResultsList{}, o...)
-	return &out
+	copy := append(PCSearchResultsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the PCSearchResultsList.
@@ -145,7 +145,7 @@ func (o *PCSearchResult) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PCSearchResult) GetBSON() (any, error) {
+func (o *PCSearchResult) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -375,7 +375,7 @@ func (*PCSearchResult) AttributeSpecifications() map[string]elemental.AttributeS
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PCSearchResult) ValueForAttribute(name string) any {
+func (o *PCSearchResult) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "internalEdges":
@@ -693,7 +693,7 @@ func (o *SparsePCSearchResult) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePCSearchResult) GetBSON() (any, error) {
+func (o *SparsePCSearchResult) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

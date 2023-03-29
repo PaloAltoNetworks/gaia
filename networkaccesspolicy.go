@@ -71,8 +71,8 @@ func (o NetworkAccessPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the NetworkAccessPoliciesList.
 func (o NetworkAccessPoliciesList) Copy() elemental.Identifiables {
 
-	out := append(NetworkAccessPoliciesList{}, o...)
-	return &out
+	copy := append(NetworkAccessPoliciesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the NetworkAccessPoliciesList.
@@ -288,7 +288,7 @@ func (o *NetworkAccessPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *NetworkAccessPolicy) GetBSON() (any, error) {
+func (o *NetworkAccessPolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -947,7 +947,7 @@ func (*NetworkAccessPolicy) AttributeSpecifications() map[string]elemental.Attri
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *NetworkAccessPolicy) ValueForAttribute(name string) any {
+func (o *NetworkAccessPolicy) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -2055,7 +2055,7 @@ func (o *SparseNetworkAccessPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseNetworkAccessPolicy) GetBSON() (any, error) {
+func (o *SparseNetworkAccessPolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

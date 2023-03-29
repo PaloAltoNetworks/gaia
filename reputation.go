@@ -31,8 +31,8 @@ func (o ReputationsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ReputationsList.
 func (o ReputationsList) Copy() elemental.Identifiables {
 
-	out := append(ReputationsList{}, o...)
-	return &out
+	copy := append(ReputationsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the ReputationsList.
@@ -121,7 +121,7 @@ func (o *Reputation) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Reputation) GetBSON() (any, error) {
+func (o *Reputation) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -292,7 +292,7 @@ func (*Reputation) AttributeSpecifications() map[string]elemental.AttributeSpeci
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Reputation) ValueForAttribute(name string) any {
+func (o *Reputation) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "URLReputations":
@@ -450,7 +450,7 @@ func (o *SparseReputation) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseReputation) GetBSON() (any, error) {
+func (o *SparseReputation) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

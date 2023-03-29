@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "organizationalmetadata": {
@@ -34,7 +35,6 @@
     "title": "organizationalmetadata",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/organizationalmetadata": {
       "get": {

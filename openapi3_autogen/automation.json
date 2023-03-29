@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "automation": {
@@ -212,7 +213,6 @@
     "title": "automation",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/automations": {
       "get": {

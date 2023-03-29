@@ -48,8 +48,8 @@ func (o DataPathCertificatesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the DataPathCertificatesList.
 func (o DataPathCertificatesList) Copy() elemental.Identifiables {
 
-	out := append(DataPathCertificatesList{}, o...)
-	return &out
+	copy := append(DataPathCertificatesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the DataPathCertificatesList.
@@ -153,7 +153,7 @@ func (o *DataPathCertificate) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *DataPathCertificate) GetBSON() (any, error) {
+func (o *DataPathCertificate) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -353,7 +353,7 @@ func (*DataPathCertificate) AttributeSpecifications() map[string]elemental.Attri
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *DataPathCertificate) ValueForAttribute(name string) any {
+func (o *DataPathCertificate) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "CSR":
@@ -628,7 +628,7 @@ func (o *SparseDataPathCertificate) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseDataPathCertificate) GetBSON() (any, error) {
+func (o *SparseDataPathCertificate) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

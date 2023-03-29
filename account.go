@@ -49,8 +49,8 @@ func (o AccountsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AccountsList.
 func (o AccountsList) Copy() elemental.Identifiables {
 
-	out := append(AccountsList{}, o...)
-	return &out
+	copy := append(AccountsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the AccountsList.
@@ -241,7 +241,7 @@ func (o *Account) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Account) GetBSON() (any, error) {
+func (o *Account) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -725,7 +725,7 @@ func (*Account) AttributeSpecifications() map[string]elemental.AttributeSpecific
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Account) ValueForAttribute(name string) any {
+func (o *Account) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1772,7 +1772,7 @@ func (o *SparseAccount) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAccount) GetBSON() (any, error) {
+func (o *SparseAccount) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

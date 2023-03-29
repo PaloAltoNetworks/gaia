@@ -32,8 +32,8 @@ func (o EnforcerProfileMappingPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the EnforcerProfileMappingPoliciesList.
 func (o EnforcerProfileMappingPoliciesList) Copy() elemental.Identifiables {
 
-	out := append(EnforcerProfileMappingPoliciesList{}, o...)
-	return &out
+	copy := append(EnforcerProfileMappingPoliciesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the EnforcerProfileMappingPoliciesList.
@@ -181,7 +181,7 @@ func (o *EnforcerProfileMappingPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *EnforcerProfileMappingPolicy) GetBSON() (any, error) {
+func (o *EnforcerProfileMappingPolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -681,7 +681,7 @@ func (*EnforcerProfileMappingPolicy) AttributeSpecifications() map[string]elemen
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *EnforcerProfileMappingPolicy) ValueForAttribute(name string) any {
+func (o *EnforcerProfileMappingPolicy) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1391,7 +1391,7 @@ func (o *SparseEnforcerProfileMappingPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseEnforcerProfileMappingPolicy) GetBSON() (any, error) {
+func (o *SparseEnforcerProfileMappingPolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

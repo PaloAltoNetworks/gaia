@@ -31,8 +31,8 @@ func (o EnforcerSecretsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the EnforcerSecretsList.
 func (o EnforcerSecretsList) Copy() elemental.Identifiables {
 
-	out := append(EnforcerSecretsList{}, o...)
-	return &out
+	copy := append(EnforcerSecretsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the EnforcerSecretsList.
@@ -119,7 +119,7 @@ func (o *EnforcerSecret) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *EnforcerSecret) GetBSON() (any, error) {
+func (o *EnforcerSecret) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -292,7 +292,7 @@ func (*EnforcerSecret) AttributeSpecifications() map[string]elemental.AttributeS
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *EnforcerSecret) ValueForAttribute(name string) any {
+func (o *EnforcerSecret) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "syslogCertificate":
@@ -444,7 +444,7 @@ func (o *SparseEnforcerSecret) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseEnforcerSecret) GetBSON() (any, error) {
+func (o *SparseEnforcerSecret) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

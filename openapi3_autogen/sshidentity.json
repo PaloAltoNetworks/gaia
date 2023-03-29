@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "sshidentity": {
@@ -39,7 +40,6 @@
     "title": "sshidentity",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/sshidentities": {
       "post": {

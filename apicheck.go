@@ -57,8 +57,8 @@ func (o APIChecksList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the APIChecksList.
 func (o APIChecksList) Copy() elemental.Identifiables {
 
-	out := append(APIChecksList{}, o...)
-	return &out
+	copy := append(APIChecksList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the APIChecksList.
@@ -154,7 +154,7 @@ func (o *APICheck) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *APICheck) GetBSON() (any, error) {
+func (o *APICheck) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -348,7 +348,7 @@ func (*APICheck) AttributeSpecifications() map[string]elemental.AttributeSpecifi
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *APICheck) ValueForAttribute(name string) any {
+func (o *APICheck) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "authorized":
@@ -565,7 +565,7 @@ func (o *SparseAPICheck) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAPICheck) GetBSON() (any, error) {
+func (o *SparseAPICheck) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

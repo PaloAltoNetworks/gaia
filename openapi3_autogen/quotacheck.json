@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "quotacheck": {
@@ -46,7 +47,6 @@
     "title": "quotacheck",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/quotacheck": {
       "post": {

@@ -43,8 +43,8 @@ func (o SSHAuthoritiesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the SSHAuthoritiesList.
 func (o SSHAuthoritiesList) Copy() elemental.Identifiables {
 
-	out := append(SSHAuthoritiesList{}, o...)
-	return &out
+	copy := append(SSHAuthoritiesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the SSHAuthoritiesList.
@@ -161,7 +161,7 @@ func (o *SSHAuthority) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SSHAuthority) GetBSON() (any, error) {
+func (o *SSHAuthority) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -496,7 +496,7 @@ func (*SSHAuthority) AttributeSpecifications() map[string]elemental.AttributeSpe
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *SSHAuthority) ValueForAttribute(name string) any {
+func (o *SSHAuthority) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -935,7 +935,7 @@ func (o *SparseSSHAuthority) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseSSHAuthority) GetBSON() (any, error) {
+func (o *SparseSSHAuthority) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

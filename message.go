@@ -46,8 +46,8 @@ func (o MessagesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the MessagesList.
 func (o MessagesList) Copy() elemental.Identifiables {
 
-	out := append(MessagesList{}, o...)
-	return &out
+	copy := append(MessagesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the MessagesList.
@@ -195,7 +195,7 @@ func (o *Message) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Message) GetBSON() (any, error) {
+func (o *Message) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -705,7 +705,7 @@ func (*Message) AttributeSpecifications() map[string]elemental.AttributeSpecific
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Message) ValueForAttribute(name string) any {
+func (o *Message) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1436,7 +1436,7 @@ func (o *SparseMessage) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseMessage) GetBSON() (any, error) {
+func (o *SparseMessage) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

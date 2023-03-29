@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "servicepublication": {
@@ -28,7 +29,6 @@
     "title": "servicepublication",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/servicepublications": {
       "post": {

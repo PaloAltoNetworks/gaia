@@ -57,7 +57,7 @@ func NewPKIXName() *PKIXName {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PKIXName) GetBSON() (any, error) {
+func (o *PKIXName) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -151,7 +151,7 @@ func (*PKIXName) AttributeSpecifications() map[string]elemental.AttributeSpecifi
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PKIXName) ValueForAttribute(name string) any {
+func (o *PKIXName) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "commonName":

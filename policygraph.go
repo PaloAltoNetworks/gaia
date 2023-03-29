@@ -45,8 +45,8 @@ func (o PolicyGraphsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PolicyGraphsList.
 func (o PolicyGraphsList) Copy() elemental.Identifiables {
 
-	out := append(PolicyGraphsList{}, o...)
-	return &out
+	copy := append(PolicyGraphsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the PolicyGraphsList.
@@ -147,7 +147,7 @@ func (o *PolicyGraph) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PolicyGraph) GetBSON() (any, error) {
+func (o *PolicyGraph) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -335,7 +335,7 @@ func (*PolicyGraph) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PolicyGraph) ValueForAttribute(name string) any {
+func (o *PolicyGraph) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "PUIdentity":
@@ -545,7 +545,7 @@ func (o *SparsePolicyGraph) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePolicyGraph) GetBSON() (any, error) {
+func (o *SparsePolicyGraph) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

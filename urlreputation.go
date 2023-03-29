@@ -40,7 +40,7 @@ func NewURLReputation() *URLReputation {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *URLReputation) GetBSON() (any, error) {
+func (o *URLReputation) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -134,7 +134,7 @@ func (*URLReputation) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *URLReputation) ValueForAttribute(name string) any {
+func (o *URLReputation) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "URL":

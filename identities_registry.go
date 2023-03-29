@@ -85,9 +85,10 @@ var (
 		"debugbundle":            DebugBundleIdentity,
 		"defaultenforcerversion": DefaultEnforcerVersionIdentity,
 		"dependencymap":          DependencyMapIdentity,
-		"discoverymode":          DiscoveryModeIdentity,
-		"dnslookupreport":        DNSLookupReportIdentity,
-		"email":                  EmailIdentity,
+
+		"discoverymode":   DiscoveryModeIdentity,
+		"dnslookupreport": DNSLookupReportIdentity,
+		"email":           EmailIdentity,
 
 		"enforcer":                     EnforcerIdentity,
 		"enforcerlog":                  EnforcerLogIdentity,
@@ -103,10 +104,11 @@ var (
 		"fileaccesspolicy":             FileAccessPolicyIdentity,
 		"fileaccessreport":             FileAccessReportIdentity,
 		"filepath":                     FilePathIdentity,
-		"flowreport":                   FlowReportIdentity,
-		"gcpasset":                     GCPAssetIdentity,
-		"gcpresource":                  GCPResourceIdentity,
-		"graphedge":                    GraphEdgeIdentity,
+
+		"flowreport":  FlowReportIdentity,
+		"gcpasset":    GCPAssetIdentity,
+		"gcpresource": GCPResourceIdentity,
+		"graphedge":   GraphEdgeIdentity,
 
 		"graphnode":                GraphNodeIdentity,
 		"healthcheck":              HealthCheckIdentity,
@@ -139,17 +141,19 @@ var (
 		"namespacetype":          NamespaceTypeIdentity,
 		"networkaccesspolicy":    NetworkAccessPolicyIdentity,
 
-		"networkrulesetpolicy":   NetworkRuleSetPolicyIdentity,
+		"networkrulesetpolicy": NetworkRuleSetPolicyIdentity,
+
 		"oauthinfo":              OAUTHInfoIdentity,
 		"oauthkey":               OAUTHKeyIdentity,
 		"oidcprovider":           OIDCProviderIdentity,
 		"organizationalmetadata": OrganizationalMetadataIdentity,
 		"packetreport":           PacketReportIdentity,
 		"passwordreset":          PasswordResetIdentity,
-		"pccprovider":            PCCProviderIdentity,
-		"pcsearchresult":         PCSearchResultIdentity,
-		"pctimerange":            PCTimeRangeIdentity,
-		"pctokenverifier":        PCTokenVerifierIdentity,
+
+		"pccprovider":     PCCProviderIdentity,
+		"pcsearchresult":  PCSearchResultIdentity,
+		"pctimerange":     PCTimeRangeIdentity,
+		"pctokenverifier": PCTokenVerifierIdentity,
 
 		"pingprobe":   PingProbeIdentity,
 		"pingrequest": PingRequestIdentity,
@@ -172,6 +176,8 @@ var (
 		"quotacheck":      QuotaCheckIdentity,
 		"quotapolicy":     QuotaPolicyIdentity,
 		"recipe":          RecipeIdentity,
+
+		"remoteflooder": RemoteFlooderIdentity,
 
 		"remoteprocessor":         RemoteProcessorIdentity,
 		"renderedpolicy":          RenderedPolicyIdentity,
@@ -300,9 +306,10 @@ var (
 		"debugbundles":           DebugBundleIdentity,
 		"defaultenforcerversion": DefaultEnforcerVersionIdentity,
 		"dependencymaps":         DependencyMapIdentity,
-		"discoverymode":          DiscoveryModeIdentity,
-		"dnslookupreports":       DNSLookupReportIdentity,
-		"emails":                 EmailIdentity,
+
+		"discoverymode":    DiscoveryModeIdentity,
+		"dnslookupreports": DNSLookupReportIdentity,
+		"emails":           EmailIdentity,
 
 		"enforcers":                      EnforcerIdentity,
 		"enforcerlog":                    EnforcerLogIdentity,
@@ -318,10 +325,11 @@ var (
 		"fileaccesspolicies":             FileAccessPolicyIdentity,
 		"fileaccessreports":              FileAccessReportIdentity,
 		"filepaths":                      FilePathIdentity,
-		"flowreports":                    FlowReportIdentity,
-		"gcpassets":                      GCPAssetIdentity,
-		"gcpresources":                   GCPResourceIdentity,
-		"graphedges":                     GraphEdgeIdentity,
+
+		"flowreports":  FlowReportIdentity,
+		"gcpassets":    GCPAssetIdentity,
+		"gcpresources": GCPResourceIdentity,
+		"graphedges":   GraphEdgeIdentity,
 
 		"graphnodes":                 GraphNodeIdentity,
 		"healthchecks":               HealthCheckIdentity,
@@ -355,16 +363,18 @@ var (
 		"networkaccesspolicies":    NetworkAccessPolicyIdentity,
 
 		"networkrulesetpolicies": NetworkRuleSetPolicyIdentity,
+
 		"oauthinfo":              OAUTHInfoIdentity,
 		"oauthkeys":              OAUTHKeyIdentity,
 		"oidcproviders":          OIDCProviderIdentity,
 		"organizationalmetadata": OrganizationalMetadataIdentity,
 		"packetreports":          PacketReportIdentity,
 		"passwordreset":          PasswordResetIdentity,
-		"pccproviders":           PCCProviderIdentity,
-		"pcsearchresults":        PCSearchResultIdentity,
-		"pctimeranges":           PCTimeRangeIdentity,
-		"pctokenverifiers":       PCTokenVerifierIdentity,
+
+		"pccproviders":     PCCProviderIdentity,
+		"pcsearchresults":  PCSearchResultIdentity,
+		"pctimeranges":     PCTimeRangeIdentity,
+		"pctokenverifiers": PCTokenVerifierIdentity,
 
 		"pingprobes":   PingProbeIdentity,
 		"pingrequests": PingRequestIdentity,
@@ -387,6 +397,8 @@ var (
 		"quotacheck":       QuotaCheckIdentity,
 		"quotapolicies":    QuotaPolicyIdentity,
 		"recipes":          RecipeIdentity,
+
+		"remoteflooders": RemoteFlooderIdentity,
 
 		"remoteprocessors":          RemoteProcessorIdentity,
 		"renderedpolicies":          RenderedPolicyIdentity,
@@ -1311,6 +1323,7 @@ var (
 			{"propagate"},
 			{"updateIdempotencyKey"},
 		},
+		"remoteflooder":   nil,
 		"remoteprocessor": nil,
 		"renderedpolicy":  nil,
 		"rendertemplate":  nil,
@@ -1755,6 +1768,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewQuotaPolicy()
 	case RecipeIdentity:
 		return NewRecipe()
+	case RemoteFlooderIdentity:
+		return NewRemoteFlooder()
 	case RemoteProcessorIdentity:
 		return NewRemoteProcessor()
 	case RenderedPolicyIdentity:
@@ -2124,6 +2139,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseQuotaPolicy()
 	case RecipeIdentity:
 		return NewSparseRecipe()
+	case RemoteFlooderIdentity:
+		return NewSparseRemoteFlooder()
 	case RemoteProcessorIdentity:
 		return NewSparseRemoteProcessor()
 	case RenderedPolicyIdentity:
@@ -2501,6 +2518,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &QuotaPoliciesList{}
 	case RecipeIdentity:
 		return &RecipesList{}
+	case RemoteFlooderIdentity:
+		return &RemoteFloodersList{}
 	case RemoteProcessorIdentity:
 		return &RemoteProcessorsList{}
 	case RenderedPolicyIdentity:
@@ -2868,6 +2887,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseQuotaPoliciesList{}
 	case RecipeIdentity:
 		return &SparseRecipesList{}
+	case RemoteFlooderIdentity:
+		return &SparseRemoteFloodersList{}
 	case RemoteProcessorIdentity:
 		return &SparseRemoteProcessorsList{}
 	case RenderedPolicyIdentity:
@@ -3116,6 +3137,7 @@ func AllIdentities() []elemental.Identity {
 		QuotaCheckIdentity,
 		QuotaPolicyIdentity,
 		RecipeIdentity,
+		RemoteFlooderIdentity,
 		RemoteProcessorIdentity,
 		RenderedPolicyIdentity,
 		RenderTemplateIdentity,
@@ -3576,6 +3598,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"rcp",
 		}
+	case RemoteFlooderIdentity:
+		return []string{}
 	case RemoteProcessorIdentity:
 		return []string{
 			"hks",

@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "reputation": {
@@ -44,7 +45,6 @@
     "title": "reputation",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/reputations": {
       "post": {

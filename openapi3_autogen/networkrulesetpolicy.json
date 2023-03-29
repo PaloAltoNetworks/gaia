@@ -1,4 +1,5 @@
 {
+  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "networkrulesetpolicy": {
@@ -128,7 +129,6 @@
     "title": "networkrulesetpolicy",
     "version": "1.0"
   },
-  "openapi": "3.0.3",
   "paths": {
     "/networkrulesetpolicies": {
       "get": {

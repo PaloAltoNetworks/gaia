@@ -74,8 +74,8 @@ func (o CloudAlertRecordsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudAlertRecordsList.
 func (o CloudAlertRecordsList) Copy() elemental.Identifiables {
 
-	out := append(CloudAlertRecordsList{}, o...)
-	return &out
+	copy := append(CloudAlertRecordsList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the CloudAlertRecordsList.
@@ -264,7 +264,7 @@ func (o *CloudAlertRecord) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudAlertRecord) GetBSON() (any, error) {
+func (o *CloudAlertRecord) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -824,7 +824,7 @@ func (*CloudAlertRecord) AttributeSpecifications() map[string]elemental.Attribut
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudAlertRecord) ValueForAttribute(name string) any {
+func (o *CloudAlertRecord) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1840,7 +1840,7 @@ func (o *SparseCloudAlertRecord) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudAlertRecord) GetBSON() (any, error) {
+func (o *SparseCloudAlertRecord) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

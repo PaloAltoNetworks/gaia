@@ -31,8 +31,8 @@ func (o PokesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PokesList.
 func (o PokesList) Copy() elemental.Identifiables {
 
-	out := append(PokesList{}, o...)
-	return &out
+	copy := append(PokesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the PokesList.
@@ -113,7 +113,7 @@ func (o *Poke) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Poke) GetBSON() (any, error) {
+func (o *Poke) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -253,7 +253,7 @@ func (*Poke) AttributeSpecifications() map[string]elemental.AttributeSpecificati
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Poke) ValueForAttribute(name string) any {
+func (o *Poke) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	}
@@ -357,7 +357,7 @@ func (o *SparsePoke) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePoke) GetBSON() (any, error) {
+func (o *SparsePoke) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

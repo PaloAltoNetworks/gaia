@@ -32,8 +32,8 @@ func (o TokenScopePoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the TokenScopePoliciesList.
 func (o TokenScopePoliciesList) Copy() elemental.Identifiables {
 
-	out := append(TokenScopePoliciesList{}, o...)
-	return &out
+	copy := append(TokenScopePoliciesList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the TokenScopePoliciesList.
@@ -207,7 +207,7 @@ func (o *TokenScopePolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *TokenScopePolicy) GetBSON() (any, error) {
+func (o *TokenScopePolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -796,7 +796,7 @@ func (*TokenScopePolicy) AttributeSpecifications() map[string]elemental.Attribut
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *TokenScopePolicy) ValueForAttribute(name string) any {
+func (o *TokenScopePolicy) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "ID":
@@ -1702,7 +1702,7 @@ func (o *SparseTokenScopePolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseTokenScopePolicy) GetBSON() (any, error) {
+func (o *SparseTokenScopePolicy) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil

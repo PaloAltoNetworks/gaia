@@ -30,7 +30,7 @@ func NewCloudVPCData() *CloudVPCData {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudVPCData) GetBSON() (any, error) {
+func (o *CloudVPCData) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -136,7 +136,7 @@ func (*CloudVPCData) AttributeSpecifications() map[string]elemental.AttributeSpe
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudVPCData) ValueForAttribute(name string) any {
+func (o *CloudVPCData) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "addresses":

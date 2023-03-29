@@ -97,8 +97,8 @@ func (o EnforcersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the EnforcersList.
 func (o EnforcersList) Copy() elemental.Identifiables {
 
-	out := append(EnforcersList{}, o...)
-	return &out
+	copy := append(EnforcersList{}, o...)
+	return &copy
 }
 
 // Append appends the objects to the a new copy of the EnforcersList.
@@ -350,7 +350,7 @@ func (o *Enforcer) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Enforcer) GetBSON() (any, error) {
+func (o *Enforcer) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
@@ -1093,7 +1093,7 @@ func (*Enforcer) AttributeSpecifications() map[string]elemental.AttributeSpecifi
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Enforcer) ValueForAttribute(name string) any {
+func (o *Enforcer) ValueForAttribute(name string) interface{} {
 
 	switch name {
 	case "FQDN":
@@ -2598,7 +2598,7 @@ func (o *SparseEnforcer) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseEnforcer) GetBSON() (any, error) {
+func (o *SparseEnforcer) GetBSON() (interface{}, error) {
 
 	if o == nil {
 		return nil, nil
