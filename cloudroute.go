@@ -85,7 +85,7 @@ func NewCloudRoute() *CloudRoute {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudRoute) GetBSON() (interface{}, error) {
+func (o *CloudRoute) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -211,7 +211,7 @@ func (*CloudRoute) AttributeSpecifications() map[string]elemental.AttributeSpeci
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudRoute) ValueForAttribute(name string) interface{} {
+func (o *CloudRoute) ValueForAttribute(name string) any {
 
 	switch name {
 	case "destinationIPv4CIDR":

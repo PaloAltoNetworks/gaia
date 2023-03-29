@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "unknownipaddress": {
@@ -111,6 +110,7 @@
     "title": "unknownipaddress",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/unknownipaddresses": {
       "get": {

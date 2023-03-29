@@ -32,8 +32,8 @@ func (o CloudSubnetsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudSubnetsList.
 func (o CloudSubnetsList) Copy() elemental.Identifiables {
 
-	copy := append(CloudSubnetsList{}, o...)
-	return &copy
+	out := append(CloudSubnetsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudSubnetsList.
@@ -204,7 +204,7 @@ func (o *CloudSubnet) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudSubnet) GetBSON() (interface{}, error) {
+func (o *CloudSubnet) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -896,7 +896,7 @@ func (*CloudSubnet) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudSubnet) ValueForAttribute(name string) interface{} {
+func (o *CloudSubnet) ValueForAttribute(name string) any {
 
 	switch name {
 	case "APIID":
@@ -1868,7 +1868,7 @@ func (o *SparseCloudSubnet) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudSubnet) GetBSON() (interface{}, error) {
+func (o *SparseCloudSubnet) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

@@ -102,8 +102,8 @@ func (o FlowReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the FlowReportsList.
 func (o FlowReportsList) Copy() elemental.Identifiables {
 
-	copy := append(FlowReportsList{}, o...)
-	return &copy
+	out := append(FlowReportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the FlowReportsList.
@@ -326,7 +326,7 @@ func (o *FlowReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *FlowReport) GetBSON() (interface{}, error) {
+func (o *FlowReport) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -913,7 +913,7 @@ func (*FlowReport) AttributeSpecifications() map[string]elemental.AttributeSpeci
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *FlowReport) ValueForAttribute(name string) interface{} {
+func (o *FlowReport) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -2183,7 +2183,7 @@ func (o *SparseFlowReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseFlowReport) GetBSON() (interface{}, error) {
+func (o *SparseFlowReport) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

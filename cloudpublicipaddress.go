@@ -32,8 +32,8 @@ func (o CloudPublicIPAddressList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudPublicIPAddressList.
 func (o CloudPublicIPAddressList) Copy() elemental.Identifiables {
 
-	copy := append(CloudPublicIPAddressList{}, o...)
-	return &copy
+	out := append(CloudPublicIPAddressList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudPublicIPAddressList.
@@ -204,7 +204,7 @@ func (o *CloudPublicIPAddress) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudPublicIPAddress) GetBSON() (interface{}, error) {
+func (o *CloudPublicIPAddress) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -897,7 +897,7 @@ func (*CloudPublicIPAddress) AttributeSpecifications() map[string]elemental.Attr
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudPublicIPAddress) ValueForAttribute(name string) interface{} {
+func (o *CloudPublicIPAddress) ValueForAttribute(name string) any {
 
 	switch name {
 	case "APIID":
@@ -1869,7 +1869,7 @@ func (o *SparseCloudPublicIPAddress) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudPublicIPAddress) GetBSON() (interface{}, error) {
+func (o *SparseCloudPublicIPAddress) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

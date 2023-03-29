@@ -49,8 +49,8 @@ func (o ImportRequestsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ImportRequestsList.
 func (o ImportRequestsList) Copy() elemental.Identifiables {
 
-	copy := append(ImportRequestsList{}, o...)
-	return &copy
+	out := append(ImportRequestsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ImportRequestsList.
@@ -215,7 +215,7 @@ func (o *ImportRequest) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ImportRequest) GetBSON() (interface{}, error) {
+func (o *ImportRequest) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -741,7 +741,7 @@ func (*ImportRequest) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ImportRequest) ValueForAttribute(name string) interface{} {
+func (o *ImportRequest) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1566,7 +1566,7 @@ func (o *SparseImportRequest) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseImportRequest) GetBSON() (interface{}, error) {
+func (o *SparseImportRequest) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

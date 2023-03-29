@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "externalnetwork": {
@@ -126,6 +125,7 @@
     "title": "externalnetwork",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/externalnetworks": {
       "get": {

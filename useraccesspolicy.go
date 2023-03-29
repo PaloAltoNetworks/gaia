@@ -32,8 +32,8 @@ func (o UserAccessPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the UserAccessPoliciesList.
 func (o UserAccessPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(UserAccessPoliciesList{}, o...)
-	return &copy
+	out := append(UserAccessPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the UserAccessPoliciesList.
@@ -192,7 +192,7 @@ func (o *UserAccessPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *UserAccessPolicy) GetBSON() (interface{}, error) {
+func (o *UserAccessPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -737,7 +737,7 @@ func (*UserAccessPolicy) AttributeSpecifications() map[string]elemental.Attribut
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *UserAccessPolicy) ValueForAttribute(name string) interface{} {
+func (o *UserAccessPolicy) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1527,7 +1527,7 @@ func (o *SparseUserAccessPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseUserAccessPolicy) GetBSON() (interface{}, error) {
+func (o *SparseUserAccessPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

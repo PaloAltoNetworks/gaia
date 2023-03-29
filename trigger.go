@@ -31,8 +31,8 @@ func (o TriggersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the TriggersList.
 func (o TriggersList) Copy() elemental.Identifiables {
 
-	copy := append(TriggersList{}, o...)
-	return &copy
+	out := append(TriggersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the TriggersList.
@@ -116,7 +116,7 @@ func (o *Trigger) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Trigger) GetBSON() (interface{}, error) {
+func (o *Trigger) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -267,7 +267,7 @@ func (*Trigger) AttributeSpecifications() map[string]elemental.AttributeSpecific
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Trigger) ValueForAttribute(name string) interface{} {
+func (o *Trigger) ValueForAttribute(name string) any {
 
 	switch name {
 	case "payload":
@@ -394,7 +394,7 @@ func (o *SparseTrigger) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseTrigger) GetBSON() (interface{}, error) {
+func (o *SparseTrigger) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

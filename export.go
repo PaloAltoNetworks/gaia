@@ -31,8 +31,8 @@ func (o ExportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ExportsList.
 func (o ExportsList) Copy() elemental.Identifiables {
 
-	copy := append(ExportsList{}, o...)
-	return &copy
+	out := append(ExportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ExportsList.
@@ -129,7 +129,7 @@ func (o *Export) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Export) GetBSON() (interface{}, error) {
+func (o *Export) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -310,7 +310,7 @@ func (*Export) AttributeSpecifications() map[string]elemental.AttributeSpecifica
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Export) ValueForAttribute(name string) interface{} {
+func (o *Export) ValueForAttribute(name string) any {
 
 	switch name {
 	case "APIVersion":
@@ -532,7 +532,7 @@ func (o *SparseExport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseExport) GetBSON() (interface{}, error) {
+func (o *SparseExport) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

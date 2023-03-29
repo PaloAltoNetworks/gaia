@@ -31,8 +31,8 @@ func (o CNSRQLQueriesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CNSRQLQueriesList.
 func (o CNSRQLQueriesList) Copy() elemental.Identifiables {
 
-	copy := append(CNSRQLQueriesList{}, o...)
-	return &copy
+	out := append(CNSRQLQueriesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CNSRQLQueriesList.
@@ -125,7 +125,7 @@ func (o *CNSRQLQuery) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CNSRQLQuery) GetBSON() (interface{}, error) {
+func (o *CNSRQLQuery) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -298,7 +298,7 @@ func (*CNSRQLQuery) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CNSRQLQuery) ValueForAttribute(name string) interface{} {
+func (o *CNSRQLQuery) ValueForAttribute(name string) any {
 
 	switch name {
 	case "alertID":
@@ -494,7 +494,7 @@ func (o *SparseCNSRQLQuery) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCNSRQLQuery) GetBSON() (interface{}, error) {
+func (o *SparseCNSRQLQuery) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

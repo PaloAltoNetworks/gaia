@@ -31,8 +31,8 @@ func (o PingRequestsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PingRequestsList.
 func (o PingRequestsList) Copy() elemental.Identifiables {
 
-	copy := append(PingRequestsList{}, o...)
-	return &copy
+	out := append(PingRequestsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PingRequestsList.
@@ -123,7 +123,7 @@ func (o *PingRequest) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PingRequest) GetBSON() (interface{}, error) {
+func (o *PingRequest) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -298,7 +298,7 @@ func (*PingRequest) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PingRequest) ValueForAttribute(name string) interface{} {
+func (o *PingRequest) ValueForAttribute(name string) any {
 
 	switch name {
 	case "iterations":
@@ -479,7 +479,7 @@ func (o *SparsePingRequest) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePingRequest) GetBSON() (interface{}, error) {
+func (o *SparsePingRequest) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

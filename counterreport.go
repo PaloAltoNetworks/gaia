@@ -32,8 +32,8 @@ func (o CounterReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CounterReportsList.
 func (o CounterReportsList) Copy() elemental.Identifiables {
 
-	copy := append(CounterReportsList{}, o...)
-	return &copy
+	out := append(CounterReportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CounterReportsList.
@@ -354,7 +354,7 @@ func (o *CounterReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CounterReport) GetBSON() (interface{}, error) {
+func (o *CounterReport) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -1162,7 +1162,7 @@ func (*CounterReport) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CounterReport) ValueForAttribute(name string) interface{} {
+func (o *CounterReport) ValueForAttribute(name string) any {
 
 	switch name {
 	case "AckInUnknownState":
@@ -3232,7 +3232,7 @@ func (o *SparseCounterReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCounterReport) GetBSON() (interface{}, error) {
+func (o *SparseCounterReport) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

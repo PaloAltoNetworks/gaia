@@ -31,8 +31,8 @@ func (o PlansList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PlansList.
 func (o PlansList) Copy() elemental.Identifiables {
 
-	copy := append(PlansList{}, o...)
-	return &copy
+	out := append(PlansList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PlansList.
@@ -133,7 +133,7 @@ func (o *Plan) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Plan) GetBSON() (interface{}, error) {
+func (o *Plan) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -324,7 +324,7 @@ func (*Plan) AttributeSpecifications() map[string]elemental.AttributeSpecificati
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Plan) ValueForAttribute(name string) interface{} {
+func (o *Plan) ValueForAttribute(name string) any {
 
 	switch name {
 	case "description":
@@ -594,7 +594,7 @@ func (o *SparsePlan) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePlan) GetBSON() (interface{}, error) {
+func (o *SparsePlan) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

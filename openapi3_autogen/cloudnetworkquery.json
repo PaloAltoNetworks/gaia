@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "cloudnetworkquery": {
@@ -149,6 +148,7 @@
     "title": "cloudnetworkquery",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/cloudnetworkqueries": {
       "get": {

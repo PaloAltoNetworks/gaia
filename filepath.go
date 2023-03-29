@@ -32,8 +32,8 @@ func (o FilePathsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the FilePathsList.
 func (o FilePathsList) Copy() elemental.Identifiables {
 
-	copy := append(FilePathsList{}, o...)
-	return &copy
+	out := append(FilePathsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the FilePathsList.
@@ -184,7 +184,7 @@ func (o *FilePath) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *FilePath) GetBSON() (interface{}, error) {
+func (o *FilePath) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -727,7 +727,7 @@ func (*FilePath) AttributeSpecifications() map[string]elemental.AttributeSpecifi
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *FilePath) ValueForAttribute(name string) interface{} {
+func (o *FilePath) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1493,7 +1493,7 @@ func (o *SparseFilePath) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseFilePath) GetBSON() (interface{}, error) {
+func (o *SparseFilePath) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

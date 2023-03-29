@@ -46,8 +46,8 @@ func (o ImportReferencesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ImportReferencesList.
 func (o ImportReferencesList) Copy() elemental.Identifiables {
 
-	copy := append(ImportReferencesList{}, o...)
-	return &copy
+	out := append(ImportReferencesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ImportReferencesList.
@@ -204,7 +204,7 @@ func (o *ImportReference) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ImportReference) GetBSON() (interface{}, error) {
+func (o *ImportReference) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -726,7 +726,7 @@ func (*ImportReference) AttributeSpecifications() map[string]elemental.Attribute
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ImportReference) ValueForAttribute(name string) interface{} {
+func (o *ImportReference) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1503,7 +1503,7 @@ func (o *SparseImportReference) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseImportReference) GetBSON() (interface{}, error) {
+func (o *SparseImportReference) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

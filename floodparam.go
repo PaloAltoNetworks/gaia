@@ -45,7 +45,7 @@ func NewFloodParam() *FloodParam {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *FloodParam) GetBSON() (interface{}, error) {
+func (o *FloodParam) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -160,7 +160,7 @@ func (*FloodParam) AttributeSpecifications() map[string]elemental.AttributeSpeci
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *FloodParam) ValueForAttribute(name string) interface{} {
+func (o *FloodParam) ValueForAttribute(name string) any {
 
 	switch name {
 	case "destination":

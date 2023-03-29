@@ -37,7 +37,7 @@ func NewComment() *Comment {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Comment) GetBSON() (interface{}, error) {
+func (o *Comment) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -139,7 +139,7 @@ func (*Comment) AttributeSpecifications() map[string]elemental.AttributeSpecific
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Comment) ValueForAttribute(name string) interface{} {
+func (o *Comment) ValueForAttribute(name string) any {
 
 	switch name {
 	case "claims":

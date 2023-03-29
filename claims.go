@@ -32,8 +32,8 @@ func (o ClaimsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ClaimsList.
 func (o ClaimsList) Copy() elemental.Identifiables {
 
-	copy := append(ClaimsList{}, o...)
-	return &copy
+	out := append(ClaimsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ClaimsList.
@@ -149,7 +149,7 @@ func (o *Claims) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Claims) GetBSON() (interface{}, error) {
+func (o *Claims) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -422,7 +422,7 @@ func (*Claims) AttributeSpecifications() map[string]elemental.AttributeSpecifica
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Claims) ValueForAttribute(name string) interface{} {
+func (o *Claims) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -826,7 +826,7 @@ func (o *SparseClaims) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseClaims) GetBSON() (interface{}, error) {
+func (o *SparseClaims) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

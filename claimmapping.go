@@ -32,7 +32,7 @@ func NewClaimMapping() *ClaimMapping {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ClaimMapping) GetBSON() (interface{}, error) {
+func (o *ClaimMapping) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -148,7 +148,7 @@ func (*ClaimMapping) AttributeSpecifications() map[string]elemental.AttributeSpe
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ClaimMapping) ValueForAttribute(name string) interface{} {
+func (o *ClaimMapping) ValueForAttribute(name string) any {
 
 	switch name {
 	case "claimName":

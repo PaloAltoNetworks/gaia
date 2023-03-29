@@ -31,8 +31,8 @@ func (o RemoteFloodersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RemoteFloodersList.
 func (o RemoteFloodersList) Copy() elemental.Identifiables {
 
-	copy := append(RemoteFloodersList{}, o...)
-	return &copy
+	out := append(RemoteFloodersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the RemoteFloodersList.
@@ -132,7 +132,7 @@ func (o *RemoteFlooder) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *RemoteFlooder) GetBSON() (interface{}, error) {
+func (o *RemoteFlooder) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -332,7 +332,7 @@ func (*RemoteFlooder) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *RemoteFlooder) ValueForAttribute(name string) interface{} {
+func (o *RemoteFlooder) ValueForAttribute(name string) any {
 
 	switch name {
 	case "FloodParams":
@@ -554,7 +554,7 @@ func (o *SparseRemoteFlooder) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseRemoteFlooder) GetBSON() (interface{}, error) {
+func (o *SparseRemoteFlooder) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

@@ -31,8 +31,8 @@ func (o PCTimeRangesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PCTimeRangesList.
 func (o PCTimeRangesList) Copy() elemental.Identifiables {
 
-	copy := append(PCTimeRangesList{}, o...)
-	return &copy
+	out := append(PCTimeRangesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PCTimeRangesList.
@@ -123,7 +123,7 @@ func (o *PCTimeRange) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PCTimeRange) GetBSON() (interface{}, error) {
+func (o *PCTimeRange) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -286,7 +286,7 @@ func (*PCTimeRange) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PCTimeRange) ValueForAttribute(name string) interface{} {
+func (o *PCTimeRange) ValueForAttribute(name string) any {
 
 	switch name {
 	case "relativeTimeType":
@@ -463,7 +463,7 @@ func (o *SparsePCTimeRange) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePCTimeRange) GetBSON() (interface{}, error) {
+func (o *SparsePCTimeRange) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

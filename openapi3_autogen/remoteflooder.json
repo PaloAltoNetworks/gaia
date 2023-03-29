@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "remoteflooder": {
@@ -44,6 +43,7 @@
     "title": "remoteflooder",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/remoteflooders": {
       "post": {

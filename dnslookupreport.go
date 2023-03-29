@@ -49,8 +49,8 @@ func (o DNSLookupReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the DNSLookupReportsList.
 func (o DNSLookupReportsList) Copy() elemental.Identifiables {
 
-	copy := append(DNSLookupReportsList{}, o...)
-	return &copy
+	out := append(DNSLookupReportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the DNSLookupReportsList.
@@ -193,7 +193,7 @@ func (o *DNSLookupReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *DNSLookupReport) GetBSON() (interface{}, error) {
+func (o *DNSLookupReport) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -576,7 +576,7 @@ func (*DNSLookupReport) AttributeSpecifications() map[string]elemental.Attribute
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *DNSLookupReport) ValueForAttribute(name string) interface{} {
+func (o *DNSLookupReport) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1208,7 +1208,7 @@ func (o *SparseDNSLookupReport) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseDNSLookupReport) GetBSON() (interface{}, error) {
+func (o *SparseDNSLookupReport) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

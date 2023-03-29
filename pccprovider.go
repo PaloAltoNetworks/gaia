@@ -32,8 +32,8 @@ func (o PCCProvidersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PCCProvidersList.
 func (o PCCProvidersList) Copy() elemental.Identifiables {
 
-	copy := append(PCCProvidersList{}, o...)
-	return &copy
+	out := append(PCCProvidersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PCCProvidersList.
@@ -177,7 +177,7 @@ func (o *PCCProvider) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PCCProvider) GetBSON() (interface{}, error) {
+func (o *PCCProvider) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -642,7 +642,7 @@ func (*PCCProvider) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PCCProvider) ValueForAttribute(name string) interface{} {
+func (o *PCCProvider) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1314,7 +1314,7 @@ func (o *SparsePCCProvider) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePCCProvider) GetBSON() (interface{}, error) {
+func (o *SparsePCCProvider) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

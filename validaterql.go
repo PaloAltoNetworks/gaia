@@ -31,8 +31,8 @@ func (o ValidateRQLsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ValidateRQLsList.
 func (o ValidateRQLsList) Copy() elemental.Identifiables {
 
-	copy := append(ValidateRQLsList{}, o...)
-	return &copy
+	out := append(ValidateRQLsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ValidateRQLsList.
@@ -134,7 +134,7 @@ func (o *ValidateRQL) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ValidateRQL) GetBSON() (interface{}, error) {
+func (o *ValidateRQL) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -325,7 +325,7 @@ func (*ValidateRQL) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ValidateRQL) ValueForAttribute(name string) interface{} {
+func (o *ValidateRQL) ValueForAttribute(name string) any {
 
 	switch name {
 	case "error":
@@ -580,7 +580,7 @@ func (o *SparseValidateRQL) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseValidateRQL) GetBSON() (interface{}, error) {
+func (o *SparseValidateRQL) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

@@ -43,8 +43,8 @@ func (o RemoteProcessorsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RemoteProcessorsList.
 func (o RemoteProcessorsList) Copy() elemental.Identifiables {
 
-	copy := append(RemoteProcessorsList{}, o...)
-	return &copy
+	out := append(RemoteProcessorsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the RemoteProcessorsList.
@@ -150,7 +150,7 @@ func (o *RemoteProcessor) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *RemoteProcessor) GetBSON() (interface{}, error) {
+func (o *RemoteProcessor) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -371,7 +371,7 @@ func (*RemoteProcessor) AttributeSpecifications() map[string]elemental.Attribute
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *RemoteProcessor) ValueForAttribute(name string) interface{} {
+func (o *RemoteProcessor) ValueForAttribute(name string) any {
 
 	switch name {
 	case "claims":
@@ -673,7 +673,7 @@ func (o *SparseRemoteProcessor) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseRemoteProcessor) GetBSON() (interface{}, error) {
+func (o *SparseRemoteProcessor) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

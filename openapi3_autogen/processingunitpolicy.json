@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "processingunitpolicy": {
@@ -155,6 +154,7 @@
     "title": "processingunitpolicy",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/processingunitpolicies": {
       "get": {

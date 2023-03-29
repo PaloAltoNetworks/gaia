@@ -72,8 +72,8 @@ func (o ProcessingUnitPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ProcessingUnitPoliciesList.
 func (o ProcessingUnitPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(ProcessingUnitPoliciesList{}, o...)
-	return &copy
+	out := append(ProcessingUnitPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ProcessingUnitPoliciesList.
@@ -247,7 +247,7 @@ func (o *ProcessingUnitPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ProcessingUnitPolicy) GetBSON() (interface{}, error) {
+func (o *ProcessingUnitPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -821,7 +821,7 @@ func (*ProcessingUnitPolicy) AttributeSpecifications() map[string]elemental.Attr
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ProcessingUnitPolicy) ValueForAttribute(name string) interface{} {
+func (o *ProcessingUnitPolicy) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1685,7 +1685,7 @@ func (o *SparseProcessingUnitPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseProcessingUnitPolicy) GetBSON() (interface{}, error) {
+func (o *SparseProcessingUnitPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

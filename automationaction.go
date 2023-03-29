@@ -32,8 +32,8 @@ func (o AutomationActionsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AutomationActionsList.
 func (o AutomationActionsList) Copy() elemental.Identifiables {
 
-	copy := append(AutomationActionsList{}, o...)
-	return &copy
+	out := append(AutomationActionsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AutomationActionsList.
@@ -193,7 +193,7 @@ func (o *AutomationAction) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *AutomationAction) GetBSON() (interface{}, error) {
+func (o *AutomationAction) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -742,7 +742,7 @@ func (*AutomationAction) AttributeSpecifications() map[string]elemental.Attribut
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *AutomationAction) ValueForAttribute(name string) interface{} {
+func (o *AutomationAction) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1560,7 +1560,7 @@ func (o *SparseAutomationAction) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAutomationAction) GetBSON() (interface{}, error) {
+func (o *SparseAutomationAction) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

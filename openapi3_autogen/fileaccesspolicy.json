@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "fileaccesspolicy": {
@@ -158,6 +157,7 @@
     "title": "fileaccesspolicy",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/fileaccesspolicies": {
       "get": {

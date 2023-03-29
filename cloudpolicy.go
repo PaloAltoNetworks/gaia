@@ -49,8 +49,8 @@ func (o CloudPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudPoliciesList.
 func (o CloudPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(CloudPoliciesList{}, o...)
-	return &copy
+	out := append(CloudPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudPoliciesList.
@@ -204,7 +204,7 @@ func (o *CloudPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudPolicy) GetBSON() (interface{}, error) {
+func (o *CloudPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -713,7 +713,7 @@ func (*CloudPolicy) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudPolicy) ValueForAttribute(name string) interface{} {
+func (o *CloudPolicy) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1482,7 +1482,7 @@ func (o *SparseCloudPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudPolicy) GetBSON() (interface{}, error) {
+func (o *SparseCloudPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

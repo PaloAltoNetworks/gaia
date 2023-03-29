@@ -60,8 +60,8 @@ func (o ReportsQueriesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ReportsQueriesList.
 func (o ReportsQueriesList) Copy() elemental.Identifiables {
 
-	copy := append(ReportsQueriesList{}, o...)
-	return &copy
+	out := append(ReportsQueriesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ReportsQueriesList.
@@ -178,7 +178,7 @@ func (o *ReportsQuery) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ReportsQuery) GetBSON() (interface{}, error) {
+func (o *ReportsQuery) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -462,7 +462,7 @@ func (*ReportsQuery) AttributeSpecifications() map[string]elemental.AttributeSpe
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ReportsQuery) ValueForAttribute(name string) interface{} {
+func (o *ReportsQuery) ValueForAttribute(name string) any {
 
 	switch name {
 	case "DNSLookupReports":
@@ -775,7 +775,7 @@ func (o *SparseReportsQuery) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseReportsQuery) GetBSON() (interface{}, error) {
+func (o *SparseReportsQuery) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

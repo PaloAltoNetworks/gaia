@@ -31,8 +31,8 @@ func (o SquallTagsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the SquallTagsList.
 func (o SquallTagsList) Copy() elemental.Identifiables {
 
-	copy := append(SquallTagsList{}, o...)
-	return &copy
+	out := append(SquallTagsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the SquallTagsList.
@@ -122,7 +122,7 @@ func (o *SquallTag) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SquallTag) GetBSON() (interface{}, error) {
+func (o *SquallTag) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -294,7 +294,7 @@ func (*SquallTag) AttributeSpecifications() map[string]elemental.AttributeSpecif
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *SquallTag) ValueForAttribute(name string) interface{} {
+func (o *SquallTag) ValueForAttribute(name string) any {
 
 	switch name {
 	case "count":
@@ -475,7 +475,7 @@ func (o *SparseSquallTag) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseSquallTag) GetBSON() (interface{}, error) {
+func (o *SparseSquallTag) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

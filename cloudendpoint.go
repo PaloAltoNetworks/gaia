@@ -32,8 +32,8 @@ func (o CloudEndpointsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudEndpointsList.
 func (o CloudEndpointsList) Copy() elemental.Identifiables {
 
-	copy := append(CloudEndpointsList{}, o...)
-	return &copy
+	out := append(CloudEndpointsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudEndpointsList.
@@ -204,7 +204,7 @@ func (o *CloudEndpoint) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudEndpoint) GetBSON() (interface{}, error) {
+func (o *CloudEndpoint) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -896,7 +896,7 @@ func (*CloudEndpoint) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudEndpoint) ValueForAttribute(name string) interface{} {
+func (o *CloudEndpoint) ValueForAttribute(name string) any {
 
 	switch name {
 	case "APIID":
@@ -1870,7 +1870,7 @@ func (o *SparseCloudEndpoint) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudEndpoint) GetBSON() (interface{}, error) {
+func (o *SparseCloudEndpoint) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

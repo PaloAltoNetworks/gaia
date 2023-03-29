@@ -45,8 +45,8 @@ func (o CloudSnapshotAccountsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudSnapshotAccountsList.
 func (o CloudSnapshotAccountsList) Copy() elemental.Identifiables {
 
-	copy := append(CloudSnapshotAccountsList{}, o...)
-	return &copy
+	out := append(CloudSnapshotAccountsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudSnapshotAccountsList.
@@ -158,7 +158,7 @@ func (o *CloudSnapshotAccount) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudSnapshotAccount) GetBSON() (interface{}, error) {
+func (o *CloudSnapshotAccount) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -466,7 +466,7 @@ func (*CloudSnapshotAccount) AttributeSpecifications() map[string]elemental.Attr
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudSnapshotAccount) ValueForAttribute(name string) interface{} {
+func (o *CloudSnapshotAccount) ValueForAttribute(name string) any {
 
 	switch name {
 	case "annotations":
@@ -845,7 +845,7 @@ func (o *SparseCloudSnapshotAccount) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudSnapshotAccount) GetBSON() (interface{}, error) {
+func (o *SparseCloudSnapshotAccount) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

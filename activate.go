@@ -31,8 +31,8 @@ func (o ActivatesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ActivatesList.
 func (o ActivatesList) Copy() elemental.Identifiables {
 
-	copy := append(ActivatesList{}, o...)
-	return &copy
+	out := append(ActivatesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ActivatesList.
@@ -116,7 +116,7 @@ func (o *Activate) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Activate) GetBSON() (interface{}, error) {
+func (o *Activate) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -267,7 +267,7 @@ func (*Activate) AttributeSpecifications() map[string]elemental.AttributeSpecifi
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Activate) ValueForAttribute(name string) interface{} {
+func (o *Activate) ValueForAttribute(name string) any {
 
 	switch name {
 	case "token":
@@ -396,7 +396,7 @@ func (o *SparseActivate) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseActivate) GetBSON() (interface{}, error) {
+func (o *SparseActivate) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

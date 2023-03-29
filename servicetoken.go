@@ -42,8 +42,8 @@ func (o ServiceTokensList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ServiceTokensList.
 func (o ServiceTokensList) Copy() elemental.Identifiables {
 
-	copy := append(ServiceTokensList{}, o...)
-	return &copy
+	out := append(ServiceTokensList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ServiceTokensList.
@@ -147,7 +147,7 @@ func (o *ServiceToken) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ServiceToken) GetBSON() (interface{}, error) {
+func (o *ServiceToken) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -341,7 +341,7 @@ func (*ServiceToken) AttributeSpecifications() map[string]elemental.AttributeSpe
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ServiceToken) ValueForAttribute(name string) interface{} {
+func (o *ServiceToken) ValueForAttribute(name string) any {
 
 	switch name {
 	case "audience":
@@ -592,7 +592,7 @@ func (o *SparseServiceToken) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseServiceToken) GetBSON() (interface{}, error) {
+func (o *SparseServiceToken) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

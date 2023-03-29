@@ -32,8 +32,8 @@ func (o QuotaPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the QuotaPoliciesList.
 func (o QuotaPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(QuotaPoliciesList{}, o...)
-	return &copy
+	out := append(QuotaPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the QuotaPoliciesList.
@@ -191,7 +191,7 @@ func (o *QuotaPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *QuotaPolicy) GetBSON() (interface{}, error) {
+func (o *QuotaPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -737,7 +737,7 @@ func (*QuotaPolicy) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *QuotaPolicy) ValueForAttribute(name string) interface{} {
+func (o *QuotaPolicy) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1536,7 +1536,7 @@ func (o *SparseQuotaPolicy) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseQuotaPolicy) GetBSON() (interface{}, error) {
+func (o *SparseQuotaPolicy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

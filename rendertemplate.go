@@ -31,8 +31,8 @@ func (o RenderTemplatesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RenderTemplatesList.
 func (o RenderTemplatesList) Copy() elemental.Identifiables {
 
-	copy := append(RenderTemplatesList{}, o...)
-	return &copy
+	out := append(RenderTemplatesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the RenderTemplatesList.
@@ -123,7 +123,7 @@ func (o *RenderTemplate) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *RenderTemplate) GetBSON() (interface{}, error) {
+func (o *RenderTemplate) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -510,7 +510,7 @@ func (*RenderTemplate) AttributeSpecifications() map[string]elemental.AttributeS
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *RenderTemplate) ValueForAttribute(name string) interface{} {
+func (o *RenderTemplate) ValueForAttribute(name string) any {
 
 	switch name {
 	case "output":
@@ -681,7 +681,7 @@ func (o *SparseRenderTemplate) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseRenderTemplate) GetBSON() (interface{}, error) {
+func (o *SparseRenderTemplate) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

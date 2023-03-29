@@ -31,8 +31,8 @@ func (o LogoutsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the LogoutsList.
 func (o LogoutsList) Copy() elemental.Identifiables {
 
-	copy := append(LogoutsList{}, o...)
-	return &copy
+	out := append(LogoutsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the LogoutsList.
@@ -113,7 +113,7 @@ func (o *Logout) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Logout) GetBSON() (interface{}, error) {
+func (o *Logout) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -253,7 +253,7 @@ func (*Logout) AttributeSpecifications() map[string]elemental.AttributeSpecifica
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Logout) ValueForAttribute(name string) interface{} {
+func (o *Logout) ValueForAttribute(name string) any {
 
 	switch name {
 	}
@@ -357,7 +357,7 @@ func (o *SparseLogout) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseLogout) GetBSON() (interface{}, error) {
+func (o *SparseLogout) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

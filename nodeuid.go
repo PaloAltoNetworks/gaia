@@ -32,7 +32,7 @@ func NewNodeUID() *NodeUID {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *NodeUID) GetBSON() (interface{}, error) {
+func (o *NodeUID) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -126,7 +126,7 @@ func (*NodeUID) AttributeSpecifications() map[string]elemental.AttributeSpecific
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *NodeUID) ValueForAttribute(name string) interface{} {
+func (o *NodeUID) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":

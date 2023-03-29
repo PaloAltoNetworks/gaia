@@ -31,8 +31,8 @@ func (o AccessibleNamespacesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AccessibleNamespacesList.
 func (o AccessibleNamespacesList) Copy() elemental.Identifiables {
 
-	copy := append(AccessibleNamespacesList{}, o...)
-	return &copy
+	out := append(AccessibleNamespacesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AccessibleNamespacesList.
@@ -118,7 +118,7 @@ func (o *AccessibleNamespace) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *AccessibleNamespace) GetBSON() (interface{}, error) {
+func (o *AccessibleNamespace) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -272,7 +272,7 @@ func (*AccessibleNamespace) AttributeSpecifications() map[string]elemental.Attri
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *AccessibleNamespace) ValueForAttribute(name string) interface{} {
+func (o *AccessibleNamespace) ValueForAttribute(name string) any {
 
 	switch name {
 	case "name":
@@ -403,7 +403,7 @@ func (o *SparseAccessibleNamespace) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseAccessibleNamespace) GetBSON() (interface{}, error) {
+func (o *SparseAccessibleNamespace) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

@@ -42,8 +42,8 @@ func (o EmailsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the EmailsList.
 func (o EmailsList) Copy() elemental.Identifiables {
 
-	copy := append(EmailsList{}, o...)
-	return &copy
+	out := append(EmailsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the EmailsList.
@@ -150,7 +150,7 @@ func (o *Email) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Email) GetBSON() (interface{}, error) {
+func (o *Email) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -341,7 +341,7 @@ func (*Email) AttributeSpecifications() map[string]elemental.AttributeSpecificat
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Email) ValueForAttribute(name string) interface{} {
+func (o *Email) ValueForAttribute(name string) any {
 
 	switch name {
 	case "attachments":
@@ -604,7 +604,7 @@ func (o *SparseEmail) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseEmail) GetBSON() (interface{}, error) {
+func (o *SparseEmail) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

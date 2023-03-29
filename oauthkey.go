@@ -31,8 +31,8 @@ func (o OAUTHKeysList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the OAUTHKeysList.
 func (o OAUTHKeysList) Copy() elemental.Identifiables {
 
-	copy := append(OAUTHKeysList{}, o...)
-	return &copy
+	out := append(OAUTHKeysList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the OAUTHKeysList.
@@ -117,7 +117,7 @@ func (o *OAUTHKey) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *OAUTHKey) GetBSON() (interface{}, error) {
+func (o *OAUTHKey) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -269,7 +269,7 @@ func (*OAUTHKey) AttributeSpecifications() map[string]elemental.AttributeSpecifi
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *OAUTHKey) ValueForAttribute(name string) interface{} {
+func (o *OAUTHKey) ValueForAttribute(name string) any {
 
 	switch name {
 	case "keyString":
@@ -403,7 +403,7 @@ func (o *SparseOAUTHKey) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseOAUTHKey) GetBSON() (interface{}, error) {
+func (o *SparseOAUTHKey) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

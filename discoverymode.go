@@ -31,8 +31,8 @@ func (o DiscoveryModesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the DiscoveryModesList.
 func (o DiscoveryModesList) Copy() elemental.Identifiables {
 
-	copy := append(DiscoveryModesList{}, o...)
-	return &copy
+	out := append(DiscoveryModesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the DiscoveryModesList.
@@ -123,7 +123,7 @@ func (o *DiscoveryMode) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *DiscoveryMode) GetBSON() (interface{}, error) {
+func (o *DiscoveryMode) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -318,7 +318,7 @@ func (*DiscoveryMode) AttributeSpecifications() map[string]elemental.AttributeSp
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *DiscoveryMode) ValueForAttribute(name string) interface{} {
+func (o *DiscoveryMode) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -531,7 +531,7 @@ func (o *SparseDiscoveryMode) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseDiscoveryMode) GetBSON() (interface{}, error) {
+func (o *SparseDiscoveryMode) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

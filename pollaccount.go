@@ -42,8 +42,8 @@ func (o PollAccountsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PollAccountsList.
 func (o PollAccountsList) Copy() elemental.Identifiables {
 
-	copy := append(PollAccountsList{}, o...)
-	return &copy
+	out := append(PollAccountsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PollAccountsList.
@@ -144,7 +144,7 @@ func (o *PollAccount) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *PollAccount) GetBSON() (interface{}, error) {
+func (o *PollAccount) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -346,7 +346,7 @@ func (*PollAccount) AttributeSpecifications() map[string]elemental.AttributeSpec
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *PollAccount) ValueForAttribute(name string) interface{} {
+func (o *PollAccount) ValueForAttribute(name string) any {
 
 	switch name {
 	case "accountID":
@@ -590,7 +590,7 @@ func (o *SparsePollAccount) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparsePollAccount) GetBSON() (interface{}, error) {
+func (o *SparsePollAccount) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

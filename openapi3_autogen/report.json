@@ -1,5 +1,4 @@
 {
-  "openapi": "3.0.3",
   "components": {
     "schemas": {
       "report": {
@@ -58,6 +57,7 @@
     "title": "report",
     "version": "1.0"
   },
+  "openapi": "3.0.3",
   "paths": {
     "/reports": {
       "post": {

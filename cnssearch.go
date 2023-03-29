@@ -31,8 +31,8 @@ func (o CNSSearchesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CNSSearchesList.
 func (o CNSSearchesList) Copy() elemental.Identifiables {
 
-	copy := append(CNSSearchesList{}, o...)
-	return &copy
+	out := append(CNSSearchesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CNSSearchesList.
@@ -162,7 +162,7 @@ func (o *CNSSearch) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CNSSearch) GetBSON() (interface{}, error) {
+func (o *CNSSearch) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -409,7 +409,7 @@ func (*CNSSearch) AttributeSpecifications() map[string]elemental.AttributeSpecif
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CNSSearch) ValueForAttribute(name string) interface{} {
+func (o *CNSSearch) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -826,7 +826,7 @@ func (o *SparseCNSSearch) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCNSSearch) GetBSON() (interface{}, error) {
+func (o *SparseCNSSearch) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

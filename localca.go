@@ -31,8 +31,8 @@ func (o LocalCAsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the LocalCAsList.
 func (o LocalCAsList) Copy() elemental.Identifiables {
 
-	copy := append(LocalCAsList{}, o...)
-	return &copy
+	out := append(LocalCAsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the LocalCAsList.
@@ -125,7 +125,7 @@ func (o *LocalCA) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *LocalCA) GetBSON() (interface{}, error) {
+func (o *LocalCA) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -295,7 +295,7 @@ func (*LocalCA) AttributeSpecifications() map[string]elemental.AttributeSpecific
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *LocalCA) ValueForAttribute(name string) interface{} {
+func (o *LocalCA) ValueForAttribute(name string) any {
 
 	switch name {
 	case "SSHCertificate":
@@ -501,7 +501,7 @@ func (o *SparseLocalCA) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseLocalCA) GetBSON() (interface{}, error) {
+func (o *SparseLocalCA) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

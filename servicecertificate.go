@@ -32,8 +32,8 @@ func (o ServiceCertificatesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ServiceCertificatesList.
 func (o ServiceCertificatesList) Copy() elemental.Identifiables {
 
-	copy := append(ServiceCertificatesList{}, o...)
-	return &copy
+	out := append(ServiceCertificatesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ServiceCertificatesList.
@@ -175,7 +175,7 @@ func (o *ServiceCertificate) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *ServiceCertificate) GetBSON() (interface{}, error) {
+func (o *ServiceCertificate) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -682,7 +682,7 @@ func (*ServiceCertificate) AttributeSpecifications() map[string]elemental.Attrib
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *ServiceCertificate) ValueForAttribute(name string) interface{} {
+func (o *ServiceCertificate) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
@@ -1389,7 +1389,7 @@ func (o *SparseServiceCertificate) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseServiceCertificate) GetBSON() (interface{}, error) {
+func (o *SparseServiceCertificate) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil

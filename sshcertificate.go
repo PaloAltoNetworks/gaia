@@ -42,8 +42,8 @@ func (o SSHCertificatesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the SSHCertificatesList.
 func (o SSHCertificatesList) Copy() elemental.Identifiables {
 
-	copy := append(SSHCertificatesList{}, o...)
-	return &copy
+	out := append(SSHCertificatesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the SSHCertificatesList.
@@ -153,7 +153,7 @@ func (o *SSHCertificate) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SSHCertificate) GetBSON() (interface{}, error) {
+func (o *SSHCertificate) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
@@ -362,7 +362,7 @@ func (*SSHCertificate) AttributeSpecifications() map[string]elemental.AttributeS
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *SSHCertificate) ValueForAttribute(name string) interface{} {
+func (o *SSHCertificate) ValueForAttribute(name string) any {
 
 	switch name {
 	case "certificate":
@@ -654,7 +654,7 @@ func (o *SparseSSHCertificate) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseSSHCertificate) GetBSON() (interface{}, error) {
+func (o *SparseSSHCertificate) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
