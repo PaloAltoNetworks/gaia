@@ -95,6 +95,11 @@
             "example": "us-east-1",
             "type": "string"
           },
+          "prismaUnifiedAssetID": {
+            "description": "The Prisma Cloud Unified Asset ID.",
+            "example": "4b882952f1a26c8a3ce16ee90af3cac9",
+            "type": "string"
+          },
           "projectID": {
             "description": "The ID of the project the resource belongs to in GCP.",
             "type": "string"

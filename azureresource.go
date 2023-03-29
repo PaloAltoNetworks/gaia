@@ -206,6 +206,9 @@ type AzureResource struct {
 	// The unique resource name of the resource as presented by Prisma Cloud.
 	PrismaURN string `json:"prismaURN" msgpack:"prismaURN" bson:"prismaurn" mapstructure:"prismaURN,omitempty"`
 
+	// The Prisma Cloud Unified Asset ID.
+	PrismaUnifiedAssetID string `json:"prismaUnifiedAssetID" msgpack:"prismaUnifiedAssetID" bson:"prismaunifiedassetid" mapstructure:"prismaUnifiedAssetID,omitempty"`
+
 	// The major type of the resource.
 	Provider AzureResourceProviderValue `json:"provider" msgpack:"provider" bson:"provider" mapstructure:"provider,omitempty"`
 
@@ -289,6 +292,7 @@ func (o *AzureResource) GetBSON() (any, error) {
 	s.PrismaRRN = o.PrismaRRN
 	s.PrismaRegion = o.PrismaRegion
 	s.PrismaURN = o.PrismaURN
+	s.PrismaUnifiedAssetID = o.PrismaUnifiedAssetID
 	s.Provider = o.Provider
 	s.ResourceGroup = o.ResourceGroup
 	s.ResourceID = o.ResourceID
@@ -325,6 +329,7 @@ func (o *AzureResource) SetBSON(raw bson.Raw) error {
 	o.PrismaRRN = s.PrismaRRN
 	o.PrismaRegion = s.PrismaRegion
 	o.PrismaURN = s.PrismaURN
+	o.PrismaUnifiedAssetID = s.PrismaUnifiedAssetID
 	o.Provider = s.Provider
 	o.ResourceGroup = s.ResourceGroup
 	o.ResourceID = s.ResourceID
@@ -447,25 +452,26 @@ func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable 
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseAzureResource{
-			ID:             &o.ID,
-			CreateTime:     &o.CreateTime,
-			Data:           &o.Data,
-			DenormedFields: &o.DenormedFields,
-			Kind:           &o.Kind,
-			MigrationsLog:  &o.MigrationsLog,
-			Name:           &o.Name,
-			Namespace:      &o.Namespace,
-			PrismaRRN:      &o.PrismaRRN,
-			PrismaRegion:   &o.PrismaRegion,
-			PrismaURN:      &o.PrismaURN,
-			Provider:       &o.Provider,
-			ResourceGroup:  &o.ResourceGroup,
-			ResourceID:     &o.ResourceID,
-			SubscriptionID: &o.SubscriptionID,
-			Tags:           &o.Tags,
-			UpdateTime:     &o.UpdateTime,
-			ZHash:          &o.ZHash,
-			Zone:           &o.Zone,
+			ID:                   &o.ID,
+			CreateTime:           &o.CreateTime,
+			Data:                 &o.Data,
+			DenormedFields:       &o.DenormedFields,
+			Kind:                 &o.Kind,
+			MigrationsLog:        &o.MigrationsLog,
+			Name:                 &o.Name,
+			Namespace:            &o.Namespace,
+			PrismaRRN:            &o.PrismaRRN,
+			PrismaRegion:         &o.PrismaRegion,
+			PrismaURN:            &o.PrismaURN,
+			PrismaUnifiedAssetID: &o.PrismaUnifiedAssetID,
+			Provider:             &o.Provider,
+			ResourceGroup:        &o.ResourceGroup,
+			ResourceID:           &o.ResourceID,
+			SubscriptionID:       &o.SubscriptionID,
+			Tags:                 &o.Tags,
+			UpdateTime:           &o.UpdateTime,
+			ZHash:                &o.ZHash,
+			Zone:                 &o.Zone,
 		}
 	}
 
@@ -494,6 +500,8 @@ func (o *AzureResource) ToSparse(fields ...string) elemental.SparseIdentifiable 
 			sp.PrismaRegion = &(o.PrismaRegion)
 		case "prismaURN":
 			sp.PrismaURN = &(o.PrismaURN)
+		case "prismaUnifiedAssetID":
+			sp.PrismaUnifiedAssetID = &(o.PrismaUnifiedAssetID)
 		case "provider":
 			sp.Provider = &(o.Provider)
 		case "resourceGroup":
@@ -555,6 +563,9 @@ func (o *AzureResource) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.PrismaURN != nil {
 		o.PrismaURN = *so.PrismaURN
+	}
+	if so.PrismaUnifiedAssetID != nil {
+		o.PrismaUnifiedAssetID = *so.PrismaUnifiedAssetID
 	}
 	if so.Provider != nil {
 		o.Provider = *so.Provider
@@ -680,6 +691,8 @@ func (o *AzureResource) ValueForAttribute(name string) any {
 		return o.PrismaRegion
 	case "prismaURN":
 		return o.PrismaURN
+	case "prismaUnifiedAssetID":
+		return o.PrismaUnifiedAssetID
 	case "provider":
 		return o.Provider
 	case "resourceGroup":
@@ -842,6 +855,16 @@ resource may exists in a different region as described by Azure.`,
 		Description:    `The unique resource name of the resource as presented by Prisma Cloud.`,
 		Exposed:        true,
 		Name:           "prismaURN",
+		Stored:         true,
+		Type:           "string",
+	},
+	"PrismaUnifiedAssetID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismaunifiedassetid",
+		ConvertedName:  "PrismaUnifiedAssetID",
+		Description:    `The Prisma Cloud Unified Asset ID.`,
+		Exposed:        true,
+		Name:           "prismaUnifiedAssetID",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1096,6 +1119,16 @@ resource may exists in a different region as described by Azure.`,
 		Stored:         true,
 		Type:           "string",
 	},
+	"prismaunifiedassetid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismaunifiedassetid",
+		ConvertedName:  "PrismaUnifiedAssetID",
+		Description:    `The Prisma Cloud Unified Asset ID.`,
+		Exposed:        true,
+		Name:           "prismaUnifiedAssetID",
+		Stored:         true,
+		Type:           "string",
+	},
 	"provider": {
 		AllowedChoices: []string{"Pending", "MicrosoftCompute", "MicrosoftNetwork", "MicrosoftDocumentDB", "MicrosoftDBforMySQL", "MicrosoftSQL"},
 		Autogenerated:  true,
@@ -1303,6 +1336,9 @@ type SparseAzureResource struct {
 	// The unique resource name of the resource as presented by Prisma Cloud.
 	PrismaURN *string `json:"prismaURN,omitempty" msgpack:"prismaURN,omitempty" bson:"prismaurn,omitempty" mapstructure:"prismaURN,omitempty"`
 
+	// The Prisma Cloud Unified Asset ID.
+	PrismaUnifiedAssetID *string `json:"prismaUnifiedAssetID,omitempty" msgpack:"prismaUnifiedAssetID,omitempty" bson:"prismaunifiedassetid,omitempty" mapstructure:"prismaUnifiedAssetID,omitempty"`
+
 	// The major type of the resource.
 	Provider *AzureResourceProviderValue `json:"provider,omitempty" msgpack:"provider,omitempty" bson:"provider,omitempty" mapstructure:"provider,omitempty"`
 
@@ -1404,6 +1440,9 @@ func (o *SparseAzureResource) GetBSON() (any, error) {
 	if o.PrismaURN != nil {
 		s.PrismaURN = o.PrismaURN
 	}
+	if o.PrismaUnifiedAssetID != nil {
+		s.PrismaUnifiedAssetID = o.PrismaUnifiedAssetID
+	}
 	if o.Provider != nil {
 		s.Provider = o.Provider
 	}
@@ -1477,6 +1516,9 @@ func (o *SparseAzureResource) SetBSON(raw bson.Raw) error {
 	if s.PrismaURN != nil {
 		o.PrismaURN = s.PrismaURN
 	}
+	if s.PrismaUnifiedAssetID != nil {
+		o.PrismaUnifiedAssetID = s.PrismaUnifiedAssetID
+	}
 	if s.Provider != nil {
 		o.Provider = s.Provider
 	}
@@ -1547,6 +1589,9 @@ func (o *SparseAzureResource) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.PrismaURN != nil {
 		out.PrismaURN = *o.PrismaURN
+	}
+	if o.PrismaUnifiedAssetID != nil {
+		out.PrismaUnifiedAssetID = *o.PrismaUnifiedAssetID
 	}
 	if o.Provider != nil {
 		out.Provider = *o.Provider
@@ -1697,44 +1742,46 @@ func (o *SparseAzureResource) DeepCopyInto(out *SparseAzureResource) {
 }
 
 type mongoAttributesAzureResource struct {
-	ID             bson.ObjectId              `bson:"_id,omitempty"`
-	CreateTime     time.Time                  `bson:"createtime"`
-	Data           []byte                     `bson:"data"`
-	DenormedFields []string                   `bson:"denormedfields"`
-	Kind           AzureResourceKindValue     `bson:"kind"`
-	MigrationsLog  map[string]string          `bson:"migrationslog,omitempty"`
-	Name           string                     `bson:"name"`
-	Namespace      string                     `bson:"namespace"`
-	PrismaRRN      string                     `bson:"prismarrn"`
-	PrismaRegion   string                     `bson:"prismaregion"`
-	PrismaURN      string                     `bson:"prismaurn"`
-	Provider       AzureResourceProviderValue `bson:"provider"`
-	ResourceGroup  string                     `bson:"resourcegroup"`
-	ResourceID     string                     `bson:"resourceid"`
-	SubscriptionID string                     `bson:"subscriptionid"`
-	Tags           map[string]string          `bson:"tags"`
-	UpdateTime     time.Time                  `bson:"updatetime"`
-	ZHash          int                        `bson:"zhash"`
-	Zone           int                        `bson:"zone"`
+	ID                   bson.ObjectId              `bson:"_id,omitempty"`
+	CreateTime           time.Time                  `bson:"createtime"`
+	Data                 []byte                     `bson:"data"`
+	DenormedFields       []string                   `bson:"denormedfields"`
+	Kind                 AzureResourceKindValue     `bson:"kind"`
+	MigrationsLog        map[string]string          `bson:"migrationslog,omitempty"`
+	Name                 string                     `bson:"name"`
+	Namespace            string                     `bson:"namespace"`
+	PrismaRRN            string                     `bson:"prismarrn"`
+	PrismaRegion         string                     `bson:"prismaregion"`
+	PrismaURN            string                     `bson:"prismaurn"`
+	PrismaUnifiedAssetID string                     `bson:"prismaunifiedassetid"`
+	Provider             AzureResourceProviderValue `bson:"provider"`
+	ResourceGroup        string                     `bson:"resourcegroup"`
+	ResourceID           string                     `bson:"resourceid"`
+	SubscriptionID       string                     `bson:"subscriptionid"`
+	Tags                 map[string]string          `bson:"tags"`
+	UpdateTime           time.Time                  `bson:"updatetime"`
+	ZHash                int                        `bson:"zhash"`
+	Zone                 int                        `bson:"zone"`
 }
 type mongoAttributesSparseAzureResource struct {
-	ID             bson.ObjectId               `bson:"_id,omitempty"`
-	CreateTime     *time.Time                  `bson:"createtime,omitempty"`
-	Data           *[]byte                     `bson:"data,omitempty"`
-	DenormedFields *[]string                   `bson:"denormedfields,omitempty"`
-	Kind           *AzureResourceKindValue     `bson:"kind,omitempty"`
-	MigrationsLog  *map[string]string          `bson:"migrationslog,omitempty"`
-	Name           *string                     `bson:"name,omitempty"`
-	Namespace      *string                     `bson:"namespace,omitempty"`
-	PrismaRRN      *string                     `bson:"prismarrn,omitempty"`
-	PrismaRegion   *string                     `bson:"prismaregion,omitempty"`
-	PrismaURN      *string                     `bson:"prismaurn,omitempty"`
-	Provider       *AzureResourceProviderValue `bson:"provider,omitempty"`
-	ResourceGroup  *string                     `bson:"resourcegroup,omitempty"`
-	ResourceID     *string                     `bson:"resourceid,omitempty"`
-	SubscriptionID *string                     `bson:"subscriptionid,omitempty"`
-	Tags           *map[string]string          `bson:"tags,omitempty"`
-	UpdateTime     *time.Time                  `bson:"updatetime,omitempty"`
-	ZHash          *int                        `bson:"zhash,omitempty"`
-	Zone           *int                        `bson:"zone,omitempty"`
+	ID                   bson.ObjectId               `bson:"_id,omitempty"`
+	CreateTime           *time.Time                  `bson:"createtime,omitempty"`
+	Data                 *[]byte                     `bson:"data,omitempty"`
+	DenormedFields       *[]string                   `bson:"denormedfields,omitempty"`
+	Kind                 *AzureResourceKindValue     `bson:"kind,omitempty"`
+	MigrationsLog        *map[string]string          `bson:"migrationslog,omitempty"`
+	Name                 *string                     `bson:"name,omitempty"`
+	Namespace            *string                     `bson:"namespace,omitempty"`
+	PrismaRRN            *string                     `bson:"prismarrn,omitempty"`
+	PrismaRegion         *string                     `bson:"prismaregion,omitempty"`
+	PrismaURN            *string                     `bson:"prismaurn,omitempty"`
+	PrismaUnifiedAssetID *string                     `bson:"prismaunifiedassetid,omitempty"`
+	Provider             *AzureResourceProviderValue `bson:"provider,omitempty"`
+	ResourceGroup        *string                     `bson:"resourcegroup,omitempty"`
+	ResourceID           *string                     `bson:"resourceid,omitempty"`
+	SubscriptionID       *string                     `bson:"subscriptionid,omitempty"`
+	Tags                 *map[string]string          `bson:"tags,omitempty"`
+	UpdateTime           *time.Time                  `bson:"updatetime,omitempty"`
+	ZHash                *int                        `bson:"zhash,omitempty"`
+	Zone                 *int                        `bson:"zone,omitempty"`
 }
