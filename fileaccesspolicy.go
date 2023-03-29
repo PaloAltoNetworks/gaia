@@ -32,8 +32,8 @@ func (o FileAccessPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the FileAccessPoliciesList.
 func (o FileAccessPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(FileAccessPoliciesList{}, o...)
-	return &copy
+	out := append(FileAccessPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the FileAccessPoliciesList.

@@ -32,8 +32,8 @@ func (o UnknownIPAddressList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the UnknownIPAddressList.
 func (o UnknownIPAddressList) Copy() elemental.Identifiables {
 
-	copy := append(UnknownIPAddressList{}, o...)
-	return &copy
+	out := append(UnknownIPAddressList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the UnknownIPAddressList.

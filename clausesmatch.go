@@ -31,8 +31,8 @@ func (o ClauseMatchesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ClauseMatchesList.
 func (o ClauseMatchesList) Copy() elemental.Identifiables {
 
-	copy := append(ClauseMatchesList{}, o...)
-	return &copy
+	out := append(ClauseMatchesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ClauseMatchesList.

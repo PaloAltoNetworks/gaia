@@ -12,43 +12,43 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// EnforcerLogIdentity represents the Identity of the object.
-var EnforcerLogIdentity = elemental.Identity{
-	Name:     "enforcerlog",
-	Category: "enforcerlog",
-	Package:  "ifrit",
+// CloudAccountStatusIdentity represents the Identity of the object.
+var CloudAccountStatusIdentity = elemental.Identity{
+	Name:     "cloudaccountstatus",
+	Category: "cloudaccountstatuses",
+	Package:  "vargid",
 	Private:  false,
 }
 
-// EnforcerLogsList represents a list of EnforcerLogs
-type EnforcerLogsList []*EnforcerLog
+// CloudAccountStatusList represents a list of CloudAccountStatus
+type CloudAccountStatusList []*CloudAccountStatus
 
 // Identity returns the identity of the objects in the list.
-func (o EnforcerLogsList) Identity() elemental.Identity {
+func (o CloudAccountStatusList) Identity() elemental.Identity {
 
-	return EnforcerLogIdentity
+	return CloudAccountStatusIdentity
 }
 
-// Copy returns a pointer to a copy the EnforcerLogsList.
-func (o EnforcerLogsList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the CloudAccountStatusList.
+func (o CloudAccountStatusList) Copy() elemental.Identifiables {
 
-	out := append(EnforcerLogsList{}, o...)
+	out := append(CloudAccountStatusList{}, o...)
 	return &out
 }
 
-// Append appends the objects to the a new copy of the EnforcerLogsList.
-func (o EnforcerLogsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the CloudAccountStatusList.
+func (o CloudAccountStatusList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(EnforcerLogsList{}, o...)
+	out := append(CloudAccountStatusList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*EnforcerLog))
+		out = append(out, obj.(*CloudAccountStatus))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o EnforcerLogsList) List() elemental.IdentifiablesList {
+func (o CloudAccountStatusList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -59,33 +59,36 @@ func (o EnforcerLogsList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o EnforcerLogsList) DefaultOrder() []string {
+func (o CloudAccountStatusList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToSparse returns the EnforcerLogsList converted to SparseEnforcerLogsList.
+// ToSparse returns the CloudAccountStatusList converted to SparseCloudAccountStatusList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o EnforcerLogsList) ToSparse(fields ...string) elemental.Identifiables {
+func (o CloudAccountStatusList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseEnforcerLogsList, len(o))
+	out := make(SparseCloudAccountStatusList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseEnforcerLog)
+		out[i] = o[i].ToSparse(fields...).(*SparseCloudAccountStatus)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o EnforcerLogsList) Version() int {
+func (o CloudAccountStatusList) Version() int {
 
 	return 1
 }
 
-// EnforcerLog represents the model of a enforcerlog
-type EnforcerLog struct {
+// CloudAccountStatus represents the model of a cloudaccountstatus
+type CloudAccountStatus struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
+
+	// Cloud account ID of the account.
+	AccountID string `json:"accountID" msgpack:"accountID" bson:"accountid" mapstructure:"accountID,omitempty"`
 
 	// Stores additional information about an entity.
 	Annotations map[string][]string `json:"annotations" msgpack:"annotations" bson:"annotations" mapstructure:"annotations,omitempty"`
@@ -93,21 +96,11 @@ type EnforcerLog struct {
 	// List of tags attached to an entity.
 	AssociatedTags []string `json:"associatedTags" msgpack:"associatedTags" bson:"associatedtags" mapstructure:"associatedTags,omitempty"`
 
-	// Contains the ID of the enforcer log. `CollectionID` is used to
-	// aggregate the multipart data.
-	CollectionID string `json:"collectionID" msgpack:"collectionID" bson:"collectionid" mapstructure:"collectionID,omitempty"`
-
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey string `json:"-" msgpack:"-" bson:"createidempotencykey" mapstructure:"-,omitempty"`
 
 	// Creation date of the object.
 	CreateTime time.Time `json:"createTime" msgpack:"createTime" bson:"createtime" mapstructure:"createTime,omitempty"`
-
-	// Represents the data collected by the enforcer.
-	Data string `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
-
-	// ID of the enforcer.
-	EnforcerID string `json:"enforcerID" msgpack:"enforcerID" bson:"enforcerid" mapstructure:"enforcerID,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -118,14 +111,11 @@ type EnforcerLog struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags []string `json:"normalizedTags" msgpack:"normalizedTags" bson:"normalizedtags" mapstructure:"normalizedTags,omitempty"`
 
-	// Number assigned to each log in the increasing order.
-	Page int `json:"page" msgpack:"page" bson:"page" mapstructure:"page,omitempty"`
-
 	// Defines if the object is protected.
 	Protected bool `json:"protected" msgpack:"protected" bson:"protected" mapstructure:"protected,omitempty"`
 
-	// Title of the log.
-	Title string `json:"title" msgpack:"title" bson:"title" mapstructure:"title,omitempty"`
+	// Mapping of last successful execution timestamp for every cloud policy.
+	SuccessfulPolicyExecutionTimestampMap map[string]time.Time `json:"successfulPolicyExecutionTimestampMap" msgpack:"successfulPolicyExecutionTimestampMap" bson:"successfulpolicyexecutiontimestampmap" mapstructure:"successfulPolicyExecutionTimestampMap,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey string `json:"-" msgpack:"-" bson:"updateidempotencykey" mapstructure:"-,omitempty"`
@@ -143,62 +133,60 @@ type EnforcerLog struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewEnforcerLog returns a new *EnforcerLog
-func NewEnforcerLog() *EnforcerLog {
+// NewCloudAccountStatus returns a new *CloudAccountStatus
+func NewCloudAccountStatus() *CloudAccountStatus {
 
-	return &EnforcerLog{
-		ModelVersion:   1,
-		Annotations:    map[string][]string{},
-		AssociatedTags: []string{},
-		MigrationsLog:  map[string]string{},
-		NormalizedTags: []string{},
+	return &CloudAccountStatus{
+		ModelVersion:                          1,
+		Annotations:                           map[string][]string{},
+		AssociatedTags:                        []string{},
+		MigrationsLog:                         map[string]string{},
+		NormalizedTags:                        []string{},
+		SuccessfulPolicyExecutionTimestampMap: map[string]time.Time{},
 	}
 }
 
 // Identity returns the Identity of the object.
-func (o *EnforcerLog) Identity() elemental.Identity {
+func (o *CloudAccountStatus) Identity() elemental.Identity {
 
-	return EnforcerLogIdentity
+	return CloudAccountStatusIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *EnforcerLog) Identifier() string {
+func (o *CloudAccountStatus) Identifier() string {
 
 	return o.ID
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *EnforcerLog) SetIdentifier(id string) {
+func (o *CloudAccountStatus) SetIdentifier(id string) {
 
 	o.ID = id
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *EnforcerLog) GetBSON() (any, error) {
+func (o *CloudAccountStatus) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesEnforcerLog{}
+	s := &mongoAttributesCloudAccountStatus{}
 
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
+	s.AccountID = o.AccountID
 	s.Annotations = o.Annotations
 	s.AssociatedTags = o.AssociatedTags
-	s.CollectionID = o.CollectionID
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	s.CreateTime = o.CreateTime
-	s.Data = o.Data
-	s.EnforcerID = o.EnforcerID
 	s.MigrationsLog = o.MigrationsLog
 	s.Namespace = o.Namespace
 	s.NormalizedTags = o.NormalizedTags
-	s.Page = o.Page
 	s.Protected = o.Protected
-	s.Title = o.Title
+	s.SuccessfulPolicyExecutionTimestampMap = o.SuccessfulPolicyExecutionTimestampMap
 	s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
 	s.UpdateTime = o.UpdateTime
 	s.ZHash = o.ZHash
@@ -209,31 +197,28 @@ func (o *EnforcerLog) GetBSON() (any, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *EnforcerLog) SetBSON(raw bson.Raw) error {
+func (o *CloudAccountStatus) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesEnforcerLog{}
+	s := &mongoAttributesCloudAccountStatus{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
 
 	o.ID = s.ID.Hex()
+	o.AccountID = s.AccountID
 	o.Annotations = s.Annotations
 	o.AssociatedTags = s.AssociatedTags
-	o.CollectionID = s.CollectionID
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	o.CreateTime = s.CreateTime
-	o.Data = s.Data
-	o.EnforcerID = s.EnforcerID
 	o.MigrationsLog = s.MigrationsLog
 	o.Namespace = s.Namespace
 	o.NormalizedTags = s.NormalizedTags
-	o.Page = s.Page
 	o.Protected = s.Protected
-	o.Title = s.Title
+	o.SuccessfulPolicyExecutionTimestampMap = s.SuccessfulPolicyExecutionTimestampMap
 	o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
 	o.UpdateTime = s.UpdateTime
 	o.ZHash = s.ZHash
@@ -243,239 +228,228 @@ func (o *EnforcerLog) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *EnforcerLog) Version() int {
+func (o *CloudAccountStatus) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *EnforcerLog) BleveType() string {
+func (o *CloudAccountStatus) BleveType() string {
 
-	return "enforcerlog"
+	return "cloudaccountstatus"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *EnforcerLog) DefaultOrder() []string {
+func (o *CloudAccountStatus) DefaultOrder() []string {
 
 	return []string{}
 }
 
 // Doc returns the documentation for the object
-func (o *EnforcerLog) Doc() string {
+func (o *CloudAccountStatus) Doc() string {
 
-	return `An enforcer log represents the log collected by an enforcer. Each enforcer log
-can have partial or complete data. The ` + "`" + `collectionID` + "`" + ` is used to aggregate the
-multipart data into one.`
+	return `CloudAccountStatus represents the status for a cloud account.`
 }
 
-func (o *EnforcerLog) String() string {
+func (o *CloudAccountStatus) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // GetAnnotations returns the Annotations of the receiver.
-func (o *EnforcerLog) GetAnnotations() map[string][]string {
+func (o *CloudAccountStatus) GetAnnotations() map[string][]string {
 
 	return o.Annotations
 }
 
 // SetAnnotations sets the property Annotations of the receiver using the given value.
-func (o *EnforcerLog) SetAnnotations(annotations map[string][]string) {
+func (o *CloudAccountStatus) SetAnnotations(annotations map[string][]string) {
 
 	o.Annotations = annotations
 }
 
 // GetAssociatedTags returns the AssociatedTags of the receiver.
-func (o *EnforcerLog) GetAssociatedTags() []string {
+func (o *CloudAccountStatus) GetAssociatedTags() []string {
 
 	return o.AssociatedTags
 }
 
 // SetAssociatedTags sets the property AssociatedTags of the receiver using the given value.
-func (o *EnforcerLog) SetAssociatedTags(associatedTags []string) {
+func (o *CloudAccountStatus) SetAssociatedTags(associatedTags []string) {
 
 	o.AssociatedTags = associatedTags
 }
 
 // GetCreateIdempotencyKey returns the CreateIdempotencyKey of the receiver.
-func (o *EnforcerLog) GetCreateIdempotencyKey() string {
+func (o *CloudAccountStatus) GetCreateIdempotencyKey() string {
 
 	return o.CreateIdempotencyKey
 }
 
 // SetCreateIdempotencyKey sets the property CreateIdempotencyKey of the receiver using the given value.
-func (o *EnforcerLog) SetCreateIdempotencyKey(createIdempotencyKey string) {
+func (o *CloudAccountStatus) SetCreateIdempotencyKey(createIdempotencyKey string) {
 
 	o.CreateIdempotencyKey = createIdempotencyKey
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *EnforcerLog) GetCreateTime() time.Time {
+func (o *CloudAccountStatus) GetCreateTime() time.Time {
 
 	return o.CreateTime
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the given value.
-func (o *EnforcerLog) SetCreateTime(createTime time.Time) {
+func (o *CloudAccountStatus) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = createTime
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *EnforcerLog) GetMigrationsLog() map[string]string {
+func (o *CloudAccountStatus) GetMigrationsLog() map[string]string {
 
 	return o.MigrationsLog
 }
 
 // SetMigrationsLog sets the property MigrationsLog of the receiver using the given value.
-func (o *EnforcerLog) SetMigrationsLog(migrationsLog map[string]string) {
+func (o *CloudAccountStatus) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = migrationsLog
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *EnforcerLog) GetNamespace() string {
+func (o *CloudAccountStatus) GetNamespace() string {
 
 	return o.Namespace
 }
 
 // SetNamespace sets the property Namespace of the receiver using the given value.
-func (o *EnforcerLog) SetNamespace(namespace string) {
+func (o *CloudAccountStatus) SetNamespace(namespace string) {
 
 	o.Namespace = namespace
 }
 
 // GetNormalizedTags returns the NormalizedTags of the receiver.
-func (o *EnforcerLog) GetNormalizedTags() []string {
+func (o *CloudAccountStatus) GetNormalizedTags() []string {
 
 	return o.NormalizedTags
 }
 
 // SetNormalizedTags sets the property NormalizedTags of the receiver using the given value.
-func (o *EnforcerLog) SetNormalizedTags(normalizedTags []string) {
+func (o *CloudAccountStatus) SetNormalizedTags(normalizedTags []string) {
 
 	o.NormalizedTags = normalizedTags
 }
 
 // GetProtected returns the Protected of the receiver.
-func (o *EnforcerLog) GetProtected() bool {
+func (o *CloudAccountStatus) GetProtected() bool {
 
 	return o.Protected
 }
 
 // SetProtected sets the property Protected of the receiver using the given value.
-func (o *EnforcerLog) SetProtected(protected bool) {
+func (o *CloudAccountStatus) SetProtected(protected bool) {
 
 	o.Protected = protected
 }
 
 // GetUpdateIdempotencyKey returns the UpdateIdempotencyKey of the receiver.
-func (o *EnforcerLog) GetUpdateIdempotencyKey() string {
+func (o *CloudAccountStatus) GetUpdateIdempotencyKey() string {
 
 	return o.UpdateIdempotencyKey
 }
 
 // SetUpdateIdempotencyKey sets the property UpdateIdempotencyKey of the receiver using the given value.
-func (o *EnforcerLog) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
+func (o *CloudAccountStatus) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
 
 	o.UpdateIdempotencyKey = updateIdempotencyKey
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *EnforcerLog) GetUpdateTime() time.Time {
+func (o *CloudAccountStatus) GetUpdateTime() time.Time {
 
 	return o.UpdateTime
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the given value.
-func (o *EnforcerLog) SetUpdateTime(updateTime time.Time) {
+func (o *CloudAccountStatus) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *EnforcerLog) GetZHash() int {
+func (o *CloudAccountStatus) GetZHash() int {
 
 	return o.ZHash
 }
 
 // SetZHash sets the property ZHash of the receiver using the given value.
-func (o *EnforcerLog) SetZHash(zHash int) {
+func (o *CloudAccountStatus) SetZHash(zHash int) {
 
 	o.ZHash = zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *EnforcerLog) GetZone() int {
+func (o *CloudAccountStatus) GetZone() int {
 
 	return o.Zone
 }
 
 // SetZone sets the property Zone of the receiver using the given value.
-func (o *EnforcerLog) SetZone(zone int) {
+func (o *CloudAccountStatus) SetZone(zone int) {
 
 	o.Zone = zone
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *EnforcerLog) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *CloudAccountStatus) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseEnforcerLog{
-			ID:                   &o.ID,
-			Annotations:          &o.Annotations,
-			AssociatedTags:       &o.AssociatedTags,
-			CollectionID:         &o.CollectionID,
-			CreateIdempotencyKey: &o.CreateIdempotencyKey,
-			CreateTime:           &o.CreateTime,
-			Data:                 &o.Data,
-			EnforcerID:           &o.EnforcerID,
-			MigrationsLog:        &o.MigrationsLog,
-			Namespace:            &o.Namespace,
-			NormalizedTags:       &o.NormalizedTags,
-			Page:                 &o.Page,
-			Protected:            &o.Protected,
-			Title:                &o.Title,
-			UpdateIdempotencyKey: &o.UpdateIdempotencyKey,
-			UpdateTime:           &o.UpdateTime,
-			ZHash:                &o.ZHash,
-			Zone:                 &o.Zone,
+		return &SparseCloudAccountStatus{
+			ID:                                    &o.ID,
+			AccountID:                             &o.AccountID,
+			Annotations:                           &o.Annotations,
+			AssociatedTags:                        &o.AssociatedTags,
+			CreateIdempotencyKey:                  &o.CreateIdempotencyKey,
+			CreateTime:                            &o.CreateTime,
+			MigrationsLog:                         &o.MigrationsLog,
+			Namespace:                             &o.Namespace,
+			NormalizedTags:                        &o.NormalizedTags,
+			Protected:                             &o.Protected,
+			SuccessfulPolicyExecutionTimestampMap: &o.SuccessfulPolicyExecutionTimestampMap,
+			UpdateIdempotencyKey:                  &o.UpdateIdempotencyKey,
+			UpdateTime:                            &o.UpdateTime,
+			ZHash:                                 &o.ZHash,
+			Zone:                                  &o.Zone,
 		}
 	}
 
-	sp := &SparseEnforcerLog{}
+	sp := &SparseCloudAccountStatus{}
 	for _, f := range fields {
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
+		case "accountID":
+			sp.AccountID = &(o.AccountID)
 		case "annotations":
 			sp.Annotations = &(o.Annotations)
 		case "associatedTags":
 			sp.AssociatedTags = &(o.AssociatedTags)
-		case "collectionID":
-			sp.CollectionID = &(o.CollectionID)
 		case "createIdempotencyKey":
 			sp.CreateIdempotencyKey = &(o.CreateIdempotencyKey)
 		case "createTime":
 			sp.CreateTime = &(o.CreateTime)
-		case "data":
-			sp.Data = &(o.Data)
-		case "enforcerID":
-			sp.EnforcerID = &(o.EnforcerID)
 		case "migrationsLog":
 			sp.MigrationsLog = &(o.MigrationsLog)
 		case "namespace":
 			sp.Namespace = &(o.Namespace)
 		case "normalizedTags":
 			sp.NormalizedTags = &(o.NormalizedTags)
-		case "page":
-			sp.Page = &(o.Page)
 		case "protected":
 			sp.Protected = &(o.Protected)
-		case "title":
-			sp.Title = &(o.Title)
+		case "successfulPolicyExecutionTimestampMap":
+			sp.SuccessfulPolicyExecutionTimestampMap = &(o.SuccessfulPolicyExecutionTimestampMap)
 		case "updateIdempotencyKey":
 			sp.UpdateIdempotencyKey = &(o.UpdateIdempotencyKey)
 		case "updateTime":
@@ -490,15 +464,18 @@ func (o *EnforcerLog) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseEnforcerLog to the object.
-func (o *EnforcerLog) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseCloudAccountStatus to the object.
+func (o *CloudAccountStatus) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseEnforcerLog)
+	so := sparse.(*SparseCloudAccountStatus)
 	if so.ID != nil {
 		o.ID = *so.ID
+	}
+	if so.AccountID != nil {
+		o.AccountID = *so.AccountID
 	}
 	if so.Annotations != nil {
 		o.Annotations = *so.Annotations
@@ -506,20 +483,11 @@ func (o *EnforcerLog) Patch(sparse elemental.SparseIdentifiable) {
 	if so.AssociatedTags != nil {
 		o.AssociatedTags = *so.AssociatedTags
 	}
-	if so.CollectionID != nil {
-		o.CollectionID = *so.CollectionID
-	}
 	if so.CreateIdempotencyKey != nil {
 		o.CreateIdempotencyKey = *so.CreateIdempotencyKey
 	}
 	if so.CreateTime != nil {
 		o.CreateTime = *so.CreateTime
-	}
-	if so.Data != nil {
-		o.Data = *so.Data
-	}
-	if so.EnforcerID != nil {
-		o.EnforcerID = *so.EnforcerID
 	}
 	if so.MigrationsLog != nil {
 		o.MigrationsLog = *so.MigrationsLog
@@ -530,14 +498,11 @@ func (o *EnforcerLog) Patch(sparse elemental.SparseIdentifiable) {
 	if so.NormalizedTags != nil {
 		o.NormalizedTags = *so.NormalizedTags
 	}
-	if so.Page != nil {
-		o.Page = *so.Page
-	}
 	if so.Protected != nil {
 		o.Protected = *so.Protected
 	}
-	if so.Title != nil {
-		o.Title = *so.Title
+	if so.SuccessfulPolicyExecutionTimestampMap != nil {
+		o.SuccessfulPolicyExecutionTimestampMap = *so.SuccessfulPolicyExecutionTimestampMap
 	}
 	if so.UpdateIdempotencyKey != nil {
 		o.UpdateIdempotencyKey = *so.UpdateIdempotencyKey
@@ -553,46 +518,38 @@ func (o *EnforcerLog) Patch(sparse elemental.SparseIdentifiable) {
 	}
 }
 
-// DeepCopy returns a deep copy if the EnforcerLog.
-func (o *EnforcerLog) DeepCopy() *EnforcerLog {
+// DeepCopy returns a deep copy if the CloudAccountStatus.
+func (o *CloudAccountStatus) DeepCopy() *CloudAccountStatus {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &EnforcerLog{}
+	out := &CloudAccountStatus{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *EnforcerLog.
-func (o *EnforcerLog) DeepCopyInto(out *EnforcerLog) {
+// DeepCopyInto copies the receiver into the given *CloudAccountStatus.
+func (o *CloudAccountStatus) DeepCopyInto(out *CloudAccountStatus) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy EnforcerLog: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy CloudAccountStatus: %s", err))
 	}
 
-	*out = *target.(*EnforcerLog)
+	*out = *target.(*CloudAccountStatus)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *EnforcerLog) Validate() error {
+func (o *CloudAccountStatus) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
 	if err := ValidateTagsWithoutReservedPrefixes("associatedTags", o.AssociatedTags); err != nil {
 		errors = errors.Append(err)
-	}
-
-	if err := elemental.ValidateRequiredString("collectionID", o.CollectionID); err != nil {
-		requiredErrors = requiredErrors.Append(err)
-	}
-
-	if err := elemental.ValidateRequiredString("enforcerID", o.EnforcerID); err != nil {
-		requiredErrors = requiredErrors.Append(err)
 	}
 
 	if len(requiredErrors) > 0 {
@@ -607,56 +564,50 @@ func (o *EnforcerLog) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*EnforcerLog) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*CloudAccountStatus) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := EnforcerLogAttributesMap[name]; ok {
+	if v, ok := CloudAccountStatusAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return EnforcerLogLowerCaseAttributesMap[name]
+	return CloudAccountStatusLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*EnforcerLog) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*CloudAccountStatus) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return EnforcerLogAttributesMap
+	return CloudAccountStatusAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *EnforcerLog) ValueForAttribute(name string) any {
+func (o *CloudAccountStatus) ValueForAttribute(name string) any {
 
 	switch name {
 	case "ID":
 		return o.ID
+	case "accountID":
+		return o.AccountID
 	case "annotations":
 		return o.Annotations
 	case "associatedTags":
 		return o.AssociatedTags
-	case "collectionID":
-		return o.CollectionID
 	case "createIdempotencyKey":
 		return o.CreateIdempotencyKey
 	case "createTime":
 		return o.CreateTime
-	case "data":
-		return o.Data
-	case "enforcerID":
-		return o.EnforcerID
 	case "migrationsLog":
 		return o.MigrationsLog
 	case "namespace":
 		return o.Namespace
 	case "normalizedTags":
 		return o.NormalizedTags
-	case "page":
-		return o.Page
 	case "protected":
 		return o.Protected
-	case "title":
-		return o.Title
+	case "successfulPolicyExecutionTimestampMap":
+		return o.SuccessfulPolicyExecutionTimestampMap
 	case "updateIdempotencyKey":
 		return o.UpdateIdempotencyKey
 	case "updateTime":
@@ -670,8 +621,8 @@ func (o *EnforcerLog) ValueForAttribute(name string) any {
 	return nil
 }
 
-// EnforcerLogAttributesMap represents the map of attribute for EnforcerLog.
-var EnforcerLogAttributesMap = map[string]elemental.AttributeSpecification{
+// CloudAccountStatusAttributesMap represents the map of attribute for CloudAccountStatus.
+var CloudAccountStatusAttributesMap = map[string]elemental.AttributeSpecification{
 	"ID": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -684,6 +635,16 @@ var EnforcerLogAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"AccountID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "accountid",
+		ConvertedName:  "AccountID",
+		Description:    `Cloud account ID of the account.`,
+		Exposed:        true,
+		Name:           "accountID",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -713,18 +674,6 @@ var EnforcerLogAttributesMap = map[string]elemental.AttributeSpecification{
 		SubType:        "string",
 		Type:           "list",
 	},
-	"CollectionID": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "collectionid",
-		ConvertedName:  "CollectionID",
-		Description: `Contains the ID of the enforcer log. ` + "`" + `CollectionID` + "`" + ` is used to
-aggregate the multipart data.`,
-		Exposed:  true,
-		Name:     "collectionID",
-		Required: true,
-		Stored:   true,
-		Type:     "string",
-	},
 	"CreateIdempotencyKey": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -752,27 +701,6 @@ aggregate the multipart data.`,
 		Setter:         true,
 		Stored:         true,
 		Type:           "time",
-	},
-	"Data": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "data",
-		ConvertedName:  "Data",
-		Description:    `Represents the data collected by the enforcer.`,
-		Exposed:        true,
-		Name:           "data",
-		Stored:         true,
-		Type:           "string",
-	},
-	"EnforcerID": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "enforcerid",
-		ConvertedName:  "EnforcerID",
-		Description:    `ID of the enforcer.`,
-		Exposed:        true,
-		Name:           "enforcerID",
-		Required:       true,
-		Stored:         true,
-		Type:           "string",
 	},
 	"MigrationsLog": {
 		AllowedChoices: []string{},
@@ -818,16 +746,6 @@ aggregate the multipart data.`,
 		Transient:      true,
 		Type:           "list",
 	},
-	"Page": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "page",
-		ConvertedName:  "Page",
-		Description:    `Number assigned to each log in the increasing order.`,
-		Exposed:        true,
-		Name:           "page",
-		Stored:         true,
-		Type:           "integer",
-	},
 	"Protected": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "protected",
@@ -841,15 +759,16 @@ aggregate the multipart data.`,
 		Stored:         true,
 		Type:           "boolean",
 	},
-	"Title": {
+	"SuccessfulPolicyExecutionTimestampMap": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "title",
-		ConvertedName:  "Title",
-		Description:    `Title of the log.`,
+		BSONFieldName:  "successfulpolicyexecutiontimestampmap",
+		ConvertedName:  "SuccessfulPolicyExecutionTimestampMap",
+		Description:    `Mapping of last successful execution timestamp for every cloud policy.`,
 		Exposed:        true,
-		Name:           "title",
+		Name:           "successfulPolicyExecutionTimestampMap",
 		Stored:         true,
-		Type:           "string",
+		SubType:        "map[string]time",
+		Type:           "external",
 	},
 	"UpdateIdempotencyKey": {
 		AllowedChoices: []string{},
@@ -909,8 +828,8 @@ georedundancy.`,
 	},
 }
 
-// EnforcerLogLowerCaseAttributesMap represents the map of attribute for EnforcerLog.
-var EnforcerLogLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// CloudAccountStatusLowerCaseAttributesMap represents the map of attribute for CloudAccountStatus.
+var CloudAccountStatusLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"id": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -923,6 +842,16 @@ var EnforcerLogLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"accountid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "accountid",
+		ConvertedName:  "AccountID",
+		Description:    `Cloud account ID of the account.`,
+		Exposed:        true,
+		Name:           "accountID",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -952,18 +881,6 @@ var EnforcerLogLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		SubType:        "string",
 		Type:           "list",
 	},
-	"collectionid": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "collectionid",
-		ConvertedName:  "CollectionID",
-		Description: `Contains the ID of the enforcer log. ` + "`" + `CollectionID` + "`" + ` is used to
-aggregate the multipart data.`,
-		Exposed:  true,
-		Name:     "collectionID",
-		Required: true,
-		Stored:   true,
-		Type:     "string",
-	},
 	"createidempotencykey": {
 		AllowedChoices: []string{},
 		Autogenerated:  true,
@@ -991,27 +908,6 @@ aggregate the multipart data.`,
 		Setter:         true,
 		Stored:         true,
 		Type:           "time",
-	},
-	"data": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "data",
-		ConvertedName:  "Data",
-		Description:    `Represents the data collected by the enforcer.`,
-		Exposed:        true,
-		Name:           "data",
-		Stored:         true,
-		Type:           "string",
-	},
-	"enforcerid": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "enforcerid",
-		ConvertedName:  "EnforcerID",
-		Description:    `ID of the enforcer.`,
-		Exposed:        true,
-		Name:           "enforcerID",
-		Required:       true,
-		Stored:         true,
-		Type:           "string",
 	},
 	"migrationslog": {
 		AllowedChoices: []string{},
@@ -1057,16 +953,6 @@ aggregate the multipart data.`,
 		Transient:      true,
 		Type:           "list",
 	},
-	"page": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "page",
-		ConvertedName:  "Page",
-		Description:    `Number assigned to each log in the increasing order.`,
-		Exposed:        true,
-		Name:           "page",
-		Stored:         true,
-		Type:           "integer",
-	},
 	"protected": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "protected",
@@ -1080,15 +966,16 @@ aggregate the multipart data.`,
 		Stored:         true,
 		Type:           "boolean",
 	},
-	"title": {
+	"successfulpolicyexecutiontimestampmap": {
 		AllowedChoices: []string{},
-		BSONFieldName:  "title",
-		ConvertedName:  "Title",
-		Description:    `Title of the log.`,
+		BSONFieldName:  "successfulpolicyexecutiontimestampmap",
+		ConvertedName:  "SuccessfulPolicyExecutionTimestampMap",
+		Description:    `Mapping of last successful execution timestamp for every cloud policy.`,
 		Exposed:        true,
-		Name:           "title",
+		Name:           "successfulPolicyExecutionTimestampMap",
 		Stored:         true,
-		Type:           "string",
+		SubType:        "map[string]time",
+		Type:           "external",
 	},
 	"updateidempotencykey": {
 		AllowedChoices: []string{},
@@ -1148,35 +1035,35 @@ georedundancy.`,
 	},
 }
 
-// SparseEnforcerLogsList represents a list of SparseEnforcerLogs
-type SparseEnforcerLogsList []*SparseEnforcerLog
+// SparseCloudAccountStatusList represents a list of SparseCloudAccountStatus
+type SparseCloudAccountStatusList []*SparseCloudAccountStatus
 
 // Identity returns the identity of the objects in the list.
-func (o SparseEnforcerLogsList) Identity() elemental.Identity {
+func (o SparseCloudAccountStatusList) Identity() elemental.Identity {
 
-	return EnforcerLogIdentity
+	return CloudAccountStatusIdentity
 }
 
-// Copy returns a pointer to a copy the SparseEnforcerLogsList.
-func (o SparseEnforcerLogsList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseCloudAccountStatusList.
+func (o SparseCloudAccountStatusList) Copy() elemental.Identifiables {
 
-	copy := append(SparseEnforcerLogsList{}, o...)
+	copy := append(SparseCloudAccountStatusList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseEnforcerLogsList.
-func (o SparseEnforcerLogsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseCloudAccountStatusList.
+func (o SparseCloudAccountStatusList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseEnforcerLogsList{}, o...)
+	out := append(SparseCloudAccountStatusList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseEnforcerLog))
+		out = append(out, obj.(*SparseCloudAccountStatus))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseEnforcerLogsList) List() elemental.IdentifiablesList {
+func (o SparseCloudAccountStatusList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -1187,13 +1074,13 @@ func (o SparseEnforcerLogsList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseEnforcerLogsList) DefaultOrder() []string {
+func (o SparseCloudAccountStatusList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToPlain returns the SparseEnforcerLogsList converted to EnforcerLogsList.
-func (o SparseEnforcerLogsList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseCloudAccountStatusList converted to CloudAccountStatusList.
+func (o SparseCloudAccountStatusList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -1204,15 +1091,18 @@ func (o SparseEnforcerLogsList) ToPlain() elemental.IdentifiablesList {
 }
 
 // Version returns the version of the content.
-func (o SparseEnforcerLogsList) Version() int {
+func (o SparseCloudAccountStatusList) Version() int {
 
 	return 1
 }
 
-// SparseEnforcerLog represents the sparse version of a enforcerlog.
-type SparseEnforcerLog struct {
+// SparseCloudAccountStatus represents the sparse version of a cloudaccountstatus.
+type SparseCloudAccountStatus struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
+
+	// Cloud account ID of the account.
+	AccountID *string `json:"accountID,omitempty" msgpack:"accountID,omitempty" bson:"accountid,omitempty" mapstructure:"accountID,omitempty"`
 
 	// Stores additional information about an entity.
 	Annotations *map[string][]string `json:"annotations,omitempty" msgpack:"annotations,omitempty" bson:"annotations,omitempty" mapstructure:"annotations,omitempty"`
@@ -1220,21 +1110,11 @@ type SparseEnforcerLog struct {
 	// List of tags attached to an entity.
 	AssociatedTags *[]string `json:"associatedTags,omitempty" msgpack:"associatedTags,omitempty" bson:"associatedtags,omitempty" mapstructure:"associatedTags,omitempty"`
 
-	// Contains the ID of the enforcer log. `CollectionID` is used to
-	// aggregate the multipart data.
-	CollectionID *string `json:"collectionID,omitempty" msgpack:"collectionID,omitempty" bson:"collectionid,omitempty" mapstructure:"collectionID,omitempty"`
-
 	// internal idempotency key for a create operation.
 	CreateIdempotencyKey *string `json:"-" msgpack:"-" bson:"createidempotencykey,omitempty" mapstructure:"-,omitempty"`
 
 	// Creation date of the object.
 	CreateTime *time.Time `json:"createTime,omitempty" msgpack:"createTime,omitempty" bson:"createtime,omitempty" mapstructure:"createTime,omitempty"`
-
-	// Represents the data collected by the enforcer.
-	Data *string `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
-
-	// ID of the enforcer.
-	EnforcerID *string `json:"enforcerID,omitempty" msgpack:"enforcerID,omitempty" bson:"enforcerid,omitempty" mapstructure:"enforcerID,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -1245,14 +1125,11 @@ type SparseEnforcerLog struct {
 	// Contains the list of normalized tags of the entities.
 	NormalizedTags *[]string `json:"normalizedTags,omitempty" msgpack:"normalizedTags,omitempty" bson:"normalizedtags,omitempty" mapstructure:"normalizedTags,omitempty"`
 
-	// Number assigned to each log in the increasing order.
-	Page *int `json:"page,omitempty" msgpack:"page,omitempty" bson:"page,omitempty" mapstructure:"page,omitempty"`
-
 	// Defines if the object is protected.
 	Protected *bool `json:"protected,omitempty" msgpack:"protected,omitempty" bson:"protected,omitempty" mapstructure:"protected,omitempty"`
 
-	// Title of the log.
-	Title *string `json:"title,omitempty" msgpack:"title,omitempty" bson:"title,omitempty" mapstructure:"title,omitempty"`
+	// Mapping of last successful execution timestamp for every cloud policy.
+	SuccessfulPolicyExecutionTimestampMap *map[string]time.Time `json:"successfulPolicyExecutionTimestampMap,omitempty" msgpack:"successfulPolicyExecutionTimestampMap,omitempty" bson:"successfulpolicyexecutiontimestampmap,omitempty" mapstructure:"successfulPolicyExecutionTimestampMap,omitempty"`
 
 	// internal idempotency key for a update operation.
 	UpdateIdempotencyKey *string `json:"-" msgpack:"-" bson:"updateidempotencykey,omitempty" mapstructure:"-,omitempty"`
@@ -1270,19 +1147,19 @@ type SparseEnforcerLog struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseEnforcerLog returns a new  SparseEnforcerLog.
-func NewSparseEnforcerLog() *SparseEnforcerLog {
-	return &SparseEnforcerLog{}
+// NewSparseCloudAccountStatus returns a new  SparseCloudAccountStatus.
+func NewSparseCloudAccountStatus() *SparseCloudAccountStatus {
+	return &SparseCloudAccountStatus{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseEnforcerLog) Identity() elemental.Identity {
+func (o *SparseCloudAccountStatus) Identity() elemental.Identity {
 
-	return EnforcerLogIdentity
+	return CloudAccountStatusIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseEnforcerLog) Identifier() string {
+func (o *SparseCloudAccountStatus) Identifier() string {
 
 	if o.ID == nil {
 		return ""
@@ -1291,7 +1168,7 @@ func (o *SparseEnforcerLog) Identifier() string {
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseEnforcerLog) SetIdentifier(id string) {
+func (o *SparseCloudAccountStatus) SetIdentifier(id string) {
 
 	if id != "" {
 		o.ID = &id
@@ -1302,16 +1179,19 @@ func (o *SparseEnforcerLog) SetIdentifier(id string) {
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseEnforcerLog) GetBSON() (any, error) {
+func (o *SparseCloudAccountStatus) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseEnforcerLog{}
+	s := &mongoAttributesSparseCloudAccountStatus{}
 
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
+	}
+	if o.AccountID != nil {
+		s.AccountID = o.AccountID
 	}
 	if o.Annotations != nil {
 		s.Annotations = o.Annotations
@@ -1319,20 +1199,11 @@ func (o *SparseEnforcerLog) GetBSON() (any, error) {
 	if o.AssociatedTags != nil {
 		s.AssociatedTags = o.AssociatedTags
 	}
-	if o.CollectionID != nil {
-		s.CollectionID = o.CollectionID
-	}
 	if o.CreateIdempotencyKey != nil {
 		s.CreateIdempotencyKey = o.CreateIdempotencyKey
 	}
 	if o.CreateTime != nil {
 		s.CreateTime = o.CreateTime
-	}
-	if o.Data != nil {
-		s.Data = o.Data
-	}
-	if o.EnforcerID != nil {
-		s.EnforcerID = o.EnforcerID
 	}
 	if o.MigrationsLog != nil {
 		s.MigrationsLog = o.MigrationsLog
@@ -1343,14 +1214,11 @@ func (o *SparseEnforcerLog) GetBSON() (any, error) {
 	if o.NormalizedTags != nil {
 		s.NormalizedTags = o.NormalizedTags
 	}
-	if o.Page != nil {
-		s.Page = o.Page
-	}
 	if o.Protected != nil {
 		s.Protected = o.Protected
 	}
-	if o.Title != nil {
-		s.Title = o.Title
+	if o.SuccessfulPolicyExecutionTimestampMap != nil {
+		s.SuccessfulPolicyExecutionTimestampMap = o.SuccessfulPolicyExecutionTimestampMap
 	}
 	if o.UpdateIdempotencyKey != nil {
 		s.UpdateIdempotencyKey = o.UpdateIdempotencyKey
@@ -1370,39 +1238,33 @@ func (o *SparseEnforcerLog) GetBSON() (any, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseEnforcerLog) SetBSON(raw bson.Raw) error {
+func (o *SparseCloudAccountStatus) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseEnforcerLog{}
+	s := &mongoAttributesSparseCloudAccountStatus{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
 
 	id := s.ID.Hex()
 	o.ID = &id
+	if s.AccountID != nil {
+		o.AccountID = s.AccountID
+	}
 	if s.Annotations != nil {
 		o.Annotations = s.Annotations
 	}
 	if s.AssociatedTags != nil {
 		o.AssociatedTags = s.AssociatedTags
 	}
-	if s.CollectionID != nil {
-		o.CollectionID = s.CollectionID
-	}
 	if s.CreateIdempotencyKey != nil {
 		o.CreateIdempotencyKey = s.CreateIdempotencyKey
 	}
 	if s.CreateTime != nil {
 		o.CreateTime = s.CreateTime
-	}
-	if s.Data != nil {
-		o.Data = s.Data
-	}
-	if s.EnforcerID != nil {
-		o.EnforcerID = s.EnforcerID
 	}
 	if s.MigrationsLog != nil {
 		o.MigrationsLog = s.MigrationsLog
@@ -1413,14 +1275,11 @@ func (o *SparseEnforcerLog) SetBSON(raw bson.Raw) error {
 	if s.NormalizedTags != nil {
 		o.NormalizedTags = s.NormalizedTags
 	}
-	if s.Page != nil {
-		o.Page = s.Page
-	}
 	if s.Protected != nil {
 		o.Protected = s.Protected
 	}
-	if s.Title != nil {
-		o.Title = s.Title
+	if s.SuccessfulPolicyExecutionTimestampMap != nil {
+		o.SuccessfulPolicyExecutionTimestampMap = s.SuccessfulPolicyExecutionTimestampMap
 	}
 	if s.UpdateIdempotencyKey != nil {
 		o.UpdateIdempotencyKey = s.UpdateIdempotencyKey
@@ -1439,17 +1298,20 @@ func (o *SparseEnforcerLog) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseEnforcerLog) Version() int {
+func (o *SparseCloudAccountStatus) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseEnforcerLog) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseCloudAccountStatus) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewEnforcerLog()
+	out := NewCloudAccountStatus()
 	if o.ID != nil {
 		out.ID = *o.ID
+	}
+	if o.AccountID != nil {
+		out.AccountID = *o.AccountID
 	}
 	if o.Annotations != nil {
 		out.Annotations = *o.Annotations
@@ -1457,20 +1319,11 @@ func (o *SparseEnforcerLog) ToPlain() elemental.PlainIdentifiable {
 	if o.AssociatedTags != nil {
 		out.AssociatedTags = *o.AssociatedTags
 	}
-	if o.CollectionID != nil {
-		out.CollectionID = *o.CollectionID
-	}
 	if o.CreateIdempotencyKey != nil {
 		out.CreateIdempotencyKey = *o.CreateIdempotencyKey
 	}
 	if o.CreateTime != nil {
 		out.CreateTime = *o.CreateTime
-	}
-	if o.Data != nil {
-		out.Data = *o.Data
-	}
-	if o.EnforcerID != nil {
-		out.EnforcerID = *o.EnforcerID
 	}
 	if o.MigrationsLog != nil {
 		out.MigrationsLog = *o.MigrationsLog
@@ -1481,14 +1334,11 @@ func (o *SparseEnforcerLog) ToPlain() elemental.PlainIdentifiable {
 	if o.NormalizedTags != nil {
 		out.NormalizedTags = *o.NormalizedTags
 	}
-	if o.Page != nil {
-		out.Page = *o.Page
-	}
 	if o.Protected != nil {
 		out.Protected = *o.Protected
 	}
-	if o.Title != nil {
-		out.Title = *o.Title
+	if o.SuccessfulPolicyExecutionTimestampMap != nil {
+		out.SuccessfulPolicyExecutionTimestampMap = *o.SuccessfulPolicyExecutionTimestampMap
 	}
 	if o.UpdateIdempotencyKey != nil {
 		out.UpdateIdempotencyKey = *o.UpdateIdempotencyKey
@@ -1507,7 +1357,7 @@ func (o *SparseEnforcerLog) ToPlain() elemental.PlainIdentifiable {
 }
 
 // GetAnnotations returns the Annotations of the receiver.
-func (o *SparseEnforcerLog) GetAnnotations() (out map[string][]string) {
+func (o *SparseCloudAccountStatus) GetAnnotations() (out map[string][]string) {
 
 	if o.Annotations == nil {
 		return
@@ -1517,13 +1367,13 @@ func (o *SparseEnforcerLog) GetAnnotations() (out map[string][]string) {
 }
 
 // SetAnnotations sets the property Annotations of the receiver using the address of the given value.
-func (o *SparseEnforcerLog) SetAnnotations(annotations map[string][]string) {
+func (o *SparseCloudAccountStatus) SetAnnotations(annotations map[string][]string) {
 
 	o.Annotations = &annotations
 }
 
 // GetAssociatedTags returns the AssociatedTags of the receiver.
-func (o *SparseEnforcerLog) GetAssociatedTags() (out []string) {
+func (o *SparseCloudAccountStatus) GetAssociatedTags() (out []string) {
 
 	if o.AssociatedTags == nil {
 		return
@@ -1533,13 +1383,13 @@ func (o *SparseEnforcerLog) GetAssociatedTags() (out []string) {
 }
 
 // SetAssociatedTags sets the property AssociatedTags of the receiver using the address of the given value.
-func (o *SparseEnforcerLog) SetAssociatedTags(associatedTags []string) {
+func (o *SparseCloudAccountStatus) SetAssociatedTags(associatedTags []string) {
 
 	o.AssociatedTags = &associatedTags
 }
 
 // GetCreateIdempotencyKey returns the CreateIdempotencyKey of the receiver.
-func (o *SparseEnforcerLog) GetCreateIdempotencyKey() (out string) {
+func (o *SparseCloudAccountStatus) GetCreateIdempotencyKey() (out string) {
 
 	if o.CreateIdempotencyKey == nil {
 		return
@@ -1549,13 +1399,13 @@ func (o *SparseEnforcerLog) GetCreateIdempotencyKey() (out string) {
 }
 
 // SetCreateIdempotencyKey sets the property CreateIdempotencyKey of the receiver using the address of the given value.
-func (o *SparseEnforcerLog) SetCreateIdempotencyKey(createIdempotencyKey string) {
+func (o *SparseCloudAccountStatus) SetCreateIdempotencyKey(createIdempotencyKey string) {
 
 	o.CreateIdempotencyKey = &createIdempotencyKey
 }
 
 // GetCreateTime returns the CreateTime of the receiver.
-func (o *SparseEnforcerLog) GetCreateTime() (out time.Time) {
+func (o *SparseCloudAccountStatus) GetCreateTime() (out time.Time) {
 
 	if o.CreateTime == nil {
 		return
@@ -1565,13 +1415,13 @@ func (o *SparseEnforcerLog) GetCreateTime() (out time.Time) {
 }
 
 // SetCreateTime sets the property CreateTime of the receiver using the address of the given value.
-func (o *SparseEnforcerLog) SetCreateTime(createTime time.Time) {
+func (o *SparseCloudAccountStatus) SetCreateTime(createTime time.Time) {
 
 	o.CreateTime = &createTime
 }
 
 // GetMigrationsLog returns the MigrationsLog of the receiver.
-func (o *SparseEnforcerLog) GetMigrationsLog() (out map[string]string) {
+func (o *SparseCloudAccountStatus) GetMigrationsLog() (out map[string]string) {
 
 	if o.MigrationsLog == nil {
 		return
@@ -1581,13 +1431,13 @@ func (o *SparseEnforcerLog) GetMigrationsLog() (out map[string]string) {
 }
 
 // SetMigrationsLog sets the property MigrationsLog of the receiver using the address of the given value.
-func (o *SparseEnforcerLog) SetMigrationsLog(migrationsLog map[string]string) {
+func (o *SparseCloudAccountStatus) SetMigrationsLog(migrationsLog map[string]string) {
 
 	o.MigrationsLog = &migrationsLog
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *SparseEnforcerLog) GetNamespace() (out string) {
+func (o *SparseCloudAccountStatus) GetNamespace() (out string) {
 
 	if o.Namespace == nil {
 		return
@@ -1597,13 +1447,13 @@ func (o *SparseEnforcerLog) GetNamespace() (out string) {
 }
 
 // SetNamespace sets the property Namespace of the receiver using the address of the given value.
-func (o *SparseEnforcerLog) SetNamespace(namespace string) {
+func (o *SparseCloudAccountStatus) SetNamespace(namespace string) {
 
 	o.Namespace = &namespace
 }
 
 // GetNormalizedTags returns the NormalizedTags of the receiver.
-func (o *SparseEnforcerLog) GetNormalizedTags() (out []string) {
+func (o *SparseCloudAccountStatus) GetNormalizedTags() (out []string) {
 
 	if o.NormalizedTags == nil {
 		return
@@ -1613,13 +1463,13 @@ func (o *SparseEnforcerLog) GetNormalizedTags() (out []string) {
 }
 
 // SetNormalizedTags sets the property NormalizedTags of the receiver using the address of the given value.
-func (o *SparseEnforcerLog) SetNormalizedTags(normalizedTags []string) {
+func (o *SparseCloudAccountStatus) SetNormalizedTags(normalizedTags []string) {
 
 	o.NormalizedTags = &normalizedTags
 }
 
 // GetProtected returns the Protected of the receiver.
-func (o *SparseEnforcerLog) GetProtected() (out bool) {
+func (o *SparseCloudAccountStatus) GetProtected() (out bool) {
 
 	if o.Protected == nil {
 		return
@@ -1629,13 +1479,13 @@ func (o *SparseEnforcerLog) GetProtected() (out bool) {
 }
 
 // SetProtected sets the property Protected of the receiver using the address of the given value.
-func (o *SparseEnforcerLog) SetProtected(protected bool) {
+func (o *SparseCloudAccountStatus) SetProtected(protected bool) {
 
 	o.Protected = &protected
 }
 
 // GetUpdateIdempotencyKey returns the UpdateIdempotencyKey of the receiver.
-func (o *SparseEnforcerLog) GetUpdateIdempotencyKey() (out string) {
+func (o *SparseCloudAccountStatus) GetUpdateIdempotencyKey() (out string) {
 
 	if o.UpdateIdempotencyKey == nil {
 		return
@@ -1645,13 +1495,13 @@ func (o *SparseEnforcerLog) GetUpdateIdempotencyKey() (out string) {
 }
 
 // SetUpdateIdempotencyKey sets the property UpdateIdempotencyKey of the receiver using the address of the given value.
-func (o *SparseEnforcerLog) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
+func (o *SparseCloudAccountStatus) SetUpdateIdempotencyKey(updateIdempotencyKey string) {
 
 	o.UpdateIdempotencyKey = &updateIdempotencyKey
 }
 
 // GetUpdateTime returns the UpdateTime of the receiver.
-func (o *SparseEnforcerLog) GetUpdateTime() (out time.Time) {
+func (o *SparseCloudAccountStatus) GetUpdateTime() (out time.Time) {
 
 	if o.UpdateTime == nil {
 		return
@@ -1661,13 +1511,13 @@ func (o *SparseEnforcerLog) GetUpdateTime() (out time.Time) {
 }
 
 // SetUpdateTime sets the property UpdateTime of the receiver using the address of the given value.
-func (o *SparseEnforcerLog) SetUpdateTime(updateTime time.Time) {
+func (o *SparseCloudAccountStatus) SetUpdateTime(updateTime time.Time) {
 
 	o.UpdateTime = &updateTime
 }
 
 // GetZHash returns the ZHash of the receiver.
-func (o *SparseEnforcerLog) GetZHash() (out int) {
+func (o *SparseCloudAccountStatus) GetZHash() (out int) {
 
 	if o.ZHash == nil {
 		return
@@ -1677,13 +1527,13 @@ func (o *SparseEnforcerLog) GetZHash() (out int) {
 }
 
 // SetZHash sets the property ZHash of the receiver using the address of the given value.
-func (o *SparseEnforcerLog) SetZHash(zHash int) {
+func (o *SparseCloudAccountStatus) SetZHash(zHash int) {
 
 	o.ZHash = &zHash
 }
 
 // GetZone returns the Zone of the receiver.
-func (o *SparseEnforcerLog) GetZone() (out int) {
+func (o *SparseCloudAccountStatus) GetZone() (out int) {
 
 	if o.Zone == nil {
 		return
@@ -1693,72 +1543,66 @@ func (o *SparseEnforcerLog) GetZone() (out int) {
 }
 
 // SetZone sets the property Zone of the receiver using the address of the given value.
-func (o *SparseEnforcerLog) SetZone(zone int) {
+func (o *SparseCloudAccountStatus) SetZone(zone int) {
 
 	o.Zone = &zone
 }
 
-// DeepCopy returns a deep copy if the SparseEnforcerLog.
-func (o *SparseEnforcerLog) DeepCopy() *SparseEnforcerLog {
+// DeepCopy returns a deep copy if the SparseCloudAccountStatus.
+func (o *SparseCloudAccountStatus) DeepCopy() *SparseCloudAccountStatus {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseEnforcerLog{}
+	out := &SparseCloudAccountStatus{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseEnforcerLog.
-func (o *SparseEnforcerLog) DeepCopyInto(out *SparseEnforcerLog) {
+// DeepCopyInto copies the receiver into the given *SparseCloudAccountStatus.
+func (o *SparseCloudAccountStatus) DeepCopyInto(out *SparseCloudAccountStatus) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseEnforcerLog: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseCloudAccountStatus: %s", err))
 	}
 
-	*out = *target.(*SparseEnforcerLog)
+	*out = *target.(*SparseCloudAccountStatus)
 }
 
-type mongoAttributesEnforcerLog struct {
-	ID                   bson.ObjectId       `bson:"_id,omitempty"`
-	Annotations          map[string][]string `bson:"annotations"`
-	AssociatedTags       []string            `bson:"associatedtags"`
-	CollectionID         string              `bson:"collectionid"`
-	CreateIdempotencyKey string              `bson:"createidempotencykey"`
-	CreateTime           time.Time           `bson:"createtime"`
-	Data                 string              `bson:"data"`
-	EnforcerID           string              `bson:"enforcerid"`
-	MigrationsLog        map[string]string   `bson:"migrationslog,omitempty"`
-	Namespace            string              `bson:"namespace"`
-	NormalizedTags       []string            `bson:"normalizedtags"`
-	Page                 int                 `bson:"page"`
-	Protected            bool                `bson:"protected"`
-	Title                string              `bson:"title"`
-	UpdateIdempotencyKey string              `bson:"updateidempotencykey"`
-	UpdateTime           time.Time           `bson:"updatetime"`
-	ZHash                int                 `bson:"zhash"`
-	Zone                 int                 `bson:"zone"`
+type mongoAttributesCloudAccountStatus struct {
+	ID                                    bson.ObjectId        `bson:"_id,omitempty"`
+	AccountID                             string               `bson:"accountid"`
+	Annotations                           map[string][]string  `bson:"annotations"`
+	AssociatedTags                        []string             `bson:"associatedtags"`
+	CreateIdempotencyKey                  string               `bson:"createidempotencykey"`
+	CreateTime                            time.Time            `bson:"createtime"`
+	MigrationsLog                         map[string]string    `bson:"migrationslog,omitempty"`
+	Namespace                             string               `bson:"namespace"`
+	NormalizedTags                        []string             `bson:"normalizedtags"`
+	Protected                             bool                 `bson:"protected"`
+	SuccessfulPolicyExecutionTimestampMap map[string]time.Time `bson:"successfulpolicyexecutiontimestampmap"`
+	UpdateIdempotencyKey                  string               `bson:"updateidempotencykey"`
+	UpdateTime                            time.Time            `bson:"updatetime"`
+	ZHash                                 int                  `bson:"zhash"`
+	Zone                                  int                  `bson:"zone"`
 }
-type mongoAttributesSparseEnforcerLog struct {
-	ID                   bson.ObjectId        `bson:"_id,omitempty"`
-	Annotations          *map[string][]string `bson:"annotations,omitempty"`
-	AssociatedTags       *[]string            `bson:"associatedtags,omitempty"`
-	CollectionID         *string              `bson:"collectionid,omitempty"`
-	CreateIdempotencyKey *string              `bson:"createidempotencykey,omitempty"`
-	CreateTime           *time.Time           `bson:"createtime,omitempty"`
-	Data                 *string              `bson:"data,omitempty"`
-	EnforcerID           *string              `bson:"enforcerid,omitempty"`
-	MigrationsLog        *map[string]string   `bson:"migrationslog,omitempty"`
-	Namespace            *string              `bson:"namespace,omitempty"`
-	NormalizedTags       *[]string            `bson:"normalizedtags,omitempty"`
-	Page                 *int                 `bson:"page,omitempty"`
-	Protected            *bool                `bson:"protected,omitempty"`
-	Title                *string              `bson:"title,omitempty"`
-	UpdateIdempotencyKey *string              `bson:"updateidempotencykey,omitempty"`
-	UpdateTime           *time.Time           `bson:"updatetime,omitempty"`
-	ZHash                *int                 `bson:"zhash,omitempty"`
-	Zone                 *int                 `bson:"zone,omitempty"`
+type mongoAttributesSparseCloudAccountStatus struct {
+	ID                                    bson.ObjectId         `bson:"_id,omitempty"`
+	AccountID                             *string               `bson:"accountid,omitempty"`
+	Annotations                           *map[string][]string  `bson:"annotations,omitempty"`
+	AssociatedTags                        *[]string             `bson:"associatedtags,omitempty"`
+	CreateIdempotencyKey                  *string               `bson:"createidempotencykey,omitempty"`
+	CreateTime                            *time.Time            `bson:"createtime,omitempty"`
+	MigrationsLog                         *map[string]string    `bson:"migrationslog,omitempty"`
+	Namespace                             *string               `bson:"namespace,omitempty"`
+	NormalizedTags                        *[]string             `bson:"normalizedtags,omitempty"`
+	Protected                             *bool                 `bson:"protected,omitempty"`
+	SuccessfulPolicyExecutionTimestampMap *map[string]time.Time `bson:"successfulpolicyexecutiontimestampmap,omitempty"`
+	UpdateIdempotencyKey                  *string               `bson:"updateidempotencykey,omitempty"`
+	UpdateTime                            *time.Time            `bson:"updatetime,omitempty"`
+	ZHash                                 *int                  `bson:"zhash,omitempty"`
+	Zone                                  *int                  `bson:"zone,omitempty"`
 }

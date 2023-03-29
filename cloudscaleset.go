@@ -32,8 +32,8 @@ func (o CloudScaleSetsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudScaleSetsList.
 func (o CloudScaleSetsList) Copy() elemental.Identifiables {
 
-	copy := append(CloudScaleSetsList{}, o...)
-	return &copy
+	out := append(CloudScaleSetsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudScaleSetsList.

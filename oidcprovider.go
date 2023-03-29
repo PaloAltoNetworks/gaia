@@ -32,8 +32,8 @@ func (o OIDCProvidersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the OIDCProvidersList.
 func (o OIDCProvidersList) Copy() elemental.Identifiables {
 
-	copy := append(OIDCProvidersList{}, o...)
-	return &copy
+	out := append(OIDCProvidersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the OIDCProvidersList.

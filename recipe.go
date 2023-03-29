@@ -46,8 +46,8 @@ func (o RecipesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RecipesList.
 func (o RecipesList) Copy() elemental.Identifiables {
 
-	copy := append(RecipesList{}, o...)
-	return &copy
+	out := append(RecipesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the RecipesList.

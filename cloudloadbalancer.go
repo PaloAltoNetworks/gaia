@@ -32,8 +32,8 @@ func (o CloudLoadBalancersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudLoadBalancersList.
 func (o CloudLoadBalancersList) Copy() elemental.Identifiables {
 
-	copy := append(CloudLoadBalancersList{}, o...)
-	return &copy
+	out := append(CloudLoadBalancersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudLoadBalancersList.

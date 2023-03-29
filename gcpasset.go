@@ -120,8 +120,8 @@ func (o GCPAssetsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the GCPAssetsList.
 func (o GCPAssetsList) Copy() elemental.Identifiables {
 
-	copy := append(GCPAssetsList{}, o...)
-	return &copy
+	out := append(GCPAssetsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the GCPAssetsList.

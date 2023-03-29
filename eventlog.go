@@ -52,8 +52,8 @@ func (o EventLogsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the EventLogsList.
 func (o EventLogsList) Copy() elemental.Identifiables {
 
-	copy := append(EventLogsList{}, o...)
-	return &copy
+	out := append(EventLogsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the EventLogsList.

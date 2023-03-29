@@ -32,8 +32,8 @@ func (o SSHAuthorizationPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the SSHAuthorizationPoliciesList.
 func (o SSHAuthorizationPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(SSHAuthorizationPoliciesList{}, o...)
-	return &copy
+	out := append(SSHAuthorizationPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the SSHAuthorizationPoliciesList.

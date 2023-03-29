@@ -48,8 +48,8 @@ func (o ProcessingUnitRefreshsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the ProcessingUnitRefreshsList.
 func (o ProcessingUnitRefreshsList) Copy() elemental.Identifiables {
 
-	copy := append(ProcessingUnitRefreshsList{}, o...)
-	return &copy
+	out := append(ProcessingUnitRefreshsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the ProcessingUnitRefreshsList.

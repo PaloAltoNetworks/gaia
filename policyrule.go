@@ -32,8 +32,8 @@ func (o PolicyRulesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PolicyRulesList.
 func (o PolicyRulesList) Copy() elemental.Identifiables {
 
-	copy := append(PolicyRulesList{}, o...)
-	return &copy
+	out := append(PolicyRulesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PolicyRulesList.

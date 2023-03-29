@@ -32,8 +32,8 @@ func (o TestResourcesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the TestResourcesList.
 func (o TestResourcesList) Copy() elemental.Identifiables {
 
-	copy := append(TestResourcesList{}, o...)
-	return &copy
+	out := append(TestResourcesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the TestResourcesList.

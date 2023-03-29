@@ -46,8 +46,8 @@ func (o FileAccessReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the FileAccessReportsList.
 func (o FileAccessReportsList) Copy() elemental.Identifiables {
 
-	copy := append(FileAccessReportsList{}, o...)
-	return &copy
+	out := append(FileAccessReportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the FileAccessReportsList.

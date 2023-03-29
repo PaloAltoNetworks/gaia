@@ -53,8 +53,8 @@ func (o CloudManagedNetworksList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudManagedNetworksList.
 func (o CloudManagedNetworksList) Copy() elemental.Identifiables {
 
-	copy := append(CloudManagedNetworksList{}, o...)
-	return &copy
+	out := append(CloudManagedNetworksList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudManagedNetworksList.

@@ -31,8 +31,8 @@ func (o PokesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PokesList.
 func (o PokesList) Copy() elemental.Identifiables {
 
-	copy := append(PokesList{}, o...)
-	return &copy
+	out := append(PokesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PokesList.

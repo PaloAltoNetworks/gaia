@@ -210,6 +210,14 @@ relations:
   create:
     description: Initiates a cloud account clean up process for all stale objects.
 
+- rest_name: cloudaccountstatus
+  get:
+    description: Retrieves the list of the cloud account status objects.
+    global_parameters:
+    - $filtering
+  create:
+    description: Creates a cloud account status object for the specified namespace.
+
 - rest_name: cloudalertrecord
   get:
     description: Retrieves alert raised in Prisma Cloud.

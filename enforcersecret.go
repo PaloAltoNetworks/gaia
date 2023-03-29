@@ -31,8 +31,8 @@ func (o EnforcerSecretsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the EnforcerSecretsList.
 func (o EnforcerSecretsList) Copy() elemental.Identifiables {
 
-	copy := append(EnforcerSecretsList{}, o...)
-	return &copy
+	out := append(EnforcerSecretsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the EnforcerSecretsList.

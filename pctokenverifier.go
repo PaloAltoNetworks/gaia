@@ -31,8 +31,8 @@ func (o PCTokenVerifiersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PCTokenVerifiersList.
 func (o PCTokenVerifiersList) Copy() elemental.Identifiables {
 
-	copy := append(PCTokenVerifiersList{}, o...)
-	return &copy
+	out := append(PCTokenVerifiersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PCTokenVerifiersList.

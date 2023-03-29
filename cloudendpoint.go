@@ -32,8 +32,8 @@ func (o CloudEndpointsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudEndpointsList.
 func (o CloudEndpointsList) Copy() elemental.Identifiables {
 
-	copy := append(CloudEndpointsList{}, o...)
-	return &copy
+	out := append(CloudEndpointsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudEndpointsList.

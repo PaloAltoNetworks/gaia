@@ -32,8 +32,8 @@ func (o CounterReportsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CounterReportsList.
 func (o CounterReportsList) Copy() elemental.Identifiables {
 
-	copy := append(CounterReportsList{}, o...)
-	return &copy
+	out := append(CounterReportsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CounterReportsList.

@@ -54,8 +54,8 @@ func (o AuthoritiesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AuthoritiesList.
 func (o AuthoritiesList) Copy() elemental.Identifiables {
 
-	copy := append(AuthoritiesList{}, o...)
-	return &copy
+	out := append(AuthoritiesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AuthoritiesList.

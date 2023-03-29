@@ -42,8 +42,8 @@ func (o PollAccountsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PollAccountsList.
 func (o PollAccountsList) Copy() elemental.Identifiables {
 
-	copy := append(PollAccountsList{}, o...)
-	return &copy
+	out := append(PollAccountsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PollAccountsList.

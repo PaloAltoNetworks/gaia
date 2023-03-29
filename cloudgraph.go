@@ -31,8 +31,8 @@ func (o CloudGraphsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudGraphsList.
 func (o CloudGraphsList) Copy() elemental.Identifiables {
 
-	copy := append(CloudGraphsList{}, o...)
-	return &copy
+	out := append(CloudGraphsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudGraphsList.

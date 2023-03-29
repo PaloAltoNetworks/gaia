@@ -31,8 +31,8 @@ func (o NamespaceRenderersList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the NamespaceRenderersList.
 func (o NamespaceRenderersList) Copy() elemental.Identifiables {
 
-	copy := append(NamespaceRenderersList{}, o...)
-	return &copy
+	out := append(NamespaceRenderersList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the NamespaceRenderersList.

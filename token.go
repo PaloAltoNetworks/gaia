@@ -31,8 +31,8 @@ func (o TokensList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the TokensList.
 func (o TokensList) Copy() elemental.Identifiables {
 
-	copy := append(TokensList{}, o...)
-	return &copy
+	out := append(TokensList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the TokensList.

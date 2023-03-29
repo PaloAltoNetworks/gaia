@@ -32,8 +32,8 @@ func (o HTTPResourceSpecsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the HTTPResourceSpecsList.
 func (o HTTPResourceSpecsList) Copy() elemental.Identifiables {
 
-	copy := append(HTTPResourceSpecsList{}, o...)
-	return &copy
+	out := append(HTTPResourceSpecsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the HTTPResourceSpecsList.

@@ -31,8 +31,8 @@ func (o PasswordResetsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the PasswordResetsList.
 func (o PasswordResetsList) Copy() elemental.Identifiables {
 
-	copy := append(PasswordResetsList{}, o...)
-	return &copy
+	out := append(PasswordResetsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the PasswordResetsList.

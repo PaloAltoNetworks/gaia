@@ -68,6 +68,7 @@ ClauseMatch
 clientLocalID
 clob
 CloudAccountCleaner
+CloudAccountStatus
 CloudAddress
 CloudAlert
 CloudAlertRecord

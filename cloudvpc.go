@@ -32,8 +32,8 @@ func (o CloudVPCsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the CloudVPCsList.
 func (o CloudVPCsList) Copy() elemental.Identifiables {
 
-	copy := append(CloudVPCsList{}, o...)
-	return &copy
+	out := append(CloudVPCsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the CloudVPCsList.

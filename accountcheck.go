@@ -31,8 +31,8 @@ func (o AccountChecksList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AccountChecksList.
 func (o AccountChecksList) Copy() elemental.Identifiables {
 
-	copy := append(AccountChecksList{}, o...)
-	return &copy
+	out := append(AccountChecksList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AccountChecksList.

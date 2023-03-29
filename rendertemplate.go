@@ -31,8 +31,8 @@ func (o RenderTemplatesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the RenderTemplatesList.
 func (o RenderTemplatesList) Copy() elemental.Identifiables {
 
-	copy := append(RenderTemplatesList{}, o...)
-	return &copy
+	out := append(RenderTemplatesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the RenderTemplatesList.

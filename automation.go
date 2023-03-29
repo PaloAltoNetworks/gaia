@@ -49,8 +49,8 @@ func (o AutomationsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AutomationsList.
 func (o AutomationsList) Copy() elemental.Identifiables {
 
-	copy := append(AutomationsList{}, o...)
-	return &copy
+	out := append(AutomationsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AutomationsList.

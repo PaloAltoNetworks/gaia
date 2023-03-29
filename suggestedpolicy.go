@@ -31,8 +31,8 @@ func (o SuggestedPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the SuggestedPoliciesList.
 func (o SuggestedPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(SuggestedPoliciesList{}, o...)
-	return &copy
+	out := append(SuggestedPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the SuggestedPoliciesList.

@@ -84,6 +84,13 @@ attributes:
     stored: true
     example_value: us-east-1
 
+  - name: prismaURN
+    description: The unique resource name of the resource as presented by Prisma Cloud.
+    type: string
+    exposed: true
+    stored: true
+    example_value: /subscriptions/a0a00a0a-0aaa-000a-a0a0-00a00aa00000/resourceGroups/my-Deployment/providers/Microsoft.Compute/virtualMachines/vm-name
+
   - name: provider
     description: The major type of the resource.
     type: enum

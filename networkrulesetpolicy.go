@@ -32,8 +32,8 @@ func (o NetworkRuleSetPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the NetworkRuleSetPoliciesList.
 func (o NetworkRuleSetPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(NetworkRuleSetPoliciesList{}, o...)
-	return &copy
+	out := append(NetworkRuleSetPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the NetworkRuleSetPoliciesList.

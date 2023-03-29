@@ -72,8 +72,8 @@ func (o GraphEdgesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the GraphEdgesList.
 func (o GraphEdgesList) Copy() elemental.Identifiables {
 
-	copy := append(GraphEdgesList{}, o...)
-	return &copy
+	out := append(GraphEdgesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the GraphEdgesList.

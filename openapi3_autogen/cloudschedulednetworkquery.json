@@ -54,13 +54,6 @@
             "format": "date-time",
             "type": "string"
           },
-          "successfulExecutionTimestampMap": {
-            "additionalProperties": {
-              "type": "date-time"
-            },
-            "description": "Mapping of last successful execution timestamp for every account.",
-            "type": "object"
-          },
           "tenantPrismaID": {
             "description": "Prisma ID of the tenant in which the Alert Rule is created.",
             "type": "string"

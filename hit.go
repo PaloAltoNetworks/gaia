@@ -31,8 +31,8 @@ func (o HitsList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the HitsList.
 func (o HitsList) Copy() elemental.Identifiables {
 
-	copy := append(HitsList{}, o...)
-	return &copy
+	out := append(HitsList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the HitsList.

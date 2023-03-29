@@ -32,8 +32,8 @@ func (o QuotaPoliciesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the QuotaPoliciesList.
 func (o QuotaPoliciesList) Copy() elemental.Identifiables {
 
-	copy := append(QuotaPoliciesList{}, o...)
-	return &copy
+	out := append(QuotaPoliciesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the QuotaPoliciesList.
