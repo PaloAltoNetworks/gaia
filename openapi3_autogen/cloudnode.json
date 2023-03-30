@@ -166,6 +166,11 @@
             ],
             "example": "Endpoint"
           },
+          "unifiedAssetID": {
+            "description": "Prisma Cloud Unified Asset ID.",
+            "example": "4b882952f1a26c8a3ce16ee90af3cac9",
+            "type": "string"
+          },
           "updateTime": {
             "description": "Last update date of the object.",
             "format": "date-time",

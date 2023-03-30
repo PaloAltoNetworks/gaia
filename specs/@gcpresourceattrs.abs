@@ -105,6 +105,13 @@ attributes:
     stored: true
     example_value: us-east-1
 
+  - name: prismaUnifiedAssetID
+    description: The Prisma Cloud Unified Asset ID.
+    type: string
+    exposed: true
+    stored: true
+    example_value: 4b882952f1a26c8a3ce16ee90af3cac9
+
   - name: projectID
     description: The ID of the project the resource belongs to in GCP.
     type: string

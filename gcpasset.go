@@ -214,6 +214,9 @@ type GCPAsset struct {
 	// resource may exists in a different region as described by GCP.
 	PrismaRegion string `json:"prismaRegion" msgpack:"prismaRegion" bson:"prismaregion" mapstructure:"prismaRegion,omitempty"`
 
+	// The Prisma Cloud Unified Asset ID.
+	PrismaUnifiedAssetID string `json:"prismaUnifiedAssetID" msgpack:"prismaUnifiedAssetID" bson:"prismaunifiedassetid" mapstructure:"prismaUnifiedAssetID,omitempty"`
+
 	// The ID of the project the resource belongs to in GCP.
 	ProjectID string `json:"projectID,omitempty" msgpack:"projectID,omitempty" bson:"projectid,omitempty" mapstructure:"projectID,omitempty"`
 
@@ -292,6 +295,7 @@ func (o *GCPAsset) GetBSON() (any, error) {
 	s.NumericID = o.NumericID
 	s.PrismaRRN = o.PrismaRRN
 	s.PrismaRegion = o.PrismaRegion
+	s.PrismaUnifiedAssetID = o.PrismaUnifiedAssetID
 	s.ProjectID = o.ProjectID
 	s.Selflink = o.Selflink
 	s.Tags = o.Tags
@@ -327,6 +331,7 @@ func (o *GCPAsset) SetBSON(raw bson.Raw) error {
 	o.NumericID = s.NumericID
 	o.PrismaRRN = s.PrismaRRN
 	o.PrismaRegion = s.PrismaRegion
+	o.PrismaUnifiedAssetID = s.PrismaUnifiedAssetID
 	o.ProjectID = s.ProjectID
 	o.Selflink = s.Selflink
 	o.Tags = s.Tags
@@ -445,25 +450,26 @@ func (o *GCPAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseGCPAsset{
-			ID:             &o.ID,
-			CreateTime:     &o.CreateTime,
-			Data:           &o.Data,
-			DenormedFields: &o.DenormedFields,
-			GeoScope:       &o.GeoScope,
-			Kind:           &o.Kind,
-			MigrationsLog:  &o.MigrationsLog,
-			Name:           &o.Name,
-			Namespace:      &o.Namespace,
-			NumericID:      &o.NumericID,
-			PrismaAPIID:    &o.PrismaAPIID,
-			PrismaRRN:      &o.PrismaRRN,
-			PrismaRegion:   &o.PrismaRegion,
-			ProjectID:      &o.ProjectID,
-			Selflink:       &o.Selflink,
-			Tags:           &o.Tags,
-			UpdateTime:     &o.UpdateTime,
-			ZHash:          &o.ZHash,
-			Zone:           &o.Zone,
+			ID:                   &o.ID,
+			CreateTime:           &o.CreateTime,
+			Data:                 &o.Data,
+			DenormedFields:       &o.DenormedFields,
+			GeoScope:             &o.GeoScope,
+			Kind:                 &o.Kind,
+			MigrationsLog:        &o.MigrationsLog,
+			Name:                 &o.Name,
+			Namespace:            &o.Namespace,
+			NumericID:            &o.NumericID,
+			PrismaAPIID:          &o.PrismaAPIID,
+			PrismaRRN:            &o.PrismaRRN,
+			PrismaRegion:         &o.PrismaRegion,
+			PrismaUnifiedAssetID: &o.PrismaUnifiedAssetID,
+			ProjectID:            &o.ProjectID,
+			Selflink:             &o.Selflink,
+			Tags:                 &o.Tags,
+			UpdateTime:           &o.UpdateTime,
+			ZHash:                &o.ZHash,
+			Zone:                 &o.Zone,
 		}
 	}
 
@@ -496,6 +502,8 @@ func (o *GCPAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.PrismaRRN = &(o.PrismaRRN)
 		case "prismaRegion":
 			sp.PrismaRegion = &(o.PrismaRegion)
+		case "prismaUnifiedAssetID":
+			sp.PrismaUnifiedAssetID = &(o.PrismaUnifiedAssetID)
 		case "projectID":
 			sp.ProjectID = &(o.ProjectID)
 		case "selflink":
@@ -559,6 +567,9 @@ func (o *GCPAsset) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.PrismaRegion != nil {
 		o.PrismaRegion = *so.PrismaRegion
+	}
+	if so.PrismaUnifiedAssetID != nil {
+		o.PrismaUnifiedAssetID = *so.PrismaUnifiedAssetID
 	}
 	if so.ProjectID != nil {
 		o.ProjectID = *so.ProjectID
@@ -682,6 +693,8 @@ func (o *GCPAsset) ValueForAttribute(name string) any {
 		return o.PrismaRRN
 	case "prismaRegion":
 		return o.PrismaRegion
+	case "prismaUnifiedAssetID":
+		return o.PrismaUnifiedAssetID
 	case "projectID":
 		return o.ProjectID
 	case "selflink":
@@ -854,6 +867,16 @@ resource may exists in a different region as described by GCP.`,
 		Name:    "prismaRegion",
 		Stored:  true,
 		Type:    "string",
+	},
+	"PrismaUnifiedAssetID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismaunifiedassetid",
+		ConvertedName:  "PrismaUnifiedAssetID",
+		Description:    `The Prisma Cloud Unified Asset ID.`,
+		Exposed:        true,
+		Name:           "prismaUnifiedAssetID",
+		Stored:         true,
+		Type:           "string",
 	},
 	"ProjectID": {
 		AllowedChoices: []string{},
@@ -1089,6 +1112,16 @@ resource may exists in a different region as described by GCP.`,
 		Stored:  true,
 		Type:    "string",
 	},
+	"prismaunifiedassetid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "prismaunifiedassetid",
+		ConvertedName:  "PrismaUnifiedAssetID",
+		Description:    `The Prisma Cloud Unified Asset ID.`,
+		Exposed:        true,
+		Name:           "prismaUnifiedAssetID",
+		Stored:         true,
+		Type:           "string",
+	},
 	"projectid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "projectid",
@@ -1272,6 +1305,9 @@ type SparseGCPAsset struct {
 	// resource may exists in a different region as described by GCP.
 	PrismaRegion *string `json:"prismaRegion,omitempty" msgpack:"prismaRegion,omitempty" bson:"prismaregion,omitempty" mapstructure:"prismaRegion,omitempty"`
 
+	// The Prisma Cloud Unified Asset ID.
+	PrismaUnifiedAssetID *string `json:"prismaUnifiedAssetID,omitempty" msgpack:"prismaUnifiedAssetID,omitempty" bson:"prismaunifiedassetid,omitempty" mapstructure:"prismaUnifiedAssetID,omitempty"`
+
 	// The ID of the project the resource belongs to in GCP.
 	ProjectID *string `json:"projectID,omitempty" msgpack:"projectID,omitempty" bson:"projectid,omitempty" mapstructure:"projectID,omitempty"`
 
@@ -1370,6 +1406,9 @@ func (o *SparseGCPAsset) GetBSON() (any, error) {
 	if o.PrismaRegion != nil {
 		s.PrismaRegion = o.PrismaRegion
 	}
+	if o.PrismaUnifiedAssetID != nil {
+		s.PrismaUnifiedAssetID = o.PrismaUnifiedAssetID
+	}
 	if o.ProjectID != nil {
 		s.ProjectID = o.ProjectID
 	}
@@ -1439,6 +1478,9 @@ func (o *SparseGCPAsset) SetBSON(raw bson.Raw) error {
 	}
 	if s.PrismaRegion != nil {
 		o.PrismaRegion = s.PrismaRegion
+	}
+	if s.PrismaUnifiedAssetID != nil {
+		o.PrismaUnifiedAssetID = s.PrismaUnifiedAssetID
 	}
 	if s.ProjectID != nil {
 		o.ProjectID = s.ProjectID
@@ -1510,6 +1552,9 @@ func (o *SparseGCPAsset) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.PrismaRegion != nil {
 		out.PrismaRegion = *o.PrismaRegion
+	}
+	if o.PrismaUnifiedAssetID != nil {
+		out.PrismaUnifiedAssetID = *o.PrismaUnifiedAssetID
 	}
 	if o.ProjectID != nil {
 		out.ProjectID = *o.ProjectID
@@ -1654,42 +1699,44 @@ func (o *SparseGCPAsset) DeepCopyInto(out *SparseGCPAsset) {
 }
 
 type mongoAttributesGCPAsset struct {
-	ID             bson.ObjectId         `bson:"_id,omitempty"`
-	CreateTime     time.Time             `bson:"createtime"`
-	Data           []byte                `bson:"data"`
-	DenormedFields []string              `bson:"denormedfields"`
-	GeoScope       GCPAssetGeoScopeValue `bson:"geoscope"`
-	Kind           GCPAssetKindValue     `bson:"kind"`
-	MigrationsLog  map[string]string     `bson:"migrationslog,omitempty"`
-	Name           string                `bson:"name"`
-	Namespace      string                `bson:"namespace"`
-	NumericID      string                `bson:"numericid"`
-	PrismaRRN      string                `bson:"prismarrn,omitempty"`
-	PrismaRegion   string                `bson:"prismaregion"`
-	ProjectID      string                `bson:"projectid,omitempty"`
-	Selflink       string                `bson:"selflink"`
-	Tags           map[string]string     `bson:"tags"`
-	UpdateTime     time.Time             `bson:"updatetime"`
-	ZHash          int                   `bson:"zhash"`
-	Zone           int                   `bson:"zone"`
+	ID                   bson.ObjectId         `bson:"_id,omitempty"`
+	CreateTime           time.Time             `bson:"createtime"`
+	Data                 []byte                `bson:"data"`
+	DenormedFields       []string              `bson:"denormedfields"`
+	GeoScope             GCPAssetGeoScopeValue `bson:"geoscope"`
+	Kind                 GCPAssetKindValue     `bson:"kind"`
+	MigrationsLog        map[string]string     `bson:"migrationslog,omitempty"`
+	Name                 string                `bson:"name"`
+	Namespace            string                `bson:"namespace"`
+	NumericID            string                `bson:"numericid"`
+	PrismaRRN            string                `bson:"prismarrn,omitempty"`
+	PrismaRegion         string                `bson:"prismaregion"`
+	PrismaUnifiedAssetID string                `bson:"prismaunifiedassetid"`
+	ProjectID            string                `bson:"projectid,omitempty"`
+	Selflink             string                `bson:"selflink"`
+	Tags                 map[string]string     `bson:"tags"`
+	UpdateTime           time.Time             `bson:"updatetime"`
+	ZHash                int                   `bson:"zhash"`
+	Zone                 int                   `bson:"zone"`
 }
 type mongoAttributesSparseGCPAsset struct {
-	ID             bson.ObjectId          `bson:"_id,omitempty"`
-	CreateTime     *time.Time             `bson:"createtime,omitempty"`
-	Data           *[]byte                `bson:"data,omitempty"`
-	DenormedFields *[]string              `bson:"denormedfields,omitempty"`
-	GeoScope       *GCPAssetGeoScopeValue `bson:"geoscope,omitempty"`
-	Kind           *GCPAssetKindValue     `bson:"kind,omitempty"`
-	MigrationsLog  *map[string]string     `bson:"migrationslog,omitempty"`
-	Name           *string                `bson:"name,omitempty"`
-	Namespace      *string                `bson:"namespace,omitempty"`
-	NumericID      *string                `bson:"numericid,omitempty"`
-	PrismaRRN      *string                `bson:"prismarrn,omitempty"`
-	PrismaRegion   *string                `bson:"prismaregion,omitempty"`
-	ProjectID      *string                `bson:"projectid,omitempty"`
-	Selflink       *string                `bson:"selflink,omitempty"`
-	Tags           *map[string]string     `bson:"tags,omitempty"`
-	UpdateTime     *time.Time             `bson:"updatetime,omitempty"`
-	ZHash          *int                   `bson:"zhash,omitempty"`
-	Zone           *int                   `bson:"zone,omitempty"`
+	ID                   bson.ObjectId          `bson:"_id,omitempty"`
+	CreateTime           *time.Time             `bson:"createtime,omitempty"`
+	Data                 *[]byte                `bson:"data,omitempty"`
+	DenormedFields       *[]string              `bson:"denormedfields,omitempty"`
+	GeoScope             *GCPAssetGeoScopeValue `bson:"geoscope,omitempty"`
+	Kind                 *GCPAssetKindValue     `bson:"kind,omitempty"`
+	MigrationsLog        *map[string]string     `bson:"migrationslog,omitempty"`
+	Name                 *string                `bson:"name,omitempty"`
+	Namespace            *string                `bson:"namespace,omitempty"`
+	NumericID            *string                `bson:"numericid,omitempty"`
+	PrismaRRN            *string                `bson:"prismarrn,omitempty"`
+	PrismaRegion         *string                `bson:"prismaregion,omitempty"`
+	PrismaUnifiedAssetID *string                `bson:"prismaunifiedassetid,omitempty"`
+	ProjectID            *string                `bson:"projectid,omitempty"`
+	Selflink             *string                `bson:"selflink,omitempty"`
+	Tags                 *map[string]string     `bson:"tags,omitempty"`
+	UpdateTime           *time.Time             `bson:"updatetime,omitempty"`
+	ZHash                *int                   `bson:"zhash,omitempty"`
+	Zone                 *int                   `bson:"zone,omitempty"`
 }
