@@ -1,17 +1,19 @@
 # Model
 model:
-  rest_name: remoteflooder
-  resource_name: remoteflooders
-  entity_name: RemoteFlooder
+  rest_name: floodrpc
+  resource_name: floodrpcs
+  entity_name: FloodRPC
   package: yeul
   group: pcn/infrastructure
-  description: Starts a flooder for a given source/destination/payload triplet.
+  description: |-
+    Starts a flood remote procedural call for a given source/destination/payload
+    triplet.
   private: true
 
 # Attributes
 attributes:
   v1:
-  - name: FloodParams
+  - name: floodParams
     description: The parameters needed to create and start a flooder.
     type: ref
     exposed: true
@@ -19,7 +21,7 @@ attributes:
     extensions:
       refMode: pointer
 
-  - name: NodeMakerConfigs
+  - name: nodeMakerConfigs
     description: The options needed to create nodemakers that are registered with
       a cached mux.
     type: ref
@@ -28,18 +30,18 @@ attributes:
     extensions:
       refMode: pointer
 
-  - name: Results
+  - name: optionResultOmitTrails
+    description: If set, trails will be omitted from the results.
+    type: boolean
+    exposed: true
+
+  - name: results
     description: The flooding results.
     type: ref
     exposed: true
     subtype: floodresult
     extensions:
       refMode: pointer
-
-  - name: optionResultOmitTrails
-    description: If set, trails will be omitted from the results.
-    type: boolean
-    exposed: true
 
   - name: sessionID
     description: |-

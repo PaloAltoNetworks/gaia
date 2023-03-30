@@ -1,8 +1,8 @@
 # Model
 model:
-  rest_name: detacheddecoy
-  resource_name: detacheddecoys
-  entity_name: DetachedDecoy
+  rest_name: flooddecoy
+  resource_name: flooddecoys
+  entity_name: FloodDecoy
   package: yeul
   group: pcn/infrastructure
   description: |-
@@ -24,6 +24,6 @@ attributes:
     description: The NodeUID which the decoy passed through.
     type: ref
     exposed: true
-    subtype: nodeuid
+    subtype: floodnodeuid
     extensions:
       refMode: pointer

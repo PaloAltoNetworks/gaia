@@ -15,7 +15,10 @@ model:
 attributes:
   v1:
   - name: cloudTypes
-    description: A list of cloud types involved in flooding.
+    description: |-
+      A list of cloud types involved in flooding.  WARNING: this will eventually go
+      away as we should transmit the tree. We keep it this way for backwards
+      compatibility with existing code for the sake of speed.
     type: list
     exposed: true
     subtype: string

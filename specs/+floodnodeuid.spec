@@ -1,8 +1,8 @@
 # Model
 model:
-  rest_name: nodeuid
-  resource_name: nodeuids
-  entity_name: NodeUID
+  rest_name: floodnodeuid
+  resource_name: floodnodeuids
+  entity_name: FloodNodeUID
   package: yeul
   group: pcn/infrastructure
   description: Represents a neocna NodeUID.
@@ -12,14 +12,14 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: ID
-    description: The node identifier.
+  - name: networkAddress
+    description: The network address of the node described by the NodeUID.
     type: string
     exposed: true
     omit_empty: true
 
-  - name: networkAddress
-    description: The network address of the node described by the NodeUID.
+  - name: nid
+    description: The node identifier.
     type: string
     exposed: true
     omit_empty: true

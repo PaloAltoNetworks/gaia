@@ -23,10 +23,10 @@
         }
       }
 
-'[][]detacheddecoy':
+'[][]flooddecoy':
   elemental:
-    type: '[][]*DetachedDecoy'
-    init: '[][]*DetachedDecoy{}'
+    type: '[][]*FloodDecoy'
+    init: '[][]*FloodDecoy{}'
   jsonschema:
     type: |-
       {

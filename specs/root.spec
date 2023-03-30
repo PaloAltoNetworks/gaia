@@ -574,6 +574,10 @@ relations:
   create:
     description: Create a new file path.
 
+- rest_name: floodrpc
+  create:
+    description: Starts a new flood request remotely.
+
 - rest_name: flowreport
   create:
     description: Create a flow statistics report.
@@ -1041,10 +1045,6 @@ relations:
     - $propagatable
   create:
     description: Creates a new recipe.
-
-- rest_name: remoteflooder
-  create:
-    description: Starts a new flood request.
 
 - rest_name: remoteprocessor
   create:

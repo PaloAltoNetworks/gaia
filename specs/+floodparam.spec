@@ -16,7 +16,7 @@ attributes:
     description: The destination NodeUID where the flooder should stop.
     type: ref
     exposed: true
-    subtype: nodeuid
+    subtype: floodnodeuid
     extensions:
       refMode: pointer
 
@@ -36,7 +36,7 @@ attributes:
     description: The payload which the flooder should use.
     type: ref
     exposed: true
-    subtype: payload
+    subtype: floodpayload
     extensions:
       refMode: pointer
 
@@ -44,6 +44,6 @@ attributes:
     description: The source NodeUID where the flooder should start.
     type: ref
     exposed: true
-    subtype: nodeuid
+    subtype: floodnodeuid
     extensions:
       refMode: pointer
