@@ -173,6 +173,7 @@ var (
 		"quotapolicy":     QuotaPolicyIdentity,
 		"recipe":          RecipeIdentity,
 
+		"remoteflooder": RemoteFlooderIdentity,
 		"remoteprocessor":         RemoteProcessorIdentity,
 		"renderedpolicy":          RenderedPolicyIdentity,
 		"rendertemplate":          RenderTemplateIdentity,
