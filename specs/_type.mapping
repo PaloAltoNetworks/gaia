@@ -23,6 +23,31 @@
         }
       }
 
+'[][]flooddecoy':
+  elemental:
+    type: '[][]*FloodDecoy'
+    init: '[][]*FloodDecoy{}'
+  jsonschema:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": true
+        }
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+
 '[][]interface{}':
   elemental:
     type: '[][]interface{}'
