@@ -1042,6 +1042,10 @@ relations:
   create:
     description: Creates a new recipe.
 
+- rest_name: remoteflooder
+  create:
+    description: Starts a new flood request.
+
 - rest_name: remoteprocessor
   create:
     description: This should be be here.

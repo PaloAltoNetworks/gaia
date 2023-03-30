@@ -23,6 +23,31 @@
         }
       }
 
+'[][]detacheddecoy':
+  elemental:
+    type: '[][]*DetachedDecoy'
+    init: '[][]*DetachedDecoy{}'
+  jsonschema:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": true
+        }
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+
 '[][]interface{}':
   elemental:
     type: '[][]interface{}'
