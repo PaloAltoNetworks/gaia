@@ -13,7 +13,7 @@ import (
 
 // DetachedDecoy represents the model of a detacheddecoy
 type DetachedDecoy struct {
-	// If not empty, it means the decoy has ErrNotPermitted and the string indicates the detailed error.
+	// If not empty, it means the decoy has ErrNotPermitted.
 	ErrNotPermitted string `json:"errNotPermitted" msgpack:"errNotPermitted" bson:"-" mapstructure:"errNotPermitted,omitempty"`
 
 	// The NodeUID which the decoy passed through.
@@ -151,7 +151,7 @@ var DetachedDecoyAttributesMap = map[string]elemental.AttributeSpecification{
 	"ErrNotPermitted": {
 		AllowedChoices: []string{},
 		ConvertedName:  "ErrNotPermitted",
-		Description:    `If not empty, it means the decoy has ErrNotPermitted and the string indicates the detailed error.`,
+		Description:    `If not empty, it means the decoy has ErrNotPermitted.`,
 		Exposed:        true,
 		Name:           "errNotPermitted",
 		Type:           "string",
@@ -172,7 +172,7 @@ var DetachedDecoyLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 	"errnotpermitted": {
 		AllowedChoices: []string{},
 		ConvertedName:  "ErrNotPermitted",
-		Description:    `If not empty, it means the decoy has ErrNotPermitted and the string indicates the detailed error.`,
+		Description:    `If not empty, it means the decoy has ErrNotPermitted.`,
 		Exposed:        true,
 		Name:           "errNotPermitted",
 		Type:           "string",

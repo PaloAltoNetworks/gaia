@@ -16,9 +16,7 @@ model:
 attributes:
   v1:
   - name: errNotPermitted
-    description: |-
-      If not empty, it means the decoy has ErrNotPermitted and the string indicates
-      the detailed error.
+    description: If not empty, it means the decoy has ErrNotPermitted.
     type: string
     exposed: true
 
