@@ -14,7 +14,7 @@ import (
 // FloodParam represents the model of a floodparam
 type FloodParam struct {
 	// The destination NodeUID where the flooder should stop.
-	Destination *NodeUID `json:"destination" msgpack:"destination" bson:"-" mapstructure:"destination,omitempty"`
+	Destination *FloodNodeUID `json:"destination" msgpack:"destination" bson:"-" mapstructure:"destination,omitempty"`
 
 	// If set, the flooder will continue if a node returns ErrNotPermitted.
 	OptionContinueOnErrNotPermitted bool `json:"optionContinueOnErrNotPermitted" msgpack:"optionContinueOnErrNotPermitted" bson:"-" mapstructure:"optionContinueOnErrNotPermitted,omitempty"`
@@ -24,10 +24,10 @@ type FloodParam struct {
 	OptionOnlyReportResultsWithErrNotPermitted bool `json:"optionOnlyReportResultsWithErrNotPermitted" msgpack:"optionOnlyReportResultsWithErrNotPermitted" bson:"-" mapstructure:"optionOnlyReportResultsWithErrNotPermitted,omitempty"`
 
 	// The payload which the flooder should use.
-	Payload *Payload `json:"payload" msgpack:"payload" bson:"-" mapstructure:"payload,omitempty"`
+	Payload *FloodPayload `json:"payload" msgpack:"payload" bson:"-" mapstructure:"payload,omitempty"`
 
 	// The source NodeUID where the flooder should start.
-	Source *NodeUID `json:"source" msgpack:"source" bson:"-" mapstructure:"source,omitempty"`
+	Source *FloodNodeUID `json:"source" msgpack:"source" bson:"-" mapstructure:"source,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -37,9 +37,9 @@ func NewFloodParam() *FloodParam {
 
 	return &FloodParam{
 		ModelVersion: 1,
-		Destination:  NewNodeUID(),
-		Payload:      NewPayload(),
-		Source:       NewNodeUID(),
+		Destination:  NewFloodNodeUID(),
+		Payload:      NewFloodPayload(),
+		Source:       NewFloodNodeUID(),
 	}
 }
 
@@ -186,7 +186,7 @@ var FloodParamAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The destination NodeUID where the flooder should stop.`,
 		Exposed:        true,
 		Name:           "destination",
-		SubType:        "nodeuid",
+		SubType:        "floodnodeuid",
 		Type:           "ref",
 	},
 	"OptionContinueOnErrNotPermitted": {
@@ -212,7 +212,7 @@ optionContinueOnErrNotPermitted.`,
 		Description:    `The payload which the flooder should use.`,
 		Exposed:        true,
 		Name:           "payload",
-		SubType:        "payload",
+		SubType:        "floodpayload",
 		Type:           "ref",
 	},
 	"Source": {
@@ -221,7 +221,7 @@ optionContinueOnErrNotPermitted.`,
 		Description:    `The source NodeUID where the flooder should start.`,
 		Exposed:        true,
 		Name:           "source",
-		SubType:        "nodeuid",
+		SubType:        "floodnodeuid",
 		Type:           "ref",
 	},
 }
@@ -234,7 +234,7 @@ var FloodParamLowerCaseAttributesMap = map[string]elemental.AttributeSpecificati
 		Description:    `The destination NodeUID where the flooder should stop.`,
 		Exposed:        true,
 		Name:           "destination",
-		SubType:        "nodeuid",
+		SubType:        "floodnodeuid",
 		Type:           "ref",
 	},
 	"optioncontinueonerrnotpermitted": {
@@ -260,7 +260,7 @@ optionContinueOnErrNotPermitted.`,
 		Description:    `The payload which the flooder should use.`,
 		Exposed:        true,
 		Name:           "payload",
-		SubType:        "payload",
+		SubType:        "floodpayload",
 		Type:           "ref",
 	},
 	"source": {
@@ -269,7 +269,7 @@ optionContinueOnErrNotPermitted.`,
 		Description:    `The source NodeUID where the flooder should start.`,
 		Exposed:        true,
 		Name:           "source",
-		SubType:        "nodeuid",
+		SubType:        "floodnodeuid",
 		Type:           "ref",
 	},
 }

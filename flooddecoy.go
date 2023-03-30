@@ -11,48 +11,48 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// DetachedDecoy represents the model of a detacheddecoy
-type DetachedDecoy struct {
+// FloodDecoy represents the model of a flooddecoy
+type FloodDecoy struct {
 	// If not empty, it means the decoy has ErrNotPermitted.
 	ErrNotPermitted string `json:"errNotPermitted" msgpack:"errNotPermitted" bson:"-" mapstructure:"errNotPermitted,omitempty"`
 
 	// The NodeUID which the decoy passed through.
-	NodeUID *NodeUID `json:"nodeUID" msgpack:"nodeUID" bson:"-" mapstructure:"nodeUID,omitempty"`
+	NodeUID *FloodNodeUID `json:"nodeUID" msgpack:"nodeUID" bson:"-" mapstructure:"nodeUID,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewDetachedDecoy returns a new *DetachedDecoy
-func NewDetachedDecoy() *DetachedDecoy {
+// NewFloodDecoy returns a new *FloodDecoy
+func NewFloodDecoy() *FloodDecoy {
 
-	return &DetachedDecoy{
+	return &FloodDecoy{
 		ModelVersion: 1,
-		NodeUID:      NewNodeUID(),
+		NodeUID:      NewFloodNodeUID(),
 	}
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *DetachedDecoy) GetBSON() (any, error) {
+func (o *FloodDecoy) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesDetachedDecoy{}
+	s := &mongoAttributesFloodDecoy{}
 
 	return s, nil
 }
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *DetachedDecoy) SetBSON(raw bson.Raw) error {
+func (o *FloodDecoy) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesDetachedDecoy{}
+	s := &mongoAttributesFloodDecoy{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -61,37 +61,37 @@ func (o *DetachedDecoy) SetBSON(raw bson.Raw) error {
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *DetachedDecoy) BleveType() string {
+func (o *FloodDecoy) BleveType() string {
 
-	return "detacheddecoy"
+	return "flooddecoy"
 }
 
-// DeepCopy returns a deep copy if the DetachedDecoy.
-func (o *DetachedDecoy) DeepCopy() *DetachedDecoy {
+// DeepCopy returns a deep copy if the FloodDecoy.
+func (o *FloodDecoy) DeepCopy() *FloodDecoy {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &DetachedDecoy{}
+	out := &FloodDecoy{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *DetachedDecoy.
-func (o *DetachedDecoy) DeepCopyInto(out *DetachedDecoy) {
+// DeepCopyInto copies the receiver into the given *FloodDecoy.
+func (o *FloodDecoy) DeepCopyInto(out *FloodDecoy) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy DetachedDecoy: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy FloodDecoy: %s", err))
 	}
 
-	*out = *target.(*DetachedDecoy)
+	*out = *target.(*FloodDecoy)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *DetachedDecoy) Validate() error {
+func (o *FloodDecoy) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -115,26 +115,26 @@ func (o *DetachedDecoy) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*DetachedDecoy) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*FloodDecoy) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := DetachedDecoyAttributesMap[name]; ok {
+	if v, ok := FloodDecoyAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return DetachedDecoyLowerCaseAttributesMap[name]
+	return FloodDecoyLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*DetachedDecoy) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*FloodDecoy) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return DetachedDecoyAttributesMap
+	return FloodDecoyAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *DetachedDecoy) ValueForAttribute(name string) any {
+func (o *FloodDecoy) ValueForAttribute(name string) any {
 
 	switch name {
 	case "errNotPermitted":
@@ -146,8 +146,8 @@ func (o *DetachedDecoy) ValueForAttribute(name string) any {
 	return nil
 }
 
-// DetachedDecoyAttributesMap represents the map of attribute for DetachedDecoy.
-var DetachedDecoyAttributesMap = map[string]elemental.AttributeSpecification{
+// FloodDecoyAttributesMap represents the map of attribute for FloodDecoy.
+var FloodDecoyAttributesMap = map[string]elemental.AttributeSpecification{
 	"ErrNotPermitted": {
 		AllowedChoices: []string{},
 		ConvertedName:  "ErrNotPermitted",
@@ -162,13 +162,13 @@ var DetachedDecoyAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The NodeUID which the decoy passed through.`,
 		Exposed:        true,
 		Name:           "nodeUID",
-		SubType:        "nodeuid",
+		SubType:        "floodnodeuid",
 		Type:           "ref",
 	},
 }
 
-// DetachedDecoyLowerCaseAttributesMap represents the map of attribute for DetachedDecoy.
-var DetachedDecoyLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// FloodDecoyLowerCaseAttributesMap represents the map of attribute for FloodDecoy.
+var FloodDecoyLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"errnotpermitted": {
 		AllowedChoices: []string{},
 		ConvertedName:  "ErrNotPermitted",
@@ -183,10 +183,10 @@ var DetachedDecoyLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Description:    `The NodeUID which the decoy passed through.`,
 		Exposed:        true,
 		Name:           "nodeUID",
-		SubType:        "nodeuid",
+		SubType:        "floodnodeuid",
 		Type:           "ref",
 	},
 }
 
-type mongoAttributesDetachedDecoy struct {
+type mongoAttributesFloodDecoy struct {
 }

@@ -11,43 +11,43 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// RemoteFlooderIdentity represents the Identity of the object.
-var RemoteFlooderIdentity = elemental.Identity{
-	Name:     "remoteflooder",
-	Category: "remoteflooders",
+// FloodRPCIdentity represents the Identity of the object.
+var FloodRPCIdentity = elemental.Identity{
+	Name:     "floodrpc",
+	Category: "floodrpcs",
 	Package:  "yeul",
 	Private:  true,
 }
 
-// RemoteFloodersList represents a list of RemoteFlooders
-type RemoteFloodersList []*RemoteFlooder
+// FloodRPCsList represents a list of FloodRPCs
+type FloodRPCsList []*FloodRPC
 
 // Identity returns the identity of the objects in the list.
-func (o RemoteFloodersList) Identity() elemental.Identity {
+func (o FloodRPCsList) Identity() elemental.Identity {
 
-	return RemoteFlooderIdentity
+	return FloodRPCIdentity
 }
 
-// Copy returns a pointer to a copy the RemoteFloodersList.
-func (o RemoteFloodersList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the FloodRPCsList.
+func (o FloodRPCsList) Copy() elemental.Identifiables {
 
-	out := append(RemoteFloodersList{}, o...)
+	out := append(FloodRPCsList{}, o...)
 	return &out
 }
 
-// Append appends the objects to the a new copy of the RemoteFloodersList.
-func (o RemoteFloodersList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the FloodRPCsList.
+func (o FloodRPCsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(RemoteFloodersList{}, o...)
+	out := append(FloodRPCsList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*RemoteFlooder))
+		out = append(out, obj.(*FloodRPC))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o RemoteFloodersList) List() elemental.IdentifiablesList {
+func (o FloodRPCsList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -58,42 +58,42 @@ func (o RemoteFloodersList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o RemoteFloodersList) DefaultOrder() []string {
+func (o FloodRPCsList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToSparse returns the RemoteFloodersList converted to SparseRemoteFloodersList.
+// ToSparse returns the FloodRPCsList converted to SparseFloodRPCsList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o RemoteFloodersList) ToSparse(fields ...string) elemental.Identifiables {
+func (o FloodRPCsList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseRemoteFloodersList, len(o))
+	out := make(SparseFloodRPCsList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseRemoteFlooder)
+		out[i] = o[i].ToSparse(fields...).(*SparseFloodRPC)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o RemoteFloodersList) Version() int {
+func (o FloodRPCsList) Version() int {
 
 	return 1
 }
 
-// RemoteFlooder represents the model of a remoteflooder
-type RemoteFlooder struct {
+// FloodRPC represents the model of a floodrpc
+type FloodRPC struct {
 	// The parameters needed to create and start a flooder.
-	FloodParams *FloodParam `json:"FloodParams" msgpack:"FloodParams" bson:"-" mapstructure:"FloodParams,omitempty"`
+	FloodParams *FloodParam `json:"floodParams" msgpack:"floodParams" bson:"-" mapstructure:"floodParams,omitempty"`
 
 	// The options needed to create nodemakers that are registered with a cached mux.
-	NodeMakerConfigs *FloodNodeMakerConfig `json:"NodeMakerConfigs" msgpack:"NodeMakerConfigs" bson:"-" mapstructure:"NodeMakerConfigs,omitempty"`
-
-	// The flooding results.
-	Results *FloodResult `json:"Results" msgpack:"Results" bson:"-" mapstructure:"Results,omitempty"`
+	NodeMakerConfigs *FloodNodeMakerConfig `json:"nodeMakerConfigs" msgpack:"nodeMakerConfigs" bson:"-" mapstructure:"nodeMakerConfigs,omitempty"`
 
 	// If set, trails will be omitted from the results.
 	OptionResultOmitTrails bool `json:"optionResultOmitTrails" msgpack:"optionResultOmitTrails" bson:"-" mapstructure:"optionResultOmitTrails,omitempty"`
+
+	// The flooding results.
+	Results *FloodResult `json:"results" msgpack:"results" bson:"-" mapstructure:"results,omitempty"`
 
 	// a unique random string that is used to associate a cached mux nodemaker with
 	// successive requests.
@@ -102,10 +102,10 @@ type RemoteFlooder struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewRemoteFlooder returns a new *RemoteFlooder
-func NewRemoteFlooder() *RemoteFlooder {
+// NewFloodRPC returns a new *FloodRPC
+func NewFloodRPC() *FloodRPC {
 
-	return &RemoteFlooder{
+	return &FloodRPC{
 		ModelVersion:     1,
 		FloodParams:      NewFloodParam(),
 		NodeMakerConfigs: NewFloodNodeMakerConfig(),
@@ -114,44 +114,44 @@ func NewRemoteFlooder() *RemoteFlooder {
 }
 
 // Identity returns the Identity of the object.
-func (o *RemoteFlooder) Identity() elemental.Identity {
+func (o *FloodRPC) Identity() elemental.Identity {
 
-	return RemoteFlooderIdentity
+	return FloodRPCIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *RemoteFlooder) Identifier() string {
+func (o *FloodRPC) Identifier() string {
 
 	return ""
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *RemoteFlooder) SetIdentifier(id string) {
+func (o *FloodRPC) SetIdentifier(id string) {
 
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *RemoteFlooder) GetBSON() (any, error) {
+func (o *FloodRPC) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesRemoteFlooder{}
+	s := &mongoAttributesFloodRPC{}
 
 	return s, nil
 }
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *RemoteFlooder) SetBSON(raw bson.Raw) error {
+func (o *FloodRPC) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesRemoteFlooder{}
+	s := &mongoAttributesFloodRPC{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -160,60 +160,61 @@ func (o *RemoteFlooder) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *RemoteFlooder) Version() int {
+func (o *FloodRPC) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *RemoteFlooder) BleveType() string {
+func (o *FloodRPC) BleveType() string {
 
-	return "remoteflooder"
+	return "floodrpc"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *RemoteFlooder) DefaultOrder() []string {
+func (o *FloodRPC) DefaultOrder() []string {
 
 	return []string{}
 }
 
 // Doc returns the documentation for the object
-func (o *RemoteFlooder) Doc() string {
+func (o *FloodRPC) Doc() string {
 
-	return `Starts a flooder for a given source/destination/payload triplet.`
+	return `Starts a flood remote procedural call for a given source/destination/payload
+triplet.`
 }
 
-func (o *RemoteFlooder) String() string {
+func (o *FloodRPC) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *RemoteFlooder) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *FloodRPC) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseRemoteFlooder{
+		return &SparseFloodRPC{
 			FloodParams:            o.FloodParams,
 			NodeMakerConfigs:       o.NodeMakerConfigs,
-			Results:                o.Results,
 			OptionResultOmitTrails: &o.OptionResultOmitTrails,
+			Results:                o.Results,
 			SessionID:              &o.SessionID,
 		}
 	}
 
-	sp := &SparseRemoteFlooder{}
+	sp := &SparseFloodRPC{}
 	for _, f := range fields {
 		switch f {
-		case "FloodParams":
+		case "floodParams":
 			sp.FloodParams = o.FloodParams
-		case "NodeMakerConfigs":
+		case "nodeMakerConfigs":
 			sp.NodeMakerConfigs = o.NodeMakerConfigs
-		case "Results":
-			sp.Results = o.Results
 		case "optionResultOmitTrails":
 			sp.OptionResultOmitTrails = &(o.OptionResultOmitTrails)
+		case "results":
+			sp.Results = o.Results
 		case "sessionID":
 			sp.SessionID = &(o.SessionID)
 		}
@@ -222,56 +223,56 @@ func (o *RemoteFlooder) ToSparse(fields ...string) elemental.SparseIdentifiable 
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseRemoteFlooder to the object.
-func (o *RemoteFlooder) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseFloodRPC to the object.
+func (o *FloodRPC) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseRemoteFlooder)
+	so := sparse.(*SparseFloodRPC)
 	if so.FloodParams != nil {
 		o.FloodParams = so.FloodParams
 	}
 	if so.NodeMakerConfigs != nil {
 		o.NodeMakerConfigs = so.NodeMakerConfigs
 	}
-	if so.Results != nil {
-		o.Results = so.Results
-	}
 	if so.OptionResultOmitTrails != nil {
 		o.OptionResultOmitTrails = *so.OptionResultOmitTrails
+	}
+	if so.Results != nil {
+		o.Results = so.Results
 	}
 	if so.SessionID != nil {
 		o.SessionID = *so.SessionID
 	}
 }
 
-// DeepCopy returns a deep copy if the RemoteFlooder.
-func (o *RemoteFlooder) DeepCopy() *RemoteFlooder {
+// DeepCopy returns a deep copy if the FloodRPC.
+func (o *FloodRPC) DeepCopy() *FloodRPC {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &RemoteFlooder{}
+	out := &FloodRPC{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *RemoteFlooder.
-func (o *RemoteFlooder) DeepCopyInto(out *RemoteFlooder) {
+// DeepCopyInto copies the receiver into the given *FloodRPC.
+func (o *FloodRPC) DeepCopyInto(out *FloodRPC) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy RemoteFlooder: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy FloodRPC: %s", err))
 	}
 
-	*out = *target.(*RemoteFlooder)
+	*out = *target.(*FloodRPC)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *RemoteFlooder) Validate() error {
+func (o *FloodRPC) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -313,36 +314,36 @@ func (o *RemoteFlooder) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*RemoteFlooder) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*FloodRPC) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := RemoteFlooderAttributesMap[name]; ok {
+	if v, ok := FloodRPCAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return RemoteFlooderLowerCaseAttributesMap[name]
+	return FloodRPCLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*RemoteFlooder) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*FloodRPC) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return RemoteFlooderAttributesMap
+	return FloodRPCAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *RemoteFlooder) ValueForAttribute(name string) any {
+func (o *FloodRPC) ValueForAttribute(name string) any {
 
 	switch name {
-	case "FloodParams":
+	case "floodParams":
 		return o.FloodParams
-	case "NodeMakerConfigs":
+	case "nodeMakerConfigs":
 		return o.NodeMakerConfigs
-	case "Results":
-		return o.Results
 	case "optionResultOmitTrails":
 		return o.OptionResultOmitTrails
+	case "results":
+		return o.Results
 	case "sessionID":
 		return o.SessionID
 	}
@@ -350,14 +351,14 @@ func (o *RemoteFlooder) ValueForAttribute(name string) any {
 	return nil
 }
 
-// RemoteFlooderAttributesMap represents the map of attribute for RemoteFlooder.
-var RemoteFlooderAttributesMap = map[string]elemental.AttributeSpecification{
+// FloodRPCAttributesMap represents the map of attribute for FloodRPC.
+var FloodRPCAttributesMap = map[string]elemental.AttributeSpecification{
 	"FloodParams": {
 		AllowedChoices: []string{},
 		ConvertedName:  "FloodParams",
 		Description:    `The parameters needed to create and start a flooder.`,
 		Exposed:        true,
-		Name:           "FloodParams",
+		Name:           "floodParams",
 		SubType:        "floodparam",
 		Type:           "ref",
 	},
@@ -366,17 +367,8 @@ var RemoteFlooderAttributesMap = map[string]elemental.AttributeSpecification{
 		ConvertedName:  "NodeMakerConfigs",
 		Description:    `The options needed to create nodemakers that are registered with a cached mux.`,
 		Exposed:        true,
-		Name:           "NodeMakerConfigs",
+		Name:           "nodeMakerConfigs",
 		SubType:        "floodnodemakerconfig",
-		Type:           "ref",
-	},
-	"Results": {
-		AllowedChoices: []string{},
-		ConvertedName:  "Results",
-		Description:    `The flooding results.`,
-		Exposed:        true,
-		Name:           "Results",
-		SubType:        "floodresult",
 		Type:           "ref",
 	},
 	"OptionResultOmitTrails": {
@@ -386,6 +378,15 @@ var RemoteFlooderAttributesMap = map[string]elemental.AttributeSpecification{
 		Exposed:        true,
 		Name:           "optionResultOmitTrails",
 		Type:           "boolean",
+	},
+	"Results": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Results",
+		Description:    `The flooding results.`,
+		Exposed:        true,
+		Name:           "results",
+		SubType:        "floodresult",
+		Type:           "ref",
 	},
 	"SessionID": {
 		AllowedChoices: []string{},
@@ -399,14 +400,14 @@ successive requests.`,
 	},
 }
 
-// RemoteFlooderLowerCaseAttributesMap represents the map of attribute for RemoteFlooder.
-var RemoteFlooderLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// FloodRPCLowerCaseAttributesMap represents the map of attribute for FloodRPC.
+var FloodRPCLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"floodparams": {
 		AllowedChoices: []string{},
 		ConvertedName:  "FloodParams",
 		Description:    `The parameters needed to create and start a flooder.`,
 		Exposed:        true,
-		Name:           "FloodParams",
+		Name:           "floodParams",
 		SubType:        "floodparam",
 		Type:           "ref",
 	},
@@ -415,17 +416,8 @@ var RemoteFlooderLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		ConvertedName:  "NodeMakerConfigs",
 		Description:    `The options needed to create nodemakers that are registered with a cached mux.`,
 		Exposed:        true,
-		Name:           "NodeMakerConfigs",
+		Name:           "nodeMakerConfigs",
 		SubType:        "floodnodemakerconfig",
-		Type:           "ref",
-	},
-	"results": {
-		AllowedChoices: []string{},
-		ConvertedName:  "Results",
-		Description:    `The flooding results.`,
-		Exposed:        true,
-		Name:           "Results",
-		SubType:        "floodresult",
 		Type:           "ref",
 	},
 	"optionresultomittrails": {
@@ -435,6 +427,15 @@ var RemoteFlooderLowerCaseAttributesMap = map[string]elemental.AttributeSpecific
 		Exposed:        true,
 		Name:           "optionResultOmitTrails",
 		Type:           "boolean",
+	},
+	"results": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Results",
+		Description:    `The flooding results.`,
+		Exposed:        true,
+		Name:           "results",
+		SubType:        "floodresult",
+		Type:           "ref",
 	},
 	"sessionid": {
 		AllowedChoices: []string{},
@@ -448,35 +449,35 @@ successive requests.`,
 	},
 }
 
-// SparseRemoteFloodersList represents a list of SparseRemoteFlooders
-type SparseRemoteFloodersList []*SparseRemoteFlooder
+// SparseFloodRPCsList represents a list of SparseFloodRPCs
+type SparseFloodRPCsList []*SparseFloodRPC
 
 // Identity returns the identity of the objects in the list.
-func (o SparseRemoteFloodersList) Identity() elemental.Identity {
+func (o SparseFloodRPCsList) Identity() elemental.Identity {
 
-	return RemoteFlooderIdentity
+	return FloodRPCIdentity
 }
 
-// Copy returns a pointer to a copy the SparseRemoteFloodersList.
-func (o SparseRemoteFloodersList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseFloodRPCsList.
+func (o SparseFloodRPCsList) Copy() elemental.Identifiables {
 
-	copy := append(SparseRemoteFloodersList{}, o...)
+	copy := append(SparseFloodRPCsList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseRemoteFloodersList.
-func (o SparseRemoteFloodersList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseFloodRPCsList.
+func (o SparseFloodRPCsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseRemoteFloodersList{}, o...)
+	out := append(SparseFloodRPCsList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseRemoteFlooder))
+		out = append(out, obj.(*SparseFloodRPC))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseRemoteFloodersList) List() elemental.IdentifiablesList {
+func (o SparseFloodRPCsList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -487,13 +488,13 @@ func (o SparseRemoteFloodersList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseRemoteFloodersList) DefaultOrder() []string {
+func (o SparseFloodRPCsList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToPlain returns the SparseRemoteFloodersList converted to RemoteFloodersList.
-func (o SparseRemoteFloodersList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseFloodRPCsList converted to FloodRPCsList.
+func (o SparseFloodRPCsList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -504,24 +505,24 @@ func (o SparseRemoteFloodersList) ToPlain() elemental.IdentifiablesList {
 }
 
 // Version returns the version of the content.
-func (o SparseRemoteFloodersList) Version() int {
+func (o SparseFloodRPCsList) Version() int {
 
 	return 1
 }
 
-// SparseRemoteFlooder represents the sparse version of a remoteflooder.
-type SparseRemoteFlooder struct {
+// SparseFloodRPC represents the sparse version of a floodrpc.
+type SparseFloodRPC struct {
 	// The parameters needed to create and start a flooder.
-	FloodParams *FloodParam `json:"FloodParams,omitempty" msgpack:"FloodParams,omitempty" bson:"-" mapstructure:"FloodParams,omitempty"`
+	FloodParams *FloodParam `json:"floodParams,omitempty" msgpack:"floodParams,omitempty" bson:"-" mapstructure:"floodParams,omitempty"`
 
 	// The options needed to create nodemakers that are registered with a cached mux.
-	NodeMakerConfigs *FloodNodeMakerConfig `json:"NodeMakerConfigs,omitempty" msgpack:"NodeMakerConfigs,omitempty" bson:"-" mapstructure:"NodeMakerConfigs,omitempty"`
-
-	// The flooding results.
-	Results *FloodResult `json:"Results,omitempty" msgpack:"Results,omitempty" bson:"-" mapstructure:"Results,omitempty"`
+	NodeMakerConfigs *FloodNodeMakerConfig `json:"nodeMakerConfigs,omitempty" msgpack:"nodeMakerConfigs,omitempty" bson:"-" mapstructure:"nodeMakerConfigs,omitempty"`
 
 	// If set, trails will be omitted from the results.
 	OptionResultOmitTrails *bool `json:"optionResultOmitTrails,omitempty" msgpack:"optionResultOmitTrails,omitempty" bson:"-" mapstructure:"optionResultOmitTrails,omitempty"`
+
+	// The flooding results.
+	Results *FloodResult `json:"results,omitempty" msgpack:"results,omitempty" bson:"-" mapstructure:"results,omitempty"`
 
 	// a unique random string that is used to associate a cached mux nodemaker with
 	// successive requests.
@@ -530,50 +531,50 @@ type SparseRemoteFlooder struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseRemoteFlooder returns a new  SparseRemoteFlooder.
-func NewSparseRemoteFlooder() *SparseRemoteFlooder {
-	return &SparseRemoteFlooder{}
+// NewSparseFloodRPC returns a new  SparseFloodRPC.
+func NewSparseFloodRPC() *SparseFloodRPC {
+	return &SparseFloodRPC{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseRemoteFlooder) Identity() elemental.Identity {
+func (o *SparseFloodRPC) Identity() elemental.Identity {
 
-	return RemoteFlooderIdentity
+	return FloodRPCIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseRemoteFlooder) Identifier() string {
+func (o *SparseFloodRPC) Identifier() string {
 
 	return ""
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseRemoteFlooder) SetIdentifier(id string) {
+func (o *SparseFloodRPC) SetIdentifier(id string) {
 
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseRemoteFlooder) GetBSON() (any, error) {
+func (o *SparseFloodRPC) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseRemoteFlooder{}
+	s := &mongoAttributesSparseFloodRPC{}
 
 	return s, nil
 }
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseRemoteFlooder) SetBSON(raw bson.Raw) error {
+func (o *SparseFloodRPC) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseRemoteFlooder{}
+	s := &mongoAttributesSparseFloodRPC{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -582,26 +583,26 @@ func (o *SparseRemoteFlooder) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseRemoteFlooder) Version() int {
+func (o *SparseFloodRPC) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseRemoteFlooder) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseFloodRPC) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewRemoteFlooder()
+	out := NewFloodRPC()
 	if o.FloodParams != nil {
 		out.FloodParams = o.FloodParams
 	}
 	if o.NodeMakerConfigs != nil {
 		out.NodeMakerConfigs = o.NodeMakerConfigs
 	}
-	if o.Results != nil {
-		out.Results = o.Results
-	}
 	if o.OptionResultOmitTrails != nil {
 		out.OptionResultOmitTrails = *o.OptionResultOmitTrails
+	}
+	if o.Results != nil {
+		out.Results = o.Results
 	}
 	if o.SessionID != nil {
 		out.SessionID = *o.SessionID
@@ -610,31 +611,31 @@ func (o *SparseRemoteFlooder) ToPlain() elemental.PlainIdentifiable {
 	return out
 }
 
-// DeepCopy returns a deep copy if the SparseRemoteFlooder.
-func (o *SparseRemoteFlooder) DeepCopy() *SparseRemoteFlooder {
+// DeepCopy returns a deep copy if the SparseFloodRPC.
+func (o *SparseFloodRPC) DeepCopy() *SparseFloodRPC {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseRemoteFlooder{}
+	out := &SparseFloodRPC{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseRemoteFlooder.
-func (o *SparseRemoteFlooder) DeepCopyInto(out *SparseRemoteFlooder) {
+// DeepCopyInto copies the receiver into the given *SparseFloodRPC.
+func (o *SparseFloodRPC) DeepCopyInto(out *SparseFloodRPC) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseRemoteFlooder: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseFloodRPC: %s", err))
 	}
 
-	*out = *target.(*SparseRemoteFlooder)
+	*out = *target.(*SparseFloodRPC)
 }
 
-type mongoAttributesRemoteFlooder struct {
+type mongoAttributesFloodRPC struct {
 }
-type mongoAttributesSparseRemoteFlooder struct {
+type mongoAttributesSparseFloodRPC struct {
 }

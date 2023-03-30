@@ -22,7 +22,7 @@ type FloodResult struct {
 	// A list of trails the flooder found. WARNING: this will eventually go away as we
 	// should transmit the tree. We keep it this way for backwards compatibility with
 	// existing code for the sake of speed.
-	Trails [][]*DetachedDecoy `json:"trails" msgpack:"trails" bson:"-" mapstructure:"trails,omitempty"`
+	Trails [][]*FloodDecoy `json:"trails" msgpack:"trails" bson:"-" mapstructure:"trails,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -33,7 +33,7 @@ func NewFloodResult() *FloodResult {
 	return &FloodResult{
 		ModelVersion: 1,
 		Errors:       []string{},
-		Trails:       [][]*DetachedDecoy{},
+		Trails:       [][]*FloodDecoy{},
 	}
 }
 
@@ -180,7 +180,7 @@ existing code for the sake of speed.`,
 		Exposed:  true,
 		Name:     "trails",
 		ReadOnly: true,
-		SubType:  "[][]detacheddecoy",
+		SubType:  "[][]flooddecoy",
 		Type:     "external",
 	},
 }
@@ -218,7 +218,7 @@ existing code for the sake of speed.`,
 		Exposed:  true,
 		Name:     "trails",
 		ReadOnly: true,
-		SubType:  "[][]detacheddecoy",
+		SubType:  "[][]flooddecoy",
 		Type:     "external",
 	},
 }

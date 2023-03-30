@@ -11,47 +11,47 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// NodeUID represents the model of a nodeuid
-type NodeUID struct {
-	// The node identifier.
-	ID string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
-
+// FloodNodeUID represents the model of a floodnodeuid
+type FloodNodeUID struct {
 	// The network address of the node described by the NodeUID.
 	NetworkAddress string `json:"networkAddress,omitempty" msgpack:"networkAddress,omitempty" bson:"-" mapstructure:"networkAddress,omitempty"`
+
+	// The node identifier.
+	Nid string `json:"nid,omitempty" msgpack:"nid,omitempty" bson:"-" mapstructure:"nid,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewNodeUID returns a new *NodeUID
-func NewNodeUID() *NodeUID {
+// NewFloodNodeUID returns a new *FloodNodeUID
+func NewFloodNodeUID() *FloodNodeUID {
 
-	return &NodeUID{
+	return &FloodNodeUID{
 		ModelVersion: 1,
 	}
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *NodeUID) GetBSON() (any, error) {
+func (o *FloodNodeUID) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesNodeUID{}
+	s := &mongoAttributesFloodNodeUID{}
 
 	return s, nil
 }
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *NodeUID) SetBSON(raw bson.Raw) error {
+func (o *FloodNodeUID) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesNodeUID{}
+	s := &mongoAttributesFloodNodeUID{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -60,37 +60,37 @@ func (o *NodeUID) SetBSON(raw bson.Raw) error {
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *NodeUID) BleveType() string {
+func (o *FloodNodeUID) BleveType() string {
 
-	return "nodeuid"
+	return "floodnodeuid"
 }
 
-// DeepCopy returns a deep copy if the NodeUID.
-func (o *NodeUID) DeepCopy() *NodeUID {
+// DeepCopy returns a deep copy if the FloodNodeUID.
+func (o *FloodNodeUID) DeepCopy() *FloodNodeUID {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &NodeUID{}
+	out := &FloodNodeUID{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *NodeUID.
-func (o *NodeUID) DeepCopyInto(out *NodeUID) {
+// DeepCopyInto copies the receiver into the given *FloodNodeUID.
+func (o *FloodNodeUID) DeepCopyInto(out *FloodNodeUID) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy NodeUID: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy FloodNodeUID: %s", err))
 	}
 
-	*out = *target.(*NodeUID)
+	*out = *target.(*FloodNodeUID)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *NodeUID) Validate() error {
+func (o *FloodNodeUID) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -107,47 +107,39 @@ func (o *NodeUID) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*NodeUID) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*FloodNodeUID) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := NodeUIDAttributesMap[name]; ok {
+	if v, ok := FloodNodeUIDAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return NodeUIDLowerCaseAttributesMap[name]
+	return FloodNodeUIDLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*NodeUID) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*FloodNodeUID) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return NodeUIDAttributesMap
+	return FloodNodeUIDAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *NodeUID) ValueForAttribute(name string) any {
+func (o *FloodNodeUID) ValueForAttribute(name string) any {
 
 	switch name {
-	case "ID":
-		return o.ID
 	case "networkAddress":
 		return o.NetworkAddress
+	case "nid":
+		return o.Nid
 	}
 
 	return nil
 }
 
-// NodeUIDAttributesMap represents the map of attribute for NodeUID.
-var NodeUIDAttributesMap = map[string]elemental.AttributeSpecification{
-	"ID": {
-		AllowedChoices: []string{},
-		ConvertedName:  "ID",
-		Description:    `The node identifier.`,
-		Exposed:        true,
-		Name:           "ID",
-		Type:           "string",
-	},
+// FloodNodeUIDAttributesMap represents the map of attribute for FloodNodeUID.
+var FloodNodeUIDAttributesMap = map[string]elemental.AttributeSpecification{
 	"NetworkAddress": {
 		AllowedChoices: []string{},
 		ConvertedName:  "NetworkAddress",
@@ -156,18 +148,18 @@ var NodeUIDAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "networkAddress",
 		Type:           "string",
 	},
-}
-
-// NodeUIDLowerCaseAttributesMap represents the map of attribute for NodeUID.
-var NodeUIDLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
-	"id": {
+	"Nid": {
 		AllowedChoices: []string{},
-		ConvertedName:  "ID",
+		ConvertedName:  "Nid",
 		Description:    `The node identifier.`,
 		Exposed:        true,
-		Name:           "ID",
+		Name:           "nid",
 		Type:           "string",
 	},
+}
+
+// FloodNodeUIDLowerCaseAttributesMap represents the map of attribute for FloodNodeUID.
+var FloodNodeUIDLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"networkaddress": {
 		AllowedChoices: []string{},
 		ConvertedName:  "NetworkAddress",
@@ -176,7 +168,15 @@ var NodeUIDLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "networkAddress",
 		Type:           "string",
 	},
+	"nid": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Nid",
+		Description:    `The node identifier.`,
+		Exposed:        true,
+		Name:           "nid",
+		Type:           "string",
+	},
 }
 
-type mongoAttributesNodeUID struct {
+type mongoAttributesFloodNodeUID struct {
 }

@@ -13,7 +13,9 @@ import (
 
 // FloodNodeMakerConfig represents the model of a floodnodemakerconfig
 type FloodNodeMakerConfig struct {
-	// A list of cloud types involved in flooding.
+	// A list of cloud types involved in flooding.  WARNING: this will eventually go
+	// away as we should transmit the tree. We keep it this way for backwards
+	// compatibility with existing code for the sake of speed.
 	CloudTypes []string `json:"cloudTypes" msgpack:"cloudTypes" bson:"-" mapstructure:"cloudTypes,omitempty"`
 
 	// A list of addresses which nodemakers will ignore when evaluating IP rules.
@@ -155,12 +157,14 @@ var FloodNodeMakerConfigAttributesMap = map[string]elemental.AttributeSpecificat
 	"CloudTypes": {
 		AllowedChoices: []string{},
 		ConvertedName:  "CloudTypes",
-		Description:    `A list of cloud types involved in flooding.`,
-		Exposed:        true,
-		Name:           "cloudTypes",
-		Required:       true,
-		SubType:        "string",
-		Type:           "list",
+		Description: `A list of cloud types involved in flooding.  WARNING: this will eventually go
+away as we should transmit the tree. We keep it this way for backwards
+compatibility with existing code for the sake of speed.`,
+		Exposed:  true,
+		Name:     "cloudTypes",
+		Required: true,
+		SubType:  "string",
+		Type:     "list",
 	},
 	"OptionIgnoreIPRulesForGivenAddresses": {
 		AllowedChoices: []string{},
@@ -187,12 +191,14 @@ var FloodNodeMakerConfigLowerCaseAttributesMap = map[string]elemental.AttributeS
 	"cloudtypes": {
 		AllowedChoices: []string{},
 		ConvertedName:  "CloudTypes",
-		Description:    `A list of cloud types involved in flooding.`,
-		Exposed:        true,
-		Name:           "cloudTypes",
-		Required:       true,
-		SubType:        "string",
-		Type:           "list",
+		Description: `A list of cloud types involved in flooding.  WARNING: this will eventually go
+away as we should transmit the tree. We keep it this way for backwards
+compatibility with existing code for the sake of speed.`,
+		Exposed:  true,
+		Name:     "cloudTypes",
+		Required: true,
+		SubType:  "string",
+		Type:     "list",
 	},
 	"optionignoreiprulesforgivenaddresses": {
 		AllowedChoices: []string{},

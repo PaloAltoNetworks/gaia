@@ -11,59 +11,59 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// Payload represents the model of a payload
-type Payload struct {
+// FloodPayload represents the model of a floodpayload
+type FloodPayload struct {
 	// The raw content of the payload.
-	Content string `json:"Content,omitempty" msgpack:"Content,omitempty" bson:"-" mapstructure:"Content,omitempty"`
+	Content string `json:"content,omitempty" msgpack:"content,omitempty" bson:"-" mapstructure:"content,omitempty"`
 
 	// The end of the destination port range.
-	DestinationPortEnd int `json:"DestinationPortEnd,omitempty" msgpack:"DestinationPortEnd,omitempty" bson:"-" mapstructure:"DestinationPortEnd,omitempty"`
+	DestinationPortEnd int `json:"destinationPortEnd,omitempty" msgpack:"destinationPortEnd,omitempty" bson:"-" mapstructure:"destinationPortEnd,omitempty"`
 
 	// The start of the destination port range.
-	DestinationPortStart int `json:"DestinationPortStart,omitempty" msgpack:"DestinationPortStart,omitempty" bson:"-" mapstructure:"DestinationPortStart,omitempty"`
-
-	// The end of the source port range.
-	SourcePortEnd int `json:"SourcePortEnd,omitempty" msgpack:"SourcePortEnd,omitempty" bson:"-" mapstructure:"SourcePortEnd,omitempty"`
-
-	// The start of the source port range.
-	SourcePortStart int `json:"SourcePortStart,omitempty" msgpack:"SourcePortStart,omitempty" bson:"-" mapstructure:"SourcePortStart,omitempty"`
+	DestinationPortStart int `json:"destinationPortStart,omitempty" msgpack:"destinationPortStart,omitempty" bson:"-" mapstructure:"destinationPortStart,omitempty"`
 
 	// The protocol that is used for flooding.
 	Protocol string `json:"protocol,omitempty" msgpack:"protocol,omitempty" bson:"-" mapstructure:"protocol,omitempty"`
 
+	// The end of the source port range.
+	SourcePortEnd int `json:"sourcePortEnd,omitempty" msgpack:"sourcePortEnd,omitempty" bson:"-" mapstructure:"sourcePortEnd,omitempty"`
+
+	// The start of the source port range.
+	SourcePortStart int `json:"sourcePortStart,omitempty" msgpack:"sourcePortStart,omitempty" bson:"-" mapstructure:"sourcePortStart,omitempty"`
+
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewPayload returns a new *Payload
-func NewPayload() *Payload {
+// NewFloodPayload returns a new *FloodPayload
+func NewFloodPayload() *FloodPayload {
 
-	return &Payload{
+	return &FloodPayload{
 		ModelVersion: 1,
 	}
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Payload) GetBSON() (any, error) {
+func (o *FloodPayload) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesPayload{}
+	s := &mongoAttributesFloodPayload{}
 
 	return s, nil
 }
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *Payload) SetBSON(raw bson.Raw) error {
+func (o *FloodPayload) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesPayload{}
+	s := &mongoAttributesFloodPayload{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -72,37 +72,37 @@ func (o *Payload) SetBSON(raw bson.Raw) error {
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *Payload) BleveType() string {
+func (o *FloodPayload) BleveType() string {
 
-	return "payload"
+	return "floodpayload"
 }
 
-// DeepCopy returns a deep copy if the Payload.
-func (o *Payload) DeepCopy() *Payload {
+// DeepCopy returns a deep copy if the FloodPayload.
+func (o *FloodPayload) DeepCopy() *FloodPayload {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &Payload{}
+	out := &FloodPayload{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *Payload.
-func (o *Payload) DeepCopyInto(out *Payload) {
+// DeepCopyInto copies the receiver into the given *FloodPayload.
+func (o *FloodPayload) DeepCopyInto(out *FloodPayload) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy Payload: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy FloodPayload: %s", err))
 	}
 
-	*out = *target.(*Payload)
+	*out = *target.(*FloodPayload)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *Payload) Validate() error {
+func (o *FloodPayload) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -119,53 +119,53 @@ func (o *Payload) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*Payload) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*FloodPayload) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := PayloadAttributesMap[name]; ok {
+	if v, ok := FloodPayloadAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return PayloadLowerCaseAttributesMap[name]
+	return FloodPayloadLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*Payload) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*FloodPayload) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return PayloadAttributesMap
+	return FloodPayloadAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *Payload) ValueForAttribute(name string) any {
+func (o *FloodPayload) ValueForAttribute(name string) any {
 
 	switch name {
-	case "Content":
+	case "content":
 		return o.Content
-	case "DestinationPortEnd":
+	case "destinationPortEnd":
 		return o.DestinationPortEnd
-	case "DestinationPortStart":
+	case "destinationPortStart":
 		return o.DestinationPortStart
-	case "SourcePortEnd":
-		return o.SourcePortEnd
-	case "SourcePortStart":
-		return o.SourcePortStart
 	case "protocol":
 		return o.Protocol
+	case "sourcePortEnd":
+		return o.SourcePortEnd
+	case "sourcePortStart":
+		return o.SourcePortStart
 	}
 
 	return nil
 }
 
-// PayloadAttributesMap represents the map of attribute for Payload.
-var PayloadAttributesMap = map[string]elemental.AttributeSpecification{
+// FloodPayloadAttributesMap represents the map of attribute for FloodPayload.
+var FloodPayloadAttributesMap = map[string]elemental.AttributeSpecification{
 	"Content": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Content",
 		Description:    `The raw content of the payload.`,
 		Exposed:        true,
-		Name:           "Content",
+		Name:           "content",
 		Type:           "string",
 	},
 	"DestinationPortEnd": {
@@ -173,7 +173,7 @@ var PayloadAttributesMap = map[string]elemental.AttributeSpecification{
 		ConvertedName:  "DestinationPortEnd",
 		Description:    `The end of the destination port range.`,
 		Exposed:        true,
-		Name:           "DestinationPortEnd",
+		Name:           "destinationPortEnd",
 		Type:           "integer",
 	},
 	"DestinationPortStart": {
@@ -181,23 +181,7 @@ var PayloadAttributesMap = map[string]elemental.AttributeSpecification{
 		ConvertedName:  "DestinationPortStart",
 		Description:    `The start of the destination port range.`,
 		Exposed:        true,
-		Name:           "DestinationPortStart",
-		Type:           "integer",
-	},
-	"SourcePortEnd": {
-		AllowedChoices: []string{},
-		ConvertedName:  "SourcePortEnd",
-		Description:    `The end of the source port range.`,
-		Exposed:        true,
-		Name:           "SourcePortEnd",
-		Type:           "integer",
-	},
-	"SourcePortStart": {
-		AllowedChoices: []string{},
-		ConvertedName:  "SourcePortStart",
-		Description:    `The start of the source port range.`,
-		Exposed:        true,
-		Name:           "SourcePortStart",
+		Name:           "destinationPortStart",
 		Type:           "integer",
 	},
 	"Protocol": {
@@ -208,16 +192,32 @@ var PayloadAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "protocol",
 		Type:           "string",
 	},
+	"SourcePortEnd": {
+		AllowedChoices: []string{},
+		ConvertedName:  "SourcePortEnd",
+		Description:    `The end of the source port range.`,
+		Exposed:        true,
+		Name:           "sourcePortEnd",
+		Type:           "integer",
+	},
+	"SourcePortStart": {
+		AllowedChoices: []string{},
+		ConvertedName:  "SourcePortStart",
+		Description:    `The start of the source port range.`,
+		Exposed:        true,
+		Name:           "sourcePortStart",
+		Type:           "integer",
+	},
 }
 
-// PayloadLowerCaseAttributesMap represents the map of attribute for Payload.
-var PayloadLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// FloodPayloadLowerCaseAttributesMap represents the map of attribute for FloodPayload.
+var FloodPayloadLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"content": {
 		AllowedChoices: []string{},
 		ConvertedName:  "Content",
 		Description:    `The raw content of the payload.`,
 		Exposed:        true,
-		Name:           "Content",
+		Name:           "content",
 		Type:           "string",
 	},
 	"destinationportend": {
@@ -225,7 +225,7 @@ var PayloadLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 		ConvertedName:  "DestinationPortEnd",
 		Description:    `The end of the destination port range.`,
 		Exposed:        true,
-		Name:           "DestinationPortEnd",
+		Name:           "destinationPortEnd",
 		Type:           "integer",
 	},
 	"destinationportstart": {
@@ -233,23 +233,7 @@ var PayloadLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 		ConvertedName:  "DestinationPortStart",
 		Description:    `The start of the destination port range.`,
 		Exposed:        true,
-		Name:           "DestinationPortStart",
-		Type:           "integer",
-	},
-	"sourceportend": {
-		AllowedChoices: []string{},
-		ConvertedName:  "SourcePortEnd",
-		Description:    `The end of the source port range.`,
-		Exposed:        true,
-		Name:           "SourcePortEnd",
-		Type:           "integer",
-	},
-	"sourceportstart": {
-		AllowedChoices: []string{},
-		ConvertedName:  "SourcePortStart",
-		Description:    `The start of the source port range.`,
-		Exposed:        true,
-		Name:           "SourcePortStart",
+		Name:           "destinationPortStart",
 		Type:           "integer",
 	},
 	"protocol": {
@@ -260,7 +244,23 @@ var PayloadLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "protocol",
 		Type:           "string",
 	},
+	"sourceportend": {
+		AllowedChoices: []string{},
+		ConvertedName:  "SourcePortEnd",
+		Description:    `The end of the source port range.`,
+		Exposed:        true,
+		Name:           "sourcePortEnd",
+		Type:           "integer",
+	},
+	"sourceportstart": {
+		AllowedChoices: []string{},
+		ConvertedName:  "SourcePortStart",
+		Description:    `The start of the source port range.`,
+		Exposed:        true,
+		Name:           "sourcePortStart",
+		Type:           "integer",
+	},
 }
 
-type mongoAttributesPayload struct {
+type mongoAttributesFloodPayload struct {
 }
