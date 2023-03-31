@@ -91,6 +91,13 @@ attributes:
     stored: true
     example_value: /subscriptions/a0a00a0a-0aaa-000a-a0a0-00a00aa00000/resourceGroups/my-Deployment/providers/Microsoft.Compute/virtualMachines/vm-name
 
+  - name: prismaUnifiedAssetID
+    description: The Prisma Cloud Unified Asset ID.
+    type: string
+    exposed: true
+    stored: true
+    example_value: 4b882952f1a26c8a3ce16ee90af3cac9
+
   - name: provider
     description: The major type of the resource.
     type: enum

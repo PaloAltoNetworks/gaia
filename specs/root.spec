@@ -574,6 +574,10 @@ relations:
   create:
     description: Create a new file path.
 
+- rest_name: floodrpc
+  create:
+    description: Starts a new flood request remotely.
+
 - rest_name: flowreport
   create:
     description: Create a flow statistics report.

@@ -105,10 +105,12 @@ var (
 		"fileaccesspolicy":             FileAccessPolicyIdentity,
 		"fileaccessreport":             FileAccessReportIdentity,
 		"filepath":                     FilePathIdentity,
-		"flowreport":                   FlowReportIdentity,
-		"gcpasset":                     GCPAssetIdentity,
-		"gcpresource":                  GCPResourceIdentity,
-		"graphedge":                    GraphEdgeIdentity,
+
+		"floodrpc":    FloodRPCIdentity,
+		"flowreport":  FlowReportIdentity,
+		"gcpasset":    GCPAssetIdentity,
+		"gcpresource": GCPResourceIdentity,
+		"graphedge":   GraphEdgeIdentity,
 
 		"graphnode":                GraphNodeIdentity,
 		"healthcheck":              HealthCheckIdentity,
@@ -322,10 +324,12 @@ var (
 		"fileaccesspolicies":             FileAccessPolicyIdentity,
 		"fileaccessreports":              FileAccessReportIdentity,
 		"filepaths":                      FilePathIdentity,
-		"flowreports":                    FlowReportIdentity,
-		"gcpassets":                      GCPAssetIdentity,
-		"gcpresources":                   GCPResourceIdentity,
-		"graphedges":                     GraphEdgeIdentity,
+
+		"floodrpcs":    FloodRPCIdentity,
+		"flowreports":  FlowReportIdentity,
+		"gcpassets":    GCPAssetIdentity,
+		"gcpresources": GCPResourceIdentity,
+		"graphedges":   GraphEdgeIdentity,
 
 		"graphnodes":                 GraphNodeIdentity,
 		"healthchecks":               HealthCheckIdentity,
@@ -1076,6 +1080,7 @@ var (
 			{"propagate"},
 			{"updateIdempotencyKey"},
 		},
+		"floodrpc": nil,
 		"flowreport": {
 			{":shard", "zone", "zHash", "_id"},
 			{"destinationID"},
@@ -1652,6 +1657,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewFileAccessReport()
 	case FilePathIdentity:
 		return NewFilePath()
+	case FloodRPCIdentity:
+		return NewFloodRPC()
 	case FlowReportIdentity:
 		return NewFlowReport()
 	case GCPAssetIdentity:
@@ -2025,6 +2032,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseFileAccessReport()
 	case FilePathIdentity:
 		return NewSparseFilePath()
+	case FloodRPCIdentity:
+		return NewSparseFloodRPC()
 	case FlowReportIdentity:
 		return NewSparseFlowReport()
 	case GCPAssetIdentity:
@@ -2406,6 +2415,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &FileAccessReportsList{}
 	case FilePathIdentity:
 		return &FilePathsList{}
+	case FloodRPCIdentity:
+		return &FloodRPCsList{}
 	case FlowReportIdentity:
 		return &FlowReportsList{}
 	case GCPAssetIdentity:
@@ -2777,6 +2788,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseFileAccessReportsList{}
 	case FilePathIdentity:
 		return &SparseFilePathsList{}
+	case FloodRPCIdentity:
+		return &SparseFloodRPCsList{}
 	case FlowReportIdentity:
 		return &SparseFlowReportsList{}
 	case GCPAssetIdentity:
@@ -3089,6 +3102,7 @@ func AllIdentities() []elemental.Identity {
 		FileAccessPolicyIdentity,
 		FileAccessReportIdentity,
 		FilePathIdentity,
+		FloodRPCIdentity,
 		FlowReportIdentity,
 		GCPAssetIdentity,
 		GCPResourceIdentity,
@@ -3418,6 +3432,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"fp",
 			"fps",
 		}
+	case FloodRPCIdentity:
+		return []string{}
 	case FlowReportIdentity:
 		return []string{}
 	case GCPAssetIdentity:
