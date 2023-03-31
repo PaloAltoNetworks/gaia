@@ -691,10 +691,10 @@ var (
 		"awsresource": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
+			{"namespace", "arn"},
 			{"namespace", "kind"},
 			{"namespace", "normalizedTags"},
 			{"namespace", "resourceID"},
-			{"namespace", "rrn"},
 		},
 		"azureasset": {
 			{":shard", ":unique", "zone", "zHash"},

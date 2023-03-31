@@ -23,6 +23,17 @@ const (
 	AWSResourceKindPending AWSResourceKindValue = "Pending"
 )
 
+// AWSResourceServiceValue represents the possible values for attribute "service".
+type AWSResourceServiceValue string
+
+const (
+	// AWSResourceServiceEC2 represents the value EC2.
+	AWSResourceServiceEC2 AWSResourceServiceValue = "EC2"
+
+	// AWSResourceServiceRDS represents the value RDS.
+	AWSResourceServiceRDS AWSResourceServiceValue = "RDS"
+)
+
 // AWSResourceIdentity represents the Identity of the object.
 var AWSResourceIdentity = elemental.Identity{
 	Name:     "awsresource",
@@ -43,8 +54,8 @@ func (o AWSResourcesList) Identity() elemental.Identity {
 // Copy returns a pointer to a copy the AWSResourcesList.
 func (o AWSResourcesList) Copy() elemental.Identifiables {
 
-	copy := append(AWSResourcesList{}, o...)
-	return &copy
+	out := append(AWSResourcesList{}, o...)
+	return &out
 }
 
 // Append appends the objects to the a new copy of the AWSResourcesList.
@@ -101,6 +112,9 @@ type AWSResource struct {
 	// The ID of the account the resource belongs to in AWS.
 	AccountID string `json:"accountID,omitempty" msgpack:"accountID,omitempty" bson:"accountid,omitempty" mapstructure:"accountID,omitempty"`
 
+	// The ARN of the resource in AWS.
+	Arn string `json:"arn" msgpack:"arn" bson:"arn" mapstructure:"arn,omitempty"`
+
 	// Creation date of the object.
 	CreateTime time.Time `json:"createTime" msgpack:"createTime" bson:"createtime" mapstructure:"createTime,omitempty"`
 
@@ -137,8 +151,8 @@ type AWSResource struct {
 	// A resource ID that will mainly be used in RQL queries.
 	ResourceID string `json:"resourceID" msgpack:"resourceID" bson:"resourceid" mapstructure:"resourceID,omitempty"`
 
-	// The RRN of the resource in AWS.
-	Rrn string `json:"rrn" msgpack:"rrn" bson:"rrn" mapstructure:"rrn,omitempty"`
+	// The specific service namespace that identifies the AWS product.
+	Service AWSResourceServiceValue `json:"service" msgpack:"service" bson:"service" mapstructure:"service,omitempty"`
 
 	// User-defined key-value pairs inside the AWS resource.
 	Tags map[string]string `json:"tags" msgpack:"tags" bson:"tags" mapstructure:"tags,omitempty"`
@@ -201,6 +215,7 @@ func (o *AWSResource) GetBSON() (any, error) {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
 	s.AccountID = o.AccountID
+	s.Arn = o.Arn
 	s.CreateTime = o.CreateTime
 	s.Data = o.Data
 	s.DenormedFields = o.DenormedFields
@@ -211,7 +226,7 @@ func (o *AWSResource) GetBSON() (any, error) {
 	s.PrismaRRN = o.PrismaRRN
 	s.PrismaRegion = o.PrismaRegion
 	s.ResourceID = o.ResourceID
-	s.Rrn = o.Rrn
+	s.Service = o.Service
 	s.Tags = o.Tags
 	s.UpdateTime = o.UpdateTime
 	s.ZHash = o.ZHash
@@ -235,6 +250,7 @@ func (o *AWSResource) SetBSON(raw bson.Raw) error {
 
 	o.ID = s.ID.Hex()
 	o.AccountID = s.AccountID
+	o.Arn = s.Arn
 	o.CreateTime = s.CreateTime
 	o.Data = s.Data
 	o.DenormedFields = s.DenormedFields
@@ -245,7 +261,7 @@ func (o *AWSResource) SetBSON(raw bson.Raw) error {
 	o.PrismaRRN = s.PrismaRRN
 	o.PrismaRegion = s.PrismaRegion
 	o.ResourceID = s.ResourceID
-	o.Rrn = s.Rrn
+	o.Service = s.Service
 	o.Tags = s.Tags
 	o.UpdateTime = s.UpdateTime
 	o.ZHash = s.ZHash
@@ -364,6 +380,7 @@ func (o *AWSResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		return &SparseAWSResource{
 			ID:             &o.ID,
 			AccountID:      &o.AccountID,
+			Arn:            &o.Arn,
 			CreateTime:     &o.CreateTime,
 			Data:           &o.Data,
 			DenormedFields: &o.DenormedFields,
@@ -375,7 +392,7 @@ func (o *AWSResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			PrismaRRN:      &o.PrismaRRN,
 			PrismaRegion:   &o.PrismaRegion,
 			ResourceID:     &o.ResourceID,
-			Rrn:            &o.Rrn,
+			Service:        &o.Service,
 			Tags:           &o.Tags,
 			UpdateTime:     &o.UpdateTime,
 			ZHash:          &o.ZHash,
@@ -390,6 +407,8 @@ func (o *AWSResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.ID = &(o.ID)
 		case "accountID":
 			sp.AccountID = &(o.AccountID)
+		case "arn":
+			sp.Arn = &(o.Arn)
 		case "createTime":
 			sp.CreateTime = &(o.CreateTime)
 		case "data":
@@ -412,8 +431,8 @@ func (o *AWSResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.PrismaRegion = &(o.PrismaRegion)
 		case "resourceID":
 			sp.ResourceID = &(o.ResourceID)
-		case "rrn":
-			sp.Rrn = &(o.Rrn)
+		case "service":
+			sp.Service = &(o.Service)
 		case "tags":
 			sp.Tags = &(o.Tags)
 		case "updateTime":
@@ -440,6 +459,9 @@ func (o *AWSResource) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.AccountID != nil {
 		o.AccountID = *so.AccountID
+	}
+	if so.Arn != nil {
+		o.Arn = *so.Arn
 	}
 	if so.CreateTime != nil {
 		o.CreateTime = *so.CreateTime
@@ -474,8 +496,8 @@ func (o *AWSResource) Patch(sparse elemental.SparseIdentifiable) {
 	if so.ResourceID != nil {
 		o.ResourceID = *so.ResourceID
 	}
-	if so.Rrn != nil {
-		o.Rrn = *so.Rrn
+	if so.Service != nil {
+		o.Service = *so.Service
 	}
 	if so.Tags != nil {
 		o.Tags = *so.Tags
@@ -529,6 +551,10 @@ func (o *AWSResource) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := elemental.ValidateStringInList("service", string(o.Service), []string{"EC2", "RDS"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if len(requiredErrors) > 0 {
 		return requiredErrors
 	}
@@ -567,6 +593,8 @@ func (o *AWSResource) ValueForAttribute(name string) any {
 		return o.ID
 	case "accountID":
 		return o.AccountID
+	case "arn":
+		return o.Arn
 	case "createTime":
 		return o.CreateTime
 	case "data":
@@ -589,8 +617,8 @@ func (o *AWSResource) ValueForAttribute(name string) any {
 		return o.PrismaRegion
 	case "resourceID":
 		return o.ResourceID
-	case "rrn":
-		return o.Rrn
+	case "service":
+		return o.Service
 	case "tags":
 		return o.Tags
 	case "updateTime":
@@ -628,6 +656,16 @@ var AWSResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The ID of the account the resource belongs to in AWS.`,
 		Exposed:        true,
 		Name:           "accountID",
+		Stored:         true,
+		Type:           "string",
+	},
+	"Arn": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "arn",
+		ConvertedName:  "Arn",
+		Description:    `The ARN of the resource in AWS.`,
+		Exposed:        true,
+		Name:           "arn",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -759,15 +797,15 @@ resource may exists in a different region as described by AWS.`,
 		Stored:         true,
 		Type:           "string",
 	},
-	"Rrn": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "rrn",
-		ConvertedName:  "Rrn",
-		Description:    `The RRN of the resource in AWS.`,
+	"Service": {
+		AllowedChoices: []string{"EC2", "RDS"},
+		BSONFieldName:  "service",
+		ConvertedName:  "Service",
+		Description:    `The specific service namespace that identifies the AWS product.`,
 		Exposed:        true,
-		Name:           "rrn",
+		Name:           "service",
 		Stored:         true,
-		Type:           "string",
+		Type:           "enum",
 	},
 	"Tags": {
 		AllowedChoices: []string{},
@@ -851,6 +889,16 @@ var AWSResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Description:    `The ID of the account the resource belongs to in AWS.`,
 		Exposed:        true,
 		Name:           "accountID",
+		Stored:         true,
+		Type:           "string",
+	},
+	"arn": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "arn",
+		ConvertedName:  "Arn",
+		Description:    `The ARN of the resource in AWS.`,
+		Exposed:        true,
+		Name:           "arn",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -982,15 +1030,15 @@ resource may exists in a different region as described by AWS.`,
 		Stored:         true,
 		Type:           "string",
 	},
-	"rrn": {
-		AllowedChoices: []string{},
-		BSONFieldName:  "rrn",
-		ConvertedName:  "Rrn",
-		Description:    `The RRN of the resource in AWS.`,
+	"service": {
+		AllowedChoices: []string{"EC2", "RDS"},
+		BSONFieldName:  "service",
+		ConvertedName:  "Service",
+		Description:    `The specific service namespace that identifies the AWS product.`,
 		Exposed:        true,
-		Name:           "rrn",
+		Name:           "service",
 		Stored:         true,
-		Type:           "string",
+		Type:           "enum",
 	},
 	"tags": {
 		AllowedChoices: []string{},
@@ -1119,6 +1167,9 @@ type SparseAWSResource struct {
 	// The ID of the account the resource belongs to in AWS.
 	AccountID *string `json:"accountID,omitempty" msgpack:"accountID,omitempty" bson:"accountid,omitempty" mapstructure:"accountID,omitempty"`
 
+	// The ARN of the resource in AWS.
+	Arn *string `json:"arn,omitempty" msgpack:"arn,omitempty" bson:"arn,omitempty" mapstructure:"arn,omitempty"`
+
 	// Creation date of the object.
 	CreateTime *time.Time `json:"createTime,omitempty" msgpack:"createTime,omitempty" bson:"createtime,omitempty" mapstructure:"createTime,omitempty"`
 
@@ -1155,8 +1206,8 @@ type SparseAWSResource struct {
 	// A resource ID that will mainly be used in RQL queries.
 	ResourceID *string `json:"resourceID,omitempty" msgpack:"resourceID,omitempty" bson:"resourceid,omitempty" mapstructure:"resourceID,omitempty"`
 
-	// The RRN of the resource in AWS.
-	Rrn *string `json:"rrn,omitempty" msgpack:"rrn,omitempty" bson:"rrn,omitempty" mapstructure:"rrn,omitempty"`
+	// The specific service namespace that identifies the AWS product.
+	Service *AWSResourceServiceValue `json:"service,omitempty" msgpack:"service,omitempty" bson:"service,omitempty" mapstructure:"service,omitempty"`
 
 	// User-defined key-value pairs inside the AWS resource.
 	Tags *map[string]string `json:"tags,omitempty" msgpack:"tags,omitempty" bson:"tags,omitempty" mapstructure:"tags,omitempty"`
@@ -1220,6 +1271,9 @@ func (o *SparseAWSResource) GetBSON() (any, error) {
 	if o.AccountID != nil {
 		s.AccountID = o.AccountID
 	}
+	if o.Arn != nil {
+		s.Arn = o.Arn
+	}
 	if o.CreateTime != nil {
 		s.CreateTime = o.CreateTime
 	}
@@ -1250,8 +1304,8 @@ func (o *SparseAWSResource) GetBSON() (any, error) {
 	if o.ResourceID != nil {
 		s.ResourceID = o.ResourceID
 	}
-	if o.Rrn != nil {
-		s.Rrn = o.Rrn
+	if o.Service != nil {
+		s.Service = o.Service
 	}
 	if o.Tags != nil {
 		s.Tags = o.Tags
@@ -1287,6 +1341,9 @@ func (o *SparseAWSResource) SetBSON(raw bson.Raw) error {
 	if s.AccountID != nil {
 		o.AccountID = s.AccountID
 	}
+	if s.Arn != nil {
+		o.Arn = s.Arn
+	}
 	if s.CreateTime != nil {
 		o.CreateTime = s.CreateTime
 	}
@@ -1317,8 +1374,8 @@ func (o *SparseAWSResource) SetBSON(raw bson.Raw) error {
 	if s.ResourceID != nil {
 		o.ResourceID = s.ResourceID
 	}
-	if s.Rrn != nil {
-		o.Rrn = s.Rrn
+	if s.Service != nil {
+		o.Service = s.Service
 	}
 	if s.Tags != nil {
 		o.Tags = s.Tags
@@ -1351,6 +1408,9 @@ func (o *SparseAWSResource) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.AccountID != nil {
 		out.AccountID = *o.AccountID
+	}
+	if o.Arn != nil {
+		out.Arn = *o.Arn
 	}
 	if o.CreateTime != nil {
 		out.CreateTime = *o.CreateTime
@@ -1385,8 +1445,8 @@ func (o *SparseAWSResource) ToPlain() elemental.PlainIdentifiable {
 	if o.ResourceID != nil {
 		out.ResourceID = *o.ResourceID
 	}
-	if o.Rrn != nil {
-		out.Rrn = *o.Rrn
+	if o.Service != nil {
+		out.Service = *o.Service
 	}
 	if o.Tags != nil {
 		out.Tags = *o.Tags
@@ -1525,40 +1585,42 @@ func (o *SparseAWSResource) DeepCopyInto(out *SparseAWSResource) {
 }
 
 type mongoAttributesAWSResource struct {
-	ID             bson.ObjectId        `bson:"_id,omitempty"`
-	AccountID      string               `bson:"accountid,omitempty"`
-	CreateTime     time.Time            `bson:"createtime"`
-	Data           []byte               `bson:"data"`
-	DenormedFields []string             `bson:"denormedfields"`
-	Kind           AWSResourceKindValue `bson:"kind"`
-	MigrationsLog  map[string]string    `bson:"migrationslog,omitempty"`
-	Name           string               `bson:"name"`
-	Namespace      string               `bson:"namespace"`
-	PrismaRRN      string               `bson:"prismarrn,omitempty"`
-	PrismaRegion   string               `bson:"prismaregion"`
-	ResourceID     string               `bson:"resourceid"`
-	Rrn            string               `bson:"rrn"`
-	Tags           map[string]string    `bson:"tags"`
-	UpdateTime     time.Time            `bson:"updatetime"`
-	ZHash          int                  `bson:"zhash"`
-	Zone           int                  `bson:"zone"`
+	ID             bson.ObjectId           `bson:"_id,omitempty"`
+	AccountID      string                  `bson:"accountid,omitempty"`
+	Arn            string                  `bson:"arn"`
+	CreateTime     time.Time               `bson:"createtime"`
+	Data           []byte                  `bson:"data"`
+	DenormedFields []string                `bson:"denormedfields"`
+	Kind           AWSResourceKindValue    `bson:"kind"`
+	MigrationsLog  map[string]string       `bson:"migrationslog,omitempty"`
+	Name           string                  `bson:"name"`
+	Namespace      string                  `bson:"namespace"`
+	PrismaRRN      string                  `bson:"prismarrn,omitempty"`
+	PrismaRegion   string                  `bson:"prismaregion"`
+	ResourceID     string                  `bson:"resourceid"`
+	Service        AWSResourceServiceValue `bson:"service"`
+	Tags           map[string]string       `bson:"tags"`
+	UpdateTime     time.Time               `bson:"updatetime"`
+	ZHash          int                     `bson:"zhash"`
+	Zone           int                     `bson:"zone"`
 }
 type mongoAttributesSparseAWSResource struct {
-	ID             bson.ObjectId         `bson:"_id,omitempty"`
-	AccountID      *string               `bson:"accountid,omitempty"`
-	CreateTime     *time.Time            `bson:"createtime,omitempty"`
-	Data           *[]byte               `bson:"data,omitempty"`
-	DenormedFields *[]string             `bson:"denormedfields,omitempty"`
-	Kind           *AWSResourceKindValue `bson:"kind,omitempty"`
-	MigrationsLog  *map[string]string    `bson:"migrationslog,omitempty"`
-	Name           *string               `bson:"name,omitempty"`
-	Namespace      *string               `bson:"namespace,omitempty"`
-	PrismaRRN      *string               `bson:"prismarrn,omitempty"`
-	PrismaRegion   *string               `bson:"prismaregion,omitempty"`
-	ResourceID     *string               `bson:"resourceid,omitempty"`
-	Rrn            *string               `bson:"rrn,omitempty"`
-	Tags           *map[string]string    `bson:"tags,omitempty"`
-	UpdateTime     *time.Time            `bson:"updatetime,omitempty"`
-	ZHash          *int                  `bson:"zhash,omitempty"`
-	Zone           *int                  `bson:"zone,omitempty"`
+	ID             bson.ObjectId            `bson:"_id,omitempty"`
+	AccountID      *string                  `bson:"accountid,omitempty"`
+	Arn            *string                  `bson:"arn,omitempty"`
+	CreateTime     *time.Time               `bson:"createtime,omitempty"`
+	Data           *[]byte                  `bson:"data,omitempty"`
+	DenormedFields *[]string                `bson:"denormedfields,omitempty"`
+	Kind           *AWSResourceKindValue    `bson:"kind,omitempty"`
+	MigrationsLog  *map[string]string       `bson:"migrationslog,omitempty"`
+	Name           *string                  `bson:"name,omitempty"`
+	Namespace      *string                  `bson:"namespace,omitempty"`
+	PrismaRRN      *string                  `bson:"prismarrn,omitempty"`
+	PrismaRegion   *string                  `bson:"prismaregion,omitempty"`
+	ResourceID     *string                  `bson:"resourceid,omitempty"`
+	Service        *AWSResourceServiceValue `bson:"service,omitempty"`
+	Tags           *map[string]string       `bson:"tags,omitempty"`
+	UpdateTime     *time.Time               `bson:"updatetime,omitempty"`
+	ZHash          *int                     `bson:"zhash,omitempty"`
+	Zone           *int                     `bson:"zone,omitempty"`
 }

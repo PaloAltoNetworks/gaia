@@ -18,7 +18,7 @@ model:
 # Indexes
 indexes:
 - - namespace
-  - rrn
+  - arn
 - - namespace
   - resourceID
 - - namespace

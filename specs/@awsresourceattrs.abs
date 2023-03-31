@@ -8,6 +8,13 @@ attributes:
     stored: true
     omit_empty: true
 
+  - name: arn
+    description: The ARN of the resource in AWS.
+    type: string
+    exposed: true
+    stored: true
+    example_value: arn:aws:ec2:us-west-1:345744466724:subnet/subnet-0af9dd2d9f6ad4e0d
+
   - name: data
     description: The JSON-encoded data that represents the resource.
     type: external
@@ -79,12 +86,15 @@ attributes:
     stored: true
     example_value: i-092bf3d4b2422d8a6
 
-  - name: rrn
-    description: The RRN of the resource in AWS.
-    type: string
+  - name: service
+    description: The specific service namespace that identifies the AWS product.
+    type: enum
     exposed: true
     stored: true
-    example_value: rrn:aws:networkInterface:us-east-2:345744466724:ebdef9fe4b817a3f137e5da44f9b5637da0f2cca:eni-07f313cefd299a099
+    allowed_choices:
+    - EC2
+    - RDS
+    example_value: EC2
 
   - name: tags
     description: User-defined key-value pairs inside the AWS resource.
