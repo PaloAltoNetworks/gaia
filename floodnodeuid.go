@@ -17,7 +17,7 @@ type FloodNodeUID struct {
 	NetworkAddress string `json:"networkAddress,omitempty" msgpack:"networkAddress,omitempty" bson:"-" mapstructure:"networkAddress,omitempty"`
 
 	// The node identifier.
-	Nid string `json:"nid,omitempty" msgpack:"nid,omitempty" bson:"-" mapstructure:"nid,omitempty"`
+	NodeID string `json:"nodeID" msgpack:"nodeID" bson:"-" mapstructure:"nodeID,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -131,8 +131,8 @@ func (o *FloodNodeUID) ValueForAttribute(name string) any {
 	switch name {
 	case "networkAddress":
 		return o.NetworkAddress
-	case "nid":
-		return o.Nid
+	case "nodeID":
+		return o.NodeID
 	}
 
 	return nil
@@ -148,12 +148,12 @@ var FloodNodeUIDAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "networkAddress",
 		Type:           "string",
 	},
-	"Nid": {
+	"NodeID": {
 		AllowedChoices: []string{},
-		ConvertedName:  "Nid",
+		ConvertedName:  "NodeID",
 		Description:    `The node identifier.`,
 		Exposed:        true,
-		Name:           "nid",
+		Name:           "nodeID",
 		Type:           "string",
 	},
 }
@@ -168,12 +168,12 @@ var FloodNodeUIDLowerCaseAttributesMap = map[string]elemental.AttributeSpecifica
 		Name:           "networkAddress",
 		Type:           "string",
 	},
-	"nid": {
+	"nodeid": {
 		AllowedChoices: []string{},
-		ConvertedName:  "Nid",
+		ConvertedName:  "NodeID",
 		Description:    `The node identifier.`,
 		Exposed:        true,
-		Name:           "nid",
+		Name:           "nodeID",
 		Type:           "string",
 	},
 }

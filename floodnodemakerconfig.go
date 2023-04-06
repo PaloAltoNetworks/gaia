@@ -13,17 +13,15 @@ import (
 
 // FloodNodeMakerConfig represents the model of a floodnodemakerconfig
 type FloodNodeMakerConfig struct {
-	// A list of cloud types involved in flooding.  WARNING: this will eventually go
-	// away as we should transmit the tree. We keep it this way for backwards
-	// compatibility with existing code for the sake of speed.
-	CloudTypes []string `json:"cloudTypes" msgpack:"cloudTypes" bson:"-" mapstructure:"cloudTypes,omitempty"`
-
 	// A list of addresses which nodemakers will ignore when evaluating IP rules.
 	OptionIgnoreIPRulesForGivenAddresses []string `json:"optionIgnoreIPRulesForGivenAddresses" msgpack:"optionIgnoreIPRulesForGivenAddresses" bson:"-" mapstructure:"optionIgnoreIPRulesForGivenAddresses,omitempty"`
 
 	// If set, IP rule evaluation will only be considered if the target address is
 	// fully covered by the IP rule.
 	OptionSelectIPRulesWithFullCoverage bool `json:"optionSelectIPRulesWithFullCoverage" msgpack:"optionSelectIPRulesWithFullCoverage" bson:"-" mapstructure:"optionSelectIPRulesWithFullCoverage,omitempty"`
+
+	// The reference query. WARNING: this is temporary and should go away.
+	Query *CloudNetworkQuery `json:"query" msgpack:"query" bson:"-" mapstructure:"query,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -33,8 +31,8 @@ func NewFloodNodeMakerConfig() *FloodNodeMakerConfig {
 
 	return &FloodNodeMakerConfig{
 		ModelVersion:                         1,
-		CloudTypes:                           []string{},
 		OptionIgnoreIPRulesForGivenAddresses: []string{},
+		Query:                                NewCloudNetworkQuery(),
 	}
 }
 
@@ -103,8 +101,11 @@ func (o *FloodNodeMakerConfig) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if err := elemental.ValidateRequiredExternal("cloudTypes", o.CloudTypes); err != nil {
-		requiredErrors = requiredErrors.Append(err)
+	if o.Query != nil {
+		elemental.ResetDefaultForZeroValues(o.Query)
+		if err := o.Query.Validate(); err != nil {
+			errors = errors.Append(err)
+		}
 	}
 
 	if len(requiredErrors) > 0 {
@@ -141,12 +142,12 @@ func (*FloodNodeMakerConfig) AttributeSpecifications() map[string]elemental.Attr
 func (o *FloodNodeMakerConfig) ValueForAttribute(name string) any {
 
 	switch name {
-	case "cloudTypes":
-		return o.CloudTypes
 	case "optionIgnoreIPRulesForGivenAddresses":
 		return o.OptionIgnoreIPRulesForGivenAddresses
 	case "optionSelectIPRulesWithFullCoverage":
 		return o.OptionSelectIPRulesWithFullCoverage
+	case "query":
+		return o.Query
 	}
 
 	return nil
@@ -154,18 +155,6 @@ func (o *FloodNodeMakerConfig) ValueForAttribute(name string) any {
 
 // FloodNodeMakerConfigAttributesMap represents the map of attribute for FloodNodeMakerConfig.
 var FloodNodeMakerConfigAttributesMap = map[string]elemental.AttributeSpecification{
-	"CloudTypes": {
-		AllowedChoices: []string{},
-		ConvertedName:  "CloudTypes",
-		Description: `A list of cloud types involved in flooding.  WARNING: this will eventually go
-away as we should transmit the tree. We keep it this way for backwards
-compatibility with existing code for the sake of speed.`,
-		Exposed:  true,
-		Name:     "cloudTypes",
-		Required: true,
-		SubType:  "string",
-		Type:     "list",
-	},
 	"OptionIgnoreIPRulesForGivenAddresses": {
 		AllowedChoices: []string{},
 		ConvertedName:  "OptionIgnoreIPRulesForGivenAddresses",
@@ -184,22 +173,19 @@ fully covered by the IP rule.`,
 		Name:    "optionSelectIPRulesWithFullCoverage",
 		Type:    "boolean",
 	},
+	"Query": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Query",
+		Description:    `The reference query. WARNING: this is temporary and should go away.`,
+		Exposed:        true,
+		Name:           "query",
+		SubType:        "cloudnetworkquery",
+		Type:           "ref",
+	},
 }
 
 // FloodNodeMakerConfigLowerCaseAttributesMap represents the map of attribute for FloodNodeMakerConfig.
 var FloodNodeMakerConfigLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
-	"cloudtypes": {
-		AllowedChoices: []string{},
-		ConvertedName:  "CloudTypes",
-		Description: `A list of cloud types involved in flooding.  WARNING: this will eventually go
-away as we should transmit the tree. We keep it this way for backwards
-compatibility with existing code for the sake of speed.`,
-		Exposed:  true,
-		Name:     "cloudTypes",
-		Required: true,
-		SubType:  "string",
-		Type:     "list",
-	},
 	"optionignoreiprulesforgivenaddresses": {
 		AllowedChoices: []string{},
 		ConvertedName:  "OptionIgnoreIPRulesForGivenAddresses",
@@ -217,6 +203,15 @@ fully covered by the IP rule.`,
 		Exposed: true,
 		Name:    "optionSelectIPRulesWithFullCoverage",
 		Type:    "boolean",
+	},
+	"query": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Query",
+		Description:    `The reference query. WARNING: this is temporary and should go away.`,
+		Exposed:        true,
+		Name:           "query",
+		SubType:        "cloudnetworkquery",
+		Type:           "ref",
 	},
 }
 
