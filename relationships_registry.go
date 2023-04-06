@@ -1088,6 +1088,10 @@ func init() {
 						Name: "neocna",
 						Type: "boolean",
 					},
+					{
+						Name: "floodrpc",
+						Type: "boolean",
+					},
 				},
 			},
 		},

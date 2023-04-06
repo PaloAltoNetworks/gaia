@@ -14,7 +14,7 @@ import (
 // FloodResult represents the model of a floodresult
 type FloodResult struct {
 	// Errors that were encountered while flooding.
-	Errors []string `json:"errors" msgpack:"errors" bson:"-" mapstructure:"errors,omitempty"`
+	Errors []string `json:"errors,omitempty" msgpack:"errors,omitempty" bson:"-" mapstructure:"errors,omitempty"`
 
 	// Set if flooder found at least one trail.
 	PathExists bool `json:"pathExists" msgpack:"pathExists" bson:"-" mapstructure:"pathExists,omitempty"`

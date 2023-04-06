@@ -14,7 +14,7 @@ import (
 // FloodDecoy represents the model of a flooddecoy
 type FloodDecoy struct {
 	// If not empty, it means the decoy has ErrNotPermitted.
-	ErrNotPermitted string `json:"errNotPermitted" msgpack:"errNotPermitted" bson:"-" mapstructure:"errNotPermitted,omitempty"`
+	ErrNotPermitted string `json:"errNotPermitted,omitempty" msgpack:"errNotPermitted,omitempty" bson:"-" mapstructure:"errNotPermitted,omitempty"`
 
 	// The NodeUID which the decoy passed through.
 	NodeUID *FloodNodeUID `json:"nodeUID" msgpack:"nodeUID" bson:"-" mapstructure:"nodeUID,omitempty"`

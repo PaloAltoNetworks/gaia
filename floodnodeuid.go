@@ -13,11 +13,11 @@ import (
 
 // FloodNodeUID represents the model of a floodnodeuid
 type FloodNodeUID struct {
+	// The node identifier.
+	NID string `json:"nID" msgpack:"nID" bson:"-" mapstructure:"nID,omitempty"`
+
 	// The network address of the node described by the NodeUID.
 	NetworkAddress string `json:"networkAddress,omitempty" msgpack:"networkAddress,omitempty" bson:"-" mapstructure:"networkAddress,omitempty"`
-
-	// The node identifier.
-	Nid string `json:"nid,omitempty" msgpack:"nid,omitempty" bson:"-" mapstructure:"nid,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
@@ -129,10 +129,10 @@ func (*FloodNodeUID) AttributeSpecifications() map[string]elemental.AttributeSpe
 func (o *FloodNodeUID) ValueForAttribute(name string) any {
 
 	switch name {
+	case "nID":
+		return o.NID
 	case "networkAddress":
 		return o.NetworkAddress
-	case "nid":
-		return o.Nid
 	}
 
 	return nil
@@ -140,6 +140,14 @@ func (o *FloodNodeUID) ValueForAttribute(name string) any {
 
 // FloodNodeUIDAttributesMap represents the map of attribute for FloodNodeUID.
 var FloodNodeUIDAttributesMap = map[string]elemental.AttributeSpecification{
+	"NID": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NID",
+		Description:    `The node identifier.`,
+		Exposed:        true,
+		Name:           "nID",
+		Type:           "string",
+	},
 	"NetworkAddress": {
 		AllowedChoices: []string{},
 		ConvertedName:  "NetworkAddress",
@@ -148,32 +156,24 @@ var FloodNodeUIDAttributesMap = map[string]elemental.AttributeSpecification{
 		Name:           "networkAddress",
 		Type:           "string",
 	},
-	"Nid": {
-		AllowedChoices: []string{},
-		ConvertedName:  "Nid",
-		Description:    `The node identifier.`,
-		Exposed:        true,
-		Name:           "nid",
-		Type:           "string",
-	},
 }
 
 // FloodNodeUIDLowerCaseAttributesMap represents the map of attribute for FloodNodeUID.
 var FloodNodeUIDLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"nid": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NID",
+		Description:    `The node identifier.`,
+		Exposed:        true,
+		Name:           "nID",
+		Type:           "string",
+	},
 	"networkaddress": {
 		AllowedChoices: []string{},
 		ConvertedName:  "NetworkAddress",
 		Description:    `The network address of the node described by the NodeUID.`,
 		Exposed:        true,
 		Name:           "networkAddress",
-		Type:           "string",
-	},
-	"nid": {
-		AllowedChoices: []string{},
-		ConvertedName:  "Nid",
-		Description:    `The node identifier.`,
-		Exposed:        true,
-		Name:           "nid",
 		Type:           "string",
 	},
 }
