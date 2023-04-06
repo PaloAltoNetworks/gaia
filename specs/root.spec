@@ -255,9 +255,7 @@ relations:
     parameters:
       entries:
       - name: floodrpc
-        description: |-
-          If set to true with neocna set to true as well, distributed flooding
-          will be used only and only if the feature is enabled on the platform.
+        description: TODO.
         type: boolean
 
       - name: neocna

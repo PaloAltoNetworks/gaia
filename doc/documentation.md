@@ -11035,7 +11035,7 @@ parameters.
 
 Parameters:
 
-- `floodrpc` (`boolean`): If set to true with neocna set to true as well, distributed floodingwill be used only and only if the feature is enabled on the platform.
+- `floodrpc` (`boolean`): TODO.
 - `neocna` (`boolean`): If set to true, neocna will be used regardless of whether tenant is set to use neocna.
 
 ##### `GET /cloudnetworkqueries/:id/cloudgraphs`
