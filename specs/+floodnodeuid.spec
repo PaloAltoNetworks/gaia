@@ -12,14 +12,13 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: networkAddress
-    description: The network address of the node described by the NodeUID.
+  - name: nID
+    description: The node identifier.
     type: string
     exposed: true
-    omit_empty: true
 
-  - name: nid
-    description: The node identifier.
+  - name: networkAddress
+    description: The network address of the node described by the NodeUID.
     type: string
     exposed: true
     omit_empty: true
