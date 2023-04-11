@@ -25,6 +25,13 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "vpcZoneIdentifiers": {
+            "description": "One or more subnet IDs, if applicable, separated by commas.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           }
         },
         "type": "object"
