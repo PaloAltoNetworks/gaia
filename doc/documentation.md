@@ -14015,7 +14015,8 @@ ID of associated instances with this scale group.
 
 Type: `[]string`
 
-One or more subnet IDs, if applicable, separated by commas.
+Subnet IDs associated with the scale group. Can be used in lieu of VPCID to
+determine associated VPC(s).
 
 ### CloudScaleSet
 

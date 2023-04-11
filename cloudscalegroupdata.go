@@ -19,7 +19,8 @@ type CloudScaleGroupData struct {
 	// ID of associated instances with this scale group.
 	Instances []string `json:"instances" msgpack:"instances" bson:"instances" mapstructure:"instances,omitempty"`
 
-	// One or more subnet IDs, if applicable, separated by commas.
+	// Subnet IDs associated with the scale group. Can be used in lieu of VPCID to
+	// determine associated VPC(s).
 	VpcZoneIdentifiers []string `json:"vpcZoneIdentifiers" msgpack:"vpcZoneIdentifiers" bson:"vpczoneidentifiers" mapstructure:"vpcZoneIdentifiers,omitempty"`
 
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
@@ -182,12 +183,13 @@ var CloudScaleGroupDataAttributesMap = map[string]elemental.AttributeSpecificati
 		AllowedChoices: []string{},
 		BSONFieldName:  "vpczoneidentifiers",
 		ConvertedName:  "VpcZoneIdentifiers",
-		Description:    `One or more subnet IDs, if applicable, separated by commas.`,
-		Exposed:        true,
-		Name:           "vpcZoneIdentifiers",
-		Stored:         true,
-		SubType:        "string",
-		Type:           "list",
+		Description: `Subnet IDs associated with the scale group. Can be used in lieu of VPCID to
+determine associated VPC(s).`,
+		Exposed: true,
+		Name:    "vpcZoneIdentifiers",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
 	},
 }
 
@@ -219,12 +221,13 @@ var CloudScaleGroupDataLowerCaseAttributesMap = map[string]elemental.AttributeSp
 		AllowedChoices: []string{},
 		BSONFieldName:  "vpczoneidentifiers",
 		ConvertedName:  "VpcZoneIdentifiers",
-		Description:    `One or more subnet IDs, if applicable, separated by commas.`,
-		Exposed:        true,
-		Name:           "vpcZoneIdentifiers",
-		Stored:         true,
-		SubType:        "string",
-		Type:           "list",
+		Description: `Subnet IDs associated with the scale group. Can be used in lieu of VPCID to
+determine associated VPC(s).`,
+		Exposed: true,
+		Name:    "vpcZoneIdentifiers",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
 	},
 }
 
