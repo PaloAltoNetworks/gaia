@@ -30,3 +30,10 @@ attributes:
     example_value:
     - i-abcd1234
     - i-abcd1235
+
+  - name: vpcZoneIdentifiers
+    description: One or more subnet IDs, if applicable, separated by commas.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
