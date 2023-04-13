@@ -19,6 +19,10 @@ type CloudScaleGroupData struct {
 	// ID of associated instances with this scale group.
 	Instances []string `json:"instances" msgpack:"instances" bson:"instances" mapstructure:"instances,omitempty"`
 
+	// Subnet IDs associated with the scale group. Can be used in lieu of VPCID to
+	// determine associated VPC(s).
+	VpcZoneIdentifiers []string `json:"vpcZoneIdentifiers" msgpack:"vpcZoneIdentifiers" bson:"vpczoneidentifiers" mapstructure:"vpcZoneIdentifiers,omitempty"`
+
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
@@ -26,9 +30,10 @@ type CloudScaleGroupData struct {
 func NewCloudScaleGroupData() *CloudScaleGroupData {
 
 	return &CloudScaleGroupData{
-		ModelVersion:      1,
-		AvailabilityZones: []string{},
-		Instances:         []string{},
+		ModelVersion:       1,
+		AvailabilityZones:  []string{},
+		Instances:          []string{},
+		VpcZoneIdentifiers: []string{},
 	}
 }
 
@@ -44,6 +49,7 @@ func (o *CloudScaleGroupData) GetBSON() (any, error) {
 
 	s.AvailabilityZones = o.AvailabilityZones
 	s.Instances = o.Instances
+	s.VpcZoneIdentifiers = o.VpcZoneIdentifiers
 
 	return s, nil
 }
@@ -63,6 +69,7 @@ func (o *CloudScaleGroupData) SetBSON(raw bson.Raw) error {
 
 	o.AvailabilityZones = s.AvailabilityZones
 	o.Instances = s.Instances
+	o.VpcZoneIdentifiers = s.VpcZoneIdentifiers
 
 	return nil
 }
@@ -141,6 +148,8 @@ func (o *CloudScaleGroupData) ValueForAttribute(name string) any {
 		return o.AvailabilityZones
 	case "instances":
 		return o.Instances
+	case "vpcZoneIdentifiers":
+		return o.VpcZoneIdentifiers
 	}
 
 	return nil
@@ -170,6 +179,18 @@ var CloudScaleGroupDataAttributesMap = map[string]elemental.AttributeSpecificati
 		SubType:        "string",
 		Type:           "list",
 	},
+	"VpcZoneIdentifiers": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "vpczoneidentifiers",
+		ConvertedName:  "VpcZoneIdentifiers",
+		Description: `Subnet IDs associated with the scale group. Can be used in lieu of VPCID to
+determine associated VPC(s).`,
+		Exposed: true,
+		Name:    "vpcZoneIdentifiers",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
 }
 
 // CloudScaleGroupDataLowerCaseAttributesMap represents the map of attribute for CloudScaleGroupData.
@@ -196,9 +217,22 @@ var CloudScaleGroupDataLowerCaseAttributesMap = map[string]elemental.AttributeSp
 		SubType:        "string",
 		Type:           "list",
 	},
+	"vpczoneidentifiers": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "vpczoneidentifiers",
+		ConvertedName:  "VpcZoneIdentifiers",
+		Description: `Subnet IDs associated with the scale group. Can be used in lieu of VPCID to
+determine associated VPC(s).`,
+		Exposed: true,
+		Name:    "vpcZoneIdentifiers",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
 }
 
 type mongoAttributesCloudScaleGroupData struct {
-	AvailabilityZones []string `bson:"availabilityzones"`
-	Instances         []string `bson:"instances"`
+	AvailabilityZones  []string `bson:"availabilityzones"`
+	Instances          []string `bson:"instances"`
+	VpcZoneIdentifiers []string `bson:"vpczoneidentifiers"`
 }

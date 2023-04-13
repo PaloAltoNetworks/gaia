@@ -30,3 +30,12 @@ attributes:
     example_value:
     - i-abcd1234
     - i-abcd1235
+
+  - name: vpcZoneIdentifiers
+    description: |-
+      Subnet IDs associated with the scale group. Can be used in lieu of VPCID to
+      determine associated VPC(s).
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
