@@ -1,0 +1,108 @@
+{
+  "components": {
+    "schemas": {
+      "cloudgraphasset": {
+        "description": "Returns a data structure representing the graph of all cloud nodes and their\nconnections for the given source unified asset IDs.",
+        "properties": {
+          "cloudGraphs": {
+            "additionalProperties": {
+              "$ref": "./cloudgraph#/components/schemas/cloudgraph"
+            },
+            "description": "The set of nodes and paths from the given source to the given destination.",
+            "readOnly": true,
+            "type": "object"
+          },
+          "errors": {
+            "description": "The error message if encountered any.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "executionTimestamp": {
+            "description": "Result of the graph execution timestamp.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "prismaCloudPolicyID": {
+            "description": "Prisma Cloud Policy ID.",
+            "example": "ad23603d-754e-4499-8988-b80178785898",
+            "type": "string"
+          },
+          "unifiedAssetIDs": {
+            "description": "Prisma Cloud Unified Asset IDs.",
+            "example": "4b882952f1a26c8a3ce16ee90af3cac9",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "prismaCloudPolicyID",
+          "unifiedAssetIDs"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudgraphasset",
+    "version": "1.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/cloudgraphassets": {
+      "post": {
+        "description": "Creates a cloud graph asset.",
+        "operationId": "create-a-new-cloudgraphasset",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudgraphasset"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudgraphasset"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "yeul"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}

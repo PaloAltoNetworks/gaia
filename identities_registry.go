@@ -41,7 +41,8 @@ var (
 
 		"cloudendpoint": CloudEndpointIdentity,
 
-		"cloudgraph": CloudGraphIdentity,
+		"cloudgraph":      CloudGraphIdentity,
+		"cloudgraphasset": CloudGraphAssetIdentity,
 
 		"cloudloadbalancer": CloudLoadBalancerIdentity,
 
@@ -258,7 +259,8 @@ var (
 
 		"cloudendpoints": CloudEndpointIdentity,
 
-		"cloudgraphs": CloudGraphIdentity,
+		"cloudgraphs":      CloudGraphIdentity,
+		"cloudgraphassets": CloudGraphAssetIdentity,
 
 		"cloudloadbalancers": CloudLoadBalancerIdentity,
 
@@ -758,7 +760,8 @@ var (
 			{"namespace", "vpcid"},
 			{"updateIdempotencyKey"},
 		},
-		"cloudgraph": nil,
+		"cloudgraph":      nil,
+		"cloudgraphasset": nil,
 		"cloudloadbalancer": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"createIdempotencyKey"},
@@ -1546,6 +1549,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudEndpoint()
 	case CloudGraphIdentity:
 		return NewCloudGraph()
+	case CloudGraphAssetIdentity:
+		return NewCloudGraphAsset()
 	case CloudLoadBalancerIdentity:
 		return NewCloudLoadBalancer()
 	case CloudLoadBalancerRouteIdentity:
@@ -1917,6 +1922,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudEndpoint()
 	case CloudGraphIdentity:
 		return NewSparseCloudGraph()
+	case CloudGraphAssetIdentity:
+		return NewSparseCloudGraphAsset()
 	case CloudLoadBalancerIdentity:
 		return NewSparseCloudLoadBalancer()
 	case CloudLoadBalancerRouteIdentity:
@@ -2296,6 +2303,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudEndpointsList{}
 	case CloudGraphIdentity:
 		return &CloudGraphsList{}
+	case CloudGraphAssetIdentity:
+		return &CloudGraphAssetsList{}
 	case CloudLoadBalancerIdentity:
 		return &CloudLoadBalancersList{}
 	case CloudLoadBalancerRouteIdentity:
@@ -2665,6 +2674,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudEndpointsList{}
 	case CloudGraphIdentity:
 		return &SparseCloudGraphsList{}
+	case CloudGraphAssetIdentity:
+		return &SparseCloudGraphAssetsList{}
 	case CloudLoadBalancerIdentity:
 		return &SparseCloudLoadBalancersList{}
 	case CloudLoadBalancerRouteIdentity:
@@ -3022,6 +3033,7 @@ func AllIdentities() []elemental.Identity {
 		CloudAlertRuleIdentity,
 		CloudEndpointIdentity,
 		CloudGraphIdentity,
+		CloudGraphAssetIdentity,
 		CloudLoadBalancerIdentity,
 		CloudLoadBalancerRouteIdentity,
 		CloudManagedNetworkIdentity,
@@ -3262,6 +3274,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case CloudEndpointIdentity:
 		return []string{}
 	case CloudGraphIdentity:
+		return []string{}
+	case CloudGraphAssetIdentity:
 		return []string{}
 	case CloudLoadBalancerIdentity:
 		return []string{

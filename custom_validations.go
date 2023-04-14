@@ -1338,6 +1338,16 @@ func ValidateUIParameters(p *UIParameter) error {
 	return nil
 }
 
+// ValidateMaxUnifiedAssetIDs validates the maximum number of unified asset IDs.
+func ValidateMaxUnifiedAssetIDs(attribute string, unifiedAssetIDs []string) error {
+
+	if len(unifiedAssetIDs) <= 50 {
+		return nil
+	}
+
+	return makeValidationError(attribute, fmt.Sprintf("Attribute '%s' cannot have more than 50 elements", attribute))
+}
+
 // ValidateSemVer validates a semantic version.
 func ValidateSemVer(attribute, data string) error {
 

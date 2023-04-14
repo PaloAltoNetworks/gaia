@@ -1103,6 +1103,12 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[CloudGraphAssetIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
 	relationshipsRegistry[CloudLoadBalancerIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},
