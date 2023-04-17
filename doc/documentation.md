@@ -11164,6 +11164,7 @@ parameters.
 
 Parameters:
 
+- `floodrpc` (`boolean`): TODO.
 - `neocna` (`boolean`): If set to true, neocna will be used regardless of whether tenant is set to use neocna.
 
 ##### `GET /cloudnetworkqueries/:id/cloudgraphs`
@@ -14138,6 +14139,13 @@ Availability Zones for the scale group.
 Type: `[]string`
 
 ID of associated instances with this scale group.
+
+##### `vpcZoneIdentifiers`
+
+Type: `[]string`
+
+Subnet IDs associated with the scale group. Can be used in lieu of VPCID to
+determine associated VPC(s).
 
 ### CloudScaleSet
 

@@ -19,6 +19,7 @@ attributes:
     description: If not empty, it means the decoy has ErrNotPermitted.
     type: string
     exposed: true
+    omit_empty: true
 
   - name: nodeUID
     description: The NodeUID which the decoy passed through.

@@ -14,17 +14,6 @@ model:
 # Attributes
 attributes:
   v1:
-  - name: cloudTypes
-    description: |-
-      A list of cloud types involved in flooding.  WARNING: this will eventually go
-      away as we should transmit the tree. We keep it this way for backwards
-      compatibility with existing code for the sake of speed.
-    type: list
-    exposed: true
-    subtype: string
-    required: true
-    example_value: gcp
-
   - name: optionIgnoreIPRulesForGivenAddresses
     description: A list of addresses which nodemakers will ignore when evaluating
       IP rules.
@@ -38,3 +27,11 @@ attributes:
       fully covered by the IP rule.
     type: boolean
     exposed: true
+
+  - name: query
+    description: 'The reference query. WARNING: this is temporary and should go away.'
+    type: ref
+    exposed: true
+    subtype: cloudnetworkquery
+    extensions:
+      refMode: pointer

@@ -18,8 +18,7 @@ attributes:
     exposed: true
     omit_empty: true
 
-  - name: nid
+  - name: nodeID
     description: The node identifier.
     type: string
     exposed: true
-    omit_empty: true

@@ -25,6 +25,13 @@
               "type": "string"
             },
             "type": "array"
+          },
+          "vpcZoneIdentifiers": {
+            "description": "Subnet IDs associated with the scale group. Can be used in lieu of VPCID to\ndetermine associated VPC(s).",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           }
         },
         "type": "object"
