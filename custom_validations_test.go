@@ -1,13 +1,11 @@
 package gaia
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"reflect"
 	"strings"
 	"testing"
-	"time"
 
 	"go.aporeto.io/elemental"
 	"go.aporeto.io/gaia/portutils"
@@ -4055,17 +4053,6 @@ func TestValidateOptionalCIDRLorIPList(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cg := &CloudGraphAsset{
-				UnifiedAssetIDs:     []string{"abc", "xyz"},
-				PrismaCloudPolicyID: "policy-1234",
-				CloudGraphs: map[string]*CloudGraph{
-					"abc": NewCloudGraph(),
-					"xyz": NewCloudGraph(),
-				},
-				ExecutionTimestamp: time.Now(),
-			}
-			data, _ := json.MarshalIndent(cg, "", "    ")
-			fmt.Println(string(data))
 			if err := ValidateOptionalCIDRorIPList(tt.args.attribute, tt.args.networks); (err != nil) != tt.wantErr {
 				t.Errorf("ValidateCIDRList() error = %v, wantErr %v", err, tt.wantErr)
 			}
