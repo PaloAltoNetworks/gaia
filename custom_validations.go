@@ -1345,7 +1345,7 @@ func ValidateMaxUnifiedAssetIDs(attribute string, unifiedAssetIDs []string) erro
 		return nil
 	}
 
-	return makeValidationError(attribute, fmt.Sprintf("Attribute '%s' cannot have more than 50 elements", attribute))
+	return makeValidationError(attribute, fmt.Sprintf("Attribute '%s' cannot have more than 50 ids", attribute))
 }
 
 // ValidateSemVer validates a semantic version.
