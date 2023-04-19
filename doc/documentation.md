@@ -14011,6 +14011,13 @@ Type: `[]string`
 
 ID of associated instances with this scale group.
 
+##### `vpcZoneIdentifiers`
+
+Type: `[]string`
+
+Subnet IDs associated with the scale group. Can be used in lieu of VPCID to
+determine associated VPC(s).
+
 ### CloudScaleSet
 
 A Cloud Scale Set represents a group of homogeneous VMs which are scaled up and
