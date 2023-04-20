@@ -9829,7 +9829,7 @@ a resource's Subnet or VPC ID.
 
 ##### `kind`
 
-Type: `enum(Pending | Instance)`
+Type: `enum(Pending | Instance | NetworkInterface | VPC | Subnet | NetworkACL | InternetGateway | SecurityGroup)`
 
 The specific kind of the resource.
 

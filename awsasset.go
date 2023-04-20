@@ -19,8 +19,26 @@ const (
 	// AWSAssetKindInstance represents the value Instance.
 	AWSAssetKindInstance AWSAssetKindValue = "Instance"
 
+	// AWSAssetKindInternetGateway represents the value InternetGateway.
+	AWSAssetKindInternetGateway AWSAssetKindValue = "InternetGateway"
+
+	// AWSAssetKindNetworkACL represents the value NetworkACL.
+	AWSAssetKindNetworkACL AWSAssetKindValue = "NetworkACL"
+
+	// AWSAssetKindNetworkInterface represents the value NetworkInterface.
+	AWSAssetKindNetworkInterface AWSAssetKindValue = "NetworkInterface"
+
 	// AWSAssetKindPending represents the value Pending.
 	AWSAssetKindPending AWSAssetKindValue = "Pending"
+
+	// AWSAssetKindSecurityGroup represents the value SecurityGroup.
+	AWSAssetKindSecurityGroup AWSAssetKindValue = "SecurityGroup"
+
+	// AWSAssetKindSubnet represents the value Subnet.
+	AWSAssetKindSubnet AWSAssetKindValue = "Subnet"
+
+	// AWSAssetKindVPC represents the value VPC.
+	AWSAssetKindVPC AWSAssetKindValue = "VPC"
 )
 
 // AWSAssetServiceValue represents the possible values for attribute "service".
@@ -547,7 +565,7 @@ func (o *AWSAsset) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Pending", "Instance"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Pending", "Instance", "NetworkInterface", "VPC", "Subnet", "NetworkACL", "InternetGateway", "SecurityGroup"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -710,7 +728,7 @@ a resource's Subnet or VPC ID.`,
 		Type:    "list",
 	},
 	"Kind": {
-		AllowedChoices: []string{"Pending", "Instance"},
+		AllowedChoices: []string{"Pending", "Instance", "NetworkInterface", "VPC", "Subnet", "NetworkACL", "InternetGateway", "SecurityGroup"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   AWSAssetKindPending,
@@ -943,7 +961,7 @@ a resource's Subnet or VPC ID.`,
 		Type:    "list",
 	},
 	"kind": {
-		AllowedChoices: []string{"Pending", "Instance"},
+		AllowedChoices: []string{"Pending", "Instance", "NetworkInterface", "VPC", "Subnet", "NetworkACL", "InternetGateway", "SecurityGroup"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   AWSAssetKindPending,

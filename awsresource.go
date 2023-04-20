@@ -19,8 +19,26 @@ const (
 	// AWSResourceKindInstance represents the value Instance.
 	AWSResourceKindInstance AWSResourceKindValue = "Instance"
 
+	// AWSResourceKindInternetGateway represents the value InternetGateway.
+	AWSResourceKindInternetGateway AWSResourceKindValue = "InternetGateway"
+
+	// AWSResourceKindNetworkACL represents the value NetworkACL.
+	AWSResourceKindNetworkACL AWSResourceKindValue = "NetworkACL"
+
+	// AWSResourceKindNetworkInterface represents the value NetworkInterface.
+	AWSResourceKindNetworkInterface AWSResourceKindValue = "NetworkInterface"
+
 	// AWSResourceKindPending represents the value Pending.
 	AWSResourceKindPending AWSResourceKindValue = "Pending"
+
+	// AWSResourceKindSecurityGroup represents the value SecurityGroup.
+	AWSResourceKindSecurityGroup AWSResourceKindValue = "SecurityGroup"
+
+	// AWSResourceKindSubnet represents the value Subnet.
+	AWSResourceKindSubnet AWSResourceKindValue = "Subnet"
+
+	// AWSResourceKindVPC represents the value VPC.
+	AWSResourceKindVPC AWSResourceKindValue = "VPC"
 )
 
 // AWSResourceServiceValue represents the possible values for attribute "service".
@@ -547,7 +565,7 @@ func (o *AWSResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Pending", "Instance"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Pending", "Instance", "NetworkInterface", "VPC", "Subnet", "NetworkACL", "InternetGateway", "SecurityGroup"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -710,7 +728,7 @@ a resource's Subnet or VPC ID.`,
 		Type:    "list",
 	},
 	"Kind": {
-		AllowedChoices: []string{"Pending", "Instance"},
+		AllowedChoices: []string{"Pending", "Instance", "NetworkInterface", "VPC", "Subnet", "NetworkACL", "InternetGateway", "SecurityGroup"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   AWSResourceKindPending,
@@ -943,7 +961,7 @@ a resource's Subnet or VPC ID.`,
 		Type:    "list",
 	},
 	"kind": {
-		AllowedChoices: []string{"Pending", "Instance"},
+		AllowedChoices: []string{"Pending", "Instance", "NetworkInterface", "VPC", "Subnet", "NetworkACL", "InternetGateway", "SecurityGroup"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   AWSResourceKindPending,

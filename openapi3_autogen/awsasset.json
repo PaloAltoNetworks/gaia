@@ -41,7 +41,13 @@
             "description": "The specific kind of the resource.",
             "enum": [
               "Pending",
-              "Instance"
+              "Instance",
+              "NetworkInterface",
+              "VPC",
+              "Subnet",
+              "NetworkACL",
+              "InternetGateway",
+              "SecurityGroup"
             ],
             "example": "Instance"
           },
