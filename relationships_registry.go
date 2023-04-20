@@ -73,6 +73,10 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[AWSAssetIdentity] = &elemental.Relationship{}
+
+	relationshipsRegistry[AWSResourceIdentity] = &elemental.Relationship{}
+
 	relationshipsRegistry[AccessReportIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},

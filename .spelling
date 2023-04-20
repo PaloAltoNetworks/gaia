@@ -25,6 +25,8 @@ Aporeto
 aporeto-crds
 aporeto-operator
 AppCredential
+ARN
+arn
 attachedInterfaces
 auditd
 AuditProfile
@@ -46,6 +48,8 @@ AutomationTemplate
 availabilityZone
 AvailabilityZone
 AWSAccount
+AWSAsset
+AWSAssets
 azure
 Azure
 backend
@@ -398,6 +402,8 @@ resourceType
 resourceID
 ResponseTypesSupported
 Rexray
+RRN
+rrn
 rql
 ruleset
 runtime
@@ -475,6 +481,7 @@ vCPUs
 vince
 VMs
 VPC
+vpc
 VPCs
 v1
 Webhook

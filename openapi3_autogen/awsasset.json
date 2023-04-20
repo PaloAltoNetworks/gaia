@@ -1,0 +1,122 @@
+{
+  "components": {
+    "schemas": {
+      "awsasset": {
+        "description": "Represents a read-only AWS cloud resource such as a virtual machine.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "accountID": {
+            "description": "The 12 digit ID of the AWS account the resource belongs.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "arn": {
+            "description": "The ARN of the resource in AWS.",
+            "example": "arn:aws:ec2:us-west-2:000000000000:instance/i-0abcdef0123456789",
+            "readOnly": true,
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "data": {
+            "description": "The JSON-encoded data that represents the resource.",
+            "example": "{\n  \"instanceId\": \"i-0abcdef0123456789\",\n  \"placement\": {\n    \"availabilityZone\": \"us-west-2a\"\n  },\n  ...\n}",
+            "type": "string"
+          },
+          "denormedFields": {
+            "description": "Contextual values that can be used to narrow searching of resources if the\narn or resourceID are not known. For instance, it could be used to store\na resource's Subnet or VPC ID.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "kind": {
+            "default": "Pending",
+            "description": "The specific kind of the resource.",
+            "enum": [
+              "Pending",
+              "Instance",
+              "NetworkInterface",
+              "VPC",
+              "Subnet",
+              "NetworkACL",
+              "InternetGateway",
+              "SecurityGroup"
+            ],
+            "example": "Instance",
+            "readOnly": true
+          },
+          "name": {
+            "description": "The name of the resource.",
+            "example": "abc",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "prismaRRN": {
+            "description": "The resource identifier in PrismaCloud.",
+            "type": "string"
+          },
+          "prismaRegion": {
+            "description": "The region this resource exists in according to PrismaCloud. Note that the\nresource may exists in a different region as described by AWS.",
+            "example": "us-east-1",
+            "type": "string"
+          },
+          "resourceID": {
+            "description": "A resource ID that will mainly be used in RQL queries.",
+            "example": "i-092bf3d4b2422d8a6",
+            "readOnly": true,
+            "type": "string"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "awsasset",
+    "version": "1.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'pandemona'",
+      "name": "pandemona"
+    }
+  ]
+}
