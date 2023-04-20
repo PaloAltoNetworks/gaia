@@ -10,12 +10,14 @@
             "type": "string"
           },
           "accountID": {
-            "description": "The ID of the account the resource belongs to in AWS.",
+            "description": "The 12 digit ID of the AWS account the resource belongs.",
+            "readOnly": true,
             "type": "string"
           },
           "arn": {
             "description": "The ARN of the resource in AWS.",
-            "example": "arn:aws:ec2:us-west-1:345744466724:subnet/subnet-0af9dd2d9f6ad4e0d",
+            "example": "arn:aws:ec2:us-west-2:000000000000:instance/i-0abcdef0123456789",
+            "readOnly": true,
             "type": "string"
           },
           "createTime": {
@@ -26,14 +28,15 @@
           },
           "data": {
             "description": "The JSON-encoded data that represents the resource.",
-            "example": "{\n  \"id\": \"0000000000000000000\",\n  \"kind\": \"compute#instance\"\n  ...\n}",
+            "example": "{\n  \"instanceId\": \"i-0abcdef0123456789\",\n  \"placement\": {\n    \"availabilityZone\": \"us-west-2a\"\n  },\n  ...\n}",
             "type": "string"
           },
           "denormedFields": {
-            "description": "Contextual values that can be used to narrow searching of resources if the\nrrn or resourceID are not known. For instance, it could be used to store\na resource's Subnet or VPC ID.",
+            "description": "Contextual values that can be used to narrow searching of resources if the\narn or resourceID are not known. For instance, it could be used to store\na resource's Subnet or VPC ID.",
             "items": {
               "type": "string"
             },
+            "readOnly": true,
             "type": "array"
           },
           "kind": {
@@ -49,7 +52,8 @@
               "InternetGateway",
               "SecurityGroup"
             ],
-            "example": "Instance"
+            "example": "Instance",
+            "readOnly": true
           },
           "name": {
             "description": "The name of the resource.",
@@ -60,10 +64,6 @@
             "description": "Namespace tag attached to an entity.",
             "readOnly": true,
             "type": "string"
-          },
-          "prismaAPIID": {
-            "description": "The APIID of PrismaCloud resource.",
-            "type": "integer"
           },
           "prismaRRN": {
             "description": "The resource identifier in PrismaCloud.",
@@ -77,23 +77,8 @@
           "resourceID": {
             "description": "A resource ID that will mainly be used in RQL queries.",
             "example": "i-092bf3d4b2422d8a6",
-            "type": "string"
-          },
-          "service": {
-            "description": "The specific service namespace that identifies the AWS product.",
-            "enum": [
-              "EC2",
-              "RDS"
-            ],
-            "example": "EC2"
-          },
-          "tags": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "User-defined key-value pairs inside the AWS resource.",
             "readOnly": true,
-            "type": "object"
+            "type": "string"
           },
           "updateTime": {
             "description": "Last update date of the object.",

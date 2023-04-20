@@ -41,17 +41,6 @@ const (
 	AWSAssetKindVPC AWSAssetKindValue = "VPC"
 )
 
-// AWSAssetServiceValue represents the possible values for attribute "service".
-type AWSAssetServiceValue string
-
-const (
-	// AWSAssetServiceEC2 represents the value EC2.
-	AWSAssetServiceEC2 AWSAssetServiceValue = "EC2"
-
-	// AWSAssetServiceRDS represents the value RDS.
-	AWSAssetServiceRDS AWSAssetServiceValue = "RDS"
-)
-
 // AWSAssetIdentity represents the Identity of the object.
 var AWSAssetIdentity = elemental.Identity{
 	Name:     "awsasset",
@@ -127,7 +116,7 @@ type AWSAsset struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
-	// The ID of the account the resource belongs to in AWS.
+	// The 12 digit ID of the AWS account the resource belongs.
 	AccountID string `json:"accountID,omitempty" msgpack:"accountID,omitempty" bson:"accountid,omitempty" mapstructure:"accountID,omitempty"`
 
 	// The ARN of the resource in AWS.
@@ -140,7 +129,7 @@ type AWSAsset struct {
 	Data []byte `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
 
 	// Contextual values that can be used to narrow searching of resources if the
-	// rrn or resourceID are not known. For instance, it could be used to store
+	// arn or resourceID are not known. For instance, it could be used to store
 	// a resource's Subnet or VPC ID.
 	DenormedFields []string `json:"denormedFields" msgpack:"denormedFields" bson:"denormedfields" mapstructure:"denormedFields,omitempty"`
 
@@ -156,9 +145,6 @@ type AWSAsset struct {
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
 
-	// The APIID of PrismaCloud resource.
-	PrismaAPIID int `json:"prismaAPIID,omitempty" msgpack:"prismaAPIID,omitempty" bson:"-" mapstructure:"prismaAPIID,omitempty"`
-
 	// The resource identifier in PrismaCloud.
 	PrismaRRN string `json:"prismaRRN,omitempty" msgpack:"prismaRRN,omitempty" bson:"prismarrn,omitempty" mapstructure:"prismaRRN,omitempty"`
 
@@ -168,12 +154,6 @@ type AWSAsset struct {
 
 	// A resource ID that will mainly be used in RQL queries.
 	ResourceID string `json:"resourceID" msgpack:"resourceID" bson:"resourceid" mapstructure:"resourceID,omitempty"`
-
-	// The specific service namespace that identifies the AWS product.
-	Service AWSAssetServiceValue `json:"service" msgpack:"service" bson:"service" mapstructure:"service,omitempty"`
-
-	// User-defined key-value pairs inside the AWS resource.
-	Tags map[string]string `json:"tags" msgpack:"tags" bson:"tags" mapstructure:"tags,omitempty"`
 
 	// Last update date of the object.
 	UpdateTime time.Time `json:"updateTime" msgpack:"updateTime" bson:"updatetime" mapstructure:"updateTime,omitempty"`
@@ -197,7 +177,6 @@ func NewAWSAsset() *AWSAsset {
 		DenormedFields: []string{},
 		Kind:           AWSAssetKindPending,
 		MigrationsLog:  map[string]string{},
-		Tags:           map[string]string{},
 	}
 }
 
@@ -244,8 +223,6 @@ func (o *AWSAsset) GetBSON() (any, error) {
 	s.PrismaRRN = o.PrismaRRN
 	s.PrismaRegion = o.PrismaRegion
 	s.ResourceID = o.ResourceID
-	s.Service = o.Service
-	s.Tags = o.Tags
 	s.UpdateTime = o.UpdateTime
 	s.ZHash = o.ZHash
 	s.Zone = o.Zone
@@ -279,8 +256,6 @@ func (o *AWSAsset) SetBSON(raw bson.Raw) error {
 	o.PrismaRRN = s.PrismaRRN
 	o.PrismaRegion = s.PrismaRegion
 	o.ResourceID = s.ResourceID
-	o.Service = s.Service
-	o.Tags = s.Tags
 	o.UpdateTime = s.UpdateTime
 	o.ZHash = s.ZHash
 	o.Zone = s.Zone
@@ -406,12 +381,9 @@ func (o *AWSAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			MigrationsLog:  &o.MigrationsLog,
 			Name:           &o.Name,
 			Namespace:      &o.Namespace,
-			PrismaAPIID:    &o.PrismaAPIID,
 			PrismaRRN:      &o.PrismaRRN,
 			PrismaRegion:   &o.PrismaRegion,
 			ResourceID:     &o.ResourceID,
-			Service:        &o.Service,
-			Tags:           &o.Tags,
 			UpdateTime:     &o.UpdateTime,
 			ZHash:          &o.ZHash,
 			Zone:           &o.Zone,
@@ -441,18 +413,12 @@ func (o *AWSAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Name = &(o.Name)
 		case "namespace":
 			sp.Namespace = &(o.Namespace)
-		case "prismaAPIID":
-			sp.PrismaAPIID = &(o.PrismaAPIID)
 		case "prismaRRN":
 			sp.PrismaRRN = &(o.PrismaRRN)
 		case "prismaRegion":
 			sp.PrismaRegion = &(o.PrismaRegion)
 		case "resourceID":
 			sp.ResourceID = &(o.ResourceID)
-		case "service":
-			sp.Service = &(o.Service)
-		case "tags":
-			sp.Tags = &(o.Tags)
 		case "updateTime":
 			sp.UpdateTime = &(o.UpdateTime)
 		case "zHash":
@@ -502,9 +468,6 @@ func (o *AWSAsset) Patch(sparse elemental.SparseIdentifiable) {
 	if so.Namespace != nil {
 		o.Namespace = *so.Namespace
 	}
-	if so.PrismaAPIID != nil {
-		o.PrismaAPIID = *so.PrismaAPIID
-	}
 	if so.PrismaRRN != nil {
 		o.PrismaRRN = *so.PrismaRRN
 	}
@@ -513,12 +476,6 @@ func (o *AWSAsset) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.ResourceID != nil {
 		o.ResourceID = *so.ResourceID
-	}
-	if so.Service != nil {
-		o.Service = *so.Service
-	}
-	if so.Tags != nil {
-		o.Tags = *so.Tags
 	}
 	if so.UpdateTime != nil {
 		o.UpdateTime = *so.UpdateTime
@@ -565,11 +522,7 @@ func (o *AWSAsset) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Pending", "Instance", "NetworkInterface", "VPC", "Subnet", "NetworkACL", "InternetGateway", "SecurityGroup"}, false); err != nil {
-		errors = errors.Append(err)
-	}
-
-	if err := elemental.ValidateStringInList("service", string(o.Service), []string{"EC2", "RDS"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Pending", "Instance", "NetworkInterface", "VPC", "Subnet", "NetworkACL", "InternetGateway", "SecurityGroup"}, true); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -627,18 +580,12 @@ func (o *AWSAsset) ValueForAttribute(name string) any {
 		return o.Name
 	case "namespace":
 		return o.Namespace
-	case "prismaAPIID":
-		return o.PrismaAPIID
 	case "prismaRRN":
 		return o.PrismaRRN
 	case "prismaRegion":
 		return o.PrismaRegion
 	case "resourceID":
 		return o.ResourceID
-	case "service":
-		return o.Service
-	case "tags":
-		return o.Tags
 	case "updateTime":
 		return o.UpdateTime
 	case "zHash":
@@ -669,21 +616,25 @@ var AWSAssetAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"AccountID": {
 		AllowedChoices: []string{},
+		Autogenerated:  true,
 		BSONFieldName:  "accountid",
 		ConvertedName:  "AccountID",
-		Description:    `The ID of the account the resource belongs to in AWS.`,
+		Description:    `The 12 digit ID of the AWS account the resource belongs.`,
 		Exposed:        true,
 		Name:           "accountID",
+		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
 	},
 	"Arn": {
 		AllowedChoices: []string{},
+		Autogenerated:  true,
 		BSONFieldName:  "arn",
 		ConvertedName:  "Arn",
 		Description:    `The ARN of the resource in AWS.`,
 		Exposed:        true,
 		Name:           "arn",
+		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -716,25 +667,29 @@ var AWSAssetAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"DenormedFields": {
 		AllowedChoices: []string{},
+		Autogenerated:  true,
 		BSONFieldName:  "denormedfields",
 		ConvertedName:  "DenormedFields",
 		Description: `Contextual values that can be used to narrow searching of resources if the
-rrn or resourceID are not known. For instance, it could be used to store
+arn or resourceID are not known. For instance, it could be used to store
 a resource's Subnet or VPC ID.`,
-		Exposed: true,
-		Name:    "denormedFields",
-		Stored:  true,
-		SubType: "string",
-		Type:    "list",
+		Exposed:  true,
+		Name:     "denormedFields",
+		ReadOnly: true,
+		Stored:   true,
+		SubType:  "string",
+		Type:     "list",
 	},
 	"Kind": {
 		AllowedChoices: []string{"Pending", "Instance", "NetworkInterface", "VPC", "Subnet", "NetworkACL", "InternetGateway", "SecurityGroup"},
+		Autogenerated:  true,
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   AWSAssetKindPending,
 		Description:    `The specific kind of the resource.`,
 		Exposed:        true,
 		Name:           "kind",
+		ReadOnly:       true,
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -776,14 +731,6 @@ a resource's Subnet or VPC ID.`,
 		Stored:         true,
 		Type:           "string",
 	},
-	"PrismaAPIID": {
-		AllowedChoices: []string{},
-		ConvertedName:  "PrismaAPIID",
-		Description:    `The APIID of PrismaCloud resource.`,
-		Exposed:        true,
-		Name:           "prismaAPIID",
-		Type:           "integer",
-	},
 	"PrismaRRN": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "prismarrn",
@@ -807,36 +754,15 @@ resource may exists in a different region as described by AWS.`,
 	},
 	"ResourceID": {
 		AllowedChoices: []string{},
+		Autogenerated:  true,
 		BSONFieldName:  "resourceid",
 		ConvertedName:  "ResourceID",
 		Description:    `A resource ID that will mainly be used in RQL queries.`,
 		Exposed:        true,
 		Name:           "resourceID",
-		Stored:         true,
-		Type:           "string",
-	},
-	"Service": {
-		AllowedChoices: []string{"EC2", "RDS"},
-		BSONFieldName:  "service",
-		ConvertedName:  "Service",
-		Description:    `The specific service namespace that identifies the AWS product.`,
-		Exposed:        true,
-		Name:           "service",
-		Stored:         true,
-		Type:           "enum",
-	},
-	"Tags": {
-		AllowedChoices: []string{},
-		Autogenerated:  true,
-		BSONFieldName:  "tags",
-		ConvertedName:  "Tags",
-		Description:    `User-defined key-value pairs inside the AWS resource.`,
-		Exposed:        true,
-		Name:           "tags",
 		ReadOnly:       true,
 		Stored:         true,
-		SubType:        "map[string]string",
-		Type:           "external",
+		Type:           "string",
 	},
 	"UpdateTime": {
 		AllowedChoices: []string{},
@@ -902,21 +828,25 @@ var AWSAssetLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"accountid": {
 		AllowedChoices: []string{},
+		Autogenerated:  true,
 		BSONFieldName:  "accountid",
 		ConvertedName:  "AccountID",
-		Description:    `The ID of the account the resource belongs to in AWS.`,
+		Description:    `The 12 digit ID of the AWS account the resource belongs.`,
 		Exposed:        true,
 		Name:           "accountID",
+		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
 	},
 	"arn": {
 		AllowedChoices: []string{},
+		Autogenerated:  true,
 		BSONFieldName:  "arn",
 		ConvertedName:  "Arn",
 		Description:    `The ARN of the resource in AWS.`,
 		Exposed:        true,
 		Name:           "arn",
+		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -949,25 +879,29 @@ var AWSAssetLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"denormedfields": {
 		AllowedChoices: []string{},
+		Autogenerated:  true,
 		BSONFieldName:  "denormedfields",
 		ConvertedName:  "DenormedFields",
 		Description: `Contextual values that can be used to narrow searching of resources if the
-rrn or resourceID are not known. For instance, it could be used to store
+arn or resourceID are not known. For instance, it could be used to store
 a resource's Subnet or VPC ID.`,
-		Exposed: true,
-		Name:    "denormedFields",
-		Stored:  true,
-		SubType: "string",
-		Type:    "list",
+		Exposed:  true,
+		Name:     "denormedFields",
+		ReadOnly: true,
+		Stored:   true,
+		SubType:  "string",
+		Type:     "list",
 	},
 	"kind": {
 		AllowedChoices: []string{"Pending", "Instance", "NetworkInterface", "VPC", "Subnet", "NetworkACL", "InternetGateway", "SecurityGroup"},
+		Autogenerated:  true,
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		DefaultValue:   AWSAssetKindPending,
 		Description:    `The specific kind of the resource.`,
 		Exposed:        true,
 		Name:           "kind",
+		ReadOnly:       true,
 		Stored:         true,
 		Type:           "enum",
 	},
@@ -1009,14 +943,6 @@ a resource's Subnet or VPC ID.`,
 		Stored:         true,
 		Type:           "string",
 	},
-	"prismaapiid": {
-		AllowedChoices: []string{},
-		ConvertedName:  "PrismaAPIID",
-		Description:    `The APIID of PrismaCloud resource.`,
-		Exposed:        true,
-		Name:           "prismaAPIID",
-		Type:           "integer",
-	},
 	"prismarrn": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "prismarrn",
@@ -1040,36 +966,15 @@ resource may exists in a different region as described by AWS.`,
 	},
 	"resourceid": {
 		AllowedChoices: []string{},
+		Autogenerated:  true,
 		BSONFieldName:  "resourceid",
 		ConvertedName:  "ResourceID",
 		Description:    `A resource ID that will mainly be used in RQL queries.`,
 		Exposed:        true,
 		Name:           "resourceID",
-		Stored:         true,
-		Type:           "string",
-	},
-	"service": {
-		AllowedChoices: []string{"EC2", "RDS"},
-		BSONFieldName:  "service",
-		ConvertedName:  "Service",
-		Description:    `The specific service namespace that identifies the AWS product.`,
-		Exposed:        true,
-		Name:           "service",
-		Stored:         true,
-		Type:           "enum",
-	},
-	"tags": {
-		AllowedChoices: []string{},
-		Autogenerated:  true,
-		BSONFieldName:  "tags",
-		ConvertedName:  "Tags",
-		Description:    `User-defined key-value pairs inside the AWS resource.`,
-		Exposed:        true,
-		Name:           "tags",
 		ReadOnly:       true,
 		Stored:         true,
-		SubType:        "map[string]string",
-		Type:           "external",
+		Type:           "string",
 	},
 	"updatetime": {
 		AllowedChoices: []string{},
@@ -1182,7 +1087,7 @@ type SparseAWSAsset struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
-	// The ID of the account the resource belongs to in AWS.
+	// The 12 digit ID of the AWS account the resource belongs.
 	AccountID *string `json:"accountID,omitempty" msgpack:"accountID,omitempty" bson:"accountid,omitempty" mapstructure:"accountID,omitempty"`
 
 	// The ARN of the resource in AWS.
@@ -1195,7 +1100,7 @@ type SparseAWSAsset struct {
 	Data *[]byte `json:"data,omitempty" msgpack:"data,omitempty" bson:"data,omitempty" mapstructure:"data,omitempty"`
 
 	// Contextual values that can be used to narrow searching of resources if the
-	// rrn or resourceID are not known. For instance, it could be used to store
+	// arn or resourceID are not known. For instance, it could be used to store
 	// a resource's Subnet or VPC ID.
 	DenormedFields *[]string `json:"denormedFields,omitempty" msgpack:"denormedFields,omitempty" bson:"denormedfields,omitempty" mapstructure:"denormedFields,omitempty"`
 
@@ -1211,9 +1116,6 @@ type SparseAWSAsset struct {
 	// Namespace tag attached to an entity.
 	Namespace *string `json:"namespace,omitempty" msgpack:"namespace,omitempty" bson:"namespace,omitempty" mapstructure:"namespace,omitempty"`
 
-	// The APIID of PrismaCloud resource.
-	PrismaAPIID *int `json:"prismaAPIID,omitempty" msgpack:"prismaAPIID,omitempty" bson:"-" mapstructure:"prismaAPIID,omitempty"`
-
 	// The resource identifier in PrismaCloud.
 	PrismaRRN *string `json:"prismaRRN,omitempty" msgpack:"prismaRRN,omitempty" bson:"prismarrn,omitempty" mapstructure:"prismaRRN,omitempty"`
 
@@ -1223,12 +1125,6 @@ type SparseAWSAsset struct {
 
 	// A resource ID that will mainly be used in RQL queries.
 	ResourceID *string `json:"resourceID,omitempty" msgpack:"resourceID,omitempty" bson:"resourceid,omitempty" mapstructure:"resourceID,omitempty"`
-
-	// The specific service namespace that identifies the AWS product.
-	Service *AWSAssetServiceValue `json:"service,omitempty" msgpack:"service,omitempty" bson:"service,omitempty" mapstructure:"service,omitempty"`
-
-	// User-defined key-value pairs inside the AWS resource.
-	Tags *map[string]string `json:"tags,omitempty" msgpack:"tags,omitempty" bson:"tags,omitempty" mapstructure:"tags,omitempty"`
 
 	// Last update date of the object.
 	UpdateTime *time.Time `json:"updateTime,omitempty" msgpack:"updateTime,omitempty" bson:"updatetime,omitempty" mapstructure:"updateTime,omitempty"`
@@ -1322,12 +1218,6 @@ func (o *SparseAWSAsset) GetBSON() (any, error) {
 	if o.ResourceID != nil {
 		s.ResourceID = o.ResourceID
 	}
-	if o.Service != nil {
-		s.Service = o.Service
-	}
-	if o.Tags != nil {
-		s.Tags = o.Tags
-	}
 	if o.UpdateTime != nil {
 		s.UpdateTime = o.UpdateTime
 	}
@@ -1392,12 +1282,6 @@ func (o *SparseAWSAsset) SetBSON(raw bson.Raw) error {
 	if s.ResourceID != nil {
 		o.ResourceID = s.ResourceID
 	}
-	if s.Service != nil {
-		o.Service = s.Service
-	}
-	if s.Tags != nil {
-		o.Tags = s.Tags
-	}
 	if s.UpdateTime != nil {
 		o.UpdateTime = s.UpdateTime
 	}
@@ -1451,9 +1335,6 @@ func (o *SparseAWSAsset) ToPlain() elemental.PlainIdentifiable {
 	if o.Namespace != nil {
 		out.Namespace = *o.Namespace
 	}
-	if o.PrismaAPIID != nil {
-		out.PrismaAPIID = *o.PrismaAPIID
-	}
 	if o.PrismaRRN != nil {
 		out.PrismaRRN = *o.PrismaRRN
 	}
@@ -1462,12 +1343,6 @@ func (o *SparseAWSAsset) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.ResourceID != nil {
 		out.ResourceID = *o.ResourceID
-	}
-	if o.Service != nil {
-		out.Service = *o.Service
-	}
-	if o.Tags != nil {
-		out.Tags = *o.Tags
 	}
 	if o.UpdateTime != nil {
 		out.UpdateTime = *o.UpdateTime
@@ -1603,42 +1478,38 @@ func (o *SparseAWSAsset) DeepCopyInto(out *SparseAWSAsset) {
 }
 
 type mongoAttributesAWSAsset struct {
-	ID             bson.ObjectId        `bson:"_id,omitempty"`
-	AccountID      string               `bson:"accountid,omitempty"`
-	Arn            string               `bson:"arn"`
-	CreateTime     time.Time            `bson:"createtime"`
-	Data           []byte               `bson:"data"`
-	DenormedFields []string             `bson:"denormedfields"`
-	Kind           AWSAssetKindValue    `bson:"kind"`
-	MigrationsLog  map[string]string    `bson:"migrationslog,omitempty"`
-	Name           string               `bson:"name"`
-	Namespace      string               `bson:"namespace"`
-	PrismaRRN      string               `bson:"prismarrn,omitempty"`
-	PrismaRegion   string               `bson:"prismaregion"`
-	ResourceID     string               `bson:"resourceid"`
-	Service        AWSAssetServiceValue `bson:"service"`
-	Tags           map[string]string    `bson:"tags"`
-	UpdateTime     time.Time            `bson:"updatetime"`
-	ZHash          int                  `bson:"zhash"`
-	Zone           int                  `bson:"zone"`
+	ID             bson.ObjectId     `bson:"_id,omitempty"`
+	AccountID      string            `bson:"accountid,omitempty"`
+	Arn            string            `bson:"arn"`
+	CreateTime     time.Time         `bson:"createtime"`
+	Data           []byte            `bson:"data"`
+	DenormedFields []string          `bson:"denormedfields"`
+	Kind           AWSAssetKindValue `bson:"kind"`
+	MigrationsLog  map[string]string `bson:"migrationslog,omitempty"`
+	Name           string            `bson:"name"`
+	Namespace      string            `bson:"namespace"`
+	PrismaRRN      string            `bson:"prismarrn,omitempty"`
+	PrismaRegion   string            `bson:"prismaregion"`
+	ResourceID     string            `bson:"resourceid"`
+	UpdateTime     time.Time         `bson:"updatetime"`
+	ZHash          int               `bson:"zhash"`
+	Zone           int               `bson:"zone"`
 }
 type mongoAttributesSparseAWSAsset struct {
-	ID             bson.ObjectId         `bson:"_id,omitempty"`
-	AccountID      *string               `bson:"accountid,omitempty"`
-	Arn            *string               `bson:"arn,omitempty"`
-	CreateTime     *time.Time            `bson:"createtime,omitempty"`
-	Data           *[]byte               `bson:"data,omitempty"`
-	DenormedFields *[]string             `bson:"denormedfields,omitempty"`
-	Kind           *AWSAssetKindValue    `bson:"kind,omitempty"`
-	MigrationsLog  *map[string]string    `bson:"migrationslog,omitempty"`
-	Name           *string               `bson:"name,omitempty"`
-	Namespace      *string               `bson:"namespace,omitempty"`
-	PrismaRRN      *string               `bson:"prismarrn,omitempty"`
-	PrismaRegion   *string               `bson:"prismaregion,omitempty"`
-	ResourceID     *string               `bson:"resourceid,omitempty"`
-	Service        *AWSAssetServiceValue `bson:"service,omitempty"`
-	Tags           *map[string]string    `bson:"tags,omitempty"`
-	UpdateTime     *time.Time            `bson:"updatetime,omitempty"`
-	ZHash          *int                  `bson:"zhash,omitempty"`
-	Zone           *int                  `bson:"zone,omitempty"`
+	ID             bson.ObjectId      `bson:"_id,omitempty"`
+	AccountID      *string            `bson:"accountid,omitempty"`
+	Arn            *string            `bson:"arn,omitempty"`
+	CreateTime     *time.Time         `bson:"createtime,omitempty"`
+	Data           *[]byte            `bson:"data,omitempty"`
+	DenormedFields *[]string          `bson:"denormedfields,omitempty"`
+	Kind           *AWSAssetKindValue `bson:"kind,omitempty"`
+	MigrationsLog  *map[string]string `bson:"migrationslog,omitempty"`
+	Name           *string            `bson:"name,omitempty"`
+	Namespace      *string            `bson:"namespace,omitempty"`
+	PrismaRRN      *string            `bson:"prismarrn,omitempty"`
+	PrismaRegion   *string            `bson:"prismaregion,omitempty"`
+	ResourceID     *string            `bson:"resourceid,omitempty"`
+	UpdateTime     *time.Time         `bson:"updatetime,omitempty"`
+	ZHash          *int               `bson:"zhash,omitempty"`
+	Zone           *int               `bson:"zone,omitempty"`
 }
