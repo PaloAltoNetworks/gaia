@@ -47,6 +47,12 @@ attributes:
     allowed_choices:
     - Pending
     - Instance
+    - NetworkInterface
+    - VPC
+    - Subnet
+    - NetworkACL
+    - InternetGateway
+    - SecurityGroup
     default_value: Pending
     example_value: Instance
 
