@@ -263,6 +263,10 @@ relations:
           is set to use neocna.
         type: boolean
 
+- rest_name: cloudgraphasset
+  create:
+    description: Creates a cloud graph asset.
+
 - rest_name: cloudloadbalancer
   get:
     description: Retrieves the list of cloud load balancers.
