@@ -26,12 +26,6 @@ indexes:
 # Attributes
 attributes:
   v1:
-  - name: cloudGraphResultID
-    description: The cloud graph result ID which is stored in MongoDB GridFS.
-    type: string
-    exposed: true
-    subtype: string
-
   - name: cloudNetworkQuery
     description: The cloud network query that should be used.
     type: ref
@@ -63,7 +57,6 @@ attributes:
     description: Prisma Cloud Policy ID.
     type: string
     exposed: true
-    subtype: string
     stored: true
 
   - name: successfulExecutionTimestamp
