@@ -1445,23 +1445,6 @@ func ValidateCloudTag(attribute string, tag string) error {
 	return nil
 }
 
-// nativeIDRegex is the regular expression to check the format of the nativeID.
-var nativeIDRegex = regexp.MustCompile(`^[a-zA-Z0-9-_#+.\/:@{}"\\,]+$`)
-
-// ValidateNativeID validates a single tag.
-func ValidateNativeID(attribute string, tag string) error {
-
-	if !nativeIDRegex.MatchString(tag) {
-		return makeValidationError(attribute, fmt.Sprintf("'%s'is not a valid tag", tag))
-	}
-
-	if len([]byte(tag)) >= 512 {
-		return makeValidationError(attribute, fmt.Sprintf("'%s' must be less than 512 bytes", tag))
-	}
-
-	return nil
-}
-
 // ValidateCloudTagsExpression validates the cloud tags provided by Prisma Cloud.
 func ValidateCloudTagsExpression(attribute string, tags [][]string) error {
 	for _, clause := range tags {
@@ -1781,4 +1764,26 @@ func IsAddressAzureReserved(address string) (bool, error) {
 	}
 
 	return false, nil
+}
+
+// nativeIDRegex is the regular expression to check the format of the nativeID.
+var nativeIDRegex = regexp.MustCompile(`^[a-zA-Z0-9-_#+.\/:@{}"\\,]+$`)
+
+// ValidateCloudNodeEntity validates the CloudNode entity and all the attribute relations.
+func ValidateCloudNodeEntity(c *CloudNode) error {
+
+	switch c.Type {
+	case CloudNodeTypeScaleGroup:
+		// Do nothing.
+	default:
+		if !nativeIDRegex.MatchString(c.NativeID) {
+			return makeValidationError("nativeID", fmt.Sprintf("'%s'is not a valid tag", c.NativeID))
+		}
+	}
+
+	if len([]byte(c.NativeID)) >= 512 {
+		return makeValidationError("nativeID", fmt.Sprintf("'%s' must be less than 512 bytes", c.NativeID))
+	}
+
+	return nil
 }

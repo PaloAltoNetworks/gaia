@@ -50,6 +50,10 @@ $cloudnetworkquery:
   elemental:
     name: ValidateCloudNetworkQueryEntity
 
+$cloudnode:
+  elemental:
+    name: ValidateCloudNodeEntity
+
 $connectionexceptionreport:
   elemental:
     name: ValidateConnectionExceptionReport
@@ -101,10 +105,6 @@ $ipaddresslist:
 $metadata:
   elemental:
     name: ValidateMetadata
-
-$nativeid:
-  elemental:
-    name: ValidateNativeID
 
 $networksorhostnames:
   elemental:
