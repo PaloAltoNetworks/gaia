@@ -1003,10 +1003,6 @@ func (o *CloudNode) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := ValidateNativeID("nativeID", o.NativeID); err != nil {
-		errors = errors.Append(err)
-	}
-
 	if err := elemental.ValidateMaximumLength("regionName", o.RegionName, 256, false); err != nil {
 		errors = errors.Append(err)
 	}
@@ -1016,6 +1012,11 @@ func (o *CloudNode) Validate() error {
 	}
 
 	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
+	// Custom object validation.
+	if err := ValidateCloudNodeEntity(o); err != nil {
 		errors = errors.Append(err)
 	}
 

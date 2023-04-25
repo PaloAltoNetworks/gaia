@@ -18,6 +18,8 @@ model:
   - '@identifiable-stored'
   - '@prismabase'
   - '@timeable'
+  validations:
+  - $cloudnode
 
 # Indexes
 indexes:
