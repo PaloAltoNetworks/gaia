@@ -935,10 +935,6 @@ func (o *CloudManagedNetwork) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := ValidateNativeID("nativeID", o.NativeID); err != nil {
-		errors = errors.Append(err)
-	}
-
 	if err := elemental.ValidateMaximumLength("regionName", o.RegionName, 256, false); err != nil {
 		errors = errors.Append(err)
 	}

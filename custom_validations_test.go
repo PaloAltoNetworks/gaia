@@ -4431,63 +4431,6 @@ func TestValidatePortsList(t *testing.T) {
 	}
 }
 
-func TestValidateNativeID(t *testing.T) {
-
-	tests := []struct {
-		name    string
-		id      string
-		wantErr bool
-	}{
-		{
-			"valid",
-			"sg-123",
-			false,
-		},
-		{
-			"valid",
-			"sg.123.3.3",
-			false,
-		},
-		{
-			"valid",
-			"sg:2",
-			false,
-		},
-		{
-			"invalid",
-			"a b",
-			true,
-		},
-		{
-			"invalid",
-			"",
-			true,
-		},
-		{
-			"valid",
-			"arn:aws:elasticloadbalancing:us-east-2:345744466724:loadbalancer/app/abhi-aws-v2/eb7edb2d68b71a0f",
-			false,
-		},
-		{
-			"valid",
-			"/subscriptions/e3e57e4f-0ceb-449c-a8b4-23d61bd60554/resourceGroups/someaccount/providers/Microsoft.Network/virtualNetworks/somevnet/subnets/default",
-			false,
-		},
-		{
-			"valid",
-			"{version:\"2020.2\",id:\"/subscriptions/e3e57e4f-0ceb-449c-a8b4-23d61bd60554/resourceGroups/someaccount/providers/Microsoft.Network/virtualNetworks/somevnet/subnets/default\"}",
-			false,
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := ValidateNativeID(tt.name, tt.id); (err != nil) != tt.wantErr {
-				t.Errorf("ValidateNativeID() error = %v, wantErr %v", err, tt.wantErr)
-			}
-		})
-	}
-}
 func TestValidateCloudGraphQuery(t *testing.T) {
 	type args struct {
 		attribute string
@@ -5414,6 +5357,95 @@ func TestIsAddressAzureReserved(t *testing.T) {
 			}
 			if got != tt.want {
 				t.Errorf("IsAddressAzureReserved() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestValidateCloudNodeEntity(t *testing.T) {
+	tests := []struct {
+		name    string
+		c       *CloudNode
+		wantErr bool
+	}{
+		{
+			"valid",
+			&CloudNode{
+				NativeID: "sg-123",
+				Type:     CloudNodeTypeNetworkRuleSet,
+			},
+			false,
+		},
+		{
+			"valid",
+			&CloudNode{
+				NativeID: "sg.123.3.3",
+				Type:     CloudNodeTypeNetworkRuleSet,
+			},
+			false,
+		},
+		{
+			"valid",
+			&CloudNode{
+				NativeID: "sg:2",
+				Type:     CloudNodeTypeNetworkRuleSet,
+			},
+			false,
+		},
+		{
+			"invalid",
+			&CloudNode{
+				NativeID: "a b",
+				Type:     CloudNodeTypeNetworkRuleSet,
+			},
+			true,
+		},
+		{
+			"invalid",
+			&CloudNode{
+				NativeID: "",
+				Type:     CloudNodeTypeNetworkRuleSet,
+			},
+			true,
+		},
+		{
+			"valid",
+			&CloudNode{
+				NativeID: "arn:aws:elasticloadbalancing:us-east-2:345744466724:loadbalancer/app/abhi-aws-v2/eb7edb2d68b71a0f",
+				Type:     CloudNodeTypeLoadBalancer,
+			},
+			false,
+		},
+		{
+			"valid",
+			&CloudNode{
+				NativeID: "/subscriptions/e3e57e4f-0ceb-449c-a8b4-23d61bd60554/resourceGroups/someaccount/providers/Microsoft.Network/virtualNetworks/somevnet/subnets/default",
+				Type:     CloudNodeTypeSubnet,
+			},
+			false,
+		},
+		{
+			"valid",
+			&CloudNode{
+				NativeID: "{version:\"2020.2\",id:\"/subscriptions/e3e57e4f-0ceb-449c-a8b4-23d61bd60554/resourceGroups/someaccount/providers/Microsoft.Network/virtualNetworks/somevnet/subnets/default\"}",
+				Type:     CloudNodeTypeSubnet,
+			},
+
+			false,
+		},
+		{
+			"valid",
+			&CloudNode{
+				NativeID: "arn:aws:autoscaling:us-east-2:345744466724:autoScalingGroup:3e6a72f5-84dc-4416-9fff-7e7bcd6f9faa:autoScalingGroupName/hello sawyer / test @!&%$ hhh",
+				Type:     CloudNodeTypeScaleGroup,
+			},
+			false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := ValidateCloudNodeEntity(tt.c); (err != nil) != tt.wantErr {
+				t.Errorf("ValidateCloudNodeEntity() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}
