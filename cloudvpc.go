@@ -875,10 +875,6 @@ func (o *CloudVPC) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := ValidateNativeID("nativeID", o.NativeID); err != nil {
-		errors = errors.Append(err)
-	}
-
 	if o.Parameters != nil {
 		elemental.ResetDefaultForZeroValues(o.Parameters)
 		if err := o.Parameters.Validate(); err != nil {
