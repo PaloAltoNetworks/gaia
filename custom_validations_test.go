@@ -5398,7 +5398,7 @@ func TestValidateCloudNodeEntity(t *testing.T) {
 				NativeID: "a b",
 				Type:     CloudNodeTypeNetworkRuleSet,
 			},
-			true,
+			false,
 		},
 		{
 			"invalid",
