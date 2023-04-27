@@ -40,6 +40,14 @@ attributes:
     extensions:
       refMode: pointer
 
+  - name: results
+    description: The flooding results.
+    type: ref
+    exposed: true
+    subtype: floodresult
+    extensions:
+      refMode: pointer
+
   - name: source
     description: The source NodeUID where the flooder should start.
     type: ref
