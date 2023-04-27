@@ -254,10 +254,6 @@ relations:
       parameters.
     parameters:
       entries:
-      - name: floodrpc
-        description: TODO.
-        type: boolean
-
       - name: neocna
         description: If set to true, neocna will be used regardless of whether tenant
           is set to use neocna.
