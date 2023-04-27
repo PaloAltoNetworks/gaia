@@ -84,16 +84,13 @@ func (o FloodRPCsList) Version() int {
 // FloodRPC represents the model of a floodrpc
 type FloodRPC struct {
 	// The parameters needed to create and start a flooder.
-	FloodParams *FloodParam `json:"floodParams" msgpack:"floodParams" bson:"-" mapstructure:"floodParams,omitempty"`
+	FloodParams []*FloodParam `json:"floodParams" msgpack:"floodParams" bson:"-" mapstructure:"floodParams,omitempty"`
 
 	// The options needed to create nodemakers that are registered with a cached mux.
 	NodeMakerConfigs *FloodNodeMakerConfig `json:"nodeMakerConfigs" msgpack:"nodeMakerConfigs" bson:"-" mapstructure:"nodeMakerConfigs,omitempty"`
 
 	// If set, trails will be omitted from the results.
 	OptionResultOmitTrails bool `json:"optionResultOmitTrails" msgpack:"optionResultOmitTrails" bson:"-" mapstructure:"optionResultOmitTrails,omitempty"`
-
-	// The flooding results.
-	Results *FloodResult `json:"results" msgpack:"results" bson:"-" mapstructure:"results,omitempty"`
 
 	// a unique random string that is used to associate a cached mux nodemaker with
 	// successive requests.
@@ -107,9 +104,8 @@ func NewFloodRPC() *FloodRPC {
 
 	return &FloodRPC{
 		ModelVersion:     1,
-		FloodParams:      NewFloodParam(),
+		FloodParams:      []*FloodParam{},
 		NodeMakerConfigs: NewFloodNodeMakerConfig(),
-		Results:          NewFloodResult(),
 	}
 }
 
@@ -196,10 +192,9 @@ func (o *FloodRPC) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseFloodRPC{
-			FloodParams:            o.FloodParams,
+			FloodParams:            &o.FloodParams,
 			NodeMakerConfigs:       o.NodeMakerConfigs,
 			OptionResultOmitTrails: &o.OptionResultOmitTrails,
-			Results:                o.Results,
 			SessionID:              &o.SessionID,
 		}
 	}
@@ -208,13 +203,11 @@ func (o *FloodRPC) ToSparse(fields ...string) elemental.SparseIdentifiable {
 	for _, f := range fields {
 		switch f {
 		case "floodParams":
-			sp.FloodParams = o.FloodParams
+			sp.FloodParams = &(o.FloodParams)
 		case "nodeMakerConfigs":
 			sp.NodeMakerConfigs = o.NodeMakerConfigs
 		case "optionResultOmitTrails":
 			sp.OptionResultOmitTrails = &(o.OptionResultOmitTrails)
-		case "results":
-			sp.Results = o.Results
 		case "sessionID":
 			sp.SessionID = &(o.SessionID)
 		}
@@ -231,16 +224,13 @@ func (o *FloodRPC) Patch(sparse elemental.SparseIdentifiable) {
 
 	so := sparse.(*SparseFloodRPC)
 	if so.FloodParams != nil {
-		o.FloodParams = so.FloodParams
+		o.FloodParams = *so.FloodParams
 	}
 	if so.NodeMakerConfigs != nil {
 		o.NodeMakerConfigs = so.NodeMakerConfigs
 	}
 	if so.OptionResultOmitTrails != nil {
 		o.OptionResultOmitTrails = *so.OptionResultOmitTrails
-	}
-	if so.Results != nil {
-		o.Results = so.Results
 	}
 	if so.SessionID != nil {
 		o.SessionID = *so.SessionID
@@ -277,23 +267,9 @@ func (o *FloodRPC) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if o.FloodParams != nil {
-		elemental.ResetDefaultForZeroValues(o.FloodParams)
-		if err := o.FloodParams.Validate(); err != nil {
-			errors = errors.Append(err)
-		}
-	}
-
 	if o.NodeMakerConfigs != nil {
 		elemental.ResetDefaultForZeroValues(o.NodeMakerConfigs)
 		if err := o.NodeMakerConfigs.Validate(); err != nil {
-			errors = errors.Append(err)
-		}
-	}
-
-	if o.Results != nil {
-		elemental.ResetDefaultForZeroValues(o.Results)
-		if err := o.Results.Validate(); err != nil {
 			errors = errors.Append(err)
 		}
 	}
@@ -342,8 +318,6 @@ func (o *FloodRPC) ValueForAttribute(name string) any {
 		return o.NodeMakerConfigs
 	case "optionResultOmitTrails":
 		return o.OptionResultOmitTrails
-	case "results":
-		return o.Results
 	case "sessionID":
 		return o.SessionID
 	}
@@ -359,8 +333,8 @@ var FloodRPCAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The parameters needed to create and start a flooder.`,
 		Exposed:        true,
 		Name:           "floodParams",
-		SubType:        "floodparam",
-		Type:           "ref",
+		SubType:        "[]floodparam",
+		Type:           "external",
 	},
 	"NodeMakerConfigs": {
 		AllowedChoices: []string{},
@@ -378,15 +352,6 @@ var FloodRPCAttributesMap = map[string]elemental.AttributeSpecification{
 		Exposed:        true,
 		Name:           "optionResultOmitTrails",
 		Type:           "boolean",
-	},
-	"Results": {
-		AllowedChoices: []string{},
-		ConvertedName:  "Results",
-		Description:    `The flooding results.`,
-		Exposed:        true,
-		Name:           "results",
-		SubType:        "floodresult",
-		Type:           "ref",
 	},
 	"SessionID": {
 		AllowedChoices: []string{},
@@ -408,8 +373,8 @@ var FloodRPCLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 		Description:    `The parameters needed to create and start a flooder.`,
 		Exposed:        true,
 		Name:           "floodParams",
-		SubType:        "floodparam",
-		Type:           "ref",
+		SubType:        "[]floodparam",
+		Type:           "external",
 	},
 	"nodemakerconfigs": {
 		AllowedChoices: []string{},
@@ -427,15 +392,6 @@ var FloodRPCLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 		Exposed:        true,
 		Name:           "optionResultOmitTrails",
 		Type:           "boolean",
-	},
-	"results": {
-		AllowedChoices: []string{},
-		ConvertedName:  "Results",
-		Description:    `The flooding results.`,
-		Exposed:        true,
-		Name:           "results",
-		SubType:        "floodresult",
-		Type:           "ref",
 	},
 	"sessionid": {
 		AllowedChoices: []string{},
@@ -513,16 +469,13 @@ func (o SparseFloodRPCsList) Version() int {
 // SparseFloodRPC represents the sparse version of a floodrpc.
 type SparseFloodRPC struct {
 	// The parameters needed to create and start a flooder.
-	FloodParams *FloodParam `json:"floodParams,omitempty" msgpack:"floodParams,omitempty" bson:"-" mapstructure:"floodParams,omitempty"`
+	FloodParams *[]*FloodParam `json:"floodParams,omitempty" msgpack:"floodParams,omitempty" bson:"-" mapstructure:"floodParams,omitempty"`
 
 	// The options needed to create nodemakers that are registered with a cached mux.
 	NodeMakerConfigs *FloodNodeMakerConfig `json:"nodeMakerConfigs,omitempty" msgpack:"nodeMakerConfigs,omitempty" bson:"-" mapstructure:"nodeMakerConfigs,omitempty"`
 
 	// If set, trails will be omitted from the results.
 	OptionResultOmitTrails *bool `json:"optionResultOmitTrails,omitempty" msgpack:"optionResultOmitTrails,omitempty" bson:"-" mapstructure:"optionResultOmitTrails,omitempty"`
-
-	// The flooding results.
-	Results *FloodResult `json:"results,omitempty" msgpack:"results,omitempty" bson:"-" mapstructure:"results,omitempty"`
 
 	// a unique random string that is used to associate a cached mux nodemaker with
 	// successive requests.
@@ -593,16 +546,13 @@ func (o *SparseFloodRPC) ToPlain() elemental.PlainIdentifiable {
 
 	out := NewFloodRPC()
 	if o.FloodParams != nil {
-		out.FloodParams = o.FloodParams
+		out.FloodParams = *o.FloodParams
 	}
 	if o.NodeMakerConfigs != nil {
 		out.NodeMakerConfigs = o.NodeMakerConfigs
 	}
 	if o.OptionResultOmitTrails != nil {
 		out.OptionResultOmitTrails = *o.OptionResultOmitTrails
-	}
-	if o.Results != nil {
-		out.Results = o.Results
 	}
 	if o.SessionID != nil {
 		out.SessionID = *o.SessionID
