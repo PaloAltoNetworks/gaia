@@ -115,6 +115,27 @@
         "type": "string"
       }
 
+'[]floodparam':
+  elemental:
+    type: '[]*FloodParam'
+    init: '[]*FloodParam{}'
+  jsonschema:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+        }
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      }
+
 '[]map[string]interface{}':
   elemental:
     type: '[]map[string]interface{}'

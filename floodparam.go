@@ -26,6 +26,9 @@ type FloodParam struct {
 	// The payload which the flooder should use.
 	Payload *FloodPayload `json:"payload" msgpack:"payload" bson:"-" mapstructure:"payload,omitempty"`
 
+	// The flooding results.
+	Results *FloodResult `json:"results" msgpack:"results" bson:"-" mapstructure:"results,omitempty"`
+
 	// The source NodeUID where the flooder should start.
 	Source *FloodNodeUID `json:"source" msgpack:"source" bson:"-" mapstructure:"source,omitempty"`
 
@@ -39,6 +42,7 @@ func NewFloodParam() *FloodParam {
 		ModelVersion: 1,
 		Destination:  NewFloodNodeUID(),
 		Payload:      NewFloodPayload(),
+		Results:      NewFloodResult(),
 		Source:       NewFloodNodeUID(),
 	}
 }
@@ -122,6 +126,13 @@ func (o *FloodParam) Validate() error {
 		}
 	}
 
+	if o.Results != nil {
+		elemental.ResetDefaultForZeroValues(o.Results)
+		if err := o.Results.Validate(); err != nil {
+			errors = errors.Append(err)
+		}
+	}
+
 	if o.Source != nil {
 		elemental.ResetDefaultForZeroValues(o.Source)
 		if err := o.Source.Validate(); err != nil {
@@ -171,6 +182,8 @@ func (o *FloodParam) ValueForAttribute(name string) any {
 		return o.OptionOnlyReportResultsWithErrNotPermitted
 	case "payload":
 		return o.Payload
+	case "results":
+		return o.Results
 	case "source":
 		return o.Source
 	}
@@ -213,6 +226,15 @@ optionContinueOnErrNotPermitted.`,
 		Exposed:        true,
 		Name:           "payload",
 		SubType:        "floodpayload",
+		Type:           "ref",
+	},
+	"Results": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Results",
+		Description:    `The flooding results.`,
+		Exposed:        true,
+		Name:           "results",
+		SubType:        "floodresult",
 		Type:           "ref",
 	},
 	"Source": {
@@ -261,6 +283,15 @@ optionContinueOnErrNotPermitted.`,
 		Exposed:        true,
 		Name:           "payload",
 		SubType:        "floodpayload",
+		Type:           "ref",
+	},
+	"results": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Results",
+		Description:    `The flooding results.`,
+		Exposed:        true,
+		Name:           "results",
+		SubType:        "floodresult",
 		Type:           "ref",
 	},
 	"source": {

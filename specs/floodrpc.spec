@@ -15,9 +15,9 @@ attributes:
   v1:
   - name: floodParams
     description: The parameters needed to create and start a flooder.
-    type: ref
+    type: external
     exposed: true
-    subtype: floodparam
+    subtype: '[]floodparam'
     extensions:
       refMode: pointer
 
@@ -34,14 +34,6 @@ attributes:
     description: If set, trails will be omitted from the results.
     type: boolean
     exposed: true
-
-  - name: results
-    description: The flooding results.
-    type: ref
-    exposed: true
-    subtype: floodresult
-    extensions:
-      refMode: pointer
 
   - name: sessionID
     description: |-

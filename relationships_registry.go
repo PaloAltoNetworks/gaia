@@ -1089,10 +1089,6 @@ func init() {
 			"root": {
 				Parameters: []elemental.ParameterDefinition{
 					{
-						Name: "floodrpc",
-						Type: "boolean",
-					},
-					{
 						Name: "neocna",
 						Type: "boolean",
 					},
