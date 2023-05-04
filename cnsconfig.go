@@ -87,6 +87,9 @@ type CNSConfig struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
+	// If `true` PCFW feature is enabled.
+	PCFWEnabled bool `json:"PCFWEnabled" msgpack:"PCFWEnabled" bson:"pcfwenabled" mapstructure:"PCFWEnabled,omitempty"`
+
 	// Stores additional information about an entity.
 	Annotations map[string][]string `json:"annotations" msgpack:"annotations" bson:"annotations" mapstructure:"annotations,omitempty"`
 
@@ -194,6 +197,7 @@ func (o *CNSConfig) GetBSON() (any, error) {
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
+	s.PCFWEnabled = o.PCFWEnabled
 	s.Annotations = o.Annotations
 	s.AssociatedTags = o.AssociatedTags
 	s.CreateIdempotencyKey = o.CreateIdempotencyKey
@@ -231,6 +235,7 @@ func (o *CNSConfig) SetBSON(raw bson.Raw) error {
 	}
 
 	o.ID = s.ID.Hex()
+	o.PCFWEnabled = s.PCFWEnabled
 	o.Annotations = s.Annotations
 	o.AssociatedTags = s.AssociatedTags
 	o.CreateIdempotencyKey = s.CreateIdempotencyKey
@@ -447,6 +452,7 @@ func (o *CNSConfig) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		// nolint: goimports
 		return &SparseCNSConfig{
 			ID:                              &o.ID,
+			PCFWEnabled:                     &o.PCFWEnabled,
 			Annotations:                     &o.Annotations,
 			AssociatedTags:                  &o.AssociatedTags,
 			CreateIdempotencyKey:            &o.CreateIdempotencyKey,
@@ -474,6 +480,8 @@ func (o *CNSConfig) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
+		case "PCFWEnabled":
+			sp.PCFWEnabled = &(o.PCFWEnabled)
 		case "annotations":
 			sp.Annotations = &(o.Annotations)
 		case "associatedTags":
@@ -527,6 +535,9 @@ func (o *CNSConfig) Patch(sparse elemental.SparseIdentifiable) {
 	so := sparse.(*SparseCNSConfig)
 	if so.ID != nil {
 		o.ID = *so.ID
+	}
+	if so.PCFWEnabled != nil {
+		o.PCFWEnabled = *so.PCFWEnabled
 	}
 	if so.Annotations != nil {
 		o.Annotations = *so.Annotations
@@ -657,6 +668,8 @@ func (o *CNSConfig) ValueForAttribute(name string) any {
 	switch name {
 	case "ID":
 		return o.ID
+	case "PCFWEnabled":
+		return o.PCFWEnabled
 	case "annotations":
 		return o.Annotations
 	case "associatedTags":
@@ -716,6 +729,16 @@ var CNSConfigAttributesMap = map[string]elemental.AttributeSpecification{
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"PCFWEnabled": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "pcfwenabled",
+		ConvertedName:  "PCFWEnabled",
+		Description:    `If ` + "`" + `true` + "`" + ` PCFW feature is enabled.`,
+		Exposed:        true,
+		Name:           "PCFWEnabled",
+		Stored:         true,
+		Type:           "boolean",
 	},
 	"Annotations": {
 		AllowedChoices: []string{},
@@ -980,6 +1003,16 @@ var CNSConfigLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"pcfwenabled": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "pcfwenabled",
+		ConvertedName:  "PCFWEnabled",
+		Description:    `If ` + "`" + `true` + "`" + ` PCFW feature is enabled.`,
+		Exposed:        true,
+		Name:           "PCFWEnabled",
+		Stored:         true,
+		Type:           "boolean",
 	},
 	"annotations": {
 		AllowedChoices: []string{},
@@ -1294,6 +1327,9 @@ type SparseCNSConfig struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
+	// If `true` PCFW feature is enabled.
+	PCFWEnabled *bool `json:"PCFWEnabled,omitempty" msgpack:"PCFWEnabled,omitempty" bson:"pcfwenabled,omitempty" mapstructure:"PCFWEnabled,omitempty"`
+
 	// Stores additional information about an entity.
 	Annotations *map[string][]string `json:"annotations,omitempty" msgpack:"annotations,omitempty" bson:"annotations,omitempty" mapstructure:"annotations,omitempty"`
 
@@ -1400,6 +1436,9 @@ func (o *SparseCNSConfig) GetBSON() (any, error) {
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
 	}
+	if o.PCFWEnabled != nil {
+		s.PCFWEnabled = o.PCFWEnabled
+	}
 	if o.Annotations != nil {
 		s.Annotations = o.Annotations
 	}
@@ -1476,6 +1515,9 @@ func (o *SparseCNSConfig) SetBSON(raw bson.Raw) error {
 
 	id := s.ID.Hex()
 	o.ID = &id
+	if s.PCFWEnabled != nil {
+		o.PCFWEnabled = s.PCFWEnabled
+	}
 	if s.Annotations != nil {
 		o.Annotations = s.Annotations
 	}
@@ -1549,6 +1591,9 @@ func (o *SparseCNSConfig) ToPlain() elemental.PlainIdentifiable {
 	out := NewCNSConfig()
 	if o.ID != nil {
 		out.ID = *o.ID
+	}
+	if o.PCFWEnabled != nil {
+		out.PCFWEnabled = *o.PCFWEnabled
 	}
 	if o.Annotations != nil {
 		out.Annotations = *o.Annotations
@@ -1845,6 +1890,7 @@ func (o *SparseCNSConfig) DeepCopyInto(out *SparseCNSConfig) {
 
 type mongoAttributesCNSConfig struct {
 	ID                              bson.ObjectId       `bson:"_id,omitempty"`
+	PCFWEnabled                     bool                `bson:"pcfwenabled"`
 	Annotations                     map[string][]string `bson:"annotations"`
 	AssociatedTags                  []string            `bson:"associatedtags"`
 	CreateIdempotencyKey            string              `bson:"createidempotencykey"`
@@ -1867,6 +1913,7 @@ type mongoAttributesCNSConfig struct {
 }
 type mongoAttributesSparseCNSConfig struct {
 	ID                              bson.ObjectId        `bson:"_id,omitempty"`
+	PCFWEnabled                     *bool                `bson:"pcfwenabled,omitempty"`
 	Annotations                     *map[string][]string `bson:"annotations,omitempty"`
 	AssociatedTags                  *[]string            `bson:"associatedtags,omitempty"`
 	CreateIdempotencyKey            *string              `bson:"createidempotencykey,omitempty"`

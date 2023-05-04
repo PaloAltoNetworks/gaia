@@ -32,6 +32,12 @@ indexes:
 # Attributes
 attributes:
   v1:
+  - name: PCFWEnabled
+    description: If `true` PCFW feature is enabled.
+    type: boolean
+    exposed: true
+    stored: true
+
   - name: enableNetEffectivePermissions
     description: If `true` net effective permissions feature is enabled.
     type: boolean
