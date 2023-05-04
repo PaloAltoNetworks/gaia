@@ -22,6 +22,15 @@ attributes:
     extensions:
       refMode: pointer
 
+  - name: direction
+    description: Direction of the network path.
+    type: enum
+    exposed: true
+    allowed_choices:
+    - Inbound
+    - Outbound
+    default_value: Outbound
+
   - name: errors
     description: The error message if encountered any.
     type: list
