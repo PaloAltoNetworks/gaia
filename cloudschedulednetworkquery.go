@@ -89,6 +89,9 @@ type CloudScheduledNetworkQuery struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
+	// The cloud graph result ID which is stored in MongoDB GridFS.
+	CloudGraphResultID string `json:"cloudGraphResultID" msgpack:"cloudGraphResultID" bson:"-" mapstructure:"cloudGraphResultID,omitempty"`
+
 	// The cloud network query that should be used.
 	CloudNetworkQuery *CloudNetworkQuery `json:"cloudNetworkQuery" msgpack:"cloudNetworkQuery" bson:"cloudnetworkquery" mapstructure:"cloudNetworkQuery,omitempty"`
 
@@ -97,6 +100,9 @@ type CloudScheduledNetworkQuery struct {
 
 	// Represents whether the associated policy was disabled.
 	Disabled bool `json:"disabled" msgpack:"disabled" bson:"disabled" mapstructure:"disabled,omitempty"`
+
+	// The unique ID of the execution of the job batch.
+	ExecutionBatchID string `json:"executionBatchID" msgpack:"executionBatchID" bson:"-" mapstructure:"executionBatchID,omitempty"`
 
 	// Timestamp of the last time the query was scheduled.
 	LastExecutionTimestamp time.Time `json:"lastExecutionTimestamp" msgpack:"lastExecutionTimestamp" bson:"lastexecutiontimestamp" mapstructure:"lastExecutionTimestamp,omitempty"`
@@ -349,9 +355,11 @@ func (o *CloudScheduledNetworkQuery) ToSparse(fields ...string) elemental.Sparse
 		// nolint: goimports
 		return &SparseCloudScheduledNetworkQuery{
 			ID:                           &o.ID,
+			CloudGraphResultID:           &o.CloudGraphResultID,
 			CloudNetworkQuery:            o.CloudNetworkQuery,
 			CreateTime:                   &o.CreateTime,
 			Disabled:                     &o.Disabled,
+			ExecutionBatchID:             &o.ExecutionBatchID,
 			LastExecutionTimestamp:       &o.LastExecutionTimestamp,
 			MigrationsLog:                &o.MigrationsLog,
 			Name:                         &o.Name,
@@ -371,12 +379,16 @@ func (o *CloudScheduledNetworkQuery) ToSparse(fields ...string) elemental.Sparse
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
+		case "cloudGraphResultID":
+			sp.CloudGraphResultID = &(o.CloudGraphResultID)
 		case "cloudNetworkQuery":
 			sp.CloudNetworkQuery = o.CloudNetworkQuery
 		case "createTime":
 			sp.CreateTime = &(o.CreateTime)
 		case "disabled":
 			sp.Disabled = &(o.Disabled)
+		case "executionBatchID":
+			sp.ExecutionBatchID = &(o.ExecutionBatchID)
 		case "lastExecutionTimestamp":
 			sp.LastExecutionTimestamp = &(o.LastExecutionTimestamp)
 		case "migrationsLog":
@@ -415,6 +427,9 @@ func (o *CloudScheduledNetworkQuery) Patch(sparse elemental.SparseIdentifiable) 
 	if so.ID != nil {
 		o.ID = *so.ID
 	}
+	if so.CloudGraphResultID != nil {
+		o.CloudGraphResultID = *so.CloudGraphResultID
+	}
 	if so.CloudNetworkQuery != nil {
 		o.CloudNetworkQuery = so.CloudNetworkQuery
 	}
@@ -423,6 +438,9 @@ func (o *CloudScheduledNetworkQuery) Patch(sparse elemental.SparseIdentifiable) 
 	}
 	if so.Disabled != nil {
 		o.Disabled = *so.Disabled
+	}
+	if so.ExecutionBatchID != nil {
+		o.ExecutionBatchID = *so.ExecutionBatchID
 	}
 	if so.LastExecutionTimestamp != nil {
 		o.LastExecutionTimestamp = *so.LastExecutionTimestamp
@@ -540,12 +558,16 @@ func (o *CloudScheduledNetworkQuery) ValueForAttribute(name string) any {
 	switch name {
 	case "ID":
 		return o.ID
+	case "cloudGraphResultID":
+		return o.CloudGraphResultID
 	case "cloudNetworkQuery":
 		return o.CloudNetworkQuery
 	case "createTime":
 		return o.CreateTime
 	case "disabled":
 		return o.Disabled
+	case "executionBatchID":
+		return o.ExecutionBatchID
 	case "lastExecutionTimestamp":
 		return o.LastExecutionTimestamp
 	case "migrationsLog":
@@ -590,6 +612,15 @@ var CloudScheduledNetworkQueryAttributesMap = map[string]elemental.AttributeSpec
 		Stored:         true,
 		Type:           "string",
 	},
+	"CloudGraphResultID": {
+		AllowedChoices: []string{},
+		ConvertedName:  "CloudGraphResultID",
+		Description:    `The cloud graph result ID which is stored in MongoDB GridFS.`,
+		Exposed:        true,
+		Name:           "cloudGraphResultID",
+		SubType:        "string",
+		Type:           "string",
+	},
 	"CloudNetworkQuery": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "cloudnetworkquery",
@@ -625,6 +656,15 @@ var CloudScheduledNetworkQueryAttributesMap = map[string]elemental.AttributeSpec
 		Name:           "disabled",
 		Stored:         true,
 		Type:           "boolean",
+	},
+	"ExecutionBatchID": {
+		AllowedChoices: []string{},
+		ConvertedName:  "ExecutionBatchID",
+		Description:    `The unique ID of the execution of the job batch.`,
+		Exposed:        true,
+		Name:           "executionBatchID",
+		SubType:        "string",
+		Type:           "string",
 	},
 	"LastExecutionTimestamp": {
 		AllowedChoices: []string{},
@@ -784,6 +824,15 @@ var CloudScheduledNetworkQueryLowerCaseAttributesMap = map[string]elemental.Attr
 		Stored:         true,
 		Type:           "string",
 	},
+	"cloudgraphresultid": {
+		AllowedChoices: []string{},
+		ConvertedName:  "CloudGraphResultID",
+		Description:    `The cloud graph result ID which is stored in MongoDB GridFS.`,
+		Exposed:        true,
+		Name:           "cloudGraphResultID",
+		SubType:        "string",
+		Type:           "string",
+	},
 	"cloudnetworkquery": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "cloudnetworkquery",
@@ -819,6 +868,15 @@ var CloudScheduledNetworkQueryLowerCaseAttributesMap = map[string]elemental.Attr
 		Name:           "disabled",
 		Stored:         true,
 		Type:           "boolean",
+	},
+	"executionbatchid": {
+		AllowedChoices: []string{},
+		ConvertedName:  "ExecutionBatchID",
+		Description:    `The unique ID of the execution of the job batch.`,
+		Exposed:        true,
+		Name:           "executionBatchID",
+		SubType:        "string",
+		Type:           "string",
 	},
 	"lastexecutiontimestamp": {
 		AllowedChoices: []string{},
@@ -1029,6 +1087,9 @@ type SparseCloudScheduledNetworkQuery struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
+	// The cloud graph result ID which is stored in MongoDB GridFS.
+	CloudGraphResultID *string `json:"cloudGraphResultID,omitempty" msgpack:"cloudGraphResultID,omitempty" bson:"-" mapstructure:"cloudGraphResultID,omitempty"`
+
 	// The cloud network query that should be used.
 	CloudNetworkQuery *CloudNetworkQuery `json:"cloudNetworkQuery,omitempty" msgpack:"cloudNetworkQuery,omitempty" bson:"cloudnetworkquery,omitempty" mapstructure:"cloudNetworkQuery,omitempty"`
 
@@ -1037,6 +1098,9 @@ type SparseCloudScheduledNetworkQuery struct {
 
 	// Represents whether the associated policy was disabled.
 	Disabled *bool `json:"disabled,omitempty" msgpack:"disabled,omitempty" bson:"disabled,omitempty" mapstructure:"disabled,omitempty"`
+
+	// The unique ID of the execution of the job batch.
+	ExecutionBatchID *string `json:"executionBatchID,omitempty" msgpack:"executionBatchID,omitempty" bson:"-" mapstructure:"executionBatchID,omitempty"`
 
 	// Timestamp of the last time the query was scheduled.
 	LastExecutionTimestamp *time.Time `json:"lastExecutionTimestamp,omitempty" msgpack:"lastExecutionTimestamp,omitempty" bson:"lastexecutiontimestamp,omitempty" mapstructure:"lastExecutionTimestamp,omitempty"`
@@ -1233,6 +1297,9 @@ func (o *SparseCloudScheduledNetworkQuery) ToPlain() elemental.PlainIdentifiable
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
+	if o.CloudGraphResultID != nil {
+		out.CloudGraphResultID = *o.CloudGraphResultID
+	}
 	if o.CloudNetworkQuery != nil {
 		out.CloudNetworkQuery = o.CloudNetworkQuery
 	}
@@ -1241,6 +1308,9 @@ func (o *SparseCloudScheduledNetworkQuery) ToPlain() elemental.PlainIdentifiable
 	}
 	if o.Disabled != nil {
 		out.Disabled = *o.Disabled
+	}
+	if o.ExecutionBatchID != nil {
+		out.ExecutionBatchID = *o.ExecutionBatchID
 	}
 	if o.LastExecutionTimestamp != nil {
 		out.LastExecutionTimestamp = *o.LastExecutionTimestamp
