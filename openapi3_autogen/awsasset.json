@@ -50,7 +50,8 @@
               "Subnet",
               "NetworkACL",
               "InternetGateway",
-              "SecurityGroup"
+              "SecurityGroup",
+              "FakeTarget"
             ],
             "example": "Instance",
             "readOnly": true
