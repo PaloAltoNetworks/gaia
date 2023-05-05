@@ -14440,6 +14440,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `cloudGraphResultID`
+
+Type: `string`
+
+The cloud graph result ID which is stored in MongoDB GridFS.
+
 ##### `cloudNetworkQuery`
 
 Type: [`cloudnetworkquery`](#cloudnetworkquery)
@@ -14457,6 +14463,12 @@ Creation date of the object.
 Type: `boolean`
 
 Represents whether the associated policy was disabled.
+
+##### `executionBatchID`
+
+Type: `string`
+
+The unique ID of the execution of the job batch.
 
 ##### `lastExecutionTimestamp`
 

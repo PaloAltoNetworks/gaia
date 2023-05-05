@@ -26,6 +26,12 @@ indexes:
 # Attributes
 attributes:
   v1:
+  - name: cloudGraphResultID
+    description: The cloud graph result ID which is stored in MongoDB GridFS.
+    type: string
+    exposed: true
+    subtype: string
+
   - name: cloudNetworkQuery
     description: The cloud network query that should be used.
     type: ref
@@ -40,6 +46,12 @@ attributes:
     type: boolean
     exposed: true
     stored: true
+
+  - name: executionBatchID
+    description: The unique ID of the execution of the job batch.
+    type: string
+    exposed: true
+    subtype: string
 
   - name: lastExecutionTimestamp
     description: Timestamp of the last time the query was scheduled.
