@@ -9,6 +9,10 @@
             "readOnly": true,
             "type": "string"
           },
+          "cloudGraphResultID": {
+            "description": "The cloud graph result ID which is stored in MongoDB GridFS.",
+            "type": "string"
+          },
           "cloudNetworkQuery": {
             "$ref": "./cloudnetworkquery#/components/schemas/cloudnetworkquery"
           },
@@ -21,6 +25,10 @@
           "disabled": {
             "description": "Represents whether the associated policy was disabled.",
             "type": "boolean"
+          },
+          "executionBatchID": {
+            "description": "The unique ID of the execution of the job batch.",
+            "type": "string"
           },
           "lastExecutionTimestamp": {
             "description": "Timestamp of the last time the query was scheduled.",
