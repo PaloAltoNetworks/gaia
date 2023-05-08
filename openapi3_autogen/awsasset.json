@@ -52,7 +52,9 @@
               "InternetGateway",
               "SecurityGroup",
               "FakeTarget",
-              "LoadBalancer"
+              "LoadBalancerApplication",
+              "LoadBalancerNetwork",
+              "LoadBalancerGateway"
             ],
             "example": "Instance",
             "readOnly": true
