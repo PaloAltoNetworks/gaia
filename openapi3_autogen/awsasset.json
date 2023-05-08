@@ -51,7 +51,8 @@
               "NetworkACL",
               "InternetGateway",
               "SecurityGroup",
-              "FakeTarget"
+              "FakeTarget",
+              "LoadBalancer"
             ],
             "example": "Instance",
             "readOnly": true
