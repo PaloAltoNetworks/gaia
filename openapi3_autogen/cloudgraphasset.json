@@ -12,6 +12,14 @@
             "readOnly": true,
             "type": "object"
           },
+          "direction": {
+            "default": "Outbound",
+            "description": "Direction of the network path.",
+            "enum": [
+              "Inbound",
+              "Outbound"
+            ]
+          },
           "errors": {
             "description": "The error message if encountered any.",
             "items": {

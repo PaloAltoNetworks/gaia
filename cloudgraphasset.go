@@ -12,6 +12,17 @@ import (
 	"go.aporeto.io/elemental"
 )
 
+// CloudGraphAssetDirectionValue represents the possible values for attribute "direction".
+type CloudGraphAssetDirectionValue string
+
+const (
+	// CloudGraphAssetDirectionInbound represents the value Inbound.
+	CloudGraphAssetDirectionInbound CloudGraphAssetDirectionValue = "Inbound"
+
+	// CloudGraphAssetDirectionOutbound represents the value Outbound.
+	CloudGraphAssetDirectionOutbound CloudGraphAssetDirectionValue = "Outbound"
+)
+
 // CloudGraphAssetIdentity represents the Identity of the object.
 var CloudGraphAssetIdentity = elemental.Identity{
 	Name:     "cloudgraphasset",
@@ -87,6 +98,9 @@ type CloudGraphAsset struct {
 	// The set of nodes and paths from the given source to the given destination.
 	CloudGraphs map[string]*CloudGraph `json:"cloudGraphs" msgpack:"cloudGraphs" bson:"-" mapstructure:"cloudGraphs,omitempty"`
 
+	// Direction of the network path.
+	Direction CloudGraphAssetDirectionValue `json:"direction" msgpack:"direction" bson:"-" mapstructure:"direction,omitempty"`
+
 	// The error message if encountered any.
 	Errors []string `json:"errors,omitempty" msgpack:"errors,omitempty" bson:"-" mapstructure:"errors,omitempty"`
 
@@ -108,6 +122,7 @@ func NewCloudGraphAsset() *CloudGraphAsset {
 	return &CloudGraphAsset{
 		ModelVersion:    1,
 		CloudGraphs:     map[string]*CloudGraph{},
+		Direction:       CloudGraphAssetDirectionOutbound,
 		Errors:          []string{},
 		UnifiedAssetIDs: []string{},
 	}
@@ -197,6 +212,7 @@ func (o *CloudGraphAsset) ToSparse(fields ...string) elemental.SparseIdentifiabl
 		// nolint: goimports
 		return &SparseCloudGraphAsset{
 			CloudGraphs:         &o.CloudGraphs,
+			Direction:           &o.Direction,
 			Errors:              &o.Errors,
 			ExecutionTimestamp:  &o.ExecutionTimestamp,
 			PrismaCloudPolicyID: &o.PrismaCloudPolicyID,
@@ -209,6 +225,8 @@ func (o *CloudGraphAsset) ToSparse(fields ...string) elemental.SparseIdentifiabl
 		switch f {
 		case "cloudGraphs":
 			sp.CloudGraphs = &(o.CloudGraphs)
+		case "direction":
+			sp.Direction = &(o.Direction)
 		case "errors":
 			sp.Errors = &(o.Errors)
 		case "executionTimestamp":
@@ -232,6 +250,9 @@ func (o *CloudGraphAsset) Patch(sparse elemental.SparseIdentifiable) {
 	so := sparse.(*SparseCloudGraphAsset)
 	if so.CloudGraphs != nil {
 		o.CloudGraphs = *so.CloudGraphs
+	}
+	if so.Direction != nil {
+		o.Direction = *so.Direction
 	}
 	if so.Errors != nil {
 		o.Errors = *so.Errors
@@ -287,6 +308,10 @@ func (o *CloudGraphAsset) Validate() error {
 		}
 	}
 
+	if err := elemental.ValidateStringInList("direction", string(o.Direction), []string{"Inbound", "Outbound"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if err := elemental.ValidateRequiredString("prismaCloudPolicyID", o.PrismaCloudPolicyID); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
@@ -335,6 +360,8 @@ func (o *CloudGraphAsset) ValueForAttribute(name string) any {
 	switch name {
 	case "cloudGraphs":
 		return o.CloudGraphs
+	case "direction":
+		return o.Direction
 	case "errors":
 		return o.Errors
 	case "executionTimestamp":
@@ -360,6 +387,15 @@ var CloudGraphAssetAttributesMap = map[string]elemental.AttributeSpecification{
 		ReadOnly:       true,
 		SubType:        "cloudgraph",
 		Type:           "refMap",
+	},
+	"Direction": {
+		AllowedChoices: []string{"Inbound", "Outbound"},
+		ConvertedName:  "Direction",
+		DefaultValue:   CloudGraphAssetDirectionOutbound,
+		Description:    `Direction of the network path.`,
+		Exposed:        true,
+		Name:           "direction",
+		Type:           "enum",
 	},
 	"Errors": {
 		AllowedChoices: []string{},
@@ -416,6 +452,15 @@ var CloudGraphAssetLowerCaseAttributesMap = map[string]elemental.AttributeSpecif
 		ReadOnly:       true,
 		SubType:        "cloudgraph",
 		Type:           "refMap",
+	},
+	"direction": {
+		AllowedChoices: []string{"Inbound", "Outbound"},
+		ConvertedName:  "Direction",
+		DefaultValue:   CloudGraphAssetDirectionOutbound,
+		Description:    `Direction of the network path.`,
+		Exposed:        true,
+		Name:           "direction",
+		Type:           "enum",
 	},
 	"errors": {
 		AllowedChoices: []string{},
@@ -526,6 +571,9 @@ type SparseCloudGraphAsset struct {
 	// The set of nodes and paths from the given source to the given destination.
 	CloudGraphs *map[string]*CloudGraph `json:"cloudGraphs,omitempty" msgpack:"cloudGraphs,omitempty" bson:"-" mapstructure:"cloudGraphs,omitempty"`
 
+	// Direction of the network path.
+	Direction *CloudGraphAssetDirectionValue `json:"direction,omitempty" msgpack:"direction,omitempty" bson:"-" mapstructure:"direction,omitempty"`
+
 	// The error message if encountered any.
 	Errors *[]string `json:"errors,omitempty" msgpack:"errors,omitempty" bson:"-" mapstructure:"errors,omitempty"`
 
@@ -604,6 +652,9 @@ func (o *SparseCloudGraphAsset) ToPlain() elemental.PlainIdentifiable {
 	out := NewCloudGraphAsset()
 	if o.CloudGraphs != nil {
 		out.CloudGraphs = *o.CloudGraphs
+	}
+	if o.Direction != nil {
+		out.Direction = *o.Direction
 	}
 	if o.Errors != nil {
 		out.Errors = *o.Errors
