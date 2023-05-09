@@ -52,6 +52,7 @@
               "InternetGateway",
               "SecurityGroup",
               "FakeTarget",
+              "TargetGroup",
               "LoadBalancerApplication",
               "LoadBalancerNetwork",
               "LoadBalancerGateway",
