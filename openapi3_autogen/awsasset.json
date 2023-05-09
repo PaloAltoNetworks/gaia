@@ -54,7 +54,8 @@
               "FakeTarget",
               "LoadBalancerApplication",
               "LoadBalancerNetwork",
-              "LoadBalancerGateway"
+              "LoadBalancerGateway",
+              "LoadBalancerClassic"
             ],
             "example": "Instance",
             "readOnly": true
