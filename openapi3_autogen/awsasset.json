@@ -56,7 +56,10 @@
               "LoadBalancerApplication",
               "LoadBalancerNetwork",
               "LoadBalancerGateway",
-              "LoadBalancerClassic"
+              "LoadBalancerClassic",
+              "ListenerApplication",
+              "ListenerNetwork",
+              "ListenerGateway"
             ],
             "example": "Instance",
             "readOnly": true
