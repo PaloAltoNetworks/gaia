@@ -50,6 +50,7 @@
             "type": "string"
           },
           "nonMatchingAlertsRaisingEnabled": {
+            "default": true,
             "description": "Indicates if CNA should send all alerts found from policy scans or only alert\nrules\nmatching alerts.",
             "type": "boolean"
           },
