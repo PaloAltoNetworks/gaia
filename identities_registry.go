@@ -106,6 +106,7 @@ var (
 		"fileaccesspolicy":             FileAccessPolicyIdentity,
 		"fileaccessreport":             FileAccessReportIdentity,
 		"filepath":                     FilePathIdentity,
+		"firewalllog":                  FirewallLogIdentity,
 
 		"floodrpc":    FloodRPCIdentity,
 		"flowreport":  FlowReportIdentity,
@@ -326,6 +327,7 @@ var (
 		"fileaccesspolicies":             FileAccessPolicyIdentity,
 		"fileaccessreports":              FileAccessReportIdentity,
 		"filepaths":                      FilePathIdentity,
+		"firewalllogs":                   FirewallLogIdentity,
 
 		"floodrpcs":    FloodRPCIdentity,
 		"flowreports":  FlowReportIdentity,
@@ -1096,7 +1098,8 @@ var (
 			{"propagate"},
 			{"updateIdempotencyKey"},
 		},
-		"floodrpc": nil,
+		"firewalllog": nil,
+		"floodrpc":    nil,
 		"flowreport": {
 			{":shard", "zone", "zHash", "_id"},
 			{"destinationID"},
@@ -1675,6 +1678,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewFileAccessReport()
 	case FilePathIdentity:
 		return NewFilePath()
+	case FirewallLogIdentity:
+		return NewFirewallLog()
 	case FloodRPCIdentity:
 		return NewFloodRPC()
 	case FlowReportIdentity:
@@ -2052,6 +2057,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseFileAccessReport()
 	case FilePathIdentity:
 		return NewSparseFilePath()
+	case FirewallLogIdentity:
+		return NewSparseFirewallLog()
 	case FloodRPCIdentity:
 		return NewSparseFloodRPC()
 	case FlowReportIdentity:
@@ -2437,6 +2444,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &FileAccessReportsList{}
 	case FilePathIdentity:
 		return &FilePathsList{}
+	case FirewallLogIdentity:
+		return &FirewallLogsList{}
 	case FloodRPCIdentity:
 		return &FloodRPCsList{}
 	case FlowReportIdentity:
@@ -2812,6 +2821,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseFileAccessReportsList{}
 	case FilePathIdentity:
 		return &SparseFilePathsList{}
+	case FirewallLogIdentity:
+		return &SparseFirewallLogsList{}
 	case FloodRPCIdentity:
 		return &SparseFloodRPCsList{}
 	case FlowReportIdentity:
@@ -3127,6 +3138,7 @@ func AllIdentities() []elemental.Identity {
 		FileAccessPolicyIdentity,
 		FileAccessReportIdentity,
 		FilePathIdentity,
+		FirewallLogIdentity,
 		FloodRPCIdentity,
 		FlowReportIdentity,
 		GCPAssetIdentity,
@@ -3459,6 +3471,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 			"fp",
 			"fps",
 		}
+	case FirewallLogIdentity:
+		return []string{}
 	case FloodRPCIdentity:
 		return []string{}
 	case FlowReportIdentity:

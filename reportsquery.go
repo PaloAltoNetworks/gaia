@@ -33,6 +33,9 @@ const (
 	// ReportsQueryReportEventLogs represents the value EventLogs.
 	ReportsQueryReportEventLogs ReportsQueryReportValue = "EventLogs"
 
+	// ReportsQueryReportFirewallLogs represents the value FirewallLogs.
+	ReportsQueryReportFirewallLogs ReportsQueryReportValue = "FirewallLogs"
+
 	// ReportsQueryReportFlows represents the value Flows.
 	ReportsQueryReportFlows ReportsQueryReportValue = "Flows"
 
@@ -130,6 +133,9 @@ type ReportsQuery struct {
 	// List of EventLogs.
 	EventLogs EventLogsList `json:"eventLogs,omitempty" msgpack:"eventLogs,omitempty" bson:"-" mapstructure:"eventLogs,omitempty"`
 
+	// List of FirewallLogs.
+	FirewallLogs FirewallLogsList `json:"firewallLogs,omitempty" msgpack:"firewallLogs,omitempty" bson:"-" mapstructure:"firewallLogs,omitempty"`
+
 	// List of FlowReports.
 	FlowReports FlowReportsList `json:"flowReports,omitempty" msgpack:"flowReports,omitempty" bson:"-" mapstructure:"flowReports,omitempty"`
 
@@ -153,6 +159,7 @@ func NewReportsQuery() *ReportsQuery {
 		CounterReports:             CounterReportsList{},
 		EnforcerReports:            EnforcerReportsList{},
 		EventLogs:                  EventLogsList{},
+		FirewallLogs:               FirewallLogsList{},
 		FlowReports:                FlowReportsList{},
 		PacketReports:              PacketReportsList{},
 		Report:                     ReportsQueryReportFlows,
@@ -248,6 +255,7 @@ func (o *ReportsQuery) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			CounterReports:             &o.CounterReports,
 			EnforcerReports:            &o.EnforcerReports,
 			EventLogs:                  &o.EventLogs,
+			FirewallLogs:               &o.FirewallLogs,
 			FlowReports:                &o.FlowReports,
 			PacketReports:              &o.PacketReports,
 			Report:                     &o.Report,
@@ -269,6 +277,8 @@ func (o *ReportsQuery) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.EnforcerReports = &(o.EnforcerReports)
 		case "eventLogs":
 			sp.EventLogs = &(o.EventLogs)
+		case "firewallLogs":
+			sp.FirewallLogs = &(o.FirewallLogs)
 		case "flowReports":
 			sp.FlowReports = &(o.FlowReports)
 		case "packetReports":
@@ -305,6 +315,9 @@ func (o *ReportsQuery) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.EventLogs != nil {
 		o.EventLogs = *so.EventLogs
+	}
+	if so.FirewallLogs != nil {
+		o.FirewallLogs = *so.FirewallLogs
 	}
 	if so.FlowReports != nil {
 		o.FlowReports = *so.FlowReports
@@ -407,6 +420,16 @@ func (o *ReportsQuery) Validate() error {
 		}
 	}
 
+	for _, sub := range o.FirewallLogs {
+		if sub == nil {
+			continue
+		}
+		elemental.ResetDefaultForZeroValues(sub)
+		if err := sub.Validate(); err != nil {
+			errors = errors.Append(err)
+		}
+	}
+
 	for _, sub := range o.FlowReports {
 		if sub == nil {
 			continue
@@ -427,7 +450,7 @@ func (o *ReportsQuery) Validate() error {
 		}
 	}
 
-	if err := elemental.ValidateStringInList("report", string(o.Report), []string{"Accesses", "Flows", "Enforcers", "EventLogs", "Packets", "Counters", "DNSLookups", "ConnectionExceptions"}, false); err != nil {
+	if err := elemental.ValidateStringInList("report", string(o.Report), []string{"Accesses", "Flows", "Enforcers", "EventLogs", "Packets", "Counters", "DNSLookups", "ConnectionExceptions", "FirewallLogs"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -477,6 +500,8 @@ func (o *ReportsQuery) ValueForAttribute(name string) any {
 		return o.EnforcerReports
 	case "eventLogs":
 		return o.EventLogs
+	case "firewallLogs":
+		return o.FirewallLogs
 	case "flowReports":
 		return o.FlowReports
 	case "packetReports":
@@ -544,6 +569,15 @@ var ReportsQueryAttributesMap = map[string]elemental.AttributeSpecification{
 		SubType:        "eventlog",
 		Type:           "refList",
 	},
+	"FirewallLogs": {
+		AllowedChoices: []string{},
+		ConvertedName:  "FirewallLogs",
+		Description:    `List of FirewallLogs.`,
+		Exposed:        true,
+		Name:           "firewallLogs",
+		SubType:        "firewalllog",
+		Type:           "refList",
+	},
 	"FlowReports": {
 		AllowedChoices: []string{},
 		ConvertedName:  "FlowReports",
@@ -563,7 +597,7 @@ var ReportsQueryAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "refList",
 	},
 	"Report": {
-		AllowedChoices: []string{"Accesses", "Flows", "Enforcers", "EventLogs", "Packets", "Counters", "DNSLookups", "ConnectionExceptions"},
+		AllowedChoices: []string{"Accesses", "Flows", "Enforcers", "EventLogs", "Packets", "Counters", "DNSLookups", "ConnectionExceptions", "FirewallLogs"},
 		ConvertedName:  "Report",
 		DefaultValue:   ReportsQueryReportFlows,
 		Description:    `Name of the report type to query.`,
@@ -629,6 +663,15 @@ var ReportsQueryLowerCaseAttributesMap = map[string]elemental.AttributeSpecifica
 		SubType:        "eventlog",
 		Type:           "refList",
 	},
+	"firewalllogs": {
+		AllowedChoices: []string{},
+		ConvertedName:  "FirewallLogs",
+		Description:    `List of FirewallLogs.`,
+		Exposed:        true,
+		Name:           "firewallLogs",
+		SubType:        "firewalllog",
+		Type:           "refList",
+	},
 	"flowreports": {
 		AllowedChoices: []string{},
 		ConvertedName:  "FlowReports",
@@ -648,7 +691,7 @@ var ReportsQueryLowerCaseAttributesMap = map[string]elemental.AttributeSpecifica
 		Type:           "refList",
 	},
 	"report": {
-		AllowedChoices: []string{"Accesses", "Flows", "Enforcers", "EventLogs", "Packets", "Counters", "DNSLookups", "ConnectionExceptions"},
+		AllowedChoices: []string{"Accesses", "Flows", "Enforcers", "EventLogs", "Packets", "Counters", "DNSLookups", "ConnectionExceptions", "FirewallLogs"},
 		ConvertedName:  "Report",
 		DefaultValue:   ReportsQueryReportFlows,
 		Description:    `Name of the report type to query.`,
@@ -738,6 +781,9 @@ type SparseReportsQuery struct {
 
 	// List of EventLogs.
 	EventLogs *EventLogsList `json:"eventLogs,omitempty" msgpack:"eventLogs,omitempty" bson:"-" mapstructure:"eventLogs,omitempty"`
+
+	// List of FirewallLogs.
+	FirewallLogs *FirewallLogsList `json:"firewallLogs,omitempty" msgpack:"firewallLogs,omitempty" bson:"-" mapstructure:"firewallLogs,omitempty"`
 
 	// List of FlowReports.
 	FlowReports *FlowReportsList `json:"flowReports,omitempty" msgpack:"flowReports,omitempty" bson:"-" mapstructure:"flowReports,omitempty"`
@@ -829,6 +875,9 @@ func (o *SparseReportsQuery) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.EventLogs != nil {
 		out.EventLogs = *o.EventLogs
+	}
+	if o.FirewallLogs != nil {
+		out.FirewallLogs = *o.FirewallLogs
 	}
 	if o.FlowReports != nil {
 		out.FlowReports = *o.FlowReports

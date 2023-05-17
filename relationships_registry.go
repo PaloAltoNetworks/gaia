@@ -2592,6 +2592,8 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[FirewallLogIdentity] = &elemental.Relationship{}
+
 	relationshipsRegistry[FloodRPCIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},

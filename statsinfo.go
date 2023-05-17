@@ -39,6 +39,9 @@ const (
 	// StatsInfoMeasurementFiles represents the value Files.
 	StatsInfoMeasurementFiles StatsInfoMeasurementValue = "Files"
 
+	// StatsInfoMeasurementFirewallLogs represents the value FirewallLogs.
+	StatsInfoMeasurementFirewallLogs StatsInfoMeasurementValue = "FirewallLogs"
+
 	// StatsInfoMeasurementFlows represents the value Flows.
 	StatsInfoMeasurementFlows StatsInfoMeasurementValue = "Flows"
 
@@ -295,7 +298,7 @@ func (o *StatsInfo) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
-	if err := elemental.ValidateStringInList("measurement", string(o.Measurement), []string{"Flows", "Audit", "Enforcers", "Files", "EventLogs", "Counters", "Accesses", "Packets", "DNSLookups", "PingReports", "ConnectionExceptions"}, false); err != nil {
+	if err := elemental.ValidateStringInList("measurement", string(o.Measurement), []string{"Flows", "Audit", "Enforcers", "Files", "EventLogs", "Counters", "Accesses", "Packets", "DNSLookups", "PingReports", "ConnectionExceptions", "FirewallLogs"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -358,7 +361,7 @@ var StatsInfoAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "external",
 	},
 	"Measurement": {
-		AllowedChoices: []string{"Flows", "Audit", "Enforcers", "Files", "EventLogs", "Counters", "Accesses", "Packets", "DNSLookups", "PingReports", "ConnectionExceptions"},
+		AllowedChoices: []string{"Flows", "Audit", "Enforcers", "Files", "EventLogs", "Counters", "Accesses", "Packets", "DNSLookups", "PingReports", "ConnectionExceptions", "FirewallLogs"},
 		ConvertedName:  "Measurement",
 		DefaultValue:   StatsInfoMeasurementFlows,
 		Description:    `Name of the measurement.`,
@@ -393,7 +396,7 @@ var StatsInfoLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Type:           "external",
 	},
 	"measurement": {
-		AllowedChoices: []string{"Flows", "Audit", "Enforcers", "Files", "EventLogs", "Counters", "Accesses", "Packets", "DNSLookups", "PingReports", "ConnectionExceptions"},
+		AllowedChoices: []string{"Flows", "Audit", "Enforcers", "Files", "EventLogs", "Counters", "Accesses", "Packets", "DNSLookups", "PingReports", "ConnectionExceptions", "FirewallLogs"},
 		ConvertedName:  "Measurement",
 		DefaultValue:   StatsInfoMeasurementFlows,
 		Description:    `Name of the measurement.`,

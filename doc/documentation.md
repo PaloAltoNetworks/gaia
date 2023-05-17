@@ -4049,6 +4049,220 @@ Type: `time`
 
 The time-date stamp of the report.
 
+## core/log
+
+### FirewallLog
+
+Represents a log line in a log query result.
+
+#### Attributes
+
+##### `XFFIP` [`read_only`]
+
+Type: `string`
+
+The IP address of the user who requested the web page or the IP address of the
+next to last device that the request traversed. If the request goes through one
+or more proxies, load balancers, or other upstream devices, the firewall
+displays the IP address of the most recent device.
+
+##### `action` [`read_only`]
+
+Type: `string`
+
+Action taken for the session.
+
+##### `app` [`read_only`]
+
+Type: `string`
+
+Application associated with the session.
+
+##### `appCategory` [`read_only`]
+
+Type: `string`
+
+Application category associated with the session.
+
+##### `appSubcategory` [`read_only`]
+
+Type: `string`
+
+Application subcategory associated with the session.
+
+##### `bytesReceived` [`read_only`]
+
+Type: `string`
+
+Number of bytes in the server-to-client direction of the session.
+
+##### `bytesSent` [`read_only`]
+
+Type: `string`
+
+Number of bytes in the client-to-server direction of the session.
+
+##### `chainStatus` [`read_only`]
+
+Type: `string`
+
+Chain status of the session.
+
+##### `cloudAccount` [`read_only`]
+
+Type: `string`
+
+Cloud account associated with the session.
+
+##### `cloudRegion` [`read_only`]
+
+Type: `string`
+
+Cloud provider region associated with the session.
+
+##### `cloudType` [`read_only`]
+
+Type: `string`
+
+Cloud provider associated with the session.
+
+##### `destinationCountry` [`read_only`]
+
+Type: `string`
+
+Destination country or Internal region for private addresses. Maximum length is
+32 bytes.
+
+##### `destinationIP` [`read_only`]
+
+Type: `string`
+
+Original session destination IP address.
+
+##### `destinationPort` [`read_only`]
+
+Type: `integer`
+
+Destination port utilized by the session.
+
+##### `firewallName` [`read_only`]
+
+Type: `string`
+
+Name of firewall that generated the log.
+
+##### `operationMode` [`read_only`]
+
+Type: `string`
+
+Operation mode of firewall that generated the log.
+
+##### `packetsReceived` [`read_only`]
+
+Type: `string`
+
+Number of server-to-client packets for the session.
+
+##### `packetsSent` [`read_only`]
+
+Type: `string`
+
+Number of client-to-server packets for the session.
+
+##### `protocol` [`read_only`]
+
+Type: `string`
+
+IP protocol associated with the session.
+
+##### `proxyType` [`read_only`]
+
+Type: `string`
+
+Type of decryption proxy associated with the session.
+
+##### `rule` [`read_only`]
+
+Type: `string`
+
+Name of the rule that the session matched.
+
+##### `sessionEndReason` [`read_only`]
+
+Type: `string`
+
+The reason a session terminated. If the termination had multiple causes, this
+field displays only the highest priority reason.
+
+##### `sni` [`read_only`]
+
+Type: `string`
+
+Server Name Indication (SNI) value for the session.
+
+##### `sourceCountry` [`read_only`]
+
+Type: `string`
+
+Source country or Internal region for private addresses; maximum length is 32
+bytes.
+
+##### `sourceIP` [`read_only`]
+
+Type: `string`
+
+Original session source IP address.
+
+##### `sourcePort` [`read_only`]
+
+Type: `integer`
+
+Source port utilized by the session.
+
+##### `threatCategory` [`read_only`]
+
+Type: `string`
+
+Describes threat categories used to classify different types of threat
+signatures.
+
+##### `threatDirection` [`read_only`]
+
+Type: `string`
+
+Indicates the direction of the attack, client-to-server or server-to-client.
+
+##### `threatName` [`read_only`]
+
+Type: `string`
+
+Name of the threat signature that triggered the session.
+
+##### `threatSeverity` [`read_only`]
+
+Type: `string`
+
+Severity associated with the threat; values are informational, low, medium,
+high, critical.
+
+##### `tlsVersion` [`read_only`]
+
+Type: `string`
+
+TLS version associated with the session.
+
+##### `urlCategory` [`read_only`]
+
+Type: `string`
+
+URL category associated with the session (if applicable).
+
+##### `vpcEndpoint` [`read_only`]
+
+Type: `string`
+
+Service endpoint associated with the session.
+
 ## core/monitoring
 
 ### Activity
@@ -23328,6 +23542,12 @@ Type: [`[]eventlog`](#eventlog)
 
 List of EventLogs.
 
+##### `firewallLogs`
+
+Type: [`[]firewalllog`](#firewalllog)
+
+List of FirewallLogs.
+
 ##### `flowReports`
 
 Type: [`[]flowreport`](#flowreport)
@@ -23342,7 +23562,7 @@ List of PacketReports.
 
 ##### `report`
 
-Type: `enum(Accesses | Flows | Enforcers | EventLogs | Packets | Counters | DNSLookups | ConnectionExceptions)`
+Type: `enum(Accesses | Flows | Enforcers | EventLogs | Packets | Counters | DNSLookups | ConnectionExceptions | FirewallLogs)`
 
 Name of the report type to query.
 
@@ -23382,7 +23602,7 @@ Contains the list of fields. You cannot group by these fields.
 
 ##### `measurement`
 
-Type: `enum(Flows | Audit | Enforcers | Files | EventLogs | Counters | Accesses | Packets | DNSLookups | PingReports | ConnectionExceptions)`
+Type: `enum(Flows | Audit | Enforcers | Files | EventLogs | Counters | Accesses | Packets | DNSLookups | PingReports | ConnectionExceptions | FirewallLogs)`
 
 Name of the measurement.
 

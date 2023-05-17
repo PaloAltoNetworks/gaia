@@ -191,6 +191,8 @@ FileAccessReports
 FilePath
 FIN
 finack
+FirewallLog
+FirewallLogs
 FlowReport
 FlowReports
 FNV-32a
