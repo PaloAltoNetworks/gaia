@@ -3,6 +3,8 @@ indexes:
 - - namespace
   - nativeID
 - - namespace
+  - resourceID
+- - namespace
   - vpcid
 - - namespace
   - accountid
