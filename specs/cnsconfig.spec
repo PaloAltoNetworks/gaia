@@ -52,6 +52,7 @@ attributes:
     type: boolean
     exposed: true
     stored: true
+    default_value: true
 
   - name: prismaID
     description: Unique Prisma ID identifying the CNS configuration.

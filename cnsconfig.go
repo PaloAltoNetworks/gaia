@@ -154,11 +154,12 @@ type CNSConfig struct {
 func NewCNSConfig() *CNSConfig {
 
 	return &CNSConfig{
-		ModelVersion:   1,
-		Annotations:    map[string][]string{},
-		AssociatedTags: []string{},
-		MigrationsLog:  map[string]string{},
-		NormalizedTags: []string{},
+		ModelVersion:                    1,
+		Annotations:                     map[string][]string{},
+		AssociatedTags:                  []string{},
+		MigrationsLog:                   map[string]string{},
+		NonMatchingAlertsRaisingEnabled: true,
+		NormalizedTags:                  []string{},
 	}
 }
 
@@ -835,6 +836,7 @@ var CNSConfigAttributesMap = map[string]elemental.AttributeSpecification{
 		AllowedChoices: []string{},
 		BSONFieldName:  "nonmatchingalertsraisingenabled",
 		ConvertedName:  "NonMatchingAlertsRaisingEnabled",
+		DefaultValue:   true,
 		Description: `Indicates if CNA should send all alerts found from policy scans or only alert
 rules
 matching alerts.`,
@@ -1098,6 +1100,7 @@ var CNSConfigLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		AllowedChoices: []string{},
 		BSONFieldName:  "nonmatchingalertsraisingenabled",
 		ConvertedName:  "NonMatchingAlertsRaisingEnabled",
+		DefaultValue:   true,
 		Description: `Indicates if CNA should send all alerts found from policy scans or only alert
 rules
 matching alerts.`,
