@@ -9,6 +9,10 @@
             "readOnly": true,
             "type": "string"
           },
+          "PCFWEnabled": {
+            "description": "If `true` PCFW feature is enabled.",
+            "type": "boolean"
+          },
           "annotations": {
             "additionalProperties": {
               "items": {

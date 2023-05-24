@@ -7556,6 +7556,7 @@ Holds the CNS configuration for a namespace.
 
 ```json
 {
+  "PCFWEnabled": false,
   "disabled": false,
   "enableNetEffectivePermissions": false,
   "enableNetworkSecurity": false,
@@ -7598,6 +7599,12 @@ Updates the CNS configuration with the given ID.
 Type: `string`
 
 Identifier of the object.
+
+##### `PCFWEnabled`
+
+Type: `boolean`
+
+If `true` PCFW feature is enabled.
 
 ##### `annotations`
 
