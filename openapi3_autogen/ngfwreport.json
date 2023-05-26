@@ -1,0 +1,288 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "ngfwreport": {
+        "description": "Defines a Next-Generation Firewall (NGFW) report.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "instanceID": {
+            "description": "Cloud NGFW instance for generated report.",
+            "example": 12345678,
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "reportType": {
+            "default": "NetworkingReport",
+            "description": "Type of Cloud NGFW report stored.",
+            "enum": [
+              "NetworkingReport",
+              "SecurityReport"
+            ]
+          },
+          "timestamp": {
+            "description": "Date of the report.",
+            "example": "2018-06-14T23:10:46.420397985Z",
+            "format": "date-time",
+            "type": "string"
+          },
+          "topApplications": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Top applications used for generated networking report.",
+            "example": [
+              {
+                "app1": 200
+              },
+              {
+                "app2": 100
+              }
+            ],
+            "type": "object"
+          },
+          "topAttackCategories": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Top attack categories used for generated security report.",
+            "example": [
+              {
+                "Phishing": 200
+              },
+              {
+                "Malware": 100
+              }
+            ],
+            "type": "object"
+          },
+          "topAttackedApplications": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Top applications attacked used for generated security report.",
+            "example": [
+              {
+                "app1": 200
+              },
+              {
+                "app2": 100
+              }
+            ],
+            "type": "object"
+          },
+          "topDestinationVictims": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Top destination IPs for victims used for generated security report.",
+            "example": [
+              {
+                "127.0.0.1": 200
+              },
+              {
+                "0.0.0.0": 100
+              }
+            ],
+            "type": "object"
+          },
+          "topDestinations": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Top IP destinations for generated networking report.",
+            "example": [
+              {
+                "127.0.0.1": 200
+              },
+              {
+                "0.0.0.0": 100
+              }
+            ],
+            "type": "object"
+          },
+          "topDetectedAttacks": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Top detected attacks used for generated security report.",
+            "example": [
+              {
+                "Log4j": 200
+              },
+              {
+                "TrojanX": 100
+              }
+            ],
+            "type": "object"
+          },
+          "topSourceAttackers": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Top source IPs in attacks used for generated security report.",
+            "example": [
+              {
+                "127.0.0.1": 200
+              },
+              {
+                "0.0.0.0": 100
+              }
+            ],
+            "type": "object"
+          },
+          "topSources": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "description": "Top IP sources for generated networking report.",
+            "example": [
+              {
+                "127.0.0.1": 200
+              },
+              {
+                "0.0.0.0": 100
+              }
+            ],
+            "type": "object"
+          },
+          "totalEgress": {
+            "description": "Total egress traffic in bytes for generated networking report.",
+            "example": 1000000,
+            "type": "integer"
+          },
+          "totalIngress": {
+            "description": "Total ingress traffic in bytes for generated networking report.",
+            "example": 1000000,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "instanceID",
+          "reportType",
+          "timestamp"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "ngfwreport",
+    "version": "1.0"
+  },
+  "paths": {
+    "/ngfwreports": {
+      "get": {
+        "description": "Retrieves a list of NGFW reports.",
+        "operationId": "get-all-ngfwreports",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "description": "Filtering query. Consequent `q` parameters will form an or.",
+            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
+            "in": "query",
+            "name": "q",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ngfwreport"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "placeholder",
+          "placeholder"
+        ]
+      }
+    },
+    "/ngfwreports/{id}": {
+      "get": {
+        "description": "Retrieves the NGFW report with the given ID.",
+        "operationId": "get-ngfwreport-by-ID",
+        "parameters": [
+          {
+            "description": "Also retrieve the objects that propagate down.",
+            "in": "query",
+            "name": "propagated",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ngfwreport"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "placeholder",
+          "placeholder"
+        ]
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "id",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'placeholder'",
+      "name": "placeholder"
+    },
+    {
+      "description": "This tag is for package 'placeholder'",
+      "name": "placeholder"
+    }
+  ]
+}

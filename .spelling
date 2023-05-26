@@ -302,6 +302,7 @@ NetworkRule
 NetworkRuleNet
 NetworkRuleSetPolicy
 NfQueue
+NGFWReport
 nginx
 NICs
 nip.io
