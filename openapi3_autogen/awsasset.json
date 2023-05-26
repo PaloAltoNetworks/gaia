@@ -60,7 +60,8 @@
               "ListenerApplication",
               "ListenerNetwork",
               "ListenerGateway",
-              "RouteTable"
+              "RouteTable",
+              "NATGateway"
             ],
             "example": "Instance",
             "readOnly": true
