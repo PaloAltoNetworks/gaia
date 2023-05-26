@@ -59,7 +59,8 @@
               "LoadBalancerClassic",
               "ListenerApplication",
               "ListenerNetwork",
-              "ListenerGateway"
+              "ListenerGateway",
+              "RouteTable"
             ],
             "example": "Instance",
             "readOnly": true
