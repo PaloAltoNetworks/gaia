@@ -61,7 +61,8 @@
               "ListenerNetwork",
               "ListenerGateway",
               "RouteTable",
-              "NATGateway"
+              "NATGateway",
+              "PrefixList"
             ],
             "example": "Instance",
             "readOnly": true
