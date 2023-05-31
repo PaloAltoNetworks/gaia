@@ -59,7 +59,10 @@
               "LoadBalancerClassic",
               "ListenerApplication",
               "ListenerNetwork",
-              "ListenerGateway"
+              "ListenerGateway",
+              "RouteTable",
+              "NATGateway",
+              "PrefixList"
             ],
             "example": "Instance",
             "readOnly": true
