@@ -62,7 +62,10 @@
               "ListenerGateway",
               "RouteTable",
               "NATGateway",
-              "PrefixList"
+              "PrefixList",
+              "TransitGateway",
+              "TransitGatewayAttachment",
+              "TransitGatewayRouteTable"
             ],
             "example": "Instance",
             "readOnly": true
