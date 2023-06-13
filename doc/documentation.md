@@ -9805,7 +9805,7 @@ Represents a read-only AWS cloud resource such as a virtual machine.
 
 ##### `GET /awsassets`
 
-Retrieves the list of stored aws resources.
+Retrieves the list of stored AWS resources.
 
 Parameters:
 

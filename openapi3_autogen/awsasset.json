@@ -126,7 +126,7 @@
   "paths": {
     "/awsassets": {
       "get": {
-        "description": "Retrieves the list of stored aws resources.",
+        "description": "Retrieves the list of stored AWS resources.",
         "operationId": "get-all-awsassets",
         "parameters": [
           {
