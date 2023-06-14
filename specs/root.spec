@@ -176,6 +176,20 @@ relations:
   create:
     description: Creates a new automation condition.
 
+- rest_name: awsasset
+  get:
+    description: Retrieves the list of stored AWS resources.
+    global_parameters:
+    - $filtering
+
+- rest_name: awsresource
+  get:
+    description: Retrieves the list of stored AWS resources.
+    global_parameters:
+    - $filtering
+  create:
+    description: creates a new AWS resource from field 'data'.
+
 - rest_name: azureasset
   get:
     description: Retrieves the list of stored azure resources.
