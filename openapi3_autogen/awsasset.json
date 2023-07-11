@@ -89,6 +89,11 @@
             "example": "us-east-1",
             "type": "string"
           },
+          "prismaUnifiedAssetID": {
+            "description": "The Prisma Cloud Unified Asset ID.",
+            "example": "4b882952f1a26c8a3ce16ee90af3cac9",
+            "type": "string"
+          },
           "resourceID": {
             "description": "A resource ID that will mainly be used in RQL queries.",
             "example": "i-092bf3d4b2422d8a6",
