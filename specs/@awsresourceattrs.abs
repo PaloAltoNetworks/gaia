@@ -104,6 +104,13 @@ attributes:
     stored: true
     example_value: us-east-1
 
+  - name: prismaUnifiedAssetID
+    description: The Prisma Cloud Unified Asset ID.
+    type: string
+    exposed: true
+    stored: true
+    example_value: 4b882952f1a26c8a3ce16ee90af3cac9
+
   - name: resourceID
     description: A resource ID that will mainly be used in RQL queries.
     type: string
