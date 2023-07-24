@@ -65,7 +65,8 @@
               "PrefixList",
               "TransitGateway",
               "TransitGatewayAttachment",
-              "TransitGatewayRouteTable"
+              "TransitGatewayRouteTable",
+              "VPCPeeringConnection"
             ],
             "example": "Instance",
             "readOnly": true
