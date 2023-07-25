@@ -256,6 +256,8 @@ JWT-based
 JWTCertificates
 JWTCertificateType
 JWTs
+K8s
+K8sAsset
 k8s
 k8s.aporeto.io
 Katacoda
