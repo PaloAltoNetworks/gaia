@@ -15444,7 +15444,7 @@ Represents a read-only K8s resource such as a service.
   \"kind\": \"Service\",
   ...
 }",
-  "kind": "Instance",
+  "kind": "Service",
   "name": "abc",
   "prismaUnifiedAssetID": "4b882952f1a26c8a3ce16ee90af3cac9"
 }

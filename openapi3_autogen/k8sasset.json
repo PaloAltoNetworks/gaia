@@ -49,7 +49,7 @@
               "Service",
               "Endpoints"
             ],
-            "example": "Instance",
+            "example": "Service",
             "readOnly": true
           },
           "name": {
