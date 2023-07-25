@@ -11,7 +11,7 @@
           },
           "clusterID": {
             "description": "The ID of the cloud cluster the resource belongs.",
-            "readOnly": true,
+            "example": "https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
             "type": "string"
           },
           "createTime": {
@@ -75,6 +75,7 @@
           }
         },
         "required": [
+          "clusterID",
           "data"
         ],
         "type": "object"
