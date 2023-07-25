@@ -38,16 +38,16 @@
             "description": "The specific kind of the k8s resource.",
             "enum": [
               "Pending",
-              "Pods",
+              "Pod",
               "Deployment",
-              "ReplicaSets",
-              "StatefulSets",
-              "DaemonSets",
+              "ReplicaSet",
+              "StatefulSet",
+              "DaemonSet",
               "Namespace",
               "NetworkPolicy",
               "Cluster",
               "Service",
-              "Endpoints"
+              "EndpointSlice"
             ],
             "example": "Service",
             "readOnly": true
