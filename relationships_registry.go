@@ -3564,6 +3564,10 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[K8sAssetIdentity] = &elemental.Relationship{}
+
+	relationshipsRegistry[K8sResourceIdentity] = &elemental.Relationship{}
+
 	relationshipsRegistry[KubernetesClusterIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},

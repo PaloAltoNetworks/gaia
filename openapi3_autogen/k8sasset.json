@@ -1,0 +1,109 @@
+{
+  "components": {
+    "schemas": {
+      "k8sasset": {
+        "description": "Represents a read-only K8s resource such as a service.",
+        "properties": {
+          "ID": {
+            "description": "Identifier of the object.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "clusterID": {
+            "description": "The ID of the cloud cluster the resource belongs.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "createTime": {
+            "description": "Creation date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          },
+          "data": {
+            "description": "The JSON-encoded data that represents the resource.",
+            "example": "{\n  \"apiVersion\": \"v1\",\n  \"kind\": \"Service\",\n  ...\n}",
+            "type": "string"
+          },
+          "denormedFields": {
+            "description": "Contextual values that can be used to narrow searching of resources.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
+          },
+          "kind": {
+            "default": "Pending",
+            "description": "The specific kind of the k8s resource.",
+            "enum": [
+              "Pending",
+              "Pods",
+              "Deployment",
+              "ReplicaSets",
+              "StatefulSets",
+              "DaemonSets",
+              "Namespace",
+              "NetworkPolicy",
+              "Cluster",
+              "Service",
+              "Endpoints"
+            ],
+            "example": "Instance",
+            "readOnly": true
+          },
+          "name": {
+            "description": "The name of the resource.",
+            "example": "abc",
+            "type": "string"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "prismaUnifiedAssetID": {
+            "description": "The Prisma Cloud Unified Asset ID.",
+            "example": "4b882952f1a26c8a3ce16ee90af3cac9",
+            "type": "string"
+          },
+          "updateTime": {
+            "description": "Last update date of the object.",
+            "format": "date-time",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "k8sasset",
+    "version": "1.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'pandemona'",
+      "name": "pandemona"
+    }
+  ]
+}

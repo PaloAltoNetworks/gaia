@@ -128,6 +128,8 @@ var (
 		"issue":                    IssueIdentity,
 		"issueservicetoken":        IssueServiceTokenIdentity,
 
+		"k8sasset":          K8sAssetIdentity,
+		"k8sresource":       K8sResourceIdentity,
 		"kubernetescluster": KubernetesClusterIdentity,
 		"ldapprovider":      LDAPProviderIdentity,
 		"localca":           LocalCAIdentity,
@@ -348,6 +350,8 @@ var (
 		"issue":                      IssueIdentity,
 		"issueservicetokens":         IssueServiceTokenIdentity,
 
+		"k8sassets":          K8sAssetIdentity,
+		"k8sresources":       K8sResourceIdentity,
 		"kubernetesclusters": KubernetesClusterIdentity,
 		"ldapproviders":      LDAPProviderIdentity,
 		"localcas":           LocalCAIdentity,
@@ -1191,6 +1195,18 @@ var (
 		},
 		"issue":             nil,
 		"issueservicetoken": nil,
+		"k8sasset": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+		},
+		"k8sresource": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"namespace"},
+			{"namespace", "clusterID"},
+			{"namespace", "kind"},
+			{"namespace", "normalizedTags"},
+		},
 		"kubernetescluster": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"createIdempotencyKey"},
@@ -1713,6 +1729,10 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewIssue()
 	case IssueServiceTokenIdentity:
 		return NewIssueServiceToken()
+	case K8sAssetIdentity:
+		return NewK8sAsset()
+	case K8sResourceIdentity:
+		return NewK8sResource()
 	case KubernetesClusterIdentity:
 		return NewKubernetesCluster()
 	case LDAPProviderIdentity:
@@ -2090,6 +2110,10 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseIssue()
 	case IssueServiceTokenIdentity:
 		return NewSparseIssueServiceToken()
+	case K8sAssetIdentity:
+		return NewSparseK8sAsset()
+	case K8sResourceIdentity:
+		return NewSparseK8sResource()
 	case KubernetesClusterIdentity:
 		return NewSparseKubernetesCluster()
 	case LDAPProviderIdentity:
@@ -2475,6 +2499,10 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &IssuesList{}
 	case IssueServiceTokenIdentity:
 		return &IssueServiceTokensList{}
+	case K8sAssetIdentity:
+		return &K8sAssetsList{}
+	case K8sResourceIdentity:
+		return &K8sResourcesList{}
 	case KubernetesClusterIdentity:
 		return &KubernetesClustersList{}
 	case LDAPProviderIdentity:
@@ -2850,6 +2878,10 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseIssuesList{}
 	case IssueServiceTokenIdentity:
 		return &SparseIssueServiceTokensList{}
+	case K8sAssetIdentity:
+		return &SparseK8sAssetsList{}
+	case K8sResourceIdentity:
+		return &SparseK8sResourcesList{}
 	case KubernetesClusterIdentity:
 		return &SparseKubernetesClustersList{}
 	case LDAPProviderIdentity:
@@ -3146,6 +3178,8 @@ func AllIdentities() []elemental.Identity {
 		IsolationProfileIdentity,
 		IssueIdentity,
 		IssueServiceTokenIdentity,
+		K8sAssetIdentity,
+		K8sResourceIdentity,
 		KubernetesClusterIdentity,
 		LDAPProviderIdentity,
 		LocalCAIdentity,
@@ -3524,6 +3558,10 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case IssueIdentity:
 		return []string{}
 	case IssueServiceTokenIdentity:
+		return []string{}
+	case K8sAssetIdentity:
+		return []string{}
+	case K8sResourceIdentity:
 		return []string{}
 	case KubernetesClusterIdentity:
 		return []string{
