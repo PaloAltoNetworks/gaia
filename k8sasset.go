@@ -25,11 +25,8 @@ const (
 	// K8sAssetKindDeployment represents the value Deployment.
 	K8sAssetKindDeployment K8sAssetKindValue = "Deployment"
 
-	// K8sAssetKindEndpointSlice represents the value EndpointSlice.
-	K8sAssetKindEndpointSlice K8sAssetKindValue = "EndpointSlice"
-
-	// K8sAssetKindNamespace represents the value Namespace.
-	K8sAssetKindNamespace K8sAssetKindValue = "Namespace"
+	// K8sAssetKindEndpoints represents the value Endpoints.
+	K8sAssetKindEndpoints K8sAssetKindValue = "Endpoints"
 
 	// K8sAssetKindNetworkPolicy represents the value NetworkPolicy.
 	K8sAssetKindNetworkPolicy K8sAssetKindValue = "NetworkPolicy"
@@ -137,6 +134,9 @@ type K8sAsset struct {
 	// Contextual values that can be used to narrow searching of resources.
 	DenormedFields []string `json:"denormedFields" msgpack:"denormedFields" bson:"denormedfields" mapstructure:"denormedFields,omitempty"`
 
+	// The formed k8s resource ID of resource.
+	K8sID string `json:"k8sID" msgpack:"k8sID" bson:"k8sid" mapstructure:"k8sID,omitempty"`
+
 	// The k8s Namespace of the resource.
 	K8sNamespace string `json:"k8sNamespace" msgpack:"k8sNamespace" bson:"k8snamespace" mapstructure:"k8sNamespace,omitempty"`
 
@@ -144,7 +144,7 @@ type K8sAsset struct {
 	Kind K8sAssetKindValue `json:"kind" msgpack:"kind" bson:"kind" mapstructure:"kind,omitempty"`
 
 	// Key value label pairs for k8s resources.
-	Labels map[string]string `json:"labels,omitempty" msgpack:"labels,omitempty" bson:"-" mapstructure:"labels,omitempty"`
+	Labels []string `json:"labels" msgpack:"labels" bson:"labels" mapstructure:"labels,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -182,7 +182,7 @@ func NewK8sAsset() *K8sAsset {
 		Data:           []byte{},
 		DenormedFields: []string{},
 		Kind:           K8sAssetKindPending,
-		Labels:         map[string]string{},
+		Labels:         []string{},
 		MigrationsLog:  map[string]string{},
 	}
 }
@@ -222,8 +222,10 @@ func (o *K8sAsset) GetBSON() (any, error) {
 	s.CreateTime = o.CreateTime
 	s.Data = o.Data
 	s.DenormedFields = o.DenormedFields
+	s.K8sID = o.K8sID
 	s.K8sNamespace = o.K8sNamespace
 	s.Kind = o.Kind
+	s.Labels = o.Labels
 	s.MigrationsLog = o.MigrationsLog
 	s.Name = o.Name
 	s.Namespace = o.Namespace
@@ -254,8 +256,10 @@ func (o *K8sAsset) SetBSON(raw bson.Raw) error {
 	o.CreateTime = s.CreateTime
 	o.Data = s.Data
 	o.DenormedFields = s.DenormedFields
+	o.K8sID = s.K8sID
 	o.K8sNamespace = s.K8sNamespace
 	o.Kind = s.Kind
+	o.Labels = s.Labels
 	o.MigrationsLog = s.MigrationsLog
 	o.Name = s.Name
 	o.Namespace = s.Namespace
@@ -381,6 +385,7 @@ func (o *K8sAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			CreateTime:           &o.CreateTime,
 			Data:                 &o.Data,
 			DenormedFields:       &o.DenormedFields,
+			K8sID:                &o.K8sID,
 			K8sNamespace:         &o.K8sNamespace,
 			Kind:                 &o.Kind,
 			Labels:               &o.Labels,
@@ -408,6 +413,8 @@ func (o *K8sAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Data = &(o.Data)
 		case "denormedFields":
 			sp.DenormedFields = &(o.DenormedFields)
+		case "k8sID":
+			sp.K8sID = &(o.K8sID)
 		case "k8sNamespace":
 			sp.K8sNamespace = &(o.K8sNamespace)
 		case "kind":
@@ -457,6 +464,9 @@ func (o *K8sAsset) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.DenormedFields != nil {
 		o.DenormedFields = *so.DenormedFields
+	}
+	if so.K8sID != nil {
+		o.K8sID = *so.K8sID
 	}
 	if so.K8sNamespace != nil {
 		o.K8sNamespace = *so.K8sNamespace
@@ -531,11 +541,15 @@ func (o *K8sAsset) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
+	if err := elemental.ValidateRequiredString("k8sID", o.K8sID); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
 	if err := elemental.ValidateRequiredString("k8sNamespace", o.K8sNamespace); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Pending", "Pod", "Deployment", "ReplicaSet", "StatefulSet", "DaemonSet", "Namespace", "NetworkPolicy", "Cluster", "Service", "EndpointSlice"}, true); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Pending", "Pod", "Deployment", "ReplicaSet", "StatefulSet", "DaemonSet", "NetworkPolicy", "Cluster", "Service", "Endpoints"}, true); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -583,6 +597,8 @@ func (o *K8sAsset) ValueForAttribute(name string) any {
 		return o.Data
 	case "denormedFields":
 		return o.DenormedFields
+	case "k8sID":
+		return o.K8sID
 	case "k8sNamespace":
 		return o.K8sNamespace
 	case "kind":
@@ -678,6 +694,17 @@ var K8sAssetAttributesMap = map[string]elemental.AttributeSpecification{
 		SubType:        "string",
 		Type:           "list",
 	},
+	"K8sID": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8sid",
+		ConvertedName:  "K8sID",
+		Description:    `The formed k8s resource ID of resource.`,
+		Exposed:        true,
+		Name:           "k8sID",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
 	"K8sNamespace": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "k8snamespace",
@@ -690,7 +717,7 @@ var K8sAssetAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "string",
 	},
 	"Kind": {
-		AllowedChoices: []string{"Pending", "Pod", "Deployment", "ReplicaSet", "StatefulSet", "DaemonSet", "Namespace", "NetworkPolicy", "Cluster", "Service", "EndpointSlice"},
+		AllowedChoices: []string{"Pending", "Pod", "Deployment", "ReplicaSet", "StatefulSet", "DaemonSet", "NetworkPolicy", "Cluster", "Service", "Endpoints"},
 		Autogenerated:  true,
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
@@ -704,13 +731,16 @@ var K8sAssetAttributesMap = map[string]elemental.AttributeSpecification{
 	},
 	"Labels": {
 		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "labels",
 		ConvertedName:  "Labels",
 		Description:    `Key value label pairs for k8s resources.`,
 		Exposed:        true,
 		Name:           "labels",
 		ReadOnly:       true,
-		SubType:        "map[string]string",
-		Type:           "external",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
 	},
 	"MigrationsLog": {
 		AllowedChoices: []string{},
@@ -883,6 +913,17 @@ var K8sAssetLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 		SubType:        "string",
 		Type:           "list",
 	},
+	"k8sid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8sid",
+		ConvertedName:  "K8sID",
+		Description:    `The formed k8s resource ID of resource.`,
+		Exposed:        true,
+		Name:           "k8sID",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
 	"k8snamespace": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "k8snamespace",
@@ -895,7 +936,7 @@ var K8sAssetLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 		Type:           "string",
 	},
 	"kind": {
-		AllowedChoices: []string{"Pending", "Pod", "Deployment", "ReplicaSet", "StatefulSet", "DaemonSet", "Namespace", "NetworkPolicy", "Cluster", "Service", "EndpointSlice"},
+		AllowedChoices: []string{"Pending", "Pod", "Deployment", "ReplicaSet", "StatefulSet", "DaemonSet", "NetworkPolicy", "Cluster", "Service", "Endpoints"},
 		Autogenerated:  true,
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
@@ -909,13 +950,16 @@ var K8sAssetLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 	},
 	"labels": {
 		AllowedChoices: []string{},
+		Autogenerated:  true,
+		BSONFieldName:  "labels",
 		ConvertedName:  "Labels",
 		Description:    `Key value label pairs for k8s resources.`,
 		Exposed:        true,
 		Name:           "labels",
 		ReadOnly:       true,
-		SubType:        "map[string]string",
-		Type:           "external",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
 	},
 	"migrationslog": {
 		AllowedChoices: []string{},
@@ -1098,6 +1142,9 @@ type SparseK8sAsset struct {
 	// Contextual values that can be used to narrow searching of resources.
 	DenormedFields *[]string `json:"denormedFields,omitempty" msgpack:"denormedFields,omitempty" bson:"denormedfields,omitempty" mapstructure:"denormedFields,omitempty"`
 
+	// The formed k8s resource ID of resource.
+	K8sID *string `json:"k8sID,omitempty" msgpack:"k8sID,omitempty" bson:"k8sid,omitempty" mapstructure:"k8sID,omitempty"`
+
 	// The k8s Namespace of the resource.
 	K8sNamespace *string `json:"k8sNamespace,omitempty" msgpack:"k8sNamespace,omitempty" bson:"k8snamespace,omitempty" mapstructure:"k8sNamespace,omitempty"`
 
@@ -1105,7 +1152,7 @@ type SparseK8sAsset struct {
 	Kind *K8sAssetKindValue `json:"kind,omitempty" msgpack:"kind,omitempty" bson:"kind,omitempty" mapstructure:"kind,omitempty"`
 
 	// Key value label pairs for k8s resources.
-	Labels *map[string]string `json:"labels,omitempty" msgpack:"labels,omitempty" bson:"-" mapstructure:"labels,omitempty"`
+	Labels *[]string `json:"labels,omitempty" msgpack:"labels,omitempty" bson:"labels,omitempty" mapstructure:"labels,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -1190,11 +1237,17 @@ func (o *SparseK8sAsset) GetBSON() (any, error) {
 	if o.DenormedFields != nil {
 		s.DenormedFields = o.DenormedFields
 	}
+	if o.K8sID != nil {
+		s.K8sID = o.K8sID
+	}
 	if o.K8sNamespace != nil {
 		s.K8sNamespace = o.K8sNamespace
 	}
 	if o.Kind != nil {
 		s.Kind = o.Kind
+	}
+	if o.Labels != nil {
+		s.Labels = o.Labels
 	}
 	if o.MigrationsLog != nil {
 		s.MigrationsLog = o.MigrationsLog
@@ -1251,11 +1304,17 @@ func (o *SparseK8sAsset) SetBSON(raw bson.Raw) error {
 	if s.DenormedFields != nil {
 		o.DenormedFields = s.DenormedFields
 	}
+	if s.K8sID != nil {
+		o.K8sID = s.K8sID
+	}
 	if s.K8sNamespace != nil {
 		o.K8sNamespace = s.K8sNamespace
 	}
 	if s.Kind != nil {
 		o.Kind = s.Kind
+	}
+	if s.Labels != nil {
+		o.Labels = s.Labels
 	}
 	if s.MigrationsLog != nil {
 		o.MigrationsLog = s.MigrationsLog
@@ -1309,6 +1368,9 @@ func (o *SparseK8sAsset) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.DenormedFields != nil {
 		out.DenormedFields = *o.DenormedFields
+	}
+	if o.K8sID != nil {
+		out.K8sID = *o.K8sID
 	}
 	if o.K8sNamespace != nil {
 		out.K8sNamespace = *o.K8sNamespace
@@ -1473,8 +1535,10 @@ type mongoAttributesK8sAsset struct {
 	CreateTime           time.Time         `bson:"createtime"`
 	Data                 []byte            `bson:"data"`
 	DenormedFields       []string          `bson:"denormedfields"`
+	K8sID                string            `bson:"k8sid"`
 	K8sNamespace         string            `bson:"k8snamespace"`
 	Kind                 K8sAssetKindValue `bson:"kind"`
+	Labels               []string          `bson:"labels"`
 	MigrationsLog        map[string]string `bson:"migrationslog,omitempty"`
 	Name                 string            `bson:"name"`
 	Namespace            string            `bson:"namespace"`
@@ -1490,8 +1554,10 @@ type mongoAttributesSparseK8sAsset struct {
 	CreateTime           *time.Time         `bson:"createtime,omitempty"`
 	Data                 *[]byte            `bson:"data,omitempty"`
 	DenormedFields       *[]string          `bson:"denormedfields,omitempty"`
+	K8sID                *string            `bson:"k8sid,omitempty"`
 	K8sNamespace         *string            `bson:"k8snamespace,omitempty"`
 	Kind                 *K8sAssetKindValue `bson:"kind,omitempty"`
+	Labels               *[]string          `bson:"labels,omitempty"`
 	MigrationsLog        *map[string]string `bson:"migrationslog,omitempty"`
 	Name                 *string            `bson:"name,omitempty"`
 	Namespace            *string            `bson:"namespace,omitempty"`

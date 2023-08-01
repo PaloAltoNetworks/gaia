@@ -1203,9 +1203,8 @@ var (
 		"k8sresource": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
-			{"namespace", "clusterID"},
-			{"namespace", "clusterID", "k8sNamespace", "kind"},
-			{"namespace", "clusterID", "k8sNamespace", "name"},
+			{"namespace", "clusterID", "k8sNamespace", "kind", "labels"},
+			{"namespace", "k8sID"},
 			{"namespace", "normalizedTags"},
 			{"namespace", "uid"},
 		},

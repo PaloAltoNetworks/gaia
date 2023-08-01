@@ -33,6 +33,11 @@
             "readOnly": true,
             "type": "array"
           },
+          "k8sID": {
+            "description": "The formed k8s resource ID of resource.",
+            "example": "k8s:my-namespace:service:my-service:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
+            "type": "string"
+          },
           "k8sNamespace": {
             "description": "The k8s Namespace of the resource.",
             "example": "my-namespace",
@@ -48,22 +53,21 @@
               "ReplicaSet",
               "StatefulSet",
               "DaemonSet",
-              "Namespace",
               "NetworkPolicy",
               "Cluster",
               "Service",
-              "EndpointSlice"
+              "Endpoints"
             ],
             "example": "Service",
             "readOnly": true
           },
           "labels": {
-            "additionalProperties": {
+            "description": "Key value label pairs for k8s resources.",
+            "items": {
               "type": "string"
             },
-            "description": "Key value label pairs for k8s resources.",
             "readOnly": true,
-            "type": "object"
+            "type": "array"
           },
           "name": {
             "description": "The name of the resource.",
@@ -95,6 +99,7 @@
         "required": [
           "clusterID",
           "data",
+          "k8sID",
           "k8sNamespace"
         ],
         "type": "object"
