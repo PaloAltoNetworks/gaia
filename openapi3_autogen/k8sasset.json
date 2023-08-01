@@ -33,6 +33,11 @@
             "readOnly": true,
             "type": "array"
           },
+          "k8sNamespace": {
+            "description": "The k8s Namespace of the resource.",
+            "example": "my-namespace",
+            "type": "string"
+          },
           "kind": {
             "default": "Pending",
             "description": "The specific kind of the k8s resource.",
@@ -52,6 +57,14 @@
             "example": "Service",
             "readOnly": true
           },
+          "labels": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Key value label pairs for k8s resources.",
+            "readOnly": true,
+            "type": "object"
+          },
           "name": {
             "description": "The name of the resource.",
             "example": "abc",
@@ -67,6 +80,11 @@
             "example": "4b882952f1a26c8a3ce16ee90af3cac9",
             "type": "string"
           },
+          "uid": {
+            "description": "The k8s UID of the resource.",
+            "example": "abc",
+            "type": "string"
+          },
           "updateTime": {
             "description": "Last update date of the object.",
             "format": "date-time",
@@ -76,7 +94,8 @@
         },
         "required": [
           "clusterID",
-          "data"
+          "data",
+          "k8sNamespace"
         ],
         "type": "object"
       }

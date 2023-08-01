@@ -1204,8 +1204,10 @@ var (
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
 			{"namespace", "clusterID"},
-			{"namespace", "kind"},
+			{"namespace", "clusterID", "k8sNamespace", "kind"},
+			{"namespace", "clusterID", "k8sNamespace", "name"},
 			{"namespace", "normalizedTags"},
+			{"namespace", "uid"},
 		},
 		"kubernetescluster": {
 			{":shard", ":unique", "zone", "zHash"},

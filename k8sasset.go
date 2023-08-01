@@ -137,8 +137,14 @@ type K8sAsset struct {
 	// Contextual values that can be used to narrow searching of resources.
 	DenormedFields []string `json:"denormedFields" msgpack:"denormedFields" bson:"denormedfields" mapstructure:"denormedFields,omitempty"`
 
+	// The k8s Namespace of the resource.
+	K8sNamespace string `json:"k8sNamespace" msgpack:"k8sNamespace" bson:"k8snamespace" mapstructure:"k8sNamespace,omitempty"`
+
 	// The specific kind of the k8s resource.
 	Kind K8sAssetKindValue `json:"kind" msgpack:"kind" bson:"kind" mapstructure:"kind,omitempty"`
+
+	// Key value label pairs for k8s resources.
+	Labels map[string]string `json:"labels,omitempty" msgpack:"labels,omitempty" bson:"-" mapstructure:"labels,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -151,6 +157,9 @@ type K8sAsset struct {
 
 	// The Prisma Cloud Unified Asset ID.
 	PrismaUnifiedAssetID string `json:"prismaUnifiedAssetID" msgpack:"prismaUnifiedAssetID" bson:"prismaunifiedassetid" mapstructure:"prismaUnifiedAssetID,omitempty"`
+
+	// The k8s UID of the resource.
+	Uid string `json:"uid" msgpack:"uid" bson:"uid" mapstructure:"uid,omitempty"`
 
 	// Last update date of the object.
 	UpdateTime time.Time `json:"updateTime" msgpack:"updateTime" bson:"updatetime" mapstructure:"updateTime,omitempty"`
@@ -173,6 +182,7 @@ func NewK8sAsset() *K8sAsset {
 		Data:           []byte{},
 		DenormedFields: []string{},
 		Kind:           K8sAssetKindPending,
+		Labels:         map[string]string{},
 		MigrationsLog:  map[string]string{},
 	}
 }
@@ -212,11 +222,13 @@ func (o *K8sAsset) GetBSON() (any, error) {
 	s.CreateTime = o.CreateTime
 	s.Data = o.Data
 	s.DenormedFields = o.DenormedFields
+	s.K8sNamespace = o.K8sNamespace
 	s.Kind = o.Kind
 	s.MigrationsLog = o.MigrationsLog
 	s.Name = o.Name
 	s.Namespace = o.Namespace
 	s.PrismaUnifiedAssetID = o.PrismaUnifiedAssetID
+	s.Uid = o.Uid
 	s.UpdateTime = o.UpdateTime
 	s.ZHash = o.ZHash
 	s.Zone = o.Zone
@@ -242,11 +254,13 @@ func (o *K8sAsset) SetBSON(raw bson.Raw) error {
 	o.CreateTime = s.CreateTime
 	o.Data = s.Data
 	o.DenormedFields = s.DenormedFields
+	o.K8sNamespace = s.K8sNamespace
 	o.Kind = s.Kind
 	o.MigrationsLog = s.MigrationsLog
 	o.Name = s.Name
 	o.Namespace = s.Namespace
 	o.PrismaUnifiedAssetID = s.PrismaUnifiedAssetID
+	o.Uid = s.Uid
 	o.UpdateTime = s.UpdateTime
 	o.ZHash = s.ZHash
 	o.Zone = s.Zone
@@ -367,11 +381,14 @@ func (o *K8sAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			CreateTime:           &o.CreateTime,
 			Data:                 &o.Data,
 			DenormedFields:       &o.DenormedFields,
+			K8sNamespace:         &o.K8sNamespace,
 			Kind:                 &o.Kind,
+			Labels:               &o.Labels,
 			MigrationsLog:        &o.MigrationsLog,
 			Name:                 &o.Name,
 			Namespace:            &o.Namespace,
 			PrismaUnifiedAssetID: &o.PrismaUnifiedAssetID,
+			Uid:                  &o.Uid,
 			UpdateTime:           &o.UpdateTime,
 			ZHash:                &o.ZHash,
 			Zone:                 &o.Zone,
@@ -391,8 +408,12 @@ func (o *K8sAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Data = &(o.Data)
 		case "denormedFields":
 			sp.DenormedFields = &(o.DenormedFields)
+		case "k8sNamespace":
+			sp.K8sNamespace = &(o.K8sNamespace)
 		case "kind":
 			sp.Kind = &(o.Kind)
+		case "labels":
+			sp.Labels = &(o.Labels)
 		case "migrationsLog":
 			sp.MigrationsLog = &(o.MigrationsLog)
 		case "name":
@@ -401,6 +422,8 @@ func (o *K8sAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Namespace = &(o.Namespace)
 		case "prismaUnifiedAssetID":
 			sp.PrismaUnifiedAssetID = &(o.PrismaUnifiedAssetID)
+		case "uid":
+			sp.Uid = &(o.Uid)
 		case "updateTime":
 			sp.UpdateTime = &(o.UpdateTime)
 		case "zHash":
@@ -435,8 +458,14 @@ func (o *K8sAsset) Patch(sparse elemental.SparseIdentifiable) {
 	if so.DenormedFields != nil {
 		o.DenormedFields = *so.DenormedFields
 	}
+	if so.K8sNamespace != nil {
+		o.K8sNamespace = *so.K8sNamespace
+	}
 	if so.Kind != nil {
 		o.Kind = *so.Kind
+	}
+	if so.Labels != nil {
+		o.Labels = *so.Labels
 	}
 	if so.MigrationsLog != nil {
 		o.MigrationsLog = *so.MigrationsLog
@@ -449,6 +478,9 @@ func (o *K8sAsset) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.PrismaUnifiedAssetID != nil {
 		o.PrismaUnifiedAssetID = *so.PrismaUnifiedAssetID
+	}
+	if so.Uid != nil {
+		o.Uid = *so.Uid
 	}
 	if so.UpdateTime != nil {
 		o.UpdateTime = *so.UpdateTime
@@ -496,6 +528,10 @@ func (o *K8sAsset) Validate() error {
 	}
 
 	if err := elemental.ValidateRequiredExternal("data", o.Data); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateRequiredString("k8sNamespace", o.K8sNamespace); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
@@ -547,8 +583,12 @@ func (o *K8sAsset) ValueForAttribute(name string) any {
 		return o.Data
 	case "denormedFields":
 		return o.DenormedFields
+	case "k8sNamespace":
+		return o.K8sNamespace
 	case "kind":
 		return o.Kind
+	case "labels":
+		return o.Labels
 	case "migrationsLog":
 		return o.MigrationsLog
 	case "name":
@@ -557,6 +597,8 @@ func (o *K8sAsset) ValueForAttribute(name string) any {
 		return o.Namespace
 	case "prismaUnifiedAssetID":
 		return o.PrismaUnifiedAssetID
+	case "uid":
+		return o.Uid
 	case "updateTime":
 		return o.UpdateTime
 	case "zHash":
@@ -636,6 +678,17 @@ var K8sAssetAttributesMap = map[string]elemental.AttributeSpecification{
 		SubType:        "string",
 		Type:           "list",
 	},
+	"K8sNamespace": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8snamespace",
+		ConvertedName:  "K8sNamespace",
+		Description:    `The k8s Namespace of the resource.`,
+		Exposed:        true,
+		Name:           "k8sNamespace",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
 	"Kind": {
 		AllowedChoices: []string{"Pending", "Pod", "Deployment", "ReplicaSet", "StatefulSet", "DaemonSet", "Namespace", "NetworkPolicy", "Cluster", "Service", "EndpointSlice"},
 		Autogenerated:  true,
@@ -648,6 +701,16 @@ var K8sAssetAttributesMap = map[string]elemental.AttributeSpecification{
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "enum",
+	},
+	"Labels": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Labels",
+		Description:    `Key value label pairs for k8s resources.`,
+		Exposed:        true,
+		Name:           "labels",
+		ReadOnly:       true,
+		SubType:        "map[string]string",
+		Type:           "external",
 	},
 	"MigrationsLog": {
 		AllowedChoices: []string{},
@@ -694,6 +757,16 @@ var K8sAssetAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `The Prisma Cloud Unified Asset ID.`,
 		Exposed:        true,
 		Name:           "prismaUnifiedAssetID",
+		Stored:         true,
+		Type:           "string",
+	},
+	"Uid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "uid",
+		ConvertedName:  "Uid",
+		Description:    `The k8s UID of the resource.`,
+		Exposed:        true,
+		Name:           "uid",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -810,6 +883,17 @@ var K8sAssetLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 		SubType:        "string",
 		Type:           "list",
 	},
+	"k8snamespace": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8snamespace",
+		ConvertedName:  "K8sNamespace",
+		Description:    `The k8s Namespace of the resource.`,
+		Exposed:        true,
+		Name:           "k8sNamespace",
+		Required:       true,
+		Stored:         true,
+		Type:           "string",
+	},
 	"kind": {
 		AllowedChoices: []string{"Pending", "Pod", "Deployment", "ReplicaSet", "StatefulSet", "DaemonSet", "Namespace", "NetworkPolicy", "Cluster", "Service", "EndpointSlice"},
 		Autogenerated:  true,
@@ -822,6 +906,16 @@ var K8sAssetLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "enum",
+	},
+	"labels": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Labels",
+		Description:    `Key value label pairs for k8s resources.`,
+		Exposed:        true,
+		Name:           "labels",
+		ReadOnly:       true,
+		SubType:        "map[string]string",
+		Type:           "external",
 	},
 	"migrationslog": {
 		AllowedChoices: []string{},
@@ -868,6 +962,16 @@ var K8sAssetLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 		Description:    `The Prisma Cloud Unified Asset ID.`,
 		Exposed:        true,
 		Name:           "prismaUnifiedAssetID",
+		Stored:         true,
+		Type:           "string",
+	},
+	"uid": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "uid",
+		ConvertedName:  "Uid",
+		Description:    `The k8s UID of the resource.`,
+		Exposed:        true,
+		Name:           "uid",
 		Stored:         true,
 		Type:           "string",
 	},
@@ -994,8 +1098,14 @@ type SparseK8sAsset struct {
 	// Contextual values that can be used to narrow searching of resources.
 	DenormedFields *[]string `json:"denormedFields,omitempty" msgpack:"denormedFields,omitempty" bson:"denormedfields,omitempty" mapstructure:"denormedFields,omitempty"`
 
+	// The k8s Namespace of the resource.
+	K8sNamespace *string `json:"k8sNamespace,omitempty" msgpack:"k8sNamespace,omitempty" bson:"k8snamespace,omitempty" mapstructure:"k8sNamespace,omitempty"`
+
 	// The specific kind of the k8s resource.
 	Kind *K8sAssetKindValue `json:"kind,omitempty" msgpack:"kind,omitempty" bson:"kind,omitempty" mapstructure:"kind,omitempty"`
+
+	// Key value label pairs for k8s resources.
+	Labels *map[string]string `json:"labels,omitempty" msgpack:"labels,omitempty" bson:"-" mapstructure:"labels,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -1008,6 +1118,9 @@ type SparseK8sAsset struct {
 
 	// The Prisma Cloud Unified Asset ID.
 	PrismaUnifiedAssetID *string `json:"prismaUnifiedAssetID,omitempty" msgpack:"prismaUnifiedAssetID,omitempty" bson:"prismaunifiedassetid,omitempty" mapstructure:"prismaUnifiedAssetID,omitempty"`
+
+	// The k8s UID of the resource.
+	Uid *string `json:"uid,omitempty" msgpack:"uid,omitempty" bson:"uid,omitempty" mapstructure:"uid,omitempty"`
 
 	// Last update date of the object.
 	UpdateTime *time.Time `json:"updateTime,omitempty" msgpack:"updateTime,omitempty" bson:"updatetime,omitempty" mapstructure:"updateTime,omitempty"`
@@ -1077,6 +1190,9 @@ func (o *SparseK8sAsset) GetBSON() (any, error) {
 	if o.DenormedFields != nil {
 		s.DenormedFields = o.DenormedFields
 	}
+	if o.K8sNamespace != nil {
+		s.K8sNamespace = o.K8sNamespace
+	}
 	if o.Kind != nil {
 		s.Kind = o.Kind
 	}
@@ -1091,6 +1207,9 @@ func (o *SparseK8sAsset) GetBSON() (any, error) {
 	}
 	if o.PrismaUnifiedAssetID != nil {
 		s.PrismaUnifiedAssetID = o.PrismaUnifiedAssetID
+	}
+	if o.Uid != nil {
+		s.Uid = o.Uid
 	}
 	if o.UpdateTime != nil {
 		s.UpdateTime = o.UpdateTime
@@ -1132,6 +1251,9 @@ func (o *SparseK8sAsset) SetBSON(raw bson.Raw) error {
 	if s.DenormedFields != nil {
 		o.DenormedFields = s.DenormedFields
 	}
+	if s.K8sNamespace != nil {
+		o.K8sNamespace = s.K8sNamespace
+	}
 	if s.Kind != nil {
 		o.Kind = s.Kind
 	}
@@ -1146,6 +1268,9 @@ func (o *SparseK8sAsset) SetBSON(raw bson.Raw) error {
 	}
 	if s.PrismaUnifiedAssetID != nil {
 		o.PrismaUnifiedAssetID = s.PrismaUnifiedAssetID
+	}
+	if s.Uid != nil {
+		o.Uid = s.Uid
 	}
 	if s.UpdateTime != nil {
 		o.UpdateTime = s.UpdateTime
@@ -1185,8 +1310,14 @@ func (o *SparseK8sAsset) ToPlain() elemental.PlainIdentifiable {
 	if o.DenormedFields != nil {
 		out.DenormedFields = *o.DenormedFields
 	}
+	if o.K8sNamespace != nil {
+		out.K8sNamespace = *o.K8sNamespace
+	}
 	if o.Kind != nil {
 		out.Kind = *o.Kind
+	}
+	if o.Labels != nil {
+		out.Labels = *o.Labels
 	}
 	if o.MigrationsLog != nil {
 		out.MigrationsLog = *o.MigrationsLog
@@ -1199,6 +1330,9 @@ func (o *SparseK8sAsset) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.PrismaUnifiedAssetID != nil {
 		out.PrismaUnifiedAssetID = *o.PrismaUnifiedAssetID
+	}
+	if o.Uid != nil {
+		out.Uid = *o.Uid
 	}
 	if o.UpdateTime != nil {
 		out.UpdateTime = *o.UpdateTime
@@ -1339,11 +1473,13 @@ type mongoAttributesK8sAsset struct {
 	CreateTime           time.Time         `bson:"createtime"`
 	Data                 []byte            `bson:"data"`
 	DenormedFields       []string          `bson:"denormedfields"`
+	K8sNamespace         string            `bson:"k8snamespace"`
 	Kind                 K8sAssetKindValue `bson:"kind"`
 	MigrationsLog        map[string]string `bson:"migrationslog,omitempty"`
 	Name                 string            `bson:"name"`
 	Namespace            string            `bson:"namespace"`
 	PrismaUnifiedAssetID string            `bson:"prismaunifiedassetid"`
+	Uid                  string            `bson:"uid"`
 	UpdateTime           time.Time         `bson:"updatetime"`
 	ZHash                int               `bson:"zhash"`
 	Zone                 int               `bson:"zone"`
@@ -1354,11 +1490,13 @@ type mongoAttributesSparseK8sAsset struct {
 	CreateTime           *time.Time         `bson:"createtime,omitempty"`
 	Data                 *[]byte            `bson:"data,omitempty"`
 	DenormedFields       *[]string          `bson:"denormedfields,omitempty"`
+	K8sNamespace         *string            `bson:"k8snamespace,omitempty"`
 	Kind                 *K8sAssetKindValue `bson:"kind,omitempty"`
 	MigrationsLog        *map[string]string `bson:"migrationslog,omitempty"`
 	Name                 *string            `bson:"name,omitempty"`
 	Namespace            *string            `bson:"namespace,omitempty"`
 	PrismaUnifiedAssetID *string            `bson:"prismaunifiedassetid,omitempty"`
+	Uid                  *string            `bson:"uid,omitempty"`
 	UpdateTime           *time.Time         `bson:"updatetime,omitempty"`
 	ZHash                *int               `bson:"zhash,omitempty"`
 	Zone                 *int               `bson:"zone,omitempty"`

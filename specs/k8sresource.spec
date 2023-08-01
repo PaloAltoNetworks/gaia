@@ -20,4 +20,12 @@ indexes:
 - - namespace
   - clusterID
 - - namespace
+  - clusterID
+  - k8sNamespace
   - kind
+- - namespace
+  - clusterID
+  - k8sNamespace
+  - name
+- - namespace
+  - uid
