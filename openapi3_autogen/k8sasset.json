@@ -9,6 +9,11 @@
             "readOnly": true,
             "type": "string"
           },
+          "accountID": {
+            "description": "The 12 digit ID of the AWS account the resource belongs.",
+            "readOnly": true,
+            "type": "string"
+          },
           "clusterID": {
             "description": "The ID of the cloud cluster the resource belongs.",
             "example": "https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
@@ -77,6 +82,11 @@
           "namespace": {
             "description": "Namespace tag attached to an entity.",
             "readOnly": true,
+            "type": "string"
+          },
+          "prismaRegion": {
+            "description": "The region this resource exists in according to PrismaCloud.",
+            "example": "us-east-1",
             "type": "string"
           },
           "prismaUnifiedAssetID": {
