@@ -18,6 +18,11 @@ model:
 # Indexes
 indexes:
 - - namespace
-  - clusterID
+  - k8sID
 - - namespace
+  - clusterID
+  - k8sNamespace
   - kind
+  - labels
+- - namespace
+  - uid

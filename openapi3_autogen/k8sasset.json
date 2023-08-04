@@ -9,6 +9,11 @@
             "readOnly": true,
             "type": "string"
           },
+          "accountID": {
+            "description": "The 12 digit ID of the AWS account the resource belongs.",
+            "readOnly": true,
+            "type": "string"
+          },
           "clusterID": {
             "description": "The ID of the cloud cluster the resource belongs.",
             "example": "https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
@@ -33,6 +38,16 @@
             "readOnly": true,
             "type": "array"
           },
+          "k8sID": {
+            "description": "The formed k8s resource ID of resource.",
+            "example": "k8s:my-namespace:service:my-service:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
+            "type": "string"
+          },
+          "k8sNamespace": {
+            "description": "The k8s Namespace of the resource.",
+            "example": "my-namespace",
+            "type": "string"
+          },
           "kind": {
             "default": "Pending",
             "description": "The specific kind of the k8s resource.",
@@ -43,14 +58,21 @@
               "ReplicaSet",
               "StatefulSet",
               "DaemonSet",
-              "Namespace",
               "NetworkPolicy",
               "Cluster",
               "Service",
-              "EndpointSlice"
+              "Endpoints"
             ],
             "example": "Service",
             "readOnly": true
+          },
+          "labels": {
+            "description": "Key value label pairs for k8s resources.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true,
+            "type": "array"
           },
           "name": {
             "description": "The name of the resource.",
@@ -62,9 +84,19 @@
             "readOnly": true,
             "type": "string"
           },
+          "prismaRegion": {
+            "description": "The region this resource exists in according to PrismaCloud.",
+            "example": "us-east-1",
+            "type": "string"
+          },
           "prismaUnifiedAssetID": {
             "description": "The Prisma Cloud Unified Asset ID.",
             "example": "4b882952f1a26c8a3ce16ee90af3cac9",
+            "type": "string"
+          },
+          "uid": {
+            "description": "The k8s UID of the resource.",
+            "example": "abc",
             "type": "string"
           },
           "updateTime": {
@@ -76,7 +108,9 @@
         },
         "required": [
           "clusterID",
-          "data"
+          "data",
+          "k8sID",
+          "k8sNamespace"
         ],
         "type": "object"
       }
