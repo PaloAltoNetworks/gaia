@@ -774,6 +774,10 @@ relations:
   create:
     description: Internal API to issue service tokens.
 
+- rest_name: k8sresourcerefresh
+  create:
+    description: Trigger a kubernetes resource refresh.
+
 - rest_name: kubernetescluster
   get:
     description: Retrieves the list of Kubernetes clusters.
