@@ -162,7 +162,7 @@ func (o *K8sResourceRefresh) DefaultOrder() []string {
 func (o *K8sResourceRefresh) Doc() string {
 
 	return `When requested, k8s resources will start the process of pulling down all
-kubernetes reosurces from PrismaCloud.`
+Kubernetes resources from PrismaCloud.`
 }
 
 func (o *K8sResourceRefresh) String() string {

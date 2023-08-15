@@ -7,4 +7,4 @@ model:
   group: pcn/infrastructure
   description: |-
     When requested, k8s resources will start the process of pulling down all
-    kubernetes reosurces from PrismaCloud.
+    Kubernetes resources from PrismaCloud.

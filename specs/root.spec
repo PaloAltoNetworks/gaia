@@ -776,7 +776,7 @@ relations:
 
 - rest_name: k8sresourcerefresh
   create:
-    description: Trigger a kubernetes resource refresh.
+    description: Trigger a Kubernetes resource refresh.
 
 - rest_name: kubernetescluster
   get:

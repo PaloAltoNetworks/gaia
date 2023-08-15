@@ -15472,7 +15472,7 @@ The ID of the cloud account the resource belongs.
 
 ##### `annotations`
 
-Type: `[]string`
+Type: `map[string]string`
 
 Key value annotation pairs for k8s resources.
 
@@ -15514,13 +15514,13 @@ The k8s Namespace of the resource.
 
 ##### `kind` [`required`]
 
-Type: `enum(Cluster | DaemonSet | Deployment | Endpoints | NetworkPolicy | Node | ReplicaSet | Service | StatefulSet)`
+Type: `enum(Cluster | DaemonSet | Deployment | Endpoints | Namespace | NetworkPolicy | Node | ReplicaSet | Service | StatefulSet)`
 
 The specific kind of the k8s resource.
 
 ##### `labels`
 
-Type: `[]string`
+Type: `map[string]string`
 
 Key value label pairs for k8s resources.
 
@@ -15563,13 +15563,13 @@ Last update date of the object.
 ### K8sResourceRefresh
 
 When requested, k8s resources will start the process of pulling down all
-kubernetes reosurces from PrismaCloud.
+Kubernetes resources from PrismaCloud.
 
 #### Relations
 
 ##### `POST /k8sresourceRefreshes`
 
-Trigger a kubernetes resource refresh.
+Trigger a Kubernetes resource refresh.
 
 ### PollAccount
 

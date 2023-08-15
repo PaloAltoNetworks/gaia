@@ -10,9 +10,16 @@
             "type": "string"
           },
           "accountID": {
-            "description": "The 12 digit ID of the AWS account the resource belongs.",
-            "readOnly": true,
+            "description": "The ID of the cloud account the resource belongs.",
+            "example": 912303033456,
             "type": "string"
+          },
+          "annotations": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "description": "Key value annotation pairs for k8s resources.",
+            "type": "object"
           },
           "clusterID": {
             "description": "The ID of the cloud cluster the resource belongs.",
@@ -49,30 +56,27 @@
             "type": "string"
           },
           "kind": {
-            "default": "Pending",
             "description": "The specific kind of the k8s resource.",
             "enum": [
-              "Pending",
-              "Pod",
-              "Deployment",
-              "ReplicaSet",
-              "StatefulSet",
-              "DaemonSet",
-              "NetworkPolicy",
               "Cluster",
+              "DaemonSet",
+              "Deployment",
+              "Endpoints",
+              "Namespace",
+              "NetworkPolicy",
+              "Node",
+              "ReplicaSet",
               "Service",
-              "Endpoints"
+              "StatefulSet"
             ],
-            "example": "Service",
-            "readOnly": true
+            "example": "DaemonSet"
           },
           "labels": {
-            "description": "Key value label pairs for k8s resources.",
-            "items": {
+            "additionalProperties": {
               "type": "string"
             },
-            "readOnly": true,
-            "type": "array"
+            "description": "Key value label pairs for k8s resources.",
+            "type": "object"
           },
           "name": {
             "description": "The name of the resource.",
@@ -107,10 +111,11 @@
           }
         },
         "required": [
+          "accountID",
           "clusterID",
           "data",
           "k8sID",
-          "k8sNamespace"
+          "kind"
         ],
         "type": "object"
       }

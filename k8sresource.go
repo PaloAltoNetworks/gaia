@@ -28,6 +28,9 @@ const (
 	// K8sResourceKindEndpoints represents the value Endpoints.
 	K8sResourceKindEndpoints K8sResourceKindValue = "Endpoints"
 
+	// K8sResourceKindNamespace represents the value Namespace.
+	K8sResourceKindNamespace K8sResourceKindValue = "Namespace"
+
 	// K8sResourceKindNetworkPolicy represents the value NetworkPolicy.
 	K8sResourceKindNetworkPolicy K8sResourceKindValue = "NetworkPolicy"
 
@@ -123,7 +126,7 @@ type K8sResource struct {
 	AccountID string `json:"accountID" msgpack:"accountID" bson:"accountid" mapstructure:"accountID,omitempty"`
 
 	// Key value annotation pairs for k8s resources.
-	Annotations []string `json:"annotations" msgpack:"annotations" bson:"annotations" mapstructure:"annotations,omitempty"`
+	Annotations map[string]string `json:"annotations,omitempty" msgpack:"annotations,omitempty" bson:"annotations,omitempty" mapstructure:"annotations,omitempty"`
 
 	// The ID of the cloud cluster the resource belongs.
 	ClusterID string `json:"clusterID" msgpack:"clusterID" bson:"clusterid" mapstructure:"clusterID,omitempty"`
@@ -135,37 +138,37 @@ type K8sResource struct {
 	Data []byte `json:"data" msgpack:"data" bson:"data" mapstructure:"data,omitempty"`
 
 	// Contextual values that can be used to narrow searching of resources.
-	DenormedFields []string `json:"denormedFields" msgpack:"denormedFields" bson:"denormedfields" mapstructure:"denormedFields,omitempty"`
+	DenormedFields []string `json:"denormedFields,omitempty" msgpack:"denormedFields,omitempty" bson:"denormedfields,omitempty" mapstructure:"denormedFields,omitempty"`
 
 	// The formed k8s resource ID of resource.
 	K8sID string `json:"k8sID" msgpack:"k8sID" bson:"k8sid" mapstructure:"k8sID,omitempty"`
 
 	// The k8s Namespace of the resource.
-	K8sNamespace string `json:"k8sNamespace" msgpack:"k8sNamespace" bson:"k8snamespace" mapstructure:"k8sNamespace,omitempty"`
+	K8sNamespace string `json:"k8sNamespace,omitempty" msgpack:"k8sNamespace,omitempty" bson:"k8snamespace,omitempty" mapstructure:"k8sNamespace,omitempty"`
 
 	// The specific kind of the k8s resource.
 	Kind K8sResourceKindValue `json:"kind" msgpack:"kind" bson:"kind" mapstructure:"kind,omitempty"`
 
 	// Key value label pairs for k8s resources.
-	Labels []string `json:"labels" msgpack:"labels" bson:"labels" mapstructure:"labels,omitempty"`
+	Labels map[string]string `json:"labels,omitempty" msgpack:"labels,omitempty" bson:"labels,omitempty" mapstructure:"labels,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
 	// The name of the resource.
-	Name string `json:"name" msgpack:"name" bson:"name" mapstructure:"name,omitempty"`
+	Name string `json:"name,omitempty" msgpack:"name,omitempty" bson:"name,omitempty" mapstructure:"name,omitempty"`
 
 	// Namespace tag attached to an entity.
 	Namespace string `json:"namespace" msgpack:"namespace" bson:"namespace" mapstructure:"namespace,omitempty"`
 
 	// The region this resource exists in according to PrismaCloud.
-	PrismaRegion string `json:"prismaRegion" msgpack:"prismaRegion" bson:"prismaregion" mapstructure:"prismaRegion,omitempty"`
+	PrismaRegion string `json:"prismaRegion,omitempty" msgpack:"prismaRegion,omitempty" bson:"prismaregion,omitempty" mapstructure:"prismaRegion,omitempty"`
 
 	// The Prisma Cloud Unified Asset ID.
-	PrismaUnifiedAssetID string `json:"prismaUnifiedAssetID" msgpack:"prismaUnifiedAssetID" bson:"prismaunifiedassetid" mapstructure:"prismaUnifiedAssetID,omitempty"`
+	PrismaUnifiedAssetID string `json:"prismaUnifiedAssetID,omitempty" msgpack:"prismaUnifiedAssetID,omitempty" bson:"prismaunifiedassetid,omitempty" mapstructure:"prismaUnifiedAssetID,omitempty"`
 
 	// The k8s UID of the resource.
-	Uid string `json:"uid" msgpack:"uid" bson:"uid" mapstructure:"uid,omitempty"`
+	Uid string `json:"uid,omitempty" msgpack:"uid,omitempty" bson:"uid,omitempty" mapstructure:"uid,omitempty"`
 
 	// Last update date of the object.
 	UpdateTime time.Time `json:"updateTime" msgpack:"updateTime" bson:"updatetime" mapstructure:"updateTime,omitempty"`
@@ -185,10 +188,10 @@ func NewK8sResource() *K8sResource {
 
 	return &K8sResource{
 		ModelVersion:   1,
-		Annotations:    []string{},
+		Annotations:    map[string]string{},
 		Data:           []byte{},
 		DenormedFields: []string{},
-		Labels:         []string{},
+		Labels:         map[string]string{},
 		MigrationsLog:  map[string]string{},
 	}
 }
@@ -583,7 +586,7 @@ func (o *K8sResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Cluster", "DaemonSet", "Deployment", "Endpoints", "NetworkPolicy", "Node", "ReplicaSet", "Service", "StatefulSet"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Cluster", "DaemonSet", "Deployment", "Endpoints", "Namespace", "NetworkPolicy", "Node", "ReplicaSet", "Service", "StatefulSet"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -702,8 +705,8 @@ var K8sResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Exposed:        true,
 		Name:           "annotations",
 		Stored:         true,
-		SubType:        "string",
-		Type:           "list",
+		SubType:        "map[string]string",
+		Type:           "external",
 	},
 	"ClusterID": {
 		AllowedChoices: []string{},
@@ -778,7 +781,7 @@ var K8sResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "string",
 	},
 	"Kind": {
-		AllowedChoices: []string{"Cluster", "DaemonSet", "Deployment", "Endpoints", "NetworkPolicy", "Node", "ReplicaSet", "Service", "StatefulSet"},
+		AllowedChoices: []string{"Cluster", "DaemonSet", "Deployment", "Endpoints", "Namespace", "NetworkPolicy", "Node", "ReplicaSet", "Service", "StatefulSet"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the k8s resource.`,
@@ -796,8 +799,8 @@ var K8sResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Exposed:        true,
 		Name:           "labels",
 		Stored:         true,
-		SubType:        "string",
-		Type:           "list",
+		SubType:        "map[string]string",
+		Type:           "external",
 	},
 	"MigrationsLog": {
 		AllowedChoices: []string{},
@@ -948,8 +951,8 @@ var K8sResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Exposed:        true,
 		Name:           "annotations",
 		Stored:         true,
-		SubType:        "string",
-		Type:           "list",
+		SubType:        "map[string]string",
+		Type:           "external",
 	},
 	"clusterid": {
 		AllowedChoices: []string{},
@@ -1024,7 +1027,7 @@ var K8sResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Type:           "string",
 	},
 	"kind": {
-		AllowedChoices: []string{"Cluster", "DaemonSet", "Deployment", "Endpoints", "NetworkPolicy", "Node", "ReplicaSet", "Service", "StatefulSet"},
+		AllowedChoices: []string{"Cluster", "DaemonSet", "Deployment", "Endpoints", "Namespace", "NetworkPolicy", "Node", "ReplicaSet", "Service", "StatefulSet"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the k8s resource.`,
@@ -1042,8 +1045,8 @@ var K8sResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Exposed:        true,
 		Name:           "labels",
 		Stored:         true,
-		SubType:        "string",
-		Type:           "list",
+		SubType:        "map[string]string",
+		Type:           "external",
 	},
 	"migrationslog": {
 		AllowedChoices: []string{},
@@ -1228,7 +1231,7 @@ type SparseK8sResource struct {
 	AccountID *string `json:"accountID,omitempty" msgpack:"accountID,omitempty" bson:"accountid,omitempty" mapstructure:"accountID,omitempty"`
 
 	// Key value annotation pairs for k8s resources.
-	Annotations *[]string `json:"annotations,omitempty" msgpack:"annotations,omitempty" bson:"annotations,omitempty" mapstructure:"annotations,omitempty"`
+	Annotations *map[string]string `json:"annotations,omitempty" msgpack:"annotations,omitempty" bson:"annotations,omitempty" mapstructure:"annotations,omitempty"`
 
 	// The ID of the cloud cluster the resource belongs.
 	ClusterID *string `json:"clusterID,omitempty" msgpack:"clusterID,omitempty" bson:"clusterid,omitempty" mapstructure:"clusterID,omitempty"`
@@ -1252,7 +1255,7 @@ type SparseK8sResource struct {
 	Kind *K8sResourceKindValue `json:"kind,omitempty" msgpack:"kind,omitempty" bson:"kind,omitempty" mapstructure:"kind,omitempty"`
 
 	// Key value label pairs for k8s resources.
-	Labels *[]string `json:"labels,omitempty" msgpack:"labels,omitempty" bson:"labels,omitempty" mapstructure:"labels,omitempty"`
+	Labels *map[string]string `json:"labels,omitempty" msgpack:"labels,omitempty" bson:"labels,omitempty" mapstructure:"labels,omitempty"`
 
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
@@ -1662,21 +1665,21 @@ func (o *SparseK8sResource) DeepCopyInto(out *SparseK8sResource) {
 type mongoAttributesK8sResource struct {
 	ID                   bson.ObjectId        `bson:"_id,omitempty"`
 	AccountID            string               `bson:"accountid"`
-	Annotations          []string             `bson:"annotations"`
+	Annotations          map[string]string    `bson:"annotations,omitempty"`
 	ClusterID            string               `bson:"clusterid"`
 	CreateTime           time.Time            `bson:"createtime"`
 	Data                 []byte               `bson:"data"`
-	DenormedFields       []string             `bson:"denormedfields"`
+	DenormedFields       []string             `bson:"denormedfields,omitempty"`
 	K8sID                string               `bson:"k8sid"`
-	K8sNamespace         string               `bson:"k8snamespace"`
+	K8sNamespace         string               `bson:"k8snamespace,omitempty"`
 	Kind                 K8sResourceKindValue `bson:"kind"`
-	Labels               []string             `bson:"labels"`
+	Labels               map[string]string    `bson:"labels,omitempty"`
 	MigrationsLog        map[string]string    `bson:"migrationslog,omitempty"`
-	Name                 string               `bson:"name"`
+	Name                 string               `bson:"name,omitempty"`
 	Namespace            string               `bson:"namespace"`
-	PrismaRegion         string               `bson:"prismaregion"`
-	PrismaUnifiedAssetID string               `bson:"prismaunifiedassetid"`
-	Uid                  string               `bson:"uid"`
+	PrismaRegion         string               `bson:"prismaregion,omitempty"`
+	PrismaUnifiedAssetID string               `bson:"prismaunifiedassetid,omitempty"`
+	Uid                  string               `bson:"uid,omitempty"`
 	UpdateTime           time.Time            `bson:"updatetime"`
 	ZHash                int                  `bson:"zhash"`
 	Zone                 int                  `bson:"zone"`
@@ -1684,7 +1687,7 @@ type mongoAttributesK8sResource struct {
 type mongoAttributesSparseK8sResource struct {
 	ID                   bson.ObjectId         `bson:"_id,omitempty"`
 	AccountID            *string               `bson:"accountid,omitempty"`
-	Annotations          *[]string             `bson:"annotations,omitempty"`
+	Annotations          *map[string]string    `bson:"annotations,omitempty"`
 	ClusterID            *string               `bson:"clusterid,omitempty"`
 	CreateTime           *time.Time            `bson:"createtime,omitempty"`
 	Data                 *[]byte               `bson:"data,omitempty"`
@@ -1692,7 +1695,7 @@ type mongoAttributesSparseK8sResource struct {
 	K8sID                *string               `bson:"k8sid,omitempty"`
 	K8sNamespace         *string               `bson:"k8snamespace,omitempty"`
 	Kind                 *K8sResourceKindValue `bson:"kind,omitempty"`
-	Labels               *[]string             `bson:"labels,omitempty"`
+	Labels               *map[string]string    `bson:"labels,omitempty"`
 	MigrationsLog        *map[string]string    `bson:"migrationslog,omitempty"`
 	Name                 *string               `bson:"name,omitempty"`
 	Namespace            *string               `bson:"namespace,omitempty"`
