@@ -61,7 +61,7 @@ attributes:
     exposed: true
     stored: true
     required: true
-    example_value: k8s:my-namespace:service:my-service:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster
+    example_value: k8s:my-namespace:service:my-service:gcp:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster
 
   - name: k8sNamespace
     description: The k8s Namespace of the resource.

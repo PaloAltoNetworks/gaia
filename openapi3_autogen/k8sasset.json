@@ -51,7 +51,7 @@
           },
           "k8sID": {
             "description": "The formed k8s resource ID of resource.",
-            "example": "k8s:my-namespace:service:my-service:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
+            "example": "k8s:my-namespace:service:my-service:gcp:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
             "type": "string"
           },
           "k8sNamespace": {

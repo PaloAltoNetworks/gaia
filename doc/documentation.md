@@ -15446,7 +15446,7 @@ Represents a read-only K8s resource such as a service.
   \"kind\": \"Service\",
   ...
 }",
-  "k8sID": "k8s:my-namespace:service:my-service:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
+  "k8sID": "k8s:my-namespace:service:my-service:gcp:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
   "k8sNamespace": "my-namespace",
   "kind": "Service",
   "name": "abc",
