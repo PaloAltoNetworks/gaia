@@ -47,6 +47,7 @@
               "LoadBalancer",
               "BackendAddressPool",
               "OutboundRule",
+              "RouteTable",
               "FrontendIPConfiguration",
               "DatabaseAccount",
               "FlexibleServer",
