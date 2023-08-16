@@ -22,7 +22,7 @@
   },
   "openapi": "3.0.3",
   "paths": {
-    "/k8sresourceRefreshes": {
+    "/k8sresourcerefreshes": {
       "post": {
         "description": "Trigger a Kubernetes resource refresh.",
         "operationId": "create-a-new-k8sresourcerefresh",

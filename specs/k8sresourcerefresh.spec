@@ -1,7 +1,7 @@
 # Model
 model:
   rest_name: k8sresourcerefresh
-  resource_name: k8sresourceRefreshes
+  resource_name: k8sresourcerefreshes
   entity_name: K8sResourceRefresh
   package: pandemona
   group: pcn/infrastructure

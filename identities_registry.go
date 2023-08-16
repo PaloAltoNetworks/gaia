@@ -353,7 +353,7 @@ var (
 
 		"k8sassets":            K8sAssetIdentity,
 		"k8sresources":         K8sResourceIdentity,
-		"k8sresourceRefreshes": K8sResourceRefreshIdentity,
+		"k8sresourcerefreshes": K8sResourceRefreshIdentity,
 		"kubernetesclusters":   KubernetesClusterIdentity,
 		"ldapproviders":        LDAPProviderIdentity,
 		"localcas":             LocalCAIdentity,

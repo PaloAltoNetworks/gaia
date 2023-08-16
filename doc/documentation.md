@@ -15567,7 +15567,7 @@ Kubernetes resources from PrismaCloud.
 
 #### Relations
 
-##### `POST /k8sresourceRefreshes`
+##### `POST /k8sresourcerefreshes`
 
 Trigger a Kubernetes resource refresh.
 

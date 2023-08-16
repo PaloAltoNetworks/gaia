@@ -14,7 +14,7 @@ import (
 // K8sResourceRefreshIdentity represents the Identity of the object.
 var K8sResourceRefreshIdentity = elemental.Identity{
 	Name:     "k8sresourcerefresh",
-	Category: "k8sresourceRefreshes",
+	Category: "k8sresourcerefreshes",
 	Package:  "pandemona",
 	Private:  false,
 }
