@@ -114,4 +114,5 @@ attributes:
     - K8sNode
     - K8sService
     - K8sNamespace
+    - K8sPod
     example_value: Endpoint

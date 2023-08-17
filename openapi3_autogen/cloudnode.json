@@ -169,7 +169,8 @@
               "ScaleGroup",
               "K8sNode",
               "K8sService",
-              "K8sNamespace"
+              "K8sNamespace",
+              "K8sPod"
             ],
             "example": "Endpoint"
           },
