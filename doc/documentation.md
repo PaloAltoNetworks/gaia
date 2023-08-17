@@ -15529,13 +15529,14 @@ Represents a read-only K8s resource such as a service.
 
 ```json
 {
+  "cloudProvider": "GCP",
   "clusterID": "https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
   "data": "{
   \"apiVersion\": \"v1\",
   \"kind\": \"Service\",
   ...
 }",
-  "k8sID": "k8s:my-namespace:service:my-service:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
+  "k8sID": "k8s:my-namespace:service:my-service:gcp:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
   "k8sNamespace": "my-namespace",
   "kind": "Service",
   "name": "abc",
@@ -15558,6 +15559,18 @@ Identifier of the object.
 Type: `string`
 
 The 12 digit ID of the AWS account the resource belongs.
+
+##### `cloudProvider` [`required`]
+
+Type: `enum(AWS | Azure | GCP | Other)`
+
+The cloud provider of the k8s resource.
+
+Default value:
+
+```json
+"Other"
+```
 
 ##### `clusterID` [`required`]
 

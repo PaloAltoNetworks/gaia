@@ -12,6 +12,23 @@ import (
 	"go.aporeto.io/elemental"
 )
 
+// K8sResourceCloudProviderValue represents the possible values for attribute "cloudProvider".
+type K8sResourceCloudProviderValue string
+
+const (
+	// K8sResourceCloudProviderAWS represents the value AWS.
+	K8sResourceCloudProviderAWS K8sResourceCloudProviderValue = "AWS"
+
+	// K8sResourceCloudProviderAzure represents the value Azure.
+	K8sResourceCloudProviderAzure K8sResourceCloudProviderValue = "Azure"
+
+	// K8sResourceCloudProviderGCP represents the value GCP.
+	K8sResourceCloudProviderGCP K8sResourceCloudProviderValue = "GCP"
+
+	// K8sResourceCloudProviderOther represents the value Other.
+	K8sResourceCloudProviderOther K8sResourceCloudProviderValue = "Other"
+)
+
 // K8sResourceKindValue represents the possible values for attribute "kind".
 type K8sResourceKindValue string
 
@@ -125,6 +142,9 @@ type K8sResource struct {
 	// The 12 digit ID of the AWS account the resource belongs.
 	AccountID string `json:"accountID,omitempty" msgpack:"accountID,omitempty" bson:"accountid,omitempty" mapstructure:"accountID,omitempty"`
 
+	// The cloud provider of the k8s resource.
+	CloudProvider K8sResourceCloudProviderValue `json:"cloudProvider" msgpack:"cloudProvider" bson:"cloudprovider" mapstructure:"cloudProvider,omitempty"`
+
 	// The ID of the cloud cluster the resource belongs.
 	ClusterID string `json:"clusterID" msgpack:"clusterID" bson:"clusterid" mapstructure:"clusterID,omitempty"`
 
@@ -188,6 +208,7 @@ func NewK8sResource() *K8sResource {
 
 	return &K8sResource{
 		ModelVersion:   1,
+		CloudProvider:  K8sResourceCloudProviderOther,
 		Data:           []byte{},
 		DenormedFields: []string{},
 		EmbededLabels:  map[string]string{},
@@ -229,6 +250,7 @@ func (o *K8sResource) GetBSON() (any, error) {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
 	s.AccountID = o.AccountID
+	s.CloudProvider = o.CloudProvider
 	s.ClusterID = o.ClusterID
 	s.CreateTime = o.CreateTime
 	s.Data = o.Data
@@ -266,6 +288,7 @@ func (o *K8sResource) SetBSON(raw bson.Raw) error {
 
 	o.ID = s.ID.Hex()
 	o.AccountID = s.AccountID
+	o.CloudProvider = s.CloudProvider
 	o.ClusterID = s.ClusterID
 	o.CreateTime = s.CreateTime
 	o.Data = s.Data
@@ -398,6 +421,7 @@ func (o *K8sResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 		return &SparseK8sResource{
 			ID:                   &o.ID,
 			AccountID:            &o.AccountID,
+			CloudProvider:        &o.CloudProvider,
 			ClusterID:            &o.ClusterID,
 			CreateTime:           &o.CreateTime,
 			Data:                 &o.Data,
@@ -426,6 +450,8 @@ func (o *K8sResource) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.ID = &(o.ID)
 		case "accountID":
 			sp.AccountID = &(o.AccountID)
+		case "cloudProvider":
+			sp.CloudProvider = &(o.CloudProvider)
 		case "clusterID":
 			sp.ClusterID = &(o.ClusterID)
 		case "createTime":
@@ -480,6 +506,9 @@ func (o *K8sResource) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.AccountID != nil {
 		o.AccountID = *so.AccountID
+	}
+	if so.CloudProvider != nil {
+		o.CloudProvider = *so.CloudProvider
 	}
 	if so.ClusterID != nil {
 		o.ClusterID = *so.ClusterID
@@ -567,6 +596,14 @@ func (o *K8sResource) Validate() error {
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
 
+	if err := elemental.ValidateRequiredString("cloudProvider", string(o.CloudProvider)); err != nil {
+		requiredErrors = requiredErrors.Append(err)
+	}
+
+	if err := elemental.ValidateStringInList("cloudProvider", string(o.CloudProvider), []string{"AWS", "Azure", "GCP", "Other"}, false); err != nil {
+		errors = errors.Append(err)
+	}
+
 	if err := elemental.ValidateRequiredString("clusterID", o.ClusterID); err != nil {
 		requiredErrors = requiredErrors.Append(err)
 	}
@@ -625,6 +662,8 @@ func (o *K8sResource) ValueForAttribute(name string) any {
 		return o.ID
 	case "accountID":
 		return o.AccountID
+	case "cloudProvider":
+		return o.CloudProvider
 	case "clusterID":
 		return o.ClusterID
 	case "createTime":
@@ -694,6 +733,18 @@ var K8sResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"CloudProvider": {
+		AllowedChoices: []string{"AWS", "Azure", "GCP", "Other"},
+		BSONFieldName:  "cloudprovider",
+		ConvertedName:  "CloudProvider",
+		DefaultValue:   K8sResourceCloudProviderOther,
+		Description:    `The cloud provider of the k8s resource.`,
+		Exposed:        true,
+		Name:           "cloudProvider",
+		Required:       true,
+		Stored:         true,
+		Type:           "enum",
 	},
 	"ClusterID": {
 		AllowedChoices: []string{},
@@ -946,6 +997,18 @@ var K8sResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		ReadOnly:       true,
 		Stored:         true,
 		Type:           "string",
+	},
+	"cloudprovider": {
+		AllowedChoices: []string{"AWS", "Azure", "GCP", "Other"},
+		BSONFieldName:  "cloudprovider",
+		ConvertedName:  "CloudProvider",
+		DefaultValue:   K8sResourceCloudProviderOther,
+		Description:    `The cloud provider of the k8s resource.`,
+		Exposed:        true,
+		Name:           "cloudProvider",
+		Required:       true,
+		Stored:         true,
+		Type:           "enum",
 	},
 	"clusterid": {
 		AllowedChoices: []string{},
@@ -1239,6 +1302,9 @@ type SparseK8sResource struct {
 	// The 12 digit ID of the AWS account the resource belongs.
 	AccountID *string `json:"accountID,omitempty" msgpack:"accountID,omitempty" bson:"accountid,omitempty" mapstructure:"accountID,omitempty"`
 
+	// The cloud provider of the k8s resource.
+	CloudProvider *K8sResourceCloudProviderValue `json:"cloudProvider,omitempty" msgpack:"cloudProvider,omitempty" bson:"cloudprovider,omitempty" mapstructure:"cloudProvider,omitempty"`
+
 	// The ID of the cloud cluster the resource belongs.
 	ClusterID *string `json:"clusterID,omitempty" msgpack:"clusterID,omitempty" bson:"clusterid,omitempty" mapstructure:"clusterID,omitempty"`
 
@@ -1343,6 +1409,9 @@ func (o *SparseK8sResource) GetBSON() (any, error) {
 	if o.AccountID != nil {
 		s.AccountID = o.AccountID
 	}
+	if o.CloudProvider != nil {
+		s.CloudProvider = o.CloudProvider
+	}
 	if o.ClusterID != nil {
 		s.ClusterID = o.ClusterID
 	}
@@ -1419,6 +1488,9 @@ func (o *SparseK8sResource) SetBSON(raw bson.Raw) error {
 	if s.AccountID != nil {
 		o.AccountID = s.AccountID
 	}
+	if s.CloudProvider != nil {
+		o.CloudProvider = s.CloudProvider
+	}
 	if s.ClusterID != nil {
 		o.ClusterID = s.ClusterID
 	}
@@ -1492,6 +1564,9 @@ func (o *SparseK8sResource) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.AccountID != nil {
 		out.AccountID = *o.AccountID
+	}
+	if o.CloudProvider != nil {
+		out.CloudProvider = *o.CloudProvider
 	}
 	if o.ClusterID != nil {
 		out.ClusterID = *o.ClusterID
@@ -1672,46 +1747,48 @@ func (o *SparseK8sResource) DeepCopyInto(out *SparseK8sResource) {
 }
 
 type mongoAttributesK8sResource struct {
-	ID                   bson.ObjectId        `bson:"_id,omitempty"`
-	AccountID            string               `bson:"accountid,omitempty"`
-	ClusterID            string               `bson:"clusterid"`
-	CreateTime           time.Time            `bson:"createtime"`
-	Data                 []byte               `bson:"data"`
-	DenormedFields       []string             `bson:"denormedfields"`
-	EmbededLabels        map[string]string    `bson:"embededlabels,omitempty"`
-	K8sID                string               `bson:"k8sid"`
-	K8sNamespace         string               `bson:"k8snamespace"`
-	Kind                 K8sResourceKindValue `bson:"kind"`
-	Labels               []string             `bson:"labels"`
-	MigrationsLog        map[string]string    `bson:"migrationslog,omitempty"`
-	Name                 string               `bson:"name"`
-	Namespace            string               `bson:"namespace"`
-	PrismaRegion         string               `bson:"prismaregion"`
-	PrismaUnifiedAssetID string               `bson:"prismaunifiedassetid"`
-	Uid                  string               `bson:"uid"`
-	UpdateTime           time.Time            `bson:"updatetime"`
-	ZHash                int                  `bson:"zhash"`
-	Zone                 int                  `bson:"zone"`
+	ID                   bson.ObjectId                 `bson:"_id,omitempty"`
+	AccountID            string                        `bson:"accountid,omitempty"`
+	CloudProvider        K8sResourceCloudProviderValue `bson:"cloudprovider"`
+	ClusterID            string                        `bson:"clusterid"`
+	CreateTime           time.Time                     `bson:"createtime"`
+	Data                 []byte                        `bson:"data"`
+	DenormedFields       []string                      `bson:"denormedfields"`
+	EmbededLabels        map[string]string             `bson:"embededlabels,omitempty"`
+	K8sID                string                        `bson:"k8sid"`
+	K8sNamespace         string                        `bson:"k8snamespace"`
+	Kind                 K8sResourceKindValue          `bson:"kind"`
+	Labels               []string                      `bson:"labels"`
+	MigrationsLog        map[string]string             `bson:"migrationslog,omitempty"`
+	Name                 string                        `bson:"name"`
+	Namespace            string                        `bson:"namespace"`
+	PrismaRegion         string                        `bson:"prismaregion"`
+	PrismaUnifiedAssetID string                        `bson:"prismaunifiedassetid"`
+	Uid                  string                        `bson:"uid"`
+	UpdateTime           time.Time                     `bson:"updatetime"`
+	ZHash                int                           `bson:"zhash"`
+	Zone                 int                           `bson:"zone"`
 }
 type mongoAttributesSparseK8sResource struct {
-	ID                   bson.ObjectId         `bson:"_id,omitempty"`
-	AccountID            *string               `bson:"accountid,omitempty"`
-	ClusterID            *string               `bson:"clusterid,omitempty"`
-	CreateTime           *time.Time            `bson:"createtime,omitempty"`
-	Data                 *[]byte               `bson:"data,omitempty"`
-	DenormedFields       *[]string             `bson:"denormedfields,omitempty"`
-	EmbededLabels        *map[string]string    `bson:"embededlabels,omitempty"`
-	K8sID                *string               `bson:"k8sid,omitempty"`
-	K8sNamespace         *string               `bson:"k8snamespace,omitempty"`
-	Kind                 *K8sResourceKindValue `bson:"kind,omitempty"`
-	Labels               *[]string             `bson:"labels,omitempty"`
-	MigrationsLog        *map[string]string    `bson:"migrationslog,omitempty"`
-	Name                 *string               `bson:"name,omitempty"`
-	Namespace            *string               `bson:"namespace,omitempty"`
-	PrismaRegion         *string               `bson:"prismaregion,omitempty"`
-	PrismaUnifiedAssetID *string               `bson:"prismaunifiedassetid,omitempty"`
-	Uid                  *string               `bson:"uid,omitempty"`
-	UpdateTime           *time.Time            `bson:"updatetime,omitempty"`
-	ZHash                *int                  `bson:"zhash,omitempty"`
-	Zone                 *int                  `bson:"zone,omitempty"`
+	ID                   bson.ObjectId                  `bson:"_id,omitempty"`
+	AccountID            *string                        `bson:"accountid,omitempty"`
+	CloudProvider        *K8sResourceCloudProviderValue `bson:"cloudprovider,omitempty"`
+	ClusterID            *string                        `bson:"clusterid,omitempty"`
+	CreateTime           *time.Time                     `bson:"createtime,omitempty"`
+	Data                 *[]byte                        `bson:"data,omitempty"`
+	DenormedFields       *[]string                      `bson:"denormedfields,omitempty"`
+	EmbededLabels        *map[string]string             `bson:"embededlabels,omitempty"`
+	K8sID                *string                        `bson:"k8sid,omitempty"`
+	K8sNamespace         *string                        `bson:"k8snamespace,omitempty"`
+	Kind                 *K8sResourceKindValue          `bson:"kind,omitempty"`
+	Labels               *[]string                      `bson:"labels,omitempty"`
+	MigrationsLog        *map[string]string             `bson:"migrationslog,omitempty"`
+	Name                 *string                        `bson:"name,omitempty"`
+	Namespace            *string                        `bson:"namespace,omitempty"`
+	PrismaRegion         *string                        `bson:"prismaregion,omitempty"`
+	PrismaUnifiedAssetID *string                        `bson:"prismaunifiedassetid,omitempty"`
+	Uid                  *string                        `bson:"uid,omitempty"`
+	UpdateTime           *time.Time                     `bson:"updatetime,omitempty"`
+	ZHash                *int                           `bson:"zhash,omitempty"`
+	Zone                 *int                           `bson:"zone,omitempty"`
 }
