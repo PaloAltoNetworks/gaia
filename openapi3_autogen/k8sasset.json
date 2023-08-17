@@ -72,7 +72,8 @@
               "NetworkPolicy",
               "Cluster",
               "Service",
-              "Endpoints"
+              "Endpoints",
+              "Node"
             ],
             "example": "Service",
             "readOnly": true
