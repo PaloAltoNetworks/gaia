@@ -111,4 +111,7 @@ attributes:
     - PublicIPAddress
     - ScaleSet
     - ScaleGroup
+    - K8sNode
+    - K8sService
+    - K8sNamespace
     example_value: Endpoint
