@@ -13,6 +13,22 @@ model:
 # Attributes
 attributes:
   v1:
+  - name: K8sClusterNames
+    description: The cluster name of the target resources.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
+  - name: K8sNamespaces
+    description: The cluster name of the target resources.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
   - name: VPCIDs
     description: The VPC ID of the target resources.
     type: list
@@ -120,6 +136,7 @@ attributes:
     - Service
     - ProcessingUnit
     - PaaS
+    - K8s
     default_value: Instance
 
   - name: securityTags

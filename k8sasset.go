@@ -160,6 +160,9 @@ type K8sAsset struct {
 	// Contextual values that can be used to narrow searching of resources.
 	DenormedFields []string `json:"denormedFields,omitempty" msgpack:"denormedFields,omitempty" bson:"denormedfields,omitempty" mapstructure:"denormedFields,omitempty"`
 
+	// Key value label pairs for k8s resources embedded inside other resources.
+	EmbededLabels map[string]string `json:"embededLabels,omitempty" msgpack:"embededLabels,omitempty" bson:"embededlabels,omitempty" mapstructure:"embededLabels,omitempty"`
+
 	// The formed k8s resource ID of resource.
 	K8sID string `json:"k8sID" msgpack:"k8sID" bson:"k8sid" mapstructure:"k8sID,omitempty"`
 
@@ -212,6 +215,7 @@ func NewK8sAsset() *K8sAsset {
 		CloudProvider:  K8sAssetCloudProviderOther,
 		Data:           []byte{},
 		DenormedFields: []string{},
+		EmbededLabels:  map[string]string{},
 		Labels:         map[string]string{},
 		MigrationsLog:  map[string]string{},
 	}
@@ -255,6 +259,7 @@ func (o *K8sAsset) GetBSON() (any, error) {
 	s.CreateTime = o.CreateTime
 	s.Data = o.Data
 	s.DenormedFields = o.DenormedFields
+	s.EmbededLabels = o.EmbededLabels
 	s.K8sID = o.K8sID
 	s.K8sNamespace = o.K8sNamespace
 	s.Kind = o.Kind
@@ -293,6 +298,7 @@ func (o *K8sAsset) SetBSON(raw bson.Raw) error {
 	o.CreateTime = s.CreateTime
 	o.Data = s.Data
 	o.DenormedFields = s.DenormedFields
+	o.EmbededLabels = s.EmbededLabels
 	o.K8sID = s.K8sID
 	o.K8sNamespace = s.K8sNamespace
 	o.Kind = s.Kind
@@ -426,6 +432,7 @@ func (o *K8sAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			CreateTime:           &o.CreateTime,
 			Data:                 &o.Data,
 			DenormedFields:       &o.DenormedFields,
+			EmbededLabels:        &o.EmbededLabels,
 			K8sID:                &o.K8sID,
 			K8sNamespace:         &o.K8sNamespace,
 			Kind:                 &o.Kind,
@@ -461,6 +468,8 @@ func (o *K8sAsset) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.Data = &(o.Data)
 		case "denormedFields":
 			sp.DenormedFields = &(o.DenormedFields)
+		case "embededLabels":
+			sp.EmbededLabels = &(o.EmbededLabels)
 		case "k8sID":
 			sp.K8sID = &(o.K8sID)
 		case "k8sNamespace":
@@ -523,6 +532,9 @@ func (o *K8sAsset) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.DenormedFields != nil {
 		o.DenormedFields = *so.DenormedFields
+	}
+	if so.EmbededLabels != nil {
+		o.EmbededLabels = *so.EmbededLabels
 	}
 	if so.K8sID != nil {
 		o.K8sID = *so.K8sID
@@ -677,6 +689,8 @@ func (o *K8sAsset) ValueForAttribute(name string) any {
 		return o.Data
 	case "denormedFields":
 		return o.DenormedFields
+	case "embededLabels":
+		return o.EmbededLabels
 	case "k8sID":
 		return o.K8sID
 	case "k8sNamespace":
@@ -809,6 +823,17 @@ var K8sAssetAttributesMap = map[string]elemental.AttributeSpecification{
 		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
+	},
+	"EmbededLabels": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "embededlabels",
+		ConvertedName:  "EmbededLabels",
+		Description:    `Key value label pairs for k8s resources embedded inside other resources.`,
+		Exposed:        true,
+		Name:           "embededLabels",
+		Stored:         true,
+		SubType:        "map[string]string",
+		Type:           "external",
 	},
 	"K8sID": {
 		AllowedChoices: []string{},
@@ -1068,6 +1093,17 @@ var K8sAssetLowerCaseAttributesMap = map[string]elemental.AttributeSpecification
 		SubType:        "string",
 		Type:           "list",
 	},
+	"embededlabels": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "embededlabels",
+		ConvertedName:  "EmbededLabels",
+		Description:    `Key value label pairs for k8s resources embedded inside other resources.`,
+		Exposed:        true,
+		Name:           "embededLabels",
+		Stored:         true,
+		SubType:        "map[string]string",
+		Type:           "external",
+	},
 	"k8sid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "k8sid",
@@ -1311,6 +1347,9 @@ type SparseK8sAsset struct {
 	// Contextual values that can be used to narrow searching of resources.
 	DenormedFields *[]string `json:"denormedFields,omitempty" msgpack:"denormedFields,omitempty" bson:"denormedfields,omitempty" mapstructure:"denormedFields,omitempty"`
 
+	// Key value label pairs for k8s resources embedded inside other resources.
+	EmbededLabels *map[string]string `json:"embededLabels,omitempty" msgpack:"embededLabels,omitempty" bson:"embededlabels,omitempty" mapstructure:"embededLabels,omitempty"`
+
 	// The formed k8s resource ID of resource.
 	K8sID *string `json:"k8sID,omitempty" msgpack:"k8sID,omitempty" bson:"k8sid,omitempty" mapstructure:"k8sID,omitempty"`
 
@@ -1418,6 +1457,9 @@ func (o *SparseK8sAsset) GetBSON() (any, error) {
 	if o.DenormedFields != nil {
 		s.DenormedFields = o.DenormedFields
 	}
+	if o.EmbededLabels != nil {
+		s.EmbededLabels = o.EmbededLabels
+	}
 	if o.K8sID != nil {
 		s.K8sID = o.K8sID
 	}
@@ -1497,6 +1539,9 @@ func (o *SparseK8sAsset) SetBSON(raw bson.Raw) error {
 	if s.DenormedFields != nil {
 		o.DenormedFields = s.DenormedFields
 	}
+	if s.EmbededLabels != nil {
+		o.EmbededLabels = s.EmbededLabels
+	}
 	if s.K8sID != nil {
 		o.K8sID = s.K8sID
 	}
@@ -1573,6 +1618,9 @@ func (o *SparseK8sAsset) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.DenormedFields != nil {
 		out.DenormedFields = *o.DenormedFields
+	}
+	if o.EmbededLabels != nil {
+		out.EmbededLabels = *o.EmbededLabels
 	}
 	if o.K8sID != nil {
 		out.K8sID = *o.K8sID
@@ -1746,6 +1794,7 @@ type mongoAttributesK8sAsset struct {
 	CreateTime           time.Time                  `bson:"createtime"`
 	Data                 []byte                     `bson:"data"`
 	DenormedFields       []string                   `bson:"denormedfields,omitempty"`
+	EmbededLabels        map[string]string          `bson:"embededlabels,omitempty"`
 	K8sID                string                     `bson:"k8sid"`
 	K8sNamespace         string                     `bson:"k8snamespace,omitempty"`
 	Kind                 K8sAssetKindValue          `bson:"kind"`
@@ -1769,6 +1818,7 @@ type mongoAttributesSparseK8sAsset struct {
 	CreateTime           *time.Time                  `bson:"createtime,omitempty"`
 	Data                 *[]byte                     `bson:"data,omitempty"`
 	DenormedFields       *[]string                   `bson:"denormedfields,omitempty"`
+	EmbededLabels        *map[string]string          `bson:"embededlabels,omitempty"`
 	K8sID                *string                     `bson:"k8sid,omitempty"`
 	K8sNamespace         *string                     `bson:"k8snamespace,omitempty"`
 	Kind                 *K8sAssetKindValue          `bson:"kind,omitempty"`

@@ -10860,6 +10860,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
+
 ##### `RRN`
 
 Type: `string`
@@ -11567,6 +11573,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
+
 ##### `RRN`
 
 Type: `string`
@@ -11804,6 +11816,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
+
 ##### `RRN`
 
 Type: `string`
@@ -12034,6 +12052,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
+
 ##### `RRN`
 
 Type: `string`
@@ -12258,6 +12282,12 @@ Prisma Cloud API ID (matches Prisma Cloud API ID).
 Type: `string`
 
 Identifier of the object.
+
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
 
 ##### `RRN`
 
@@ -12665,6 +12695,18 @@ permissions request.
 
 #### Attributes
 
+##### `K8sClusterNames`
+
+Type: `[]string`
+
+The cluster name of the target resources.
+
+##### `K8sNamespaces`
+
+Type: `[]string`
+
+The cluster name of the target resources.
+
 ##### `VPCIDs`
 
 Type: `[]string`
@@ -12732,7 +12774,7 @@ The status of the resource.
 
 ##### `resourceType` [`required`]
 
-Type: `enum(Instance | Interface | Service | ProcessingUnit | PaaS)`
+Type: `enum(Instance | Interface | Service | ProcessingUnit | PaaS | K8s)`
 
 The type of endpoint resource. The resource type is a mandatory field and a
 query cannot span multiple resource types.
@@ -12963,6 +13005,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
+
 ##### `RRN`
 
 Type: `string`
@@ -13188,6 +13236,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
+
 ##### `RRN`
 
 Type: `string`
@@ -13328,7 +13382,7 @@ The sub-type of the object as found in the parameters. Used for indexing.
 
 ##### `type` [`required`]
 
-Type: `enum(Endpoint | Subnet | VPC | Interface | RouteTable | NetworkRuleSet | LoadBalancer | LoadBalancerRoute | PublicIPAddress | ScaleSet | ScaleGroup)`
+Type: `enum(Endpoint | Subnet | VPC | Interface | RouteTable | NetworkRuleSet | LoadBalancer | LoadBalancerRoute | PublicIPAddress | ScaleSet | ScaleGroup | K8sNode | K8sService | K8sNamespace | K8sPod)`
 
 Type of the endpoint.
 
@@ -13568,6 +13622,12 @@ Prisma Cloud API ID (matches Prisma Cloud API ID).
 Type: `string`
 
 Identifier of the object.
+
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
 
 ##### `RRN`
 
@@ -13866,6 +13926,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
+
 ##### `RRN`
 
 Type: `string`
@@ -14057,6 +14123,12 @@ Prisma Cloud API ID (matches Prisma Cloud API ID).
 Type: `string`
 
 Identifier of the object.
+
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
 
 ##### `RRN`
 
@@ -14289,6 +14361,12 @@ Prisma Cloud API ID (matches Prisma Cloud API ID).
 Type: `string`
 
 Identifier of the object.
+
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
 
 ##### `RRN`
 
@@ -14845,6 +14923,12 @@ Type: `string`
 
 Identifier of the object.
 
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
+
 ##### `RRN`
 
 Type: `string`
@@ -15084,6 +15168,12 @@ Prisma Cloud API ID (matches Prisma Cloud API ID).
 Type: `string`
 
 Identifier of the object.
+
+##### `K8sClusterName`
+
+Type: `string`
+
+Name of the cluster.
 
 ##### `RRN`
 
@@ -15512,6 +15602,12 @@ The JSON-encoded data that represents the resource.
 Type: `[]string`
 
 Contextual values that can be used to narrow searching of resources.
+
+##### `embededLabels`
+
+Type: `map[string]string`
+
+Key value label pairs for k8s resources embedded inside other resources.
 
 ##### `k8sID` [`required`]
 

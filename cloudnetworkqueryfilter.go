@@ -21,6 +21,9 @@ const (
 	// CloudNetworkQueryFilterResourceTypeInterface represents the value Interface.
 	CloudNetworkQueryFilterResourceTypeInterface CloudNetworkQueryFilterResourceTypeValue = "Interface"
 
+	// CloudNetworkQueryFilterResourceTypeK8s represents the value K8s.
+	CloudNetworkQueryFilterResourceTypeK8s CloudNetworkQueryFilterResourceTypeValue = "K8s"
+
 	// CloudNetworkQueryFilterResourceTypePaaS represents the value PaaS.
 	CloudNetworkQueryFilterResourceTypePaaS CloudNetworkQueryFilterResourceTypeValue = "PaaS"
 
@@ -33,6 +36,12 @@ const (
 
 // CloudNetworkQueryFilter represents the model of a cloudnetworkqueryfilter
 type CloudNetworkQueryFilter struct {
+	// The cluster name of the target resources.
+	K8sClusterNames []string `json:"K8sClusterNames,omitempty" msgpack:"K8sClusterNames,omitempty" bson:"k8sclusternames,omitempty" mapstructure:"K8sClusterNames,omitempty"`
+
+	// The cluster name of the target resources.
+	K8sNamespaces []string `json:"K8sNamespaces,omitempty" msgpack:"K8sNamespaces,omitempty" bson:"k8snamespaces,omitempty" mapstructure:"K8sNamespaces,omitempty"`
+
 	// The VPC ID of the target resources.
 	VPCIDs []string `json:"VPCIDs,omitempty" msgpack:"VPCIDs,omitempty" bson:"vpcids,omitempty" mapstructure:"VPCIDs,omitempty"`
 
@@ -105,21 +114,23 @@ type CloudNetworkQueryFilter struct {
 func NewCloudNetworkQueryFilter() *CloudNetworkQueryFilter {
 
 	return &CloudNetworkQueryFilter{
-		ModelVersion:  1,
-		VPCIDs:        []string{},
-		AccountIDs:    []string{},
-		CloudTypes:    []string{},
-		ImageIDs:      []string{},
-		ObjectIDs:     []string{},
-		PaasTypes:     []string{},
-		Regions:       []string{},
-		ResourceType:  CloudNetworkQueryFilterResourceTypeInstance,
-		SecurityTags:  []string{},
-		ServiceNames:  []string{},
-		ServiceOwners: []string{},
-		ServiceTypes:  []string{},
-		Subnets:       []string{},
-		Tags:          []string{},
+		ModelVersion:    1,
+		K8sClusterNames: []string{},
+		K8sNamespaces:   []string{},
+		VPCIDs:          []string{},
+		AccountIDs:      []string{},
+		CloudTypes:      []string{},
+		ImageIDs:        []string{},
+		ObjectIDs:       []string{},
+		PaasTypes:       []string{},
+		Regions:         []string{},
+		ResourceType:    CloudNetworkQueryFilterResourceTypeInstance,
+		SecurityTags:    []string{},
+		ServiceNames:    []string{},
+		ServiceOwners:   []string{},
+		ServiceTypes:    []string{},
+		Subnets:         []string{},
+		Tags:            []string{},
 	}
 }
 
@@ -133,6 +144,8 @@ func (o *CloudNetworkQueryFilter) GetBSON() (any, error) {
 
 	s := &mongoAttributesCloudNetworkQueryFilter{}
 
+	s.K8sClusterNames = o.K8sClusterNames
+	s.K8sNamespaces = o.K8sNamespaces
 	s.VPCIDs = o.VPCIDs
 	s.AccountIDs = o.AccountIDs
 	s.CloudTypes = o.CloudTypes
@@ -167,6 +180,8 @@ func (o *CloudNetworkQueryFilter) SetBSON(raw bson.Raw) error {
 		return err
 	}
 
+	o.K8sClusterNames = s.K8sClusterNames
+	o.K8sNamespaces = s.K8sNamespaces
 	o.VPCIDs = s.VPCIDs
 	o.AccountIDs = s.AccountIDs
 	o.CloudTypes = s.CloudTypes
@@ -228,7 +243,7 @@ func (o *CloudNetworkQueryFilter) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("resourceType", string(o.ResourceType), []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS"}, false); err != nil {
+	if err := elemental.ValidateStringInList("resourceType", string(o.ResourceType), []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS", "K8s"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -266,6 +281,10 @@ func (*CloudNetworkQueryFilter) AttributeSpecifications() map[string]elemental.A
 func (o *CloudNetworkQueryFilter) ValueForAttribute(name string) any {
 
 	switch name {
+	case "K8sClusterNames":
+		return o.K8sClusterNames
+	case "K8sNamespaces":
+		return o.K8sNamespaces
 	case "VPCIDs":
 		return o.VPCIDs
 	case "accountIDs":
@@ -307,6 +326,28 @@ func (o *CloudNetworkQueryFilter) ValueForAttribute(name string) any {
 
 // CloudNetworkQueryFilterAttributesMap represents the map of attribute for CloudNetworkQueryFilter.
 var CloudNetworkQueryFilterAttributesMap = map[string]elemental.AttributeSpecification{
+	"K8sClusterNames": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8sclusternames",
+		ConvertedName:  "K8sClusterNames",
+		Description:    `The cluster name of the target resources.`,
+		Exposed:        true,
+		Name:           "K8sClusterNames",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"K8sNamespaces": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8snamespaces",
+		ConvertedName:  "K8sNamespaces",
+		Description:    `The cluster name of the target resources.`,
+		Exposed:        true,
+		Name:           "K8sNamespaces",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"VPCIDs": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "vpcids",
@@ -420,7 +461,7 @@ not apply to other resource types.`,
 		Type:           "string",
 	},
 	"ResourceType": {
-		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS"},
+		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS", "K8s"},
 		BSONFieldName:  "resourcetype",
 		ConvertedName:  "ResourceType",
 		DefaultValue:   CloudNetworkQueryFilterResourceTypeInstance,
@@ -510,6 +551,28 @@ to the tags attached to the resources in the cloud provider definitions.`,
 
 // CloudNetworkQueryFilterLowerCaseAttributesMap represents the map of attribute for CloudNetworkQueryFilter.
 var CloudNetworkQueryFilterLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"k8sclusternames": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8sclusternames",
+		ConvertedName:  "K8sClusterNames",
+		Description:    `The cluster name of the target resources.`,
+		Exposed:        true,
+		Name:           "K8sClusterNames",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"k8snamespaces": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8snamespaces",
+		ConvertedName:  "K8sNamespaces",
+		Description:    `The cluster name of the target resources.`,
+		Exposed:        true,
+		Name:           "K8sNamespaces",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
 	"vpcids": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "vpcids",
@@ -623,7 +686,7 @@ not apply to other resource types.`,
 		Type:           "string",
 	},
 	"resourcetype": {
-		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS"},
+		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS", "K8s"},
 		BSONFieldName:  "resourcetype",
 		ConvertedName:  "ResourceType",
 		DefaultValue:   CloudNetworkQueryFilterResourceTypeInstance,
@@ -712,6 +775,8 @@ to the tags attached to the resources in the cloud provider definitions.`,
 }
 
 type mongoAttributesCloudNetworkQueryFilter struct {
+	K8sClusterNames  []string                                 `bson:"k8sclusternames,omitempty"`
+	K8sNamespaces    []string                                 `bson:"k8snamespaces,omitempty"`
 	VPCIDs           []string                                 `bson:"vpcids,omitempty"`
 	AccountIDs       []string                                 `bson:"accountids,omitempty"`
 	CloudTypes       []string                                 `bson:"cloudtypes,omitempty"`

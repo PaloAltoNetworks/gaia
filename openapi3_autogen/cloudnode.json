@@ -14,6 +14,10 @@
             "readOnly": true,
             "type": "string"
           },
+          "K8sClusterName": {
+            "description": "Name of the cluster.",
+            "type": "string"
+          },
           "RRN": {
             "description": "Prisma Cloud RRN.",
             "type": "string"
@@ -162,7 +166,11 @@
               "LoadBalancerRoute",
               "PublicIPAddress",
               "ScaleSet",
-              "ScaleGroup"
+              "ScaleGroup",
+              "K8sNode",
+              "K8sService",
+              "K8sNamespace",
+              "K8sPod"
             ],
             "example": "Endpoint"
           },
