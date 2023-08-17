@@ -17,6 +17,20 @@ attributes:
     stored: true
     omit_empty: true
 
+  - name: cloudProvider
+    description: The cloud provider of the k8s resource.
+    type: enum
+    exposed: true
+    stored: true
+    required: true
+    allowed_choices:
+    - AWS
+    - Azure
+    - GCP
+    - Other
+    default_value: Other
+    example_value: GCP
+
   - name: clusterID
     description: The ID of the cloud cluster the resource belongs.
     type: string
@@ -55,7 +69,7 @@ attributes:
     exposed: true
     stored: true
     required: true
-    example_value: k8s:my-namespace:service:my-service:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster
+    example_value: k8s:my-namespace:service:my-service:gcp:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster
 
   - name: k8sNamespace
     description: The k8s Namespace of the resource.
