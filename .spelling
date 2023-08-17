@@ -258,6 +258,7 @@ JWTCertificateType
 JWTs
 K8s
 K8sAsset
+K8sResourceRefresh
 k8s
 k8s.aporeto.io
 Katacoda

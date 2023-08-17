@@ -128,15 +128,16 @@ var (
 		"issue":                    IssueIdentity,
 		"issueservicetoken":        IssueServiceTokenIdentity,
 
-		"k8sasset":          K8sAssetIdentity,
-		"k8sresource":       K8sResourceIdentity,
-		"kubernetescluster": KubernetesClusterIdentity,
-		"ldapprovider":      LDAPProviderIdentity,
-		"localca":           LocalCAIdentity,
-		"logout":            LogoutIdentity,
-		"message":           MessageIdentity,
-		"metricsquery":      MetricsQueryIdentity,
-		"metricsqueryrange": MetricsQueryRangeIdentity,
+		"k8sasset":           K8sAssetIdentity,
+		"k8sresource":        K8sResourceIdentity,
+		"k8sresourcerefresh": K8sResourceRefreshIdentity,
+		"kubernetescluster":  KubernetesClusterIdentity,
+		"ldapprovider":       LDAPProviderIdentity,
+		"localca":            LocalCAIdentity,
+		"logout":             LogoutIdentity,
+		"message":            MessageIdentity,
+		"metricsquery":       MetricsQueryIdentity,
+		"metricsqueryrange":  MetricsQueryRangeIdentity,
 
 		"namespace":              NamespaceIdentity,
 		"namespaceinfo":          NamespaceInfoIdentity,
@@ -350,15 +351,16 @@ var (
 		"issue":                      IssueIdentity,
 		"issueservicetokens":         IssueServiceTokenIdentity,
 
-		"k8sassets":          K8sAssetIdentity,
-		"k8sresources":       K8sResourceIdentity,
-		"kubernetesclusters": KubernetesClusterIdentity,
-		"ldapproviders":      LDAPProviderIdentity,
-		"localcas":           LocalCAIdentity,
-		"logout":             LogoutIdentity,
-		"messages":           MessageIdentity,
-		"metricsquery":       MetricsQueryIdentity,
-		"metricsqueryrange":  MetricsQueryRangeIdentity,
+		"k8sassets":            K8sAssetIdentity,
+		"k8sresources":         K8sResourceIdentity,
+		"k8sresourcerefreshes": K8sResourceRefreshIdentity,
+		"kubernetesclusters":   KubernetesClusterIdentity,
+		"ldapproviders":        LDAPProviderIdentity,
+		"localcas":             LocalCAIdentity,
+		"logout":               LogoutIdentity,
+		"messages":             MessageIdentity,
+		"metricsquery":         MetricsQueryIdentity,
+		"metricsqueryrange":    MetricsQueryRangeIdentity,
 
 		"namespaces":               NamespaceIdentity,
 		"namespaceinfo":            NamespaceInfoIdentity,
@@ -1208,6 +1210,7 @@ var (
 			{"namespace", "normalizedTags"},
 			{"namespace", "uid"},
 		},
+		"k8sresourcerefresh": nil,
 		"kubernetescluster": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"createIdempotencyKey"},
@@ -1734,6 +1737,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewK8sAsset()
 	case K8sResourceIdentity:
 		return NewK8sResource()
+	case K8sResourceRefreshIdentity:
+		return NewK8sResourceRefresh()
 	case KubernetesClusterIdentity:
 		return NewKubernetesCluster()
 	case LDAPProviderIdentity:
@@ -2115,6 +2120,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseK8sAsset()
 	case K8sResourceIdentity:
 		return NewSparseK8sResource()
+	case K8sResourceRefreshIdentity:
+		return NewSparseK8sResourceRefresh()
 	case KubernetesClusterIdentity:
 		return NewSparseKubernetesCluster()
 	case LDAPProviderIdentity:
@@ -2504,6 +2511,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &K8sAssetsList{}
 	case K8sResourceIdentity:
 		return &K8sResourcesList{}
+	case K8sResourceRefreshIdentity:
+		return &K8sResourceRefreshsList{}
 	case KubernetesClusterIdentity:
 		return &KubernetesClustersList{}
 	case LDAPProviderIdentity:
@@ -2883,6 +2892,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseK8sAssetsList{}
 	case K8sResourceIdentity:
 		return &SparseK8sResourcesList{}
+	case K8sResourceRefreshIdentity:
+		return &SparseK8sResourceRefreshsList{}
 	case KubernetesClusterIdentity:
 		return &SparseKubernetesClustersList{}
 	case LDAPProviderIdentity:
@@ -3181,6 +3192,7 @@ func AllIdentities() []elemental.Identity {
 		IssueServiceTokenIdentity,
 		K8sAssetIdentity,
 		K8sResourceIdentity,
+		K8sResourceRefreshIdentity,
 		KubernetesClusterIdentity,
 		LDAPProviderIdentity,
 		LocalCAIdentity,
@@ -3563,6 +3575,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case K8sAssetIdentity:
 		return []string{}
 	case K8sResourceIdentity:
+		return []string{}
+	case K8sResourceRefreshIdentity:
 		return []string{}
 	case KubernetesClusterIdentity:
 		return []string{
