@@ -14,6 +14,17 @@
             "readOnly": true,
             "type": "string"
           },
+          "cloudProvider": {
+            "default": "Other",
+            "description": "The cloud provider of the k8s resource.",
+            "enum": [
+              "AWS",
+              "Azure",
+              "GCP",
+              "Other"
+            ],
+            "example": "GCP"
+          },
           "clusterID": {
             "description": "The ID of the cloud cluster the resource belongs.",
             "example": "https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
@@ -40,7 +51,7 @@
           },
           "k8sID": {
             "description": "The formed k8s resource ID of resource.",
-            "example": "k8s:my-namespace:service:my-service:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
+            "example": "k8s:my-namespace:service:my-service:gcp:https://container.googleapis.com/v1/projects/my-project/zones/us-central1-c/clusters/my-cluster",
             "type": "string"
           },
           "k8sNamespace": {
@@ -107,6 +118,7 @@
           }
         },
         "required": [
+          "cloudProvider",
           "clusterID",
           "data",
           "k8sID",
