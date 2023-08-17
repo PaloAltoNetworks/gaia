@@ -15583,6 +15583,12 @@ Type: `[]string`
 
 Contextual values that can be used to narrow searching of resources.
 
+##### `embededLabels`
+
+Type: `map[string]string`
+
+Key value label pairs for k8s resources embedded inside other resources.
+
 ##### `k8sID` [`required`]
 
 Type: `string`
