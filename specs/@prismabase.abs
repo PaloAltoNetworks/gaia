@@ -22,6 +22,16 @@ attributes:
     setter: true
     omit_empty: true
 
+  - name: K8sClusterName
+    description: Name of the cluster.
+    type: string
+    exposed: true
+    stored: true
+    getter: true
+    setter: true
+    orderable: true
+    omit_empty: true
+
   - name: RRN
     description: Prisma Cloud RRN.
     type: string

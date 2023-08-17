@@ -90,6 +90,9 @@ type CloudPublicIPAddress struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Name of the cluster.
+	K8sClusterName string `json:"K8sClusterName,omitempty" msgpack:"K8sClusterName,omitempty" bson:"k8sclustername,omitempty" mapstructure:"K8sClusterName,omitempty"`
+
 	// Prisma Cloud RRN.
 	RRN string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"rrn,omitempty" mapstructure:"RRN,omitempty"`
 
@@ -219,6 +222,7 @@ func (o *CloudPublicIPAddress) GetBSON() (any, error) {
 	if o.ID != "" {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
+	s.K8sClusterName = o.K8sClusterName
 	s.RRN = o.RRN
 	s.VPCID = o.VPCID
 	s.AccountID = o.AccountID
@@ -264,6 +268,7 @@ func (o *CloudPublicIPAddress) SetBSON(raw bson.Raw) error {
 
 	o.APIID = s.APIID
 	o.ID = s.ID.Hex()
+	o.K8sClusterName = s.K8sClusterName
 	o.RRN = s.RRN
 	o.VPCID = s.VPCID
 	o.AccountID = s.AccountID
@@ -334,6 +339,18 @@ func (o *CloudPublicIPAddress) GetAPIID() int {
 func (o *CloudPublicIPAddress) SetAPIID(APIID int) {
 
 	o.APIID = APIID
+}
+
+// GetK8sClusterName returns the K8sClusterName of the receiver.
+func (o *CloudPublicIPAddress) GetK8sClusterName() string {
+
+	return o.K8sClusterName
+}
+
+// SetK8sClusterName sets the property K8sClusterName of the receiver using the given value.
+func (o *CloudPublicIPAddress) SetK8sClusterName(K8sClusterName string) {
+
+	o.K8sClusterName = K8sClusterName
 }
 
 // GetRRN returns the RRN of the receiver.
@@ -645,6 +662,7 @@ func (o *CloudPublicIPAddress) ToSparse(fields ...string) elemental.SparseIdenti
 		return &SparseCloudPublicIPAddress{
 			APIID:                &o.APIID,
 			ID:                   &o.ID,
+			K8sClusterName:       &o.K8sClusterName,
 			RRN:                  &o.RRN,
 			VPCID:                &o.VPCID,
 			AccountID:            &o.AccountID,
@@ -681,6 +699,8 @@ func (o *CloudPublicIPAddress) ToSparse(fields ...string) elemental.SparseIdenti
 			sp.APIID = &(o.APIID)
 		case "ID":
 			sp.ID = &(o.ID)
+		case "K8sClusterName":
+			sp.K8sClusterName = &(o.K8sClusterName)
 		case "RRN":
 			sp.RRN = &(o.RRN)
 		case "VPCID":
@@ -751,6 +771,9 @@ func (o *CloudPublicIPAddress) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.ID != nil {
 		o.ID = *so.ID
+	}
+	if so.K8sClusterName != nil {
+		o.K8sClusterName = *so.K8sClusterName
 	}
 	if so.RRN != nil {
 		o.RRN = *so.RRN
@@ -923,6 +946,8 @@ func (o *CloudPublicIPAddress) ValueForAttribute(name string) any {
 		return o.APIID
 	case "ID":
 		return o.ID
+	case "K8sClusterName":
+		return o.K8sClusterName
 	case "RRN":
 		return o.RRN
 	case "VPCID":
@@ -1006,6 +1031,19 @@ var CloudPublicIPAddressAttributesMap = map[string]elemental.AttributeSpecificat
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"K8sClusterName": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8sclustername",
+		ConvertedName:  "K8sClusterName",
+		Description:    `Name of the cluster.`,
+		Exposed:        true,
+		Getter:         true,
+		Name:           "K8sClusterName",
+		Orderable:      true,
+		Setter:         true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1383,6 +1421,19 @@ var CloudPublicIPAddressLowerCaseAttributesMap = map[string]elemental.AttributeS
 		Name:           "ID",
 		Orderable:      true,
 		ReadOnly:       true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"k8sclustername": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8sclustername",
+		ConvertedName:  "K8sClusterName",
+		Description:    `Name of the cluster.`,
+		Exposed:        true,
+		Getter:         true,
+		Name:           "K8sClusterName",
+		Orderable:      true,
+		Setter:         true,
 		Stored:         true,
 		Type:           "string",
 	},
@@ -1803,6 +1854,9 @@ type SparseCloudPublicIPAddress struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
+	// Name of the cluster.
+	K8sClusterName *string `json:"K8sClusterName,omitempty" msgpack:"K8sClusterName,omitempty" bson:"k8sclustername,omitempty" mapstructure:"K8sClusterName,omitempty"`
+
 	// Prisma Cloud RRN.
 	RRN *string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"rrn,omitempty" mapstructure:"RRN,omitempty"`
 
@@ -1931,6 +1985,9 @@ func (o *SparseCloudPublicIPAddress) GetBSON() (any, error) {
 	if o.ID != nil {
 		s.ID = bson.ObjectIdHex(*o.ID)
 	}
+	if o.K8sClusterName != nil {
+		s.K8sClusterName = o.K8sClusterName
+	}
 	if o.RRN != nil {
 		s.RRN = o.RRN
 	}
@@ -2031,6 +2088,9 @@ func (o *SparseCloudPublicIPAddress) SetBSON(raw bson.Raw) error {
 	}
 	id := s.ID.Hex()
 	o.ID = &id
+	if s.K8sClusterName != nil {
+		o.K8sClusterName = s.K8sClusterName
+	}
 	if s.RRN != nil {
 		o.RRN = s.RRN
 	}
@@ -2129,6 +2189,9 @@ func (o *SparseCloudPublicIPAddress) ToPlain() elemental.PlainIdentifiable {
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
+	if o.K8sClusterName != nil {
+		out.K8sClusterName = *o.K8sClusterName
+	}
 	if o.RRN != nil {
 		out.RRN = *o.RRN
 	}
@@ -2225,6 +2288,22 @@ func (o *SparseCloudPublicIPAddress) GetAPIID() (out int) {
 func (o *SparseCloudPublicIPAddress) SetAPIID(APIID int) {
 
 	o.APIID = &APIID
+}
+
+// GetK8sClusterName returns the K8sClusterName of the receiver.
+func (o *SparseCloudPublicIPAddress) GetK8sClusterName() (out string) {
+
+	if o.K8sClusterName == nil {
+		return
+	}
+
+	return *o.K8sClusterName
+}
+
+// SetK8sClusterName sets the property K8sClusterName of the receiver using the address of the given value.
+func (o *SparseCloudPublicIPAddress) SetK8sClusterName(K8sClusterName string) {
+
+	o.K8sClusterName = &K8sClusterName
 }
 
 // GetRRN returns the RRN of the receiver.
@@ -2654,6 +2733,7 @@ func (o *SparseCloudPublicIPAddress) DeepCopyInto(out *SparseCloudPublicIPAddres
 type mongoAttributesCloudPublicIPAddress struct {
 	APIID                int                 `bson:"apiid,omitempty"`
 	ID                   bson.ObjectId       `bson:"_id,omitempty"`
+	K8sClusterName       string              `bson:"k8sclustername,omitempty"`
 	RRN                  string              `bson:"rrn,omitempty"`
 	VPCID                string              `bson:"vpcid,omitempty"`
 	AccountID            string              `bson:"accountid,omitempty"`
@@ -2684,6 +2764,7 @@ type mongoAttributesCloudPublicIPAddress struct {
 type mongoAttributesSparseCloudPublicIPAddress struct {
 	APIID                *int                 `bson:"apiid,omitempty"`
 	ID                   bson.ObjectId        `bson:"_id,omitempty"`
+	K8sClusterName       *string              `bson:"k8sclustername,omitempty"`
 	RRN                  *string              `bson:"rrn,omitempty"`
 	VPCID                *string              `bson:"vpcid,omitempty"`
 	AccountID            *string              `bson:"accountid,omitempty"`
