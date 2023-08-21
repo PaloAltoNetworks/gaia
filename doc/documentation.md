@@ -12726,12 +12726,31 @@ Type: `[]string`
 
 The cloud types that the search must apply to.
 
+##### `containerImages`
+
+Type: `[]string`
+
+A list of images that resources can be filtered with. Applies only to
+resourceType K8s.
+
 ##### `imageIDs`
 
 Type: `[]string`
 
 A list of imageIDs that endpoints can be filtered with. Applies only to
 resourceType Endpoint.
+
+##### `k8sServiceTypes`
+
+Type: `[]string`
+
+Identifies a list of K8s Service types.
+
+##### `labels`
+
+Type: `[]string`
+
+A list of labels that apply to the queried resource.
 
 ##### `objectIDs`
 

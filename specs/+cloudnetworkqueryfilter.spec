@@ -59,10 +59,36 @@ attributes:
     - AWS
     omit_empty: true
 
+  - name: containerImages
+    description: |-
+      A list of images that resources can be filtered with. Applies only to
+      resourceType K8s.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
   - name: imageIDs
     description: |-
       A list of imageIDs that endpoints can be filtered with. Applies only to
       resourceType Endpoint.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
+  - name: k8sServiceTypes
+    description: Identifies a list of K8s Service types.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
+  - name: labels
+    description: A list of labels that apply to the queried resource.
     type: list
     exposed: true
     subtype: string
