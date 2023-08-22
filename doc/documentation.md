@@ -12740,17 +12740,17 @@ Type: `[]string`
 A list of imageIDs that endpoints can be filtered with. Applies only to
 resourceType Endpoint.
 
+##### `k8sLabels`
+
+Type: `[]string`
+
+A list of labels that apply to the queried resource.
+
 ##### `k8sServiceTypes`
 
 Type: `[]string`
 
 Identifies a list of K8s Service types.
-
-##### `labels`
-
-Type: `[]string`
-
-A list of labels that apply to the queried resource.
 
 ##### `objectIDs`
 

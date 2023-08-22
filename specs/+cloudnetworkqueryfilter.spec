@@ -79,16 +79,16 @@ attributes:
     stored: true
     omit_empty: true
 
-  - name: k8sServiceTypes
-    description: Identifies a list of K8s Service types.
+  - name: k8sLabels
+    description: A list of labels that apply to the queried resource.
     type: list
     exposed: true
     subtype: string
     stored: true
     omit_empty: true
 
-  - name: labels
-    description: A list of labels that apply to the queried resource.
+  - name: k8sServiceTypes
+    description: Identifies a list of K8s Service types.
     type: list
     exposed: true
     subtype: string

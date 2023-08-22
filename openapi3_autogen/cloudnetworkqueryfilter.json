@@ -59,15 +59,15 @@
             },
             "type": "array"
           },
-          "k8sServiceTypes": {
-            "description": "Identifies a list of K8s Service types.",
+          "k8sLabels": {
+            "description": "A list of labels that apply to the queried resource.",
             "items": {
               "type": "string"
             },
             "type": "array"
           },
-          "labels": {
-            "description": "A list of labels that apply to the queried resource.",
+          "k8sServiceTypes": {
+            "description": "Identifies a list of K8s Service types.",
             "items": {
               "type": "string"
             },
