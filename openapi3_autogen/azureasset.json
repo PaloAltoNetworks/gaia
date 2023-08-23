@@ -49,6 +49,7 @@
               "OutboundRule",
               "RouteTable",
               "FrontendIPConfiguration",
+              "ApplicationGateway",
               "DatabaseAccount",
               "FlexibleServer",
               "Server"
