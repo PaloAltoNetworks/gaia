@@ -52,9 +52,19 @@ type CloudNetworkQueryFilter struct {
 	// The cloud types that the search must apply to.
 	CloudTypes []string `json:"cloudTypes,omitempty" msgpack:"cloudTypes,omitempty" bson:"cloudtypes,omitempty" mapstructure:"cloudTypes,omitempty"`
 
+	// A list of images that resources can be filtered with. Applies only to
+	// resourceType K8s.
+	ContainerImages []string `json:"containerImages,omitempty" msgpack:"containerImages,omitempty" bson:"containerimages,omitempty" mapstructure:"containerImages,omitempty"`
+
 	// A list of imageIDs that endpoints can be filtered with. Applies only to
 	// resourceType Endpoint.
 	ImageIDs []string `json:"imageIDs,omitempty" msgpack:"imageIDs,omitempty" bson:"imageids,omitempty" mapstructure:"imageIDs,omitempty"`
+
+	// A list of labels that apply to the queried resource.
+	K8sLabels []string `json:"k8sLabels,omitempty" msgpack:"k8sLabels,omitempty" bson:"k8slabels,omitempty" mapstructure:"k8sLabels,omitempty"`
+
+	// Identifies a list of K8s Service types.
+	K8sServiceTypes []string `json:"k8sServiceTypes,omitempty" msgpack:"k8sServiceTypes,omitempty" bson:"k8sservicetypes,omitempty" mapstructure:"k8sServiceTypes,omitempty"`
 
 	// The exact object that the search applies. If ObjectIDs are defined, the rest of
 	// the fields are ignored. An object ID can refer to an instance, VPC endpoint, or
@@ -120,7 +130,10 @@ func NewCloudNetworkQueryFilter() *CloudNetworkQueryFilter {
 		VPCIDs:          []string{},
 		AccountIDs:      []string{},
 		CloudTypes:      []string{},
+		ContainerImages: []string{},
 		ImageIDs:        []string{},
+		K8sLabels:       []string{},
+		K8sServiceTypes: []string{},
 		ObjectIDs:       []string{},
 		PaasTypes:       []string{},
 		Regions:         []string{},
@@ -149,7 +162,10 @@ func (o *CloudNetworkQueryFilter) GetBSON() (any, error) {
 	s.VPCIDs = o.VPCIDs
 	s.AccountIDs = o.AccountIDs
 	s.CloudTypes = o.CloudTypes
+	s.ContainerImages = o.ContainerImages
 	s.ImageIDs = o.ImageIDs
+	s.K8sLabels = o.K8sLabels
+	s.K8sServiceTypes = o.K8sServiceTypes
 	s.ObjectIDs = o.ObjectIDs
 	s.PaasTypes = o.PaasTypes
 	s.ProductInfoType = o.ProductInfoType
@@ -185,7 +201,10 @@ func (o *CloudNetworkQueryFilter) SetBSON(raw bson.Raw) error {
 	o.VPCIDs = s.VPCIDs
 	o.AccountIDs = s.AccountIDs
 	o.CloudTypes = s.CloudTypes
+	o.ContainerImages = s.ContainerImages
 	o.ImageIDs = s.ImageIDs
+	o.K8sLabels = s.K8sLabels
+	o.K8sServiceTypes = s.K8sServiceTypes
 	o.ObjectIDs = s.ObjectIDs
 	o.PaasTypes = s.PaasTypes
 	o.ProductInfoType = s.ProductInfoType
@@ -291,8 +310,14 @@ func (o *CloudNetworkQueryFilter) ValueForAttribute(name string) any {
 		return o.AccountIDs
 	case "cloudTypes":
 		return o.CloudTypes
+	case "containerImages":
+		return o.ContainerImages
 	case "imageIDs":
 		return o.ImageIDs
+	case "k8sLabels":
+		return o.K8sLabels
+	case "k8sServiceTypes":
+		return o.K8sServiceTypes
 	case "objectIDs":
 		return o.ObjectIDs
 	case "paasTypes":
@@ -382,6 +407,18 @@ account as provided by the cloud provider. One or more IDs can be included.`,
 		SubType:        "string",
 		Type:           "list",
 	},
+	"ContainerImages": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "containerimages",
+		ConvertedName:  "ContainerImages",
+		Description: `A list of images that resources can be filtered with. Applies only to
+resourceType K8s.`,
+		Exposed: true,
+		Name:    "containerImages",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
 	"ImageIDs": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "imageids",
@@ -393,6 +430,28 @@ resourceType Endpoint.`,
 		Stored:  true,
 		SubType: "string",
 		Type:    "list",
+	},
+	"K8sLabels": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8slabels",
+		ConvertedName:  "K8sLabels",
+		Description:    `A list of labels that apply to the queried resource.`,
+		Exposed:        true,
+		Name:           "k8sLabels",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"K8sServiceTypes": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8sservicetypes",
+		ConvertedName:  "K8sServiceTypes",
+		Description:    `Identifies a list of K8s Service types.`,
+		Exposed:        true,
+		Name:           "k8sServiceTypes",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
 	},
 	"ObjectIDs": {
 		AllowedChoices: []string{},
@@ -607,6 +666,18 @@ account as provided by the cloud provider. One or more IDs can be included.`,
 		SubType:        "string",
 		Type:           "list",
 	},
+	"containerimages": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "containerimages",
+		ConvertedName:  "ContainerImages",
+		Description: `A list of images that resources can be filtered with. Applies only to
+resourceType K8s.`,
+		Exposed: true,
+		Name:    "containerImages",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
 	"imageids": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "imageids",
@@ -618,6 +689,28 @@ resourceType Endpoint.`,
 		Stored:  true,
 		SubType: "string",
 		Type:    "list",
+	},
+	"k8slabels": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8slabels",
+		ConvertedName:  "K8sLabels",
+		Description:    `A list of labels that apply to the queried resource.`,
+		Exposed:        true,
+		Name:           "k8sLabels",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
+	},
+	"k8sservicetypes": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8sservicetypes",
+		ConvertedName:  "K8sServiceTypes",
+		Description:    `Identifies a list of K8s Service types.`,
+		Exposed:        true,
+		Name:           "k8sServiceTypes",
+		Stored:         true,
+		SubType:        "string",
+		Type:           "list",
 	},
 	"objectids": {
 		AllowedChoices: []string{},
@@ -780,7 +873,10 @@ type mongoAttributesCloudNetworkQueryFilter struct {
 	VPCIDs           []string                                 `bson:"vpcids,omitempty"`
 	AccountIDs       []string                                 `bson:"accountids,omitempty"`
 	CloudTypes       []string                                 `bson:"cloudtypes,omitempty"`
+	ContainerImages  []string                                 `bson:"containerimages,omitempty"`
 	ImageIDs         []string                                 `bson:"imageids,omitempty"`
+	K8sLabels        []string                                 `bson:"k8slabels,omitempty"`
+	K8sServiceTypes  []string                                 `bson:"k8sservicetypes,omitempty"`
 	ObjectIDs        []string                                 `bson:"objectids,omitempty"`
 	PaasTypes        []string                                 `bson:"paastypes,omitempty"`
 	ProductInfoType  string                                   `bson:"productinfotype,omitempty"`

@@ -45,8 +45,29 @@
             },
             "type": "array"
           },
+          "containerImages": {
+            "description": "A list of images that resources can be filtered with. Applies only to\nresourceType K8s.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "imageIDs": {
             "description": "A list of imageIDs that endpoints can be filtered with. Applies only to\nresourceType Endpoint.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "k8sLabels": {
+            "description": "A list of labels that apply to the queried resource.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "k8sServiceTypes": {
+            "description": "Identifies a list of K8s Service types.",
             "items": {
               "type": "string"
             },
