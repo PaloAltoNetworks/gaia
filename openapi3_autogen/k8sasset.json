@@ -80,6 +80,7 @@
               "DaemonSet",
               "Deployment",
               "Endpoints",
+              "EndpointSlices",
               "Namespace",
               "NetworkPolicy",
               "Node",

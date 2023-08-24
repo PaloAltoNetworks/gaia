@@ -15642,7 +15642,7 @@ The k8s Namespace of the resource.
 
 ##### `kind` [`required`]
 
-Type: `enum(Cluster | DaemonSet | Deployment | Endpoints | Namespace | NetworkPolicy | Node | ReplicaSet | Service | StatefulSet)`
+Type: `enum(Cluster | DaemonSet | Deployment | Endpoints | EndpointSlices | Namespace | NetworkPolicy | Node | ReplicaSet | Service | StatefulSet)`
 
 The specific kind of the k8s resource.
 

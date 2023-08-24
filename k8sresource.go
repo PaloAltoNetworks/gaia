@@ -42,6 +42,9 @@ const (
 	// K8sResourceKindDeployment represents the value Deployment.
 	K8sResourceKindDeployment K8sResourceKindValue = "Deployment"
 
+	// K8sResourceKindEndpointSlices represents the value EndpointSlices.
+	K8sResourceKindEndpointSlices K8sResourceKindValue = "EndpointSlices"
+
 	// K8sResourceKindEndpoints represents the value Endpoints.
 	K8sResourceKindEndpoints K8sResourceKindValue = "Endpoints"
 
@@ -635,7 +638,7 @@ func (o *K8sResource) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Cluster", "DaemonSet", "Deployment", "Endpoints", "Namespace", "NetworkPolicy", "Node", "ReplicaSet", "Service", "StatefulSet"}, false); err != nil {
+	if err := elemental.ValidateStringInList("kind", string(o.Kind), []string{"Cluster", "DaemonSet", "Deployment", "Endpoints", "EndpointSlices", "Namespace", "NetworkPolicy", "Node", "ReplicaSet", "Service", "StatefulSet"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -857,7 +860,7 @@ var K8sResourceAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "string",
 	},
 	"Kind": {
-		AllowedChoices: []string{"Cluster", "DaemonSet", "Deployment", "Endpoints", "Namespace", "NetworkPolicy", "Node", "ReplicaSet", "Service", "StatefulSet"},
+		AllowedChoices: []string{"Cluster", "DaemonSet", "Deployment", "Endpoints", "EndpointSlices", "Namespace", "NetworkPolicy", "Node", "ReplicaSet", "Service", "StatefulSet"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the k8s resource.`,
@@ -1126,7 +1129,7 @@ var K8sResourceLowerCaseAttributesMap = map[string]elemental.AttributeSpecificat
 		Type:           "string",
 	},
 	"kind": {
-		AllowedChoices: []string{"Cluster", "DaemonSet", "Deployment", "Endpoints", "Namespace", "NetworkPolicy", "Node", "ReplicaSet", "Service", "StatefulSet"},
+		AllowedChoices: []string{"Cluster", "DaemonSet", "Deployment", "Endpoints", "EndpointSlices", "Namespace", "NetworkPolicy", "Node", "ReplicaSet", "Service", "StatefulSet"},
 		BSONFieldName:  "kind",
 		ConvertedName:  "Kind",
 		Description:    `The specific kind of the k8s resource.`,
