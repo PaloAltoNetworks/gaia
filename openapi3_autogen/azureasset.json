@@ -50,6 +50,12 @@
               "RouteTable",
               "FrontendIPConfiguration",
               "ApplicationGateway",
+              "RoutingRule",
+              "Listener",
+              "URLPathMap",
+              "PathRule",
+              "BackendSettings",
+              "FrontendPort",
               "DatabaseAccount",
               "FlexibleServer",
               "Server"
