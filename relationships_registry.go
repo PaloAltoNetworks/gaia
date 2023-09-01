@@ -3564,7 +3564,30 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[K8sAssetIdentity] = &elemental.Relationship{}
+	relationshipsRegistry[K8sAssetIdentity] = &elemental.Relationship{
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+	}
 
 	relationshipsRegistry[K8sResourceIdentity] = &elemental.Relationship{}
 

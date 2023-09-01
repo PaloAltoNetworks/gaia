@@ -111,6 +111,9 @@ type CNSConfig struct {
 	// If `true` network security feature is enabled.
 	EnableNetworkSecurity bool `json:"enableNetworkSecurity" msgpack:"enableNetworkSecurity" bson:"enablenetworksecurity" mapstructure:"enableNetworkSecurity,omitempty"`
 
+	// If `true` K8s exposure feature is enabled.
+	K8sExposureEnabled bool `json:"k8sExposureEnabled" msgpack:"k8sExposureEnabled" bson:"k8sexposureenabled" mapstructure:"k8sExposureEnabled,omitempty"`
+
 	// Internal property maintaining migrations information.
 	MigrationsLog map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
@@ -205,6 +208,7 @@ func (o *CNSConfig) GetBSON() (any, error) {
 	s.Disabled = o.Disabled
 	s.EnableNetEffectivePermissions = o.EnableNetEffectivePermissions
 	s.EnableNetworkSecurity = o.EnableNetworkSecurity
+	s.K8sExposureEnabled = o.K8sExposureEnabled
 	s.MigrationsLog = o.MigrationsLog
 	s.Namespace = o.Namespace
 	s.NonMatchingAlertsRaisingEnabled = o.NonMatchingAlertsRaisingEnabled
@@ -243,6 +247,7 @@ func (o *CNSConfig) SetBSON(raw bson.Raw) error {
 	o.Disabled = s.Disabled
 	o.EnableNetEffectivePermissions = s.EnableNetEffectivePermissions
 	o.EnableNetworkSecurity = s.EnableNetworkSecurity
+	o.K8sExposureEnabled = s.K8sExposureEnabled
 	o.MigrationsLog = s.MigrationsLog
 	o.Namespace = s.Namespace
 	o.NonMatchingAlertsRaisingEnabled = s.NonMatchingAlertsRaisingEnabled
@@ -460,6 +465,7 @@ func (o *CNSConfig) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			Disabled:                        &o.Disabled,
 			EnableNetEffectivePermissions:   &o.EnableNetEffectivePermissions,
 			EnableNetworkSecurity:           &o.EnableNetworkSecurity,
+			K8sExposureEnabled:              &o.K8sExposureEnabled,
 			MigrationsLog:                   &o.MigrationsLog,
 			Namespace:                       &o.Namespace,
 			NonMatchingAlertsRaisingEnabled: &o.NonMatchingAlertsRaisingEnabled,
@@ -496,6 +502,8 @@ func (o *CNSConfig) ToSparse(fields ...string) elemental.SparseIdentifiable {
 			sp.EnableNetEffectivePermissions = &(o.EnableNetEffectivePermissions)
 		case "enableNetworkSecurity":
 			sp.EnableNetworkSecurity = &(o.EnableNetworkSecurity)
+		case "k8sExposureEnabled":
+			sp.K8sExposureEnabled = &(o.K8sExposureEnabled)
 		case "migrationsLog":
 			sp.MigrationsLog = &(o.MigrationsLog)
 		case "namespace":
@@ -559,6 +567,9 @@ func (o *CNSConfig) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.EnableNetworkSecurity != nil {
 		o.EnableNetworkSecurity = *so.EnableNetworkSecurity
+	}
+	if so.K8sExposureEnabled != nil {
+		o.K8sExposureEnabled = *so.K8sExposureEnabled
 	}
 	if so.MigrationsLog != nil {
 		o.MigrationsLog = *so.MigrationsLog
@@ -684,6 +695,8 @@ func (o *CNSConfig) ValueForAttribute(name string) any {
 		return o.EnableNetEffectivePermissions
 	case "enableNetworkSecurity":
 		return o.EnableNetworkSecurity
+	case "k8sExposureEnabled":
+		return o.K8sExposureEnabled
 	case "migrationsLog":
 		return o.MigrationsLog
 	case "namespace":
@@ -824,6 +837,16 @@ var CNSConfigAttributesMap = map[string]elemental.AttributeSpecification{
 		Description:    `If ` + "`" + `true` + "`" + ` network security feature is enabled.`,
 		Exposed:        true,
 		Name:           "enableNetworkSecurity",
+		Stored:         true,
+		Type:           "boolean",
+	},
+	"K8sExposureEnabled": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8sexposureenabled",
+		ConvertedName:  "K8sExposureEnabled",
+		Description:    `If ` + "`" + `true` + "`" + ` K8s exposure feature is enabled.`,
+		Exposed:        true,
+		Name:           "k8sExposureEnabled",
 		Stored:         true,
 		Type:           "boolean",
 	},
@@ -1101,6 +1124,16 @@ var CNSConfigLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Stored:         true,
 		Type:           "boolean",
 	},
+	"k8sexposureenabled": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8sexposureenabled",
+		ConvertedName:  "K8sExposureEnabled",
+		Description:    `If ` + "`" + `true` + "`" + ` K8s exposure feature is enabled.`,
+		Exposed:        true,
+		Name:           "k8sExposureEnabled",
+		Stored:         true,
+		Type:           "boolean",
+	},
 	"migrationslog": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "migrationslog",
@@ -1351,6 +1384,9 @@ type SparseCNSConfig struct {
 	// If `true` network security feature is enabled.
 	EnableNetworkSecurity *bool `json:"enableNetworkSecurity,omitempty" msgpack:"enableNetworkSecurity,omitempty" bson:"enablenetworksecurity,omitempty" mapstructure:"enableNetworkSecurity,omitempty"`
 
+	// If `true` K8s exposure feature is enabled.
+	K8sExposureEnabled *bool `json:"k8sExposureEnabled,omitempty" msgpack:"k8sExposureEnabled,omitempty" bson:"k8sexposureenabled,omitempty" mapstructure:"k8sExposureEnabled,omitempty"`
+
 	// Internal property maintaining migrations information.
 	MigrationsLog *map[string]string `json:"-" msgpack:"-" bson:"migrationslog,omitempty" mapstructure:"-,omitempty"`
 
@@ -1460,6 +1496,9 @@ func (o *SparseCNSConfig) GetBSON() (any, error) {
 	if o.EnableNetworkSecurity != nil {
 		s.EnableNetworkSecurity = o.EnableNetworkSecurity
 	}
+	if o.K8sExposureEnabled != nil {
+		s.K8sExposureEnabled = o.K8sExposureEnabled
+	}
 	if o.MigrationsLog != nil {
 		s.MigrationsLog = o.MigrationsLog
 	}
@@ -1539,6 +1578,9 @@ func (o *SparseCNSConfig) SetBSON(raw bson.Raw) error {
 	if s.EnableNetworkSecurity != nil {
 		o.EnableNetworkSecurity = s.EnableNetworkSecurity
 	}
+	if s.K8sExposureEnabled != nil {
+		o.K8sExposureEnabled = s.K8sExposureEnabled
+	}
 	if s.MigrationsLog != nil {
 		o.MigrationsLog = s.MigrationsLog
 	}
@@ -1615,6 +1657,9 @@ func (o *SparseCNSConfig) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.EnableNetworkSecurity != nil {
 		out.EnableNetworkSecurity = *o.EnableNetworkSecurity
+	}
+	if o.K8sExposureEnabled != nil {
+		out.K8sExposureEnabled = *o.K8sExposureEnabled
 	}
 	if o.MigrationsLog != nil {
 		out.MigrationsLog = *o.MigrationsLog
@@ -1898,6 +1943,7 @@ type mongoAttributesCNSConfig struct {
 	Disabled                        bool                `bson:"disabled"`
 	EnableNetEffectivePermissions   bool                `bson:"enableneteffectivepermissions"`
 	EnableNetworkSecurity           bool                `bson:"enablenetworksecurity"`
+	K8sExposureEnabled              bool                `bson:"k8sexposureenabled"`
 	MigrationsLog                   map[string]string   `bson:"migrationslog,omitempty"`
 	Namespace                       string              `bson:"namespace"`
 	NonMatchingAlertsRaisingEnabled bool                `bson:"nonmatchingalertsraisingenabled"`
@@ -1921,6 +1967,7 @@ type mongoAttributesSparseCNSConfig struct {
 	Disabled                        *bool                `bson:"disabled,omitempty"`
 	EnableNetEffectivePermissions   *bool                `bson:"enableneteffectivepermissions,omitempty"`
 	EnableNetworkSecurity           *bool                `bson:"enablenetworksecurity,omitempty"`
+	K8sExposureEnabled              *bool                `bson:"k8sexposureenabled,omitempty"`
 	MigrationsLog                   *map[string]string   `bson:"migrationslog,omitempty"`
 	Namespace                       *string              `bson:"namespace,omitempty"`
 	NonMatchingAlertsRaisingEnabled *bool                `bson:"nonmatchingalertsraisingenabled,omitempty"`

@@ -774,6 +774,12 @@ relations:
   create:
     description: Internal API to issue service tokens.
 
+- rest_name: k8sasset
+  get:
+    description: Retrieves the list of stored gcp resources.
+    global_parameters:
+    - $filtering
+
 - rest_name: k8sresourcerefresh
   create:
     description: Trigger a Kubernetes resource refresh.

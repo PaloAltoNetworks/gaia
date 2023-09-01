@@ -50,6 +50,12 @@ attributes:
     exposed: true
     stored: true
 
+  - name: k8sExposureEnabled
+    description: If `true` K8s exposure feature is enabled.
+    type: boolean
+    exposed: true
+    stored: true
+
   - name: nonMatchingAlertsRaisingEnabled
     description: |-
       Indicates if CNA should send all alerts found from policy scans or only alert
