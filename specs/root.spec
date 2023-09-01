@@ -776,7 +776,7 @@ relations:
 
 - rest_name: k8sasset
   get:
-    description: Retrieves the list of stored gcp resources.
+    description: Retrieves the list of stored k8s resources.
     global_parameters:
     - $filtering
 

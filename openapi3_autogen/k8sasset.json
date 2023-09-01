@@ -158,7 +158,7 @@
   "paths": {
     "/k8sassets": {
       "get": {
-        "description": "Retrieves the list of stored gcp resources.",
+        "description": "Retrieves the list of stored k8s resources.",
         "operationId": "get-all-k8sassets",
         "parameters": [
           {
