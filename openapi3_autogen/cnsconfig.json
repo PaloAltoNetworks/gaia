@@ -48,6 +48,10 @@
             "description": "If `true` network security feature is enabled.",
             "type": "boolean"
           },
+          "k8sExposureEnabled": {
+            "description": "If `true` K8s exposure feature is enabled.",
+            "type": "boolean"
+          },
           "namespace": {
             "description": "Namespace tag attached to an entity.",
             "readOnly": true,
