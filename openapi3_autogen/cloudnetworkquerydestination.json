@@ -25,7 +25,8 @@
               "Interface",
               "Instance",
               "LoadBalancer",
-              "PublicIP"
+              "PublicIP",
+              "K8sService"
             ],
             "readOnly": true
           },
