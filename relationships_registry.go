@@ -3589,7 +3589,33 @@ func init() {
 		},
 	}
 
-	relationshipsRegistry[K8sResourceIdentity] = &elemental.Relationship{}
+	relationshipsRegistry[K8sResourceIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+		RetrieveMany: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+		Info: map[string]*elemental.RelationshipInfo{
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name:     "q",
+						Type:     "string",
+						Multiple: true,
+					},
+				},
+			},
+		},
+	}
 
 	relationshipsRegistry[K8sResourceRefreshIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
