@@ -103,7 +103,8 @@
               "MicrosoftNetwork",
               "MicrosoftDocumentDB",
               "MicrosoftDBforMySQL",
-              "MicrosoftSQL"
+              "MicrosoftSQL",
+              "MicrosoftDBforPostgreSQL"
             ],
             "example": "MicrosoftCompute",
             "readOnly": true
