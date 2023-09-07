@@ -5,14 +5,21 @@
         "description": "Captures the parameters allowed in a query filter for a net effective\npermissions request.",
         "properties": {
           "K8sClusterNames": {
-            "description": "The cluster name of the target resources.",
+            "description": "The cluster name of the target k8s resources.",
             "items": {
               "type": "string"
             },
             "type": "array"
           },
           "K8sNamespaces": {
-            "description": "The cluster name of the target resources.",
+            "description": "The namespace of the target k8s resources.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "K8sServiceNames": {
+            "description": "The service name of the target k8s resources.",
             "items": {
               "type": "string"
             },
