@@ -12706,13 +12706,19 @@ permissions request.
 
 Type: `[]string`
 
-The cluster name of the target resources.
+The cluster name of the target k8s resources.
 
 ##### `K8sNamespaces`
 
 Type: `[]string`
 
-The cluster name of the target resources.
+The namespace of the target k8s resources.
+
+##### `K8sServiceNames`
+
+Type: `[]string`
+
+The service name of the target k8s resources.
 
 ##### `VPCIDs`
 

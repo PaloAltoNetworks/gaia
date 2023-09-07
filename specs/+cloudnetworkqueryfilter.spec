@@ -14,7 +14,7 @@ model:
 attributes:
   v1:
   - name: K8sClusterNames
-    description: The cluster name of the target resources.
+    description: The cluster name of the target k8s resources.
     type: list
     exposed: true
     subtype: string
@@ -22,7 +22,15 @@ attributes:
     omit_empty: true
 
   - name: K8sNamespaces
-    description: The cluster name of the target resources.
+    description: The namespace of the target k8s resources.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
+  - name: K8sServiceNames
+    description: The service name of the target k8s resources.
     type: list
     exposed: true
     subtype: string
