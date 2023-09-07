@@ -776,9 +776,17 @@ relations:
 
 - rest_name: k8sasset
   get:
-    description: Retrieves the list of stored k8s resources.
+    description: Retrieves the list of stored K8s resources.
     global_parameters:
     - $filtering
+
+- rest_name: k8sresource
+  get:
+    description: Retrieves the list of stored K8s resources.
+    global_parameters:
+    - $filtering
+  create:
+    description: creates a new K8s resource from field 'data'.
 
 - rest_name: k8sresourcerefresh
   create:

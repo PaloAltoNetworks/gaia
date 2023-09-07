@@ -15577,7 +15577,7 @@ Represents a read-only K8s resource such as a service.
 
 ##### `GET /k8sassets`
 
-Retrieves the list of stored k8s resources.
+Retrieves the list of stored K8s resources.
 
 Parameters:
 
