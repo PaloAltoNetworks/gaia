@@ -81,6 +81,7 @@
               "Deployment",
               "Endpoints",
               "EndpointSlices",
+              "Ingress",
               "Namespace",
               "NetworkPolicy",
               "Node",
