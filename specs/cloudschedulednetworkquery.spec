@@ -26,9 +26,9 @@ indexes:
 # Attributes
 attributes:
   v1:
-  - name: cloudGraphResultID
-    description: The cloud graph result ID which is stored in MongoDB GridFS.
-    type: string
+  - name: cloudGraphResultIDs
+    description: The cloud graph result IDs which is stored in MongoDB GridFS.
+    type: list
     exposed: true
     subtype: string
 

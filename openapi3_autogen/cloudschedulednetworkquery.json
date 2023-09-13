@@ -9,9 +9,12 @@
             "readOnly": true,
             "type": "string"
           },
-          "cloudGraphResultID": {
-            "description": "The cloud graph result ID which is stored in MongoDB GridFS.",
-            "type": "string"
+          "cloudGraphResultIDs": {
+            "description": "The cloud graph result IDs which is stored in MongoDB GridFS.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
           },
           "cloudNetworkQuery": {
             "$ref": "./cloudnetworkquery#/components/schemas/cloudnetworkquery"
