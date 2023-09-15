@@ -14,7 +14,28 @@ model:
 attributes:
   v1:
   - name: K8sClusterNames
-    description: The cluster name of the target k8s resources.
+    description: The cluster name of the target K8s resources. Applies only to resourceType
+      K8s.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
+  - name: K8sContainerImages
+    description: |-
+      A list of K8s images that resources can be filtered with. Applies only to
+      resourceType K8s.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
+  - name: K8sLabels
+    description: |-
+      A list of labels that apply to the queried resource. Applies only to
+      resourceType K8s.
     type: list
     exposed: true
     subtype: string
@@ -22,7 +43,8 @@ attributes:
     omit_empty: true
 
   - name: K8sNamespaces
-    description: The namespace of the target k8s resources.
+    description: The namespace of the target K8s resources. Applies only to resourceType
+      K8s.
     type: list
     exposed: true
     subtype: string
@@ -30,7 +52,17 @@ attributes:
     omit_empty: true
 
   - name: K8sServiceNames
-    description: The service name of the target k8s resources.
+    description: The service name of the target K8s resources. Applies only to resourceType
+      K8s.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
+  - name: K8sServiceTypes
+    description: Identifies a list of K8s Service types. Applies only to resourceType
+      K8s.
     type: list
     exposed: true
     subtype: string
@@ -67,36 +99,10 @@ attributes:
     - AWS
     omit_empty: true
 
-  - name: containerImages
-    description: |-
-      A list of images that resources can be filtered with. Applies only to
-      resourceType K8s.
-    type: list
-    exposed: true
-    subtype: string
-    stored: true
-    omit_empty: true
-
   - name: imageIDs
     description: |-
       A list of imageIDs that endpoints can be filtered with. Applies only to
       resourceType Endpoint.
-    type: list
-    exposed: true
-    subtype: string
-    stored: true
-    omit_empty: true
-
-  - name: k8sLabels
-    description: A list of labels that apply to the queried resource.
-    type: list
-    exposed: true
-    subtype: string
-    stored: true
-    omit_empty: true
-
-  - name: k8sServiceTypes
-    description: Identifies a list of K8s Service types.
     type: list
     exposed: true
     subtype: string
