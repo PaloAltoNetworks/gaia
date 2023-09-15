@@ -12706,19 +12706,39 @@ permissions request.
 
 Type: `[]string`
 
-The cluster name of the target k8s resources.
+The cluster name of the target K8s resources. Applies only to resourceType K8s.
+
+##### `K8sContainerImages`
+
+Type: `[]string`
+
+A list of K8s images that resources can be filtered with. Applies only to
+resourceType K8s.
+
+##### `K8sLabels`
+
+Type: `[]string`
+
+A list of labels that apply to the queried resource. Applies only to
+resourceType K8s.
 
 ##### `K8sNamespaces`
 
 Type: `[]string`
 
-The namespace of the target k8s resources.
+The namespace of the target K8s resources. Applies only to resourceType K8s.
 
 ##### `K8sServiceNames`
 
 Type: `[]string`
 
-The service name of the target k8s resources.
+The service name of the target K8s resources. Applies only to resourceType K8s.
+
+##### `K8sServiceTypes`
+
+Type: `[]string`
+
+Identifies a list of K8s Service types. Applies only to resourceType K8s.
 
 ##### `VPCIDs`
 
@@ -12739,31 +12759,12 @@ Type: `[]string`
 
 The cloud types that the search must apply to.
 
-##### `containerImages`
-
-Type: `[]string`
-
-A list of images that resources can be filtered with. Applies only to
-resourceType K8s.
-
 ##### `imageIDs`
 
 Type: `[]string`
 
 A list of imageIDs that endpoints can be filtered with. Applies only to
 resourceType Endpoint.
-
-##### `k8sLabels`
-
-Type: `[]string`
-
-A list of labels that apply to the queried resource.
-
-##### `k8sServiceTypes`
-
-Type: `[]string`
-
-Identifies a list of K8s Service types.
 
 ##### `objectIDs`
 

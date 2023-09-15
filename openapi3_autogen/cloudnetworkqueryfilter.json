@@ -5,21 +5,42 @@
         "description": "Captures the parameters allowed in a query filter for a net effective\npermissions request.",
         "properties": {
           "K8sClusterNames": {
-            "description": "The cluster name of the target k8s resources.",
+            "description": "The cluster name of the target K8s resources. Applies only to resourceType K8s.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "K8sContainerImages": {
+            "description": "A list of K8s images that resources can be filtered with. Applies only to\nresourceType K8s.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "K8sLabels": {
+            "description": "A list of labels that apply to the queried resource. Applies only to\nresourceType K8s.",
             "items": {
               "type": "string"
             },
             "type": "array"
           },
           "K8sNamespaces": {
-            "description": "The namespace of the target k8s resources.",
+            "description": "The namespace of the target K8s resources. Applies only to resourceType K8s.",
             "items": {
               "type": "string"
             },
             "type": "array"
           },
           "K8sServiceNames": {
-            "description": "The service name of the target k8s resources.",
+            "description": "The service name of the target K8s resources. Applies only to resourceType K8s.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "K8sServiceTypes": {
+            "description": "Identifies a list of K8s Service types. Applies only to resourceType K8s.",
             "items": {
               "type": "string"
             },
@@ -52,29 +73,8 @@
             },
             "type": "array"
           },
-          "containerImages": {
-            "description": "A list of images that resources can be filtered with. Applies only to\nresourceType K8s.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
           "imageIDs": {
             "description": "A list of imageIDs that endpoints can be filtered with. Applies only to\nresourceType Endpoint.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "k8sLabels": {
-            "description": "A list of labels that apply to the queried resource.",
-            "items": {
-              "type": "string"
-            },
-            "type": "array"
-          },
-          "k8sServiceTypes": {
-            "description": "Identifies a list of K8s Service types.",
             "items": {
               "type": "string"
             },
