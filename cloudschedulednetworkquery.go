@@ -89,8 +89,8 @@ type CloudScheduledNetworkQuery struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
-	// The cloud graph result ID which is stored in MongoDB GridFS.
-	CloudGraphResultID string `json:"cloudGraphResultID" msgpack:"cloudGraphResultID" bson:"-" mapstructure:"cloudGraphResultID,omitempty"`
+	// The cloud graph result IDs which is stored in MongoDB GridFS.
+	CloudGraphResultIDs []string `json:"cloudGraphResultIDs" msgpack:"cloudGraphResultIDs" bson:"-" mapstructure:"cloudGraphResultIDs,omitempty"`
 
 	// The cloud network query that should be used.
 	CloudNetworkQuery *CloudNetworkQuery `json:"cloudNetworkQuery" msgpack:"cloudNetworkQuery" bson:"cloudnetworkquery" mapstructure:"cloudNetworkQuery,omitempty"`
@@ -146,9 +146,10 @@ type CloudScheduledNetworkQuery struct {
 func NewCloudScheduledNetworkQuery() *CloudScheduledNetworkQuery {
 
 	return &CloudScheduledNetworkQuery{
-		ModelVersion:      1,
-		CloudNetworkQuery: NewCloudNetworkQuery(),
-		MigrationsLog:     map[string]string{},
+		ModelVersion:        1,
+		CloudGraphResultIDs: []string{},
+		CloudNetworkQuery:   NewCloudNetworkQuery(),
+		MigrationsLog:       map[string]string{},
 	}
 }
 
@@ -355,7 +356,7 @@ func (o *CloudScheduledNetworkQuery) ToSparse(fields ...string) elemental.Sparse
 		// nolint: goimports
 		return &SparseCloudScheduledNetworkQuery{
 			ID:                           &o.ID,
-			CloudGraphResultID:           &o.CloudGraphResultID,
+			CloudGraphResultIDs:          &o.CloudGraphResultIDs,
 			CloudNetworkQuery:            o.CloudNetworkQuery,
 			CreateTime:                   &o.CreateTime,
 			Disabled:                     &o.Disabled,
@@ -379,8 +380,8 @@ func (o *CloudScheduledNetworkQuery) ToSparse(fields ...string) elemental.Sparse
 		switch f {
 		case "ID":
 			sp.ID = &(o.ID)
-		case "cloudGraphResultID":
-			sp.CloudGraphResultID = &(o.CloudGraphResultID)
+		case "cloudGraphResultIDs":
+			sp.CloudGraphResultIDs = &(o.CloudGraphResultIDs)
 		case "cloudNetworkQuery":
 			sp.CloudNetworkQuery = o.CloudNetworkQuery
 		case "createTime":
@@ -427,8 +428,8 @@ func (o *CloudScheduledNetworkQuery) Patch(sparse elemental.SparseIdentifiable) 
 	if so.ID != nil {
 		o.ID = *so.ID
 	}
-	if so.CloudGraphResultID != nil {
-		o.CloudGraphResultID = *so.CloudGraphResultID
+	if so.CloudGraphResultIDs != nil {
+		o.CloudGraphResultIDs = *so.CloudGraphResultIDs
 	}
 	if so.CloudNetworkQuery != nil {
 		o.CloudNetworkQuery = so.CloudNetworkQuery
@@ -558,8 +559,8 @@ func (o *CloudScheduledNetworkQuery) ValueForAttribute(name string) any {
 	switch name {
 	case "ID":
 		return o.ID
-	case "cloudGraphResultID":
-		return o.CloudGraphResultID
+	case "cloudGraphResultIDs":
+		return o.CloudGraphResultIDs
 	case "cloudNetworkQuery":
 		return o.CloudNetworkQuery
 	case "createTime":
@@ -612,14 +613,14 @@ var CloudScheduledNetworkQueryAttributesMap = map[string]elemental.AttributeSpec
 		Stored:         true,
 		Type:           "string",
 	},
-	"CloudGraphResultID": {
+	"CloudGraphResultIDs": {
 		AllowedChoices: []string{},
-		ConvertedName:  "CloudGraphResultID",
-		Description:    `The cloud graph result ID which is stored in MongoDB GridFS.`,
+		ConvertedName:  "CloudGraphResultIDs",
+		Description:    `The cloud graph result IDs which is stored in MongoDB GridFS.`,
 		Exposed:        true,
-		Name:           "cloudGraphResultID",
+		Name:           "cloudGraphResultIDs",
 		SubType:        "string",
-		Type:           "string",
+		Type:           "list",
 	},
 	"CloudNetworkQuery": {
 		AllowedChoices: []string{},
@@ -824,14 +825,14 @@ var CloudScheduledNetworkQueryLowerCaseAttributesMap = map[string]elemental.Attr
 		Stored:         true,
 		Type:           "string",
 	},
-	"cloudgraphresultid": {
+	"cloudgraphresultids": {
 		AllowedChoices: []string{},
-		ConvertedName:  "CloudGraphResultID",
-		Description:    `The cloud graph result ID which is stored in MongoDB GridFS.`,
+		ConvertedName:  "CloudGraphResultIDs",
+		Description:    `The cloud graph result IDs which is stored in MongoDB GridFS.`,
 		Exposed:        true,
-		Name:           "cloudGraphResultID",
+		Name:           "cloudGraphResultIDs",
 		SubType:        "string",
-		Type:           "string",
+		Type:           "list",
 	},
 	"cloudnetworkquery": {
 		AllowedChoices: []string{},
@@ -1087,8 +1088,8 @@ type SparseCloudScheduledNetworkQuery struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
-	// The cloud graph result ID which is stored in MongoDB GridFS.
-	CloudGraphResultID *string `json:"cloudGraphResultID,omitempty" msgpack:"cloudGraphResultID,omitempty" bson:"-" mapstructure:"cloudGraphResultID,omitempty"`
+	// The cloud graph result IDs which is stored in MongoDB GridFS.
+	CloudGraphResultIDs *[]string `json:"cloudGraphResultIDs,omitempty" msgpack:"cloudGraphResultIDs,omitempty" bson:"-" mapstructure:"cloudGraphResultIDs,omitempty"`
 
 	// The cloud network query that should be used.
 	CloudNetworkQuery *CloudNetworkQuery `json:"cloudNetworkQuery,omitempty" msgpack:"cloudNetworkQuery,omitempty" bson:"cloudnetworkquery,omitempty" mapstructure:"cloudNetworkQuery,omitempty"`
@@ -1297,8 +1298,8 @@ func (o *SparseCloudScheduledNetworkQuery) ToPlain() elemental.PlainIdentifiable
 	if o.ID != nil {
 		out.ID = *o.ID
 	}
-	if o.CloudGraphResultID != nil {
-		out.CloudGraphResultID = *o.CloudGraphResultID
+	if o.CloudGraphResultIDs != nil {
+		out.CloudGraphResultIDs = *o.CloudGraphResultIDs
 	}
 	if o.CloudNetworkQuery != nil {
 		out.CloudNetworkQuery = o.CloudNetworkQuery
