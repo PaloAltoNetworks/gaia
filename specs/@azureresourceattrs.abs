@@ -49,6 +49,7 @@ attributes:
     - VirtualMachineScaleSet
     - VirtualMachineScaleSetVM
     - LoadBalancer
+    - LoadBalancingRule
     - BackendAddressPool
     - OutboundRule
     - RouteTable
