@@ -21,8 +21,8 @@ const (
 	// CloudNetworkQueryFilterResourceTypeInterface represents the value Interface.
 	CloudNetworkQueryFilterResourceTypeInterface CloudNetworkQueryFilterResourceTypeValue = "Interface"
 
-	// CloudNetworkQueryFilterResourceTypeK8s represents the value K8s.
-	CloudNetworkQueryFilterResourceTypeK8s CloudNetworkQueryFilterResourceTypeValue = "K8s"
+	// CloudNetworkQueryFilterResourceTypeK8sService represents the value K8sService.
+	CloudNetworkQueryFilterResourceTypeK8sService CloudNetworkQueryFilterResourceTypeValue = "K8sService"
 
 	// CloudNetworkQueryFilterResourceTypePaaS represents the value PaaS.
 	CloudNetworkQueryFilterResourceTypePaaS CloudNetworkQueryFilterResourceTypeValue = "PaaS"
@@ -269,7 +269,7 @@ func (o *CloudNetworkQueryFilter) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("resourceType", string(o.ResourceType), []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS", "K8s"}, false); err != nil {
+	if err := elemental.ValidateStringInList("resourceType", string(o.ResourceType), []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS", "K8sService"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -541,7 +541,7 @@ not apply to other resource types.`,
 		Type:           "string",
 	},
 	"ResourceType": {
-		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS", "K8s"},
+		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS", "K8sService"},
 		BSONFieldName:  "resourcetype",
 		ConvertedName:  "ResourceType",
 		DefaultValue:   CloudNetworkQueryFilterResourceTypeInstance,
@@ -812,7 +812,7 @@ not apply to other resource types.`,
 		Type:           "string",
 	},
 	"resourcetype": {
-		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS", "K8s"},
+		AllowedChoices: []string{"Instance", "Interface", "Service", "ProcessingUnit", "PaaS", "K8sService"},
 		BSONFieldName:  "resourcetype",
 		ConvertedName:  "ResourceType",
 		DefaultValue:   CloudNetworkQueryFilterResourceTypeInstance,
