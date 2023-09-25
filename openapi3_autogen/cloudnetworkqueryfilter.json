@@ -126,7 +126,7 @@
               "Service",
               "ProcessingUnit",
               "PaaS",
-              "K8s"
+              "K8sService"
             ]
           },
           "securityTags": {

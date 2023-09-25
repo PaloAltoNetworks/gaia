@@ -176,7 +176,7 @@ attributes:
     - Service
     - ProcessingUnit
     - PaaS
-    - K8s
+    - K8sService
     default_value: Instance
 
   - name: securityTags

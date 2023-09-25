@@ -129,7 +129,8 @@
               "Interface",
               "Instance",
               "VPC",
-              "Subnet"
+              "Subnet",
+              "K8sService"
             ],
             "readOnly": true
           },
