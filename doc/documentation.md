@@ -13415,7 +13415,7 @@ The sub-type of the object as found in the parameters. Used for indexing.
 
 ##### `type` [`required`]
 
-Type: `enum(Endpoint | Subnet | VPC | Interface | RouteTable | NetworkRuleSet | LoadBalancer | LoadBalancerRoute | PublicIPAddress | ScaleSet | ScaleGroup | K8sNode | K8sService | K8sNamespace | K8sPod)`
+Type: `enum(Endpoint | Subnet | VPC | Interface | RouteTable | Gateway | NetworkRuleSet | LoadBalancer | LoadBalancerRoute | PublicIPAddress | ScaleSet | ScaleGroup | K8sNode | K8sService | K8sNamespace | K8sPod)`
 
 Type of the endpoint.
 

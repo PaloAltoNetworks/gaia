@@ -19,6 +19,9 @@ const (
 	// CloudNodeTypeEndpoint represents the value Endpoint.
 	CloudNodeTypeEndpoint CloudNodeTypeValue = "Endpoint"
 
+	// CloudNodeTypeGateway represents the value Gateway.
+	CloudNodeTypeGateway CloudNodeTypeValue = "Gateway"
+
 	// CloudNodeTypeInterface represents the value Interface.
 	CloudNodeTypeInterface CloudNodeTypeValue = "Interface"
 
@@ -1046,7 +1049,7 @@ func (o *CloudNode) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1540,7 +1543,7 @@ var CloudNodeAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "string",
 	},
 	"Type": {
-		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod"},
+		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
@@ -1996,7 +1999,7 @@ var CloudNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Type:           "string",
 	},
 	"type": {
-		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod"},
+		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
