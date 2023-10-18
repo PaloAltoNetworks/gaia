@@ -105,6 +105,7 @@ attributes:
     - VPC
     - Interface
     - RouteTable
+    - Gateway
     - NetworkRuleSet
     - LoadBalancer
     - LoadBalancerRoute
