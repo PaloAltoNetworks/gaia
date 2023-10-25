@@ -12766,6 +12766,13 @@ Type: `[]string`
 A list of imageIDs that endpoints can be filtered with. Applies only to
 resourceType Endpoint.
 
+##### `notTags`
+
+Type: `[]string`
+
+A list of tags that exclude the matching endpoints for the query. These tags
+refer to the tags attached to the resources in the cloud provider definitions.
+
 ##### `objectIDs`
 
 Type: `[]string`
