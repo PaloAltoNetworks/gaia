@@ -80,6 +80,13 @@
             },
             "type": "array"
           },
+          "notTags": {
+            "description": "A list of tags that exclude the matching endpoints for the query. These tags\nrefer to the tags attached to the resources in the cloud provider definitions.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "objectIDs": {
             "description": "The exact object that the search applies. If ObjectIDs are defined, the rest of\nthe fields are ignored. An object ID can refer to an instance, VPC endpoint, or\nnetwork interface.",
             "items": {

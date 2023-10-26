@@ -70,6 +70,10 @@ type CloudNetworkQueryFilter struct {
 	// resourceType Endpoint.
 	ImageIDs []string `json:"imageIDs,omitempty" msgpack:"imageIDs,omitempty" bson:"imageids,omitempty" mapstructure:"imageIDs,omitempty"`
 
+	// A list of tags that exclude the matching endpoints for the query. These tags
+	// refer to the tags attached to the resources in the cloud provider definitions.
+	NotTags []string `json:"notTags,omitempty" msgpack:"notTags,omitempty" bson:"nottags,omitempty" mapstructure:"notTags,omitempty"`
+
 	// The exact object that the search applies. If ObjectIDs are defined, the rest of
 	// the fields are ignored. An object ID can refer to an instance, VPC endpoint, or
 	// network interface.
@@ -139,6 +143,7 @@ func NewCloudNetworkQueryFilter() *CloudNetworkQueryFilter {
 		AccountIDs:         []string{},
 		CloudTypes:         []string{},
 		ImageIDs:           []string{},
+		NotTags:            []string{},
 		ObjectIDs:          []string{},
 		PaasTypes:          []string{},
 		Regions:            []string{},
@@ -172,6 +177,7 @@ func (o *CloudNetworkQueryFilter) GetBSON() (any, error) {
 	s.AccountIDs = o.AccountIDs
 	s.CloudTypes = o.CloudTypes
 	s.ImageIDs = o.ImageIDs
+	s.NotTags = o.NotTags
 	s.ObjectIDs = o.ObjectIDs
 	s.PaasTypes = o.PaasTypes
 	s.ProductInfoType = o.ProductInfoType
@@ -212,6 +218,7 @@ func (o *CloudNetworkQueryFilter) SetBSON(raw bson.Raw) error {
 	o.AccountIDs = s.AccountIDs
 	o.CloudTypes = s.CloudTypes
 	o.ImageIDs = s.ImageIDs
+	o.NotTags = s.NotTags
 	o.ObjectIDs = s.ObjectIDs
 	o.PaasTypes = s.PaasTypes
 	o.ProductInfoType = s.ProductInfoType
@@ -327,6 +334,8 @@ func (o *CloudNetworkQueryFilter) ValueForAttribute(name string) any {
 		return o.CloudTypes
 	case "imageIDs":
 		return o.ImageIDs
+	case "notTags":
+		return o.NotTags
 	case "objectIDs":
 		return o.ObjectIDs
 	case "paasTypes":
@@ -470,6 +479,18 @@ account as provided by the cloud provider. One or more IDs can be included.`,
 resourceType Endpoint.`,
 		Exposed: true,
 		Name:    "imageIDs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"NotTags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "nottags",
+		ConvertedName:  "NotTags",
+		Description: `A list of tags that exclude the matching endpoints for the query. These tags
+refer to the tags attached to the resources in the cloud provider definitions.`,
+		Exposed: true,
+		Name:    "notTags",
 		Stored:  true,
 		SubType: "string",
 		Type:    "list",
@@ -745,6 +766,18 @@ resourceType Endpoint.`,
 		SubType: "string",
 		Type:    "list",
 	},
+	"nottags": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "nottags",
+		ConvertedName:  "NotTags",
+		Description: `A list of tags that exclude the matching endpoints for the query. These tags
+refer to the tags attached to the resources in the cloud provider definitions.`,
+		Exposed: true,
+		Name:    "notTags",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
 	"objectids": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "objectids",
@@ -911,6 +944,7 @@ type mongoAttributesCloudNetworkQueryFilter struct {
 	AccountIDs         []string                                 `bson:"accountids,omitempty"`
 	CloudTypes         []string                                 `bson:"cloudtypes,omitempty"`
 	ImageIDs           []string                                 `bson:"imageids,omitempty"`
+	NotTags            []string                                 `bson:"nottags,omitempty"`
 	ObjectIDs          []string                                 `bson:"objectids,omitempty"`
 	PaasTypes          []string                                 `bson:"paastypes,omitempty"`
 	ProductInfoType    string                                   `bson:"productinfotype,omitempty"`

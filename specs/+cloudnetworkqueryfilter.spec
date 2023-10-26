@@ -109,6 +109,16 @@ attributes:
     stored: true
     omit_empty: true
 
+  - name: notTags
+    description: |-
+      A list of tags that exclude the matching endpoints for the query. These tags
+      refer to the tags attached to the resources in the cloud provider definitions.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
   - name: objectIDs
     description: |-
       The exact object that the search applies. If ObjectIDs are defined, the rest of
