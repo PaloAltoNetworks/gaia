@@ -243,6 +243,10 @@ relations:
     description: Deletes a cloud alert record and resolves the alert associated with
       it.
 
+- rest_name: cloudalertrecordprocessor
+  create:
+    description: Control message model to raise/resolve/generate cloud alert records.
+
 - rest_name: cloudalertrule
   get:
     description: Retrieves the list of cloud alert rules.

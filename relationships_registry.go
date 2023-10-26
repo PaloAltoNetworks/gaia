@@ -1045,6 +1045,12 @@ func init() {
 		},
 	}
 
+	relationshipsRegistry[CloudAlertRecordProcessorIdentity] = &elemental.Relationship{
+		Create: map[string]*elemental.RelationshipInfo{
+			"root": {},
+		},
+	}
+
 	relationshipsRegistry[CloudAlertRuleIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
 			"root": {},

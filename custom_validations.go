@@ -1789,3 +1789,21 @@ func ValidateCloudNodeEntity(c *CloudNode) error {
 
 	return nil
 }
+
+// ValidateCloudAlertRecordProcessorEntity validates the CloudAlertRecordProcessor entity and all the attribute relations.
+func ValidateCloudAlertRecordProcessorEntity(c *CloudAlertRecordProcessor) error {
+
+	if c.Action == CloudAlertRecordProcessorActionGenerate {
+		return nil
+	}
+
+	if len(c.CloudAccountIDs) != 0 {
+		return makeValidationError("cloudAccountIDs", fmt.Sprintf("Attribute 'cloudAccountIDs' is not supported for action '%s'", c.Action))
+	}
+
+	if len(c.PrismaCloudPolicyIDs) != 0 {
+		return makeValidationError("prismaCloudPolicyIDs", fmt.Sprintf("Attribute 'prismaCloudPolicyIDs' is not supported for action '%s'", c.Action))
+	}
+
+	return nil
+}
