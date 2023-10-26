@@ -11,57 +11,57 @@ import (
 	"go.aporeto.io/elemental"
 )
 
-// CloudAlertRecordProcessorActionValue represents the possible values for attribute "action".
-type CloudAlertRecordProcessorActionValue string
+// CloudAlertsControllerActionValue represents the possible values for attribute "action".
+type CloudAlertsControllerActionValue string
 
 const (
-	// CloudAlertRecordProcessorActionGenerate represents the value Generate.
-	CloudAlertRecordProcessorActionGenerate CloudAlertRecordProcessorActionValue = "Generate"
+	// CloudAlertsControllerActionGenerate represents the value Generate.
+	CloudAlertsControllerActionGenerate CloudAlertsControllerActionValue = "Generate"
 
-	// CloudAlertRecordProcessorActionRaise represents the value Raise.
-	CloudAlertRecordProcessorActionRaise CloudAlertRecordProcessorActionValue = "Raise"
+	// CloudAlertsControllerActionRaise represents the value Raise.
+	CloudAlertsControllerActionRaise CloudAlertsControllerActionValue = "Raise"
 
-	// CloudAlertRecordProcessorActionResolve represents the value Resolve.
-	CloudAlertRecordProcessorActionResolve CloudAlertRecordProcessorActionValue = "Resolve"
+	// CloudAlertsControllerActionResolve represents the value Resolve.
+	CloudAlertsControllerActionResolve CloudAlertsControllerActionValue = "Resolve"
 )
 
-// CloudAlertRecordProcessorIdentity represents the Identity of the object.
-var CloudAlertRecordProcessorIdentity = elemental.Identity{
-	Name:     "cloudalertrecordprocessor",
-	Category: "cloudalertrecordprocessors",
+// CloudAlertsControllerIdentity represents the Identity of the object.
+var CloudAlertsControllerIdentity = elemental.Identity{
+	Name:     "cloudalertscontroller",
+	Category: "cloudalertscontrollers",
 	Package:  "vargid",
 	Private:  false,
 }
 
-// CloudAlertRecordProcessorsList represents a list of CloudAlertRecordProcessors
-type CloudAlertRecordProcessorsList []*CloudAlertRecordProcessor
+// CloudAlertsControllersList represents a list of CloudAlertsControllers
+type CloudAlertsControllersList []*CloudAlertsController
 
 // Identity returns the identity of the objects in the list.
-func (o CloudAlertRecordProcessorsList) Identity() elemental.Identity {
+func (o CloudAlertsControllersList) Identity() elemental.Identity {
 
-	return CloudAlertRecordProcessorIdentity
+	return CloudAlertsControllerIdentity
 }
 
-// Copy returns a pointer to a copy the CloudAlertRecordProcessorsList.
-func (o CloudAlertRecordProcessorsList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the CloudAlertsControllersList.
+func (o CloudAlertsControllersList) Copy() elemental.Identifiables {
 
-	out := append(CloudAlertRecordProcessorsList{}, o...)
+	out := append(CloudAlertsControllersList{}, o...)
 	return &out
 }
 
-// Append appends the objects to the a new copy of the CloudAlertRecordProcessorsList.
-func (o CloudAlertRecordProcessorsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the CloudAlertsControllersList.
+func (o CloudAlertsControllersList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(CloudAlertRecordProcessorsList{}, o...)
+	out := append(CloudAlertsControllersList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*CloudAlertRecordProcessor))
+		out = append(out, obj.(*CloudAlertsController))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o CloudAlertRecordProcessorsList) List() elemental.IdentifiablesList {
+func (o CloudAlertsControllersList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -72,33 +72,33 @@ func (o CloudAlertRecordProcessorsList) List() elemental.IdentifiablesList {
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o CloudAlertRecordProcessorsList) DefaultOrder() []string {
+func (o CloudAlertsControllersList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToSparse returns the CloudAlertRecordProcessorsList converted to SparseCloudAlertRecordProcessorsList.
+// ToSparse returns the CloudAlertsControllersList converted to SparseCloudAlertsControllersList.
 // Objects in the list will only contain the given fields. No field means entire field set.
-func (o CloudAlertRecordProcessorsList) ToSparse(fields ...string) elemental.Identifiables {
+func (o CloudAlertsControllersList) ToSparse(fields ...string) elemental.Identifiables {
 
-	out := make(SparseCloudAlertRecordProcessorsList, len(o))
+	out := make(SparseCloudAlertsControllersList, len(o))
 	for i := 0; i < len(o); i++ {
-		out[i] = o[i].ToSparse(fields...).(*SparseCloudAlertRecordProcessor)
+		out[i] = o[i].ToSparse(fields...).(*SparseCloudAlertsController)
 	}
 
 	return out
 }
 
 // Version returns the version of the content.
-func (o CloudAlertRecordProcessorsList) Version() int {
+func (o CloudAlertsControllersList) Version() int {
 
 	return 1
 }
 
-// CloudAlertRecordProcessor represents the model of a cloudalertrecordprocessor
-type CloudAlertRecordProcessor struct {
+// CloudAlertsController represents the model of a cloudalertscontroller
+type CloudAlertsController struct {
 	// Action type to perform.
-	Action CloudAlertRecordProcessorActionValue `json:"action" msgpack:"action" bson:"-" mapstructure:"action,omitempty"`
+	Action CloudAlertsControllerActionValue `json:"action" msgpack:"action" bson:"-" mapstructure:"action,omitempty"`
 
 	// IDs of cloud accounts to scan and generate alerts. When left empty all cloud
 	// accounts in the tenant are considered. This attribute is only supported with
@@ -117,43 +117,43 @@ type CloudAlertRecordProcessor struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewCloudAlertRecordProcessor returns a new *CloudAlertRecordProcessor
-func NewCloudAlertRecordProcessor() *CloudAlertRecordProcessor {
+// NewCloudAlertsController returns a new *CloudAlertsController
+func NewCloudAlertsController() *CloudAlertsController {
 
-	return &CloudAlertRecordProcessor{
+	return &CloudAlertsController{
 		ModelVersion:         1,
-		Action:               CloudAlertRecordProcessorActionGenerate,
+		Action:               CloudAlertsControllerActionGenerate,
 		CloudAccountIDs:      []string{},
 		PrismaCloudPolicyIDs: []string{},
 	}
 }
 
 // Identity returns the Identity of the object.
-func (o *CloudAlertRecordProcessor) Identity() elemental.Identity {
+func (o *CloudAlertsController) Identity() elemental.Identity {
 
-	return CloudAlertRecordProcessorIdentity
+	return CloudAlertsControllerIdentity
 }
 
 // Identifier returns the value of the object's unique identifier.
-func (o *CloudAlertRecordProcessor) Identifier() string {
+func (o *CloudAlertsController) Identifier() string {
 
 	return ""
 }
 
 // SetIdentifier sets the value of the object's unique identifier.
-func (o *CloudAlertRecordProcessor) SetIdentifier(id string) {
+func (o *CloudAlertsController) SetIdentifier(id string) {
 
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudAlertRecordProcessor) GetBSON() (any, error) {
+func (o *CloudAlertsController) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesCloudAlertRecordProcessor{}
+	s := &mongoAttributesCloudAlertsController{}
 
 	s.Namespace = o.Namespace
 
@@ -162,13 +162,13 @@ func (o *CloudAlertRecordProcessor) GetBSON() (any, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *CloudAlertRecordProcessor) SetBSON(raw bson.Raw) error {
+func (o *CloudAlertsController) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesCloudAlertRecordProcessor{}
+	s := &mongoAttributesCloudAlertsController{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -179,53 +179,53 @@ func (o *CloudAlertRecordProcessor) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *CloudAlertRecordProcessor) Version() int {
+func (o *CloudAlertsController) Version() int {
 
 	return 1
 }
 
 // BleveType implements the bleve.Classifier Interface.
-func (o *CloudAlertRecordProcessor) BleveType() string {
+func (o *CloudAlertsController) BleveType() string {
 
-	return "cloudalertrecordprocessor"
+	return "cloudalertscontroller"
 }
 
 // DefaultOrder returns the list of default ordering fields.
-func (o *CloudAlertRecordProcessor) DefaultOrder() []string {
+func (o *CloudAlertsController) DefaultOrder() []string {
 
 	return []string{}
 }
 
 // Doc returns the documentation for the object
-func (o *CloudAlertRecordProcessor) Doc() string {
+func (o *CloudAlertsController) Doc() string {
 
-	return `Control message model to raise/resolve/generate cloud alert records.`
+	return `Control message model to raise/resolve/generate cloud alerts.`
 }
 
-func (o *CloudAlertRecordProcessor) String() string {
+func (o *CloudAlertsController) String() string {
 
 	return fmt.Sprintf("<%s:%s>", o.Identity().Name, o.Identifier())
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *CloudAlertRecordProcessor) GetNamespace() string {
+func (o *CloudAlertsController) GetNamespace() string {
 
 	return o.Namespace
 }
 
 // SetNamespace sets the property Namespace of the receiver using the given value.
-func (o *CloudAlertRecordProcessor) SetNamespace(namespace string) {
+func (o *CloudAlertsController) SetNamespace(namespace string) {
 
 	o.Namespace = namespace
 }
 
 // ToSparse returns the sparse version of the model.
 // The returned object will only contain the given fields. No field means entire field set.
-func (o *CloudAlertRecordProcessor) ToSparse(fields ...string) elemental.SparseIdentifiable {
+func (o *CloudAlertsController) ToSparse(fields ...string) elemental.SparseIdentifiable {
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseCloudAlertRecordProcessor{
+		return &SparseCloudAlertsController{
 			Action:               &o.Action,
 			CloudAccountIDs:      &o.CloudAccountIDs,
 			Namespace:            &o.Namespace,
@@ -233,7 +233,7 @@ func (o *CloudAlertRecordProcessor) ToSparse(fields ...string) elemental.SparseI
 		}
 	}
 
-	sp := &SparseCloudAlertRecordProcessor{}
+	sp := &SparseCloudAlertsController{}
 	for _, f := range fields {
 		switch f {
 		case "action":
@@ -250,13 +250,13 @@ func (o *CloudAlertRecordProcessor) ToSparse(fields ...string) elemental.SparseI
 	return sp
 }
 
-// Patch apply the non nil value of a *SparseCloudAlertRecordProcessor to the object.
-func (o *CloudAlertRecordProcessor) Patch(sparse elemental.SparseIdentifiable) {
+// Patch apply the non nil value of a *SparseCloudAlertsController to the object.
+func (o *CloudAlertsController) Patch(sparse elemental.SparseIdentifiable) {
 	if !sparse.Identity().IsEqual(o.Identity()) {
 		panic("cannot patch from a parse with different identity")
 	}
 
-	so := sparse.(*SparseCloudAlertRecordProcessor)
+	so := sparse.(*SparseCloudAlertsController)
 	if so.Action != nil {
 		o.Action = *so.Action
 	}
@@ -271,32 +271,32 @@ func (o *CloudAlertRecordProcessor) Patch(sparse elemental.SparseIdentifiable) {
 	}
 }
 
-// DeepCopy returns a deep copy if the CloudAlertRecordProcessor.
-func (o *CloudAlertRecordProcessor) DeepCopy() *CloudAlertRecordProcessor {
+// DeepCopy returns a deep copy if the CloudAlertsController.
+func (o *CloudAlertsController) DeepCopy() *CloudAlertsController {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &CloudAlertRecordProcessor{}
+	out := &CloudAlertsController{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *CloudAlertRecordProcessor.
-func (o *CloudAlertRecordProcessor) DeepCopyInto(out *CloudAlertRecordProcessor) {
+// DeepCopyInto copies the receiver into the given *CloudAlertsController.
+func (o *CloudAlertsController) DeepCopyInto(out *CloudAlertsController) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy CloudAlertRecordProcessor: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy CloudAlertsController: %s", err))
 	}
 
-	*out = *target.(*CloudAlertRecordProcessor)
+	*out = *target.(*CloudAlertsController)
 }
 
 // Validate valides the current information stored into the structure.
-func (o *CloudAlertRecordProcessor) Validate() error {
+func (o *CloudAlertsController) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
@@ -306,7 +306,7 @@ func (o *CloudAlertRecordProcessor) Validate() error {
 	}
 
 	// Custom object validation.
-	if err := ValidateCloudAlertRecordProcessorEntity(o); err != nil {
+	if err := ValidateCloudAlertsControllerEntity(o); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -322,26 +322,26 @@ func (o *CloudAlertRecordProcessor) Validate() error {
 }
 
 // SpecificationForAttribute returns the AttributeSpecification for the given attribute name key.
-func (*CloudAlertRecordProcessor) SpecificationForAttribute(name string) elemental.AttributeSpecification {
+func (*CloudAlertsController) SpecificationForAttribute(name string) elemental.AttributeSpecification {
 
-	if v, ok := CloudAlertRecordProcessorAttributesMap[name]; ok {
+	if v, ok := CloudAlertsControllerAttributesMap[name]; ok {
 		return v
 	}
 
 	// We could not find it, so let's check on the lower case indexed spec map
-	return CloudAlertRecordProcessorLowerCaseAttributesMap[name]
+	return CloudAlertsControllerLowerCaseAttributesMap[name]
 }
 
 // AttributeSpecifications returns the full attribute specifications map.
-func (*CloudAlertRecordProcessor) AttributeSpecifications() map[string]elemental.AttributeSpecification {
+func (*CloudAlertsController) AttributeSpecifications() map[string]elemental.AttributeSpecification {
 
-	return CloudAlertRecordProcessorAttributesMap
+	return CloudAlertsControllerAttributesMap
 }
 
 // ValueForAttribute returns the value for the given attribute.
 // This is a very advanced function that you should not need but in some
 // very specific use cases.
-func (o *CloudAlertRecordProcessor) ValueForAttribute(name string) any {
+func (o *CloudAlertsController) ValueForAttribute(name string) any {
 
 	switch name {
 	case "action":
@@ -357,12 +357,12 @@ func (o *CloudAlertRecordProcessor) ValueForAttribute(name string) any {
 	return nil
 }
 
-// CloudAlertRecordProcessorAttributesMap represents the map of attribute for CloudAlertRecordProcessor.
-var CloudAlertRecordProcessorAttributesMap = map[string]elemental.AttributeSpecification{
+// CloudAlertsControllerAttributesMap represents the map of attribute for CloudAlertsController.
+var CloudAlertsControllerAttributesMap = map[string]elemental.AttributeSpecification{
 	"Action": {
 		AllowedChoices: []string{"Generate", "Raise", "Resolve"},
 		ConvertedName:  "Action",
-		DefaultValue:   CloudAlertRecordProcessorActionGenerate,
+		DefaultValue:   CloudAlertsControllerActionGenerate,
 		Description:    `Action type to perform.`,
 		Exposed:        true,
 		Name:           "action",
@@ -409,12 +409,12 @@ in the tenant are considered. This attribute is only supported with action
 	},
 }
 
-// CloudAlertRecordProcessorLowerCaseAttributesMap represents the map of attribute for CloudAlertRecordProcessor.
-var CloudAlertRecordProcessorLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+// CloudAlertsControllerLowerCaseAttributesMap represents the map of attribute for CloudAlertsController.
+var CloudAlertsControllerLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
 	"action": {
 		AllowedChoices: []string{"Generate", "Raise", "Resolve"},
 		ConvertedName:  "Action",
-		DefaultValue:   CloudAlertRecordProcessorActionGenerate,
+		DefaultValue:   CloudAlertsControllerActionGenerate,
 		Description:    `Action type to perform.`,
 		Exposed:        true,
 		Name:           "action",
@@ -461,35 +461,35 @@ in the tenant are considered. This attribute is only supported with action
 	},
 }
 
-// SparseCloudAlertRecordProcessorsList represents a list of SparseCloudAlertRecordProcessors
-type SparseCloudAlertRecordProcessorsList []*SparseCloudAlertRecordProcessor
+// SparseCloudAlertsControllersList represents a list of SparseCloudAlertsControllers
+type SparseCloudAlertsControllersList []*SparseCloudAlertsController
 
 // Identity returns the identity of the objects in the list.
-func (o SparseCloudAlertRecordProcessorsList) Identity() elemental.Identity {
+func (o SparseCloudAlertsControllersList) Identity() elemental.Identity {
 
-	return CloudAlertRecordProcessorIdentity
+	return CloudAlertsControllerIdentity
 }
 
-// Copy returns a pointer to a copy the SparseCloudAlertRecordProcessorsList.
-func (o SparseCloudAlertRecordProcessorsList) Copy() elemental.Identifiables {
+// Copy returns a pointer to a copy the SparseCloudAlertsControllersList.
+func (o SparseCloudAlertsControllersList) Copy() elemental.Identifiables {
 
-	copy := append(SparseCloudAlertRecordProcessorsList{}, o...)
+	copy := append(SparseCloudAlertsControllersList{}, o...)
 	return &copy
 }
 
-// Append appends the objects to the a new copy of the SparseCloudAlertRecordProcessorsList.
-func (o SparseCloudAlertRecordProcessorsList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
+// Append appends the objects to the a new copy of the SparseCloudAlertsControllersList.
+func (o SparseCloudAlertsControllersList) Append(objects ...elemental.Identifiable) elemental.Identifiables {
 
-	out := append(SparseCloudAlertRecordProcessorsList{}, o...)
+	out := append(SparseCloudAlertsControllersList{}, o...)
 	for _, obj := range objects {
-		out = append(out, obj.(*SparseCloudAlertRecordProcessor))
+		out = append(out, obj.(*SparseCloudAlertsController))
 	}
 
 	return out
 }
 
 // List converts the object to an elemental.IdentifiablesList.
-func (o SparseCloudAlertRecordProcessorsList) List() elemental.IdentifiablesList {
+func (o SparseCloudAlertsControllersList) List() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -500,13 +500,13 @@ func (o SparseCloudAlertRecordProcessorsList) List() elemental.IdentifiablesList
 }
 
 // DefaultOrder returns the default ordering fields of the content.
-func (o SparseCloudAlertRecordProcessorsList) DefaultOrder() []string {
+func (o SparseCloudAlertsControllersList) DefaultOrder() []string {
 
 	return []string{}
 }
 
-// ToPlain returns the SparseCloudAlertRecordProcessorsList converted to CloudAlertRecordProcessorsList.
-func (o SparseCloudAlertRecordProcessorsList) ToPlain() elemental.IdentifiablesList {
+// ToPlain returns the SparseCloudAlertsControllersList converted to CloudAlertsControllersList.
+func (o SparseCloudAlertsControllersList) ToPlain() elemental.IdentifiablesList {
 
 	out := make(elemental.IdentifiablesList, len(o))
 	for i := 0; i < len(o); i++ {
@@ -517,15 +517,15 @@ func (o SparseCloudAlertRecordProcessorsList) ToPlain() elemental.IdentifiablesL
 }
 
 // Version returns the version of the content.
-func (o SparseCloudAlertRecordProcessorsList) Version() int {
+func (o SparseCloudAlertsControllersList) Version() int {
 
 	return 1
 }
 
-// SparseCloudAlertRecordProcessor represents the sparse version of a cloudalertrecordprocessor.
-type SparseCloudAlertRecordProcessor struct {
+// SparseCloudAlertsController represents the sparse version of a cloudalertscontroller.
+type SparseCloudAlertsController struct {
 	// Action type to perform.
-	Action *CloudAlertRecordProcessorActionValue `json:"action,omitempty" msgpack:"action,omitempty" bson:"-" mapstructure:"action,omitempty"`
+	Action *CloudAlertsControllerActionValue `json:"action,omitempty" msgpack:"action,omitempty" bson:"-" mapstructure:"action,omitempty"`
 
 	// IDs of cloud accounts to scan and generate alerts. When left empty all cloud
 	// accounts in the tenant are considered. This attribute is only supported with
@@ -544,37 +544,37 @@ type SparseCloudAlertRecordProcessor struct {
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
-// NewSparseCloudAlertRecordProcessor returns a new  SparseCloudAlertRecordProcessor.
-func NewSparseCloudAlertRecordProcessor() *SparseCloudAlertRecordProcessor {
-	return &SparseCloudAlertRecordProcessor{}
+// NewSparseCloudAlertsController returns a new  SparseCloudAlertsController.
+func NewSparseCloudAlertsController() *SparseCloudAlertsController {
+	return &SparseCloudAlertsController{}
 }
 
 // Identity returns the Identity of the sparse object.
-func (o *SparseCloudAlertRecordProcessor) Identity() elemental.Identity {
+func (o *SparseCloudAlertsController) Identity() elemental.Identity {
 
-	return CloudAlertRecordProcessorIdentity
+	return CloudAlertsControllerIdentity
 }
 
 // Identifier returns the value of the sparse object's unique identifier.
-func (o *SparseCloudAlertRecordProcessor) Identifier() string {
+func (o *SparseCloudAlertsController) Identifier() string {
 
 	return ""
 }
 
 // SetIdentifier sets the value of the sparse object's unique identifier.
-func (o *SparseCloudAlertRecordProcessor) SetIdentifier(id string) {
+func (o *SparseCloudAlertsController) SetIdentifier(id string) {
 
 }
 
 // GetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudAlertRecordProcessor) GetBSON() (any, error) {
+func (o *SparseCloudAlertsController) GetBSON() (any, error) {
 
 	if o == nil {
 		return nil, nil
 	}
 
-	s := &mongoAttributesSparseCloudAlertRecordProcessor{}
+	s := &mongoAttributesSparseCloudAlertsController{}
 
 	if o.Namespace != nil {
 		s.Namespace = o.Namespace
@@ -585,13 +585,13 @@ func (o *SparseCloudAlertRecordProcessor) GetBSON() (any, error) {
 
 // SetBSON implements the bson marshaling interface.
 // This is used to transparently convert ID to MongoDBID as ObectID.
-func (o *SparseCloudAlertRecordProcessor) SetBSON(raw bson.Raw) error {
+func (o *SparseCloudAlertsController) SetBSON(raw bson.Raw) error {
 
 	if o == nil {
 		return nil
 	}
 
-	s := &mongoAttributesSparseCloudAlertRecordProcessor{}
+	s := &mongoAttributesSparseCloudAlertsController{}
 	if err := raw.Unmarshal(s); err != nil {
 		return err
 	}
@@ -604,15 +604,15 @@ func (o *SparseCloudAlertRecordProcessor) SetBSON(raw bson.Raw) error {
 }
 
 // Version returns the hardcoded version of the model.
-func (o *SparseCloudAlertRecordProcessor) Version() int {
+func (o *SparseCloudAlertsController) Version() int {
 
 	return 1
 }
 
 // ToPlain returns the plain version of the sparse model.
-func (o *SparseCloudAlertRecordProcessor) ToPlain() elemental.PlainIdentifiable {
+func (o *SparseCloudAlertsController) ToPlain() elemental.PlainIdentifiable {
 
-	out := NewCloudAlertRecordProcessor()
+	out := NewCloudAlertsController()
 	if o.Action != nil {
 		out.Action = *o.Action
 	}
@@ -630,7 +630,7 @@ func (o *SparseCloudAlertRecordProcessor) ToPlain() elemental.PlainIdentifiable 
 }
 
 // GetNamespace returns the Namespace of the receiver.
-func (o *SparseCloudAlertRecordProcessor) GetNamespace() (out string) {
+func (o *SparseCloudAlertsController) GetNamespace() (out string) {
 
 	if o.Namespace == nil {
 		return
@@ -640,38 +640,38 @@ func (o *SparseCloudAlertRecordProcessor) GetNamespace() (out string) {
 }
 
 // SetNamespace sets the property Namespace of the receiver using the address of the given value.
-func (o *SparseCloudAlertRecordProcessor) SetNamespace(namespace string) {
+func (o *SparseCloudAlertsController) SetNamespace(namespace string) {
 
 	o.Namespace = &namespace
 }
 
-// DeepCopy returns a deep copy if the SparseCloudAlertRecordProcessor.
-func (o *SparseCloudAlertRecordProcessor) DeepCopy() *SparseCloudAlertRecordProcessor {
+// DeepCopy returns a deep copy if the SparseCloudAlertsController.
+func (o *SparseCloudAlertsController) DeepCopy() *SparseCloudAlertsController {
 
 	if o == nil {
 		return nil
 	}
 
-	out := &SparseCloudAlertRecordProcessor{}
+	out := &SparseCloudAlertsController{}
 	o.DeepCopyInto(out)
 
 	return out
 }
 
-// DeepCopyInto copies the receiver into the given *SparseCloudAlertRecordProcessor.
-func (o *SparseCloudAlertRecordProcessor) DeepCopyInto(out *SparseCloudAlertRecordProcessor) {
+// DeepCopyInto copies the receiver into the given *SparseCloudAlertsController.
+func (o *SparseCloudAlertsController) DeepCopyInto(out *SparseCloudAlertsController) {
 
 	target, err := copystructure.Copy(o)
 	if err != nil {
-		panic(fmt.Sprintf("Unable to deepcopy SparseCloudAlertRecordProcessor: %s", err))
+		panic(fmt.Sprintf("Unable to deepcopy SparseCloudAlertsController: %s", err))
 	}
 
-	*out = *target.(*SparseCloudAlertRecordProcessor)
+	*out = *target.(*SparseCloudAlertsController)
 }
 
-type mongoAttributesCloudAlertRecordProcessor struct {
+type mongoAttributesCloudAlertsController struct {
 	Namespace string `bson:"namespace"`
 }
-type mongoAttributesSparseCloudAlertRecordProcessor struct {
+type mongoAttributesSparseCloudAlertsController struct {
 	Namespace *string `bson:"namespace,omitempty"`
 }

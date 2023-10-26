@@ -37,12 +37,12 @@ var (
 		"cloudaccountcleaner": CloudAccountCleanerIdentity,
 		"cloudaccountstatus":  CloudAccountStatusIdentity,
 
-		"cloudalert":                CloudAlertIdentity,
-		"cloudalertrecord":          CloudAlertRecordIdentity,
-		"cloudalertrecordprocessor": CloudAlertRecordProcessorIdentity,
-		"cloudalertrule":            CloudAlertRuleIdentity,
+		"cloudalert":       CloudAlertIdentity,
+		"cloudalertrecord": CloudAlertRecordIdentity,
+		"cloudalertrule":   CloudAlertRuleIdentity,
 
-		"cloudendpoint": CloudEndpointIdentity,
+		"cloudalertscontroller": CloudAlertsControllerIdentity,
+		"cloudendpoint":         CloudEndpointIdentity,
 
 		"cloudgraph":      CloudGraphIdentity,
 		"cloudgraphasset": CloudGraphAssetIdentity,
@@ -261,12 +261,12 @@ var (
 		"cloudaccountcleaner":  CloudAccountCleanerIdentity,
 		"cloudaccountstatuses": CloudAccountStatusIdentity,
 
-		"cloudalerts":                CloudAlertIdentity,
-		"cloudalertrecords":          CloudAlertRecordIdentity,
-		"cloudalertrecordprocessors": CloudAlertRecordProcessorIdentity,
-		"cloudalertrules":            CloudAlertRuleIdentity,
+		"cloudalerts":       CloudAlertIdentity,
+		"cloudalertrecords": CloudAlertRecordIdentity,
+		"cloudalertrules":   CloudAlertRuleIdentity,
 
-		"cloudendpoints": CloudEndpointIdentity,
+		"cloudalertscontrollers": CloudAlertsControllerIdentity,
+		"cloudendpoints":         CloudEndpointIdentity,
 
 		"cloudgraphs":      CloudGraphIdentity,
 		"cloudgraphassets": CloudGraphAssetIdentity,
@@ -765,10 +765,6 @@ var (
 			{"namespace", "resourceid", "prismacloudpolicyid", "prismacloudalertruleid"},
 			{"updateIdempotencyKey"},
 		},
-		"cloudalertrecordprocessor": {
-			{"namespace"},
-			{"namespace", "normalizedTags"},
-		},
 		"cloudalertrule": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"createIdempotencyKey"},
@@ -778,6 +774,10 @@ var (
 			{"namespace", "normalizedTags"},
 			{"namespace", "prismaCloudAlertRuleID"},
 			{"updateIdempotencyKey"},
+		},
+		"cloudalertscontroller": {
+			{"namespace"},
+			{"namespace", "normalizedTags"},
 		},
 		"cloudendpoint": {
 			{":shard", ":unique", "zone", "zHash"},
@@ -1603,10 +1603,10 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudAlert()
 	case CloudAlertRecordIdentity:
 		return NewCloudAlertRecord()
-	case CloudAlertRecordProcessorIdentity:
-		return NewCloudAlertRecordProcessor()
 	case CloudAlertRuleIdentity:
 		return NewCloudAlertRule()
+	case CloudAlertsControllerIdentity:
+		return NewCloudAlertsController()
 	case CloudEndpointIdentity:
 		return NewCloudEndpoint()
 	case CloudGraphIdentity:
@@ -1988,10 +1988,10 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudAlert()
 	case CloudAlertRecordIdentity:
 		return NewSparseCloudAlertRecord()
-	case CloudAlertRecordProcessorIdentity:
-		return NewSparseCloudAlertRecordProcessor()
 	case CloudAlertRuleIdentity:
 		return NewSparseCloudAlertRule()
+	case CloudAlertsControllerIdentity:
+		return NewSparseCloudAlertsController()
 	case CloudEndpointIdentity:
 		return NewSparseCloudEndpoint()
 	case CloudGraphIdentity:
@@ -2381,10 +2381,10 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudAlertsList{}
 	case CloudAlertRecordIdentity:
 		return &CloudAlertRecordsList{}
-	case CloudAlertRecordProcessorIdentity:
-		return &CloudAlertRecordProcessorsList{}
 	case CloudAlertRuleIdentity:
 		return &CloudAlertRulesList{}
+	case CloudAlertsControllerIdentity:
+		return &CloudAlertsControllersList{}
 	case CloudEndpointIdentity:
 		return &CloudEndpointsList{}
 	case CloudGraphIdentity:
@@ -2764,10 +2764,10 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudAlertsList{}
 	case CloudAlertRecordIdentity:
 		return &SparseCloudAlertRecordsList{}
-	case CloudAlertRecordProcessorIdentity:
-		return &SparseCloudAlertRecordProcessorsList{}
 	case CloudAlertRuleIdentity:
 		return &SparseCloudAlertRulesList{}
+	case CloudAlertsControllerIdentity:
+		return &SparseCloudAlertsControllersList{}
 	case CloudEndpointIdentity:
 		return &SparseCloudEndpointsList{}
 	case CloudGraphIdentity:
@@ -3136,8 +3136,8 @@ func AllIdentities() []elemental.Identity {
 		CloudAccountStatusIdentity,
 		CloudAlertIdentity,
 		CloudAlertRecordIdentity,
-		CloudAlertRecordProcessorIdentity,
 		CloudAlertRuleIdentity,
+		CloudAlertsControllerIdentity,
 		CloudEndpointIdentity,
 		CloudGraphIdentity,
 		CloudGraphAssetIdentity,
@@ -3383,9 +3383,9 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{}
 	case CloudAlertRecordIdentity:
 		return []string{}
-	case CloudAlertRecordProcessorIdentity:
-		return []string{}
 	case CloudAlertRuleIdentity:
+		return []string{}
+	case CloudAlertsControllerIdentity:
 		return []string{}
 	case CloudEndpointIdentity:
 		return []string{}

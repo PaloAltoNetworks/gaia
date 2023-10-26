@@ -46,9 +46,9 @@ $cloudTagsExpression:
   elemental:
     name: ValidateCloudTagsExpression
 
-$cloudalertrecordprocessor:
+$cloudalertscontroller:
   elemental:
-    name: ValidateCloudAlertRecordProcessorEntity
+    name: ValidateCloudAlertsControllerEntity
 
 $cloudnetworkquery:
   elemental:

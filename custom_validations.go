@@ -1790,10 +1790,10 @@ func ValidateCloudNodeEntity(c *CloudNode) error {
 	return nil
 }
 
-// ValidateCloudAlertRecordProcessorEntity validates the CloudAlertRecordProcessor entity and all the attribute relations.
-func ValidateCloudAlertRecordProcessorEntity(c *CloudAlertRecordProcessor) error {
+// ValidateCloudAlertsControllerEntity validates the CloudAlertsController entity and all the attribute relations.
+func ValidateCloudAlertsControllerEntity(c *CloudAlertsController) error {
 
-	if c.Action == CloudAlertRecordProcessorActionGenerate {
+	if c.Action == CloudAlertsControllerActionGenerate {
 		return nil
 	}
 

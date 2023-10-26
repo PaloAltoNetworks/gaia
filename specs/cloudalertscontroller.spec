@@ -1,15 +1,15 @@
 # Model
 model:
-  rest_name: cloudalertrecordprocessor
-  resource_name: cloudalertrecordprocessors
-  entity_name: CloudAlertRecordProcessor
+  rest_name: cloudalertscontroller
+  resource_name: cloudalertscontrollers
+  entity_name: CloudAlertsController
   package: vargid
   group: pcn/infrastructure
-  description: Control message model to raise/resolve/generate cloud alert records.
+  description: Control message model to raise/resolve/generate cloud alerts.
   extends:
   - '@namespaced'
   validations:
-  - $cloudalertrecordprocessor
+  - $cloudalertscontroller
 
 # Attributes
 attributes:

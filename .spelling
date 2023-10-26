@@ -74,9 +74,9 @@ CloudAccountStatus
 CloudAddress
 CloudAlert
 CloudAlertRecord
-CloudAlertRecordProcessor
 CloudAlertRule
 CloudAlertRuleTargetTag
+CloudAlertsController
 CloudAttachment
 CloudEndpoint
 CloudEndpointData

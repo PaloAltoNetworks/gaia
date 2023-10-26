@@ -1,8 +1,8 @@
 {
   "components": {
     "schemas": {
-      "cloudalertrecordprocessor": {
-        "description": "Control message model to raise/resolve/generate cloud alert records.",
+      "cloudalertscontroller": {
+        "description": "Control message model to raise/resolve/generate cloud alerts.",
         "properties": {
           "action": {
             "default": "Generate",
@@ -47,20 +47,20 @@
       "name": "TODO"
     },
     "termsOfService": "https://localhost/TODO",
-    "title": "cloudalertrecordprocessor",
+    "title": "cloudalertscontroller",
     "version": "1.0"
   },
   "openapi": "3.0.3",
   "paths": {
-    "/cloudalertrecordprocessors": {
+    "/cloudalertscontrollers": {
       "post": {
-        "description": "Control message model to raise/resolve/generate cloud alert records.",
-        "operationId": "create-a-new-cloudalertrecordprocessor",
+        "description": "Control message model to raise/resolve/generate cloud alerts.",
+        "operationId": "create-a-new-cloudalertscontroller",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/cloudalertrecordprocessor"
+                "$ref": "#/components/schemas/cloudalertscontroller"
               }
             }
           }
@@ -70,7 +70,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/cloudalertrecordprocessor"
+                  "$ref": "#/components/schemas/cloudalertscontroller"
                 }
               }
             },
