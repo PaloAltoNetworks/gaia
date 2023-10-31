@@ -1,0 +1,97 @@
+{
+  "components": {
+    "schemas": {
+      "cloudalertscontroller": {
+        "description": "Control message model to raise/resolve/generate cloud alerts.",
+        "properties": {
+          "action": {
+            "default": "Generate",
+            "description": "Action type to perform.",
+            "enum": [
+              "Generate",
+              "Raise",
+              "Resolve"
+            ]
+          },
+          "cloudAccountIDs": {
+            "description": "IDs of cloud accounts to scan and generate alerts. When left empty all cloud\naccounts in the tenant are considered. This attribute is only supported with\naction 'Generate'.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "namespace": {
+            "description": "Namespace tag attached to an entity.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "prismaCloudPolicyIDs": {
+            "description": "Prisma Cloud policy IDs to scan and generate alerts. When left empty all\npolicies\nin the tenant are considered. This attribute is only supported with action\n'Generate'.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudalertscontroller",
+    "version": "1.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {
+    "/cloudalertscontrollers": {
+      "post": {
+        "description": "Control message model to raise/resolve/generate cloud alerts.",
+        "operationId": "create-a-new-cloudalertscontroller",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/cloudalertscontroller"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/cloudalertscontroller"
+                }
+              }
+            },
+            "description": "n/a"
+          }
+        },
+        "tags": [
+          "pcn/infrastructure",
+          "vargid"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'vargid'",
+      "name": "vargid"
+    }
+  ]
+}

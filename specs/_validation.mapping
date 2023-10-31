@@ -46,6 +46,10 @@ $cloudTagsExpression:
   elemental:
     name: ValidateCloudTagsExpression
 
+$cloudalertscontroller:
+  elemental:
+    name: ValidateCloudAlertsControllerEntity
+
 $cloudnetworkquery:
   elemental:
     name: ValidateCloudNetworkQueryEntity

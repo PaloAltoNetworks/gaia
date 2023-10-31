@@ -253,6 +253,10 @@ relations:
   delete:
     description: Deletes a cloud alert rule.
 
+- rest_name: cloudalertscontroller
+  create:
+    description: Control message model to raise/resolve/generate cloud alerts.
+
 - rest_name: cloudendpoint
   get:
     description: List of endpoints associated with the deployment.

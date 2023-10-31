@@ -41,7 +41,8 @@ var (
 		"cloudalertrecord": CloudAlertRecordIdentity,
 		"cloudalertrule":   CloudAlertRuleIdentity,
 
-		"cloudendpoint": CloudEndpointIdentity,
+		"cloudalertscontroller": CloudAlertsControllerIdentity,
+		"cloudendpoint":         CloudEndpointIdentity,
 
 		"cloudgraph":      CloudGraphIdentity,
 		"cloudgraphasset": CloudGraphAssetIdentity,
@@ -264,7 +265,8 @@ var (
 		"cloudalertrecords": CloudAlertRecordIdentity,
 		"cloudalertrules":   CloudAlertRuleIdentity,
 
-		"cloudendpoints": CloudEndpointIdentity,
+		"cloudalertscontrollers": CloudAlertsControllerIdentity,
+		"cloudendpoints":         CloudEndpointIdentity,
 
 		"cloudgraphs":      CloudGraphIdentity,
 		"cloudgraphassets": CloudGraphAssetIdentity,
@@ -772,6 +774,10 @@ var (
 			{"namespace", "normalizedTags"},
 			{"namespace", "prismaCloudAlertRuleID"},
 			{"updateIdempotencyKey"},
+		},
+		"cloudalertscontroller": {
+			{"namespace"},
+			{"namespace", "normalizedTags"},
 		},
 		"cloudendpoint": {
 			{":shard", ":unique", "zone", "zHash"},
@@ -1599,6 +1605,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCloudAlertRecord()
 	case CloudAlertRuleIdentity:
 		return NewCloudAlertRule()
+	case CloudAlertsControllerIdentity:
+		return NewCloudAlertsController()
 	case CloudEndpointIdentity:
 		return NewCloudEndpoint()
 	case CloudGraphIdentity:
@@ -1982,6 +1990,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCloudAlertRecord()
 	case CloudAlertRuleIdentity:
 		return NewSparseCloudAlertRule()
+	case CloudAlertsControllerIdentity:
+		return NewSparseCloudAlertsController()
 	case CloudEndpointIdentity:
 		return NewSparseCloudEndpoint()
 	case CloudGraphIdentity:
@@ -2373,6 +2383,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CloudAlertRecordsList{}
 	case CloudAlertRuleIdentity:
 		return &CloudAlertRulesList{}
+	case CloudAlertsControllerIdentity:
+		return &CloudAlertsControllersList{}
 	case CloudEndpointIdentity:
 		return &CloudEndpointsList{}
 	case CloudGraphIdentity:
@@ -2754,6 +2766,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCloudAlertRecordsList{}
 	case CloudAlertRuleIdentity:
 		return &SparseCloudAlertRulesList{}
+	case CloudAlertsControllerIdentity:
+		return &SparseCloudAlertsControllersList{}
 	case CloudEndpointIdentity:
 		return &SparseCloudEndpointsList{}
 	case CloudGraphIdentity:
@@ -3123,6 +3137,7 @@ func AllIdentities() []elemental.Identity {
 		CloudAlertIdentity,
 		CloudAlertRecordIdentity,
 		CloudAlertRuleIdentity,
+		CloudAlertsControllerIdentity,
 		CloudEndpointIdentity,
 		CloudGraphIdentity,
 		CloudGraphAssetIdentity,
@@ -3369,6 +3384,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case CloudAlertRecordIdentity:
 		return []string{}
 	case CloudAlertRuleIdentity:
+		return []string{}
+	case CloudAlertsControllerIdentity:
 		return []string{}
 	case CloudEndpointIdentity:
 		return []string{}
