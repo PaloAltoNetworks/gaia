@@ -75,6 +75,16 @@
       "post": {
         "description": "Creates a cloud graph asset.",
         "operationId": "create-a-new-cloudgraphasset",
+        "parameters": [
+          {
+            "description": "If set, cloud graph cache lookup will be disabled.",
+            "in": "query",
+            "name": "disableCacheLookup",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {

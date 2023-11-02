@@ -280,6 +280,11 @@ relations:
 - rest_name: cloudgraphasset
   create:
     description: Creates a cloud graph asset.
+    parameters:
+      entries:
+      - name: disableCacheLookup
+        description: If set, cloud graph cache lookup will be disabled.
+        type: boolean
 
 - rest_name: cloudloadbalancer
   get:

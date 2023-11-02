@@ -1160,7 +1160,14 @@ func init() {
 
 	relationshipsRegistry[CloudGraphAssetIdentity] = &elemental.Relationship{
 		Create: map[string]*elemental.RelationshipInfo{
-			"root": {},
+			"root": {
+				Parameters: []elemental.ParameterDefinition{
+					{
+						Name: "disableCacheLookup",
+						Type: "boolean",
+					},
+				},
+			},
 		},
 	}
 
