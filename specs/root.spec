@@ -1126,6 +1126,12 @@ relations:
   create:
     description: Get reputation information of IP/FQDN from PANDB.
 
+- rest_name: resolvedcloudalertrecord
+  get:
+    description: Retrieves alerts that were raised and later resolved.
+    global_parameters:
+    - $filtering
+
 - rest_name: revocation
   get:
     description: Verify the revocation of a certificate according to parameters.
