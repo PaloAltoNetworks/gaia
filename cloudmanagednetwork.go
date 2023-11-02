@@ -114,6 +114,9 @@ type CloudManagedNetwork struct {
 	// Name of the cluster.
 	K8sClusterName string `json:"K8sClusterName,omitempty" msgpack:"K8sClusterName,omitempty" bson:"k8sclustername,omitempty" mapstructure:"K8sClusterName,omitempty"`
 
+	// K8S Namespace.
+	K8sNamespace string `json:"K8sNamespace,omitempty" msgpack:"K8sNamespace,omitempty" bson:"k8snamespace,omitempty" mapstructure:"K8sNamespace,omitempty"`
+
 	// Prisma Cloud RRN.
 	RRN string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"rrn,omitempty" mapstructure:"RRN,omitempty"`
 
@@ -256,6 +259,7 @@ func (o *CloudManagedNetwork) GetBSON() (any, error) {
 		s.ID = bson.ObjectIdHex(o.ID)
 	}
 	s.K8sClusterName = o.K8sClusterName
+	s.K8sNamespace = o.K8sNamespace
 	s.RRN = o.RRN
 	s.VPCID = o.VPCID
 	s.AccountID = o.AccountID
@@ -305,6 +309,7 @@ func (o *CloudManagedNetwork) SetBSON(raw bson.Raw) error {
 	o.APIID = s.APIID
 	o.ID = s.ID.Hex()
 	o.K8sClusterName = s.K8sClusterName
+	o.K8sNamespace = s.K8sNamespace
 	o.RRN = s.RRN
 	o.VPCID = s.VPCID
 	o.AccountID = s.AccountID
@@ -390,6 +395,18 @@ func (o *CloudManagedNetwork) GetK8sClusterName() string {
 func (o *CloudManagedNetwork) SetK8sClusterName(K8sClusterName string) {
 
 	o.K8sClusterName = K8sClusterName
+}
+
+// GetK8sNamespace returns the K8sNamespace of the receiver.
+func (o *CloudManagedNetwork) GetK8sNamespace() string {
+
+	return o.K8sNamespace
+}
+
+// SetK8sNamespace sets the property K8sNamespace of the receiver using the given value.
+func (o *CloudManagedNetwork) SetK8sNamespace(K8sNamespace string) {
+
+	o.K8sNamespace = K8sNamespace
 }
 
 // GetRRN returns the RRN of the receiver.
@@ -702,6 +719,7 @@ func (o *CloudManagedNetwork) ToSparse(fields ...string) elemental.SparseIdentif
 			APIID:                &o.APIID,
 			ID:                   &o.ID,
 			K8sClusterName:       &o.K8sClusterName,
+			K8sNamespace:         &o.K8sNamespace,
 			RRN:                  &o.RRN,
 			VPCID:                &o.VPCID,
 			AccountID:            &o.AccountID,
@@ -743,6 +761,8 @@ func (o *CloudManagedNetwork) ToSparse(fields ...string) elemental.SparseIdentif
 			sp.ID = &(o.ID)
 		case "K8sClusterName":
 			sp.K8sClusterName = &(o.K8sClusterName)
+		case "K8sNamespace":
+			sp.K8sNamespace = &(o.K8sNamespace)
 		case "RRN":
 			sp.RRN = &(o.RRN)
 		case "VPCID":
@@ -822,6 +842,9 @@ func (o *CloudManagedNetwork) Patch(sparse elemental.SparseIdentifiable) {
 	}
 	if so.K8sClusterName != nil {
 		o.K8sClusterName = *so.K8sClusterName
+	}
+	if so.K8sNamespace != nil {
+		o.K8sNamespace = *so.K8sNamespace
 	}
 	if so.RRN != nil {
 		o.RRN = *so.RRN
@@ -1010,6 +1033,8 @@ func (o *CloudManagedNetwork) ValueForAttribute(name string) any {
 		return o.ID
 	case "K8sClusterName":
 		return o.K8sClusterName
+	case "K8sNamespace":
+		return o.K8sNamespace
 	case "RRN":
 		return o.RRN
 	case "VPCID":
@@ -1110,6 +1135,19 @@ var CloudManagedNetworkAttributesMap = map[string]elemental.AttributeSpecificati
 		Exposed:        true,
 		Getter:         true,
 		Name:           "K8sClusterName",
+		Orderable:      true,
+		Setter:         true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"K8sNamespace": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8snamespace",
+		ConvertedName:  "K8sNamespace",
+		Description:    `K8S Namespace.`,
+		Exposed:        true,
+		Getter:         true,
+		Name:           "K8sNamespace",
 		Orderable:      true,
 		Setter:         true,
 		Stored:         true,
@@ -1533,6 +1571,19 @@ var CloudManagedNetworkLowerCaseAttributesMap = map[string]elemental.AttributeSp
 		Exposed:        true,
 		Getter:         true,
 		Name:           "K8sClusterName",
+		Orderable:      true,
+		Setter:         true,
+		Stored:         true,
+		Type:           "string",
+	},
+	"k8snamespace": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "k8snamespace",
+		ConvertedName:  "K8sNamespace",
+		Description:    `K8S Namespace.`,
+		Exposed:        true,
+		Getter:         true,
+		Name:           "K8sNamespace",
 		Orderable:      true,
 		Setter:         true,
 		Stored:         true,
@@ -1991,6 +2042,9 @@ type SparseCloudManagedNetwork struct {
 	// Name of the cluster.
 	K8sClusterName *string `json:"K8sClusterName,omitempty" msgpack:"K8sClusterName,omitempty" bson:"k8sclustername,omitempty" mapstructure:"K8sClusterName,omitempty"`
 
+	// K8S Namespace.
+	K8sNamespace *string `json:"K8sNamespace,omitempty" msgpack:"K8sNamespace,omitempty" bson:"k8snamespace,omitempty" mapstructure:"K8sNamespace,omitempty"`
+
 	// Prisma Cloud RRN.
 	RRN *string `json:"RRN,omitempty" msgpack:"RRN,omitempty" bson:"rrn,omitempty" mapstructure:"RRN,omitempty"`
 
@@ -2132,6 +2186,9 @@ func (o *SparseCloudManagedNetwork) GetBSON() (any, error) {
 	if o.K8sClusterName != nil {
 		s.K8sClusterName = o.K8sClusterName
 	}
+	if o.K8sNamespace != nil {
+		s.K8sNamespace = o.K8sNamespace
+	}
 	if o.RRN != nil {
 		s.RRN = o.RRN
 	}
@@ -2244,6 +2301,9 @@ func (o *SparseCloudManagedNetwork) SetBSON(raw bson.Raw) error {
 	if s.K8sClusterName != nil {
 		o.K8sClusterName = s.K8sClusterName
 	}
+	if s.K8sNamespace != nil {
+		o.K8sNamespace = s.K8sNamespace
+	}
 	if s.RRN != nil {
 		o.RRN = s.RRN
 	}
@@ -2353,6 +2413,9 @@ func (o *SparseCloudManagedNetwork) ToPlain() elemental.PlainIdentifiable {
 	}
 	if o.K8sClusterName != nil {
 		out.K8sClusterName = *o.K8sClusterName
+	}
+	if o.K8sNamespace != nil {
+		out.K8sNamespace = *o.K8sNamespace
 	}
 	if o.RRN != nil {
 		out.RRN = *o.RRN
@@ -2475,6 +2538,22 @@ func (o *SparseCloudManagedNetwork) GetK8sClusterName() (out string) {
 func (o *SparseCloudManagedNetwork) SetK8sClusterName(K8sClusterName string) {
 
 	o.K8sClusterName = &K8sClusterName
+}
+
+// GetK8sNamespace returns the K8sNamespace of the receiver.
+func (o *SparseCloudManagedNetwork) GetK8sNamespace() (out string) {
+
+	if o.K8sNamespace == nil {
+		return
+	}
+
+	return *o.K8sNamespace
+}
+
+// SetK8sNamespace sets the property K8sNamespace of the receiver using the address of the given value.
+func (o *SparseCloudManagedNetwork) SetK8sNamespace(K8sNamespace string) {
+
+	o.K8sNamespace = &K8sNamespace
 }
 
 // GetRRN returns the RRN of the receiver.
@@ -2905,6 +2984,7 @@ type mongoAttributesCloudManagedNetwork struct {
 	APIID                int                          `bson:"apiid,omitempty"`
 	ID                   bson.ObjectId                `bson:"_id,omitempty"`
 	K8sClusterName       string                       `bson:"k8sclustername,omitempty"`
+	K8sNamespace         string                       `bson:"k8snamespace,omitempty"`
 	RRN                  string                       `bson:"rrn,omitempty"`
 	VPCID                string                       `bson:"vpcid,omitempty"`
 	AccountID            string                       `bson:"accountid,omitempty"`
@@ -2939,6 +3019,7 @@ type mongoAttributesSparseCloudManagedNetwork struct {
 	APIID                *int                          `bson:"apiid,omitempty"`
 	ID                   bson.ObjectId                 `bson:"_id,omitempty"`
 	K8sClusterName       *string                       `bson:"k8sclustername,omitempty"`
+	K8sNamespace         *string                       `bson:"k8snamespace,omitempty"`
 	RRN                  *string                       `bson:"rrn,omitempty"`
 	VPCID                *string                       `bson:"vpcid,omitempty"`
 	AccountID            *string                       `bson:"accountid,omitempty"`
