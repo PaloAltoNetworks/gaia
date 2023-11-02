@@ -182,36 +182,37 @@ var (
 		"quotapolicy":     QuotaPolicyIdentity,
 		"recipe":          RecipeIdentity,
 
-		"remoteprocessor":         RemoteProcessorIdentity,
-		"renderedpolicy":          RenderedPolicyIdentity,
-		"rendertemplate":          RenderTemplateIdentity,
-		"report":                  ReportIdentity,
-		"reportsquery":            ReportsQueryIdentity,
-		"reputation":              ReputationIdentity,
-		"revocation":              RevocationIdentity,
-		"role":                    RoleIdentity,
-		"root":                    RootIdentity,
-		"samlprovider":            SAMLProviderIdentity,
-		"service":                 ServiceIdentity,
-		"servicecertificate":      ServiceCertificateIdentity,
-		"servicedependencypolicy": ServiceDependencyPolicyIdentity,
-		"servicepublication":      ServicePublicationIdentity,
-		"servicetoken":            ServiceTokenIdentity,
-		"squalltag":               SquallTagIdentity,
-		"sshauthority":            SSHAuthorityIdentity,
-		"sshauthorizationpolicy":  SSHAuthorizationPolicyIdentity,
-		"sshcertificate":          SSHCertificateIdentity,
-		"sshidentity":             SSHIdentityIdentity,
-		"statsinfo":               StatsInfoIdentity,
-		"statsquery":              StatsQueryIdentity,
-		"suggestedpolicy":         SuggestedPolicyIdentity,
-		"suspiciousactivity":      SuspiciousActivityIdentity,
-		"tag":                     TagIdentity,
-		"taginject":               TagInjectIdentity,
-		"tagprefix":               TagPrefixIdentity,
-		"tagvalue":                TagValueIdentity,
-		"tenant":                  TenantIdentity,
-		"testresource":            TestResourceIdentity,
+		"remoteprocessor":          RemoteProcessorIdentity,
+		"renderedpolicy":           RenderedPolicyIdentity,
+		"rendertemplate":           RenderTemplateIdentity,
+		"report":                   ReportIdentity,
+		"reportsquery":             ReportsQueryIdentity,
+		"reputation":               ReputationIdentity,
+		"resolvedcloudalertrecord": ResolvedCloudAlertRecordIdentity,
+		"revocation":               RevocationIdentity,
+		"role":                     RoleIdentity,
+		"root":                     RootIdentity,
+		"samlprovider":             SAMLProviderIdentity,
+		"service":                  ServiceIdentity,
+		"servicecertificate":       ServiceCertificateIdentity,
+		"servicedependencypolicy":  ServiceDependencyPolicyIdentity,
+		"servicepublication":       ServicePublicationIdentity,
+		"servicetoken":             ServiceTokenIdentity,
+		"squalltag":                SquallTagIdentity,
+		"sshauthority":             SSHAuthorityIdentity,
+		"sshauthorizationpolicy":   SSHAuthorizationPolicyIdentity,
+		"sshcertificate":           SSHCertificateIdentity,
+		"sshidentity":              SSHIdentityIdentity,
+		"statsinfo":                StatsInfoIdentity,
+		"statsquery":               StatsQueryIdentity,
+		"suggestedpolicy":          SuggestedPolicyIdentity,
+		"suspiciousactivity":       SuspiciousActivityIdentity,
+		"tag":                      TagIdentity,
+		"taginject":                TagInjectIdentity,
+		"tagprefix":                TagPrefixIdentity,
+		"tagvalue":                 TagValueIdentity,
+		"tenant":                   TenantIdentity,
+		"testresource":             TestResourceIdentity,
 
 		"token":            TokenIdentity,
 		"tokenscopepolicy": TokenScopePolicyIdentity,
@@ -412,6 +413,7 @@ var (
 		"reports":                   ReportIdentity,
 		"reportsqueries":            ReportsQueryIdentity,
 		"reputations":               ReputationIdentity,
+		"resolvedcloudalertrecords": ResolvedCloudAlertRecordIdentity,
 		"revocations":               RevocationIdentity,
 		"roles":                     RoleIdentity,
 		"root":                      RootIdentity,
@@ -1381,6 +1383,12 @@ var (
 		"report":          nil,
 		"reportsquery":    nil,
 		"reputation":      nil,
+		"resolvedcloudalertrecord": {
+			{":shard", ":unique", "zone", "zHash"},
+			{"namespace"},
+			{"namespace", "Record.prismaCloudPolicyID"},
+			{"namespace", "normalizedTags"},
+		},
 		"revocation": {
 			{":shard", ":unique", "zone", "zHash"},
 		},
@@ -1847,6 +1855,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewReportsQuery()
 	case ReputationIdentity:
 		return NewReputation()
+	case ResolvedCloudAlertRecordIdentity:
+		return NewResolvedCloudAlertRecord()
 	case RevocationIdentity:
 		return NewRevocation()
 	case RoleIdentity:
@@ -2232,6 +2242,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseReportsQuery()
 	case ReputationIdentity:
 		return NewSparseReputation()
+	case ResolvedCloudAlertRecordIdentity:
+		return NewSparseResolvedCloudAlertRecord()
 	case RevocationIdentity:
 		return NewSparseRevocation()
 	case RoleIdentity:
@@ -2625,6 +2637,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &ReportsQueriesList{}
 	case ReputationIdentity:
 		return &ReputationsList{}
+	case ResolvedCloudAlertRecordIdentity:
+		return &ResolvedCloudAlertRecordsList{}
 	case RevocationIdentity:
 		return &RevocationsList{}
 	case RoleIdentity:
@@ -3008,6 +3022,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseReportsQueriesList{}
 	case ReputationIdentity:
 		return &SparseReputationsList{}
+	case ResolvedCloudAlertRecordIdentity:
+		return &SparseResolvedCloudAlertRecordsList{}
 	case RevocationIdentity:
 		return &SparseRevocationsList{}
 	case RoleIdentity:
@@ -3258,6 +3274,7 @@ func AllIdentities() []elemental.Identity {
 		ReportIdentity,
 		ReportsQueryIdentity,
 		ReputationIdentity,
+		ResolvedCloudAlertRecordIdentity,
 		RevocationIdentity,
 		RoleIdentity,
 		RootIdentity,
@@ -3753,6 +3770,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 		return []string{
 			"rep",
 		}
+	case ResolvedCloudAlertRecordIdentity:
+		return []string{}
 	case RevocationIdentity:
 		return []string{}
 	case RoleIdentity:
