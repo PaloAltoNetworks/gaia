@@ -18,6 +18,10 @@
             "description": "Name of the cluster.",
             "type": "string"
           },
+          "K8sNamespace": {
+            "description": "K8S Namespace.",
+            "type": "string"
+          },
           "RRN": {
             "description": "Prisma Cloud RRN.",
             "type": "string"

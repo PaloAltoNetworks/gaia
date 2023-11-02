@@ -10928,6 +10928,12 @@ Type: `string`
 
 Name of the cluster.
 
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
+
 ##### `RRN`
 
 Type: `string`
@@ -11641,6 +11647,12 @@ Type: `string`
 
 Name of the cluster.
 
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
+
 ##### `RRN`
 
 Type: `string`
@@ -11884,6 +11896,12 @@ Type: `string`
 
 Name of the cluster.
 
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
+
 ##### `RRN`
 
 Type: `string`
@@ -12120,6 +12138,12 @@ Type: `string`
 
 Name of the cluster.
 
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
+
 ##### `RRN`
 
 Type: `string`
@@ -12350,6 +12374,12 @@ Identifier of the object.
 Type: `string`
 
 Name of the cluster.
+
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
 
 ##### `RRN`
 
@@ -13106,6 +13136,12 @@ Type: `string`
 
 Name of the cluster.
 
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
+
 ##### `RRN`
 
 Type: `string`
@@ -13336,6 +13372,12 @@ Identifier of the object.
 Type: `string`
 
 Name of the cluster.
+
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
 
 ##### `RRN`
 
@@ -13724,6 +13766,12 @@ Type: `string`
 
 Name of the cluster.
 
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
+
 ##### `RRN`
 
 Type: `string`
@@ -14027,6 +14075,12 @@ Type: `string`
 
 Name of the cluster.
 
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
+
 ##### `RRN`
 
 Type: `string`
@@ -14224,6 +14278,12 @@ Identifier of the object.
 Type: `string`
 
 Name of the cluster.
+
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
 
 ##### `RRN`
 
@@ -14462,6 +14522,12 @@ Identifier of the object.
 Type: `string`
 
 Name of the cluster.
+
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
 
 ##### `RRN`
 
@@ -15024,6 +15090,12 @@ Type: `string`
 
 Name of the cluster.
 
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
+
 ##### `RRN`
 
 Type: `string`
@@ -15269,6 +15341,12 @@ Identifier of the object.
 Type: `string`
 
 Name of the cluster.
+
+##### `K8sNamespace`
+
+Type: `string`
+
+K8S Namespace.
 
 ##### `RRN`
 
