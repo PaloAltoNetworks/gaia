@@ -9,9 +9,6 @@
             "readOnly": true,
             "type": "string"
           },
-          "Record": {
-            "$ref": "./cloudalertrecord#/components/schemas/cloudalertrecord"
-          },
           "createTime": {
             "description": "Creation date of the object.",
             "format": "date-time",
@@ -22,6 +19,9 @@
             "description": "Namespace tag attached to an entity.",
             "readOnly": true,
             "type": "string"
+          },
+          "record": {
+            "$ref": "./cloudalertrecord#/components/schemas/cloudalertrecord"
           },
           "updateTime": {
             "description": "Last update date of the object.",
@@ -84,49 +84,6 @@
           "vargid"
         ]
       }
-    },
-    "/resolvedcloudalertrecords/{id}": {
-      "get": {
-        "description": "Retrieves the Resolved Alert Record with a given id.",
-        "operationId": "get-resolvedcloudalertrecord-by-ID",
-        "parameters": [
-          {
-            "description": "Filtering query. Consequent `q` parameters will form an or.",
-            "example": "associatedTags contains ['$name=hello'] or type == 'Docker'",
-            "in": "query",
-            "name": "q",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/resolvedcloudalertrecord"
-                }
-              }
-            },
-            "description": "n/a"
-          }
-        },
-        "tags": [
-          "pcn/infrastructure",
-          "vargid"
-        ]
-      },
-      "parameters": [
-        {
-          "in": "path",
-          "name": "id",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ]
     }
   },
   "tags": [

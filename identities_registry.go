@@ -1386,8 +1386,8 @@ var (
 		"resolvedcloudalertrecord": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
-			{"namespace", "Record.prismaCloudPolicyID"},
 			{"namespace", "normalizedTags"},
+			{"namespace", "record.prismacloudpolicyid"},
 		},
 		"revocation": {
 			{":shard", ":unique", "zone", "zHash"},

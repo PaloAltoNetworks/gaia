@@ -6,10 +6,6 @@ model:
   package: vargid
   group: pcn/infrastructure
   description: Represents an Alert that was raised and later resolved.
-  get:
-    description: Retrieves the Resolved Alert Record with a given id.
-    global_parameters:
-    - $filtering
   extends:
   - '@namespaced'
   - '@identifiable-stored'
@@ -19,12 +15,12 @@ model:
 # Indexes
 indexes:
 - - namespace
-  - Record.prismaCloudPolicyID
+  - record.prismacloudpolicyid
 
 # Attributes
 attributes:
   v1:
-  - name: Record
+  - name: record
     description: The record that was raised and later resolved.
     type: ref
     exposed: true
