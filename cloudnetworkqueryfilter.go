@@ -74,6 +74,9 @@ type CloudNetworkQueryFilter struct {
 	// refer to the tags attached to the resources in the cloud provider definitions.
 	NotTags []string `json:"notTags,omitempty" msgpack:"notTags,omitempty" bson:"nottags,omitempty" mapstructure:"notTags,omitempty"`
 
+	// If set to true, the VPC IDs in `VPCIDs` will be excluded rather than included.
+	NotVPCIDs bool `json:"notVPCIDs" msgpack:"notVPCIDs" bson:"-" mapstructure:"notVPCIDs,omitempty"`
+
 	// The exact object that the search applies. If ObjectIDs are defined, the rest of
 	// the fields are ignored. An object ID can refer to an instance, VPC endpoint, or
 	// network interface.
@@ -336,6 +339,8 @@ func (o *CloudNetworkQueryFilter) ValueForAttribute(name string) any {
 		return o.ImageIDs
 	case "notTags":
 		return o.NotTags
+	case "notVPCIDs":
+		return o.NotVPCIDs
 	case "objectIDs":
 		return o.ObjectIDs
 	case "paasTypes":
@@ -494,6 +499,14 @@ refer to the tags attached to the resources in the cloud provider definitions.`,
 		Stored:  true,
 		SubType: "string",
 		Type:    "list",
+	},
+	"NotVPCIDs": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NotVPCIDs",
+		Description:    `If set to true, the VPC IDs in ` + "`" + `VPCIDs` + "`" + ` will be excluded rather than included.`,
+		Exposed:        true,
+		Name:           "notVPCIDs",
+		Type:           "boolean",
 	},
 	"ObjectIDs": {
 		AllowedChoices: []string{},
@@ -777,6 +790,14 @@ refer to the tags attached to the resources in the cloud provider definitions.`,
 		Stored:  true,
 		SubType: "string",
 		Type:    "list",
+	},
+	"notvpcids": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NotVPCIDs",
+		Description:    `If set to true, the VPC IDs in ` + "`" + `VPCIDs` + "`" + ` will be excluded rather than included.`,
+		Exposed:        true,
+		Name:           "notVPCIDs",
+		Type:           "boolean",
 	},
 	"objectids": {
 		AllowedChoices: []string{},

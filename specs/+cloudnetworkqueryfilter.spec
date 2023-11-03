@@ -119,6 +119,12 @@ attributes:
     stored: true
     omit_empty: true
 
+  - name: notVPCIDs
+    description: If set to true, the VPC IDs in `VPCIDs` will be excluded rather than
+      included.
+    type: boolean
+    exposed: true
+
   - name: objectIDs
     description: |-
       The exact object that the search applies. If ObjectIDs are defined, the rest of

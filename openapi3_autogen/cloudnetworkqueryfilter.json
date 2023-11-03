@@ -87,6 +87,10 @@
             },
             "type": "array"
           },
+          "notVPCIDs": {
+            "description": "If set to true, the VPC IDs in `VPCIDs` will be excluded rather than included.",
+            "type": "boolean"
+          },
           "objectIDs": {
             "description": "The exact object that the search applies. If ObjectIDs are defined, the rest of\nthe fields are ignored. An object ID can refer to an instance, VPC endpoint, or\nnetwork interface.",
             "items": {

@@ -12781,6 +12781,7 @@ permissions request.
   "cloudTypes": [
     "AWS"
   ],
+  "notVPCIDs": false,
   "regions": [
     "us-west-1"
   ],
@@ -12861,6 +12862,12 @@ Type: `[]string`
 
 A list of tags that exclude the matching endpoints for the query. These tags
 refer to the tags attached to the resources in the cloud provider definitions.
+
+##### `notVPCIDs`
+
+Type: `boolean`
+
+If set to true, the VPC IDs in `VPCIDs` will be excluded rather than included.
 
 ##### `objectIDs`
 
