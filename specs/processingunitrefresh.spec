@@ -22,6 +22,13 @@ attributes:
     setter: true
     identifier: true
 
+  - name: command
+    description: "Instructs the enforcer to preform the specified command \nfor the
+      target processing unit."
+    type: string
+    exposed: true
+    omit_empty: true
+
   - name: connections
     description: "Instructs the enforcer to send the current connections \nfor the
       target processing unit."
