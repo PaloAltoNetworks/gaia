@@ -16,8 +16,8 @@ type CloudLoadBalancerData struct {
 	// ID of associated objects with this load balancer.
 	AttachedEntities []string `json:"attachedEntities" msgpack:"attachedEntities" bson:"attachedentities" mapstructure:"attachedEntities,omitempty"`
 
-	// Mapping of a listener to its associated target group ID list.
-	Listenertargetmapping map[string][]string `json:"listenertargetmapping" msgpack:"listenertargetmapping" bson:"listenertargetmapping" mapstructure:"listenertargetmapping,omitempty"`
+	// Mapping of a listener to its associated target group list.
+	ListenerTargetMapping map[string][]*CloudLoadBalancerDataTargetGroup `json:"listenerTargetMapping" msgpack:"listenerTargetMapping" bson:"listenertargetmapping" mapstructure:"listenerTargetMapping,omitempty"`
 
 	// The name of the load balancer.
 	Name string `json:"name" msgpack:"name" bson:"name" mapstructure:"name,omitempty"`
@@ -34,7 +34,7 @@ func NewCloudLoadBalancerData() *CloudLoadBalancerData {
 	return &CloudLoadBalancerData{
 		ModelVersion:          1,
 		AttachedEntities:      []string{},
-		Listenertargetmapping: map[string][]string{},
+		ListenerTargetMapping: map[string][]*CloudLoadBalancerDataTargetGroup{},
 	}
 }
 
@@ -49,7 +49,7 @@ func (o *CloudLoadBalancerData) GetBSON() (any, error) {
 	s := &mongoAttributesCloudLoadBalancerData{}
 
 	s.AttachedEntities = o.AttachedEntities
-	s.Listenertargetmapping = o.Listenertargetmapping
+	s.ListenerTargetMapping = o.ListenerTargetMapping
 	s.Name = o.Name
 	s.Scheme = o.Scheme
 
@@ -70,7 +70,7 @@ func (o *CloudLoadBalancerData) SetBSON(raw bson.Raw) error {
 	}
 
 	o.AttachedEntities = s.AttachedEntities
-	o.Listenertargetmapping = s.Listenertargetmapping
+	o.ListenerTargetMapping = s.ListenerTargetMapping
 	o.Name = s.Name
 	o.Scheme = s.Scheme
 
@@ -149,8 +149,8 @@ func (o *CloudLoadBalancerData) ValueForAttribute(name string) any {
 	switch name {
 	case "attachedEntities":
 		return o.AttachedEntities
-	case "listenertargetmapping":
-		return o.Listenertargetmapping
+	case "listenerTargetMapping":
+		return o.ListenerTargetMapping
 	case "name":
 		return o.Name
 	case "scheme":
@@ -173,15 +173,15 @@ var CloudLoadBalancerDataAttributesMap = map[string]elemental.AttributeSpecifica
 		SubType:        "string",
 		Type:           "list",
 	},
-	"Listenertargetmapping": {
+	"ListenerTargetMapping": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "listenertargetmapping",
-		ConvertedName:  "Listenertargetmapping",
-		Description:    `Mapping of a listener to its associated target group ID list.`,
+		ConvertedName:  "ListenerTargetMapping",
+		Description:    `Mapping of a listener to its associated target group list.`,
 		Exposed:        true,
-		Name:           "listenertargetmapping",
+		Name:           "listenerTargetMapping",
 		Stored:         true,
-		SubType:        "map[string][]string",
+		SubType:        "map[string][]cloudloadbalancerdatatargetgroup",
 		Type:           "external",
 	},
 	"Name": {
@@ -222,12 +222,12 @@ var CloudLoadBalancerDataLowerCaseAttributesMap = map[string]elemental.Attribute
 	"listenertargetmapping": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "listenertargetmapping",
-		ConvertedName:  "Listenertargetmapping",
-		Description:    `Mapping of a listener to its associated target group ID list.`,
+		ConvertedName:  "ListenerTargetMapping",
+		Description:    `Mapping of a listener to its associated target group list.`,
 		Exposed:        true,
-		Name:           "listenertargetmapping",
+		Name:           "listenerTargetMapping",
 		Stored:         true,
-		SubType:        "map[string][]string",
+		SubType:        "map[string][]cloudloadbalancerdatatargetgroup",
 		Type:           "external",
 	},
 	"name": {
@@ -253,8 +253,8 @@ var CloudLoadBalancerDataLowerCaseAttributesMap = map[string]elemental.Attribute
 }
 
 type mongoAttributesCloudLoadBalancerData struct {
-	AttachedEntities      []string            `bson:"attachedentities"`
-	Listenertargetmapping map[string][]string `bson:"listenertargetmapping"`
-	Name                  string              `bson:"name"`
-	Scheme                string              `bson:"scheme"`
+	AttachedEntities      []string                                       `bson:"attachedentities"`
+	ListenerTargetMapping map[string][]*CloudLoadBalancerDataTargetGroup `bson:"listenertargetmapping"`
+	Name                  string                                         `bson:"name"`
+	Scheme                string                                         `bson:"scheme"`
 }

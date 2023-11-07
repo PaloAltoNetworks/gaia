@@ -92,6 +92,7 @@ CloudIPConfiguration
 CloudIPRange
 CloudLoadBalancer
 CloudLoadBalancerData
+CloudLoadBalancerDataTargetGroup
 CloudLoadBalancerRoute
 CloudLoadBalancerRouteData
 CloudManagedNetwork

@@ -1,0 +1,48 @@
+{
+  "openapi": "3.0.3",
+  "components": {
+    "schemas": {
+      "cloudloadbalancerdatatargetgroup": {
+        "description": "Represents a load balancing rule target group.",
+        "properties": {
+          "DirectServerReturnEnabled": {
+            "description": "Defines if Direct Server Return is enabled for the group.",
+            "type": "boolean"
+          },
+          "TargetIDs": {
+            "description": "The list of IDs of the target.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "cloudloadbalancerdatatargetgroup",
+    "version": "1.0"
+  },
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'pcn/infrastructure'",
+      "name": "pcn/infrastructure"
+    },
+    {
+      "description": "This tag is for package 'yeul'",
+      "name": "yeul"
+    }
+  ]
+}
