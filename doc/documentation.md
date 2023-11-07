@@ -7084,6 +7084,10 @@ Provide search results for Prisma Cloud's investigate page.
 
 Retrieves RQL search results.
 
+Parameters:
+
+- `neocna` (`boolean`): if set to true, processing might be diverted to NEOCNA.
+
 #### Attributes
 
 ##### `ID`
