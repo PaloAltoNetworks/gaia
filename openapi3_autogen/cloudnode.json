@@ -175,7 +175,13 @@
               "K8sNode",
               "K8sService",
               "K8sNamespace",
-              "K8sPod"
+              "K8sPod",
+              "MySQLServer",
+              "MySQLFlexibleServer",
+              "PostgreSQLServer",
+              "PostgreSQLFlexibleServer",
+              "CosmosDB",
+              "SQLServer"
             ],
             "example": "Endpoint"
           },

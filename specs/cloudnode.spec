@@ -116,4 +116,10 @@ attributes:
     - K8sService
     - K8sNamespace
     - K8sPod
+    - MySQLServer
+    - MySQLFlexibleServer
+    - PostgreSQLServer
+    - PostgreSQLFlexibleServer
+    - CosmosDB
+    - SQLServer
     example_value: Endpoint
