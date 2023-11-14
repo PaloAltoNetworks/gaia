@@ -26,7 +26,13 @@
               "Instance",
               "LoadBalancer",
               "PublicIP",
-              "K8sService"
+              "K8sService",
+              "MySQLServer",
+              "MySQLFlexibleServer",
+              "PostgreSQLServer",
+              "PostgreSQLFlexibleServer",
+              "CosmosDB",
+              "SQLServer"
             ],
             "readOnly": true
           },

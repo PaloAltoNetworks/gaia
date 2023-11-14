@@ -16,6 +16,9 @@ import (
 type CloudNodeTypeValue string
 
 const (
+	// CloudNodeTypeCosmosDB represents the value CosmosDB.
+	CloudNodeTypeCosmosDB CloudNodeTypeValue = "CosmosDB"
+
 	// CloudNodeTypeEndpoint represents the value Endpoint.
 	CloudNodeTypeEndpoint CloudNodeTypeValue = "Endpoint"
 
@@ -43,14 +46,29 @@ const (
 	// CloudNodeTypeLoadBalancerRoute represents the value LoadBalancerRoute.
 	CloudNodeTypeLoadBalancerRoute CloudNodeTypeValue = "LoadBalancerRoute"
 
+	// CloudNodeTypeMySQLFlexibleServer represents the value MySQLFlexibleServer.
+	CloudNodeTypeMySQLFlexibleServer CloudNodeTypeValue = "MySQLFlexibleServer"
+
+	// CloudNodeTypeMySQLServer represents the value MySQLServer.
+	CloudNodeTypeMySQLServer CloudNodeTypeValue = "MySQLServer"
+
 	// CloudNodeTypeNetworkRuleSet represents the value NetworkRuleSet.
 	CloudNodeTypeNetworkRuleSet CloudNodeTypeValue = "NetworkRuleSet"
+
+	// CloudNodeTypePostgreSQLFlexibleServer represents the value PostgreSQLFlexibleServer.
+	CloudNodeTypePostgreSQLFlexibleServer CloudNodeTypeValue = "PostgreSQLFlexibleServer"
+
+	// CloudNodeTypePostgreSQLServer represents the value PostgreSQLServer.
+	CloudNodeTypePostgreSQLServer CloudNodeTypeValue = "PostgreSQLServer"
 
 	// CloudNodeTypePublicIPAddress represents the value PublicIPAddress.
 	CloudNodeTypePublicIPAddress CloudNodeTypeValue = "PublicIPAddress"
 
 	// CloudNodeTypeRouteTable represents the value RouteTable.
 	CloudNodeTypeRouteTable CloudNodeTypeValue = "RouteTable"
+
+	// CloudNodeTypeSQLServer represents the value SQLServer.
+	CloudNodeTypeSQLServer CloudNodeTypeValue = "SQLServer"
 
 	// CloudNodeTypeScaleGroup represents the value ScaleGroup.
 	CloudNodeTypeScaleGroup CloudNodeTypeValue = "ScaleGroup"
@@ -1072,7 +1090,7 @@ func (o *CloudNode) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod", "MySQLServer", "MySQLFlexibleServer", "PostgreSQLServer", "PostgreSQLFlexibleServer", "CosmosDB", "SQLServer"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1581,7 +1599,7 @@ var CloudNodeAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "string",
 	},
 	"Type": {
-		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod"},
+		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod", "MySQLServer", "MySQLFlexibleServer", "PostgreSQLServer", "PostgreSQLFlexibleServer", "CosmosDB", "SQLServer"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
@@ -2050,7 +2068,7 @@ var CloudNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Type:           "string",
 	},
 	"type": {
-		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod"},
+		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod", "MySQLServer", "MySQLFlexibleServer", "PostgreSQLServer", "PostgreSQLFlexibleServer", "CosmosDB", "SQLServer"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
