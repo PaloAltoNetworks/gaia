@@ -80,6 +80,10 @@
             },
             "type": "array"
           },
+          "notObjectNames": {
+            "description": "If set to true, the list of resource names in `objectNames` will be excluded\nrather than included.",
+            "type": "boolean"
+          },
           "notTags": {
             "description": "A list of tags that exclude the matching endpoints for the query. These tags\nrefer to the tags attached to the resources in the cloud provider definitions.",
             "items": {
@@ -93,6 +97,13 @@
           },
           "objectIDs": {
             "description": "The exact object that the search applies. If ObjectIDs are defined, the rest of\nthe fields are ignored. An object ID can refer to an instance, VPC endpoint, or\nnetwork interface.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "objectNames": {
+            "description": "The list of resource names that should be taken into account. Currently this is\nfor instances and network interfaces only. If a resource does not have a name\nfield or tag,\n`objectNames` can contain the resource ID instead.",
             "items": {
               "type": "string"
             },

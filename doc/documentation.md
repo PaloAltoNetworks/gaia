@@ -12781,6 +12781,7 @@ permissions request.
   "cloudTypes": [
     "AWS"
   ],
+  "notObjectNames": false,
   "notVPCIDs": false,
   "regions": [
     "us-west-1"
@@ -12856,6 +12857,13 @@ Type: `[]string`
 A list of imageIDs that endpoints can be filtered with. Applies only to
 resourceType Endpoint.
 
+##### `notObjectNames`
+
+Type: `boolean`
+
+If set to true, the list of resource names in `objectNames` will be excluded
+rather than included.
+
 ##### `notTags`
 
 Type: `[]string`
@@ -12876,6 +12884,15 @@ Type: `[]string`
 The exact object that the search applies. If ObjectIDs are defined, the rest of
 the fields are ignored. An object ID can refer to an instance, VPC endpoint, or
 network interface.
+
+##### `objectNames`
+
+Type: `[]string`
+
+The list of resource names that should be taken into account. Currently this is
+for instances and network interfaces only. If a resource does not have a name
+field or tag,
+`objectNames` can contain the resource ID instead.
 
 ##### `paasTypes`
 
