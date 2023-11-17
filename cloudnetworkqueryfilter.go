@@ -70,6 +70,10 @@ type CloudNetworkQueryFilter struct {
 	// resourceType Endpoint.
 	ImageIDs []string `json:"imageIDs,omitempty" msgpack:"imageIDs,omitempty" bson:"imageids,omitempty" mapstructure:"imageIDs,omitempty"`
 
+	// If set to true, the list of resource names in `objectNames` will be excluded
+	// rather than included.
+	NotObjectNames bool `json:"notObjectNames" msgpack:"notObjectNames" bson:"-" mapstructure:"notObjectNames,omitempty"`
+
 	// A list of tags that exclude the matching endpoints for the query. These tags
 	// refer to the tags attached to the resources in the cloud provider definitions.
 	NotTags []string `json:"notTags,omitempty" msgpack:"notTags,omitempty" bson:"nottags,omitempty" mapstructure:"notTags,omitempty"`
@@ -81,6 +85,12 @@ type CloudNetworkQueryFilter struct {
 	// the fields are ignored. An object ID can refer to an instance, VPC endpoint, or
 	// network interface.
 	ObjectIDs []string `json:"objectIDs,omitempty" msgpack:"objectIDs,omitempty" bson:"objectids,omitempty" mapstructure:"objectIDs,omitempty"`
+
+	// The list of resource names that should be taken into account. Currently this is
+	// for instances and network interfaces only. If a resource does not have a name
+	// field or tag,
+	// `objectNames` can contain the resource ID instead.
+	ObjectNames []string `json:"objectNames,omitempty" msgpack:"objectNames,omitempty" bson:"objectnames,omitempty" mapstructure:"objectNames,omitempty"`
 
 	// Identifies a list of Platform as a Service types.
 	PaasTypes []string `json:"paasTypes,omitempty" msgpack:"paasTypes,omitempty" bson:"paastypes,omitempty" mapstructure:"paasTypes,omitempty"`
@@ -148,6 +158,7 @@ func NewCloudNetworkQueryFilter() *CloudNetworkQueryFilter {
 		ImageIDs:           []string{},
 		NotTags:            []string{},
 		ObjectIDs:          []string{},
+		ObjectNames:        []string{},
 		PaasTypes:          []string{},
 		Regions:            []string{},
 		ResourceType:       CloudNetworkQueryFilterResourceTypeInstance,
@@ -182,6 +193,7 @@ func (o *CloudNetworkQueryFilter) GetBSON() (any, error) {
 	s.ImageIDs = o.ImageIDs
 	s.NotTags = o.NotTags
 	s.ObjectIDs = o.ObjectIDs
+	s.ObjectNames = o.ObjectNames
 	s.PaasTypes = o.PaasTypes
 	s.ProductInfoType = o.ProductInfoType
 	s.ProductInfoValue = o.ProductInfoValue
@@ -223,6 +235,7 @@ func (o *CloudNetworkQueryFilter) SetBSON(raw bson.Raw) error {
 	o.ImageIDs = s.ImageIDs
 	o.NotTags = s.NotTags
 	o.ObjectIDs = s.ObjectIDs
+	o.ObjectNames = s.ObjectNames
 	o.PaasTypes = s.PaasTypes
 	o.ProductInfoType = s.ProductInfoType
 	o.ProductInfoValue = s.ProductInfoValue
@@ -337,12 +350,16 @@ func (o *CloudNetworkQueryFilter) ValueForAttribute(name string) any {
 		return o.CloudTypes
 	case "imageIDs":
 		return o.ImageIDs
+	case "notObjectNames":
+		return o.NotObjectNames
 	case "notTags":
 		return o.NotTags
 	case "notVPCIDs":
 		return o.NotVPCIDs
 	case "objectIDs":
 		return o.ObjectIDs
+	case "objectNames":
+		return o.ObjectNames
 	case "paasTypes":
 		return o.PaasTypes
 	case "productInfoType":
@@ -488,6 +505,15 @@ resourceType Endpoint.`,
 		SubType: "string",
 		Type:    "list",
 	},
+	"NotObjectNames": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NotObjectNames",
+		Description: `If set to true, the list of resource names in ` + "`" + `objectNames` + "`" + ` will be excluded
+rather than included.`,
+		Exposed: true,
+		Name:    "notObjectNames",
+		Type:    "boolean",
+	},
 	"NotTags": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "nottags",
@@ -517,6 +543,20 @@ the fields are ignored. An object ID can refer to an instance, VPC endpoint, or
 network interface.`,
 		Exposed: true,
 		Name:    "objectIDs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"ObjectNames": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "objectnames",
+		ConvertedName:  "ObjectNames",
+		Description: `The list of resource names that should be taken into account. Currently this is
+for instances and network interfaces only. If a resource does not have a name
+field or tag,
+` + "`" + `objectNames` + "`" + ` can contain the resource ID instead.`,
+		Exposed: true,
+		Name:    "objectNames",
 		Stored:  true,
 		SubType: "string",
 		Type:    "list",
@@ -779,6 +819,15 @@ resourceType Endpoint.`,
 		SubType: "string",
 		Type:    "list",
 	},
+	"notobjectnames": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NotObjectNames",
+		Description: `If set to true, the list of resource names in ` + "`" + `objectNames` + "`" + ` will be excluded
+rather than included.`,
+		Exposed: true,
+		Name:    "notObjectNames",
+		Type:    "boolean",
+	},
 	"nottags": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "nottags",
@@ -808,6 +857,20 @@ the fields are ignored. An object ID can refer to an instance, VPC endpoint, or
 network interface.`,
 		Exposed: true,
 		Name:    "objectIDs",
+		Stored:  true,
+		SubType: "string",
+		Type:    "list",
+	},
+	"objectnames": {
+		AllowedChoices: []string{},
+		BSONFieldName:  "objectnames",
+		ConvertedName:  "ObjectNames",
+		Description: `The list of resource names that should be taken into account. Currently this is
+for instances and network interfaces only. If a resource does not have a name
+field or tag,
+` + "`" + `objectNames` + "`" + ` can contain the resource ID instead.`,
+		Exposed: true,
+		Name:    "objectNames",
 		Stored:  true,
 		SubType: "string",
 		Type:    "list",
@@ -967,6 +1030,7 @@ type mongoAttributesCloudNetworkQueryFilter struct {
 	ImageIDs           []string                                 `bson:"imageids,omitempty"`
 	NotTags            []string                                 `bson:"nottags,omitempty"`
 	ObjectIDs          []string                                 `bson:"objectids,omitempty"`
+	ObjectNames        []string                                 `bson:"objectnames,omitempty"`
 	PaasTypes          []string                                 `bson:"paastypes,omitempty"`
 	ProductInfoType    string                                   `bson:"productinfotype,omitempty"`
 	ProductInfoValue   string                                   `bson:"productinfovalue,omitempty"`

@@ -109,6 +109,13 @@ attributes:
     stored: true
     omit_empty: true
 
+  - name: notObjectNames
+    description: |-
+      If set to true, the list of resource names in `objectNames` will be excluded
+      rather than included.
+    type: boolean
+    exposed: true
+
   - name: notTags
     description: |-
       A list of tags that exclude the matching endpoints for the query. These tags
@@ -130,6 +137,18 @@ attributes:
       The exact object that the search applies. If ObjectIDs are defined, the rest of
       the fields are ignored. An object ID can refer to an instance, VPC endpoint, or
       network interface.
+    type: list
+    exposed: true
+    subtype: string
+    stored: true
+    omit_empty: true
+
+  - name: objectNames
+    description: |-
+      The list of resource names that should be taken into account. Currently this is
+      for instances and network interfaces only. If a resource does not have a name
+      field or tag,
+      `objectNames` can contain the resource ID instead.
     type: list
     exposed: true
     subtype: string
