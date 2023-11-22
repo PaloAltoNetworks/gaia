@@ -10810,7 +10810,8 @@ Control message model to raise/resolve/generate cloud alerts.
 
 ```json
 {
-  "action": "Generate"
+  "action": "Generate",
+  "alertResolveWaitDuration": "0s"
 }
 ```
 
@@ -10832,6 +10833,19 @@ Default value:
 
 ```json
 "Generate"
+```
+
+##### `alertResolveWaitDuration`
+
+Type: `string`
+
+Duration to wait to resolve an alert. This attribute is only supported with
+action 'Resolve'.
+
+Default value:
+
+```json
+"0s"
 ```
 
 ##### `cloudAccountIDs`

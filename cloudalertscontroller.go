@@ -100,6 +100,10 @@ type CloudAlertsController struct {
 	// Action type to perform.
 	Action CloudAlertsControllerActionValue `json:"action" msgpack:"action" bson:"-" mapstructure:"action,omitempty"`
 
+	// Duration to wait to resolve an alert. This attribute is only supported with
+	// action 'Resolve'.
+	AlertResolveWaitDuration string `json:"alertResolveWaitDuration" msgpack:"alertResolveWaitDuration" bson:"-" mapstructure:"alertResolveWaitDuration,omitempty"`
+
 	// IDs of cloud accounts to scan and generate alerts. When left empty all cloud
 	// accounts in the tenant are considered. This attribute is only supported with
 	// action 'Generate'.
@@ -121,10 +125,11 @@ type CloudAlertsController struct {
 func NewCloudAlertsController() *CloudAlertsController {
 
 	return &CloudAlertsController{
-		ModelVersion:         1,
-		Action:               CloudAlertsControllerActionGenerate,
-		CloudAccountIDs:      []string{},
-		PrismaCloudPolicyIDs: []string{},
+		ModelVersion:             1,
+		Action:                   CloudAlertsControllerActionGenerate,
+		AlertResolveWaitDuration: "0s",
+		CloudAccountIDs:          []string{},
+		PrismaCloudPolicyIDs:     []string{},
 	}
 }
 
@@ -226,10 +231,11 @@ func (o *CloudAlertsController) ToSparse(fields ...string) elemental.SparseIdent
 	if len(fields) == 0 {
 		// nolint: goimports
 		return &SparseCloudAlertsController{
-			Action:               &o.Action,
-			CloudAccountIDs:      &o.CloudAccountIDs,
-			Namespace:            &o.Namespace,
-			PrismaCloudPolicyIDs: &o.PrismaCloudPolicyIDs,
+			Action:                   &o.Action,
+			AlertResolveWaitDuration: &o.AlertResolveWaitDuration,
+			CloudAccountIDs:          &o.CloudAccountIDs,
+			Namespace:                &o.Namespace,
+			PrismaCloudPolicyIDs:     &o.PrismaCloudPolicyIDs,
 		}
 	}
 
@@ -238,6 +244,8 @@ func (o *CloudAlertsController) ToSparse(fields ...string) elemental.SparseIdent
 		switch f {
 		case "action":
 			sp.Action = &(o.Action)
+		case "alertResolveWaitDuration":
+			sp.AlertResolveWaitDuration = &(o.AlertResolveWaitDuration)
 		case "cloudAccountIDs":
 			sp.CloudAccountIDs = &(o.CloudAccountIDs)
 		case "namespace":
@@ -259,6 +267,9 @@ func (o *CloudAlertsController) Patch(sparse elemental.SparseIdentifiable) {
 	so := sparse.(*SparseCloudAlertsController)
 	if so.Action != nil {
 		o.Action = *so.Action
+	}
+	if so.AlertResolveWaitDuration != nil {
+		o.AlertResolveWaitDuration = *so.AlertResolveWaitDuration
 	}
 	if so.CloudAccountIDs != nil {
 		o.CloudAccountIDs = *so.CloudAccountIDs
@@ -305,6 +316,10 @@ func (o *CloudAlertsController) Validate() error {
 		errors = errors.Append(err)
 	}
 
+	if err := ValidateTimeDuration("alertResolveWaitDuration", o.AlertResolveWaitDuration); err != nil {
+		errors = errors.Append(err)
+	}
+
 	// Custom object validation.
 	if err := ValidateCloudAlertsControllerEntity(o); err != nil {
 		errors = errors.Append(err)
@@ -346,6 +361,8 @@ func (o *CloudAlertsController) ValueForAttribute(name string) any {
 	switch name {
 	case "action":
 		return o.Action
+	case "alertResolveWaitDuration":
+		return o.AlertResolveWaitDuration
 	case "cloudAccountIDs":
 		return o.CloudAccountIDs
 	case "namespace":
@@ -367,6 +384,16 @@ var CloudAlertsControllerAttributesMap = map[string]elemental.AttributeSpecifica
 		Exposed:        true,
 		Name:           "action",
 		Type:           "enum",
+	},
+	"AlertResolveWaitDuration": {
+		AllowedChoices: []string{},
+		ConvertedName:  "AlertResolveWaitDuration",
+		DefaultValue:   "0s",
+		Description: `Duration to wait to resolve an alert. This attribute is only supported with
+action 'Resolve'.`,
+		Exposed: true,
+		Name:    "alertResolveWaitDuration",
+		Type:    "string",
 	},
 	"CloudAccountIDs": {
 		AllowedChoices: []string{},
@@ -419,6 +446,16 @@ var CloudAlertsControllerLowerCaseAttributesMap = map[string]elemental.Attribute
 		Exposed:        true,
 		Name:           "action",
 		Type:           "enum",
+	},
+	"alertresolvewaitduration": {
+		AllowedChoices: []string{},
+		ConvertedName:  "AlertResolveWaitDuration",
+		DefaultValue:   "0s",
+		Description: `Duration to wait to resolve an alert. This attribute is only supported with
+action 'Resolve'.`,
+		Exposed: true,
+		Name:    "alertResolveWaitDuration",
+		Type:    "string",
 	},
 	"cloudaccountids": {
 		AllowedChoices: []string{},
@@ -527,6 +564,10 @@ type SparseCloudAlertsController struct {
 	// Action type to perform.
 	Action *CloudAlertsControllerActionValue `json:"action,omitempty" msgpack:"action,omitempty" bson:"-" mapstructure:"action,omitempty"`
 
+	// Duration to wait to resolve an alert. This attribute is only supported with
+	// action 'Resolve'.
+	AlertResolveWaitDuration *string `json:"alertResolveWaitDuration,omitempty" msgpack:"alertResolveWaitDuration,omitempty" bson:"-" mapstructure:"alertResolveWaitDuration,omitempty"`
+
 	// IDs of cloud accounts to scan and generate alerts. When left empty all cloud
 	// accounts in the tenant are considered. This attribute is only supported with
 	// action 'Generate'.
@@ -615,6 +656,9 @@ func (o *SparseCloudAlertsController) ToPlain() elemental.PlainIdentifiable {
 	out := NewCloudAlertsController()
 	if o.Action != nil {
 		out.Action = *o.Action
+	}
+	if o.AlertResolveWaitDuration != nil {
+		out.AlertResolveWaitDuration = *o.AlertResolveWaitDuration
 	}
 	if o.CloudAccountIDs != nil {
 		out.CloudAccountIDs = *o.CloudAccountIDs

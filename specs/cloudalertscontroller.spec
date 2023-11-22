@@ -24,6 +24,16 @@ attributes:
     - Resolve
     default_value: Generate
 
+  - name: alertResolveWaitDuration
+    description: |-
+      Duration to wait to resolve an alert. This attribute is only supported with
+      action 'Resolve'.
+    type: string
+    exposed: true
+    default_value: 0s
+    validations:
+    - $timeDuration
+
   - name: cloudAccountIDs
     description: |-
       IDs of cloud accounts to scan and generate alerts. When left empty all cloud
