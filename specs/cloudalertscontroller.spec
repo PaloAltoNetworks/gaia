@@ -30,9 +30,6 @@ attributes:
       action 'Resolve'.
     type: string
     exposed: true
-    default_value: 0s
-    validations:
-    - $timeDuration
 
   - name: cloudAccountIDs
     description: |-

@@ -125,11 +125,10 @@ type CloudAlertsController struct {
 func NewCloudAlertsController() *CloudAlertsController {
 
 	return &CloudAlertsController{
-		ModelVersion:             1,
-		Action:                   CloudAlertsControllerActionGenerate,
-		AlertResolveWaitDuration: "0s",
-		CloudAccountIDs:          []string{},
-		PrismaCloudPolicyIDs:     []string{},
+		ModelVersion:         1,
+		Action:               CloudAlertsControllerActionGenerate,
+		CloudAccountIDs:      []string{},
+		PrismaCloudPolicyIDs: []string{},
 	}
 }
 
@@ -316,10 +315,6 @@ func (o *CloudAlertsController) Validate() error {
 		errors = errors.Append(err)
 	}
 
-	if err := ValidateTimeDuration("alertResolveWaitDuration", o.AlertResolveWaitDuration); err != nil {
-		errors = errors.Append(err)
-	}
-
 	// Custom object validation.
 	if err := ValidateCloudAlertsControllerEntity(o); err != nil {
 		errors = errors.Append(err)
@@ -388,7 +383,6 @@ var CloudAlertsControllerAttributesMap = map[string]elemental.AttributeSpecifica
 	"AlertResolveWaitDuration": {
 		AllowedChoices: []string{},
 		ConvertedName:  "AlertResolveWaitDuration",
-		DefaultValue:   "0s",
 		Description: `Duration to wait to resolve an alert. This attribute is only supported with
 action 'Resolve'.`,
 		Exposed: true,
@@ -450,7 +444,6 @@ var CloudAlertsControllerLowerCaseAttributesMap = map[string]elemental.Attribute
 	"alertresolvewaitduration": {
 		AllowedChoices: []string{},
 		ConvertedName:  "AlertResolveWaitDuration",
-		DefaultValue:   "0s",
 		Description: `Duration to wait to resolve an alert. This attribute is only supported with
 action 'Resolve'.`,
 		Exposed: true,

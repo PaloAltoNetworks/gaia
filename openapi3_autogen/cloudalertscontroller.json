@@ -14,7 +14,6 @@
             ]
           },
           "alertResolveWaitDuration": {
-            "default": "0s",
             "description": "Duration to wait to resolve an alert. This attribute is only supported with\naction 'Resolve'.",
             "type": "string"
           },
