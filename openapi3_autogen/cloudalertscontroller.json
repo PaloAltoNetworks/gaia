@@ -13,6 +13,10 @@
               "Resolve"
             ]
           },
+          "alertResolveWaitDuration": {
+            "description": "Duration to wait to resolve an alert. This attribute is only supported with\naction 'Resolve'.",
+            "type": "string"
+          },
           "cloudAccountIDs": {
             "description": "IDs of cloud accounts to scan and generate alerts. When left empty all cloud\naccounts in the tenant are considered. This attribute is only supported with\naction 'Generate'.",
             "items": {
