@@ -83,6 +83,9 @@ func (o K8sResourceRefreshsList) Version() int {
 
 // K8sResourceRefresh represents the model of a k8sresourcerefresh
 type K8sResourceRefresh struct {
+	// Set to `true` to make the request run in the background.
+	Background bool `json:"background" msgpack:"background" bson:"-" mapstructure:"background,omitempty"`
+
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
@@ -176,12 +179,16 @@ func (o *K8sResourceRefresh) ToSparse(fields ...string) elemental.SparseIdentifi
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseK8sResourceRefresh{}
+		return &SparseK8sResourceRefresh{
+			Background: &o.Background,
+		}
 	}
 
 	sp := &SparseK8sResourceRefresh{}
 	for _, f := range fields {
 		switch f {
+		case "background":
+			sp.Background = &(o.Background)
 		}
 	}
 
@@ -190,6 +197,14 @@ func (o *K8sResourceRefresh) ToSparse(fields ...string) elemental.SparseIdentifi
 
 // Patch apply the non nil value of a *SparseK8sResourceRefresh to the object.
 func (o *K8sResourceRefresh) Patch(sparse elemental.SparseIdentifiable) {
+	if !sparse.Identity().IsEqual(o.Identity()) {
+		panic("cannot patch from a parse with different identity")
+	}
+
+	so := sparse.(*SparseK8sResourceRefresh)
+	if so.Background != nil {
+		o.Background = *so.Background
+	}
 }
 
 // DeepCopy returns a deep copy if the K8sResourceRefresh.
@@ -256,16 +271,36 @@ func (*K8sResourceRefresh) AttributeSpecifications() map[string]elemental.Attrib
 func (o *K8sResourceRefresh) ValueForAttribute(name string) any {
 
 	switch name {
+	case "background":
+		return o.Background
 	}
 
 	return nil
 }
 
 // K8sResourceRefreshAttributesMap represents the map of attribute for K8sResourceRefresh.
-var K8sResourceRefreshAttributesMap = map[string]elemental.AttributeSpecification{}
+var K8sResourceRefreshAttributesMap = map[string]elemental.AttributeSpecification{
+	"Background": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Background",
+		Description:    `Set to ` + "`" + `true` + "`" + ` to make the request run in the background.`,
+		Exposed:        true,
+		Name:           "background",
+		Type:           "boolean",
+	},
+}
 
 // K8sResourceRefreshLowerCaseAttributesMap represents the map of attribute for K8sResourceRefresh.
-var K8sResourceRefreshLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{}
+var K8sResourceRefreshLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"background": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Background",
+		Description:    `Set to ` + "`" + `true` + "`" + ` to make the request run in the background.`,
+		Exposed:        true,
+		Name:           "background",
+		Type:           "boolean",
+	},
+}
 
 // SparseK8sResourceRefreshsList represents a list of SparseK8sResourceRefreshs
 type SparseK8sResourceRefreshsList []*SparseK8sResourceRefresh
@@ -330,6 +365,9 @@ func (o SparseK8sResourceRefreshsList) Version() int {
 
 // SparseK8sResourceRefresh represents the sparse version of a k8sresourcerefresh.
 type SparseK8sResourceRefresh struct {
+	// Set to `true` to make the request run in the background.
+	Background *bool `json:"background,omitempty" msgpack:"background,omitempty" bson:"-" mapstructure:"background,omitempty"`
+
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
@@ -394,6 +432,9 @@ func (o *SparseK8sResourceRefresh) Version() int {
 func (o *SparseK8sResourceRefresh) ToPlain() elemental.PlainIdentifiable {
 
 	out := NewK8sResourceRefresh()
+	if o.Background != nil {
+		out.Background = *o.Background
+	}
 
 	return out
 }

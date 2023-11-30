@@ -3,6 +3,12 @@
     "schemas": {
       "k8sresourcerefresh": {
         "description": "When requested, k8s resources will start the process of pulling down all\nKubernetes resources from PrismaCloud.",
+        "properties": {
+          "background": {
+            "description": "Set to `true` to make the request run in the background.",
+            "type": "boolean"
+          }
+        },
         "type": "object"
       }
     }
