@@ -15885,11 +15885,40 @@ Last update date of the object.
 When requested, k8s resources will start the process of pulling down all
 Kubernetes resources from PrismaCloud.
 
+#### Example
+
+```json
+{
+  "background": false,
+  "timeout": "60m"
+}
+```
+
 #### Relations
 
 ##### `POST /k8sresourcerefreshes`
 
 Trigger a Kubernetes resource refresh.
+
+#### Attributes
+
+##### `background`
+
+Type: `boolean`
+
+Set to `true` to make the request run in the background.
+
+##### `timeout`
+
+Type: `string`
+
+The amount of time the refresh has before timing out.
+
+Default value:
+
+```json
+"60m"
+```
 
 ### PollAccount
 
