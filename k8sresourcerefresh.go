@@ -83,6 +83,12 @@ func (o K8sResourceRefreshsList) Version() int {
 
 // K8sResourceRefresh represents the model of a k8sresourcerefresh
 type K8sResourceRefresh struct {
+	// Set to `true` to make the request run in the background.
+	Background bool `json:"background" msgpack:"background" bson:"-" mapstructure:"background,omitempty"`
+
+	// The amount of time the refresh has before timing out.
+	Timeout string `json:"timeout" msgpack:"timeout" bson:"-" mapstructure:"timeout,omitempty"`
+
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
@@ -91,6 +97,7 @@ func NewK8sResourceRefresh() *K8sResourceRefresh {
 
 	return &K8sResourceRefresh{
 		ModelVersion: 1,
+		Timeout:      "60m",
 	}
 }
 
@@ -176,12 +183,19 @@ func (o *K8sResourceRefresh) ToSparse(fields ...string) elemental.SparseIdentifi
 
 	if len(fields) == 0 {
 		// nolint: goimports
-		return &SparseK8sResourceRefresh{}
+		return &SparseK8sResourceRefresh{
+			Background: &o.Background,
+			Timeout:    &o.Timeout,
+		}
 	}
 
 	sp := &SparseK8sResourceRefresh{}
 	for _, f := range fields {
 		switch f {
+		case "background":
+			sp.Background = &(o.Background)
+		case "timeout":
+			sp.Timeout = &(o.Timeout)
 		}
 	}
 
@@ -190,6 +204,17 @@ func (o *K8sResourceRefresh) ToSparse(fields ...string) elemental.SparseIdentifi
 
 // Patch apply the non nil value of a *SparseK8sResourceRefresh to the object.
 func (o *K8sResourceRefresh) Patch(sparse elemental.SparseIdentifiable) {
+	if !sparse.Identity().IsEqual(o.Identity()) {
+		panic("cannot patch from a parse with different identity")
+	}
+
+	so := sparse.(*SparseK8sResourceRefresh)
+	if so.Background != nil {
+		o.Background = *so.Background
+	}
+	if so.Timeout != nil {
+		o.Timeout = *so.Timeout
+	}
 }
 
 // DeepCopy returns a deep copy if the K8sResourceRefresh.
@@ -221,6 +246,10 @@ func (o *K8sResourceRefresh) Validate() error {
 
 	errors := elemental.Errors{}
 	requiredErrors := elemental.Errors{}
+
+	if err := ValidateTimeDuration("timeout", o.Timeout); err != nil {
+		errors = errors.Append(err)
+	}
 
 	if len(requiredErrors) > 0 {
 		return requiredErrors
@@ -256,16 +285,56 @@ func (*K8sResourceRefresh) AttributeSpecifications() map[string]elemental.Attrib
 func (o *K8sResourceRefresh) ValueForAttribute(name string) any {
 
 	switch name {
+	case "background":
+		return o.Background
+	case "timeout":
+		return o.Timeout
 	}
 
 	return nil
 }
 
 // K8sResourceRefreshAttributesMap represents the map of attribute for K8sResourceRefresh.
-var K8sResourceRefreshAttributesMap = map[string]elemental.AttributeSpecification{}
+var K8sResourceRefreshAttributesMap = map[string]elemental.AttributeSpecification{
+	"Background": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Background",
+		Description:    `Set to ` + "`" + `true` + "`" + ` to make the request run in the background.`,
+		Exposed:        true,
+		Name:           "background",
+		Type:           "boolean",
+	},
+	"Timeout": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Timeout",
+		DefaultValue:   "60m",
+		Description:    `The amount of time the refresh has before timing out.`,
+		Exposed:        true,
+		Name:           "timeout",
+		Type:           "string",
+	},
+}
 
 // K8sResourceRefreshLowerCaseAttributesMap represents the map of attribute for K8sResourceRefresh.
-var K8sResourceRefreshLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{}
+var K8sResourceRefreshLowerCaseAttributesMap = map[string]elemental.AttributeSpecification{
+	"background": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Background",
+		Description:    `Set to ` + "`" + `true` + "`" + ` to make the request run in the background.`,
+		Exposed:        true,
+		Name:           "background",
+		Type:           "boolean",
+	},
+	"timeout": {
+		AllowedChoices: []string{},
+		ConvertedName:  "Timeout",
+		DefaultValue:   "60m",
+		Description:    `The amount of time the refresh has before timing out.`,
+		Exposed:        true,
+		Name:           "timeout",
+		Type:           "string",
+	},
+}
 
 // SparseK8sResourceRefreshsList represents a list of SparseK8sResourceRefreshs
 type SparseK8sResourceRefreshsList []*SparseK8sResourceRefresh
@@ -330,6 +399,12 @@ func (o SparseK8sResourceRefreshsList) Version() int {
 
 // SparseK8sResourceRefresh represents the sparse version of a k8sresourcerefresh.
 type SparseK8sResourceRefresh struct {
+	// Set to `true` to make the request run in the background.
+	Background *bool `json:"background,omitempty" msgpack:"background,omitempty" bson:"-" mapstructure:"background,omitempty"`
+
+	// The amount of time the refresh has before timing out.
+	Timeout *string `json:"timeout,omitempty" msgpack:"timeout,omitempty" bson:"-" mapstructure:"timeout,omitempty"`
+
 	ModelVersion int `json:"-" msgpack:"-" bson:"_modelversion"`
 }
 
@@ -394,6 +469,12 @@ func (o *SparseK8sResourceRefresh) Version() int {
 func (o *SparseK8sResourceRefresh) ToPlain() elemental.PlainIdentifiable {
 
 	out := NewK8sResourceRefresh()
+	if o.Background != nil {
+		out.Background = *o.Background
+	}
+	if o.Timeout != nil {
+		out.Timeout = *o.Timeout
+	}
 
 	return out
 }
