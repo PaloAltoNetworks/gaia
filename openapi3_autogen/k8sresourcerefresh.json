@@ -7,6 +7,11 @@
           "background": {
             "description": "Set to `true` to make the request run in the background.",
             "type": "boolean"
+          },
+          "timeout": {
+            "default": "60m",
+            "description": "The amount of time the refresh has before timing out.",
+            "type": "string"
           }
         },
         "type": "object"

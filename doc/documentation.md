@@ -15896,7 +15896,8 @@ Kubernetes resources from PrismaCloud.
 
 ```json
 {
-  "background": false
+  "background": false,
+  "timeout": "60m"
 }
 ```
 
@@ -15913,6 +15914,18 @@ Trigger a Kubernetes resource refresh.
 Type: `boolean`
 
 Set to `true` to make the request run in the background.
+
+##### `timeout`
+
+Type: `string`
+
+The amount of time the refresh has before timing out.
+
+Default value:
+
+```json
+"60m"
+```
 
 ### PollAccount
 

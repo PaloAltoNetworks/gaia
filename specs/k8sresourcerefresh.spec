@@ -16,3 +16,11 @@ attributes:
     description: Set to `true` to make the request run in the background.
     type: boolean
     exposed: true
+
+  - name: timeout
+    description: The amount of time the refresh has before timing out.
+    type: string
+    exposed: true
+    default_value: 60m
+    validations:
+    - $timeDuration
