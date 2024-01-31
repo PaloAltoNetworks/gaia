@@ -1147,6 +1147,10 @@ func init() {
 						Name: "neocna",
 						Type: "boolean",
 					},
+					{
+						Name: "neocnaIndirectPath",
+						Type: "boolean",
+					},
 				},
 			},
 		},

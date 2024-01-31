@@ -83,6 +83,14 @@
             "schema": {
               "type": "boolean"
             }
+          },
+          {
+            "description": "If set to true, neocna will evaluate the indirect path regardless of configuration.",
+            "in": "query",
+            "name": "neocnaIndirectPath",
+            "schema": {
+              "type": "boolean"
+            }
           }
         ],
         "requestBody": {
