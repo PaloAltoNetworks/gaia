@@ -277,6 +277,11 @@ relations:
           is set to use neocna.
         type: boolean
 
+      - name: neocnaIndirectPath
+        description: If set to true, neocna will evaluate the indirect path regardless
+          of configuration.
+        type: boolean
+
 - rest_name: cloudgraphasset
   create:
     description: Creates a cloud graph asset.
