@@ -65,6 +65,13 @@ attributes:
     type: boolean
     exposed: true
 
+  - name: neoCNAIndirectPath
+    description: |-
+      If set to true, neocna will evaluate the indirect path regardless of
+      configuration.
+    type: boolean
+    exposed: true
+
   - name: prismaCloudPolicyID
     description: Prisma Cloud Policy ID.
     type: string

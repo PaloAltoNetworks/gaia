@@ -52,6 +52,10 @@
             "description": "If set to true, neocna will be used regardless of tenant onboarding.",
             "type": "boolean"
           },
+          "neoCNAIndirectPath": {
+            "description": "If set to true, neocna will evaluate the indirect path regardless of\nconfiguration.",
+            "type": "boolean"
+          },
           "prismaCloudPolicyID": {
             "description": "Prisma Cloud Policy ID.",
             "type": "string"

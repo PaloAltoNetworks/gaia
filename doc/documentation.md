@@ -11259,6 +11259,7 @@ parameters.
 Parameters:
 
 - `neocna` (`boolean`): If set to true, neocna will be used regardless of whether tenant is set to use neocna.
+- `neocnaIndirectPath` (`boolean`): If set to true, neocna will evaluate the indirect path regardless of configuration.
 
 ##### `GET /cloudnetworkqueries/:id/cloudgraphs`
 
@@ -14730,7 +14731,8 @@ scheduled periodically.
 {
   "disabled": false,
   "name": "the name",
-  "neoCNA": false
+  "neoCNA": false,
+  "neoCNAIndirectPath": false
 }
 ```
 
@@ -14810,6 +14812,13 @@ Namespace tag attached to an entity.
 Type: `boolean`
 
 If set to true, neocna will be used regardless of tenant onboarding.
+
+##### `neoCNAIndirectPath`
+
+Type: `boolean`
+
+If set to true, neocna will evaluate the indirect path regardless of
+configuration.
 
 ##### `prismaCloudPolicyID`
 

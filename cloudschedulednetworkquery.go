@@ -119,6 +119,10 @@ type CloudScheduledNetworkQuery struct {
 	// If set to true, neocna will be used regardless of tenant onboarding.
 	NeoCNA bool `json:"neoCNA" msgpack:"neoCNA" bson:"-" mapstructure:"neoCNA,omitempty"`
 
+	// If set to true, neocna will evaluate the indirect path regardless of
+	// configuration.
+	NeoCNAIndirectPath bool `json:"neoCNAIndirectPath" msgpack:"neoCNAIndirectPath" bson:"-" mapstructure:"neoCNAIndirectPath,omitempty"`
+
 	// Prisma Cloud Policy ID.
 	PrismaCloudPolicyID string `json:"prismaCloudPolicyID" msgpack:"prismaCloudPolicyID" bson:"prismacloudpolicyid" mapstructure:"prismaCloudPolicyID,omitempty"`
 
@@ -366,6 +370,7 @@ func (o *CloudScheduledNetworkQuery) ToSparse(fields ...string) elemental.Sparse
 			Name:                         &o.Name,
 			Namespace:                    &o.Namespace,
 			NeoCNA:                       &o.NeoCNA,
+			NeoCNAIndirectPath:           &o.NeoCNAIndirectPath,
 			PrismaCloudPolicyID:          &o.PrismaCloudPolicyID,
 			SuccessfulExecutionTimestamp: &o.SuccessfulExecutionTimestamp,
 			TenantPrismaID:               &o.TenantPrismaID,
@@ -400,6 +405,8 @@ func (o *CloudScheduledNetworkQuery) ToSparse(fields ...string) elemental.Sparse
 			sp.Namespace = &(o.Namespace)
 		case "neoCNA":
 			sp.NeoCNA = &(o.NeoCNA)
+		case "neoCNAIndirectPath":
+			sp.NeoCNAIndirectPath = &(o.NeoCNAIndirectPath)
 		case "prismaCloudPolicyID":
 			sp.PrismaCloudPolicyID = &(o.PrismaCloudPolicyID)
 		case "successfulExecutionTimestamp":
@@ -457,6 +464,9 @@ func (o *CloudScheduledNetworkQuery) Patch(sparse elemental.SparseIdentifiable) 
 	}
 	if so.NeoCNA != nil {
 		o.NeoCNA = *so.NeoCNA
+	}
+	if so.NeoCNAIndirectPath != nil {
+		o.NeoCNAIndirectPath = *so.NeoCNAIndirectPath
 	}
 	if so.PrismaCloudPolicyID != nil {
 		o.PrismaCloudPolicyID = *so.PrismaCloudPolicyID
@@ -579,6 +589,8 @@ func (o *CloudScheduledNetworkQuery) ValueForAttribute(name string) any {
 		return o.Namespace
 	case "neoCNA":
 		return o.NeoCNA
+	case "neoCNAIndirectPath":
+		return o.NeoCNAIndirectPath
 	case "prismaCloudPolicyID":
 		return o.PrismaCloudPolicyID
 	case "successfulExecutionTimestamp":
@@ -729,6 +741,15 @@ var CloudScheduledNetworkQueryAttributesMap = map[string]elemental.AttributeSpec
 		Exposed:        true,
 		Name:           "neoCNA",
 		Type:           "boolean",
+	},
+	"NeoCNAIndirectPath": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NeoCNAIndirectPath",
+		Description: `If set to true, neocna will evaluate the indirect path regardless of
+configuration.`,
+		Exposed: true,
+		Name:    "neoCNAIndirectPath",
+		Type:    "boolean",
 	},
 	"PrismaCloudPolicyID": {
 		AllowedChoices: []string{},
@@ -942,6 +963,15 @@ var CloudScheduledNetworkQueryLowerCaseAttributesMap = map[string]elemental.Attr
 		Name:           "neoCNA",
 		Type:           "boolean",
 	},
+	"neocnaindirectpath": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NeoCNAIndirectPath",
+		Description: `If set to true, neocna will evaluate the indirect path regardless of
+configuration.`,
+		Exposed: true,
+		Name:    "neoCNAIndirectPath",
+		Type:    "boolean",
+	},
 	"prismacloudpolicyid": {
 		AllowedChoices: []string{},
 		BSONFieldName:  "prismacloudpolicyid",
@@ -1117,6 +1147,10 @@ type SparseCloudScheduledNetworkQuery struct {
 
 	// If set to true, neocna will be used regardless of tenant onboarding.
 	NeoCNA *bool `json:"neoCNA,omitempty" msgpack:"neoCNA,omitempty" bson:"-" mapstructure:"neoCNA,omitempty"`
+
+	// If set to true, neocna will evaluate the indirect path regardless of
+	// configuration.
+	NeoCNAIndirectPath *bool `json:"neoCNAIndirectPath,omitempty" msgpack:"neoCNAIndirectPath,omitempty" bson:"-" mapstructure:"neoCNAIndirectPath,omitempty"`
 
 	// Prisma Cloud Policy ID.
 	PrismaCloudPolicyID *string `json:"prismaCloudPolicyID,omitempty" msgpack:"prismaCloudPolicyID,omitempty" bson:"prismacloudpolicyid,omitempty" mapstructure:"prismaCloudPolicyID,omitempty"`
@@ -1327,6 +1361,9 @@ func (o *SparseCloudScheduledNetworkQuery) ToPlain() elemental.PlainIdentifiable
 	}
 	if o.NeoCNA != nil {
 		out.NeoCNA = *o.NeoCNA
+	}
+	if o.NeoCNAIndirectPath != nil {
+		out.NeoCNAIndirectPath = *o.NeoCNAIndirectPath
 	}
 	if o.PrismaCloudPolicyID != nil {
 		out.PrismaCloudPolicyID = *o.PrismaCloudPolicyID
