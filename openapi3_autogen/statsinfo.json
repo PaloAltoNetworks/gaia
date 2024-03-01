@@ -26,7 +26,8 @@
               "Packets",
               "DNSLookups",
               "PingReports",
-              "ConnectionExceptions"
+              "ConnectionExceptions",
+              "FirewallLogs"
             ]
           },
           "tags": {

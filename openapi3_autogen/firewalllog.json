@@ -1,0 +1,202 @@
+{
+  "components": {
+    "schemas": {
+      "firewalllog": {
+        "description": "Represents a log line in a log query result.",
+        "properties": {
+          "XFFIP": {
+            "description": "The IP address of the user who requested the web page or the IP address of the\nnext to last device that the request traversed. If the request goes through one\nor more proxies, load balancers, or other upstream devices, the firewall\ndisplays the IP address of the most recent device.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "action": {
+            "description": "Action taken for the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "app": {
+            "description": "Application associated with the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "appCategory": {
+            "description": "Application category associated with the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "appSubcategory": {
+            "description": "Application subcategory associated with the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "bytesReceived": {
+            "description": "Number of bytes in the server-to-client direction of the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "bytesSent": {
+            "description": "Number of bytes in the client-to-server direction of the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "chainStatus": {
+            "description": "Chain status of the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "cloudAccount": {
+            "description": "Cloud account associated with the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "cloudRegion": {
+            "description": "Cloud provider region associated with the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "cloudType": {
+            "description": "Cloud provider associated with the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "destinationCountry": {
+            "description": "Destination country or Internal region for private addresses. Maximum length is\n32 bytes.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "destinationIP": {
+            "description": "Original session destination IP address.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "destinationPort": {
+            "description": "Destination port utilized by the session.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "firewallName": {
+            "description": "Name of firewall that generated the log.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "operationMode": {
+            "description": "Operation mode of firewall that generated the log.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "packetsReceived": {
+            "description": "Number of server-to-client packets for the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "packetsSent": {
+            "description": "Number of client-to-server packets for the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "protocol": {
+            "description": "IP protocol associated with the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "proxyType": {
+            "description": "Type of decryption proxy associated with the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "rule": {
+            "description": "Name of the rule that the session matched.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "sessionEndReason": {
+            "description": "The reason a session terminated. If the termination had multiple causes, this\nfield displays only the highest priority reason.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "sni": {
+            "description": "Server Name Indication (SNI) value for the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "sourceCountry": {
+            "description": "Source country or Internal region for private addresses; maximum length is 32\nbytes.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "sourceIP": {
+            "description": "Original session source IP address.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "sourcePort": {
+            "description": "Source port utilized by the session.",
+            "readOnly": true,
+            "type": "integer"
+          },
+          "threatCategory": {
+            "description": "Describes threat categories used to classify different types of threat\nsignatures.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "threatDirection": {
+            "description": "Indicates the direction of the attack, client-to-server or server-to-client.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "threatName": {
+            "description": "Name of the threat signature that triggered the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "threatSeverity": {
+            "description": "Severity associated with the threat; values are informational, low, medium,\nhigh, critical.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "tlsVersion": {
+            "description": "TLS version associated with the session.",
+            "readOnly": true,
+            "type": "string"
+          },
+          "urlCategory": {
+            "description": "URL category associated with the session (if applicable).",
+            "readOnly": true,
+            "type": "string"
+          },
+          "vpcEndpoint": {
+            "description": "Service endpoint associated with the session.",
+            "readOnly": true,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "dev@aporeto.com",
+      "name": "Aporeto Inc.",
+      "url": "go.aporeto.io/api"
+    },
+    "license": {
+      "name": "TODO"
+    },
+    "termsOfService": "https://localhost/TODO",
+    "title": "firewalllog",
+    "version": "1.0"
+  },
+  "openapi": "3.0.3",
+  "paths": {},
+  "tags": [
+    {
+      "description": "This tag is for group 'core/log'",
+      "name": "core/log"
+    },
+    {
+      "description": "This tag is for package 'pcfw'",
+      "name": "pcfw"
+    }
+  ]
+}

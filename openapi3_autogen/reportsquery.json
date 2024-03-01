@@ -46,6 +46,13 @@
             },
             "type": "array"
           },
+          "firewallLogs": {
+            "description": "List of FirewallLogs.",
+            "items": {
+              "$ref": "./firewalllog#/components/schemas/firewalllog"
+            },
+            "type": "array"
+          },
           "flowReports": {
             "description": "List of FlowReports.",
             "items": {
@@ -71,7 +78,8 @@
               "Packets",
               "Counters",
               "DNSLookups",
-              "ConnectionExceptions"
+              "ConnectionExceptions",
+              "FirewallLogs"
             ]
           }
         },

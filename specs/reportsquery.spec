@@ -56,6 +56,13 @@ attributes:
     subtype: eventlog
     omit_empty: true
 
+  - name: firewallLogs
+    description: List of FirewallLogs.
+    type: refList
+    exposed: true
+    subtype: firewalllog
+    omit_empty: true
+
   - name: flowReports
     description: List of FlowReports.
     type: refList
@@ -83,4 +90,5 @@ attributes:
     - Counters
     - DNSLookups
     - ConnectionExceptions
+    - FirewallLogs
     default_value: Flows
