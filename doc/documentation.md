@@ -12783,6 +12783,10 @@ permissions request.
 
 ```json
 {
+  "NotK8sClusterNames": false,
+  "NotK8sLabels": false,
+  "NotK8sNamespaces": false,
+  "NotK8sServiceNames": false,
   "accountIDs": [
     "account1"
   ],
@@ -12838,6 +12842,30 @@ The service name of the target K8s resources. Applies only to resourceType K8s.
 Type: `[]string`
 
 Identifies a list of K8s Service types. Applies only to resourceType K8s.
+
+##### `NotK8sClusterNames`
+
+Type: `boolean`
+
+If set to true, the values  in `K8sClusterNames` will be excluded.
+
+##### `NotK8sLabels`
+
+Type: `boolean`
+
+If set to true, the values  in `K8sLabels` will be excluded.
+
+##### `NotK8sNamespaces`
+
+Type: `boolean`
+
+If set to true, the values  in `K8sNamespaces` will be excluded.
+
+##### `NotK8sServiceNames`
+
+Type: `boolean`
+
+If set to true, the values  in `K8sServiceNames` will be excluded.
 
 ##### `VPCIDs`
 

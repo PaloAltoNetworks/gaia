@@ -69,6 +69,26 @@ attributes:
     stored: true
     omit_empty: true
 
+  - name: NotK8sClusterNames
+    description: If set to true, the values  in `K8sClusterNames` will be excluded.
+    type: boolean
+    exposed: true
+
+  - name: NotK8sLabels
+    description: If set to true, the values  in `K8sLabels` will be excluded.
+    type: boolean
+    exposed: true
+
+  - name: NotK8sNamespaces
+    description: If set to true, the values  in `K8sNamespaces` will be excluded.
+    type: boolean
+    exposed: true
+
+  - name: NotK8sServiceNames
+    description: If set to true, the values  in `K8sServiceNames` will be excluded.
+    type: boolean
+    exposed: true
+
   - name: VPCIDs
     description: The VPC ID of the target resources.
     type: list

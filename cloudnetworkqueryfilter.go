@@ -56,6 +56,18 @@ type CloudNetworkQueryFilter struct {
 	// Identifies a list of K8s Service types. Applies only to resourceType K8s.
 	K8sServiceTypes []string `json:"K8sServiceTypes,omitempty" msgpack:"K8sServiceTypes,omitempty" bson:"k8sservicetypes,omitempty" mapstructure:"K8sServiceTypes,omitempty"`
 
+	// If set to true, the values  in `K8sClusterNames` will be excluded.
+	NotK8sClusterNames bool `json:"NotK8sClusterNames" msgpack:"NotK8sClusterNames" bson:"-" mapstructure:"NotK8sClusterNames,omitempty"`
+
+	// If set to true, the values  in `K8sLabels` will be excluded.
+	NotK8sLabels bool `json:"NotK8sLabels" msgpack:"NotK8sLabels" bson:"-" mapstructure:"NotK8sLabels,omitempty"`
+
+	// If set to true, the values  in `K8sNamespaces` will be excluded.
+	NotK8sNamespaces bool `json:"NotK8sNamespaces" msgpack:"NotK8sNamespaces" bson:"-" mapstructure:"NotK8sNamespaces,omitempty"`
+
+	// If set to true, the values  in `K8sServiceNames` will be excluded.
+	NotK8sServiceNames bool `json:"NotK8sServiceNames" msgpack:"NotK8sServiceNames" bson:"-" mapstructure:"NotK8sServiceNames,omitempty"`
+
 	// The VPC ID of the target resources.
 	VPCIDs []string `json:"VPCIDs,omitempty" msgpack:"VPCIDs,omitempty" bson:"vpcids,omitempty" mapstructure:"VPCIDs,omitempty"`
 
@@ -342,6 +354,14 @@ func (o *CloudNetworkQueryFilter) ValueForAttribute(name string) any {
 		return o.K8sServiceNames
 	case "K8sServiceTypes":
 		return o.K8sServiceTypes
+	case "NotK8sClusterNames":
+		return o.NotK8sClusterNames
+	case "NotK8sLabels":
+		return o.NotK8sLabels
+	case "NotK8sNamespaces":
+		return o.NotK8sNamespaces
+	case "NotK8sServiceNames":
+		return o.NotK8sServiceNames
 	case "VPCIDs":
 		return o.VPCIDs
 	case "accountIDs":
@@ -458,6 +478,38 @@ resourceType K8s.`,
 		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
+	},
+	"NotK8sClusterNames": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NotK8sClusterNames",
+		Description:    `If set to true, the values  in ` + "`" + `K8sClusterNames` + "`" + ` will be excluded.`,
+		Exposed:        true,
+		Name:           "NotK8sClusterNames",
+		Type:           "boolean",
+	},
+	"NotK8sLabels": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NotK8sLabels",
+		Description:    `If set to true, the values  in ` + "`" + `K8sLabels` + "`" + ` will be excluded.`,
+		Exposed:        true,
+		Name:           "NotK8sLabels",
+		Type:           "boolean",
+	},
+	"NotK8sNamespaces": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NotK8sNamespaces",
+		Description:    `If set to true, the values  in ` + "`" + `K8sNamespaces` + "`" + ` will be excluded.`,
+		Exposed:        true,
+		Name:           "NotK8sNamespaces",
+		Type:           "boolean",
+	},
+	"NotK8sServiceNames": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NotK8sServiceNames",
+		Description:    `If set to true, the values  in ` + "`" + `K8sServiceNames` + "`" + ` will be excluded.`,
+		Exposed:        true,
+		Name:           "NotK8sServiceNames",
+		Type:           "boolean",
 	},
 	"VPCIDs": {
 		AllowedChoices: []string{},
@@ -772,6 +824,38 @@ resourceType K8s.`,
 		Stored:         true,
 		SubType:        "string",
 		Type:           "list",
+	},
+	"notk8sclusternames": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NotK8sClusterNames",
+		Description:    `If set to true, the values  in ` + "`" + `K8sClusterNames` + "`" + ` will be excluded.`,
+		Exposed:        true,
+		Name:           "NotK8sClusterNames",
+		Type:           "boolean",
+	},
+	"notk8slabels": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NotK8sLabels",
+		Description:    `If set to true, the values  in ` + "`" + `K8sLabels` + "`" + ` will be excluded.`,
+		Exposed:        true,
+		Name:           "NotK8sLabels",
+		Type:           "boolean",
+	},
+	"notk8snamespaces": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NotK8sNamespaces",
+		Description:    `If set to true, the values  in ` + "`" + `K8sNamespaces` + "`" + ` will be excluded.`,
+		Exposed:        true,
+		Name:           "NotK8sNamespaces",
+		Type:           "boolean",
+	},
+	"notk8sservicenames": {
+		AllowedChoices: []string{},
+		ConvertedName:  "NotK8sServiceNames",
+		Description:    `If set to true, the values  in ` + "`" + `K8sServiceNames` + "`" + ` will be excluded.`,
+		Exposed:        true,
+		Name:           "NotK8sServiceNames",
+		Type:           "boolean",
 	},
 	"vpcids": {
 		AllowedChoices: []string{},
