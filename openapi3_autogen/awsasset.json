@@ -82,6 +82,11 @@
             "readOnly": true,
             "type": "string"
           },
+          "prismaID": {
+            "description": "The PrismaID which this resource belongs to.",
+            "readOnly": true,
+            "type": "string"
+          },
           "prismaRRN": {
             "description": "The resource identifier in PrismaCloud.",
             "type": "string"

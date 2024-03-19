@@ -23,3 +23,16 @@ indexes:
   - resourceID
 - - namespace
   - kind
+  - accountID
+- - namespace
+  - accountID
+- - prismaID
+- - prismaID
+  - arn
+- - prismaID
+  - resourceID
+- - prismaID
+  - accountID
+- - prismaID
+  - kind
+  - accountID

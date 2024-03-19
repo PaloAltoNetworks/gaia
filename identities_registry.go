@@ -707,10 +707,16 @@ var (
 		"awsresource": {
 			{":shard", ":unique", "zone", "zHash"},
 			{"namespace"},
+			{"namespace", "accountID"},
 			{"namespace", "arn"},
-			{"namespace", "kind"},
+			{"namespace", "kind", "accountID"},
 			{"namespace", "normalizedTags"},
 			{"namespace", "resourceID"},
+			{"prismaID"},
+			{"prismaID", "accountID"},
+			{"prismaID", "arn"},
+			{"prismaID", "kind", "accountID"},
+			{"prismaID", "resourceID"},
 		},
 		"azureasset": {
 			{":shard", ":unique", "zone", "zHash"},
@@ -723,6 +729,10 @@ var (
 			{"namespace", "kind", "subscriptionID"},
 			{"namespace", "normalizedTags"},
 			{"namespace", "resourceID"},
+			{"prismaID"},
+			{"prismaID", "kind", "subscriptionID"},
+			{"prismaID", "resourceID"},
+			{"prismaID", "subscriptionID"},
 		},
 		"cachedflowreport": {
 			{":shard", "zone", "zHash", "_id"},
@@ -1130,6 +1140,11 @@ var (
 			{"namespace", "normalizedTags"},
 			{"namespace", "numericID"},
 			{"namespace", "selflink"},
+			{"prismaID"},
+			{"prismaID", "kind", "projectID"},
+			{"prismaID", "numericID"},
+			{"prismaID", "projectID"},
+			{"prismaID", "selflink"},
 		},
 		"graphedge": {
 			{":shard", ":unique", "zone", "zHash"},
@@ -1217,6 +1232,7 @@ var (
 			{"namespace", "k8sID"},
 			{"namespace", "normalizedTags"},
 			{"namespace", "uid"},
+			{"prismaID"},
 		},
 		"k8sresourcerefresh": nil,
 		"kubernetescluster": {
