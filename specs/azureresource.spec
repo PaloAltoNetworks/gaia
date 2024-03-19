@@ -25,3 +25,11 @@ indexes:
 - - namespace
   - kind
   - subscriptionID
+- - prismaID
+- - prismaID
+  - resourceID
+- - prismaID
+  - subscriptionID
+- - prismaID
+  - kind
+  - subscriptionID

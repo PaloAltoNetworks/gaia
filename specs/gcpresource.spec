@@ -23,3 +23,13 @@ indexes:
   - numericID
 - - namespace
   - kind
+- - prismaID
+- - prismaID
+  - selflink
+- - prismaID
+  - numericID
+- - prismaID
+  - projectID
+- - prismaID
+  - kind
+  - projectID

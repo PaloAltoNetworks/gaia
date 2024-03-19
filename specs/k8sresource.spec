@@ -26,3 +26,4 @@ indexes:
   - labels
 - - namespace
   - uid
+- - prismaID
