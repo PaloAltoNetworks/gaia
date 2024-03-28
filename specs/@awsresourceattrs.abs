@@ -90,6 +90,13 @@ attributes:
     stored: true
     example_value: abc
 
+  - name: prismaAPIID
+    description: The APIID of PrismaCloud resource.
+    type: integer
+    exposed: true
+    stored: true
+    omit_empty: true
+
   - name: prismaID
     description: The PrismaID which this resource belongs to.
     type: string
