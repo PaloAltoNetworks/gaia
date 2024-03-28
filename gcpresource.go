@@ -205,7 +205,7 @@ type GCPResource struct {
 	NumericID string `json:"numericID" msgpack:"numericID" bson:"numericid" mapstructure:"numericID,omitempty"`
 
 	// The APIID of PrismaCloud resource.
-	PrismaAPIID int `json:"prismaAPIID,omitempty" msgpack:"prismaAPIID,omitempty" bson:"-" mapstructure:"prismaAPIID,omitempty"`
+	PrismaAPIID int `json:"prismaAPIID,omitempty" msgpack:"prismaAPIID,omitempty" bson:"prismaapiid,omitempty" mapstructure:"prismaAPIID,omitempty"`
 
 	// The PrismaID which this resource belongs to.
 	PrismaID string `json:"prismaID" msgpack:"prismaID" bson:"prismaid" mapstructure:"prismaID,omitempty"`
@@ -296,6 +296,7 @@ func (o *GCPResource) GetBSON() (any, error) {
 	s.Name = o.Name
 	s.Namespace = o.Namespace
 	s.NumericID = o.NumericID
+	s.PrismaAPIID = o.PrismaAPIID
 	s.PrismaID = o.PrismaID
 	s.PrismaRRN = o.PrismaRRN
 	s.PrismaRegion = o.PrismaRegion
@@ -333,6 +334,7 @@ func (o *GCPResource) SetBSON(raw bson.Raw) error {
 	o.Name = s.Name
 	o.Namespace = s.Namespace
 	o.NumericID = s.NumericID
+	o.PrismaAPIID = s.PrismaAPIID
 	o.PrismaID = s.PrismaID
 	o.PrismaRRN = s.PrismaRRN
 	o.PrismaRegion = s.PrismaRegion
@@ -854,10 +856,12 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 	},
 	"PrismaAPIID": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "prismaapiid",
 		ConvertedName:  "PrismaAPIID",
 		Description:    `The APIID of PrismaCloud resource.`,
 		Exposed:        true,
 		Name:           "prismaAPIID",
+		Stored:         true,
 		Type:           "integer",
 	},
 	"PrismaID": {
@@ -1112,10 +1116,12 @@ a resource's location or public IP addresses to support cross-cloud analysis.`,
 	},
 	"prismaapiid": {
 		AllowedChoices: []string{},
+		BSONFieldName:  "prismaapiid",
 		ConvertedName:  "PrismaAPIID",
 		Description:    `The APIID of PrismaCloud resource.`,
 		Exposed:        true,
 		Name:           "prismaAPIID",
+		Stored:         true,
 		Type:           "integer",
 	},
 	"prismaid": {
@@ -1337,7 +1343,7 @@ type SparseGCPResource struct {
 	NumericID *string `json:"numericID,omitempty" msgpack:"numericID,omitempty" bson:"numericid,omitempty" mapstructure:"numericID,omitempty"`
 
 	// The APIID of PrismaCloud resource.
-	PrismaAPIID *int `json:"prismaAPIID,omitempty" msgpack:"prismaAPIID,omitempty" bson:"-" mapstructure:"prismaAPIID,omitempty"`
+	PrismaAPIID *int `json:"prismaAPIID,omitempty" msgpack:"prismaAPIID,omitempty" bson:"prismaapiid,omitempty" mapstructure:"prismaAPIID,omitempty"`
 
 	// The PrismaID which this resource belongs to.
 	PrismaID *string `json:"prismaID,omitempty" msgpack:"prismaID,omitempty" bson:"prismaid,omitempty" mapstructure:"prismaID,omitempty"`
@@ -1444,6 +1450,9 @@ func (o *SparseGCPResource) GetBSON() (any, error) {
 	if o.NumericID != nil {
 		s.NumericID = o.NumericID
 	}
+	if o.PrismaAPIID != nil {
+		s.PrismaAPIID = o.PrismaAPIID
+	}
 	if o.PrismaID != nil {
 		s.PrismaID = o.PrismaID
 	}
@@ -1519,6 +1528,9 @@ func (o *SparseGCPResource) SetBSON(raw bson.Raw) error {
 	}
 	if s.NumericID != nil {
 		o.NumericID = s.NumericID
+	}
+	if s.PrismaAPIID != nil {
+		o.PrismaAPIID = s.PrismaAPIID
 	}
 	if s.PrismaID != nil {
 		o.PrismaID = s.PrismaID
@@ -1762,6 +1774,7 @@ type mongoAttributesGCPResource struct {
 	Name                 string                   `bson:"name"`
 	Namespace            string                   `bson:"namespace"`
 	NumericID            string                   `bson:"numericid"`
+	PrismaAPIID          int                      `bson:"prismaapiid,omitempty"`
 	PrismaID             string                   `bson:"prismaid"`
 	PrismaRRN            string                   `bson:"prismarrn,omitempty"`
 	PrismaRegion         string                   `bson:"prismaregion"`
@@ -1784,6 +1797,7 @@ type mongoAttributesSparseGCPResource struct {
 	Name                 *string                   `bson:"name,omitempty"`
 	Namespace            *string                   `bson:"namespace,omitempty"`
 	NumericID            *string                   `bson:"numericid,omitempty"`
+	PrismaAPIID          *int                      `bson:"prismaapiid,omitempty"`
 	PrismaID             *string                   `bson:"prismaid,omitempty"`
 	PrismaRRN            *string                   `bson:"prismarrn,omitempty"`
 	PrismaRegion         *string                   `bson:"prismaregion,omitempty"`
