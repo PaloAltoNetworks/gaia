@@ -67,7 +67,10 @@
               "TransitGatewayAttachment",
               "TransitGatewayRouteTable",
               "VPCPeeringConnection",
-              "MachineImage"
+              "MachineImage",
+              "LambdaFunction",
+              "RDSDBInstance",
+              "RedshiftCluster"
             ],
             "example": "Instance",
             "readOnly": true
