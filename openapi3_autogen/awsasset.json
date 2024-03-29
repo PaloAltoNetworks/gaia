@@ -82,6 +82,10 @@
             "readOnly": true,
             "type": "string"
           },
+          "prismaAPIID": {
+            "description": "The APIID of PrismaCloud resource.",
+            "type": "integer"
+          },
           "prismaID": {
             "description": "The PrismaID which this resource belongs to.",
             "readOnly": true,

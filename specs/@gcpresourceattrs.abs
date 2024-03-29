@@ -87,6 +87,7 @@ attributes:
     description: The APIID of PrismaCloud resource.
     type: integer
     exposed: true
+    stored: true
     omit_empty: true
 
   - name: prismaID
