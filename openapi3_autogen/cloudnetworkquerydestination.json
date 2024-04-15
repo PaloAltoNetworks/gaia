@@ -32,7 +32,10 @@
               "PostgreSQLServer",
               "PostgreSQLFlexibleServer",
               "CosmosDB",
-              "SQLServer"
+              "SQLServer",
+              "LambdaFunction",
+              "RDSDBInstance",
+              "RedshiftCluster"
             ],
             "readOnly": true
           },

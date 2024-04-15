@@ -181,7 +181,10 @@
               "PostgreSQLServer",
               "PostgreSQLFlexibleServer",
               "CosmosDB",
-              "SQLServer"
+              "SQLServer",
+              "LambdaFunction",
+              "RDSDBInstance",
+              "RedshiftCluster"
             ],
             "example": "Endpoint"
           },
