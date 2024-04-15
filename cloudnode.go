@@ -40,6 +40,9 @@ const (
 	// CloudNodeTypeK8sService represents the value K8sService.
 	CloudNodeTypeK8sService CloudNodeTypeValue = "K8sService"
 
+	// CloudNodeTypeLambdaFunction represents the value LambdaFunction.
+	CloudNodeTypeLambdaFunction CloudNodeTypeValue = "LambdaFunction"
+
 	// CloudNodeTypeLoadBalancer represents the value LoadBalancer.
 	CloudNodeTypeLoadBalancer CloudNodeTypeValue = "LoadBalancer"
 
@@ -63,6 +66,12 @@ const (
 
 	// CloudNodeTypePublicIPAddress represents the value PublicIPAddress.
 	CloudNodeTypePublicIPAddress CloudNodeTypeValue = "PublicIPAddress"
+
+	// CloudNodeTypeRDSDBInstance represents the value RDSDBInstance.
+	CloudNodeTypeRDSDBInstance CloudNodeTypeValue = "RDSDBInstance"
+
+	// CloudNodeTypeRedshiftCluster represents the value RedshiftCluster.
+	CloudNodeTypeRedshiftCluster CloudNodeTypeValue = "RedshiftCluster"
 
 	// CloudNodeTypeRouteTable represents the value RouteTable.
 	CloudNodeTypeRouteTable CloudNodeTypeValue = "RouteTable"
@@ -1090,7 +1099,7 @@ func (o *CloudNode) Validate() error {
 		requiredErrors = requiredErrors.Append(err)
 	}
 
-	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod", "MySQLServer", "MySQLFlexibleServer", "PostgreSQLServer", "PostgreSQLFlexibleServer", "CosmosDB", "SQLServer"}, false); err != nil {
+	if err := elemental.ValidateStringInList("type", string(o.Type), []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod", "MySQLServer", "MySQLFlexibleServer", "PostgreSQLServer", "PostgreSQLFlexibleServer", "CosmosDB", "SQLServer", "LambdaFunction", "RDSDBInstance", "RedshiftCluster"}, false); err != nil {
 		errors = errors.Append(err)
 	}
 
@@ -1599,7 +1608,7 @@ var CloudNodeAttributesMap = map[string]elemental.AttributeSpecification{
 		Type:           "string",
 	},
 	"Type": {
-		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod", "MySQLServer", "MySQLFlexibleServer", "PostgreSQLServer", "PostgreSQLFlexibleServer", "CosmosDB", "SQLServer"},
+		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod", "MySQLServer", "MySQLFlexibleServer", "PostgreSQLServer", "PostgreSQLFlexibleServer", "CosmosDB", "SQLServer", "LambdaFunction", "RDSDBInstance", "RedshiftCluster"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,
@@ -2068,7 +2077,7 @@ var CloudNodeLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		Type:           "string",
 	},
 	"type": {
-		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod", "MySQLServer", "MySQLFlexibleServer", "PostgreSQLServer", "PostgreSQLFlexibleServer", "CosmosDB", "SQLServer"},
+		AllowedChoices: []string{"Endpoint", "Subnet", "VPC", "Interface", "RouteTable", "Gateway", "NetworkRuleSet", "LoadBalancer", "LoadBalancerRoute", "PublicIPAddress", "ScaleSet", "ScaleGroup", "K8sNode", "K8sService", "K8sNamespace", "K8sPod", "MySQLServer", "MySQLFlexibleServer", "PostgreSQLServer", "PostgreSQLFlexibleServer", "CosmosDB", "SQLServer", "LambdaFunction", "RDSDBInstance", "RedshiftCluster"},
 		BSONFieldName:  "type",
 		ConvertedName:  "Type",
 		Description:    `Type of the endpoint.`,

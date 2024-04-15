@@ -1704,16 +1704,26 @@ func ValidateCloudNetworkQueryFilter(attribute string, f *CloudNetworkQueryFilte
 		return makeValidationError(attribute, fmt.Sprintf("paas filtering only allowed for selectors with resource type: %s", CloudNetworkQueryFilterResourceTypePaaS))
 	}
 
-	var azure bool
+	var (
+		isAzure bool
+		isAWS   bool
+	)
 	for _, ct := range f.CloudTypes {
 		if strings.EqualFold(ct, constants.CloudTypeAzure) {
-			azure = true
+			isAzure = true
+			break
+		}
+		if strings.EqualFold(ct, constants.CloudTypeAWS) {
+			isAWS = true
 			break
 		}
 	}
 
-	if f.ResourceType == CloudNetworkQueryFilterResourceTypePaaS && !azure {
-		return makeValidationError(attribute, "paas filtering only allowed for Azure queries")
+	isPaaS := f.ResourceType == CloudNetworkQueryFilterResourceTypePaaS
+	if isPaaS && !isAzure && !isAWS {
+		return makeValidationError(
+			attribute, "PaaS filtering only allowed for Azure or AWS queries",
+		)
 	}
 
 	return nil
