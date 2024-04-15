@@ -122,4 +122,7 @@ attributes:
     - PostgreSQLFlexibleServer
     - CosmosDB
     - SQLServer
+    - LambdaFunction
+    - RDSDBInstance
+    - RedshiftCluster
     example_value: Endpoint
