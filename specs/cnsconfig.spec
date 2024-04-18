@@ -33,7 +33,7 @@ indexes:
 attributes:
   v1:
   - name: PCFWEnabled
-    description: If `true` then PCFW feature is enabled.
+    description: If `true` PCFW feature is enabled.
     type: boolean
     exposed: true
     stored: true

@@ -87,7 +87,7 @@ type CNSConfig struct {
 	// Identifier of the object.
 	ID string `json:"ID" msgpack:"ID" bson:"-" mapstructure:"ID,omitempty"`
 
-	// If `true` then PCFW feature is enabled.
+	// If `true` PCFW feature is enabled.
 	PCFWEnabled bool `json:"PCFWEnabled" msgpack:"PCFWEnabled" bson:"pcfwenabled" mapstructure:"PCFWEnabled,omitempty"`
 
 	// Stores additional information about an entity.
@@ -747,7 +747,7 @@ var CNSConfigAttributesMap = map[string]elemental.AttributeSpecification{
 		AllowedChoices: []string{},
 		BSONFieldName:  "pcfwenabled",
 		ConvertedName:  "PCFWEnabled",
-		Description:    `If ` + "`" + `true` + "`" + ` then PCFW feature is enabled.`,
+		Description:    `If ` + "`" + `true` + "`" + ` PCFW feature is enabled.`,
 		Exposed:        true,
 		Name:           "PCFWEnabled",
 		Stored:         true,
@@ -1031,7 +1031,7 @@ var CNSConfigLowerCaseAttributesMap = map[string]elemental.AttributeSpecificatio
 		AllowedChoices: []string{},
 		BSONFieldName:  "pcfwenabled",
 		ConvertedName:  "PCFWEnabled",
-		Description:    `If ` + "`" + `true` + "`" + ` then PCFW feature is enabled.`,
+		Description:    `If ` + "`" + `true` + "`" + ` PCFW feature is enabled.`,
 		Exposed:        true,
 		Name:           "PCFWEnabled",
 		Stored:         true,
@@ -1360,7 +1360,7 @@ type SparseCNSConfig struct {
 	// Identifier of the object.
 	ID *string `json:"ID,omitempty" msgpack:"ID,omitempty" bson:"-" mapstructure:"ID,omitempty"`
 
-	// If `true` then PCFW feature is enabled.
+	// If `true` PCFW feature is enabled.
 	PCFWEnabled *bool `json:"PCFWEnabled,omitempty" msgpack:"PCFWEnabled,omitempty" bson:"pcfwenabled,omitempty" mapstructure:"PCFWEnabled,omitempty"`
 
 	// Stores additional information about an entity.

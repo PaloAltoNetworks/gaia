@@ -10,7 +10,7 @@
             "type": "string"
           },
           "PCFWEnabled": {
-            "description": "If `true` then PCFW feature is enabled.",
+            "description": "If `true` PCFW feature is enabled.",
             "type": "boolean"
           },
           "annotations": {
