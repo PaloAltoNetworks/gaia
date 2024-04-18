@@ -7605,7 +7605,7 @@ Identifier of the object.
 
 Type: `boolean`
 
-If `true` PCFW feature is enabled.
+If `true` then PCFW feature is enabled.
 
 ##### `annotations`
 
