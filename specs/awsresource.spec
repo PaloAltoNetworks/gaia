@@ -28,11 +28,35 @@ indexes:
   - accountID
 - - prismaID
 - - prismaID
+  - kind
+  - arn
+  - denormedFields
+- - prismaID
+  - kind
+  - resourceID
+  - denormedFields
+- - prismaID
+  - kind
+  - prismaRegion
+  - denormedFields
+- - prismaID
+  - kind
+  - name
+  - denormedFields
+- - prismaID
+  - kind
+  - denormedFields
+- - prismaID
+  - kind
+  - accountID
+  - denormedFields
+- - prismaID
   - arn
 - - prismaID
   - resourceID
 - - prismaID
   - accountID
 - - prismaID
-  - kind
-  - accountID
+  - name
+- - prismaID
+  - denormedFields
