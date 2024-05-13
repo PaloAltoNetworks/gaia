@@ -130,7 +130,16 @@
               "Instance",
               "VPC",
               "Subnet",
-              "K8sService"
+              "K8sService",
+              "CosmosDB",
+              "SQLServer",
+              "MySQLServer",
+              "MySQLFlexibleServer",
+              "PostgreSQLServer",
+              "PostgreSQLFlexibleServer",
+              "LambdaFunction",
+              "RedshiftCluster",
+              "RDSDBInstance"
             ],
             "readOnly": true
           },
