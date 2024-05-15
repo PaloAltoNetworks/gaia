@@ -1234,8 +1234,7 @@ var (
 			{"namespace", "k8sID"},
 			{"namespace", "normalizedTags"},
 			{"namespace", "uid"},
-			{"prismaID", "clusterID", "k8sNamespace", "kind", "labels"},
-			{"prismaID", "uid"},
+			{"prismaID"},
 		},
 		"k8sresourcerefresh": nil,
 		"kubernetescluster": {
