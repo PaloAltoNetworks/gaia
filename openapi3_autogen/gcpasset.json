@@ -114,14 +114,6 @@
             "example": "https://www.googleapis.com/compute/v1/projects/foobar/global/networks/abc",
             "type": "string"
           },
-          "tags": {
-            "additionalProperties": {
-              "type": "string"
-            },
-            "description": "User-defined key-value pairs inside the GCP resource.",
-            "readOnly": true,
-            "type": "object"
-          },
           "updateTime": {
             "description": "Last update date of the object.",
             "format": "date-time",
