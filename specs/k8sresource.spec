@@ -27,9 +27,11 @@ indexes:
 - - namespace
   - uid
 - - prismaID
+  - k8sID
+- - prismaID
+  - kind
   - clusterID
   - k8sNamespace
-  - kind
   - labels
 - - prismaID
   - uid
