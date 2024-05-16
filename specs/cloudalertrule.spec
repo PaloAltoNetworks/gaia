@@ -30,6 +30,12 @@ model:
 indexes:
 - - namespace
   - prismaCloudAlertRuleID
+- - namespace
+  - prismaCloudPolicyIDs
+  - enabled
+- - namespace
+  - enabled
+  - prismaCloudPolicyIDs
 
 # Attributes
 attributes:

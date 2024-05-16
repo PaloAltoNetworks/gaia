@@ -28,12 +28,18 @@ model:
 indexes:
 - - namespace
   - lastexecutiontimestamp
+  - resourceType
 - - namespace
   - published
+  - resourceType
 - - namespace
   - resourceid
   - prismacloudpolicyid
   - prismacloudalertruleid
+- - namespace
+  - prismacloudalertruleid
+- - namespace
+  - resourceType
 
 # Attributes
 attributes:

@@ -37,6 +37,7 @@ default_order:
 # Indexes
 indexes:
 - - name
+  - type
 - - namespace
   - name
 - - type
