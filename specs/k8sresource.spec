@@ -65,3 +65,8 @@ indexes:
 - - prismaID
   - kind
   - cloudProvider
+  - k8sNamespace
+  - name
+- - prismaID
+  - kind
+  - cloudProvider

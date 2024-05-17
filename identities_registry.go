@@ -1241,6 +1241,7 @@ var (
 			{"prismaID", "kind", "cloudProvider", "clusterID", "k8sNamespace"},
 			{"prismaID", "kind", "cloudProvider", "clusterID", "k8sNamespace", "name"},
 			{"prismaID", "kind", "cloudProvider", "clusterID", "name"},
+			{"prismaID", "kind", "cloudProvider", "k8sNamespace", "name"},
 			{"prismaID", "kind", "cloudProvider", "name"},
 			{"prismaID", "kind", "cloudProvider", "uid"},
 		},
