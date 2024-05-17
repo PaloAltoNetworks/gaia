@@ -70,3 +70,5 @@ indexes:
 - - prismaID
   - kind
   - cloudProvider
+- - prismaID
+  - k8sID
