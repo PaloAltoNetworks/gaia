@@ -1240,6 +1240,7 @@ var (
 			{"namespace", "normalizedTags"},
 			{"namespace", "uid"},
 			{"prismaID"},
+			{"prismaID", "k8sID"},
 			{"prismaID", "kind", "cloudProvider"},
 			{"prismaID", "kind", "cloudProvider", "accountID", "clusterID", "k8sNamespace"},
 			{"prismaID", "kind", "cloudProvider", "accountID", "k8sNamespace"},
