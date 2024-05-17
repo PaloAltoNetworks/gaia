@@ -27,11 +27,41 @@ indexes:
 - - namespace
   - uid
 - - prismaID
-  - k8sID
 - - prismaID
   - kind
+  - cloudProvider
+  - accountID
   - clusterID
   - k8sNamespace
-  - labels
 - - prismaID
+  - kind
+  - cloudProvider
+  - clusterID
+  - k8sNamespace
+- - prismaID
+  - kind
+  - cloudProvider
+  - accountID
+  - k8sNamespace
+- - prismaID
+  - kind
+  - cloudProvider
+  - clusterID
+  - k8sNamespace
+  - name
+- - prismaID
+  - kind
+  - cloudProvider
+  - clusterID
+  - name
+- - prismaID
+  - kind
+  - cloudProvider
+  - name
+- - prismaID
+  - kind
+  - cloudProvider
   - uid
+- - prismaID
+  - kind
+  - cloudProvider
