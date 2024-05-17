@@ -40,6 +40,8 @@ indexes:
   - prismacloudalertruleid
 - - namespace
   - resourceType
+- - namespace
+  - prismacloudpolicyid
 
 # Attributes
 attributes:
