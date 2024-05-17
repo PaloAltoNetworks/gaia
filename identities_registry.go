@@ -777,6 +777,7 @@ var (
 			{"namespace", "name"},
 			{"namespace", "normalizedTags"},
 			{"namespace", "prismacloudalertruleid"},
+			{"namespace", "prismacloudpolicyid"},
 			{"namespace", "published", "resourceType"},
 			{"namespace", "resourceType"},
 			{"namespace", "resourceid", "prismacloudpolicyid", "prismacloudalertruleid"},
