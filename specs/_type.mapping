@@ -599,6 +599,35 @@ json.RawMessage:
         "type": "string"
       }
 
+map[string][]cloudloadbalancerdatatargetgroup:
+  elemental:
+    type: map[string][]*CloudLoadBalancerDataTargetGroup
+    init: map[string][]*CloudLoadBalancerDataTargetGroup{}
+  jsonschema:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+  openapi3:
+    type: |-
+      {
+        "type": "object",
+        "additionalProperties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+
 map[string][]map[string]interface{}:
   elemental:
     type: map[string][]map[string]interface{}

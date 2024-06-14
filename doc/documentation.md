@@ -11839,11 +11839,11 @@ Type: `[]string`
 
 ID of associated objects with this load balancer.
 
-##### `listenertargetmapping`
+##### `listenerTargetMapping`
 
-Type: `map[string][]string`
+Type: `map[string][]cloudloadbalancerdatatargetgroup`
 
-Mapping of a listener to its associated target group ID list.
+Mapping of a listener to its associated target group list.
 
 ##### `name`
 
@@ -11856,6 +11856,32 @@ The name of the load balancer.
 Type: `string`
 
 The scheme tells whether the load balancer is internet facing or internal.
+
+### CloudLoadBalancerDataTargetGroup
+
+Represents a load balancing rule target group.
+
+#### Example
+
+```json
+{
+  "DirectServerReturnEnabled": false
+}
+```
+
+#### Attributes
+
+##### `DirectServerReturnEnabled`
+
+Type: `boolean`
+
+Defines if Direct Server Return is enabled for the group.
+
+##### `TargetIDs`
+
+Type: `[]string`
+
+The list of IDs of the target.
 
 ### CloudLoadBalancerRoute
 

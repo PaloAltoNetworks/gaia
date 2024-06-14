@@ -14,14 +14,15 @@
             },
             "type": "array"
           },
-          "listenertargetmapping": {
+          "listenerTargetMapping": {
             "additionalProperties": {
               "items": {
-                "type": "string"
+                "additionalProperties": true,
+                "type": "object"
               },
               "type": "array"
             },
-            "description": "Mapping of a listener to its associated target group ID list.",
+            "description": "Mapping of a listener to its associated target group list.",
             "type": "object"
           },
           "name": {

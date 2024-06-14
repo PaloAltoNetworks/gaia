@@ -20,11 +20,11 @@ attributes:
     example_value:
     - subnet-074c152ae45ea0c73
 
-  - name: listenertargetmapping
-    description: Mapping of a listener to its associated target group ID list.
+  - name: listenerTargetMapping
+    description: Mapping of a listener to its associated target group list.
     type: external
     exposed: true
-    subtype: map[string][]string
+    subtype: map[string][]cloudloadbalancerdatatargetgroup
     stored: true
 
   - name: name
