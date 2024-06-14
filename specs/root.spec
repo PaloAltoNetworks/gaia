@@ -445,6 +445,11 @@ relations:
 - rest_name: cnssearch
   create:
     description: Retrieves RQL search results.
+    parameters:
+      entries:
+      - name: neocna
+        description: if set to true, processing might be diverted to NEOCNA.
+        type: boolean
 
 - rest_name: cnssuggestion
   create:
