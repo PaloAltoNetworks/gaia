@@ -76,10 +76,11 @@ var (
 
 		"cloudvpc": CloudVPCIdentity,
 
-		"cnsconfig":     CNSConfigIdentity,
-		"cnsrqlquery":   CNSRQLQueryIdentity,
-		"cnssearch":     CNSSearchIdentity,
-		"cnssuggestion": CNSSuggestionIdentity,
+		"cnsconfig":       CNSConfigIdentity,
+		"cnsrqlquery":     CNSRQLQueryIdentity,
+		"cnssearch":       CNSSearchIdentity,
+		"cnssuggestion":   CNSSuggestionIdentity,
+		"commandresponse": CommandResponseIdentity,
 
 		"connectionexceptionreport": ConnectionExceptionReportIdentity,
 		"connectionsresult":         ConnectionsResultIdentity,
@@ -299,10 +300,11 @@ var (
 
 		"cloudvpcs": CloudVPCIdentity,
 
-		"cnsconfigs":     CNSConfigIdentity,
-		"cnsrqlquery":    CNSRQLQueryIdentity,
-		"cnssearches":    CNSSearchIdentity,
-		"cnssuggestions": CNSSuggestionIdentity,
+		"cnsconfigs":      CNSConfigIdentity,
+		"cnsrqlquery":     CNSRQLQueryIdentity,
+		"cnssearches":     CNSSearchIdentity,
+		"cnssuggestions":  CNSSuggestionIdentity,
+		"commandresponse": CommandResponseIdentity,
 
 		"connectionexceptionreports": ConnectionExceptionReportIdentity,
 		"connectionsresults":         ConnectionsResultIdentity,
@@ -1014,6 +1016,10 @@ var (
 		"cnsrqlquery":   nil,
 		"cnssearch":     nil,
 		"cnssuggestion": nil,
+		"commandresponse": {
+			{"namespace"},
+			{"namespace", "normalizedTags"},
+		},
 		"connectionexceptionreport": {
 			{":shard", "zone", "zHash", "_id"},
 			{"enforcernamespace", "timestamp"},
@@ -1696,6 +1702,8 @@ func (f modelManager) Identifiable(identity elemental.Identity) elemental.Identi
 		return NewCNSSearch()
 	case CNSSuggestionIdentity:
 		return NewCNSSuggestion()
+	case CommandResponseIdentity:
+		return NewCommandResponse()
 	case ConnectionExceptionReportIdentity:
 		return NewConnectionExceptionReport()
 	case ConnectionsResultIdentity:
@@ -2081,6 +2089,8 @@ func (f modelManager) SparseIdentifiable(identity elemental.Identity) elemental.
 		return NewSparseCNSSearch()
 	case CNSSuggestionIdentity:
 		return NewSparseCNSSuggestion()
+	case CommandResponseIdentity:
+		return NewSparseCommandResponse()
 	case ConnectionExceptionReportIdentity:
 		return NewSparseConnectionExceptionReport()
 	case ConnectionsResultIdentity:
@@ -2474,6 +2484,8 @@ func (f modelManager) Identifiables(identity elemental.Identity) elemental.Ident
 		return &CNSSearchesList{}
 	case CNSSuggestionIdentity:
 		return &CNSSuggestionsList{}
+	case CommandResponseIdentity:
+		return &CommandResponsesList{}
 	case ConnectionExceptionReportIdentity:
 		return &ConnectionExceptionReportsList{}
 	case ConnectionsResultIdentity:
@@ -2857,6 +2869,8 @@ func (f modelManager) SparseIdentifiables(identity elemental.Identity) elemental
 		return &SparseCNSSearchesList{}
 	case CNSSuggestionIdentity:
 		return &SparseCNSSuggestionsList{}
+	case CommandResponseIdentity:
+		return &SparseCommandResponsesList{}
 	case ConnectionExceptionReportIdentity:
 		return &SparseConnectionExceptionReportsList{}
 	case ConnectionsResultIdentity:
@@ -3203,6 +3217,7 @@ func AllIdentities() []elemental.Identity {
 		CNSRQLQueryIdentity,
 		CNSSearchIdentity,
 		CNSSuggestionIdentity,
+		CommandResponseIdentity,
 		ConnectionExceptionReportIdentity,
 		ConnectionsResultIdentity,
 		CounterReportIdentity,
@@ -3497,6 +3512,8 @@ func AliasesForIdentity(identity elemental.Identity) []string {
 	case CNSSearchIdentity:
 		return []string{}
 	case CNSSuggestionIdentity:
+		return []string{}
+	case CommandResponseIdentity:
 		return []string{}
 	case ConnectionExceptionReportIdentity:
 		return []string{}
